@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+/* @import "tailwindcss"; */
+
+@theme {
+    --font-sans: "DM Sans", sans-serif;
+    --font-mono: "DM Mono", monospace;
+
+    /* ── Filenewer Brand Colors (oklch for /opacity support) ── */
+    --color-fn-bg: oklch(14.5% 0.03 255);
+    --color-fn-surface: oklch(18% 0.025 255);
+    --color-fn-surface2: oklch(21% 0.03 255);
+    --color-fn-surface3: oklch(25% 0.04 255);
+    --color-fn-blue: oklch(49% 0.24 264);
+    --color-fn-blue-l: oklch(56% 0.23 264);
+    --color-fn-cyan: oklch(68% 0.17 210);
+    --color-fn-green: oklch(67% 0.18 162);
+    --color-fn-red: oklch(59% 0.22 27);
+    --color-fn-amber: oklch(73% 0.17 72);
+    --color-fn-text: oklch(94% 0.015 255);
+    --color-fn-text2: oklch(65% 0.04 255);
+    --color-fn-text3: oklch(50% 0.04 255);
+
+    --animate-fade-up: fadeUp 0.6s ease forwards;
+    --animate-fade-in: fadeIn 0.4s ease forwards;
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+/* Noise overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+}
+
+/* Left panel radial glow */
+.panel-glow::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: -150px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, oklch(49% 0.24 264 / 20%) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.panel-glow-b::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, oklch(68% 0.17 210 / 12%) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+/* Grid lines */
+.grid-bg {
+    background-image:
+        linear-gradient(oklch(100% 0 0 / 2.5%) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(100% 0 0 / 2.5%) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+/* Input focus glow */
+.input-field {
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: oklch(49% 0.24 264 / 70%);
+    box-shadow: 0 0 0 3px oklch(49% 0.24 264 / 15%);
+}
+
+/* Button glow */
+.btn-primary:hover {
+    box-shadow: 0 0 0 5px oklch(49% 0.24 264 / 25%);
+}
+
+/* Password strength bar */
+.strength-bar {
+    height: 3px;
+    border-radius: 2px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Social button hover */
+.social-btn:hover {
+    border-color: oklch(65% 0.04 255 / 40%);
+    background: oklch(21% 0.03 255);
+}
+
+/* Checkbox custom */
+input[type="checkbox"]:checked {
+    background-color: oklch(49% 0.24 264);
+    border-color: oklch(49% 0.24 264);
+}
+
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.delay-3 {
+    animation-delay: 0.3s;
+}
+
+.delay-4 {
+    animation-delay: 0.4s;
+}
+
+.delay-5 {
+    animation-delay: 0.5s;
+}
