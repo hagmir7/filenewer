@@ -1,8 +1,7 @@
 @extends('layouts.base')
 
-
 @section('content')
-<div class="min-h-screen flex ">
+<div class="min-h-screen flex">
 
     <!-- ══ LEFT PANEL — Branding ══ -->
     <div
@@ -126,17 +125,23 @@
                 <p class="text-fn-text3 text-sm">Sign in to continue to your dashboard</p>
             </div>
 
-            <!-- Error banner (hidden by default) -->
-            <div id="error-banner"
-                class="hidden mb-5 flex items-center gap-3 px-4 py-3 bg-fn-red/10 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
+            <!-- Laravel error banner -->
+            @if ($errors->any())
+            <div
+                class="mb-5 flex items-start gap-3 px-4 py-3 bg-fn-red/10 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    class="text-fn-red shrink-0" stroke-linecap="round" stroke-linejoin="round">
+                    class="text-fn-red shrink-0 mt-0.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10" />
                     <line x1="12" y1="8" x2="12" y2="12" />
                     <line x1="12" y1="16" x2="12.01" y2="16" />
                 </svg>
-                <span id="error-msg">Invalid email or password. Please try again.</span>
+                <ul class="space-y-0.5">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+            @endif
 
             <!-- Social sign-ins -->
             <div class="grid grid-cols-2 gap-3 mb-6">
@@ -176,7 +181,8 @@
             </div>
 
             <!-- Form -->
-            <form id="login-form" class="space-y-4" onsubmit="handleLogin(event)">
+            <form id="login-form" class="space-y-4" action="{{ route('login.store') }}" method="POST">
+                @csrf
 
                 <!-- Email -->
                 <div class="space-y-1.5">
@@ -188,9 +194,13 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
                         </svg>
-                        <input id="email" type="email" placeholder="john@company.com" autocomplete="email"
-                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                        <input id="email" name="email" type="email" placeholder="john@company.com" autocomplete="email"
+                            value="{{ old('email') }}"
+                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
+                    @error('email')
+                    <p class="text-xs text-fn-red mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Password -->
@@ -207,9 +217,9 @@
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <input id="password" type="password" placeholder="Enter your password"
+                        <input id="password" name="password" type="password" placeholder="Enter your password"
                             autocomplete="current-password"
-                            class="input-field w-full pl-10 pr-11 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                            class="input-field w-full pl-10 pr-11 py-2.5 bg-fn-surface border {{ $errors->has('password') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                         <button type="button" onclick="togglePwd('password','eye-login')"
                             class="absolute right-3.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text2 transition-colors">
                             <svg id="eye-login" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -219,11 +229,14 @@
                             </svg>
                         </button>
                     </div>
+                    @error('password')
+                    <p class="text-xs text-fn-red mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Remember me -->
                 <div class="flex items-center gap-2.5">
-                    <input type="checkbox" id="remember"
+                    <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
                         class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface cursor-pointer accent-fn-blue" />
                     <label for="remember" class="text-xs text-fn-text3 cursor-pointer select-none">Keep me signed in for
                         30 days</label>
@@ -279,46 +292,23 @@
 
 <script>
     function togglePwd(inputId, iconId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            const isHidden = input.type === 'password';
-            input.type = isHidden ? 'text' : 'password';
-            icon.innerHTML = isHidden ?
-                `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>` :
-                `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-        }
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        icon.innerHTML = isHidden
+            ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`
+            : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+    }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const btnText = document.getElementById('btn-text');
-            const spinner = document.getElementById('btn-spinner');
-            const errorBanner = document.getElementById('error-banner');
-
-            // Loading state
-            btn.disabled = true;
-            btnText.textContent = 'Signing in…';
-            spinner.classList.remove('hidden');
-            errorBanner.classList.add('hidden');
-
-            // Simulate async login
-            setTimeout(() => {
-                btn.disabled = false;
-                btnText.textContent = 'Sign In';
-                spinner.classList.add('hidden');
-
-                // Demo: show error state (replace with real auth logic)
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                if (!email || !password) {
-                    errorBanner.classList.remove('hidden');
-                    errorBanner.classList.add('flex');
-                    document.getElementById('error-msg').textContent = 'Please fill in all fields.';
-                    document.getElementById('login-form').classList.add('shake');
-                    setTimeout(() => document.getElementById('login-form').classList.remove('shake'), 400);
-                }
-                // On success: window.location.href = '/dashboard';
-            }, 1400);
-        }
+    // Spinner on submit
+    document.getElementById('login-form').addEventListener('submit', function () {
+        const btn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.getElementById('btn-spinner');
+        btn.disabled = true;
+        btnText.textContent = 'Signing in…';
+        spinner.classList.remove('hidden');
+    });
 </script>
 @endsection

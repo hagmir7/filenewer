@@ -1,7 +1,8 @@
 @extends('layouts.base')
 @section('content')
 <div class="min-h-screen flex">
-    <div class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-r border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
+    <div
+        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-r border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
 
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 font-bold text-xl tracking-tight relative z-10">
@@ -20,8 +21,7 @@
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-4">Join 50,000+ users
-                </p>
+                <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-4">Join 50,000+ users</p>
                 <h2 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Smarter File<br />
                     Processing<br />
@@ -84,7 +84,8 @@
                 <div class="flex items-center gap-3">
                     <div
                         class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-xs font-bold text-fn-blue-l">
-                        SM</div>
+                        SM
+                    </div>
                     <div>
                         <p class="text-xs font-semibold">Sara Mitchell</p>
                         <p class="text-xs text-fn-text3">Operations Lead, TechFlow</p>
@@ -140,6 +141,18 @@
                 <p class="text-fn-text3 text-sm">Free forever · No credit card required</p>
             </div>
 
+            <!-- Global error banner -->
+            @if ($errors->any())
+            <div class="mb-5 p-3.5 bg-red-500/10 border border-red-500/20 rounded-xl">
+                <p class="text-xs font-semibold text-red-400 mb-1.5">Please fix the following:</p>
+                <ul class="list-disc list-inside space-y-0.5">
+                    @foreach ($errors->all() as $error)
+                    <li class="text-xs text-red-400">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <!-- Social sign-ups -->
             <div class="grid grid-cols-2 gap-3 mb-6">
                 <button
@@ -178,19 +191,30 @@
             </div>
 
             <!-- Form -->
-            <form class="space-y-4" onsubmit="return false;">
+            <form class="space-y-4" action="{{ route('signup.store') }}" method="POST">
+                @csrf
 
                 <!-- Name row -->
                 <div class="grid grid-cols-2 gap-3">
+                    <!-- First name -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-semibold text-fn-text2 block" for="first-name">First name</label>
-                        <input id="first-name" type="text" placeholder="John" autocomplete="given-name"
-                            class="input-field w-full px-3.5 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                        <input id="first-name" name="first_name" type="text" placeholder="John"
+                            autocomplete="given-name" value="{{ old('first_name') }}"
+                            class="input-field w-full px-3.5 py-2.5 bg-fn-surface border {{ $errors->has('first_name') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                        @error('first_name')
+                        <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
+                    <!-- Last name -->
                     <div class="space-y-1.5">
                         <label class="text-xs font-semibold text-fn-text2 block" for="last-name">Last name</label>
-                        <input id="last-name" type="text" placeholder="Doe" autocomplete="family-name"
-                            class="input-field w-full px-3.5 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                        <input id="last-name" name="last_name" type="text" placeholder="Doe" autocomplete="family-name"
+                            value="{{ old('last_name') }}"
+                            class="input-field w-full px-3.5 py-2.5 bg-fn-surface border {{ $errors->has('last_name') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                        @error('last_name')
+                        <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
@@ -204,9 +228,13 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
                         </svg>
-                        <input id="email" type="email" placeholder="john@company.com" autocomplete="email"
-                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                        <input id="email" name="email" type="email" placeholder="john@company.com" autocomplete="email"
+                            value="{{ old('email') }}"
+                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
+                    @error('email')
+                    <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Password -->
@@ -219,8 +247,9 @@
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <input id="password" type="password" placeholder="Min. 8 characters" autocomplete="new-password"
-                            class="input-field w-full pl-10 pr-11 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans"
+                        <input id="password" name="password" type="password" placeholder="Min. 8 characters"
+                            autocomplete="new-password"
+                            class="input-field w-full pl-10 pr-11 py-2.5 bg-fn-surface border {{ $errors->has('password') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans"
                             oninput="checkStrength(this.value)" />
                         <button type="button" onclick="togglePwd('password','eye-signup')"
                             class="absolute right-3.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text2 transition-colors">
@@ -231,6 +260,9 @@
                             </svg>
                         </button>
                     </div>
+                    @error('password')
+                    <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                    @enderror
                     <!-- Strength meter -->
                     <div class="flex gap-1 mt-2" id="strength-bars">
                         <div class="strength-bar flex-1 bg-fn-text/10" id="bar1"></div>
@@ -242,13 +274,18 @@
                 </div>
 
                 <!-- Terms -->
-                <div class="flex items-start gap-3 pt-1">
-                    <input type="checkbox" id="terms"
-                        class="mt-0.5 w-4 h-4 rounded border border-fn-text/20 bg-fn-surface cursor-pointer shrink-0 accent-fn-blue" />
-                    <label for="terms" class="text-xs text-fn-text3 leading-relaxed cursor-pointer">
-                        I agree to the <a href="/terms" class="text-fn-blue-l hover:underline">Terms of Service</a>
-                        and <a href="/privacy" class="text-fn-blue-l hover:underline">Privacy Policy</a>
-                    </label>
+                <div class="space-y-1.5">
+                    <div class="flex items-start gap-3 pt-1">
+                        <input type="checkbox" id="terms" name="terms" {{ old('terms') ? 'checked' : '' }}
+                            class="mt-0.5 w-4 h-4 rounded border {{ $errors->has('terms') ? 'border-red-500' : 'border-fn-text/20' }} bg-fn-surface cursor-pointer shrink-0 accent-fn-blue" />
+                        <label for="terms" class="text-xs text-fn-text3 leading-relaxed cursor-pointer">
+                            I agree to the <a href="/terms" class="text-fn-blue-l hover:underline">Terms of Service</a>
+                            and <a href="/privacy" class="text-fn-blue-l hover:underline">Privacy Policy</a>
+                        </label>
+                    </div>
+                    @error('terms')
+                    <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Submit -->
@@ -293,38 +330,37 @@
         </div>
     </div>
 </div>
+
 <script>
-    // Password visibility toggle
-        function togglePwd(inputId, iconId) {
-          const input = document.getElementById(inputId);
-          const icon = document.getElementById(iconId);
-          const isHidden = input.type === 'password';
-          input.type = isHidden ? 'text' : 'password';
-          icon.innerHTML = isHidden
+    function togglePwd(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        icon.innerHTML = isHidden
             ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`
             : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-        }
+    }
 
-        // Password strength checker
-        function checkStrength(val) {
-          const bars = ['bar1','bar2','bar3','bar4'];
-          const label = document.getElementById('strength-label');
-          let score = 0;
-          if (val.length >= 8) score++;
-          if (/[A-Z]/.test(val)) score++;
-          if (/[0-9]/.test(val)) score++;
-          if (/[^A-Za-z0-9]/.test(val)) score++;
+    function checkStrength(val) {
+        const bars = ['bar1', 'bar2', 'bar3', 'bar4'];
+        const label = document.getElementById('strength-label');
+        let score = 0;
+        if (val.length >= 8) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
 
-          const colors = ['oklch(59% 0.22 27)', 'oklch(73% 0.17 72)', 'oklch(73% 0.17 72)', 'oklch(67% 0.18 162)'];
-          const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+        const colors = ['oklch(59% 0.22 27)', 'oklch(73% 0.17 72)', 'oklch(73% 0.17 72)', 'oklch(67% 0.18 162)'];
+        const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
 
-          bars.forEach((id, i) => {
+        bars.forEach((id, i) => {
             const bar = document.getElementById(id);
             bar.style.backgroundColor = i < score ? colors[score - 1] : 'oklch(50% 0.04 255 / 20%)';
-          });
+        });
 
-          label.textContent = val.length > 0 ? labels[score] : '';
-          label.style.color = score >= 4 ? 'oklch(67% 0.18 162)' : score >= 2 ? 'oklch(73% 0.17 72)' : 'oklch(59% 0.22 27)';
-        }
+        label.textContent = val.length > 0 ? labels[score] : '';
+        label.style.color = score >= 4 ? 'oklch(67% 0.18 162)' : score >= 2 ? 'oklch(73% 0.17 72)' : 'oklch(59% 0.22 27)';
+    }
 </script>
 @endsection
