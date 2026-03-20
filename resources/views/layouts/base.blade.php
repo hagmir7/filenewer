@@ -164,8 +164,6 @@
                         class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Tools</a></li>
                 <li><a href="#security"
                         class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Security</a></li>
-                <li><a href="/pricing"
-                        class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Pricing</a></li>
                 <li><a href="/blog"
                         class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Blog</a></li>
             </ul>
@@ -250,8 +248,7 @@
                         <li><a href="/tools/generators"
                                 class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Document
                                 Generators</a></li>
-                        <li><a href="/pricing"
-                                class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Pricing</a></li>
+
                     </ul>
                 </div>
 

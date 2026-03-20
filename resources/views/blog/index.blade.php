@@ -26,36 +26,6 @@
             </p>
         </div>
 
-        <!-- Search + Filter -->
-        <div
-            class="animate-fade-up opacity-0 delay-2 flex flex-col sm:flex-row gap-4 items-center justify-between mb-10">
-            <!-- Search -->
-            <div class="relative w-full sm:w-80">
-                <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <input type="text" placeholder="Search articles…"
-                    class="search-input w-full pl-10 pr-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans transition-all" />
-            </div>
-
-            <!-- Category pills -->
-            <div class="flex items-center gap-2 flex-wrap justify-center sm:justify-end">
-                <button
-                    class="cat-pill active px-3.5 py-1.5 rounded-full border border-fn-text/10 text-xs font-semibold transition-all hover:border-fn-blue/40 hover:text-fn-blue-l cursor-pointer">All</button>
-                <button
-                    class="cat-pill px-3.5 py-1.5 rounded-full border border-fn-text/10 text-fn-text3 text-xs font-semibold transition-all hover:border-fn-blue/40 hover:text-fn-blue-l cursor-pointer">Tutorials</button>
-                <button
-                    class="cat-pill px-3.5 py-1.5 rounded-full border border-fn-text/10 text-fn-text3 text-xs font-semibold transition-all hover:border-fn-blue/40 hover:text-fn-blue-l cursor-pointer">PDF
-                    Tools</button>
-                <button
-                    class="cat-pill px-3.5 py-1.5 rounded-full border border-fn-text/10 text-fn-text3 text-xs font-semibold transition-all hover:border-fn-blue/40 hover:text-fn-blue-l cursor-pointer">Automation</button>
-                <button
-                    class="cat-pill px-3.5 py-1.5 rounded-full border border-fn-text/10 text-fn-text3 text-xs font-semibold transition-all hover:border-fn-blue/40 hover:text-fn-blue-l cursor-pointer">Updates</button>
-            </div>
-        </div>
 
     </div>
 </section>

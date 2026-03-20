@@ -476,8 +476,7 @@
                 <ul class="flex flex-col gap-2.5 list-none">
                     <li><a href="/tools" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">All
                             Tools</a></li>
-                    <li><a href="/pricing"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Pricing</a></li>
+
                     <li><a href="/api" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">API</a></li>
                 </ul>
             </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelToPdfController;
+use App\Http\Controllers\PdfToWordController;
 use App\Http\Controllers\ToolController;
 
 Route::get('/', function () {
@@ -29,3 +30,11 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route::get('/', [ExcelToPdfController::class, 'index'])->name('excel.index');
 Route::post('/convert', [ExcelToPdfController::class, 'convert'])->name('excel.convert');
+
+
+
+Route::prefix('tools/pdf-to-word')->name('tools.pdf-to-word.')->group(function () {
+    Route::get('/',                 [PdfToWordController::class, 'index'])->name('index');
+    Route::post('/convert',         [PdfToWordController::class, 'convert'])->name('convert');
+    Route::get('/download/{id}',    [PdfToWordController::class, 'download'])->name('download');
+});
