@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tool;
 use Illuminate\Http\Request;
 
 class ToolController extends Controller
 {
     public function index(){
         return view('tools.index');
+    }
+
+    public function show($slug)
+    {
+        $tool = Tool::where('slug', $slug)->firstOrFail();
+        return view('tools.show', compact('tool'));
     }
 
 

@@ -230,14 +230,7 @@
                 <!-- Brand -->
                 <div class="lg:col-span-1">
                     <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-tight text-fn-text mb-3">
-                        <div class="w-7 h-7 bg-fn-blue rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                <polyline points="14 2 14 8 20 8" />
-                            </svg>
-                        </div>
-                        Filenewer
+                        <img src="/filenewer-logo.svg" alt="Filenewer" class="h-[40px] md:h-[47px]">
                     </a>
                     <p class="text-fn-text3 text-sm leading-relaxed max-w-[220px]">Smarter File Processing. Convert,
                         generate, and manage your business files fast, free, and securely.</p>
@@ -272,9 +265,8 @@
                         <li><a href="/contact"
                                 class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact</a></li>
                         <li><a href="/sitemap.xml"
-                                class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Sitemap</a></li>
-                        <li><a href="/changelog"
-                                class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Changelog</a></li>
+                                class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Sitemap</a>
+                        </li>
                     </ul>
                 </div>
 
