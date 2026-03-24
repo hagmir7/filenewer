@@ -17,6 +17,13 @@
         content="Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone." />
     <meta property="og:type" content="website" />
 
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Filenewer" />
+    {{-- <link rel="manifest" href="/site.webmanifest" /> --}}
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -144,7 +151,7 @@
 
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-tight text-fn-text">
-                <div class="w-8 h-8 bg-fn-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                {{-- <div class="w-8 h-8 bg-fn-blue rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -153,7 +160,9 @@
                         <line x1="9" y1="17" x2="13" y2="17" />
                     </svg>
                 </div>
-                Filenewer
+                Filenewer --}}
+
+                <img src="/filenewer-logo.svg" alt="Filenewer" class="h-[50px] md:h-[57px]">
             </a>
 
             <!-- Links -->
