@@ -3,25 +3,9 @@
 
 @section('content')
     <!-- ══ HERO ══ -->
-        <section class="relative pt-16 pb-12 overflow-hidden hero-glow">
+        <section class="relative pt-10 pb-10 overflow-hidden hero-glow">
             <div class="absolute inset-0 grid-lines pointer-events-none"></div>
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-
-                <div class="animate-fade-up opacity-0 text-center mb-10">
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-fn-blue/30 bg-fn-blue/10 text-fn-blue-l text-xs font-semibold tracking-widest uppercase mb-5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-fn-blue-l animate-pulse"></span>
-                        50+ Free Tools
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
-                        All <span class="text-gradient">Online File Tools</span><br class="hidden sm:block" /> in One Place
-                    </h1>
-                    <p class="text-fn-text2 text-lg max-w-xl mx-auto leading-relaxed">
-                        Convert, compress, generate, and process any file — instantly, securely, and for free. No
-                        installation. No account needed for most tools.
-                    </p>
-                </div>
-
                 <!-- Search bar -->
                 <div class="animate-fade-up opacity-0 delay-2 max-w-2xl mx-auto mb-6">
                     <div class="relative">

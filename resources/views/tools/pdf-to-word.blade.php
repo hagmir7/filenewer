@@ -127,22 +127,6 @@
     }
 </style>
 
-{{-- ══ BREADCRUMB ══ --}}
-<div class="max-w-5xl mx-auto px-6 pt-8">
-    <nav class="flex items-center gap-2 text-xs text-fn-text3">
-        <a href="/" class="hover:text-fn-text2 transition-colors">Home</a>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-        </svg>
-        <a href="" class="hover:text-fn-text2 transition-colors">Tools</a>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6" />
-        </svg>
-        <span class="text-fn-text2">PDF to Word</span>
-    </nav>
-</div>
 
 {{-- ══ HERO ══ --}}
 <section class="relative pt-10 pb-6 overflow-hidden tool-glow">
@@ -507,36 +491,7 @@
 </section>
 
 {{-- ══ RELATED TOOLS ══ --}}
-<section class="py-16 border-t border-fn-text/7">
-    <div class="max-w-5xl mx-auto px-6">
-        <h2 class="text-lg font-bold tracking-tight mb-6">Related Tools</h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            @foreach([
-            ['/tools/word-to-pdf', '📄','Word to PDF', 'Convert DOCX to PDF'],
-            ['/tools/compress-pdf', '🗜️','Compress PDF', 'Reduce PDF file size'],
-            ['/tools/pdf-to-excel', '📗','PDF to Excel', 'Extract tables to XLSX'],
-            ['/tools/merge-pdf', '📎','Merge PDF', 'Combine multiple PDFs'],
-            ] as [$href, $emoji, $title, $desc])
-            <a href="{{ $href }}"
-                class="feat-card flex items-center gap-3.5 p-4 bg-fn-surface border border-fn-text/8 rounded-xl group">
-                <div
-                    class="w-10 h-10 rounded-xl bg-fn-surface2 border border-fn-text/8 flex items-center justify-center text-xl shrink-0">
-                    {{ $emoji }}</div>
-                <div class="flex-1 min-w-0">
-                    <p class="font-semibold text-sm group-hover:text-fn-blue-l transition-colors">{{ $title }}</p>
-                    <p class="text-fn-text3 text-xs">{{ $desc }}</p>
-                </div>
-                <svg class="w-4 h-4 text-fn-text3 shrink-0 group-hover:translate-x-1 group-hover:text-fn-blue-l transition-all"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                </svg>
-            </a>
-            @endforeach
-        </div>
-    </div>
-</section>
+<x-tools-section />
 
 {{-- ══ JAVASCRIPT — inline at bottom of @section('content') ══ --}}
 <script>

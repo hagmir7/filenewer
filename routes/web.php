@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelToPdfController;
 use App\Http\Controllers\PdfToWordController;
 use App\Http\Controllers\ToolController;
+use App\Http\Controllers\ToolsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,3 +39,16 @@ Route::prefix('tools/pdf-to-word')->name('tools.pdf-to-word.')->group(function (
     Route::post('/convert',         [PdfToWordController::class, 'convert'])->name('convert');
     Route::get('/download/{id}',    [PdfToWordController::class, 'download'])->name('download');
 });
+
+
+Route::controller(ToolController::class)->prefix('tools')->group(function () {
+    Route::get('csv-to-sql', 'csvToSql');
+    Route::get('invoice-generator', 'invoiceGenerator');
+    Route::get('image-compressor', 'ImageCompressor');
+    Route::get('pdf-merge', 'pdfMerge');
+    Route::get('csv-to-json', 'csvToJson');
+});
+
+
+
+
