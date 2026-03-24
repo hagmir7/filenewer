@@ -62,7 +62,7 @@
 
 <!-- ══════════════════════ TOOL ══════════════════════ -->
 <section id="tool" class="py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
 
         <h2 id="tool-heading" class="sr-only">CSV to SQL Converter Tool</h2>
 
