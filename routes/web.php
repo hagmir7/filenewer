@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelToPdfController;
 use App\Http\Controllers\PdfToWordController;
 use App\Http\Controllers\ToolController;
-use App\Http\Controllers\ToolsController;
 
 
 use App\Http\Controllers\Auth\GithubAuthController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\Auth\GithubAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 
 use App\Http\Controllers\Auth\FacebookAuthController;
+use App\Http\Controllers\PageController;
 
 Route::get('/auth/facebook', [FacebookAuthController::class, 'redirect'])
     ->name('facebook.login');
@@ -68,7 +68,7 @@ Route::controller(ToolController::class)->prefix('tools')->group(function () {
     Route::get('pdf-merge', 'pdfMerge');
     Route::get('csv-to-json', 'csvToJson');
 
-    Route::get('tools', 'index');
+    Route::get('', 'index');
     Route::get('{slug}', 'show');
 });
 
@@ -84,4 +84,4 @@ Route::get('blog', [BlogController::class, 'index']);
 Route::get('blog/{blog:slug}', [BlogController::class, 'show']);
 
 // Pages
-Route::get('/page/{slug}', [PageController::class, 'show']);
+Route::get('pages/{slug}', [PageController::class, 'show']);
