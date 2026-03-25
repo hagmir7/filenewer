@@ -17,6 +17,26 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            // Social Login
+            $table->string('provider_id')->nullable()->unique(); // OAuth user ID
+            $table->string('provider')->nullable(); // github, google, facebook
+
+
+
+            // User Metadata
+            $table->string('join_date')->nullable();
+            $table->string('last_login')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('status')->nullable();
+            $table->string('role_name')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('position')->nullable();
+            $table->string('department')->nullable();
+            $table->string('line_manager')->nullable();
+            $table->string('seconde_line_manager')->nullable();
+
+            // Authentication
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -21,6 +21,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+
+        // Social Login
+        'provider_id',
+        'provider',
+
+        // User Metadata
+        'join_date',
+        'last_login',
+        'phone_number',
+        'status',
+        'role_name',
+        'avatar',
+        'position',
+        'department',
+        'line_manager',
+        'seconde_line_manager',
     ];
 
     /**

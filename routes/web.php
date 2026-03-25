@@ -9,9 +9,33 @@ use App\Http\Controllers\PdfToWordController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\ToolsController;
 
+
+use App\Http\Controllers\Auth\GithubAuthController;
+
+use App\Http\Controllers\Auth\GoogleAuthController;
+
+use App\Http\Controllers\Auth\FacebookAuthController;
+
+Route::get('/auth/facebook', [FacebookAuthController::class, 'redirect'])
+    ->name('facebook.login');
+
+Route::get('/auth/facebook/callback', [FacebookAuthController::class, 'callback']);
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
+    ->name('google.login');
+
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
+
+
+
+Route::get('/auth/github', [GithubAuthController::class, 'redirect'])->name('github.login');
+
+Route::get('/auth/github/callback', [GithubAuthController::class, 'callback']);
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
