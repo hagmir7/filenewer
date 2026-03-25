@@ -13,6 +13,8 @@ class PageController extends Controller
             ->where('is_published', true)
             ->firstOrFail();
 
-        return view('page.show', compact('page'));
+        $title = $page->title;
+
+        return view('page.show', compact('page', 'title'));
     }
 }

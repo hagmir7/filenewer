@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta -->
-    <title>Filenewer – Online File Tools &amp; Converters</title>
+    <title>@if (isset($title)) {{ $title }} @else Filenewer – Online File Tools &amp; Converters @endif</title>
     <meta name="description"
         content="Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed." />
     <meta name="keywords"
         content="online file tools, file converter online, business document generator, PDF tools online, secure file processing, free file tools" />
     <link rel="canonical" href="https://filenewer.com/" />
     <meta property="og:title" content="Filenewer – Online File Tools &amp; Document Converter" />
-    <meta property="og:description"
-        content="Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone." />
+    <meta property="og:description" content="Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone." />
     <meta property="og:type" content="website" />
 
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
