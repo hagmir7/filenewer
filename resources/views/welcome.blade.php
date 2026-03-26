@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- ══════════════════════ HERO ══════════════════════ -->
-    <section id="hero" class="relative pt-28 pb-24 text-center overflow-hidden hero-glow hero-grid">
+    <section id="hero" class="relative pt-10 md:pt-28 pb-24 text-center overflow-hidden hero-glow hero-grid">
         <div class="max-w-6xl mx-auto px-6 relative z-10">
 
             <!-- Badge -->
@@ -28,24 +28,28 @@
             </p>
 
             <!-- CTAs -->
-            <div class="animate-fade-up opacity-0 delay-3 flex flex-wrap items-center justify-center gap-3 mb-14">
-                <a href="/signup"
-                    class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                    </svg>
-                    Start Free
-                </a>
-                <a href="#tools"
-                    class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
-                    Explore Tools
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                </a>
+           <div class="animate-fade-up opacity-0 delay-3 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-14 px-4">
+
+            <a href="/signup"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm sm:text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+                Start Free
+            </a>
+
+            <a href="#tools"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm sm:text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
+                Explore Tools
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+
+
             </div>
 
             <!-- Benefit pills -->
