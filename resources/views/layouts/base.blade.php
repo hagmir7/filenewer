@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- SEO Meta -->
     <title>@if (isset($title)) {{ $title }} @else Filenewer – Online File Tools &amp; Converters @endif</title>
     <meta name="description"
@@ -22,123 +21,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Filenewer" />
     {{-- <link rel="manifest" href="/site.webmanifest" /> --}}
-
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-
-    <!-- Schema Markup -->
-    {{-- <script type="application/ld+json">
-        {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Filenewer",
-    "url": "https://filenewer.com",
-    "description": "Smart online file tools for converting, generating, compressing, and processing business documents securely.",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-  }
-    </script> --}}
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
-        rel="stylesheet" />
-
-    <!-- Tailwind CDN with custom config -->
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
-    <script>
-        /*
-    ╔══════════════════════════════════════════════════════════════╗
-    ║           FILENEWER — TAILWIND COLOR SYSTEM v1.0            ║
-    ║                                                              ║
-    ║  Save this config block to reuse these colors anywhere.     ║
-    ║  Import into tailwind.config.js in your build setup.        ║
-    ╚══════════════════════════════════════════════════════════════╝
-
-    BRAND COLORS:
-    ─────────────────────────────────────────────────────────────
-    fn-bg          #0b0f1a   Main page background (darkest)
-    fn-surface     #111827   Card / nav surface
-    fn-surface2    #1a2235   Elevated card / inner panels
-    fn-surface3    #1f2d45   Hover state for cards
-    fn-border      rgba(255,255,255,0.07)  Subtle dividers
-
-    fn-blue        #2563eb   Primary action / brand blue
-    fn-blue-light  #3b82f6   Hover / lighter blue
-    fn-blue-glow   rgba(37,99,235,0.25)   Focus ring / glow
-
-    fn-cyan        #06b6d4   Accent / secondary
-    fn-green       #10b981   Success / active states
-    fn-red         #ef4444   Danger / blocked states
-    fn-amber       #f59e0b   Warning states
-
-    TEXT COLORS:
-    fn-text        #f1f5f9   Primary text
-    fn-text2       #94a3b8   Secondary / body text
-    fn-text3       #64748b   Muted / placeholder text
-    ─────────────────────────────────────────────────────────────
-    */
-    // tailwind.config = {
-    //   theme: {
-    //     extend: {
-    //       fontFamily: {
-    //         sans: ['DM Sans', 'sans-serif'],
-    //         mono: ['DM Mono', 'monospace'],
-    //       },
-    //       colors: {
-    //         fn: {
-    //           bg:         '#0b0f1a',
-    //           surface:    '#111827',
-    //           surface2:   '#1a2235',
-    //           surface3:   '#1f2d45',
-    //           blue:       '#2563eb',
-    //           'blue-l':   '#3b82f6',
-    //           cyan:       '#06b6d4',
-    //           green:      '#10b981',
-    //           red:        '#ef4444',
-    //           amber:      '#f59e0b',
-    //           text:       '#f1f5f9',
-    //           text2:      '#94a3b8',
-    //           text3:      '#64748b',
-    //         }
-    //       },
-    //       backgroundImage: {
-    //         'gradient-brand': 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-    //         'grid-lines': `
-    //           linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    //           linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
-    //         `,
-    //       },
-    //       backgroundSize: {
-    //         'grid': '60px 60px',
-    //       },
-    //       animation: {
-    //         'pulse-dot': 'pulseDot 2s ease-in-out infinite',
-    //         'fade-up':   'fadeUp 0.7s ease forwards',
-    //       },
-    //       keyframes: {
-    //         pulseDot: {
-    //           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-    //           '50%':      { opacity: '0.5', transform: 'scale(1.4)' },
-    //         },
-    //         fadeUp: {
-    //           from: { opacity: '0', transform: 'translateY(24px)' },
-    //           to:   { opacity: '1', transform: 'translateY(0)' },
-    //         }
-    //       },
-    //       boxShadow: {
-    //         'blue-glow':  '0 0 0 6px rgba(37,99,235,0.25)',
-    //         'card-hover': '0 8px 32px rgba(0,0,0,0.35)',
-    //       },
-    //     }
-    //   }
-    // }
-    </script>
-
 
 </head>
 
@@ -149,19 +32,7 @@
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
             <!-- Logo -->
-            <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-tight text-fn-text">
-                {{-- <div class="w-8 h-8 bg-fn-blue rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                        <polyline points="14 2 14 8 20 8" />
-                        <line x1="9" y1="13" x2="15" y2="13" />
-                        <line x1="9" y1="17" x2="13" y2="17" />
-                    </svg>
-                </div>
-                Filenewer --}}
-
-                <img src="/filenewer-logo.svg" alt="Filenewer" class="h-[50px] md:h-[57px]">
+                <img src="/filenewer-logo.svg" alt="Filenewer" class="h-[54px] md:h-[57px]">
             </a>
 
             <!-- Links -->
@@ -181,7 +52,7 @@
             @if (auth()->user())
 
             <a href="/my-files"
-                class="inline-flex gap-2 items-center px-4 py-2 text-sm font-semibold text-white bg-fn-blue rounded-lg hover:bg-fn-blue-l btn-glow transition-all">
+                class="inline-flex gap-2 items-center px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm font-semibold text-white bg-fn-blue rounded-lg hover:bg-fn-blue-l btn-glow transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -191,7 +62,7 @@
             </a>
 
             <a href="{{ route('logout') }}"
-                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 hover:bg-fn-red/5 transition-all">
+                class="inline-flex items-center gap-2 px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 hover:bg-fn-red/5 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
