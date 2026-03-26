@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 
 use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SitemapController;
 
 Route::get('/auth/facebook', [FacebookAuthController::class, 'redirect'])
     ->name('facebook.login');
@@ -26,7 +27,7 @@ Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])
 
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
-
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 
 Route::get('/auth/github', [GithubAuthController::class, 'redirect'])->name('github.login');
