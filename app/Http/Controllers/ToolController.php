@@ -15,7 +15,10 @@ class ToolController extends Controller
                 ->orderBy('order');
         }])->get();
 
-        return view('tools.index', compact('categories'));
+        $title = 'Free Online Tools — PDF, Image, Data & More';
+        $description = 'Convert, compress, edit and generate files instantly. 50+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
+
+        return view('tools.index', compact('categories', 'title', 'description'));
     }
 
     public function show(string $slug)
@@ -25,7 +28,6 @@ class ToolController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        // Same-category tools, excluding current
         $relatedTools = Tool::where('category_id', $tool->category_id)
             ->where('id', '!=', $tool->id)
             ->where('is_active', true)
@@ -33,7 +35,10 @@ class ToolController extends Controller
             ->take(6)
             ->get();
 
-        return view('tools.show', compact('tool', 'relatedTools'));
+        $title = $tool->name;
+        $description = $tool->description;
+
+        return view('tools.show', compact('tool', 'relatedTools', 'title', 'description'));
     }
 
 
