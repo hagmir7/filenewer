@@ -7,11 +7,11 @@
 
         <!-- Links -->
         <ul class="hidden md:flex items-center gap-8 list-none">
-            <li><a href="#features"
+            <li><a href="/#features"
                     class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Features</a></li>
-            <li><a href="#tools"
+            <li><a href="/tools"
                     class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Tools</a></li>
-            <li><a href="#security"
+            <li><a href="/#security"
                     class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Security</a></li>
             <li><a href="/blog" class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Blog</a>
             </li>

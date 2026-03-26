@@ -14,5 +14,11 @@ class Tool extends Model
         'icon',
         'is_active',
         'order',
+        'category_id'
     ];
+
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }
