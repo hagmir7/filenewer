@@ -26,10 +26,17 @@ class BlogController extends Controller
             ->where('is_published', true)
             ->firstOrFail();
 
+        $recommended = Blog::where('is_published', true)
+            ->where('id', '!=', $blog->id)
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+
         $description = $blog->excerpt;
-        $iamge = $blog->featured_image;
+        $image = $blog->featured_image;
         $title = $blog->title;
-        return view('blog.show', compact('blog', 'title', 'description', 'image'));
+
+        return view('blog.show', compact('blog', 'title', 'description', 'image', 'recommended'));
     }
 
 }

@@ -30,57 +30,77 @@
     </div>
 </section>
 
-<!-- ══ FEATURED POST ══ -->
+
+
+{{-- ══ FEATURED POST (first blog from paginator if on page 1) ══ --}}
+@if ($blogs->currentPage() === 1 && $blogs->isNotEmpty())
+@php $featured = $blogs->first(); @endphp
+
 <section class="pb-6">
     <div class="max-w-6xl mx-auto px-6">
         <p class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-5">Featured Article</p>
 
-        <a href="/blog/how-to-convert-pdf-to-word-online"
+        <a href="/blog/{{ $featured->slug }}"
             class="blog-card group block bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300 shadow-lg">
             <div class="grid lg:grid-cols-2">
-                <!-- Image area -->
+                {{-- Image area --}}
                 <div
                     class="feat-img relative h-56 lg:h-auto min-h-[280px] flex items-center justify-center overflow-hidden">
-                    <!-- Decorative pattern -->
+                    @if ($featured->featured_image)
+                    <img src="{{ asset('storage/' . $featured->featured_image) }}" alt="{{ $featured->title }}"
+                        class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30"></div>
+                    @else
                     <div class="absolute inset-0 opacity-30"
                         style="background-image: radial-gradient(oklch(56% 0.23 264 / 20%) 1px, transparent 1px); background-size: 24px 24px;">
                     </div>
                     <div class="relative z-10 text-center px-8">
                         <div
                             class="w-20 h-20 rounded-2xl bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-4xl mx-auto mb-4">
-                            📕</div>
+                            📕
+                        </div>
                         <span
-                            class="inline-block px-3 py-1 bg-fn-blue/15 border border-fn-blue/30 rounded-full text-fn-blue-l text-xs font-semibold">PDF
-                            Tools</span>
+                            class="inline-block px-3 py-1 bg-fn-blue/15 border border-fn-blue/30 rounded-full text-fn-blue-l text-xs font-semibold">
+                            {{ $featured->category ?? 'Article' }}
+                        </span>
                     </div>
+                    @endif
                 </div>
 
-                <!-- Content -->
+                {{-- Content --}}
                 <div class="p-8 lg:p-10 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-3 mb-5">
                             <span
-                                class="px-2.5 py-1 bg-fn-blue/10 border border-fn-blue/20 rounded-full text-fn-blue-l text-xs font-semibold">Featured</span>
-                            <span class="text-fn-text3 text-xs">8 min read</span>
+                                class="px-2.5 py-1 bg-fn-blue/10 border border-fn-blue/20 rounded-full text-fn-blue-l text-xs font-semibold">
+                                Featured
+                            </span>
+                            @if ($featured->content)
+                            <span class="text-fn-text3 text-xs">
+                                {{ ceil(str_word_count(strip_tags($featured->content)) / 200) }} min read
+                            </span>
+                            @endif
                         </div>
                         <h2
                             class="card-title font-serif text-2xl lg:text-3xl font-normal leading-snug tracking-tight mb-4 transition-colors duration-200">
-                            How to Convert PDF to Word Online Without Losing Formatting
+                            {{ $featured->title }}
                         </h2>
                         <p class="text-fn-text2 text-sm leading-relaxed mb-6">
-                            PDF to Word conversion sounds simple until you lose all your tables, headers, and fonts.
-                            In this deep-dive, we explain how Filenewer's engine preserves every element — and how
-                            you can do it in under 10 seconds.
+                            {{ $featured->excerpt }}
                         </p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-xs font-bold text-fn-blue-l">
-                                AL</div>
+                                {{ strtoupper(substr($featured->user->name ?? 'A', 0, 2)) }}
+                            </div>
                             <div>
-                                <p class="text-xs font-semibold">Alex Liu</p>
-                                <p class="text-xs text-fn-text3">Feb 20, 2026</p>
+                                <p class="text-xs font-semibold">{{ $featured->user->name ?? 'Author' }}</p>
+                                <p class="text-xs text-fn-text3">
+                                    {{ $featured->published_at ?
+                                    \Carbon\Carbon::parse($featured->published_at)->format('M j, Y') : '' }}
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5 text-fn-blue-l text-sm font-semibold">
@@ -97,42 +117,116 @@
         </a>
     </div>
 </section>
+@endif
 
-<!-- ══ BLOG GRID ══ -->
+{{-- ══ BLOG GRID ══ --}}
 <section class="py-12">
     <div class="max-w-6xl mx-auto px-6">
         <p class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-7">Latest Articles</p>
 
+        @php
+        // Skip the featured post on page 1 so it doesn't repeat in the grid
+        $gridBlogs = $blogs->currentPage() === 1 ? $blogs->skip(1) : $blogs;
+
+        // Category → color mapping
+        $categoryColors = [
+        'tutorial' => ['bg' => 'bg-fn-green/10', 'border' => 'border-fn-green/20', 'text' => 'text-fn-green'],
+        'tips' => ['bg' => 'bg-fn-cyan/10', 'border' => 'border-fn-cyan/20', 'text' => 'text-fn-cyan'],
+        'automation' => ['bg' => 'bg-fn-green/10', 'border' => 'border-fn-green/20', 'text' => 'text-fn-green'],
+        'security' => ['bg' => 'bg-fn-red/10', 'border' => 'border-fn-red/20', 'text' => 'text-fn-red'],
+        'developer' => ['bg' => 'bg-fn-amber/10', 'border' => 'border-fn-amber/20', 'text' => 'text-fn-amber'],
+        'updates' => ['bg' => 'bg-fn-blue/10', 'border' => 'border-fn-blue/20', 'text' => 'text-fn-blue-l'],
+        ];
+        $defaultColor = ['bg' => 'bg-fn-blue/10', 'border' => 'border-fn-blue/20', 'text' => 'text-fn-blue-l'];
+
+        // Dot patterns per card position (cycles)
+        $dotColors = [
+        'oklch(56% 0.23 264 / 25%)',
+        'oklch(68% 0.17 210 / 25%)',
+        'oklch(67% 0.18 162 / 25%)',
+        'oklch(59% 0.22 27 / 25%)',
+        'oklch(73% 0.17 72 / 25%)',
+        'oklch(56% 0.23 264 / 25%)',
+        ];
+        @endphp
+
+        @if ($gridBlogs->isEmpty())
+        <p class="text-fn-text3 text-sm">No articles found.</p>
+        @else
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach ($gridBlogs as $i => $blog)
+            @php
+            $catKey = strtolower($blog->category ?? '');
+            $color = $categoryColors[$catKey] ?? $defaultColor;
+            $dotColor = $dotColors[$i % count($dotColors)];
+            $initials = strtoupper(substr($blog->user->name ?? 'A', 0, 2));
+            $readTime = $blog->content
+            ? ceil(str_word_count(strip_tags($blog->content)) / 200)
+            : null;
+            @endphp
 
-            <!-- Card 1 -->
-            <a href="/blog/csv-to-sql-complete-guide"
+            <a href="/blog/{{ $blog->slug }}"
                 class="blog-card group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
-                <div class="card-img-1 h-44 relative flex items-center justify-center overflow-hidden">
+
+                {{-- Card image / header --}}
+                <div class="h-44 relative flex items-center justify-center overflow-hidden">
+                    @if ($blog->featured_image)
+                    <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}"
+                        class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    @else
                     <div class="absolute inset-0 opacity-25"
-                        style="background-image: radial-gradient(oklch(56% 0.23 264 / 25%) 1px, transparent 1px); background-size: 20px 20px;">
+                        style="background-image: radial-gradient({{ $dotColor }} 1px, transparent 1px); background-size: 20px 20px;">
                     </div>
-                    <span class="text-4xl relative z-10">🟩</span>
+                    <span class="text-4xl relative z-10">
+                        @switch($catKey)
+                        @case('tutorial') 🟩 @break
+                        @case('tips') 🖼️ @break
+                        @case('automation') 🧾 @break
+                        @case('security') 🔐 @break
+                        @case('developer') ⚡ @break
+                        @case('updates') 🚀 @break
+                        @default 📄
+                        @endswitch
+                    </span>
+                    @endif
                 </div>
+
+                {{-- Content --}}
                 <div class="p-6 flex flex-col flex-1">
                     <div class="flex items-center gap-2 mb-3">
+                        @if ($blog->category)
                         <span
-                            class="px-2.5 py-0.5 bg-fn-green/10 border border-fn-green/20 rounded-full text-fn-green text-xs font-semibold">Tutorial</span>
-                        <span class="text-fn-text3 text-xs">6 min read</span>
+                            class="px-2.5 py-0.5 {{ $color['bg'] }} border {{ $color['border'] }} rounded-full {{ $color['text'] }} text-xs font-semibold">
+                            {{ ucfirst($blog->category) }}
+                        </span>
+                        @endif
+                        @if ($readTime)
+                        <span class="text-fn-text3 text-xs">{{ $readTime }} min read</span>
+                        @endif
                     </div>
+
                     <h3
                         class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        CSV to SQL: The Complete Guide for Developers
+                        {{ $blog->title }}
                     </h3>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">Learn how to convert CSV files to SQL
-                        INSERT statements instantly, handle edge cases, and automate the process with Filenewer's
-                        API.</p>
+
+                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">
+                        {{ $blog->excerpt }}
+                    </p>
+
                     <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
                         <div class="flex items-center gap-2">
                             <div
-                                class="w-6 h-6 rounded-full bg-fn-green/20 flex items-center justify-center text-xs font-bold text-fn-green">
-                                MK</div>
-                            <span class="text-xs text-fn-text3">Maria K. · Feb 18</span>
+                                class="w-6 h-6 rounded-full {{ $color['bg'] }} flex items-center justify-center text-xs font-bold {{ $color['text'] }}">
+                                {{ $initials }}
+                            </div>
+                            <span class="text-xs text-fn-text3">
+                                {{ $blog->user->name ?? 'Author' }}
+                                @if ($blog->published_at)
+                                · {{ \Carbon\Carbon::parse($blog->published_at)->format('M j') }}
+                                @endif
+                            </span>
                         </div>
                         <svg class="card-arrow w-4 h-4 text-fn-text3" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -142,220 +236,72 @@
                     </div>
                 </div>
             </a>
-
-            <!-- Card 2 -->
-            <a href="/blog/compress-images-without-quality-loss"
-                class="blog-card group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
-                <div class="card-img-2 h-44 relative flex items-center justify-center overflow-hidden">
-                    <div class="absolute inset-0 opacity-25"
-                        style="background-image: radial-gradient(oklch(68% 0.17 210 / 25%) 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    <span class="text-4xl relative z-10">🖼️</span>
-                </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span
-                            class="px-2.5 py-0.5 bg-fn-cyan/10 border border-fn-cyan/20 rounded-full text-fn-cyan text-xs font-semibold">Tips</span>
-                        <span class="text-fn-text3 text-xs">5 min read</span>
-                    </div>
-                    <h3
-                        class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        Compress Images Without Losing Quality: A Visual Guide
-                    </h3>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">WebP vs PNG vs JPG — which format wins in
-                        2026? We tested 500 images so you don't have to.</p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-6 h-6 rounded-full bg-fn-cyan/20 flex items-center justify-center text-xs font-bold text-fn-cyan">
-                                JR</div>
-                            <span class="text-xs text-fn-text3">James R. · Feb 15</span>
-                        </div>
-                        <svg class="card-arrow w-4 h-4 text-fn-text3" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 3 -->
-            <a href="/blog/automate-invoice-generation"
-                class="blog-card group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
-                <div class="card-img-3 h-44 relative flex items-center justify-center overflow-hidden">
-                    <div class="absolute inset-0 opacity-25"
-                        style="background-image: radial-gradient(oklch(67% 0.18 162 / 25%) 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    <span class="text-4xl relative z-10">🧾</span>
-                </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span
-                            class="px-2.5 py-0.5 bg-fn-green/10 border border-fn-green/20 rounded-full text-fn-green text-xs font-semibold">Automation</span>
-                        <span class="text-fn-text3 text-xs">7 min read</span>
-                    </div>
-                    <h3
-                        class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        How to Automate Invoice Generation for Your Business
-                    </h3>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">Stop creating invoices manually. Use
-                        Filenewer's document generator with your own data to produce batch PDFs in one click.</p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-6 h-6 rounded-full bg-fn-green/20 flex items-center justify-center text-xs font-bold text-fn-green">
-                                SP</div>
-                            <span class="text-xs text-fn-text3">Sara P. · Feb 12</span>
-                        </div>
-                        <svg class="card-arrow w-4 h-4 text-fn-text3" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 4 -->
-            <a href="/blog/pdf-security-encryption-guide"
-                class="blog-card group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
-                <div class="card-img-4 h-44 relative flex items-center justify-center overflow-hidden">
-                    <div class="absolute inset-0 opacity-25"
-                        style="background-image: radial-gradient(oklch(59% 0.22 27 / 25%) 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    <span class="text-4xl relative z-10">🔐</span>
-                </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span
-                            class="px-2.5 py-0.5 bg-fn-red/10 border border-fn-red/20 rounded-full text-fn-red text-xs font-semibold">Security</span>
-                        <span class="text-fn-text3 text-xs">9 min read</span>
-                    </div>
-                    <h3
-                        class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        PDF Security & Encryption: Everything You Need to Know
-                    </h3>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">Password protection, AES encryption,
-                        permissions, and redaction — a complete guide to keeping your PDF files secure.</p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-6 h-6 rounded-full bg-fn-red/20 flex items-center justify-center text-xs font-bold text-fn-red">
-                                DW</div>
-                            <span class="text-xs text-fn-text3">Dan W. · Feb 8</span>
-                        </div>
-                        <svg class="card-arrow w-4 h-4 text-fn-text3" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 5 -->
-            <a href="/blog/batch-file-processing-with-api"
-                class="blog-card group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
-                <div class="card-img-5 h-44 relative flex items-center justify-center overflow-hidden">
-                    <div class="absolute inset-0 opacity-25"
-                        style="background-image: radial-gradient(oklch(73% 0.17 72 / 25%) 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    <span class="text-4xl relative z-10">⚡</span>
-                </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span
-                            class="px-2.5 py-0.5 bg-fn-amber/10 border border-fn-amber/20 rounded-full text-fn-amber text-xs font-semibold">Developer</span>
-                        <span class="text-fn-text3 text-xs">11 min read</span>
-                    </div>
-                    <h3
-                        class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        Batch File Processing at Scale Using the Filenewer API
-                    </h3>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">Process thousands of files
-                        programmatically. A practical guide with code examples in Node.js, Python, and PHP.</p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-6 h-6 rounded-full bg-fn-amber/20 flex items-center justify-center text-xs font-bold text-fn-amber">
-                                TC</div>
-                            <span class="text-xs text-fn-text3">Tom C. · Feb 5</span>
-                        </div>
-                        <svg class="card-arrow w-4 h-4 text-fn-text3" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 6 -->
-            <a href="/blog/filenewer-2026-product-updates"
-                class="blog-card group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
-                <div class="card-img-6 h-44 relative flex items-center justify-center overflow-hidden">
-                    <div class="absolute inset-0 opacity-25"
-                        style="background-image: radial-gradient(oklch(56% 0.23 264 / 25%) 1px, transparent 1px); background-size: 20px 20px;">
-                    </div>
-                    <span class="text-4xl relative z-10">🚀</span>
-                </div>
-                <div class="p-6 flex flex-col flex-1">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span
-                            class="px-2.5 py-0.5 bg-fn-blue/10 border border-fn-blue/20 rounded-full text-fn-blue-l text-xs font-semibold">Updates</span>
-                        <span class="text-fn-text3 text-xs">4 min read</span>
-                    </div>
-                    <h3
-                        class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        Filenewer in 2026: New Tools, Faster Processing & More
-                    </h3>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">A look at everything new — OCR, bulk ZIP
-                        downloads, the redesigned dashboard, and what's coming next quarter.</p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-6 h-6 rounded-full bg-fn-blue/20 flex items-center justify-center text-xs font-bold text-fn-blue-l">
-                                FN</div>
-                            <span class="text-xs text-fn-text3">Filenewer Team · Feb 1</span>
-                        </div>
-                        <svg class="card-arrow w-4 h-4 text-fn-text3" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
-                        </svg>
-                    </div>
-                </div>
-            </a>
-
+            @endforeach
         </div>
+        @endif
 
-        <!-- Pagination -->
+        {{-- ══ PAGINATION ══ --}}
+        @if ($blogs->hasPages())
         <div class="flex items-center justify-center gap-2 mt-14">
-            <button
+
+            {{-- Previous --}}
+            @if ($blogs->onFirstPage())
+            <span
+                class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 opacity-40 cursor-not-allowed">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </span>
+            @else
+            <a href="{{ $blogs->previousPageUrl() }}"
                 class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="15 18 9 12 15 6" />
                 </svg>
-            </button>
-            <button
-                class="w-9 h-9 flex items-center justify-center rounded-lg bg-fn-blue text-white text-sm font-semibold">1</button>
-            <button
-                class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 text-sm font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">2</button>
-            <button
-                class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 text-sm font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">3</button>
-            <span class="text-fn-text3 text-sm px-1">…</span>
-            <button
-                class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 text-sm font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">8</button>
-            <button
-                class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                </svg>
-            </button>
+            </a>
+            @endif
+
+            {{-- Page numbers --}}
+            @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
+            @if ($page == $blogs->currentPage())
+            <span
+                class="w-9 h-9 flex items-center justify-center rounded-lg bg-fn-blue text-white text-sm font-semibold">
+                {{ $page }}
+            </span>
+            @elseif ($page == 1 || $page == $blogs->lastPage() || abs($page - $blogs->currentPage()) <= 1) <a
+                href="{{ $url }}"
+                class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 text-sm font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
+                {{ $page }}
+                </a>
+                @elseif (abs($page - $blogs->currentPage()) == 2)
+                <span class="text-fn-text3 text-sm px-1">…</span>
+                @endif
+                @endforeach
+
+                {{-- Next --}}
+                @if ($blogs->hasMorePages())
+                <a href="{{ $blogs->nextPageUrl() }}"
+                    class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </a>
+                @else
+                <span
+                    class="w-9 h-9 flex items-center justify-center rounded-lg border border-fn-text/10 text-fn-text3 opacity-40 cursor-not-allowed">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </span>
+                @endif
+
         </div>
+        @endif
+
     </div>
 </section>
 
