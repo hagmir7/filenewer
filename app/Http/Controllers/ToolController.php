@@ -48,34 +48,52 @@ class ToolController extends Controller
         return view('tools.show', compact('tool', 'relatedTools', 'title', 'description'));
     }
 
-
     public function pdfToWord()
     {
-        return view('tools.pdf-to-word');
+        $title = 'Convert PDF to Word Online Free';
+        $description = 'Convert PDF files to editable Word documents online for free. No registration required. Fast, secure, and high-quality conversion.';
+        return view('tools.pdf-to-word', compact('title', 'description'));
     }
 
     public function csvToSql()
     {
-        return view('tools.csv-to-sql');
+        $title = 'CSV to SQL Converter Online';
+        $description = 'Convert CSV files into SQL INSERT statements instantly. Free, fast, and easy-to-use CSV to SQL converter for developers and analysts.';
+
+        return view('tools.csv-to-sql', compact('title', 'description'));
     }
 
     public function invoiceGenerator()
     {
-        return view('tools.invoice-generator');
+        $title = 'Free Invoice Generator';
+        $description = 'Create, customize, and download professional invoices online for free. Simple, fast, and perfect for freelancers and businesses.';
+
+        return view('tools.invoice-generator', compact('title', 'description'));
     }
 
     public function ImageCompressor()
     {
-        return view('tools.image-compressor');
+        $title = 'Compress Images Online Free';
+        $description = 'Compress JPG, PNG, and WebP images online for free. Reduce file size without losing quality and improve website performance.';
+
+        return view('tools.image-compressor', compact('title', 'description'));
     }
 
     public function pdfMerge()
     {
-        return view('tools.pdf-merge');
+        $title = 'Merge PDF Files Online Free';
+        $description = 'Merge multiple PDF files into one document online for free. Fast, secure, and easy-to-use PDF merger tool.';
+
+        return view('tools.pdf-merge', compact('title', 'description'));
     }
 
     public function csvToJson()
     {
-        return view('tools.csv-to-json');
+        $title = 'CSV to JSON Converter Online';
+        $description = 'Convert CSV data to JSON format instantly. Free, fast, and accurate CSV to JSON converter for developers and data processing.';
+
+        return view('tools.csv-to-json', compact('title', 'description'));
     }
+
+
 }

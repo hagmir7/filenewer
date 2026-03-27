@@ -457,40 +457,6 @@
     </div>
 </section>
 
-{{-- ══ FEATURES ══ --}}
-<section class="py-16 border-t border-fn-text/7">
-    <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl font-bold tracking-tight mb-2">Why Filenewer's PDF Merge is different</h2>
-            <p class="text-fn-text2 text-sm">Most mergers lose your bookmarks and bloat the file. Ours doesn't.</p>
-        </div>
-        @php
-        $features = [
-        ['🔀', 'fn-blue', 'Drag-to-Reorder', 'Arrange your PDFs in any order before merging with simple
-        drag-and-drop.'],
-        ['🔖', 'fn-cyan', 'Bookmark Preservation', 'Original bookmarks kept and new per-file bookmarks added
-        automatically.'],
-        ['📄', 'fn-green', 'Page Number Control', 'Optionally add continuous page numbers across the merged document.'],
-        ['🗜️', 'fn-amber', 'Smart Compression', 'Optional lossless compression reduces output size without quality
-        loss.'],
-        ['🔒', 'fn-red', 'Bank-Grade Security', 'AES-256 encryption in transit. Files permanently deleted within 1
-        hour.'],
-        ['⚡', 'fn-blue', 'Instant Results', 'Merge up to 20 files in under 15 seconds — no queue, no wait.'],
-        ];
-        @endphp
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach($features as [$icon, $color, $title, $desc])
-            <div class="feat-card p-6 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <div
-                    class="w-10 h-10 rounded-xl bg-{{ $color }}/10 border border-{{ $color }}/20 flex items-center justify-center text-xl mb-4">
-                    {{ $icon }}</div>
-                <h3 class="font-semibold text-sm mb-2">{{ $title }}</h3>
-                <p class="text-fn-text3 text-xs leading-relaxed">{{ $desc }}</p>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
 
 {{-- ══ FAQ ══ --}}
 <x-faqs />

@@ -503,39 +503,6 @@
     </div>
 </section>
 
-{{-- ══ FEATURES ══ --}}
-<section class="py-16 border-t border-fn-text/7">
-    <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl font-bold tracking-tight mb-2">Why Filenewer's CSV to JSON is different</h2>
-            <p class="text-fn-text2 text-sm">Most converters spit out strings. Ours gives you real typed data.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach([
-            ['🔍','fn-blue', 'Auto Type Detection', 'Numbers, booleans, nulls and dates are inferred automatically — no
-            more quoted integers in your JSON.'],
-            ['⚙️','fn-cyan', 'Flexible Delimiters', 'Comma, semicolon, tab, or pipe — auto-detected or manually set.
-            Works with any CSV dialect.'],
-            ['🗂️','fn-green', 'Multiple Output Shapes', 'Array of objects, keyed by column, columnar object, or raw
-            array of arrays — pick what fits your API.'],
-            ['👁️','fn-amber', 'Live Preview', 'See the first 5 records of your JSON right in the browser before
-            downloading.'],
-            ['🔒','fn-red', 'Bank-Grade Security', 'AES-256 encryption in transit. Files permanently deleted within 1
-            hour.'],
-            ['⚡','fn-blue', 'Instant Results', 'Average conversion under 5 seconds — no queue, no wait, even for large
-            files.'],
-            ] as [$icon, $color, $title, $desc])
-            <div class="feat-card p-6 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <div
-                    class="w-10 h-10 rounded-xl bg-{{ $color }}/10 border border-{{ $color }}/20 flex items-center justify-center text-xl mb-4">
-                    {{ $icon }}</div>
-                <h3 class="font-semibold text-sm mb-2">{{ $title }}</h3>
-                <p class="text-fn-text3 text-xs leading-relaxed">{{ $desc }}</p>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
 
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">

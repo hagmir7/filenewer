@@ -22,11 +22,11 @@
         <div class="relative z-10 space-y-10">
             <div>
                 <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-4">Join 50,000+ users</p>
-                <h2 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
+                <h1 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Smarter File<br />
                     Processing<br />
                     <span class="text-fn-text3">starts here.</span>
-                </h2>
+                </h1>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
                     Convert, compress, generate, and process your files in seconds. Free to start, no credit card
                     needed.
@@ -137,7 +137,7 @@
 
             <!-- Header -->
             <div class="mb-8">
-                <h1 class="text-2xl font-bold tracking-tight mb-1.5">Create your account</h1>
+                <h2 class="text-2xl font-bold tracking-tight mb-1.5">Create your account</h2>
                 <p class="text-fn-text3 text-sm">Free forever · No credit card required</p>
             </div>
 

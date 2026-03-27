@@ -19,10 +19,10 @@
         <div class="relative z-10 space-y-10">
             <div>
                 <p class="text-fn-cyan text-xs font-semibold uppercase tracking-widest mb-4">Contact Us</p>
-                <h2 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
+                <div class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Let’s start a<br />
                     conversation<span class="text-fn-text3">.</span>
-                </h2>
+                </div>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
                     Have a question, feedback, or issue? Send us a message and we’ll get back to you quickly.
                 </p>

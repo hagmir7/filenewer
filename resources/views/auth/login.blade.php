@@ -25,11 +25,11 @@
         <div class="relative z-10 space-y-10">
             <div>
                 <p class="text-fn-cyan text-xs font-semibold uppercase tracking-widest mb-4">Welcome back</p>
-                <h2 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
+                <h1 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Your files are<br />
                     waiting for<br />
                     <span class="text-fn-text3">you.</span>
-                </h2>
+                </h1>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
                     Sign in to access your tools, saved files, and processing history from anywhere.
                 </p>
@@ -121,7 +121,7 @@
 
             <!-- Header -->
             <div class="mb-8">
-                <h1 class="text-2xl font-bold tracking-tight mb-1.5">Welcome back</h1>
+                <h2 class="text-2xl font-bold tracking-tight mb-1.5">Welcome back</h2>
                 <p class="text-fn-text3 text-sm">Sign in to continue to your dashboard</p>
             </div>
 

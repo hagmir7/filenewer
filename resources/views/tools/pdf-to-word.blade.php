@@ -423,38 +423,7 @@
     </div>
 </section>
 
-{{-- ══ FEATURES ══ --}}
-<section class="py-16 border-t border-fn-text/7">
-    <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl font-bold tracking-tight mb-2">Why Filenewer's PDF to Word is different</h2>
-            <p class="text-fn-text2 text-sm">Most converters break your formatting. Ours doesn't.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach([
-            ['🏗️','fn-blue', 'Layout Preservation', 'Multi-column layouts, headers, footers, and sidebars rebuilt as
-            native Word elements.'],
-            ['🔤','fn-cyan', 'Font & Style Mapping', 'Fonts, weights, colors and spacing mapped to native Word styles —
-            not static text.'],
-            ['📊','fn-green', 'Table Reconstruction', 'Complex tables with merged cells and borders rebuilt as proper
-            Word table objects.'],
-            ['🔍','fn-amber', 'OCR for Scanned PDFs', 'Image-based PDFs handled automatically with AI-powered OCR,
-            producing editable text.'],
-            ['🔒','fn-red', 'Bank-Grade Security', 'AES-256 encryption in transit. Files permanently deleted within 1
-            hour.'],
-            ['⚡','fn-blue', 'Instant Results', 'Average conversion under 10 seconds — no queue, no wait.'],
-            ] as [$icon, $color, $title, $desc])
-            <div class="feat-card p-6 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <div
-                    class="w-10 h-10 rounded-xl bg-{{ $color }}/10 border border-{{ $color }}/20 flex items-center justify-center text-xl mb-4">
-                    {{ $icon }}</div>
-                <h3 class="font-semibold text-sm mb-2">{{ $title }}</h3>
-                <p class="text-fn-text3 text-xs leading-relaxed">{{ $desc }}</p>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
+
 
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">

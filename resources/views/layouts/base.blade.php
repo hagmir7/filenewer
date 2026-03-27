@@ -10,12 +10,14 @@
         content="@if(isset($description)) $descripiton @else Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed. @endif" />
     <meta name="keywords"
         content="online file tools, file converter online, business document generator, PDF tools online, secure file processing, free file tools" />
-    <link rel="canonical" href="https://filenewer.com/" />
+    <link rel="canonical" href="{{ request()->fullUrl() }}" />
     <meta property="og:title"
         content="@if (isset($title)) {{ $title }} @else Filenewer – Online File Tools &amp; Converters @endif" />
     <meta property="og:description"
         content="@if(isset($description)) $descripiton @else Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone. @endif" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/favicon/favicon.svg">
+    <meta property="og:url" content="{{ request()->fullUrl() }}">
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />

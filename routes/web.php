@@ -57,7 +57,7 @@ Route::post('/convert', [ExcelToPdfController::class, 'convert'])->name('excel.c
 
 
 
-Route::prefix('tools/pdf-to-word')->name('tools.pdf-to-word.')->group(function () {
+Route::prefix('pdf-to-word')->name('tools.pdf-to-word.')->group(function () {
     Route::get('/',                 [PdfToWordController::class, 'index'])->name('index');
     Route::post('/convert',         [PdfToWordController::class, 'convert'])->name('convert');
     Route::get('/download/{id}',    [PdfToWordController::class, 'download'])->name('download');
