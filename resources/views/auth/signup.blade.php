@@ -289,8 +289,8 @@
                         <input type="checkbox" id="terms" name="terms" {{ old('terms') ? 'checked' : '' }}
                             class="mt-0.5 w-4 h-4 rounded border {{ $errors->has('terms') ? 'border-red-500' : 'border-fn-text/20' }} bg-fn-surface cursor-pointer shrink-0 accent-fn-blue" />
                         <label for="terms" class="text-xs text-fn-text3 leading-relaxed cursor-pointer">
-                            I agree to the <a href="/terms" class="text-fn-blue-l hover:underline">Terms of Service</a>
-                            and <a href="/privacy" class="text-fn-blue-l hover:underline">Privacy Policy</a>
+                            I agree to the <a href="/pages/terms-of-service" class="text-fn-blue-l hover:underline">Terms of Service</a>
+                            and <a href="/pages/privacy-policy" class="text-fn-blue-l hover:underline">Privacy Policy</a>
                         </label>
                     </div>
                     @error('terms')

@@ -14,7 +14,10 @@ class BlogController extends Controller
             ->latest('published_at')
             ->paginate(10);
 
-        return view('blog.index', compact('blogs'));
+        return view('blog.index', [
+            'blogs' => $blogs,
+            'title' => 'Blog - Filenewer',
+        ]);
     }
 
     public function show($slug)
@@ -25,7 +28,8 @@ class BlogController extends Controller
 
         $description = $blog->excerpt;
         $iamge = $blog->featured_image;
-        return view('blog.show', compact('blog', 'description', 'image'));
+        $title = $blog->title;
+        return view('blog.show', compact('blog', 'title', 'description', 'image'));
     }
 
 }

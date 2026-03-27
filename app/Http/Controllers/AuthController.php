@@ -12,7 +12,17 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('auth.login');
+        return view('auth.login')->with('title', 'Login');
+    }
+
+    public function signup()
+    {
+        return view('auth.signup')->with('title', 'Sign Up');
+    }
+
+    public function forgotPassword()
+    {
+        return view('auth.forgot-password')->with('title', 'Forgot Password');
     }
 
     public function loginStore(Request $request)
@@ -34,15 +44,7 @@ class AuthController extends Controller
     }
 
 
-    public function signup()
-    {
-        return view('auth.signup');
-    }
 
-
-    public function forgotPassword(){
-        return view('auth.forgot-password');
-    }
 
 
     public function store(Request $request)
