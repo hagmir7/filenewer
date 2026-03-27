@@ -34,7 +34,7 @@
 
 <body class="font-sans bg-fn-bg text-fn-text antialiased overflow-x-hidden">
     <x-nav />
-    @yield('content')
+    <main>@yield('content')</main>
     <x-footer />
 </body>
 

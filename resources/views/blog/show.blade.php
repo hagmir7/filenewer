@@ -472,7 +472,7 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Smarter File Processing. Fast, free, and secure.</p>
             </div>
             <div>
-                <h4 class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-4">Product</h4>
+                <h4 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Product</h4>
                 <ul class="flex flex-col gap-2.5 list-none">
                     <li><a href="/tools" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">All
                             Tools</a></li>
@@ -481,7 +481,7 @@
                 </ul>
             </div>
             <div>
-                <h4 class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-4">Company</h4>
+                <h4 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Company</h4>
                 <ul class="flex flex-col gap-2.5 list-none">
                     <li><a href="/about" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About</a>
                     </li>
@@ -491,7 +491,7 @@
                 </ul>
             </div>
             <div>
-                <h4 class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-4">Legal</h4>
+                <h4 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Legal</h4>
                 <ul class="flex flex-col gap-2.5 list-none">
                     <li><a href="/privacy" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Privacy
                             Policy</a></li>

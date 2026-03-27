@@ -10,7 +10,7 @@
                     generate, and manage your business files fast, free, and securely.</p>
             </div>
             <div>
-                <h4 class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-4">Product</h4>
+                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Product</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="/tools" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">
@@ -41,7 +41,7 @@
 
             <!-- Company -->
             <div>
-                <h4 class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-4">Company</h4>
+                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Company</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="https://filenewer.com/pages/about-us"
@@ -63,7 +63,7 @@
 
             <!-- Legal -->
             <div>
-                <h4 class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-4">Legal</h4>
+                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Legal</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="/pages/privacy-policy"
