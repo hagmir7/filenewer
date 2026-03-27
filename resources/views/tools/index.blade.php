@@ -87,7 +87,7 @@
             {{-- ── CATEGORIES LOOP ── --}}
             @foreach($categories as $category)
             @if($category->tools->isNotEmpty())
-            <div class="tool-section mb-10" data-section="{{ $category->slug }}">
+            <div class="tool-section mb-10" id="{{ $category->slug }}" data-section="{{ $category->slug }}">
 
                 {{-- Section header --}}
                 <div class="flex items-center gap-3 mb-5">

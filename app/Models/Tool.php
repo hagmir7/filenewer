@@ -14,7 +14,8 @@ class Tool extends Model
         'icon',
         'is_active',
         'order',
-        'category_id'
+        'category_id',
+        'title'
     ];
 
 

@@ -8,7 +8,7 @@
     <div class="max-w-4xl mx-auto px-6 relative z-10">
 
         {{-- Breadcrumb --}}
-        <nav class="flex items-center gap-2 text-xs text-fn-text3 mb-6">
+        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-6">
             <a href="/" class="hover:text-fn-text transition-colors">Home</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -37,7 +37,7 @@
             </div>
             <div>
                 <div class="flex items-center gap-3 mb-1 flex-wrap">
-                    <h1 class="text-2xl font-bold tracking-tight">{{ $tool->name }}</h1>
+                    <h1 class="text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
                     @if(str_contains($tool->tags ?? '', 'popular'))
                     <span
                         class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-xs font-semibold rounded-full">🔥
@@ -54,14 +54,14 @@
 
         {{-- Quick stats --}}
         <div class="flex items-center gap-6 flex-wrap">
-            <div class="flex items-center gap-2 text-xs text-fn-text3">
+            <div class="flex items-center gap-2 text-sm text-fn-text3">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
                 <span>Secure &amp; private</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-fn-text3">
+            <div class="flex items-center gap-2 text-sm text-fn-text3">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10" />
@@ -69,14 +69,14 @@
                 </svg>
                 <span>Fast processing</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-fn-text3">
+            <div class="flex items-center gap-2 text-sm text-fn-text3">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                 </svg>
                 <span>No sign-up required</span>
             </div>
-            <div class="flex items-center gap-2 text-xs text-fn-text3">
+            <div class="flex items-center gap-2 text-sm text-fn-text3">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -224,7 +224,7 @@
     </div>
 
     {{-- ── HOW IT WORKS ── --}}
-    <div class="mb-10">
+    {{-- <div class="mb-10">
         <h2 class="text-base font-bold tracking-tight mb-5">How it works</h2>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
@@ -244,7 +244,7 @@
             </div>
             @endforeach
         </div>
-    </div>
+    </div> --}}
 
     {{-- ── RELATED TOOLS ── --}}
     @if($relatedTools->isNotEmpty())
@@ -274,37 +274,10 @@
     </div>
     @endif
 
-    {{-- ── FAQ ── --}}
-    <div>
-        <h2 class="text-base font-bold tracking-tight mb-5">Frequently asked questions</h2>
-        <div class="space-y-2" x-data="{ open: null }">
-            @foreach([
-            ['Is this tool free to use?', 'Yes, completely free. No sign-up, no watermarks, no limits on basic usage.'],
-            ['Are my files safe?', 'Your files are processed on our secure servers and automatically deleted after 1
-            hour.'],
-            ['What is the maximum file size?', 'You can upload files up to 50MB. For larger files, contact us for API
-            access.'],
-            ['How long does conversion take?', 'Most files are converted in under 10 seconds depending on file size and
-            complexity.'],
-            ] as [$question, $answer])
-            <div class="bg-fn-surface border border-fn-text/8 rounded-xl overflow-hidden" x-data="{ open: false }">
-                <button class="w-full flex items-center justify-between px-5 py-4 text-left" @click="open = !open">
-                    <span class="font-medium text-sm">{{ $question }}</span>
-                    <svg class="w-4 h-4 text-fn-text3 shrink-0 transition-transform" :class="open ? 'rotate-180' : ''"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </button>
-                <div x-show="open" x-collapse class="px-5 pb-4">
-                    <p class="text-fn-text3 text-sm leading-relaxed">{{ $answer }}</p>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
 
 </div>
+
+<x-faqs />
 
 <script>
     // ── File formats per tool slug ──

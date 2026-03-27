@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 
 class ToolController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::with(['tools' => function ($q) {
             $q->where('is_active', true)
                 ->orderBy('order');
-        }])->get();
+        }]);
+
+        if ($request->category) {
+            $categories->where('slug', $request->category);
+        }
+
+        // ✅ FIX: assign the result
+        $categories = $categories->get();
 
         $title = 'Free Online Tools — PDF, Image, Data & More';
         $description = 'Convert, compress, edit and generate files instantly. 50+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
@@ -35,7 +42,7 @@ class ToolController extends Controller
             ->take(6)
             ->get();
 
-        $title = $tool->name;
+        $title = $tool->title;
         $description = $tool->description;
 
         return view('tools.show', compact('tool', 'relatedTools', 'title', 'description'));
