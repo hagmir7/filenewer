@@ -30,7 +30,7 @@ class SitemapController extends Controller
 
         Blog::where('is_published', 1)->each(function ($blog) use ($sitemap) {
             $sitemap->add(
-                Url::create("/blogs/{$blog->slug}")
+                Url::create("/blog/{$blog->slug}")
                     ->setLastModificationDate($blog->updated_at)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                     ->setPriority(0.8)
