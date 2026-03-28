@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon('/favicon/favicon.svg')
             ->brandLogo('/filenewer-logo.svg')
             ->brandLogoHeight('40px')
+            ->profile()
             ->colors([
                 'primary' => Color::Blue,
             ])

@@ -16,19 +16,22 @@ class PagesTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label(__("Title"))
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+
                 IconColumn::make('is_published')
+                    ->label(__("Is published"))
                     ->boolean(),
+
+                TextColumn::make('updated_at')
+                    ->label(__("Updated at"))
+                    ->dateTime()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //

@@ -15,8 +15,19 @@ class Tool extends Model
         'is_active',
         'order',
         'category_id',
-        'title'
+        'title',
+        'body',
+        'tags'
     ];
+
+
+    protected function casts(): array
+    {
+        return [
+            'tags' => 'array',
+        ];
+    }
+
 
 
     public function category(){

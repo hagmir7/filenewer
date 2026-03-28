@@ -16,21 +16,21 @@ class BlogsTable
     {
         return $table
             ->columns([
+
+                ImageColumn::make('featured_image')
+                    ->label(__("Image")),
                 TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('excerpt')
+                    ->label(__("Title"))
                     ->searchable(),
                 TextColumn::make('category')
+                    ->label(__("Category"))
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+
                 IconColumn::make('is_published')
+                    ->label(__("Is published"))
                     ->boolean(),
-                // TextColumn::make('user_id')
-                //     ->numeric()
-                //     ->sortable(),
                 TextColumn::make('published_at')
+                    ->label(__('Published at'))
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('created_at')

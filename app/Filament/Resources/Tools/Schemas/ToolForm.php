@@ -4,8 +4,14 @@ namespace App\Filament\Resources\Tools\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class ToolForm
 {
@@ -13,19 +19,70 @@ class ToolForm
     {
         return $schema
             ->components([
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('slug')
-                    ->required(),
-                Textarea::make('description')
-                    ->columnSpanFull(),
-                TextInput::make('icon'),
-                Toggle::make('is_active')
-                    ->required(),
-                TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                Grid::make(3)
+                    ->schema([
+
+                        Section::make('Tool Information')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Tool Name')
+                                    ->placeholder('Enter tool name...')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(
+                                        fn($state, callable $set) =>
+                                        $set('slug', Str::slug($state))
+                                    )
+                                    ->maxLength(255),
+
+                                Textarea::make('description')
+                                    ->label('Description')
+                                    ->placeholder('Enter tool description...')
+                                    ->rows(3),
+
+                                TagsInput::make('tags')
+                                    ->label(__("Keywords"))
+                                    ->placeholder("SEO Keywords")
+                                    ->separator(','),
+
+                                RichEditor::make('body')
+                                    ->label(__("Content")),
+                            ])
+                            ->columnSpan(2),
+
+                        Section::make('Settings')
+
+                            ->schema([
+
+                                Select::make('category')
+                                    ->relationship('category', 'title')
+                                    ->label(__("Category"))
+                                    ->searchable()
+                                    ->preload()
+                                    ->required(),
+                                TextInput::make('icon')
+                                    ->label('Icon')
+                                    ->placeholder('e.g. heroicon-o-wrench'),
+
+
+
+
+                                TextInput::make('slug')
+                                    ->label('URL Slug')
+                                    ->readOnly()
+                                    ->copyable()
+                                    ->afterStateHydrated(function ($component, $state) {
+                                        $component->state('https://filenewer.com/tools/' . $state);
+                                    }),
+
+                                Toggle::make('is_active')
+                                    ->label('Active')
+                                    ->default(true)
+                                    ->helperText('Make tool visible'),
+                            ])
+                            ->columnSpan(1),
+
+                    ])->columnSpanFull(),
             ]);
     }
 }
