@@ -46,6 +46,13 @@ class ToolController extends Controller
         $description = $tool->description;
         $tags = $tool->tags;
 
+        $viewName = 'tools.' . $tool->slug;
+
+        if (view()->exists($viewName)) {
+            return view($viewName, compact('tool', 'relatedTools', 'title', 'description', 'tags'));
+        }
+
+        // fallback
         return view('tools.show', compact('tool', 'relatedTools', 'title', 'description', 'tags'));
     }
 
@@ -64,13 +71,7 @@ class ToolController extends Controller
         return view('tools.csv-to-sql', compact('title', 'description'));
     }
 
-    public function invoiceGenerator()
-    {
-        $title = 'Free Invoice Generator';
-        $description = 'Create, customize, and download professional invoices online for free. Simple, fast, and perfect for freelancers and businesses.';
 
-        return view('tools.invoice-generator', compact('title', 'description'));
-    }
 
     public function ImageCompressor()
     {

@@ -2,65 +2,7 @@
 
 @section('content')
 
-<!-- ══════════════════════ HERO ══════════════════════ -->
-<section id="hero" class="relative pt-10 pb-10 text-center overflow-hidden hero-glow hero-grid">
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-
-
-
-        <!-- Badge -->
-        <div
-            class="animate-fade-up opacity-0 delay-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/40 bg-purple-500/10 text-purple-400 text-xs font-semibold tracking-wide uppercase mb-7">
-            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse-dot"></span>
-            Free Image Tool
-        </div>
-
-        <!-- H1 -->
-        <h1
-            class="animate-fade-up opacity-0 delay-1 text-4xl sm:text-5xl lg:text-[4rem] font-bold tracking-[-0.035em] leading-[1.1] max-w-3xl mx-auto mb-5">
-            Compress Images<br />Up to <span class="text-gradient">90% Smaller</span>
-        </h1>
-
-        <!-- Sub -->
-        <p class="animate-fade-up opacity-0 delay-2 text-fn-text2 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Reduce JPG, PNG, and WebP file sizes without visible quality loss. Drag, drop, done — bulk compress up to 20
-            images at once, right in your browser.
-        </p>
-
-        <!-- Benefit pills -->
-        <div class="animate-fade-up opacity-0 delay-3 flex flex-wrap justify-center gap-x-7 gap-y-3">
-            <div class="flex items-center gap-2 text-fn-text3 text-sm font-medium">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
-                JPG · PNG · WebP
-            </div>
-            <div class="flex items-center gap-2 text-fn-text3 text-sm font-medium">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Bulk compress 20 images
-            </div>
-            <div class="flex items-center gap-2 text-fn-text3 text-sm font-medium">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Adjustable quality slider
-            </div>
-            <div class="flex items-center gap-2 text-fn-text3 text-sm font-medium">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
-                100% processed in browser
-            </div>
-        </div>
-
-    </div>
-</section>
+<x-tool-hero :tool="$tool" />
 
 <!-- ══════════════════════ TOOL ══════════════════════ -->
 <section id="tool" class="py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">

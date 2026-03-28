@@ -65,12 +65,6 @@ Route::prefix('pdf-to-word')->name('tools.pdf-to-word.')->group(function () {
 
 
 Route::controller(ToolController::class)->prefix('tools')->group(function () {
-    Route::get('csv-to-sql', 'csvToSql');
-    Route::get('invoice-generator', 'invoiceGenerator');
-    Route::get('image-compressor', 'ImageCompressor');
-    Route::get('pdf-merge', 'pdfMerge');
-    Route::get('csv-to-json', 'csvToJson');
-
     Route::get('', 'index');
     Route::get('{slug}', 'show');
 });

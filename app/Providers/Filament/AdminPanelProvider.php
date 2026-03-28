@@ -33,10 +33,10 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo('/filenewer-logo.svg')
             ->brandLogoHeight('40px')
             ->profile()
-            ->renderHook(
-                'panels::head.end',
-                fn() => '<style>.fi-header { display: none; }</style>',
-            )
+            // ->renderHook(
+            //     'panels::head.end',
+            //     fn() => '<style>.fi-header { display: none; }</style>',
+            // )
             ->colors([
                 'primary' => Color::Blue,
             ])

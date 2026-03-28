@@ -35,6 +35,12 @@ class ToolForm
                                     )
                                     ->maxLength(255),
 
+                                TextInput::make('title')
+                                    ->label('SEO Title')
+                                    ->placeholder('Enter tool title...')
+                                    ->required()
+                                    ->maxLength(255),
+
                                 Textarea::make('description')
                                     ->label('Description')
                                     ->placeholder('Enter tool description...')

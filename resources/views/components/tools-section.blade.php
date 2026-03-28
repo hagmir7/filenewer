@@ -88,7 +88,7 @@
                 </div>
                 <p class="text-fn-text3 text-xs leading-relaxed">Reduce image file size by up to 90% without visible
                     quality loss. Supports JPG, PNG, and WebP for web performance and bulk processing.</p>
-                <a href="/tools/image-compressor"
+                <a href="/tools/compress-image"
                     class="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-fn-blue-l group">
                     Use Tool
                     <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
