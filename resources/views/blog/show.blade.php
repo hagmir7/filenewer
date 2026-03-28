@@ -318,8 +318,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-
-        // ── Auto-build Table of Contents from article headings ──
         const tocNav        = document.getElementById('toc-nav');
         const articleHeadings = Array.from(document.querySelectorAll('#article-content h2, #article-content h3'));
 

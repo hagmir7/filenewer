@@ -2,6 +2,15 @@
 @plugin "@tailwindcss/typography";
 
 
+/* DM Sans weights */
+
+@font-face {
+    font-family: "DM Sans";
+    src: url("/fonts/dm-sans-400.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -52,6 +61,15 @@
         }
     }
 }
+
+/* body {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+}
+
+code {
+    font-family: "DM Mono", monospace;
+} */
 
 /* Noise overlay */
 body::before {

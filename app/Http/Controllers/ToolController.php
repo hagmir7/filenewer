@@ -44,8 +44,9 @@ class ToolController extends Controller
 
         $title = $tool->title;
         $description = $tool->description;
+        $tags = $tool->tags;
 
-        return view('tools.show', compact('tool', 'relatedTools', 'title', 'description'));
+        return view('tools.show', compact('tool', 'relatedTools', 'title', 'description', 'tags'));
     }
 
     public function pdfToWord()
