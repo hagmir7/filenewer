@@ -316,65 +316,6 @@
 </section>
 @endif
 
-<!-- ══ FOOTER ══ -->
-<footer class="bg-fn-bg border-t border-fn-text/7 pt-14 pb-8">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
-            <div>
-                <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-tight mb-3">
-                    <div class="w-7 h-7 bg-fn-blue rounded-lg flex items-center justify-center shrink-0">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                            <polyline points="14 2 14 8 20 8" />
-                        </svg>
-                    </div>
-                    Filenewer
-                </a>
-                <p class="text-fn-text3 text-sm leading-relaxed">Smarter File Processing. Fast, free, and secure.</p>
-            </div>
-            <div>
-                <h4 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Product</h4>
-                <ul class="flex flex-col gap-2.5 list-none">
-                    <li><a href="/tools" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">All
-                            Tools</a></li>
-                    <li><a href="/api" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">API</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Company</h4>
-                <ul class="flex flex-col gap-2.5 list-none">
-                    <li><a href="/about" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About</a>
-                    </li>
-                    <li><a href="/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Blog</a></li>
-                    <li><a href="/contact"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Legal</h4>
-                <ul class="flex flex-col gap-2.5 list-none">
-                    <li><a href="/privacy" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Privacy
-                            Policy</a></li>
-                    <li><a href="/terms" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Terms of
-                            Service</a></li>
-                    <li><a href="/gdpr" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">GDPR</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="pt-7 border-t border-fn-text/7 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p class="text-fn-text3 text-xs">© {{ date('Y') }} Filenewer. All rights reserved.</p>
-            <ul class="flex items-center gap-5 list-none">
-                <li><a href="/privacy" class="text-fn-text3 text-xs hover:text-fn-text2 transition-colors">Privacy</a>
-                </li>
-                <li><a href="/terms" class="text-fn-text3 text-xs hover:text-fn-text2 transition-colors">Terms</a></li>
-                <li><a href="/sitemap.xml"
-                        class="text-fn-text3 text-xs hover:text-fn-text2 transition-colors">Sitemap</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
