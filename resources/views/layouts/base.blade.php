@@ -25,6 +25,8 @@
     <meta name="apple-mobile-web-app-title" content="Filenewer" />
     {{--
     <link rel="manifest" href="/site.webmanifest" /> --}}
+
+    <meta name="google-site-verification" content="EQZYRJ21rxnFbPlDE5uDwRL5FIdDfphpwnhPp5h2Yz4" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
