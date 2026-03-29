@@ -215,11 +215,7 @@
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
                         ✅</div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-2">Your Word document is ready.</p>
-                    <p class="text-fn-text3 text-xs mb-8">
-                        File will be deleted in <span class="text-fn-amber font-semibold font-mono"
-                            id="expiry-timer">60:00</span>
-                    </p>
+                    <p class="text-fn-text2 text-sm mb-8">Your Word document is ready.</p>
 
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
@@ -233,7 +229,8 @@
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
 
-                    <a id="download-link" href="#"
+                    {{-- href and download attr are set dynamically via blob URL --}}
+                    <a id="download-link" href="#" download="document.docx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -314,7 +311,7 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ JAVASCRIPT — inline at bottom of @section('content') ══ --}}
+{{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -327,8 +324,8 @@
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
 
-  let selectedFile   = null;
-  let expiryInterval = null;
+  let selectedFile = null;
+  let blobUrl      = null; // keep reference so we can revoke on reset
 
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
@@ -378,8 +375,8 @@
     }
 
     selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+    document.getElementById('file-name').textContent   = file.name;
+    document.getElementById('file-meta').textContent   = formatBytes(file.size) + ' · PDF Document';
     document.getElementById('output-name').textContent = file.name.replace(/\.pdf$/i, '.docx');
 
     filePreview.classList.remove('hidden');
@@ -389,8 +386,8 @@
   }
 
   function resetFile() {
-    selectedFile      = null;
-    fileInput.value   = '';
+    selectedFile    = null;
+    fileInput.value = '';
     filePreview.classList.add('hidden');
     filePreview.classList.remove('flex');
     dropZone.classList.remove('has-file');
@@ -408,17 +405,11 @@
     showState('converting');
     updateStepIndicator(2);
 
-    // Build form data
+    // ── Field name is "file" — matches Django serializer ──
     const formData = new FormData();
-    formData.append('pdf',             selectedFile);
-    formData.append('format',          document.getElementById('opt-format').value);
-    formData.append('ocr_lang',        document.getElementById('opt-ocr-lang').value);
-    formData.append('preserve_images', document.getElementById('opt-images').checked ? '1' : '0');
-    formData.append('preserve_tables', document.getElementById('opt-tables').checked  ? '1' : '0');
-    formData.append('enable_ocr',      document.getElementById('opt-ocr').checked     ? '1' : '0');
-    formData.append('_token',          '{{ csrf_token() }}');
+    formData.append('file', selectedFile);
 
-    // Animate progress steps while server processes
+    // Animate progress while server works
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 800, 'Uploading file…');
 
@@ -441,35 +432,53 @@
     }, 3600);
 
     try {
-      const res  = await fetch('{{ route("tools.pdf-to-word.convert") }}', {
+      const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-word', {
         method: 'POST',
         body:   formData,
       });
 
+      console.log('formData file:', formData.get('file'));
+
+
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Conversion failed. Please try again.');
+      // ── On error the API returns JSON { "error": "..." } ──
+      if (!res.ok) {
+        let errMsg = 'Conversion failed. Please try again.';
+        try {
+          const errData = await res.json();
+          if (errData.error) errMsg = errData.error;
+        } catch (_) {}
+        throw new Error(errMsg);
       }
 
-      // Finish progress
+      // ── On success the API streams binary .docx bytes directly ──
+      const blob     = await res.blob();
+      const fileName = selectedFile.name.replace(/\.pdf$/i, '.docx');
+
+      // Revoke previous blob URL if any
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+      blobUrl = URL.createObjectURL(blob);
+
+      // Wire up the download anchor
+      const link    = document.getElementById('download-link');
+      link.href     = blobUrl;
+      link.download = fileName;
+
+      document.getElementById('output-name').textContent = fileName;
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Word Document';
+
       setProcessStep('proc-3', 'done');
       setProcessStep('proc-4', 'done');
       animateProgress(90, 100, 400, 'Done!');
 
       setTimeout(() => {
-        document.getElementById('download-link').href        = data.download_url;
-        document.getElementById('output-size').textContent  = formatBytes(data.file_size) + ' · Word Document';
         showState('download');
         updateStepIndicator(3);
-        startExpiryTimer(3600);
       }, 500);
 
     } catch (err) {
-        console.log(err);
-
+      console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       showError(err.message || 'Something went wrong. Please try again.');
       showState('upload');
@@ -480,8 +489,7 @@
   // ── State switcher ──
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
-      const el = document.getElementById('state-' + s);
-      el.classList.toggle('hidden', s !== state);
+      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
     if (state === 'download') {
       document.getElementById('state-download').classList.add('bounce-in');
@@ -500,7 +508,7 @@
 
   // ── Processing steps ──
   function setProcessStep(id, state) {
-    const el    = document.getElementById(id);
+    const el = document.getElementById(id);
     if (!el) return;
     const dot   = el.querySelector('.step-dot');
     const check = el.querySelector('.check-icon');
@@ -537,26 +545,15 @@
     requestAnimationFrame(step);
   }
 
-  // ── Expiry countdown ──
-  function startExpiryTimer(seconds) {
-    clearInterval(expiryInterval);
-    let rem = seconds;
-    expiryInterval = setInterval(() => {
-      rem--;
-      const m  = String(Math.floor(rem / 60)).padStart(2, '0');
-      const s  = String(rem % 60).padStart(2, '0');
-      const el = document.getElementById('expiry-timer');
-      if (el) el.textContent = m + ':' + s;
-      if (rem <= 0) clearInterval(expiryInterval);
-    }, 1000);
-  }
-
   // ── Reset ──
   window.resetConverter = function () {
+    if (blobUrl) {
+      URL.revokeObjectURL(blobUrl);
+      blobUrl = null;
+    }
     resetFile();
     showState('upload');
     updateStepIndicator(1);
-    clearInterval(expiryInterval);
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
@@ -574,19 +571,18 @@
 
   // ── Format bytes ──
   function formatBytes(bytes) {
-    if (bytes < 1024)        return bytes + ' B';
-    if (bytes < 1048576)     return (bytes / 1024).toFixed(1) + ' KB';
+    if (bytes < 1024)    return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
 
   // ── FAQ accordion ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const body = btn.nextElementSibling;
-      const icon = btn.querySelector('.faq-icon');
+      const body   = btn.nextElementSibling;
+      const icon   = btn.querySelector('.faq-icon');
       const isOpen = !body.classList.contains('hidden');
 
-      // Close all
       document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
       document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
 
