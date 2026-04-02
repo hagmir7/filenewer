@@ -1,597 +1,941 @@
 @extends('layouts.base')
 
+@section('title', 'CSV to SQL Converter – Free Online | Filenewer')
+
 @section('content')
 
 <x-tool-hero :tool="$tool" />
 
-<!-- ══════════════════════ TOOL ══════════════════════ -->
-<section id="tool" class="py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">
-    <div class="max-w-7xl mx-auto px-6">
 
-        <h2 id="tool-heading" class="sr-only">CSV to SQL Converter Tool</h2>
+{{-- ══ CONVERTER CARD ══ --}}
+<section class="pb-16">
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
 
-        <!-- Options Bar -->
-        <div class="flex flex-wrap items-center gap-4 mb-6">
-
-            <div class="flex items-center gap-2">
-                <label for="sql-dialect" class="text-fn-text3 text-xs font-medium whitespace-nowrap">SQL Dialect</label>
-                <select id="sql-dialect"
-                    class="bg-fn-bg border border-white/[0.07] text-fn-text2 text-xs font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/50 cursor-pointer">
-                    <option value="mysql">MySQL</option>
-                    <option value="postgresql">PostgreSQL</option>
-                    <option value="sqlite">SQLite</option>
-                    <option value="mssql">SQL Server</option>
-                </select>
+            {{-- Step indicator --}}
+            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+                @foreach([['1','Input CSV'],['2','Converting'],['3','Download']] as [$n, $label])
+                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-xs font-bold">{{ $n }}</span>
+                    </div>
+                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                </div>
+                @if($n !== '3')
+                <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
+                @endif
+                @endforeach
             </div>
 
-            <div class="flex items-center gap-2">
-                <label for="table-name" class="text-fn-text3 text-xs font-medium whitespace-nowrap">Table Name</label>
-                <input type="text" id="table-name" value="my_table" placeholder="table_name"
-                    class="bg-fn-bg border border-white/[0.07] text-fn-text2 text-xs font-mono rounded-lg px-3 py-2 w-36 focus:outline-none focus:border-fn-blue/50" />
-            </div>
+            <div class="p-8 lg:p-10">
 
-            <div class="flex items-center gap-2 ml-auto">
-                <label class="flex items-center gap-2 cursor-pointer text-fn-text3 text-xs font-medium">
-                    <input type="checkbox" id="include-create" checked
-                        class="accent-fn-blue w-3.5 h-3.5 cursor-pointer" />
-                    Include CREATE TABLE
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer text-fn-text3 text-xs font-medium">
-                    <input type="checkbox" id="batch-inserts" checked
-                        class="accent-fn-blue w-3.5 h-3.5 cursor-pointer" />
-                    Batch INSERTs
-                </label>
-            </div>
+                {{-- ── STATE: Upload ── --}}
+                <div id="state-upload">
 
-        </div>
-
-        <!-- Two-Panel Editor -->
-        <div class="grid lg:grid-cols-2 gap-4">
-
-            <!-- Input Panel -->
-            <div class="flex flex-col">
-                <div
-                    class="flex items-center justify-between px-4 py-2.5 bg-fn-bg border border-white/[0.07] rounded-t-xl border-b-0">
-                    <span class="text-fn-text3 text-xs font-mono">INPUT · CSV</span>
-                    <div class="flex items-center gap-2">
-                        <!-- Upload button -->
-                        <label for="csv-file-input"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all cursor-pointer">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    {{-- ── Mode tabs ── --}}
+                    <div
+                        class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
+                        <button type="button" id="tab-file"
+                            class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload CSV
-                        </label>
-                        <input type="file" id="csv-file-input" accept=".csv" class="hidden" />
-                        <button id="clear-btn"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all">
-                            Clear
+                            Upload File
+                        </button>
+                        <button type="button" id="tab-text"
+                            class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="4 7 4 4 20 4 20 7" />
+                                <line x1="9" y1="20" x2="15" y2="20" />
+                                <line x1="12" y1="4" x2="12" y2="20" />
+                            </svg>
+                            Paste CSV
                         </button>
                     </div>
+
+                    {{-- ══ FILE TAB ══ --}}
+                    <div id="panel-file">
+
+                        <div id="drop-zone"
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                            <div class="flex items-center justify-center mb-5">
+                                <div
+                                    class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
+                                    📄</div>
+                            </div>
+                            <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
+                            <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                            <div
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                Choose CSV File
+                            </div>
+                            <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
+                                    class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                            <input type="file" id="file-input" accept=".csv,text/csv"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                        </div>
+
+                        {{-- File preview --}}
+                        <div id="file-preview"
+                            class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
+                                📄</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
+                                <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · CSV File</p>
+                            </div>
+                            <button type="button" id="remove-file"
+                                class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>{{-- /panel-file --}}
+
+                    {{-- ══ TEXT TAB ══ --}}
+                    <div id="panel-text" class="hidden">
+                        <div class="relative">
+                            <textarea id="csv-textarea" rows="11" spellcheck="false"
+                                placeholder="Paste your CSV here, e.g.&#10;Username;Identifier;First name;Department&#10;booker12;9012;Rachel;Sales&#10;grey07;2070;Laura;Depot"
+                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
+                            <div class="absolute top-3 right-3 flex gap-2">
+                                <button type="button" id="btn-paste"
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                                    </svg>
+                                    Paste
+                                </button>
+                                <button type="button" id="btn-clear"
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6" />
+                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                        <path d="M10 11v6" />
+                                        <path d="M14 11v6" />
+                                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                    </svg>
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                        <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-xs font-semibold"></div>
+                    </div>{{-- /panel-text --}}
+
+                    {{-- ══ SHARED OPTIONS ══ --}}
+                    <div class="mt-5 space-y-3">
+
+                        {{-- Row 1: Dialect + Table name --}}
+                        <div class="grid sm:grid-cols-2 gap-3">
+
+                            {{-- SQL Dialect --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                                <label class="text-xs font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    @foreach([
+                                    ['mysql', 'MySQL', '🐬'],
+                                    ['postgres', 'PostgreSQL', '🐘'],
+                                    ['sqlite', 'SQLite', '🪶'],
+                                    ] as [$val, $lbl, $icon])
+                                    <button type="button"
+                                        class="dialect-btn {{ $val === 'mysql' ? 'active' : '' }} flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl border text-xs font-semibold transition-all"
+                                        data-dialect="{{ $val }}">
+                                        <span class="text-lg">{{ $icon }}</span>
+                                        <span>{{ $lbl }}</span>
+                                    </button>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            {{-- Table name --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                                <label for="opt-table" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                    Table Name
+                                </label>
+                                <input type="text" id="opt-table" value="my_table" placeholder="e.g. users"
+                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
+                                <p class="text-fn-text3 text-xs mt-1.5">Used in <span
+                                        class="font-mono text-fn-text2">INSERT INTO <span
+                                            id="table-preview">my_table</span> …</span></p>
+                            </div>
+                        </div>
+
+                        {{-- Row 2: Output mode + Filename --}}
+                        <div class="grid sm:grid-cols-2 gap-3">
+
+                            {{-- Output mode --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Output</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    @foreach([
+                                    ['file', 'Download .sql', '💾'],
+                                    ['text', 'Preview SQL', '👁'],
+                                    ] as [$val, $lbl, $icon])
+                                    <button type="button"
+                                        class="output-btn {{ $val === 'file' ? 'active' : '' }} flex items-center gap-2 py-2 px-3 rounded-xl border text-xs font-semibold transition-all"
+                                        data-output="{{ $val }}">
+                                        <span>{{ $icon }}</span>
+                                        <span>{{ $lbl }}</span>
+                                    </button>
+                                    @endforeach
+                                </div>
+                                <p class="text-fn-text3 text-xs mt-2" id="output-hint">Returns a downloadable .sql file.
+                                </p>
+                            </div>
+
+                            {{-- Filename (only relevant for file output) --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="filename-wrap">
+                                <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                    Output Filename
+                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                </label>
+                                <input type="text" id="opt-filename" placeholder="e.g. users.sql"
+                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
+                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to your table name with .sql extension
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{-- Error banner --}}
+                    <div id="upload-error"
+                        class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        <span id="error-text">Something went wrong.</span>
+                    </div>
+
+                    {{-- Convert button --}}
+                    <button id="convert-btn" type="button" disabled
+                        class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                        <span id="convert-btn-label">Generate SQL</span>
+                    </button>
+
                 </div>
-                <textarea id="csv-input"
-                    class="flex-1 min-h-[420px] bg-fn-bg border border-white/[0.07] rounded-b-xl px-4 py-4 text-fn-text2 text-xs font-mono leading-relaxed resize-none focus:outline-none focus:border-fn-blue/40 placeholder-fn-text3/50 transition-colors"
-                    placeholder="Paste your CSV here, e.g.
 
-id,name,email,age
-1,Alice,alice@example.com,30
-2,Bob,bob@example.com,25
-3,Carol,carol@example.com,35" spellcheck="false"></textarea>
-            </div>
+                {{-- ── STATE: Converting ── --}}
+                <div id="state-converting" class="hidden text-center py-6">
+                    <div class="flex items-center justify-center gap-5 mb-8">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
+                            📄</div>
+                        <div class="flex gap-1">
+                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:0s"></span>
+                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:.15s"></span>
+                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:.3s"></span>
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-3xl">
+                            🗄️</div>
+                    </div>
 
-            <!-- Output Panel -->
-            <div class="flex flex-col">
-                <div
-                    class="flex items-center justify-between px-4 py-2.5 bg-fn-bg border border-white/[0.07] rounded-t-xl border-b-0">
-                    <span class="text-fn-text3 text-xs font-mono">OUTPUT · SQL</span>
-                    <div class="flex items-center gap-2">
-                        <button id="copy-btn"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                            </svg>
-                            Copy SQL
-                        </button>
-                        <button id="download-btn"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <h2 class="text-xl font-bold mb-2">Generating your SQL…</h2>
+                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+
+                    <div class="max-w-md mx-auto mb-3">
+                        <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
+                            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                        <span id="progress-label">Starting…</span>
+                        <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
+                    </div>
+
+                    <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
+                        @foreach([
+                        ['proc-1','Parsing CSV rows & headers'],
+                        ['proc-2','Inferring column types'],
+                        ['proc-3','Building INSERT statements'],
+                        ['proc-4','Generating output'],
+                        ] as [$pid, $plabel])
+                        <div class="flex items-center gap-3" id="{{ $pid }}">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                {{-- ── STATE: Download / Preview ── --}}
+                <div id="state-download" class="hidden py-6">
+
+                    {{-- Success header --}}
+                    <div class="text-center mb-6">
+                        <div
+                            class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
+                            ✅</div>
+                        <h2 class="text-2xl font-bold mb-2">SQL Generated!</h2>
+                        <p class="text-fn-text2 text-sm" id="download-subtitle">Your SQL file is ready.</p>
+                    </div>
+
+                    {{-- SQL preview (text output mode) --}}
+                    <div id="sql-preview-wrap" class="hidden max-w-3xl mx-auto mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-2">
+                                <span id="dialect-badge"
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border"></span>
+                                <p class="text-xs font-semibold text-fn-text2">SQL Preview</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span id="sql-preview-meta" class="text-xs text-fn-text3"></span>
+                                <button type="button" id="btn-copy-sql"
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                    <span id="copy-label">Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-hidden">
+                            <pre id="sql-preview-code"
+                                class="p-5 text-xs font-mono text-fn-text2 overflow-auto max-h-72 leading-relaxed whitespace-pre-wrap break-all"></pre>
+                        </div>
+                    </div>
+
+                    {{-- File download card --}}
+                    <div id="file-download-wrap"
+                        class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0">
+                            🗄️</div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-semibold text-sm truncate" id="output-name">output.sql</p>
+                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">SQL File</p>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
+                    </div>
+
+                    <div class="text-center">
+                        <a id="download-link" href="#" download="output.sql"
+                            class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
+                            style="background: oklch(67% 0.18 162);">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" y1="15" x2="12" y2="3" />
                             </svg>
-                            Download .sql
-                        </button>
+                            <span id="download-btn-label">Download SQL</span>
+                        </a>
+
+                        <div class="flex items-center justify-center gap-3 flex-wrap mt-1">
+                            <button type="button" onclick="resetConverter()"
+                                class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="1 4 1 10 7 10" />
+                                    <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                                </svg>
+                                Convert another
+                            </button>
+                            <a href="/tools"
+                                class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
+                                All tools
+                            </a>
+                        </div>
+
+                        <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                            Your file is encrypted and permanently deleted within 1 hour.
+                        </p>
                     </div>
+
                 </div>
-                <textarea id="sql-output" readonly
-                    class="flex-1 min-h-[420px] bg-fn-bg border border-white/[0.07] rounded-b-xl px-4 py-4 text-fn-green text-xs font-mono leading-relaxed resize-none focus:outline-none placeholder-fn-text3/50 transition-colors"
-                    placeholder="-- Your SQL will appear here automatically as you type..."
-                    spellcheck="false"></textarea>
-            </div>
 
-        </div>
-
-        <!-- Convert Button + Stats -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mt-5">
-            <div id="stats-bar" class="flex items-center gap-5 text-fn-text3 text-xs font-mono">
-                <span id="stat-rows">0 rows</span>
-                <span class="text-white/10">|</span>
-                <span id="stat-cols">0 columns</span>
-                <span class="text-white/10">|</span>
-                <span id="stat-statements">0 statements</span>
-            </div>
-            <button id="convert-btn"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="16 18 22 12 16 6" />
-                    <polyline points="8 6 2 12 8 18" />
-                </svg>
-                Convert to SQL
-            </button>
-        </div>
-
+            </div>{{-- /card body --}}
+        </div>{{-- /card --}}
     </div>
 </section>
 
-<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
-<section id="how" class="py-24 bg-fn-bg" aria-labelledby="how-heading">
-    <div class="max-w-6xl mx-auto px-6">
 
-        <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Simple Process</p>
-            <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Three steps to clean SQL
-            </h2>
-            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No config, no guesswork. Our converter
-                handles column detection, type inference, and formatting automatically.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
-
-            <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group relative">
-                <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">01</div>
-                <div
-                    class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-blue/10 border border-fn-blue/25">
-                    📂</div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Upload or Paste CSV</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Drag and drop your CSV file, click to browse, or paste
-                    data directly into the input panel. Supports any delimiter and encoding.</p>
-            </div>
-
-            <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group relative">
-                <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
-                <div
-                    class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-cyan/10 border border-fn-cyan/25">
-                    ⚙️</div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Configure Options</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Choose your SQL dialect (MySQL, PostgreSQL, SQLite, SQL
-                    Server), set the table name, and toggle CREATE TABLE or batch INSERT options.</p>
-            </div>
-
-            <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group relative">
-                <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">03</div>
-                <div
-                    class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-green/10 border border-fn-green/25">
-                    ⬇️</div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Copy or Download SQL</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Instantly copy the SQL to your clipboard or download a
-                    clean <code class="text-fn-text3 font-mono text-xs">.sql</code> file ready to run against your
-                    database.</p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════ FEATURES ══════════════════════ -->
-<section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
-    <div class="max-w-6xl mx-auto px-6">
-
-        <div class="mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">What's Included</p>
-            <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Built for developers
-                and data teams</h2>
-            <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">Every feature you actually need, none of the
-                bloat.</p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-            <div
-                class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🧠</div>
-                <h3 class="font-semibold text-base mb-2">Smart Type Detection</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Automatically infers INTEGER, VARCHAR, FLOAT, DATE, and
-                    BOOLEAN types from your column data — no manual annotation needed.</p>
-            </div>
-
-            <div
-                class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🗄️</div>
-                <h3 class="font-semibold text-base mb-2">Multi-Dialect Support</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Generates syntax-correct SQL for MySQL, PostgreSQL,
-                    SQLite, and SQL Server. Backticks, quotes, and types handled per dialect.</p>
-            </div>
-
-            <div
-                class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">📦</div>
-                <h3 class="font-semibold text-base mb-2">Batch INSERT Statements</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Groups rows into efficient multi-row INSERT statements
-                    for dramatically faster imports on large datasets.</p>
-            </div>
-
-            <div
-                class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🛡️</div>
-                <h3 class="font-semibold text-base mb-2">SQL Injection Safe</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">All string values are properly escaped before
-                    insertion. No raw values pass through unescaped — safe for direct use.</p>
-            </div>
-
-            <div
-                class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">⚡</div>
-                <h3 class="font-semibold text-base mb-2">Instant Conversion</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Converts as you type — no button press required for
-                    small files. Handles CSVs with thousands of rows in under a second.</p>
-            </div>
-
-            <div
-                class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🔒</div>
-                <h3 class="font-semibold text-base mb-2">Processed Locally</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">All conversion runs in your browser. Your CSV data
-                    never leaves your machine — no server upload, total privacy.</p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════ FAQ ══════════════════════ -->
-<section id="faq" class="py-24 bg-fn-bg" aria-labelledby="faq-heading">
+{{-- ══ FAQ ══ --}}
+<section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-
-        <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">FAQ</p>
-            <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
-        </div>
-
-        <div class="flex flex-col gap-3" id="faq-list">
-
-            <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
-                <summary
-                    class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    What CSV formats are supported?
-                    <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+            @foreach([
+            ['Is this really free?', 'Files up to 50MB are completely free with no account needed. Pro plans unlock
+            200MB files and batch conversion.'],
+            ['Which SQL dialects are supported?', 'MySQL, PostgreSQL, and SQLite are all supported. Each dialect uses
+            the correct syntax for CREATE TABLE and INSERT statements, including appropriate data types and quoting
+            conventions.'],
+            ['What does the converter generate?', 'It produces a complete .sql file with a CREATE TABLE statement (based
+            on inferred column types) followed by INSERT INTO statements for every row in your CSV.'],
+            ['Can I preview the SQL before downloading?', 'Yes — choose "Preview SQL" in the Output options. The
+            generated SQL will be displayed inline so you can inspect and copy it before downloading.'],
+            ['Does it handle different CSV separators?', 'Yes — comma, semicolon, tab, and pipe separators are all
+            auto-detected from your CSV.'],
+            ['Is my data safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            within 1 hour. We never read, share or store your content.'],
+            ] as [$q, $a])
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
-                </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Standard comma-separated CSV files with a
-                    header row are fully supported. The converter also handles files with semicolon or tab delimiters.
-                    Files should be UTF-8 encoded for best results.</p>
-            </details>
-
-            <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
-                <summary
-                    class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Is my data sent to your servers?
-                    <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">No. All CSV-to-SQL conversion happens
-                    entirely in your browser using JavaScript. Your data never leaves your device — no upload, no
-                    storage, no logging.</p>
-            </details>
-
-            <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
-                <summary
-                    class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    What's the difference between batch and individual INSERTs?
-                    <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Batch INSERTs combine multiple rows into a
-                    single statement (e.g. <code
-                        class="text-fn-text3 font-mono text-xs">INSERT INTO t VALUES (…),(…),(…)</code>), which is
-                    significantly faster for large imports. Individual INSERTs generate one statement per row and are
-                    useful when you need granular control or are importing into strict environments.</p>
-            </details>
-
-            <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
-                <summary
-                    class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    How large a CSV file can I convert?
-                    <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">The free tool handles files up to 5 MB
-                    (typically tens of thousands of rows). For larger files or automated bulk processing, consider
-                    upgrading to a Pro account for server-side processing with no size limits.</p>
-            </details>
-
-            <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
-                <summary
-                    class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Will the CREATE TABLE statement always be accurate?
-                    <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">The type inference is based on sampling your
-                    data and is accurate for most use cases. We recommend reviewing the CREATE TABLE output before
-                    running it in production, especially for columns with mixed or nullable values.</p>
-            </details>
-
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
-<!-- ══════════════════════ RELATED TOOLS ══════════════════════ -->
+{{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-<!-- ══════════════════════ CTA ══════════════════════ -->
-<section id="cta" class="py-24 bg-fn-surface border-y border-white/[0.07] text-center relative overflow-hidden"
-    aria-labelledby="cta-heading">
-    <div
-        class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
-    </div>
+{{-- ══ STYLES ══ --}}
+<style>
+    .tab-btn {
+        color: var(--fn-text3);
+    }
 
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">More Power</p>
-        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Need bulk
-            processing or API access?</h2>
-        <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Upgrade to Pro for unlimited file sizes, automated CSV-to-SQL pipelines, and API access for your dev stack.
-            No credit card to start.
-        </p>
+    .tab-btn.active {
+        background: var(--fn-surface);
+        color: var(--fn-text);
+        box-shadow: 0 1px 4px oklch(0% 0 0 / 12%);
+    }
 
-        <div class="flex flex-wrap justify-center gap-3">
-            <a href="/signup"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-                Start Free — No Sign-up Needed
-            </a>
-            <a href="/pricing"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
-                View Pro Plans
-            </a>
-        </div>
+    .dialect-btn {
+        color: var(--fn-text3);
+        border-color: oklch(var(--fn-text-l, 80%) 0 0 / 10%);
+        background: var(--fn-surface);
+    }
 
-        <p class="text-fn-text3 text-xs mt-5">✓ Free to use &nbsp;·&nbsp; ✓ Runs in browser &nbsp;·&nbsp; ✓ No data
-            upload</p>
-    </div>
-</section>
+    .dialect-btn.active {
+        color: var(--fn-blue-l);
+        border-color: oklch(49% 0.24 264 / 40%);
+        background: oklch(49% 0.24 264 / 8%);
+    }
 
-<!-- ══════════════════════ TOOL SCRIPT ══════════════════════ -->
-@push('scripts')
+    .dialect-btn:not(.active):hover {
+        border-color: oklch(49% 0.24 264 / 25%);
+        color: var(--fn-text);
+    }
+
+    .output-btn {
+        color: var(--fn-text3);
+        border-color: oklch(var(--fn-text-l, 80%) 0 0 / 10%);
+        background: var(--fn-surface);
+    }
+
+    .output-btn.active {
+        color: var(--fn-blue-l);
+        border-color: oklch(49% 0.24 264 / 40%);
+        background: oklch(49% 0.24 264 / 8%);
+    }
+
+    .output-btn:not(.active):hover {
+        border-color: oklch(49% 0.24 264 / 25%);
+        color: var(--fn-text);
+    }
+</style>
+
+{{-- ══ JAVASCRIPT ══ --}}
 <script>
-    (function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-    // ── DOM refs ──────────────────────────────────────────────
-    const csvInput      = document.getElementById('csv-input');
-    const sqlOutput     = document.getElementById('sql-output');
-    const convertBtn    = document.getElementById('convert-btn');
-    const copyBtn       = document.getElementById('copy-btn');
-    const downloadBtn   = document.getElementById('download-btn');
-    const clearBtn      = document.getElementById('clear-btn');
-    const fileInput     = document.getElementById('csv-file-input');
-    const dialectSel    = document.getElementById('sql-dialect');
-    const tableNameInp  = document.getElementById('table-name');
-    const includeCreate = document.getElementById('include-create');
-    const batchInserts  = document.getElementById('batch-inserts');
-    const statRows      = document.getElementById('stat-rows');
-    const statCols      = document.getElementById('stat-cols');
-    const statStmts     = document.getElementById('stat-statements');
+  // ── Refs ──
+  const tabFile     = document.getElementById('tab-file');
+  const tabText     = document.getElementById('tab-text');
+  const panelFile   = document.getElementById('panel-file');
+  const panelText   = document.getElementById('panel-text');
+  const dropZone    = document.getElementById('drop-zone');
+  const fileInput   = document.getElementById('file-input');
+  const convertBtn  = document.getElementById('convert-btn');
+  const filePreview = document.getElementById('file-preview');
+  const removeFile  = document.getElementById('remove-file');
+  const uploadError = document.getElementById('upload-error');
+  const errorText   = document.getElementById('error-text');
+  const csvTA       = document.getElementById('csv-textarea');
+  const csvStatus   = document.getElementById('csv-status');
+  const tableInput  = document.getElementById('opt-table');
+  const tablePreview = document.getElementById('table-preview');
+  const outputHint  = document.getElementById('output-hint');
+  const filenameWrap = document.getElementById('filename-wrap');
 
-    const BATCH_SIZE = 100;
+  let selectedFile = null;
+  let blobUrl      = null;
+  let activeTab    = 'file';
+  let activeDialect = 'mysql';
+  let activeOutput  = 'file';
+  let csvValid      = false;
+  let fullSqlText   = ''; // stored for copy button
 
-    // ── CSV parser ────────────────────────────────────────────
-    function parseCSV(text) {
-        const lines = text.trim().split(/\r?\n/);
-        if (lines.length < 2) return null;
-        const sep   = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
-        const parse = (line) => {
-            const cols = []; let cur = ''; let inQ = false;
-            for (let i = 0; i < line.length; i++) {
-                const c = line[i];
-                if (c === '"') { inQ = !inQ; continue; }
-                if (c === sep && !inQ) { cols.push(cur.trim()); cur = ''; continue; }
-                cur += c;
-            }
-            cols.push(cur.trim());
-            return cols;
-        };
-        const headers = parse(lines[0]);
-        const rows    = lines.slice(1).filter(l => l.trim()).map(parse);
-        return { headers, rows };
-    }
+  // ── Tab switching ──
+  tabFile.addEventListener('click', () => switchTab('file'));
+  tabText.addEventListener('click', () => switchTab('text'));
 
-    // ── Type inference ────────────────────────────────────────
-    function inferType(values, dialect) {
-        const sample = values.filter(v => v !== '' && v !== null);
-        if (!sample.length) return 'TEXT';
-        const isInt    = sample.every(v => /^-?\d+$/.test(v));
-        const isFloat  = sample.every(v => /^-?\d+(\.\d+)?$/.test(v));
-        const isBool   = sample.every(v => /^(true|false|0|1)$/i.test(v));
-        const isDate   = sample.every(v => /^\d{4}-\d{2}-\d{2}$/.test(v));
-        if (isInt)   return dialect === 'postgresql' ? 'INTEGER' : 'INT';
-        if (isFloat) return 'DECIMAL(18,4)';
-        if (isBool)  return dialect === 'postgresql' ? 'BOOLEAN' : 'TINYINT(1)';
-        if (isDate)  return 'DATE';
-        const maxLen = Math.max(...sample.map(v => v.length));
-        return maxLen <= 255 ? `VARCHAR(${Math.min(Math.ceil(maxLen / 50) * 50 + 50, 255)})` : 'TEXT';
-    }
+  function switchTab(tab) {
+    activeTab = tab;
+    tabFile.classList.toggle('active', tab === 'file');
+    tabText.classList.toggle('active', tab === 'text');
+    panelFile.classList.toggle('hidden', tab !== 'file');
+    panelText.classList.toggle('hidden', tab !== 'text');
+    hideError();
+    refreshConvertBtn();
+  }
 
-    // ── Quote identifier ──────────────────────────────────────
-    function qi(name, dialect) {
-        if (dialect === 'postgresql' || dialect === 'mssql') return `"${name}"`;
-        return `\`${name}\``;
-    }
+  // ── Table name live preview ──
+  tableInput.addEventListener('input', () => {
+    tablePreview.textContent = tableInput.value.trim() || 'my_table';
+  });
 
-    // ── Escape string value ───────────────────────────────────
-    function escVal(v) {
-        return v.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-    }
-
-    // ── Format value ──────────────────────────────────────────
-    function fmtVal(v, type) {
-        if (v === '' || v === null) return 'NULL';
-        if (/^(INT|DECIMAL|TINYINT|BOOLEAN|BIGINT|FLOAT|DOUBLE|NUMERIC)/i.test(type)) {
-            if (/^(true)$/i.test(v))  return '1';
-            if (/^(false)$/i.test(v)) return '0';
-            return v;
-        }
-        return `'${escVal(v)}'`;
-    }
-
-    // ── Main convert ──────────────────────────────────────────
-    function convert() {
-        const raw = csvInput.value.trim();
-        if (!raw) { sqlOutput.value = ''; updateStats(0, 0, 0); return; }
-
-        const parsed = parseCSV(raw);
-        if (!parsed) { sqlOutput.value = '-- Error: Could not parse CSV. Make sure the file has a header row.'; return; }
-
-        const { headers, rows } = parsed;
-        const dialect   = dialectSel.value;
-        const tableName = tableNameInp.value.trim() || 'my_table';
-        const doBatch   = batchInserts.checked;
-        const doCreate  = includeCreate.checked;
-
-        const colTypes  = headers.map((_, i) => inferType(rows.map(r => r[i] ?? ''), dialect));
-        const parts     = [];
-
-        // CREATE TABLE
-        if (doCreate) {
-            const colDefs = headers.map((h, i) => `  ${qi(h, dialect)} ${colTypes[i]}`).join(',\n');
-            const drop = dialect === 'postgresql'
-                ? `DROP TABLE IF EXISTS ${qi(tableName, dialect)};\n`
-                : `DROP TABLE IF EXISTS ${qi(tableName, dialect)};\n`;
-            parts.push(`${drop}CREATE TABLE ${qi(tableName, dialect)} (\n${colDefs}\n);`);
-        }
-
-        if (!rows.length) { sqlOutput.value = parts.join('\n\n'); return; }
-
-        // INSERT statements
-        const colList = headers.map(h => qi(h, dialect)).join(', ');
-        let stmtCount = 0;
-
-        if (doBatch) {
-            for (let i = 0; i < rows.length; i += BATCH_SIZE) {
-                const chunk  = rows.slice(i, i + BATCH_SIZE);
-                const values = chunk.map(row =>
-                    `  (${headers.map((_, ci) => fmtVal(row[ci] ?? '', colTypes[ci])).join(', ')})`
-                ).join(',\n');
-                parts.push(`INSERT INTO ${qi(tableName, dialect)} (${colList})\nVALUES\n${values};`);
-                stmtCount++;
-            }
-        } else {
-            rows.forEach(row => {
-                const vals = headers.map((_, ci) => fmtVal(row[ci] ?? '', colTypes[ci])).join(', ');
-                parts.push(`INSERT INTO ${qi(tableName, dialect)} (${colList}) VALUES (${vals});`);
-                stmtCount++;
-            });
-        }
-
-        sqlOutput.value = parts.join('\n\n');
-        updateStats(rows.length, headers.length, stmtCount);
-    }
-
-    function updateStats(rows, cols, stmts) {
-        statRows.textContent  = `${rows.toLocaleString()} row${rows !== 1 ? 's' : ''}`;
-        statCols.textContent  = `${cols} column${cols !== 1 ? 's' : ''}`;
-        statStmts.textContent = `${stmts.toLocaleString()} statement${stmts !== 1 ? 's' : ''}`;
-    }
-
-    // ── Event listeners ───────────────────────────────────────
-    convertBtn.addEventListener('click', convert);
-
-    // Live convert on input (debounced)
-    let debounce;
-    csvInput.addEventListener('input', () => { clearTimeout(debounce); debounce = setTimeout(convert, 300); });
-    dialectSel.addEventListener('change', convert);
-    tableNameInp.addEventListener('input', () => { clearTimeout(debounce); debounce = setTimeout(convert, 200); });
-    includeCreate.addEventListener('change', convert);
-    batchInserts.addEventListener('change', convert);
-
-    // File upload
-    fileInput.addEventListener('change', () => {
-        const file = fileInput.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => { csvInput.value = e.target.result; convert(); };
-        reader.readAsText(file);
-        fileInput.value = '';
+  // ── Dialect buttons ──
+  document.querySelectorAll('.dialect-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDialect = btn.dataset.dialect;
     });
+  });
 
-    // Drag & drop on textarea
-    csvInput.addEventListener('dragover', e => { e.preventDefault(); csvInput.classList.add('border-fn-blue/50'); });
-    csvInput.addEventListener('dragleave', () => { csvInput.classList.remove('border-fn-blue/50'); });
-    csvInput.addEventListener('drop', e => {
-        e.preventDefault();
-        csvInput.classList.remove('border-fn-blue/50');
-        const file = e.dataTransfer.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (ev) => { csvInput.value = ev.target.result; convert(); };
-        reader.readAsText(file);
+  // ── Output mode buttons ──
+  document.querySelectorAll('.output-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeOutput = btn.dataset.output;
+      const isFile = activeOutput === 'file';
+      outputHint.textContent = isFile
+        ? 'Returns a downloadable .sql file.'
+        : 'Displays the generated SQL inline with a copy button.';
+      filenameWrap.style.opacity = isFile ? '1' : '0.4';
+      document.getElementById('opt-filename').disabled = !isFile;
+      document.getElementById('convert-btn-label').textContent = isFile ? 'Generate SQL' : 'Preview SQL';
     });
+  });
 
-    // Copy
-    copyBtn.addEventListener('click', () => {
-        if (!sqlOutput.value) return;
-        navigator.clipboard.writeText(sqlOutput.value).then(() => {
-            const orig = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-            copyBtn.classList.add('text-fn-green', 'border-fn-green/30');
-            setTimeout(() => { copyBtn.innerHTML = orig; copyBtn.classList.remove('text-fn-green', 'border-fn-green/30'); }, 2000);
-        });
+  // ── Drag & drop ──
+  ['dragenter', 'dragover'].forEach(evt => {
+    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+  });
+  ['dragleave', 'dragend', 'drop'].forEach(evt => {
+    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+  });
+  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+  removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
+
+  function handleFile(file) {
+    hideError();
+    const ext = file.name.toLowerCase();
+    if (!ext.endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
+      showError('Please select a valid CSV file.');
+      return;
+    }
+    if (file.size > 50 * 1024 * 1024) {
+      showError('File exceeds the 50MB free limit.');
+      return;
+    }
+    selectedFile = file;
+    document.getElementById('file-name').textContent = file.name;
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
+    const fnInput = document.getElementById('opt-filename');
+    if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.sql');
+    filePreview.classList.remove('hidden');
+    filePreview.classList.add('flex');
+    dropZone.classList.add('has-file');
+    refreshConvertBtn();
+  }
+
+  function resetFile() {
+    selectedFile    = null;
+    fileInput.value = '';
+    filePreview.classList.add('hidden');
+    filePreview.classList.remove('flex');
+    dropZone.classList.remove('has-file');
+    refreshConvertBtn();
+    hideError();
+  }
+
+  // ── CSV text validation ──
+  let validateTimer = null;
+  csvTA.addEventListener('input', () => {
+    clearTimeout(validateTimer);
+    validateTimer = setTimeout(validateCsv, 300);
+  });
+
+  function validateCsv() {
+    const raw = csvTA.value.trim();
+    if (!raw) {
+      csvStatus.classList.add('hidden');
+      csvValid = false;
+      refreshConvertBtn();
+      return;
+    }
+    const lines = raw.split('\n').filter(Boolean);
+    if (lines.length < 2) {
+      csvValid = false;
+      csvStatus.innerHTML = errStatus('Need at least a header row and one data row');
+    } else {
+      csvValid = true;
+      const cols = lines[0].split(/[,;\t|]/).length;
+      csvStatus.innerHTML = okStatus(`Valid CSV · ${lines.length - 1} row${lines.length - 1 !== 1 ? 's' : ''} · ${cols} column${cols !== 1 ? 's' : ''}`);
+    }
+    csvStatus.classList.remove('hidden');
+    csvStatus.classList.add('flex');
+    refreshConvertBtn();
+  }
+
+  function okStatus(msg) {
+    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
+  }
+  function errStatus(msg) {
+    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
+  }
+
+  // Paste & clear
+  document.getElementById('btn-paste').addEventListener('click', async () => {
+    try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
+  });
+  document.getElementById('btn-clear').addEventListener('click', () => {
+    csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
+  });
+
+  function refreshConvertBtn() {
+    convertBtn.disabled = activeTab === 'file' ? !selectedFile : !csvValid;
+  }
+
+  // ── Convert ──
+  convertBtn.addEventListener('click', startConversion);
+
+  async function startConversion() {
+    hideError();
+    showState('converting');
+    updateStepIndicator(2);
+
+    const isFile     = activeTab === 'file';
+    const tableName  = tableInput.value.trim() || 'my_table';
+    const customFile = document.getElementById('opt-filename').value.trim();
+    const outputFilename = customFile
+      ? (customFile.toLowerCase().endsWith('.sql') ? customFile : customFile + '.sql')
+      : tableName + '.sql';
+
+    let endpoint, fetchBody, fetchHeaders = {};
+
+    if (isFile) {
+      // multipart/form-data → /api/tools/csv-file-to-sql
+      endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-sql';
+      const formData = new FormData();
+      formData.append('file',       selectedFile);
+      formData.append('table_name', tableName);
+      formData.append('dialect',    activeDialect);
+      formData.append('output',     activeOutput);
+      if (customFile) formData.append('filename', customFile);
+      fetchBody = formData;
+    } else {
+      // application/json → /api/tools/csv-text-to-sql
+      endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-sql';
+      const payload = {
+        csv:        csvTA.value.trim(),
+        table_name: tableName,
+        dialect:    activeDialect,
+        output:     activeOutput,
+      };
+      if (customFile) payload.filename = customFile;
+      fetchBody    = JSON.stringify(payload);
+      fetchHeaders = { 'Content-Type': 'application/json' };
+    }
+
+    // Animate
+    setProcessStep('proc-1', 'active');
+    animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
+
+    const t2 = setTimeout(() => {
+      setProcessStep('proc-1', 'done');
+      setProcessStep('proc-2', 'active');
+      animateProgress(22, 50, 800, 'Inferring column types…');
+    }, 700);
+
+    const t3 = setTimeout(() => {
+      setProcessStep('proc-2', 'done');
+      setProcessStep('proc-3', 'active');
+      animateProgress(50, 76, 800, 'Building INSERT statements…');
+    }, 1600);
+
+    const t4 = setTimeout(() => {
+      setProcessStep('proc-3', 'done');
+      setProcessStep('proc-4', 'active');
+      animateProgress(76, 90, 600, 'Generating output…');
+    }, 2600);
+
+    try {
+      const res = await fetch(endpoint, {
+        method:  'POST',
+        headers: fetchHeaders,
+        body:    fetchBody,
+      });
+
+      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+      if (!res.ok) {
+        let errMsg = 'Conversion failed. Please try again.';
+        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+        throw new Error(errMsg);
+      }
+
+      const dialectLabels = { mysql: '🐬 MySQL', postgres: '🐘 PostgreSQL', sqlite: '🪶 SQLite' };
+      const dialectColors = {
+        mysql:    { bg: 'oklch(62% 0.18 200 / 12%)', border: 'oklch(62% 0.18 200 / 35%)', color: 'oklch(62% 0.18 200)' },
+        postgres: { bg: 'oklch(55% 0.20 260 / 12%)', border: 'oklch(55% 0.20 260 / 35%)', color: 'oklch(55% 0.20 260)' },
+        sqlite:   { bg: 'oklch(65% 0.15 55  / 12%)', border: 'oklch(65% 0.15 55  / 35%)', color: 'oklch(65% 0.15 55)'  },
+      };
+
+      if (activeOutput === 'text') {
+        // Response is plain SQL text
+        const sqlText = await res.text();
+        fullSqlText   = sqlText;
+
+        const blob    = new Blob([sqlText], { type: 'text/plain;charset=utf-8;' });
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        blobUrl = URL.createObjectURL(blob);
+
+        const link    = document.getElementById('download-link');
+        link.href     = blobUrl;
+        link.download = outputFilename;
+
+        // Populate preview
+        const previewCode = document.getElementById('sql-preview-code');
+        const PREVIEW_LIMIT = 8000;
+        previewCode.textContent = sqlText.length > PREVIEW_LIMIT
+          ? sqlText.slice(0, PREVIEW_LIMIT) + '\n\n-- … truncated for preview, full file in download …'
+          : sqlText;
+
+        const lines = sqlText.split('\n').length;
+        document.getElementById('sql-preview-meta').textContent = `${lines} lines · ${formatBytes(blob.size)}`;
+
+        // Dialect badge
+        const badge = document.getElementById('dialect-badge');
+        const dc    = dialectColors[activeDialect];
+        badge.textContent   = dialectLabels[activeDialect];
+        badge.style.background   = dc.bg;
+        badge.style.borderColor  = dc.border;
+        badge.style.color        = dc.color;
+
+        document.getElementById('sql-preview-wrap').classList.remove('hidden');
+        document.getElementById('download-subtitle').textContent = 'SQL preview ready — copy or download the file.';
+
+      } else {
+        // Response is binary .sql file
+        const blob = await res.blob();
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        blobUrl = URL.createObjectURL(blob);
+
+        const link    = document.getElementById('download-link');
+        link.href     = blobUrl;
+        link.download = outputFilename;
+
+        // Also read for copy support
+        fullSqlText = await blob.text();
+
+        document.getElementById('sql-preview-wrap').classList.add('hidden');
+        document.getElementById('download-subtitle').textContent = 'Your SQL file is ready.';
+        document.getElementById('output-name').textContent = outputFilename;
+        document.getElementById('output-size').textContent = formatBytes(blob.size) + ` · ${dialectLabels[activeDialect]} SQL`;
+      }
+
+      document.getElementById('output-name').textContent       = outputFilename;
+      document.getElementById('output-size').textContent       = formatBytes(new Blob([fullSqlText]).size) + ` · ${dialectLabels[activeDialect]} SQL`;
+      document.getElementById('download-btn-label').textContent = 'Download SQL';
+
+      setProcessStep('proc-3', 'done');
+      setProcessStep('proc-4', 'done');
+      animateProgress(90, 100, 300, 'Done!');
+
+      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+    } catch (err) {
+      console.error(err);
+      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+      showError(err.message || 'Something went wrong. Please try again.');
+      showState('upload');
+      updateStepIndicator(1);
+    }
+  }
+
+  // ── Copy SQL button ──
+  document.getElementById('btn-copy-sql').addEventListener('click', async () => {
+    if (!fullSqlText) return;
+    try {
+      await navigator.clipboard.writeText(fullSqlText);
+      const label = document.getElementById('copy-label');
+      label.textContent = 'Copied!';
+      setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+    } catch (_) {}
+  });
+
+  // ── Helpers ──
+  function showState(state) {
+    ['upload', 'converting', 'download'].forEach(s => {
+      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
+    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+  }
 
-    // Download
-    downloadBtn.addEventListener('click', () => {
-        if (!sqlOutput.value) return;
-        const blob = new Blob([sqlOutput.value], { type: 'text/plain' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = (tableNameInp.value.trim() || 'output') + '.sql';
-        a.click();
-        URL.revokeObjectURL(a.href);
+  function updateStepIndicator(active) {
+    [1, 2, 3].forEach(n => {
+      const el = document.getElementById('step-' + n);
+      el.classList.remove('active', 'done');
+      if (n < active)   el.classList.add('done');
+      if (n === active) el.classList.add('active');
     });
+  }
 
-    // Clear
-    clearBtn.addEventListener('click', () => {
-        csvInput.value = '';
-        sqlOutput.value = '';
-        updateStats(0, 0, 0);
+  function setProcessStep(id, state) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const dot   = el.querySelector('.step-dot');
+    const check = el.querySelector('.check-icon');
+    const spin  = el.querySelector('.spin-icon');
+    check.classList.add('hidden');
+    spin.classList.add('hidden');
+    dot.style.borderColor = '';
+    dot.style.background  = '';
+    if (state === 'active') {
+      spin.classList.remove('hidden');
+      dot.style.borderColor = 'oklch(49% 0.24 264)';
+      dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+    }
+    if (state === 'done') {
+      check.classList.remove('hidden');
+      dot.style.borderColor = 'oklch(67% 0.18 162)';
+      dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+    }
+  }
+
+  function animateProgress(from, to, duration, label) {
+    document.getElementById('progress-label').textContent = label;
+    const start = performance.now();
+    function step(now) {
+      const t   = Math.min((now - start) / duration, 1);
+      const pct = Math.round(from + (to - from) * t);
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-pct').textContent  = pct + '%';
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  window.resetConverter = function () {
+    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+    resetFile();
+    csvTA.value = '';
+    csvStatus.classList.add('hidden');
+    csvValid    = false;
+    fullSqlText = '';
+    tableInput.value = 'my_table';
+    tablePreview.textContent = 'my_table';
+    document.getElementById('opt-filename').value = '';
+    document.getElementById('opt-filename').disabled = false;
+    filenameWrap.style.opacity = '1';
+    // Reset dialect to mysql
+    document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.dialect-btn[data-dialect="mysql"]').classList.add('active');
+    activeDialect = 'mysql';
+    // Reset output to file
+    document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.output-btn[data-output="file"]').classList.add('active');
+    activeOutput = 'file';
+    outputHint.textContent = 'Returns a downloadable .sql file.';
+    document.getElementById('convert-btn-label').textContent = 'Generate SQL';
+    document.getElementById('sql-preview-wrap').classList.add('hidden');
+    switchTab('file');
+    showState('upload');
+    updateStepIndicator(1);
+    animateProgress(0, 0, 0, 'Starting…');
+    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+  };
+
+  function showError(msg) {
+    errorText.textContent = msg;
+    uploadError.classList.remove('hidden');
+    uploadError.classList.add('flex');
+  }
+  function hideError() {
+    uploadError.classList.add('hidden');
+    uploadError.classList.remove('flex');
+  }
+
+  function formatBytes(bytes) {
+    if (bytes < 1024)    return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  // ── FAQ ──
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body   = btn.nextElementSibling;
+      const icon   = btn.querySelector('.faq-icon');
+      const isOpen = !body.classList.contains('hidden');
+      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+      if (!isOpen) {
+        body.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
     });
+  });
 
-})();
+}); // end DOMContentLoaded
 </script>
-@endpush
 
 @endsection

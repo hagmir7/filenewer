@@ -136,7 +136,7 @@
                                 @endif
                             </div>
                             <p class="text-fn-text3 text-xs leading-relaxed">
-                                {{ \Illuminate\Support\Str::limit($tool->description, 30, '...') }}
+                                {{ \Illuminate\Support\Str::limit($tool->description, 50, '...') }}
                             </p>
                         </div>
 
