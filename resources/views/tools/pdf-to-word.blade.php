@@ -1,7 +1,5 @@
 @extends('layouts.base')
 
-@section('title', 'PDF to Word Converter – Free Online | Filenewer')
-
 @section('content')
 
 <x-tool-hero :tool="$tool" />

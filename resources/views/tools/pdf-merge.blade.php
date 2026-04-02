@@ -1,7 +1,4 @@
-{{-- resources/views/tools/merge-pdf.blade.php --}}
 @extends('layouts.base')
-
-@section('title', 'Merge PDF Files – Free Online | Filenewer')
 
 @section('content')
 

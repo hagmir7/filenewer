@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'Word to PDF Converter – Free Online | Filenewer')
+
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -12,7 +14,7 @@
 
             {{-- Step indicator --}}
             <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
-                @foreach([['1','Upload PDF'],['2','Converting'],['3','Download']] as [$n, $label])
+                @foreach([['1','Upload Word'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
@@ -36,11 +38,11 @@
                         class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
-                                class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                📕</div>
+                                class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
+                                📝</div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">Drop your Word document here</h2>
+                        <p class="text-fn-text3 text-sm mb-6">Supports .docx and .doc · or click to browse</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -49,24 +51,23 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            Choose Word File
                         </div>
                         <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
                                 class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
-                        {{-- Hidden real file input --}}
-                        <input type="file" id="file-input" accept=".pdf,application/pdf"
+                        <input type="file" id="file-input"
+                            accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
 
-                    {{-- File preview (shown after selection) --}}
+                    {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
-                            📕</div>
+                        <div class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0"
+                            id="preview-icon">📝</div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · PDF Document</p>
+                            <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
+                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · Word Document</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -80,46 +81,49 @@
 
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-2 gap-3">
-                        {{-- Password (optional) --}}
-                        <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-2">
-                                PDF Password
-                                <span class="font-normal text-fn-text3 ml-1">(optional)</span>
-                            </label>
-                            <div class="relative">
-                                <input type="password" id="opt-password" placeholder="Leave blank if not protected"
-                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" id="toggle-password"
-                                    class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
-                                    <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                    <svg id="eye-hide" class="hidden" width="15" height="15" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path
-                                            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                                        <line x1="1" y1="1" x2="23" y2="23" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
 
-                        {{-- Custom output filename (optional) --}}
+                        {{-- Custom output filename --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
                                 Output Filename
                                 <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                             </label>
-                            <div class="relative">
-                                <input type="text" id="opt-filename" placeholder="e.g. my_report.xlsx"
-                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            </div>
-                            <p class="text-fn-text3 text-xs mt-1.5">Defaults to your PDF filename with .xlsx extension
+                            <input type="text" id="opt-filename" placeholder="e.g. my_report.pdf"
+                                class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
+                            <p class="text-fn-text3 text-xs mt-1.5">Defaults to your Word filename with .pdf extension
                             </p>
+                        </div>
+
+                        {{-- Format badge --}}
+                        <div
+                            class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-3">
+                            <div class="flex items-center gap-3">
+                                <div id="format-badge"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l text-xs font-bold">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                    </svg>
+                                    <span id="format-badge-text">DOCX</span>
+                                </div>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" class="text-fn-text3">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                                <div
+                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-fn-red/10 border border-fn-red/20 text-fn-red text-xs font-bold">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                    </svg>
+                                    PDF
+                                </div>
+                            </div>
+                            <p class="text-fn-text3 text-xs" id="format-desc">Word 2016+ (.docx) will be converted to a
+                                universally compatible PDF.</p>
                         </div>
                     </div>
 
@@ -143,7 +147,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to Excel
+                        Convert to PDF
                     </button>
 
                 </div>
@@ -152,8 +156,8 @@
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
                         <div
-                            class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
-                            📕</div>
+                            class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
+                            📝</div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
@@ -163,11 +167,11 @@
                                 style="animation-delay:.3s"></span>
                         </div>
                         <div
-                            class="w-16 h-16 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-3xl">
-                            📊</div>
+                            class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
+                            📄</div>
                     </div>
 
-                    <h2 class="text-xl font-bold mb-2" id="conv-title">Converting your file…</h2>
+                    <h2 class="text-xl font-bold mb-2">Converting your file…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
 
                     <div class="max-w-md mx-auto mb-3">
@@ -180,13 +184,12 @@
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
 
-                    {{-- Processing steps --}}
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
-                        ['proc-1','Uploading & validating PDF'],
-                        ['proc-2','Detecting tables & data regions'],
-                        ['proc-3','Extracting rows, columns & values'],
-                        ['proc-4','Generating Excel spreadsheet'],
+                        ['proc-1','Uploading & validating document'],
+                        ['proc-2','Parsing styles, fonts & layout'],
+                        ['proc-3','Rendering pages to PDF'],
+                        ['proc-4','Finalising & optimising PDF'],
                         ] as [$pid, $plabel])
                         <div class="flex items-center gap-3" id="{{ $pid }}">
                             <div
@@ -214,22 +217,21 @@
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
                         ✅</div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8">Your Excel spreadsheet is ready.</p>
+                    <p class="text-fn-text2 text-sm mb-8">Your PDF document is ready.</p>
 
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
-                            class="w-12 h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-2xl shrink-0">
-                            📊</div>
+                            class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
+                            📄</div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="output-name">document.xlsx</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">Excel Spreadsheet</p>
+                            <p class="font-semibold text-sm truncate" id="output-name">document.pdf</p>
+                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">PDF Document</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
 
-                    {{-- href and download attr are set dynamically via blob URL --}}
-                    <a id="download-link" href="#" download="document.xlsx"
+                    <a id="download-link" href="#" download="document.pdf"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -238,7 +240,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Excel File
+                        Download PDF
                     </a>
 
                     <div class="flex items-center justify-center gap-3 flex-wrap">
@@ -251,7 +253,7 @@
                             </svg>
                             Convert another
                         </button>
-                        <a href="/tools"
+                        <a href=""
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
                             All tools
                         </a>
@@ -272,7 +274,6 @@
 </section>
 
 
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -281,15 +282,14 @@
             @foreach([
             ['Is this really free?', 'Files up to 50MB are completely free with no account needed. Pro plans unlock
             200MB files and batch conversion.'],
-            ['Will my tables be extracted accurately?', 'Yes — Filenewer uses an advanced table-detection engine that
-            identifies rows, columns, merged cells, and numeric values. Accuracy is near-perfect for digital PDFs with
-            embedded text.'],
-            ['Can I convert password-protected PDFs?', 'Absolutely. Just enter your PDF password in the optional
-            password field before converting and we\'ll handle the rest.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
-            within 1 hour. We never read, share or store your content.'],
-            ['What if my PDF has multiple tables?', 'Each table detected in your PDF is extracted to its own sheet
-            within the Excel workbook, keeping everything neatly organised.'],
+            ['Does it support both .doc and .docx?', 'Yes — both legacy .doc (Word 97–2003) and modern .docx (Word
+            2016+) formats are fully supported. Just upload and convert.'],
+            ['Will my formatting be preserved?', 'Filenewer faithfully renders fonts, headings, tables, images, headers,
+            footers, and page layouts into the PDF. Results are near-pixel-perfect for well-structured documents.'],
+            ['Can I set a custom filename for the PDF?', 'Yes — enter your preferred filename in the Output Filename
+            field before converting. If left blank, the PDF will use your original Word filename.'],
+            ['Is my document safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            deleted within 1 hour. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
@@ -318,71 +318,60 @@
     document.addEventListener('DOMContentLoaded', function () {
 
   // ── Element refs ──
-  const dropZone      = document.getElementById('drop-zone');
-  const fileInput     = document.getElementById('file-input');
-  const convertBtn    = document.getElementById('convert-btn');
-  const filePreview   = document.getElementById('file-preview');
-  const removeFile    = document.getElementById('remove-file');
-  const uploadError   = document.getElementById('upload-error');
-  const errorText     = document.getElementById('error-text');
-  const togglePwdBtn  = document.getElementById('toggle-password');
-  const pwdInput      = document.getElementById('opt-password');
-  const eyeShow       = document.getElementById('eye-show');
-  const eyeHide       = document.getElementById('eye-hide');
+  const dropZone    = document.getElementById('drop-zone');
+  const fileInput   = document.getElementById('file-input');
+  const convertBtn  = document.getElementById('convert-btn');
+  const filePreview = document.getElementById('file-preview');
+  const removeFile  = document.getElementById('remove-file');
+  const uploadError = document.getElementById('upload-error');
+  const errorText   = document.getElementById('error-text');
 
   let selectedFile = null;
   let blobUrl      = null;
 
-  // ── Password visibility toggle ──
-  togglePwdBtn.addEventListener('click', () => {
-    const isPassword = pwdInput.type === 'password';
-    pwdInput.type = isPassword ? 'text' : 'password';
-    eyeShow.classList.toggle('hidden', isPassword);
-    eyeHide.classList.toggle('hidden', !isPassword);
-  });
+  // ── Accepted types ──
+  const ACCEPTED_TYPES = [
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  ];
+  const ACCEPTED_EXTS = ['.doc', '.docx'];
+
+  function isWordFile(file) {
+    return ACCEPTED_TYPES.includes(file.type) ||
+      ACCEPTED_EXTS.some(ext => file.name.toLowerCase().endsWith(ext));
+  }
+
+  function fileLabel(name) {
+    return name.toLowerCase().endsWith('.doc') && !name.toLowerCase().endsWith('.docx')
+      ? 'Word 97-2003 (.doc)'
+      : 'Word Document (.docx)';
+  }
 
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
       dropZone.classList.add('drag-over');
     });
   });
-
   ['dragleave', 'dragend', 'drop'].forEach(evt => {
     dropZone.addEventListener(evt, e => {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault(); e.stopPropagation();
       dropZone.classList.remove('drag-over');
     });
   });
+  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+  removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
 
-  dropZone.addEventListener('drop', e => {
-    const file = e.dataTransfer.files[0];
-    if (file) handleFile(file);
-  });
-
-  // ── File input change ──
-  fileInput.addEventListener('change', e => {
-    if (e.target.files[0]) handleFile(e.target.files[0]);
-  });
-
-  // ── Remove file ──
-  removeFile.addEventListener('click', e => {
-    e.stopPropagation();
-    resetFile();
-  });
-
-  // ── Handle selected file ──
+  // ── Handle file ──
   function handleFile(file) {
     hideError();
 
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
+    if (!isWordFile(file)) {
+      showError('Please select a valid Word document (.docx or .doc).');
       return;
     }
-
     if (file.size > 50 * 1024 * 1024) {
       showError('File exceeds the 50MB free limit.');
       return;
@@ -390,14 +379,24 @@
 
     selectedFile = file;
 
-    // Pre-fill output filename input with the PDF name swapped to .xlsx
-    const defaultXlsx = file.name.replace(/\.pdf$/i, '.xlsx');
-    const filenameInput = document.getElementById('opt-filename');
-    if (!filenameInput.value) filenameInput.value = defaultXlsx;
+    const isLegacy = file.name.toLowerCase().endsWith('.doc') && !file.name.toLowerCase().endsWith('.docx');
+    const defaultPdf = file.name.replace(/\.docx?$/i, '.pdf');
 
-    document.getElementById('file-name').textContent   = file.name;
-    document.getElementById('file-meta').textContent   = formatBytes(file.size) + ' · PDF Document';
-    document.getElementById('output-name').textContent = defaultXlsx;
+    // Update file preview
+    document.getElementById('file-name').textContent = file.name;
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + fileLabel(file.name);
+
+    // Update format badge
+    document.getElementById('format-badge-text').textContent = isLegacy ? 'DOC' : 'DOCX';
+    document.getElementById('format-desc').textContent = isLegacy
+      ? 'Legacy Word 97-2003 (.doc) will be converted to a universally compatible PDF.'
+      : 'Word 2016+ (.docx) will be converted to a universally compatible PDF.';
+
+    // Pre-fill filename if empty
+    const filenameInput = document.getElementById('opt-filename');
+    if (!filenameInput.value) filenameInput.value = defaultPdf;
+
+    document.getElementById('output-name').textContent = defaultPdf;
 
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
@@ -415,7 +414,7 @@
     hideError();
   }
 
-  // ── Convert button ──
+  // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
 
   async function startConversion() {
@@ -425,83 +424,69 @@
     showState('converting');
     updateStepIndicator(2);
 
-    // ── Build FormData ──
-    // Required: file
-    // Optional: password, filename
+    const customFilename = document.getElementById('opt-filename').value.trim();
+    const outputFilename = customFilename || selectedFile.name.replace(/\.docx?$/i, '.pdf');
+
     const formData = new FormData();
     formData.append('file', selectedFile);
-
-    const password = document.getElementById('opt-password').value.trim();
-    if (password) formData.append('password', password);
-
-    const customFilename = document.getElementById('opt-filename').value.trim();
-    const outputFilename = customFilename || selectedFile.name.replace(/\.pdf$/i, '.xlsx');
     if (customFilename) formData.append('filename', customFilename);
 
-    // ── Animated progress steps ──
+    // Animate progress
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 800, 'Uploading file…');
+    animateProgress(0, 20, 800, 'Uploading document…');
 
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done');
       setProcessStep('proc-2', 'active');
-      animateProgress(20, 50, 1000, 'Detecting tables & data regions…');
+      animateProgress(20, 50, 1000, 'Parsing styles, fonts & layout…');
     }, 1000);
 
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done');
       setProcessStep('proc-3', 'active');
-      animateProgress(50, 75, 1200, 'Extracting rows, columns & values…');
+      animateProgress(50, 78, 1200, 'Rendering pages to PDF…');
     }, 2200);
 
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done');
       setProcessStep('proc-4', 'active');
-      animateProgress(75, 90, 1000, 'Generating Excel spreadsheet…');
+      animateProgress(78, 90, 800, 'Finalising & optimising PDF…');
     }, 3600);
 
     try {
-      const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-excel', {
+      const res = await fetch('https://api.filenewer.com/api/tools/word-to-pdf', {
         method: 'POST',
         body:   formData,
       });
 
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 
-      // ── On error the API returns JSON { "error": "..." } ──
       if (!res.ok) {
         let errMsg = 'Conversion failed. Please try again.';
-        try {
-          const errData = await res.json();
-          if (errData.error) errMsg = errData.error;
-        } catch (_) {}
+        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
         throw new Error(errMsg);
       }
 
-      // ── On success the API streams binary .xlsx bytes directly ──
       const blob     = await res.blob();
-      const fileName = outputFilename.endsWith('.xlsx') ? outputFilename : outputFilename + '.xlsx';
+      const fileName = outputFilename.toLowerCase().endsWith('.pdf')
+        ? outputFilename
+        : outputFilename + '.pdf';
 
-      // Revoke previous blob URL if any
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
 
-      // Wire up the download anchor
       const link    = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = fileName;
 
       document.getElementById('output-name').textContent = fileName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Spreadsheet';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
 
       setProcessStep('proc-3', 'done');
       setProcessStep('proc-4', 'done');
       animateProgress(90, 100, 400, 'Done!');
 
-      setTimeout(() => {
-        showState('download');
-        updateStepIndicator(3);
-      }, 500);
+      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
 
     } catch (err) {
       console.error(err);
@@ -512,17 +497,14 @@
     }
   }
 
-  // ── State switcher ──
+  // ── Helpers ──
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
-    if (state === 'download') {
-      document.getElementById('state-download').classList.add('bounce-in');
-    }
+    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
   }
 
-  // ── Step indicator ──
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -532,19 +514,16 @@
     });
   }
 
-  // ── Processing steps ──
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
     const dot   = el.querySelector('.step-dot');
     const check = el.querySelector('.check-icon');
     const spin  = el.querySelector('.spin-icon');
-
     check.classList.add('hidden');
     spin.classList.add('hidden');
     dot.style.borderColor = '';
     dot.style.background  = '';
-
     if (state === 'active') {
       spin.classList.remove('hidden');
       dot.style.borderColor = 'oklch(49% 0.24 264)';
@@ -557,7 +536,6 @@
     }
   }
 
-  // ── Progress bar ──
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -571,22 +549,19 @@
     requestAnimationFrame(step);
   }
 
-  // ── Reset ──
   window.resetConverter = function () {
-    if (blobUrl) {
-      URL.revokeObjectURL(blobUrl);
-      blobUrl = null;
-    }
+    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
-    document.getElementById('opt-password').value = '';
     document.getElementById('opt-filename').value = '';
+    document.getElementById('format-badge-text').textContent = 'DOCX';
+    document.getElementById('format-desc').textContent =
+      'Word 2016+ (.docx) will be converted to a universally compatible PDF.';
     showState('upload');
     updateStepIndicator(1);
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
 
-  // ── Error helpers ──
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -597,7 +572,6 @@
     uploadError.classList.remove('flex');
   }
 
-  // ── Format bytes ──
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
@@ -610,10 +584,8 @@
       const body   = btn.nextElementSibling;
       const icon   = btn.querySelector('.faq-icon');
       const isOpen = !body.classList.contains('hidden');
-
       document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
       document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-
       if (!isOpen) {
         body.classList.remove('hidden');
         icon.style.transform = 'rotate(180deg)';
