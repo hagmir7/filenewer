@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- SEO Meta -->
     <title>@if (isset($title)) {{ $title }} @else Filenewer – Online File Tools &amp; Converters @endif</title>
-    <meta name="description" content="@if(isset($description)) $descripiton @else Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed. @endif" />
+    <meta name="description" content="@if(isset($description)) {{ $descripiton }} @else Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed. @endif" />
     <meta name="keywords" content="@if (isset($tags)) {{ $tags }} @else online file tools, file converter online, business document generator, PDF tools online, secure file processing, free file tools @endif" />
     <link rel="canonical" href="{{ request()->fullUrl() }}" />
     <meta property="og:title" content="@if (isset($title)) {{ $title }} @else Filenewer – Online File Tools &amp; Converters @endif" />
-    <meta property="og:description" content="@if(isset($description)) $descripiton @else Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone. @endif" />
+    <meta property="og:description" content="@if(isset($description)) {{ $descripiton }} @else Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone. @endif" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/favicon/favicon.svg">
     <meta property="og:url" content="{{ request()->fullUrl() }}">

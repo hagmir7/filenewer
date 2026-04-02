@@ -135,7 +135,9 @@
                                     class="badge-new shrink-0 px-1.5 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-xs font-semibold rounded-full">New</span>
                                 @endif
                             </div>
-                            <p class="text-fn-text3 text-xs leading-relaxed">{{ $tool->description }}</p>
+                            <p class="text-fn-text3 text-xs leading-relaxed">
+                                {{ \Illuminate\Support\Str::limit($tool->description, 30, '...') }}
+                            </p>
                         </div>
 
                         {{-- Arrow --}}
