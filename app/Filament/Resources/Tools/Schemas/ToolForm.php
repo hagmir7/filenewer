@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Tools\Schemas;
 
+use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\RichEditor;
@@ -72,14 +73,21 @@ class ToolForm
 
 
 
-
                                 TextInput::make('slug')
                                     ->label('URL Slug')
                                     ->readOnly()
-                                    ->copyable()
-                                    ->afterStateHydrated(function ($component, $state) {
-                                        $component->state('https://filenewer.com/tools/' . $state);
-                                    }),
+                                    ->prefix('https://filenewer.com/tools/')
+                                    ->suffixAction(
+                                        Action::make('copy')
+                                            ->icon('heroicon-s-clipboard-document-check')
+                                            ->tooltip('Copy URL')
+                                            ->action(function ($livewire, $state) {
+                                                $livewire->js(
+                                                    'window.navigator.clipboard.writeText("https://filenewer.com/tools/' . $state . '");
+                     $tooltip("Copied!", { timeout: 1500 });'
+                                                );
+                                            })
+                                    ),
 
                                 Toggle::make('is_active')
                                     ->label('Active')
