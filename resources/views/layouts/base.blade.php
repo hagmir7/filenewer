@@ -7,13 +7,13 @@
     <!-- SEO Meta -->
     <title>{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}</title>
     <meta name="description"
-        content="{{ $description ?? 'Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed.' }}" />
+        content="{{ Str::limit($description ?? 'Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed.', 170, '') }}" />
     <meta name="keywords"
         content="{{ $tags ?? 'online file tools, file converter online, business document generator, PDF tools online, secure file processing, free file tools' }}" />
     <link rel="canonical" href="{{ request()->fullUrl() }}" />
     <meta property="og:title" content="{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}" />
     <meta property="og:description"
-        content="{{ $description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.' }}" />
+        content="{{ Str::limit($description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.', 170, '') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/favicon/favicon.svg">
     <meta property="og:url" content="{{ request()->fullUrl() }}">
