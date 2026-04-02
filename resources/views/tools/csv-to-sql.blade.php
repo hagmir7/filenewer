@@ -740,8 +740,9 @@
       };
 
       if (activeOutput === 'text') {
-        // Response is plain SQL text
-        const sqlText = await res.text();
+        // Response is JSON { sql: "...", table: "...", dialect: "..." }
+        const data    = await res.json();
+        const sqlText = data.sql ?? '';
         fullSqlText   = sqlText;
 
         const blob    = new Blob([sqlText], { type: 'text/plain;charset=utf-8;' });
