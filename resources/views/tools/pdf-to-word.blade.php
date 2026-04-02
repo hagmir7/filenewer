@@ -1,4 +1,3 @@
-{{-- resources/views/tools/pdf-to-word.blade.php --}}
 @extends('layouts.base')
 
 @section('title', 'PDF to Word Converter – Free Online | Filenewer')
@@ -436,9 +435,6 @@
         method: 'POST',
         body:   formData,
       });
-
-      console.log('formData file:', formData.get('file'));
-
 
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 

@@ -7,6 +7,11 @@
     <div class="absolute inset-0 grid-lines pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
 
+        <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
+                Free online tools you need,<br> In one place
+            </h1>
+        </div>
         {{-- Search bar --}}
         <div class="animate-fade-up opacity-0 delay-2 max-w-2xl mx-auto mb-6">
             <div class="relative">
