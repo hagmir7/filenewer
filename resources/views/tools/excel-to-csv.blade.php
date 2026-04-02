@@ -1,7 +1,5 @@
 @extends('layouts.base')
 
-@section('title', 'Excel to CSV Converter – Free Online | Filenewer')
-
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -278,7 +276,7 @@
                             </svg>
                             Convert another
                         </button>
-                        <a href=""
+                        <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
                             All tools
                         </a>
@@ -823,7 +821,7 @@
     });
   });
 
-}); // end DOMContentLoaded
+});
 </script>
 
 @endsection
