@@ -50,7 +50,8 @@ class ToolForm
                                 TagsInput::make('tags')
                                     ->label(__("Keywords"))
                                     ->placeholder("SEO Keywords")
-                                    ->separator(',', ','),
+                                    ->separator(',')
+                                    ->splitKeys([',', 'Enter', '،']),
 
                                 RichEditor::make('body')
                                     ->label(__("Content")),
