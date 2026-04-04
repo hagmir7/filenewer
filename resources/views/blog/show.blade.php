@@ -111,7 +111,7 @@
         <!-- ── MAIN ARTICLE ── -->
         <article class="flex-1 min-w-0 max-w-3xl" id="article-content">
             <!-- ══ HERO IMAGE ══ -->
-            <div class="max-w-6xl mx-auto px-6 my-8">
+            <div class="max-w-6xl mx-auto mb-2">
                 @if($blog->featured_image)
                 <div class="rounded-2xl h-64 sm:h-80 relative overflow-hidden border border-fn-text/7">
                     <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}"
