@@ -15,15 +15,19 @@ class ToolController extends Controller
                 ->orderBy('order');
         }]);
 
-        if ($request->category) {
-            $categories->where('slug', $request->category);
+        if ($request->input('category')) {
+            $categories->where('slug', $request->input('category'));
         }
 
-        // ✅ FIX: assign the result
         $categories = $categories->get();
 
         $title = 'Free Online Tools — PDF, Image, Data & More';
         $description = 'Convert, compress, edit and generate files instantly. 50+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
+
+        if ($request->input('category') && $categories->isNotEmpty()) {
+            $categoryName = $categories->first()->title;
+            $title = "{$categoryName} — Free Online Tools";
+        }
 
         return view('tools.index', compact('categories', 'title', 'description'));
     }

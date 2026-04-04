@@ -9,7 +9,11 @@
 
         <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
             <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
+                @if(request('category') && $categories->isNotEmpty())
+                {{ $categories->first()->title }} Tools
+                @else
                 Free online tools you need,<br> In one place
+                @endif
             </h1>
         </div>
         {{-- Search bar --}}
