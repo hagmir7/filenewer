@@ -105,7 +105,7 @@
 <div class="max-w-6xl mx-auto px-6 my-8">
     @if($blog->featured_image)
     <div class="rounded-2xl h-64 sm:h-80 relative overflow-hidden border border-fn-text/7">
-        <img src="{{ asset('storage/' . $featured->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover" />
+        <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover" />
     </div>
     @else
     <div
