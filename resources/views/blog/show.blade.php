@@ -105,7 +105,7 @@
 <div class="max-w-6xl mx-auto px-6 my-8">
     @if($blog->featured_image)
     <div class="rounded-2xl h-64 sm:h-80 relative overflow-hidden border border-fn-text/7">
-        <img src="{{ $blog->featured_image }}" alt="{{ $blog->title }}" class="w-full h-full object-cover" />
+        <img src="{{ asset('storage/' . $featured->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover" />
     </div>
     @else
     <div
@@ -129,7 +129,7 @@
         <article class="flex-1 min-w-0 max-w-3xl" id="article-content">
 
             <div class="prose prose-lg max-w-4xl mx-auto
-                prose-p:text-gray-300 prose-p:leading-8
+                prose-p:text-gray-300 prose-p:leading-8 prose-hr:m-0
                 prose-headings:font-semibold prose-headings:tracking-tight
                 prose-h2:text-white prose-h2:mt-16 prose-h2:mb-6 prose-h2:border-b prose-h2:border-gray-800 prose-h2:pb-3
                 prose-h3:text-gray-100 prose-h3:mt-10 prose-h3:mb-4

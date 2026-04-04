@@ -53,17 +53,15 @@ class BlogForm
 
                                 TextInput::make('category')
                                     ->label('Category'),
-                    DateTimePicker::make('published_at')
-                        ->label('Publish Date'),
-
-
+                                DateTimePicker::make('published_at')
+                                    ->native(false)
+                                    ->label('Publish Date'),
                                 Toggle::make('is_published')
                                     ->label('Published')
+
                                     ->default(false)
                                     ->helperText('Make blog post visible')
                                     ->required(),
-
-
                             ])
                             ->columnSpan(1),
 
