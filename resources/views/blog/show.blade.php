@@ -101,32 +101,35 @@
     </div>
 </header>
 
-<!-- ══ HERO IMAGE ══ -->
-<div class="max-w-6xl mx-auto px-6 my-8">
-    @if($blog->featured_image)
-    <div class="rounded-2xl h-64 sm:h-80 relative overflow-hidden border border-fn-text/7">
-        <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover" />
-    </div>
-    @else
-    <div
-        class="article-hero-img rounded-2xl h-64 sm:h-80 relative overflow-hidden flex items-center justify-center border border-fn-text/7">
-        <div class="absolute inset-0 opacity-20"
-            style="background-image: radial-gradient(oklch(56% 0.23 264 / 25%) 1px, transparent 1px); background-size: 28px 28px;">
-        </div>
-        <div class="relative z-10 text-center">
-            <div class="text-7xl mb-4">📄</div>
-            <p class="text-fn-text3 text-sm font-mono">{{ $blog->category ?? 'Article' }}</p>
-        </div>
-    </div>
-    @endif
-</div>
+
 
 <!-- ══ CONTENT AREA ══ -->
 <div class="max-w-6xl mx-auto px-6 pb-20">
     <div class="flex gap-12 relative">
 
+
         <!-- ── MAIN ARTICLE ── -->
         <article class="flex-1 min-w-0 max-w-3xl" id="article-content">
+            <!-- ══ HERO IMAGE ══ -->
+            <div class="max-w-6xl mx-auto px-6 my-8">
+                @if($blog->featured_image)
+                <div class="rounded-2xl h-64 sm:h-80 relative overflow-hidden border border-fn-text/7">
+                    <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}"
+                        class="w-full h-full object-cover" />
+                </div>
+                @else
+                <div
+                    class="article-hero-img rounded-2xl h-64 sm:h-80 relative overflow-hidden flex items-center justify-center border border-fn-text/7">
+                    <div class="absolute inset-0 opacity-20"
+                        style="background-image: radial-gradient(oklch(56% 0.23 264 / 25%) 1px, transparent 1px); background-size: 28px 28px;">
+                    </div>
+                    <div class="relative z-10 text-center">
+                        <div class="text-7xl mb-4">📄</div>
+                        <p class="text-fn-text3 text-sm font-mono">{{ $blog->category ?? 'Article' }}</p>
+                    </div>
+                </div>
+                @endif
+            </div>
 
             <div class="prose prose-lg max-w-4xl mx-auto
                 prose-p:text-gray-300 prose-p:leading-8 prose-hr:m-0
@@ -270,7 +273,7 @@
 
                 @if($post->featured_image)
                 <div class="h-36 overflow-hidden">
-                    <img src="{{ $post->featured_image }}" alt="{{ $post->title }}"
+                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 @else
