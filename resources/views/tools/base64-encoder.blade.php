@@ -1,7 +1,5 @@
 @extends('layouts.base')
 
-@section('title', 'Base64 Encoder & Decoder – Free Online | Filenewer')
-
 @section('content')
 
 <x-tool-hero :tool="$tool" />
