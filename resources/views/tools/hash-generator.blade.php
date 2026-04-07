@@ -41,7 +41,7 @@
                             {{-- Input mode --}}
                             <div class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <button type="button" id="gen-mode-text"
-                                    class="gen-mode-btn active flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all">
+                                    class="gen-mode-btn active flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="4 7 4 4 20 4 20 7" />
@@ -51,7 +51,7 @@
                                     Text
                                 </button>
                                 <button type="button" id="gen-mode-file"
-                                    class="gen-mode-btn flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all">
+                                    class="gen-mode-btn flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -64,18 +64,18 @@
                             {{-- Text input --}}
                             <div id="gen-text-panel" class="space-y-2">
                                 <div class="flex items-center justify-between">
-                                    <label class="text-xs font-semibold text-fn-text2">Input Text</label>
+                                    <label class="text-sm font-semibold text-fn-text2">Input Text</label>
                                     <div class="flex gap-2">
                                         <button type="button" id="gen-paste"
-                                            class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Paste</button>
+                                            class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">Paste</button>
                                         <button type="button" id="gen-clear"
-                                            class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                            class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
                                     </div>
                                 </div>
                                 <textarea id="gen-text-input" rows="5" spellcheck="false"
                                     placeholder="Enter or paste text to hash…"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-                                <div class="flex items-center justify-between text-fn-text3 text-xs">
+                                <div class="flex items-center justify-between text-fn-text3 text-sm">
                                     <span id="gen-char-count">0 characters</span>
                                     <span id="gen-byte-count">0 bytes</span>
                                 </div>
@@ -87,10 +87,10 @@
                                     class="drop-zone border-2 border-dashed border-fn-text/15 rounded-xl p-6 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                     <div class="text-3xl mb-2 font-black text-fn-text3/30">#</div>
                                     <p class="text-sm font-bold mb-1">Drop any file</p>
-                                    <p class="text-fn-text3 text-xs mb-3">Compute hashes for any file type · Max 50MB
+                                    <p class="text-fn-text3 text-sm mb-3">Compute hashes for any file type · Max 200MB
                                     </p>
                                     <div
-                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
+                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                         Choose File</div>
                                     <input type="file" id="gen-file-input"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -101,8 +101,8 @@
                                         class="w-9 h-9 rounded-lg bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-base shrink-0">
                                         #</div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="font-semibold text-xs truncate" id="gen-file-name">file.pdf</p>
-                                        <p class="text-fn-text3 text-xs mt-0.5" id="gen-file-meta">—</p>
+                                        <p class="font-semibold text-sm truncate" id="gen-file-name">file.pdf</p>
+                                        <p class="text-fn-text3 text-sm mt-0.5" id="gen-file-meta">—</p>
                                     </div>
                                     <button type="button" id="gen-remove-file"
                                         class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
@@ -119,14 +119,14 @@
                             {{-- Algorithms --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center justify-between mb-2">
-                                    <label class="text-xs font-semibold text-fn-text2">Algorithms</label>
+                                    <label class="text-sm font-semibold text-fn-text2">Algorithms</label>
                                     <div class="flex gap-2">
                                         <button type="button" id="algo-select-all"
-                                            class="text-xs text-fn-blue-l hover:underline font-semibold">All</button>
+                                            class="text-sm text-fn-blue-l hover:underline font-semibold">All</button>
                                         <button type="button" id="algo-select-none"
-                                            class="text-xs text-fn-text3 hover:underline font-semibold">None</button>
+                                            class="text-sm text-fn-text3 hover:underline font-semibold">None</button>
                                         <button type="button" id="algo-select-secure"
-                                            class="text-xs text-fn-green hover:underline font-semibold">Secure
+                                            class="text-sm text-fn-green hover:underline font-semibold">Secure
                                             only</button>
                                     </div>
                                 </div>
@@ -155,10 +155,10 @@
                                         <input type="checkbox" name="gen-algo" value="{{ $hval }}"
                                             data-secure="{{ $hsecure ? 'true' : 'false' }}" {{ $hdefault ? 'checked'
                                             : '' }} class="w-3.5 h-3.5 accent-fn-blue rounded" />
-                                        <span class="text-xs font-semibold text-fn-text2 flex-1">{{ $hlabel }}</span>
-                                        <span class="text-fn-text3 text-xs font-mono">{{ $hbits }}b</span>
+                                        <span class="text-sm font-semibold text-fn-text2 flex-1">{{ $hlabel }}</span>
+                                        <span class="text-fn-text3 text-sm font-mono">{{ $hbits }}b</span>
                                         @if(!$hsecure)
-                                        <span class="text-fn-red text-xs font-bold">!</span>
+                                        <span class="text-fn-red text-sm font-bold">!</span>
                                         @endif
                                     </label>
                                     @endforeach
@@ -168,14 +168,14 @@
                             {{-- HMAC + Output format --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                                 <div>
-                                    <label for="gen-hmac" class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                                    <label for="gen-hmac" class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                         HMAC Key <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                     </label>
                                     <input type="text" id="gen-hmac" placeholder="Secret key for HMAC"
-                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output
+                                    <label class="text-sm font-semibold text-fn-text2 block mb-1.5">Output
                                         Format</label>
                                     <div class="flex gap-1.5">
                                         @php $outFmts =
@@ -183,7 +183,7 @@
                                         @endphp
                                         @foreach($outFmts as [$fval,$flabel])
                                         <button type="button"
-                                            class="out-fmt-btn {{ $fval === 'hex' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-mono font-semibold transition-all"
+                                            class="out-fmt-btn {{ $fval === 'hex' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-mono font-semibold transition-all"
                                             data-fmt="{{ $fval }}">{{ $flabel }}</button>
                                         @endforeach
                                     </div>
@@ -202,11 +202,11 @@
                         {{-- ── RIGHT: Results ── --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2" id="gen-result-label">Hash Results</p>
+                                <p class="text-sm font-semibold text-fn-text2" id="gen-result-label">Hash Results</p>
                                 <div class="flex gap-2">
-                                    <span id="gen-meta" class="hidden text-xs text-fn-text3 self-center"></span>
+                                    <span id="gen-meta" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="gen-copy-all"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -223,12 +223,12 @@
                                     class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
                                     <span class="text-4xl font-black opacity-20">#</span>
                                     <span class="text-sm">Hash results will appear here</span>
-                                    <span class="text-xs">Enter text or upload a file, then click Compute</span>
+                                    <span class="text-sm">Enter text or upload a file, then click Compute</span>
                                 </div>
                             </div>
 
                             <div id="gen-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -247,14 +247,14 @@
 
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block">Hash 1</label>
+                                <label class="text-sm font-semibold text-fn-text2 block">Hash 1</label>
                                 <textarea id="cmp-hash1" rows="4" spellcheck="false" placeholder="Paste first hash…"
-                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
+                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             </div>
                             <div class="space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block">Hash 2</label>
+                                <label class="text-sm font-semibold text-fn-text2 block">Hash 2</label>
                                 <textarea id="cmp-hash2" rows="4" spellcheck="false" placeholder="Paste second hash…"
-                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
+                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             </div>
                         </div>
 
@@ -273,7 +273,7 @@
                                 <span class="text-3xl" id="cmp-icon">✅</span>
                                 <div>
                                     <p class="font-bold text-base" id="cmp-title">Hashes Match</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5" id="cmp-message"></p>
+                                    <p class="text-fn-text3 text-sm mt-0.5" id="cmp-message"></p>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-2" id="cmp-stats"></div>
@@ -281,13 +281,13 @@
 
                         {{-- Live diff (character-by-character) --}}
                         <div id="cmp-diff" class="hidden">
-                            <p class="text-xs font-semibold text-fn-text2 mb-2">Diff View</p>
-                            <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl font-mono text-xs leading-relaxed break-all"
+                            <p class="text-sm font-semibold text-fn-text2 mb-2">Diff View</p>
+                            <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl font-mono text-sm leading-relaxed break-all"
                                 id="cmp-diff-view"></div>
                         </div>
 
                         <div id="cmp-error"
-                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -306,9 +306,9 @@
                             class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="text-4xl mb-3">📄</div>
                             <h2 class="text-base font-bold mb-1">Drop a file to verify its checksum</h2>
-                            <p class="text-fn-text3 text-xs mb-4">Any file type · Max 50MB</p>
+                            <p class="text-fn-text3 text-sm mb-4">Any file type · Max 200MB</p>
                             <div
-                                class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                 Choose File</div>
                             <input type="file" id="chk-file-input"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -321,7 +321,7 @@
                                 📄</div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="chk-file-name">file.pdf</p>
-                                <p class="text-fn-text3 text-xs mt-0.5" id="chk-file-meta">—</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="chk-file-meta">—</p>
                             </div>
                             <button type="button" id="chk-remove"
                                 class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
@@ -335,12 +335,12 @@
 
                         {{-- Algorithm selector --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Algorithm</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Algorithm</label>
                             <div class="flex flex-wrap gap-2">
                                 @php $chkAlgos = ['sha256','sha512','md5','sha1','sha3_256','blake2b']; @endphp
                                 @foreach($chkAlgos as $ca)
                                 <button type="button"
-                                    class="chk-algo-btn {{ $ca === 'sha256' ? 'active' : '' }} px-3 py-1.5 rounded-lg border text-xs font-mono font-semibold transition-all"
+                                    class="chk-algo-btn {{ $ca === 'sha256' ? 'active' : '' }} px-3 py-1.5 rounded-lg border text-sm font-mono font-semibold transition-all"
                                     data-algo="{{ $ca }}">{{ strtoupper(str_replace('_','-',$ca)) }}</button>
                                 @endforeach
                             </div>
@@ -348,12 +348,12 @@
 
                         {{-- Expected checksum (optional verify) --}}
                         <div>
-                            <label for="chk-expected" class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                            <label for="chk-expected" class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                 Expected Checksum <span class="font-normal text-fn-text3 ml-1">(optional — paste to
                                     verify)</span>
                             </label>
                             <input type="text" id="chk-expected" placeholder="Paste expected hash to verify against…"
-                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40" />
+                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40" />
                         </div>
 
                         <button type="button" id="chk-btn" disabled
@@ -370,9 +370,9 @@
                         <div id="chk-result" class="hidden space-y-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center justify-between mb-2">
-                                    <p class="text-xs font-semibold text-fn-text2" id="chk-algo-label">SHA-256</p>
+                                    <p class="text-sm font-semibold text-fn-text2" id="chk-algo-label">SHA-256</p>
                                     <button type="button" id="chk-copy-btn"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -383,7 +383,7 @@
                                     </button>
                                 </div>
                                 <p class="font-mono text-sm text-fn-text2 break-all" id="chk-hash-display">—</p>
-                                <div class="flex gap-4 mt-2 text-xs text-fn-text3">
+                                <div class="flex gap-4 mt-2 text-sm text-fn-text3">
                                     <span id="chk-size-label">—</span>
                                 </div>
                             </div>
@@ -392,13 +392,13 @@
                                 <span class="text-2xl" id="chk-verify-icon">✅</span>
                                 <div>
                                     <p class="font-bold text-sm" id="chk-verify-title">Checksum Verified</p>
-                                    <p class="text-xs text-fn-text3 mt-0.5" id="chk-verify-sub"></p>
+                                    <p class="text-sm text-fn-text3 mt-0.5" id="chk-verify-sub"></p>
                                 </div>
                             </div>
                         </div>
 
                         <div id="chk-error"
-                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -423,11 +423,11 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-fn-text/8">
-                        <th class="text-left px-4 py-3 text-xs font-semibold text-fn-text3">Algorithm</th>
-                        <th class="text-left px-4 py-3 text-xs font-semibold text-fn-text3">Family</th>
-                        <th class="text-left px-4 py-3 text-xs font-semibold text-fn-text3">Bits</th>
-                        <th class="text-left px-4 py-3 text-xs font-semibold text-fn-text3">Secure</th>
-                        <th class="text-left px-4 py-3 text-xs font-semibold text-fn-text3">Use case</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Algorithm</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Family</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Bits</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Secure</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Use case</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-fn-text/5">
@@ -451,17 +451,17 @@
                     @endphp
                     @foreach($algoTable as [$name,$family,$bits,$secure,$use])
                     <tr class="hover:bg-fn-surface2 transition-colors">
-                        <td class="px-4 py-2.5 font-mono font-bold text-xs text-fn-text2">{{ $name }}</td>
-                        <td class="px-4 py-2.5 text-xs text-fn-text3">{{ $family }}</td>
-                        <td class="px-4 py-2.5 text-xs font-mono text-fn-text3">{{ $bits }}</td>
+                        <td class="px-4 py-2.5 font-mono font-bold text-sm text-fn-text2">{{ $name }}</td>
+                        <td class="px-4 py-2.5 text-sm text-fn-text3">{{ $family }}</td>
+                        <td class="px-4 py-2.5 text-sm font-mono text-fn-text3">{{ $bits }}</td>
                         <td class="px-4 py-2.5">
                             @if($secure)
-                            <span class="text-xs font-bold text-fn-green">✓</span>
+                            <span class="text-sm font-bold text-fn-green">✓</span>
                             @else
-                            <span class="text-xs font-bold text-fn-red">✗ Legacy</span>
+                            <span class="text-sm font-bold text-fn-red">✗ Legacy</span>
                             @endif
                         </td>
-                        <td class="px-4 py-2.5 text-xs text-fn-text3">{{ $use }}</td>
+                        <td class="px-4 py-2.5 text-sm text-fn-text3">{{ $use }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -732,7 +732,7 @@
     return `<div id="gen-empty" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
       <span class="text-4xl font-black opacity-20">#</span>
       <span class="text-sm">Hash results will appear here</span>
-      <span class="text-xs">Enter text or upload a file, then click Compute</span>
+      <span class="text-sm">Enter text or upload a file, then click Compute</span>
     </div>`;
   }
 
@@ -830,7 +830,7 @@
       ].forEach(([label, val]) => {
         const div = document.createElement('div');
         div.className = 'px-3 py-2 bg-fn-surface2 border border-fn-text/8 rounded-lg text-center';
-        div.innerHTML = `<p class="text-xs text-fn-text3">${label}</p><p class="text-xs font-bold text-fn-text2 mt-0.5">${val}</p>`;
+        div.innerHTML = `<p class="text-sm text-fn-text3">${label}</p><p class="text-sm font-bold text-fn-text2 mt-0.5">${val}</p>`;
         stats.appendChild(div);
       });
 

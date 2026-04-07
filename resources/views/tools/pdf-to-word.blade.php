@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -29,6 +29,7 @@
             <div class="p-8 lg:p-10">
 
                 {{-- ── STATE: Upload ── --}}
+
                 <div id="state-upload">
 
                     {{-- Drop zone --}}
@@ -43,18 +44,17 @@
                         <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
                             Choose PDF File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         {{-- Hidden real file input --}}
-                        <input type="file" id="file-input" accept=".pdf,application/pdf"
+                        <input type="file" id="file-input" accept=".pdf,application/pdf" aria-label="Upload PDF file"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
 
@@ -66,12 +66,12 @@
                             📕</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · PDF Document</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18" />
                                 <line x1="6" y1="6" x2="18" y2="18" />
                             </svg>
@@ -81,7 +81,7 @@
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-3 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Output Format</label>
+                            <label for="opt-format" class="text-sm font-semibold text-fn-text2 block mb-2">Output Format</label>
                             <select id="opt-format"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                 <option value="docx">Word 2016+ (.docx)</option>
@@ -91,7 +91,7 @@
                             </select>
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">OCR Language</label>
+                            <label for="opt-ocr-lang" class="text-sm font-semibold text-fn-text2 block mb-2">OCR Language</label>
                             <select id="opt-ocr-lang"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                 <option value="eng">English</option>
@@ -101,22 +101,21 @@
                                 <option value="ara">Arabic</option>
                             </select>
                         </div>
-                        <div
-                            class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-2">
+                        <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-2">
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-images" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Preserve images</span>
+                                <span class="text-sm text-fn-text2">Preserve images</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-tables" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Preserve tables</span>
+                                <span class="text-sm text-fn-text2">Preserve tables</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-ocr"
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Enable OCR</span>
+                                <span class="text-sm text-fn-text2">Enable OCR</span>
                             </label>
                         </div>
                     </div>
@@ -124,9 +123,8 @@
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round"
-                            stroke-linejoin="round">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            class="text-fn-red shrink-0" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -137,15 +135,14 @@
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
                         Convert to Word
                     </button>
 
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -173,7 +170,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -200,7 +197,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -221,7 +218,7 @@
                             📝</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document.docx</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">Word Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Word Document</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -249,13 +246,13 @@
                             </svg>
                             Convert another
                         </button>
-                        <a href=""
+                        <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
                             All tools
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

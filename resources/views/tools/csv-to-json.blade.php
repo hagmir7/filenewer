@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,8 +51,7 @@
                             </svg>
                             Choose CSV File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="file-input" accept=".csv,.tsv,text/csv,text/tab-separated-values"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -65,7 +64,7 @@
                             📊</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · CSV File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -80,7 +79,7 @@
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-3 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Delimiter</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Delimiter</label>
                             <select id="opt-delimiter"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                 <option value="auto">Auto-detect</option>
@@ -91,7 +90,7 @@
                             </select>
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Output Format</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Format</label>
                             <select id="opt-format"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                 <option value="array">Array of objects</option>
@@ -105,17 +104,17 @@
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-types" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Auto-detect types</span>
+                                <span class="text-sm text-fn-text2">Auto-detect types</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-header" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">First row is header</span>
+                                <span class="text-sm text-fn-text2">First row is header</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-pretty" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Pretty print JSON</span>
+                                <span class="text-sm text-fn-text2">Pretty print JSON</span>
                             </label>
                         </div>
                     </div>
@@ -175,7 +174,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -201,7 +200,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -215,7 +214,7 @@
                             ✅</div>
                         <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                         <p class="text-fn-text2 text-sm mb-2">Your JSON file is ready.</p>
-                        <p class="text-fn-text3 text-xs mb-4">
+                        <p class="text-fn-text3 text-sm mb-4">
                             File will be deleted in <span class="text-fn-amber font-semibold font-mono"
                                 id="expiry-timer">60:00</span>
                         </p>
@@ -225,22 +224,22 @@
                     <div class="grid grid-cols-3 gap-3 max-w-sm mx-auto mb-6">
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                             <p class="text-xl font-bold font-mono text-fn-blue-l" id="stat-rows">—</p>
-                            <p class="text-fn-text3 text-xs mt-0.5">Rows</p>
+                            <p class="text-fn-text3 text-sm mt-0.5">Rows</p>
                         </div>
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                             <p class="text-xl font-bold font-mono text-fn-cyan" id="stat-cols">—</p>
-                            <p class="text-fn-text3 text-xs mt-0.5">Columns</p>
+                            <p class="text-fn-text3 text-sm mt-0.5">Columns</p>
                         </div>
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                             <p class="text-xl font-bold font-mono text-fn-green" id="stat-size">—</p>
-                            <p class="text-fn-text3 text-xs mt-0.5">Output size</p>
+                            <p class="text-fn-text3 text-sm mt-0.5">Output size</p>
                         </div>
                     </div>
 
                     {{-- JSON preview --}}
                     <div class="mb-6 bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-hidden">
                         <div class="flex items-center justify-between px-4 py-2.5 border-b border-fn-text/7">
-                            <div class="flex items-center gap-2 text-xs font-semibold text-fn-text2">
+                            <div class="flex items-center gap-2 text-sm font-semibold text-fn-text2">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                     class="text-fn-blue-l">
@@ -250,7 +249,7 @@
                                 JSON Preview <span class="text-fn-text3 font-normal">(first 5 records)</span>
                             </div>
                             <button type="button" id="copy-btn"
-                                class="flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-fn-text2 border border-fn-text/15 rounded-lg hover:text-fn-text hover:bg-fn-surface transition-all">
+                                class="flex items-center gap-1.5 px-3 py-1 text-sm font-semibold text-fn-text2 border border-fn-text/15 rounded-lg hover:text-fn-text hover:bg-fn-surface transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
@@ -271,7 +270,7 @@
                             { }</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">data.json</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">JSON File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">JSON File</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -306,7 +305,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

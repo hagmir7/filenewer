@@ -16,22 +16,22 @@
 
                 <!-- ─ Header Row: Invoice Meta ─ -->
                 <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
-                    <h3 class="text-xs font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Invoice Details</h3>
+                    <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Invoice Details</h3>
                     <div class="grid sm:grid-cols-3 gap-4">
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-xs font-medium">Invoice Number</label>
+                            <label class="text-fn-text3 text-sm font-medium">Invoice Number</label>
                             <input id="inv-number" type="text" value="INV-0001" class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-xs font-medium">Issue Date</label>
+                            <label class="text-fn-text3 text-sm font-medium">Issue Date</label>
                             <input id="inv-date" type="date" class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-xs font-medium">Due Date</label>
+                            <label class="text-fn-text3 text-sm font-medium">Due Date</label>
                             <input id="inv-due" type="date" class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-xs font-medium">Currency</label>
+                            <label class="text-fn-text3 text-sm font-medium">Currency</label>
                             <select id="inv-currency" class="fn-input cursor-pointer">
                                 <option value="USD">USD — US Dollar ($)</option>
                                 <option value="EUR">EUR — Euro (€)</option>
@@ -44,15 +44,15 @@
                             </select>
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-xs font-medium">Accent Color</label>
+                            <label class="text-fn-text3 text-sm font-medium">Accent Color</label>
                             <div class="flex items-center gap-2">
                                 <input id="inv-color" type="color" value="#2563eb"
                                     class="w-9 h-9 rounded-lg border border-white/[0.07] bg-fn-surface cursor-pointer p-0.5" />
-                                <span id="inv-color-hex" class="text-fn-text3 text-xs font-mono">#2563eb</span>
+                                <span id="inv-color-hex" class="text-fn-text3 text-sm font-mono">#2563eb</span>
                             </div>
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-xs font-medium">Logo URL <span
+                            <label class="text-fn-text3 text-sm font-medium">Logo URL <span
                                     class="text-fn-text3/50">(optional)</span></label>
                             <input id="inv-logo" type="url" placeholder="https://yoursite.com/logo.png"
                                 class="fn-input" />
@@ -64,7 +64,7 @@
                 <div class="grid sm:grid-cols-2 gap-6">
 
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
-                        <h3 class="text-xs font-semibold text-fn-blue-l uppercase tracking-widest mb-5">From (Your
+                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">From (Your
                             Business)</h3>
                         <div class="flex flex-col gap-3">
                             <input id="from-name" type="text" placeholder="Business Name" class="fn-input" />
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
-                        <h3 class="text-xs font-semibold text-fn-cyan uppercase tracking-widest mb-5">Bill To (Client)
+                        <h3 class="text-sm font-semibold text-fn-cyan uppercase tracking-widest mb-5">Bill To (Client)
                         </h3>
                         <div class="flex flex-col gap-3">
                             <input id="to-name" type="text" placeholder="Client Name / Company" class="fn-input" />
@@ -99,21 +99,21 @@
 
                 <!-- ─ Line Items ─ -->
                 <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
-                    <h3 class="text-xs font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Line Items</h3>
+                    <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Line Items</h3>
 
                     <!-- Table header -->
                     <div class="hidden sm:grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 mb-2 px-1">
-                        <span class="text-fn-text3 text-xs font-medium">Description</span>
-                        <span class="text-fn-text3 text-xs font-medium text-center">Qty</span>
-                        <span class="text-fn-text3 text-xs font-medium text-right">Unit Price</span>
-                        <span class="text-fn-text3 text-xs font-medium text-right">Total</span>
+                        <span class="text-fn-text3 text-sm font-medium">Description</span>
+                        <span class="text-fn-text3 text-sm font-medium text-center">Qty</span>
+                        <span class="text-fn-text3 text-sm font-medium text-right">Unit Price</span>
+                        <span class="text-fn-text3 text-sm font-medium text-right">Total</span>
                         <span></span>
                     </div>
 
                     <div id="line-items" class="flex flex-col gap-2"></div>
 
                     <button id="add-line-btn"
-                        class="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-dashed border-white/[0.12] rounded-xl text-fn-text3 text-xs font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
+                        class="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-dashed border-white/[0.12] rounded-xl text-fn-text3 text-sm font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19" />
@@ -127,32 +127,32 @@
                 <div class="grid sm:grid-cols-2 gap-6">
 
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
-                        <h3 class="text-xs font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Tax &amp;
+                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Tax &amp;
                             Discount</h3>
                         <div class="flex flex-col gap-3">
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-xs font-medium">Discount (%)</label>
+                                <label class="text-fn-text3 text-sm font-medium">Discount (%)</label>
                                 <input id="inv-discount" type="number" min="0" max="100" step="0.01" value="0"
                                     class="fn-input" />
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-xs font-medium">Tax / VAT (%)</label>
+                                <label class="text-fn-text3 text-sm font-medium">Tax / VAT (%)</label>
                                 <input id="inv-tax" type="number" min="0" max="100" step="0.01" value="0"
                                     class="fn-input" />
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-xs font-medium">Shipping / Handling</label>
+                                <label class="text-fn-text3 text-sm font-medium">Shipping / Handling</label>
                                 <input id="inv-shipping" type="number" min="0" step="0.01" value="0" class="fn-input" />
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
-                        <h3 class="text-xs font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Payment &amp;
+                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Payment &amp;
                             Notes</h3>
                         <div class="flex flex-col gap-3">
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-xs font-medium">Payment Terms</label>
+                                <label class="text-fn-text3 text-sm font-medium">Payment Terms</label>
                                 <select id="inv-terms" class="fn-input cursor-pointer">
                                     <option>Due on Receipt</option>
                                     <option>Net 7</option>
@@ -163,7 +163,7 @@
                                 </select>
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-xs font-medium">Notes / Bank Details</label>
+                                <label class="text-fn-text3 text-sm font-medium">Notes / Bank Details</label>
                                 <textarea id="inv-notes" rows="3"
                                     placeholder="Payment instructions, bank details, thank-you note..."
                                     class="fn-input resize-none"></textarea>
@@ -178,7 +178,7 @@
                     class="flex flex-wrap items-center justify-between gap-4 bg-fn-bg border border-white/[0.07] rounded-2xl px-7 py-5">
                     <div class="flex items-center gap-4">
                         <div id="total-display" class="text-2xl font-bold text-fn-text tracking-tight">$0.00</div>
-                        <span class="text-fn-text3 text-xs">Total Amount Due</span>
+                        <span class="text-fn-text3 text-sm">Total Amount Due</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <button id="preview-btn"
@@ -208,8 +208,8 @@
             <!-- ── RIGHT: Live Preview ── -->
             <div class="xl:sticky xl:top-6">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="text-fn-text3 text-xs font-mono uppercase tracking-widest">Live Preview</span>
-                    <span class="text-fn-text3 text-xs">A4 · PDF</span>
+                    <span class="text-fn-text3 text-sm font-mono uppercase tracking-widest">Live Preview</span>
+                    <span class="text-fn-text3 text-sm">A4 · PDF</span>
                 </div>
                 <!-- Preview shell -->
                 <div class="bg-fn-bg border border-white/[0.07] rounded-2xl overflow-hidden shadow-2xl">
@@ -217,7 +217,7 @@
                         <span class="w-2.5 h-2.5 rounded-full bg-fn-red"></span>
                         <span class="w-2.5 h-2.5 rounded-full bg-fn-amber"></span>
                         <span class="w-2.5 h-2.5 rounded-full bg-fn-green"></span>
-                        <span class="text-fn-text3 text-xs font-mono ml-auto"
+                        <span class="text-fn-text3 text-sm font-mono ml-auto"
                             id="preview-filename">invoice-INV-0001.pdf</span>
                     </div>
                     <!-- Scaled A4 preview -->
@@ -242,7 +242,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Simple Process</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
             <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">From blank to sent in
                 minutes</h2>
             <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No design skills, no accounting software.
@@ -290,7 +290,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <div class="mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">What's Included</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">What's Included</p>
             <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything a freelancer
                 or small business needs</h2>
             <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">No subscriptions. No exports locked behind
@@ -356,7 +356,7 @@
     <div class="max-w-3xl mx-auto px-6">
 
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">FAQ</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">FAQ</p>
             <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
         </div>
 
@@ -452,7 +452,7 @@
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Upgrade for More</p>
+        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Upgrade for More</p>
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Save
             templates, track invoices, and automate your billing</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
@@ -473,7 +473,7 @@
                 View Pro Plans
             </a>
         </div>
-        <p class="text-fn-text3 text-xs mt-5">✓ Free forever &nbsp;·&nbsp; ✓ No watermarks &nbsp;·&nbsp; ✓ No account
+        <p class="text-fn-text3 text-sm mt-5">✓ Free forever &nbsp;·&nbsp; ✓ No watermarks &nbsp;·&nbsp; ✓ No account
             needed</p>
     </div>
 </section>
@@ -567,7 +567,7 @@
                     class="fn-input text-center" data-field="qty" data-id="${item.id}" />
                 <input type="number" value="${item.price}" min="0" step="0.01"
                     class="fn-input text-right" data-field="price" data-id="${item.id}" />
-                <div class="text-fn-text2 text-xs font-mono text-right py-2 px-1 line-total" data-id="${item.id}">
+                <div class="text-fn-text2 text-sm font-mono text-right py-2 px-1 line-total" data-id="${item.id}">
                     ${fmtMoney(item.qty * item.price)}
                 </div>
                 <button class="remove-line w-8 h-8 flex items-center justify-center rounded-lg text-fn-text3 hover:text-fn-red hover:bg-fn-red/10 transition-all" data-id="${item.id}">

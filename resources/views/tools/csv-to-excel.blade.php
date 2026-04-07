@@ -19,9 +19,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -80,8 +80,7 @@
                                 </svg>
                                 Choose CSV File
                             </div>
-                            <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href="/pricing"
-                                    class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -94,7 +93,7 @@
                                 📄</div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
-                                <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · CSV File</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
                             </div>
                             <button type="button" id="remove-file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -109,29 +108,29 @@
                         {{-- File options --}}
                         <div class="mt-4 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">CSV Separator</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">CSV Separator</label>
                                 <div class="grid grid-cols-4 gap-2 mb-2">
                                     @php $fileSeps = [[',','Comma'],[';','Semicolon'],['\t','Tab'],['|','Pipe']];
                                     @endphp
                                     @foreach($fileSeps as [$sep, $lbl])
                                     <button type="button"
-                                        class="file-sep-btn {{ $sep === ',' ? 'active' : '' }} py-1.5 rounded-lg border text-xs font-mono font-bold transition-all"
+                                        class="file-sep-btn {{ $sep === ',' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
                                         data-sep="{{ $sep }}">
                                         {{ $sep === "\t" ? 'TAB' : $sep }}
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-xs" id="file-sep-hint">Auto-detected · override if needed
+                                <p class="text-fn-text3 text-sm" id="file-sep-hint">Auto-detected · override if needed
                                 </p>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="file-opt-sheet" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="file-opt-sheet" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Sheet Name <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="file-opt-sheet" placeholder="e.g. Users"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 <label for="file-opt-filename"
-                                    class="text-xs font-semibold text-fn-text2 block mb-1 mt-3">
+                                    class="text-sm font-semibold text-fn-text2 block mb-1 mt-3">
                                     Output Filename <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="file-opt-filename" placeholder="e.g. report.xlsx"
@@ -148,7 +147,7 @@
                         <div
                             class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4 w-fit">
                             <button type="button" id="sheet-mode-single"
-                                class="sheet-mode-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
+                                class="sheet-mode-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -158,7 +157,7 @@
                                 Single Sheet
                             </button>
                             <button type="button" id="sheet-mode-multi"
-                                class="sheet-mode-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
+                                class="sheet-mode-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="2" y="7" width="18" height="15" rx="2" />
@@ -176,7 +175,7 @@
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
                                 <div class="absolute top-3 right-3 flex gap-2">
                                     <button type="button" id="btn-paste"
-                                        class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -187,7 +186,7 @@
                                         Paste
                                     </button>
                                     <button type="button" id="btn-clear"
-                                        class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -201,7 +200,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-xs font-semibold">
+                            <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold">
                             </div>
                         </div>
 
@@ -210,7 +209,7 @@
                             {{-- Dynamic sheet editors --}}
                             <div id="sheet-editors" class="space-y-3"></div>
                             <button type="button" id="btn-add-sheet"
-                                class="mt-3 flex items-center gap-2 px-4 py-2 bg-fn-surface border border-dashed border-fn-text/15 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-xs font-semibold rounded-xl transition-all w-full justify-center">
+                                class="mt-3 flex items-center gap-2 px-4 py-2 bg-fn-surface border border-dashed border-fn-text/15 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm font-semibold rounded-xl transition-all w-full justify-center">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="12" y1="5" x2="12" y2="19" />
@@ -218,44 +217,44 @@
                                 </svg>
                                 Add Sheet
                             </button>
-                            <div id="multi-status" class="hidden mt-3 flex items-center gap-2 text-xs font-semibold">
+                            <div id="multi-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold">
                             </div>
                         </div>
 
                         {{-- Text options --}}
                         <div class="mt-4 grid sm:grid-cols-3 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">CSV Separator</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">CSV Separator</label>
                                 <div class="grid grid-cols-4 gap-1.5 mb-2">
                                     @php $textSeps = [[',','Comma'],[';','Semicolon'],['\t','Tab'],['|','Pipe']];
                                     @endphp
                                     @foreach($textSeps as [$sep, $lbl])
                                     <button type="button"
-                                        class="text-sep-btn {{ $sep === ',' ? 'active' : '' }} py-1.5 rounded-lg border text-xs font-mono font-bold transition-all"
+                                        class="text-sep-btn {{ $sep === ',' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
                                         data-sep="{{ $sep }}">
                                         {{ $sep === "\t" ? 'TAB' : $sep }}
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-xs" id="text-sep-hint">Comma — standard</p>
+                                <p class="text-fn-text3 text-sm" id="text-sep-hint">Comma — standard</p>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl"
                                 id="single-sheet-name-wrap">
-                                <label for="text-opt-sheet" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="text-opt-sheet" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Sheet Name <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="text-opt-sheet" placeholder="e.g. Users"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to <span
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to <span
                                         class="font-mono">Sheet1</span></p>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="text-opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="text-opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Output Filename <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="text-opt-filename" placeholder="e.g. report.xlsx"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to <span
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to <span
                                         class="font-mono">output.xlsx</span></p>
                             </div>
                         </div>
@@ -264,7 +263,7 @@
 
                     {{-- Excel features strip --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                        <p class="text-xs font-semibold text-fn-text2 mb-3">Output Excel Features</p>
+                        <p class="text-sm font-semibold text-fn-text2 mb-3">Output Excel Features</p>
                         <div class="flex flex-wrap gap-2">
                             @foreach([
                             ['Bold styled header','#2E75B6 background'],
@@ -280,8 +279,8 @@
                                     class="text-fn-green shrink-0">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
-                                <span class="text-xs text-fn-text2 font-semibold">{{ $feat }}</span>
-                                <span class="text-xs text-fn-text3">· {{ $detail }}</span>
+                                <span class="text-sm text-fn-text2 font-semibold">{{ $feat }}</span>
+                                <span class="text-sm text-fn-text3">· {{ $detail }}</span>
                             </div>
                             @endforeach
                         </div>
@@ -337,7 +336,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -362,7 +361,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -383,7 +382,7 @@
                             📗</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.xlsx</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">Excel Workbook</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Excel Workbook</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -416,7 +415,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -715,7 +714,7 @@
         </button>
       </div>
       <textarea rows="5" placeholder="Paste CSV for this sheet…" spellcheck="false"
-        class="sheet-csv-input w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"
+        class="sheet-csv-input w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"
         data-idx="${idx}">${escHtml(csv)}</textarea>`;
     sheetEditors.appendChild(div);
     div.querySelector('.remove-sheet-btn').addEventListener('click', () => {

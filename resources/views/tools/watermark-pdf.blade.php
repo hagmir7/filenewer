@@ -14,9 +14,9 @@
                 @foreach($wmSteps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -41,8 +41,8 @@
                                     <div class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">📕</div>
                                 </div>
                                 <h2 class="text-base font-bold mb-1.5">Drop your PDF here</h2>
-                                <p class="text-fn-text3 text-xs mb-4">or click to browse</p>
-                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
+                                <p class="text-fn-text3 text-sm mb-4">or click to browse</p>
+                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                         <polyline points="17 8 12 3 7 8" />
@@ -50,7 +50,7 @@
                                     </svg>
                                     Choose PDF
                                 </div>
-                                <p class="text-fn-text3 text-xs mt-3">Max 50MB · <a href="/pricing" class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                                <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                                 <input type="file" id="file-input" accept=".pdf,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
 
@@ -58,8 +58,8 @@
                             <div id="file-preview" class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-lg bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0">📕</div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-xs truncate" id="file-name">document.pdf</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">—</p>
+                                    <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
+                                    <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                                 </div>
                                 <button type="button" id="remove-file" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -71,7 +71,7 @@
 
                             {{-- Watermark type toggle --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Watermark Type</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Type</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button type="button" id="type-text"
                                         class="wm-type-btn active flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"
@@ -91,13 +91,13 @@
 
                                 {{-- Watermark text --}}
                                 <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                    <label for="opt-text" class="text-xs font-semibold text-fn-text2 block mb-2">Watermark Text</label>
+                                    <label for="opt-text" class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Text</label>
                                     <input type="text" id="opt-text" value="CONFIDENTIAL" maxlength="60"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40" />
                                     <div class="flex gap-2 mt-2 flex-wrap">
                                         @php $presetTexts = ['CONFIDENTIAL','DRAFT','SAMPLE','TOP SECRET','COPY']; @endphp
                                         @foreach($presetTexts as $pt)
-                                        <button type="button" class="preset-text-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-xs rounded-lg font-mono transition-all">{{ $pt }}</button>
+                                        <button type="button" class="preset-text-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm rounded-lg font-mono transition-all">{{ $pt }}</button>
                                         @endforeach
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                 {{-- Color + Font size --}}
                                 <div class="grid grid-cols-2 gap-3">
                                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                        <label class="text-xs font-semibold text-fn-text2 block mb-2">Color</label>
+                                        <label class="text-sm font-semibold text-fn-text2 block mb-2">Color</label>
                                         <div class="grid grid-cols-4 gap-1.5" id="color-grid">
                                             @php
                                             $colors = [
@@ -127,15 +127,15 @@
                                             </button>
                                             @endforeach
                                         </div>
-                                        <p class="text-fn-text3 text-xs mt-2" id="color-label">Grey</p>
+                                        <p class="text-fn-text3 text-sm mt-2" id="color-label">Grey</p>
                                     </div>
                                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                        <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                        <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                             Font Size — <span id="font-size-val" class="text-fn-blue-l">60</span>
                                         </label>
                                         <input type="range" id="opt-font-size" min="12" max="120" value="60" step="1"
                                             class="w-full accent-fn-blue cursor-pointer mt-1" />
-                                        <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                        <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                             <span>12</span><span>60</span><span>120</span>
                                         </div>
                                     </div>
@@ -149,14 +149,14 @@
                                     class="border-2 border-dashed border-fn-text/15 rounded-xl p-6 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                     <div class="text-2xl mb-2">🖼️</div>
                                     <p class="text-sm font-semibold mb-1">Drop watermark image</p>
-                                    <p class="text-fn-text3 text-xs">PNG or JPG · transparent PNG recommended</p>
+                                    <p class="text-fn-text3 text-sm">PNG or JPG · transparent PNG recommended</p>
                                     <input type="file" id="img-input" accept=".png,.jpg,.jpeg,image/png,image/jpeg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
                                 <div id="img-preview-wrap" class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                     <img id="img-preview-thumb" src="" alt="" class="w-10 h-10 rounded-lg object-contain bg-fn-surface border border-fn-text/8 shrink-0" />
                                     <div class="flex-1 min-w-0">
-                                        <p class="font-semibold text-xs truncate" id="img-name">logo.png</p>
-                                        <p class="text-fn-text3 text-xs mt-0.5" id="img-meta">—</p>
+                                        <p class="font-semibold text-sm truncate" id="img-name">logo.png</p>
+                                        <p class="text-fn-text3 text-sm mt-0.5" id="img-meta">—</p>
                                     </div>
                                     <button type="button" id="remove-img" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -174,7 +174,7 @@
 
                             {{-- Live preview --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-xs font-semibold text-fn-text2 mb-3">Live Preview</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3">Live Preview</p>
                                 <div id="preview-canvas-wrap"
                                     class="relative bg-white border border-fn-text/12 rounded-xl overflow-hidden"
                                     style="aspect-ratio:210/297; max-height:280px;">
@@ -196,12 +196,12 @@
                                     <img id="preview-img" src="" alt="" class="hidden max-w-1/2 max-h-1/2 object-contain" style="opacity:0.3;" />
                                 </div>
                             </div>
-                            <p class="text-fn-text3 text-xs mt-2 text-center">Approximate preview — actual output may vary</p>
+                            <p class="text-fn-text3 text-sm mt-2 text-center">Approximate preview — actual output may vary</p>
                         </div>
 
                         {{-- Position --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Position</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Position</label>
                             <div class="grid grid-cols-3 gap-1.5" id="position-grid">
                                 @php
                                 $positions = [
@@ -223,22 +223,22 @@
                         {{-- Opacity + Angle --}}
                         <div class="grid grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Opacity — <span id="opacity-val" class="text-fn-blue-l">0.3</span>
                                 </label>
                                 <input type="range" id="opt-opacity" min="0.05" max="1" value="0.3" step="0.05"
                                     class="w-full accent-fn-blue cursor-pointer mt-1" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                     <span>Subtle</span><span>Heavy</span>
                                 </div>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="angle-wrap">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Angle — <span id="angle-val" class="text-fn-blue-l">45°</span>
                                 </label>
                                 <input type="range" id="opt-angle" min="-90" max="90" value="45" step="5"
                                     class="w-full accent-fn-blue cursor-pointer mt-1" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                     <span>-90°</span><span>0°</span><span>90°</span>
                                 </div>
                             </div>
@@ -246,12 +246,12 @@
 
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-pages" class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                            <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                 Pages <span class="font-normal text-fn-text3 ml-1">(optional — leave blank for all)</span>
                             </label>
                             <input type="text" id="opt-pages" placeholder="e.g. 1,2,3 or 1-5"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-fn-text3 text-xs mt-1.5">Comma-separated page numbers · leave blank to watermark all pages</p>
+                            <p class="text-fn-text3 text-sm mt-1.5">Comma-separated page numbers · leave blank to watermark all pages</p>
                         </div>
 
                     </div>{{-- /right col --}}
@@ -298,7 +298,7 @@
                         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                     <span id="progress-label">Starting…</span>
                     <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                 </div>
@@ -321,7 +321,7 @@
                                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                             </svg>
                         </div>
-                        <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                        <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                     </div>
                     @endforeach
                 </div>
@@ -337,7 +337,7 @@
                     <div class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0">💧</div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">watermarked.pdf</p>
-                        <p class="text-fn-text3 text-xs mt-0.5" id="output-size">PDF Document</p>
+                        <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
                     </div>
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                 </div>
@@ -367,7 +367,7 @@
                     </a>
                 </div>
 
-                <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>

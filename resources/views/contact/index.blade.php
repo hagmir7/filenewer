@@ -18,7 +18,7 @@
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-cyan text-xs font-semibold uppercase tracking-widest mb-4">Contact Us</p>
+                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">Contact Us</p>
                 <div class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Let’s start a<br />
                     conversation<span class="text-fn-text3">.</span>
@@ -30,7 +30,7 @@
 
             <!-- Info -->
             <div class="space-y-3">
-                <p class="text-xs font-semibold text-fn-text3 uppercase tracking-widest">Support</p>
+                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">Support</p>
 
                 <div class="p-3.5 bg-fn-surface2 border border-fn-text/7 rounded-xl text-md flex gap-2 items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -95,7 +95,7 @@
 
                 <!-- Name -->
                 <div>
-                    <label class="text-xs font-semibold text-fn-text2">Full Name</label>
+                    <label class="text-sm font-semibold text-fn-text2">Full Name</label>
                     <input type="text" name="name" value="{{ old('name') }}"
                         class="input-field w-full px-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-sm"
                         placeholder="John Doe">
@@ -103,7 +103,7 @@
 
                 <!-- Email -->
                 <div>
-                    <label class="text-xs font-semibold text-fn-text2">Email</label>
+                    <label class="text-sm font-semibold text-fn-text2">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}"
                         class="input-field w-full px-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-sm"
                         placeholder="john@email.com">
@@ -111,7 +111,7 @@
 
                 <!-- Subject -->
                 <div>
-                    <label class="text-xs font-semibold text-fn-text2">Subject</label>
+                    <label class="text-sm font-semibold text-fn-text2">Subject</label>
                     <input type="text" name="subject" value="{{ old('subject') }}"
                         class="input-field w-full px-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-sm"
                         placeholder="How can we help?">
@@ -119,7 +119,7 @@
 
                 <!-- Message -->
                 <div>
-                    <label class="text-xs font-semibold text-fn-text2">Message</label>
+                    <label class="text-sm font-semibold text-fn-text2">Message</label>
                     <textarea name="message" rows="5"
                         class="input-field w-full px-4 py-2.5 bg-fn-surface border border-fn-text/10 rounded-xl text-sm"
                         placeholder="Write your message...">{{ old('message') }}</textarea>
@@ -133,7 +133,7 @@
             </form>
 
             <!-- Extra -->
-            <p class="text-center text-xs text-fn-text3 mt-6">
+            <p class="text-center text-sm text-fn-text3 mt-6">
                 We usually respond within 24 hours.
             </p>
 

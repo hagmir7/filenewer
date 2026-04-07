@@ -17,9 +17,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -53,8 +53,7 @@
                             </svg>
                             Choose Word File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="file-input"
                             accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -68,7 +67,7 @@
                             📝</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · PDF Document</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -88,19 +87,19 @@
 
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Output Mode</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
                                 <select id="opt-output"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                     <option value="zip">All pages → ZIP of JPGs</option>
                                     <option value="single">Single page → JPG</option>
                                 </select>
-                                <p class="text-fn-text3 text-xs mt-1.5" id="output-mode-hint">Every page exported as a
+                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">Every page exported as a
                                     JPG, bundled in a ZIP archive.</p>
                             </div>
 
                             {{-- Page number (only relevant for single) --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="page-option-wrap">
-                                <label for="opt-page" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="opt-page" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Page Number
                                     <span class="font-normal text-fn-text3 ml-1" id="page-opt-note">(ZIP mode:
                                         ignored)</span>
@@ -108,7 +107,7 @@
                                 <input type="number" id="opt-page" min="1" value="1" placeholder="e.g. 3"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 disabled:opacity-40"
                                     disabled />
-                                <p class="text-fn-text3 text-xs mt-1.5">Leave blank or 1 for first page</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">Leave blank or 1 for first page</p>
                             </div>
                         </div>
 
@@ -116,27 +115,27 @@
                         <div class="grid sm:grid-cols-2 gap-3">
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     DPI — <span id="dpi-val" class="text-fn-blue-l">200</span>
                                     <span class="font-normal text-fn-text3 ml-1" id="dpi-hint">(Default · General
                                         use)</span>
                                 </label>
                                 <input type="range" id="opt-dpi" min="72" max="600" value="200" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                     <span>72 Web</span><span>150</span><span>200</span><span>300 Print</span><span>600
                                         Hi-res</span>
                                 </div>
                             </div>
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     JPEG Quality — <span id="quality-val" class="text-fn-blue-l">85</span>%
                                     <span class="font-normal text-fn-text3 ml-1" id="quality-hint">(Default)</span>
                                 </label>
                                 <input type="range" id="opt-quality" min="1" max="100" value="85" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                     <span>1 Tiny</span><span>60</span><span>85</span><span>95</span><span>100 Max</span>
                                 </div>
                             </div>
@@ -145,7 +144,7 @@
                         {{-- Row 3: Password --}}
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="opt-password" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     PDF Password
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
@@ -173,7 +172,7 @@
 
                             {{-- DPI/Quality quick presets --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Quick Presets</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Quick Presets</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach([
                                     ['Web preview','72','60'],
@@ -182,10 +181,10 @@
                                     ['Print ready','300','90'],
                                     ] as [$plabel, $pdpi, $pq])
                                     <button type="button"
-                                        class="preset-btn text-xs px-2 py-1.5 rounded-lg border border-fn-text/10 bg-fn-surface text-fn-text2 hover:border-fn-blue/40 hover:text-fn-text hover:bg-fn-blue/5 transition-all text-left"
+                                        class="preset-btn text-sm px-2 py-1.5 rounded-lg border border-fn-text/10 bg-fn-surface text-fn-text2 hover:border-fn-blue/40 hover:text-fn-text hover:bg-fn-blue/5 transition-all text-left"
                                         data-dpi="{{ $pdpi }}" data-quality="{{ $pq }}">
                                         {{ $plabel }}<br>
-                                        <span class="text-fn-text3 text-xs">{{ $pdpi }} DPI · Q{{ $pq }}</span>
+                                        <span class="text-fn-text3 text-sm">{{ $pdpi }} DPI · Q{{ $pq }}</span>
                                     </button>
                                     @endforeach
                                 </div>
@@ -245,7 +244,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -271,7 +270,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -292,7 +291,7 @@
                             🖼️</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document_pages.zip</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">JPG Images</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">JPG Images</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -325,7 +324,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

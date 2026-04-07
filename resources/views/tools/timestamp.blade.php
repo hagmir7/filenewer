@@ -39,8 +39,8 @@
                 {{-- Live clock --}}
                 <div class="ml-auto flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/8 rounded-xl">
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
-                    <span class="text-xs font-mono font-semibold text-fn-text2" id="live-clock">—</span>
-                    <span class="text-fn-text3 text-xs" id="live-unix">—</span>
+                    <span class="text-sm font-mono font-semibold text-fn-text2" id="live-clock">—</span>
+                    <span class="text-fn-text3 text-sm" id="live-unix">—</span>
                 </div>
             </div>
 
@@ -50,9 +50,9 @@
                 <div
                     class="flex flex-wrap items-center gap-3 mb-6 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     <div class="flex items-center gap-2 flex-1 min-w-0">
-                        <label class="text-xs font-semibold text-fn-text2 shrink-0">From</label>
+                        <label class="text-sm font-semibold text-fn-text2 shrink-0">From</label>
                         <select id="from-tz"
-                            class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
+                            class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
                         </select>
                     </div>
                     <button type="button" id="swap-tz"
@@ -67,12 +67,12 @@
                         </svg>
                     </button>
                     <div class="flex items-center gap-2 flex-1 min-w-0">
-                        <label class="text-xs font-semibold text-fn-text2 shrink-0">To</label>
+                        <label class="text-sm font-semibold text-fn-text2 shrink-0">To</label>
                         <select id="to-tz"
-                            class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
+                            class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
                         </select>
                     </div>
-                    <div class="flex items-center gap-1.5 text-xs text-fn-text3 shrink-0">
+                    <div class="flex items-center gap-1.5 text-sm text-fn-text3 shrink-0">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10" />
@@ -95,11 +95,11 @@
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm rounded-xl px-4 py-3 pr-24 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 placeholder:font-sans" />
                             <div class="absolute right-3 top-1/2 -translate-y-1/2 flex gap-1.5">
                                 <button type="button" id="btn-now"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm font-semibold rounded-lg transition-all">
                                     Now
                                 </button>
                                 <button type="button" id="btn-clear-single"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                     ✕
                                 </button>
                             </div>
@@ -117,7 +117,7 @@
 
                     {{-- Quick format examples --}}
                     <div class="flex flex-wrap gap-1.5 mb-6">
-                        <span class="text-xs text-fn-text3 mr-1 self-center">Try:</span>
+                        <span class="text-sm text-fn-text3 mr-1 self-center">Try:</span>
                         @php
                         $quickExamples = [
                         '1704067200', '2024-01-01T00:00:00Z', 'now', 'today', 'yesterday',
@@ -126,7 +126,7 @@
                         @endphp
                         @foreach($quickExamples as $ex)
                         <button type="button"
-                            class="example-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/25 text-xs font-mono rounded-lg transition-all"
+                            class="example-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/25 text-sm font-mono rounded-lg transition-all"
                             data-val="{{ $ex }}">{{ $ex }}</button>
                         @endforeach
                     </div>
@@ -148,12 +148,12 @@
 
                         {{-- Header meta --}}
                         <div class="flex flex-wrap items-center gap-2 mb-4 px-1">
-                            <span class="text-xs font-mono text-fn-text3" id="res-input-label"></span>
-                            <span class="text-fn-text3 text-xs">→</span>
-                            <span class="text-xs font-semibold text-fn-text2" id="res-tz-label"></span>
+                            <span class="text-sm font-mono text-fn-text3" id="res-input-label"></span>
+                            <span class="text-fn-text3 text-sm">→</span>
+                            <span class="text-sm font-semibold text-fn-text2" id="res-tz-label"></span>
                             <span id="res-dst-badge"
-                                class="hidden text-xs px-2 py-0.5 bg-fn-amber/12 border border-fn-amber/30 text-fn-amber rounded-md font-semibold">DST</span>
-                            <span class="text-xs text-fn-text3 ml-auto" id="res-relative"></span>
+                                class="hidden text-sm px-2 py-0.5 bg-fn-amber/12 border border-fn-amber/30 text-fn-amber rounded-md font-semibold">DST</span>
+                            <span class="text-sm text-fn-text3 ml-auto" id="res-relative"></span>
                         </div>
 
                         {{-- Format cards grid --}}
@@ -179,18 +179,18 @@
                     {{-- Input --}}
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <p class="text-xs font-semibold text-fn-text2">Input Values <span
+                            <p class="text-sm font-semibold text-fn-text2">Input Values <span
                                     class="font-normal text-fn-text3 ml-1">(one per line)</span></p>
                             <div class="flex gap-2">
                                 <button type="button" id="btn-load-examples"
-                                    class="text-xs text-fn-blue-l hover:underline font-semibold">Load examples</button>
+                                    class="text-sm text-fn-blue-l hover:underline font-semibold">Load examples</button>
                                 <button type="button" id="btn-clear-batch"
-                                    class="text-xs text-fn-text3 hover:text-fn-red font-semibold">Clear</button>
+                                    class="text-sm text-fn-text3 hover:text-fn-red font-semibold">Clear</button>
                             </div>
                         </div>
                         <textarea id="batch-input" rows="14" spellcheck="false"
                             placeholder="1704067200&#10;2024-01-15T08:30:00Z&#10;now&#10;yesterday&#10;2024-06-01 12:00:00"
-                            class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
+                            class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <button type="button" id="batch-convert-btn"
                             class="w-full flex items-center justify-center gap-2 py-3 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
                             disabled>
@@ -205,11 +205,11 @@
                     {{-- Results --}}
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <p class="text-xs font-semibold text-fn-text2">Results</p>
+                            <p class="text-sm font-semibold text-fn-text2">Results</p>
                             <div class="flex gap-2">
-                                <span id="batch-stats" class="hidden text-xs text-fn-text3"></span>
+                                <span id="batch-stats" class="hidden text-sm text-fn-text3"></span>
                                 <button type="button" id="btn-copy-batch"
-                                    class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -218,7 +218,7 @@
                                     <span id="batch-copy-label">Copy JSON</span>
                                 </button>
                                 <a id="btn-download-batch" href="#" download="timestamps.json"
-                                    class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
+                                    class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -243,7 +243,7 @@
                         </div>
 
                         <div id="batch-error"
-                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -285,9 +285,9 @@
             @endphp
             @foreach($inputFormats as [$label,$example,$desc])
             <div class="p-3 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <p class="text-xs font-semibold text-fn-text2 mb-1">{{ $label }}</p>
-                <p class="text-xs font-mono text-fn-blue-l mb-1">{{ $example }}</p>
-                <p class="text-xs text-fn-text3">{{ $desc }}</p>
+                <p class="text-sm font-semibold text-fn-text2 mb-1">{{ $label }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-1">{{ $example }}</p>
+                <p class="text-sm text-fn-text3">{{ $desc }}</p>
             </div>
             @endforeach
         </div>
@@ -685,8 +685,8 @@
           const f = result.formats ?? {};
           card.innerHTML = `
             <div class="flex items-start justify-between gap-2 mb-1.5">
-              <span class="text-xs font-mono text-fn-text3 truncate">${escHtml(String(result.input))}</span>
-              <span class="text-xs text-fn-text3 shrink-0">${f.relative ?? ''}</span>
+              <span class="text-sm font-mono text-fn-text3 truncate">${escHtml(String(result.input))}</span>
+              <span class="text-sm text-fn-text3 shrink-0">${f.relative ?? ''}</span>
             </div>
             <div class="grid grid-cols-2 gap-x-4 gap-y-0.5">
               <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">ISO</span><span class="font-mono text-fn-text2" style="font-size:10px">${f.iso_8601 ?? '—'}</span></div>
@@ -698,8 +698,8 @@
           card.innerHTML = `
             <div class="flex items-center gap-2">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
-              <span class="text-xs font-mono text-fn-text3">${escHtml(String(result.input))}</span>
-              <span class="text-xs text-fn-red ml-auto">${escHtml(result.error ?? 'Failed')}</span>
+              <span class="text-sm font-mono text-fn-text3">${escHtml(String(result.input))}</span>
+              <span class="text-sm text-fn-red ml-auto">${escHtml(result.error ?? 'Failed')}</span>
             </div>`;
         }
         wrap.appendChild(card);

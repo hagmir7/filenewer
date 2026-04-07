@@ -41,12 +41,12 @@
 
                             {{-- Length --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Length — <span id="pw-len-val" class="text-fn-blue-l">16</span> characters
                                 </label>
                                 <input type="range" id="pw-length" min="4" max="128" value="16" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
-                                <div class="flex justify-between text-fn-text3 text-xs mb-2">
+                                <div class="flex justify-between text-fn-text3 text-sm mb-2">
                                     <span>4</span><span>32</span><span>64</span><span>128</span>
                                 </div>
                                 <input type="number" id="pw-length-num" min="4" max="256" value="16"
@@ -55,19 +55,19 @@
 
                             {{-- Count --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Count — <span id="pw-count-val" class="text-fn-blue-l">1</span>
                                 </label>
                                 <input type="range" id="pw-count" min="1" max="20" value="1" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                     <span>1</span><span>5</span><span>10</span><span>20</span>
                                 </div>
                             </div>
 
                             {{-- Character sets --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Characters</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Characters</label>
                                 <div class="space-y-2">
                                     @php
                                     $charToggles = [
@@ -90,9 +90,9 @@
                                                     class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                                 </div>
                                             </div>
-                                            <span class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</span>
+                                            <span class="text-sm font-semibold text-fn-text2">{{ $tlabel }}</span>
                                         </div>
-                                        <span class="text-xs font-mono text-fn-text3">{{ $tchars }}</span>
+                                        <span class="text-sm font-mono text-fn-text3">{{ $tchars }}</span>
                                     </label>
                                     @endforeach
                                 </div>
@@ -100,7 +100,7 @@
 
                             {{-- Exclusion options --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Exclusions</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Exclusions</label>
                                 @php
                                 $exclusions = [
                                 ['pw-exclude-similar', 'Exclude similar', '0 O 1 l I'],
@@ -120,40 +120,40 @@
                                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                             </div>
                                         </div>
-                                        <span class="text-xs font-semibold text-fn-text2">{{ $elabel }}</span>
+                                        <span class="text-sm font-semibold text-fn-text2">{{ $elabel }}</span>
                                     </div>
                                     @if($echars)
-                                    <span class="text-xs font-mono text-fn-text3">{{ $echars }}</span>
+                                    <span class="text-sm font-mono text-fn-text3">{{ $echars }}</span>
                                     @endif
                                 </label>
                                 @endforeach
                                 <div class="pt-1">
-                                    <label class="text-xs text-fn-text3 block mb-1">Exclude specific chars</label>
+                                    <label class="text-sm text-fn-text3 block mb-1">Exclude specific chars</label>
                                     <input type="text" id="pw-exclude-chars" placeholder='e.g. @#$'
-                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
 
                             {{-- Prefix / Suffix / Custom --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Advanced</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Advanced</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="text-xs text-fn-text3 block mb-1">Prefix</label>
+                                        <label class="text-sm text-fn-text3 block mb-1">Prefix</label>
                                         <input type="text" id="pw-prefix" placeholder="APP-"
-                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                     <div>
-                                        <label class="text-xs text-fn-text3 block mb-1">Suffix</label>
+                                        <label class="text-sm text-fn-text3 block mb-1">Suffix</label>
                                         <input type="text" id="pw-suffix" placeholder="-2024"
-                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-xs text-fn-text3 block mb-1">Custom characters only <span
+                                    <label class="text-sm text-fn-text3 block mb-1">Custom characters only <span
                                             class="font-normal">(overrides above)</span></label>
                                     <input type="text" id="pw-custom-chars" placeholder="abcdefABCDEF0123456789"
-                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
 
@@ -175,21 +175,21 @@
                             <div id="gen-meta-bar"
                                 class="hidden flex flex-wrap items-center gap-2 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-xs text-fn-text3">Strength:</span>
+                                    <span class="text-sm text-fn-text3">Strength:</span>
                                     <span id="gen-strength-badge"
-                                        class="text-xs font-bold px-2 py-0.5 rounded-md">—</span>
+                                        class="text-sm font-bold px-2 py-0.5 rounded-md">—</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-xs text-fn-text3">Entropy:</span>
-                                    <span class="text-xs font-bold text-fn-text2" id="gen-entropy">—</span>
+                                    <span class="text-sm text-fn-text3">Entropy:</span>
+                                    <span class="text-sm font-bold text-fn-text2" id="gen-entropy">—</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-xs text-fn-text3">Pool:</span>
-                                    <span class="text-xs font-bold text-fn-text2" id="gen-pool">—</span>
+                                    <span class="text-sm text-fn-text3">Pool:</span>
+                                    <span class="text-sm font-bold text-fn-text2" id="gen-pool">—</span>
                                 </div>
                                 <div class="ml-auto flex items-center gap-2">
                                     <button type="button" id="gen-copy-all"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -199,7 +199,7 @@
                                         <span id="gen-copy-label">Copy all</span>
                                     </button>
                                     <button type="button" id="gen-regen"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -227,12 +227,12 @@
                             {{-- Crack time (shown after generate) --}}
                             <div id="crack-time-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-xs font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="crack-time-grid"></div>
                             </div>
 
                             <div id="gen-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -253,18 +253,18 @@
                         <div class="space-y-4">
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Words — <span id="pp-words-val" class="text-fn-blue-l">4</span>
                                 </label>
                                 <input type="range" id="pp-words" min="2" max="10" value="4" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                                <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                     <span>2</span><span>4</span><span>7</span><span>10</span>
                                 </div>
                             </div>
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Count — <span id="pp-count-val" class="text-fn-blue-l">3</span>
                                 </label>
                                 <input type="range" id="pp-count" min="1" max="10" value="3" step="1"
@@ -273,12 +273,12 @@
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="pp-separator"
-                                    class="text-xs font-semibold text-fn-text2 block mb-2">Separator</label>
+                                    class="text-sm font-semibold text-fn-text2 block mb-2">Separator</label>
                                 <div class="flex gap-2 mb-2">
                                     @php $seps = ['-','_','.','/','@',' ']; @endphp
                                     @foreach($seps as $sep)
                                     <button type="button"
-                                        class="sep-preset-btn {{ $sep === '-' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-mono font-bold transition-all"
+                                        class="sep-preset-btn {{ $sep === '-' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-mono font-bold transition-all"
                                         data-sep="{{ $sep }}">{{ $sep === ' ' ? '␣' : $sep }}</button>
                                     @endforeach
                                 </div>
@@ -287,7 +287,7 @@
                             </div>
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Options</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Options</label>
                                 <label class="flex items-center gap-2 cursor-pointer select-none">
                                     <div class="toggle-wrap relative w-8 h-4">
                                         <input type="checkbox" id="pp-capitalize" checked class="sr-only peer" />
@@ -298,7 +298,7 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-xs font-semibold text-fn-text2">Capitalize words</span>
+                                    <span class="text-sm font-semibold text-fn-text2">Capitalize words</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer select-none">
                                     <div class="toggle-wrap relative w-8 h-4">
@@ -310,7 +310,7 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-xs font-semibold text-fn-text2">Include a digit</span>
+                                    <span class="text-sm font-semibold text-fn-text2">Include a digit</span>
                                 </label>
                             </div>
 
@@ -330,17 +330,17 @@
                             <div id="pp-meta-bar"
                                 class="hidden flex flex-wrap items-center gap-2 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-xs text-fn-text3">Strength:</span>
+                                    <span class="text-sm text-fn-text3">Strength:</span>
                                     <span id="pp-strength-badge"
-                                        class="text-xs font-bold px-2 py-0.5 rounded-md">—</span>
+                                        class="text-sm font-bold px-2 py-0.5 rounded-md">—</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-xs text-fn-text3">Entropy:</span>
-                                    <span class="text-xs font-bold text-fn-text2" id="pp-entropy">—</span>
+                                    <span class="text-sm text-fn-text3">Entropy:</span>
+                                    <span class="text-sm font-bold text-fn-text2" id="pp-entropy">—</span>
                                 </div>
                                 <div class="ml-auto flex items-center gap-2">
                                     <button type="button" id="pp-copy-all"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -350,7 +350,7 @@
                                         <span id="pp-copy-label">Copy all</span>
                                     </button>
                                     <button type="button" id="pp-regen"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -375,12 +375,12 @@
 
                             <div id="pp-crack-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-xs font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="pp-crack-grid"></div>
                             </div>
 
                             <div id="pp-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -399,9 +399,9 @@
                         {{-- Input --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Enter Password to Analyse</p>
+                                <p class="text-sm font-semibold text-fn-text2">Enter Password to Analyse</p>
                                 <button type="button" id="str-toggle-vis"
-                                    class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg id="str-eye-show" width="11" height="11" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -426,7 +426,7 @@
                                 <div id="str-bar" class="h-full rounded-full transition-all duration-500"
                                     style="width:0%"></div>
                             </div>
-                            <div class="flex items-center justify-between text-xs">
+                            <div class="flex items-center justify-between text-sm">
                                 <span id="str-live-label" class="font-semibold text-fn-text3">—</span>
                                 <span id="str-live-entropy" class="font-mono text-fn-text3"></span>
                             </div>
@@ -452,7 +452,7 @@
                                     </div>
                                     <div>
                                         <p class="text-xl font-black" id="str-strength-label">—</p>
-                                        <p class="text-xs text-fn-text3 mt-0.5" id="str-entropy-label"></p>
+                                        <p class="text-sm text-fn-text3 mt-0.5" id="str-entropy-label"></p>
                                     </div>
                                 </div>
 
@@ -462,21 +462,21 @@
 
                             {{-- Crack time --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-xs font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="str-crack-grid"></div>
                             </div>
 
                             {{-- Issues & suggestions --}}
                             <div id="str-issues-wrap"
                                 class="hidden p-4 bg-fn-amber/6 border border-fn-amber/20 rounded-xl space-y-2">
-                                <p class="text-xs font-semibold text-fn-amber">⚠ Issues & Suggestions</p>
+                                <p class="text-sm font-semibold text-fn-amber">⚠ Issues & Suggestions</p>
                                 <ul id="str-issues-list" class="space-y-1"></ul>
                             </div>
 
                         </div>
 
                         <div id="str-error"
-                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -510,8 +510,8 @@
                 @foreach($strengthLevels as [$name,$entropy,$classes,$desc]) <div
                 class="p-4 border rounded-xl {{ $classes }}">
                 <p class="font-bold text-sm mb-1">{{ $name }}</p>
-                <p class="text-xs font-mono opacity-80 mb-2">{{ $entropy }}</p>
-                <p class="text-xs opacity-70 leading-relaxed">{{ $desc }}</p>
+                <p class="text-sm font-mono opacity-80 mb-2">{{ $entropy }}</p>
+                <p class="text-sm opacity-70 leading-relaxed">{{ $desc }}</p>
         </div>
         @endforeach
     </div>
@@ -920,7 +920,7 @@
     checks.forEach(([key, label]) => {
       const ok  = data[key] ?? false;
       const span = document.createElement('span');
-      span.className = `text-xs font-semibold px-2.5 py-1 rounded-lg border ${ok
+      span.className = `text-sm font-semibold px-2.5 py-1 rounded-lg border ${ok
         ? 'bg-fn-green/10 border-fn-green/25 text-fn-green'
         : 'bg-fn-text/6 border-fn-text/10 text-fn-text3'}`;
       span.innerHTML = `${ok ? '✓' : '✗'} ${label}`;
@@ -939,7 +939,7 @@
       list.innerHTML = '';
       allIssues.forEach(issue => {
         const li = document.createElement('li');
-        li.className = 'text-xs text-fn-text2 flex items-start gap-1.5';
+        li.className = 'text-sm text-fn-text2 flex items-start gap-1.5';
         li.innerHTML = `<span class="text-fn-amber mt-0.5">•</span>${escHtml(issue)}`;
         list.appendChild(li);
       });

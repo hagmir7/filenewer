@@ -12,7 +12,7 @@
 
         <div class="animate-fade-up opacity-0 text-center mb-14">
             <div
-                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-fn-blue/30 bg-fn-blue/10 text-fn-blue-l text-xs font-semibold tracking-widest uppercase mb-5">
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-fn-blue/30 bg-fn-blue/10 text-fn-blue-l text-sm font-semibold tracking-widest uppercase mb-5">
                 <span class="w-1.5 h-1.5 rounded-full bg-fn-blue-l animate-pulse"></span>
                 The Filenewer Blog
             </div>
@@ -38,7 +38,7 @@
 
 <section class="pb-6">
     <div class="max-w-6xl mx-auto px-6">
-        <p class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-5">Featured Article</p>
+        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-5">Featured Article</p>
 
         <a href="/blog/{{ $featured->slug }}"
             class="blog-card group block bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300 shadow-lg">
@@ -60,7 +60,7 @@
                             📕
                         </div>
                         <span
-                            class="inline-block px-3 py-1 bg-fn-blue/15 border border-fn-blue/30 rounded-full text-fn-blue-l text-xs font-semibold">
+                            class="inline-block px-3 py-1 bg-fn-blue/15 border border-fn-blue/30 rounded-full text-fn-blue-l text-sm font-semibold">
                             {{ $featured->category ?? 'Article' }}
                         </span>
                     </div>
@@ -72,11 +72,11 @@
                     <div>
                         <div class="flex items-center gap-3 mb-5">
                             <span
-                                class="px-2.5 py-1 bg-fn-blue/10 border border-fn-blue/20 rounded-full text-fn-blue-l text-xs font-semibold">
+                                class="px-2.5 py-1 bg-fn-blue/10 border border-fn-blue/20 rounded-full text-fn-blue-l text-sm font-semibold">
                                 Featured
                             </span>
                             @if ($featured->content)
-                            <span class="text-fn-text3 text-xs">
+                            <span class="text-fn-text3 text-sm">
                                 {{ ceil(str_word_count(strip_tags($featured->content)) / 200) }} min read
                             </span>
                             @endif
@@ -92,12 +92,12 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <div
-                                class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-xs font-bold text-fn-blue-l">
+                                class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-sm font-bold text-fn-blue-l">
                                 {{ strtoupper(substr($featured->user->name ?? 'A', 0, 2)) }}
                             </div>
                             <div>
-                                <p class="text-xs font-semibold">{{ $featured->user->name ?? 'Author' }}</p>
-                                <p class="text-xs text-fn-text3">
+                                <p class="text-sm font-semibold">{{ $featured->user->name ?? 'Author' }}</p>
+                                <p class="text-sm text-fn-text3">
                                     {{ $featured->published_at ?
                                     \Carbon\Carbon::parse($featured->published_at)->format('M j, Y') : '' }}
                                 </p>
@@ -122,7 +122,7 @@
 {{-- ══ BLOG GRID ══ --}}
 <section class="py-12">
     <div class="max-w-6xl mx-auto px-6">
-        <p class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-7">Latest Articles</p>
+        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-7">Latest Articles</p>
 
         @php
         // Skip the featured post on page 1 so it doesn't repeat in the grid
@@ -197,12 +197,12 @@
                     <div class="flex items-center gap-2 mb-3">
                         @if ($blog->category)
                         <span
-                            class="px-2.5 py-0.5 {{ $color['bg'] }} border {{ $color['border'] }} rounded-full {{ $color['text'] }} text-xs font-semibold">
+                            class="px-2.5 py-0.5 {{ $color['bg'] }} border {{ $color['border'] }} rounded-full {{ $color['text'] }} text-sm font-semibold">
                             {{ ucfirst($blog->category) }}
                         </span>
                         @endif
                         @if ($readTime)
-                        <span class="text-fn-text3 text-xs">{{ $readTime }} min read</span>
+                        <span class="text-fn-text3 text-sm">{{ $readTime }} min read</span>
                         @endif
                     </div>
 
@@ -211,17 +211,17 @@
                         {{ $blog->title }}
                     </h3>
 
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-5">
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-5">
                         {{ $blog->excerpt }}
                     </p>
 
                     <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
                         <div class="flex items-center gap-2">
                             <div
-                                class="w-6 h-6 rounded-full {{ $color['bg'] }} flex items-center justify-center text-xs font-bold {{ $color['text'] }}">
+                                class="w-6 h-6 rounded-full {{ $color['bg'] }} flex items-center justify-center text-sm font-bold {{ $color['text'] }}">
                                 {{ $initials }}
                             </div>
-                            <span class="text-xs text-fn-text3">
+                            <span class="text-sm text-fn-text3">
                                 {{ $blog->user->name ?? 'Author' }}
                                 @if ($blog->published_at)
                                 · {{ \Carbon\Carbon::parse($blog->published_at)->format('M j') }}
@@ -316,7 +316,7 @@
             </div>
 
             <div class="relative z-10 max-w-lg mx-auto">
-                <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Stay Updated</p>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Stay Updated</p>
                 <h2 class="font-serif text-2xl sm:text-3xl font-normal tracking-tight mb-3">
                     Get file tips straight to your inbox
                 </h2>
@@ -332,7 +332,7 @@
                         Subscribe Free
                     </button>
                 </div>
-                <p class="text-fn-text3 text-xs mt-3">Unsubscribe any time · No spam ever</p>
+                <p class="text-fn-text3 text-sm mt-3">Unsubscribe any time · No spam ever</p>
             </div>
         </div>
     </div>

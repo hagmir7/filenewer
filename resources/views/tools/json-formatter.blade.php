@@ -43,12 +43,12 @@
 
                     {{-- Indent --}}
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-fn-text2 shrink-0">Indent</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Indent</span>
                         <div class="flex gap-1">
                             @php $indentOpts = [2, 4, 8]; @endphp
                             @foreach($indentOpts as $ind)
                             <button type="button"
-                                class="indent-btn {{ $ind === 4 ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-mono font-bold transition-all"
+                                class="indent-btn {{ $ind === 4 ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-mono font-bold transition-all"
                                 data-indent="{{ $ind }}">{{ $ind }}</button>
                             @endforeach
                         </div>
@@ -67,7 +67,7 @@
                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                             </div>
                         </div>
-                        <span class="text-xs font-semibold text-fn-text2">Sort Keys</span>
+                        <span class="text-sm font-semibold text-fn-text2">Sort Keys</span>
                     </label>
 
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
@@ -80,7 +80,7 @@
                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                             </div>
                         </div>
-                        <span class="text-xs font-semibold text-fn-text2">Minify</span>
+                        <span class="text-sm font-semibold text-fn-text2">Minify</span>
                     </label>
 
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
@@ -93,19 +93,19 @@
                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                             </div>
                         </div>
-                        <span class="text-xs font-semibold text-fn-text2">Escape ASCII</span>
+                        <span class="text-sm font-semibold text-fn-text2">Escape ASCII</span>
                     </label>
 
                     <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
 
                     {{-- Output mode --}}
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-fn-text2 shrink-0">Output</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Output</span>
                         <div class="flex gap-1">
                             @php $outputOpts = [['text','Preview'],['file','Download']]; @endphp
                             @foreach($outputOpts as [$oval,$olabel])
                             <button type="button"
-                                class="output-btn {{ $oval === 'text' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
+                                class="output-btn {{ $oval === 'text' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
                                 data-output="{{ $oval }}">{{ $olabel }}</button>
                             @endforeach
                         </div>
@@ -113,7 +113,7 @@
 
                     {{-- Format button (compact, right-aligned) --}}
                     <button type="button" id="format-btn" disabled
-                        class="ml-auto flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-bold rounded-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l">
+                        class="ml-auto flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-bold rounded-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
@@ -129,11 +129,11 @@
                         {{-- Input --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Input JSON</p>
+                                <p class="text-sm font-semibold text-fn-text2">Input JSON</p>
                                 <div class="flex gap-2">
-                                    <span id="text-input-status" class="hidden text-xs font-semibold"></span>
+                                    <span id="text-input-status" class="hidden text-sm font-semibold"></span>
                                     <button type="button" id="btn-paste"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -144,7 +144,7 @@
                                         Paste
                                     </button>
                                     <button type="button" id="btn-clear-text"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -158,13 +158,13 @@
                             <div class="relative">
                                 <textarea id="json-input" rows="20" spellcheck="false"
                                     placeholder='{"name": "Alice", "age": 30, "city": "London"}'
-                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
+                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                                 <div id="error-gutter"
                                     class="hidden absolute left-0 top-0 bottom-0 w-1 bg-fn-red rounded-l-xl"></div>
                             </div>
                             {{-- Error detail --}}
                             <div id="text-error-banner"
-                                class="hidden flex items-start gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-start gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                     class="shrink-0 mt-0.5">
@@ -179,10 +179,10 @@
                         {{-- Output --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Formatted Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">Formatted Output</p>
                                 <div class="flex gap-2" id="output-actions">
                                     <button type="button" id="btn-copy"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -192,7 +192,7 @@
                                         <span id="copy-label">Copy</span>
                                     </button>
                                     <a id="btn-download" href="#" download="formatted.json"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg transition-all hover:bg-fn-green/20">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg transition-all hover:bg-fn-green/20">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -206,7 +206,7 @@
                             </div>
                             <textarea id="json-output" rows="20" readonly spellcheck="false"
                                 placeholder="Formatted JSON will appear here…"
-                                class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/40 cursor-default"></textarea>
+                                class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/40 cursor-default"></textarea>
                             {{-- Stats bar --}}
                             <div id="stats-bar" class="hidden flex flex-wrap gap-x-4 gap-y-1">
                                 @php
@@ -221,8 +221,8 @@
                                 @endphp
                                 @foreach($statFields as [$sid, $slabel])
                                 <div class="flex items-center gap-1">
-                                    <span class="text-fn-text3 text-xs">{{ $slabel }}:</span>
-                                    <span class="text-xs font-semibold text-fn-text2" id="{{ $sid }}">—</span>
+                                    <span class="text-fn-text3 text-sm">{{ $slabel }}:</span>
+                                    <span class="text-sm font-semibold text-fn-text2" id="{{ $sid }}">—</span>
                                 </div>
                                 @endforeach
                             </div>
@@ -254,8 +254,7 @@
                             </svg>
                             Choose JSON File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-4">Max 50MB free · <a href="/pricing"
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="file-input" accept=".json,application/json"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -268,7 +267,7 @@
                             📋</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">data.json</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">—</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -301,7 +300,7 @@
                                     <div class="flex-1 min-w-0">
                                         <p class="font-semibold text-sm truncate" id="file-output-name">formatted.json
                                         </p>
-                                        <p class="text-fn-text3 text-xs mt-0.5" id="file-output-size">—</p>
+                                        <p class="text-fn-text3 text-sm mt-0.5" id="file-output-size">—</p>
                                     </div>
                                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                                 </div>
@@ -317,7 +316,7 @@
                                     Download Formatted JSON
                                 </a>
                                 <button type="button" onclick="resetFile()"
-                                    class="flex items-center justify-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-xl hover:bg-fn-surface2 transition-all">
+                                    class="flex items-center justify-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:bg-fn-surface2 transition-all">
                                     Format another file
                                 </button>
                             </div>
@@ -334,7 +333,7 @@
                             </svg>
                             <div>
                                 <p class="font-bold mb-0.5">Invalid JSON</p>
-                                <p class="text-xs" id="file-error-msg"></p>
+                                <p class="text-sm" id="file-error-msg"></p>
                             </div>
                         </div>
                     </div>

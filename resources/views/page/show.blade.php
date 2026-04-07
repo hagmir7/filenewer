@@ -8,7 +8,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-xs text-fn-text3 mb-8" aria-label="Breadcrumb">
+        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-8" aria-label="Breadcrumb">
             <a href="/" class="hover:text-fn-text2 transition-colors">Home</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -26,7 +26,7 @@
             <!-- Category + meta -->
             {{-- <div class="flex items-center gap-3 mb-5 flex-wrap">
                 <a href="/blog?cat=pdf-tools"
-                    class="px-3 py-1 bg-fn-blue/10 border border-fn-blue/25 rounded-full text-fn-blue-l text-xs font-semibold hover:bg-fn-blue/15 transition-colors">PDF
+                    class="px-3 py-1 bg-fn-blue/10 border border-fn-blue/25 rounded-full text-fn-blue-l text-sm font-semibold hover:bg-fn-blue/15 transition-colors">PDF
                     Tools</a>
                 <span class="text-fn-text3 text-sm">·</span>
                 <span class="text-fn-text3 text-sm">8 min read</span>
@@ -74,7 +74,7 @@
                     class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(49%_0.24_264_/_10%)_0%,transparent_65%)] pointer-events-none">
                 </div>
                 <div class="relative z-10">
-                    <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-2">Try It Free</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-2">Try It Free</p>
                     <h3 class="font-serif text-xl font-normal mb-2">Convert your first PDF to Word right now</h3>
                     <p class="text-fn-text3 text-sm mb-5">No account needed · Results in under 10 seconds · 100% free
                     </p>
@@ -99,16 +99,16 @@
 
                 <!-- Related tool -->
                 <div class="bg-fn-blue/8 border border-fn-blue/20 rounded-2xl p-5">
-                    <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-9 h-9 rounded-xl bg-fn-red/15 flex items-center justify-center text-lg shrink-0">
                             📕</div>
                         <p class="font-semibold text-sm">PDF to Word Converter</p>
                     </div>
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-4">Convert any PDF to editable Word. Preserves
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-4">Convert any PDF to editable Word. Preserves
                         all formatting, tables, and fonts.</p>
                     <a href="/tools/pdf-to-word"
-                        class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-xs font-semibold rounded-lg transition-all">
+                        class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-lg transition-all">
                         Try for Free →
                     </a>
                 </div>

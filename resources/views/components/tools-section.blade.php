@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Popular Tools</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Popular Tools</p>
             <h2 id="tools-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Start with the tools
                 used most</h2>
             <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">From PDF conversion to invoice
@@ -20,10 +20,10 @@
                         📕</div>
                     <h3 class="font-semibold text-sm">PDF to Word Converter</h3>
                 </div>
-                <p class="text-fn-text3 text-xs leading-relaxed">Convert any PDF into a fully editable Word
+                <p class="text-fn-text3 text-sm leading-relaxed">Convert any PDF into a fully editable Word
                     document. Preserves layout, fonts, and tables with industry-leading accuracy.</p>
                 <a href="/tools/pdf-to-word"
-                    class="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-fn-blue-l group">
+                    class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-fn-blue-l group">
                     Use Tool
                     <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -42,10 +42,10 @@
                         🟩</div>
                     <h3 class="font-semibold text-sm">CSV to SQL Converter</h3>
                 </div>
-                <p class="text-fn-text3 text-xs leading-relaxed">Upload any CSV and get clean, ready-to-run SQL
+                <p class="text-fn-text3 text-sm leading-relaxed">Upload any CSV and get clean, ready-to-run SQL
                     INSERT statements. A must-have free tool for developers and data analysts.</p>
                 <a href="/tools/csv-to-sql"
-                    class="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-fn-blue-l group">
+                    class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-fn-blue-l group">
                     Use Tool
                     <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -64,10 +64,10 @@
                         🧾</div>
                     <h3 class="font-semibold text-sm">Invoice PDF Generator</h3>
                 </div>
-                <p class="text-fn-text3 text-xs leading-relaxed">Create professional branded invoices in seconds.
+                <p class="text-fn-text3 text-sm leading-relaxed">Create professional branded invoices in seconds.
                     Download as PDF and send immediately — no account needed.</p>
                 <a href="/tools/invoice-generator"
-                    class="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-fn-blue-l group">
+                    class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-fn-blue-l group">
                     Use Tool
                     <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,10 +86,10 @@
                         🖼️</div>
                     <h3 class="font-semibold text-sm">Image Compressor</h3>
                 </div>
-                <p class="text-fn-text3 text-xs leading-relaxed">Reduce image file size by up to 90% without visible
+                <p class="text-fn-text3 text-sm leading-relaxed">Reduce image file size by up to 90% without visible
                     quality loss. Supports JPG, PNG, and WebP for web performance and bulk processing.</p>
                 <a href="/tools/compress-image"
-                    class="inline-flex items-center gap-1 mt-4 text-xs font-semibold text-fn-blue-l group">
+                    class="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-fn-blue-l group">
                     Use Tool
                     <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

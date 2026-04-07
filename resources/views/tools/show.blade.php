@@ -40,12 +40,12 @@
                     <h1 class="text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
                     @if(str_contains($tool->tags ?? '', 'popular'))
                     <span
-                        class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-xs font-semibold rounded-full">🔥
+                        class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-sm font-semibold rounded-full">🔥
                         Popular</span>
                     @endif
                     @if(str_contains($tool->tags ?? '', 'new'))
                     <span
-                        class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-xs font-semibold rounded-full">New</span>
+                        class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">New</span>
                     @endif
                 </div>
                 <p class="text-fn-text3 text-sm leading-relaxed max-w-xl">{{ $tool->description }}</p>
@@ -130,9 +130,9 @@
                     Drop your file here, or
                     <label for="file-input" class="text-fn-blue cursor-pointer hover:underline">browse</label>
                 </p>
-                <p class="text-fn-text3 text-xs">
+                <p class="text-fn-text3 text-sm">
                     Supports: <span id="supported-formats" class="font-mono">—</span>
-                    &nbsp;·&nbsp; Max 50MB
+                    &nbsp;·&nbsp; Max 200MB
                 </p>
             </div>
 
@@ -147,7 +147,7 @@
                     id="preview-icon">📄</div>
                 <div class="flex-1 min-w-0">
                     <p class="font-medium text-sm text-fn-text truncate" id="preview-name">filename.pdf</p>
-                    <p class="text-fn-text3 text-xs mt-0.5" id="preview-size">2.4 MB</p>
+                    <p class="text-fn-text3 text-sm mt-0.5" id="preview-size">2.4 MB</p>
                 </div>
                 <button onclick="resetFile()"
                     class="text-fn-text3 hover:text-fn-red transition-colors p-1.5 rounded-lg hover:bg-fn-red/10">
@@ -181,13 +181,13 @@
             <div class="bg-fn-surface2 rounded-xl p-5">
                 <div class="flex items-center justify-between mb-3">
                     <p class="text-sm font-medium text-fn-text">Processing…</p>
-                    <span id="progress-pct" class="text-xs font-mono text-fn-text3">0%</span>
+                    <span id="progress-pct" class="text-sm font-mono text-fn-text3">0%</span>
                 </div>
                 <div class="h-1.5 bg-fn-surface rounded-full overflow-hidden">
                     <div id="progress-bar" class="h-full bg-fn-blue rounded-full transition-all duration-300"
                         style="width:0%"></div>
                 </div>
-                <p class="text-fn-text3 text-xs mt-3 text-center" id="progress-label">Uploading file…</p>
+                <p class="text-fn-text3 text-sm mt-3 text-center" id="progress-label">Uploading file…</p>
             </div>
         </div>
 
@@ -202,7 +202,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="font-semibold text-sm text-fn-text">Done! Your file is ready.</p>
-                    <p class="text-fn-text3 text-xs mt-0.5" id="result-filename">output.docx</p>
+                    <p class="text-fn-text3 text-sm mt-0.5" id="result-filename">output.docx</p>
                 </div>
                 <a id="download-btn" href="#" download
                     class="shrink-0 px-4 py-2 bg-fn-green text-white text-sm font-semibold rounded-lg hover:bg-fn-green/90 transition-colors flex items-center gap-2">
@@ -239,7 +239,7 @@
                 </div>
                 <div>
                     <p class="font-semibold text-sm mb-1">{{ $title }}</p>
-                    <p class="text-fn-text3 text-xs leading-relaxed">{{ $desc }}</p>
+                    <p class="text-fn-text3 text-sm leading-relaxed">{{ $desc }}</p>
                 </div>
             </div>
             @endforeach
@@ -260,7 +260,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="font-semibold text-sm">{{ $related->name }}</p>
-                    <p class="text-fn-text3 text-xs truncate">{{ $related->description }}</p>
+                    <p class="text-fn-text3 text-sm truncate">{{ $related->description }}</p>
                 </div>
                 <svg class="w-4 h-4 text-fn-text3 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

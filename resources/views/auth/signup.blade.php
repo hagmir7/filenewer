@@ -21,7 +21,7 @@
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-4">Join 50,000+ users</p>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-4">Join 50,000+ users</p>
                 <h1 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Smarter File<br />
                     Processing<br />
@@ -45,7 +45,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold">50+ File Tools</p>
-                        <p class="text-xs text-fn-text3">PDF, CSV, images, documents &amp; more</p>
+                        <p class="text-sm text-fn-text3">PDF, CSV, images, documents &amp; more</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3.5">
@@ -58,7 +58,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold">AES-256 Encrypted</p>
-                        <p class="text-xs text-fn-text3">Files deleted automatically after 1 hour</p>
+                        <p class="text-sm text-fn-text3">Files deleted automatically after 1 hour</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3.5">
@@ -72,7 +72,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold">Results in Seconds</p>
-                        <p class="text-xs text-fn-text3">No queue, no wait — instant processing</p>
+                        <p class="text-sm text-fn-text3">No queue, no wait — instant processing</p>
                     </div>
                 </div>
             </div>
@@ -83,12 +83,12 @@
                     for our team. It's the only file platform we use now."</p>
                 <div class="flex items-center gap-3">
                     <div
-                        class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-xs font-bold text-fn-blue-l">
+                        class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-sm font-bold text-fn-blue-l">
                         SM
                     </div>
                     <div>
-                        <p class="text-xs font-semibold">Sara Mitchell</p>
-                        <p class="text-xs text-fn-text3">Operations Lead, TechFlow</p>
+                        <p class="text-sm font-semibold">Sara Mitchell</p>
+                        <p class="text-sm text-fn-text3">Operations Lead, TechFlow</p>
                     </div>
                 </div>
             </div>
@@ -98,17 +98,17 @@
         <div class="flex items-center gap-8 relative z-10">
             <div>
                 <p class="text-xl font-bold">50K+</p>
-                <p class="text-xs text-fn-text3">Active users</p>
+                <p class="text-sm text-fn-text3">Active users</p>
             </div>
             <div class="w-px h-8 bg-fn-text/10"></div>
             <div>
                 <p class="text-xl font-bold">2M+</p>
-                <p class="text-xs text-fn-text3">Files processed</p>
+                <p class="text-sm text-fn-text3">Files processed</p>
             </div>
             <div class="w-px h-8 bg-fn-text/10"></div>
             <div>
                 <p class="text-xl font-bold">50+</p>
-                <p class="text-xs text-fn-text3">Tools available</p>
+                <p class="text-sm text-fn-text3">Tools available</p>
             </div>
         </div>
     </div>
@@ -144,10 +144,10 @@
             <!-- Global error banner -->
             @if ($errors->any())
             <div class="mb-5 p-3.5 bg-red-500/10 border border-red-500/20 rounded-xl">
-                <p class="text-xs font-semibold text-red-400 mb-1.5">Please fix the following:</p>
+                <p class="text-sm font-semibold text-red-400 mb-1.5">Please fix the following:</p>
                 <ul class="list-disc list-inside space-y-0.5">
                     @foreach ($errors->all() as $error)
-                    <li class="text-xs text-red-400">{{ $error }}</li>
+                    <li class="text-sm text-red-400">{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -196,7 +196,7 @@
             <!-- Divider -->
             <div class="flex items-center gap-3 mb-6">
                 <div class="flex-1 h-px bg-fn-text/8"></div>
-                <span class="text-fn-text3 text-xs font-medium">or sign up with email</span>
+                <span class="text-fn-text3 text-sm font-medium">or sign up with email</span>
                 <div class="flex-1 h-px bg-fn-text/8"></div>
             </div>
 
@@ -208,29 +208,29 @@
                 <div class="grid grid-cols-2 gap-3">
                     <!-- First name -->
                     <div class="space-y-1.5">
-                        <label class="text-xs font-semibold text-fn-text2 block" for="first-name">First name</label>
+                        <label class="text-sm font-semibold text-fn-text2 block" for="first-name">First name</label>
                         <input id="first-name" name="first_name" type="text" placeholder="John"
                             autocomplete="given-name" value="{{ old('first_name') }}"
                             class="input-field w-full px-3.5 py-2.5 bg-fn-surface border {{ $errors->has('first_name') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                         @error('first_name')
-                        <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                     <!-- Last name -->
                     <div class="space-y-1.5">
-                        <label class="text-xs font-semibold text-fn-text2 block" for="last-name">Last name</label>
+                        <label class="text-sm font-semibold text-fn-text2 block" for="last-name">Last name</label>
                         <input id="last-name" name="last_name" type="text" placeholder="Doe" autocomplete="family-name"
                             value="{{ old('last_name') }}"
                             class="input-field w-full px-3.5 py-2.5 bg-fn-surface border {{ $errors->has('last_name') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                         @error('last_name')
-                        <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div class="space-y-1.5">
-                    <label class="text-xs font-semibold text-fn-text2 block" for="email">Email address</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="email">Email address</label>
                     <div class="relative">
                         <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -243,13 +243,13 @@
                             class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
                     @error('email')
-                    <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                    <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Password -->
                 <div class="space-y-1.5">
-                    <label class="text-xs font-semibold text-fn-text2 block" for="password">Password</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="password">Password</label>
                     <div class="relative">
                         <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -271,7 +271,7 @@
                         </button>
                     </div>
                     @error('password')
-                    <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                    <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
                     @enderror
                     <!-- Strength meter -->
                     <div class="flex gap-1 mt-2" id="strength-bars">
@@ -280,7 +280,7 @@
                         <div class="strength-bar flex-1 bg-fn-text/10" id="bar3"></div>
                         <div class="strength-bar flex-1 bg-fn-text/10" id="bar4"></div>
                     </div>
-                    <p id="strength-label" class="text-xs text-fn-text3 mt-1"></p>
+                    <p id="strength-label" class="text-sm text-fn-text3 mt-1"></p>
                 </div>
 
                 <!-- Terms -->
@@ -288,13 +288,13 @@
                     <div class="flex items-start gap-3 pt-1">
                         <input type="checkbox" id="terms" name="terms" {{ old('terms') ? 'checked' : '' }}
                             class="mt-0.5 w-4 h-4 rounded border {{ $errors->has('terms') ? 'border-red-500' : 'border-fn-text/20' }} bg-fn-surface cursor-pointer shrink-0 accent-fn-blue" />
-                        <label for="terms" class="text-xs text-fn-text3 leading-relaxed cursor-pointer">
+                        <label for="terms" class="text-sm text-fn-text3 leading-relaxed cursor-pointer">
                             I agree to the <a href="/pages/terms-of-service" class="text-fn-blue-l hover:underline">Terms of Service</a>
                             and <a href="/pages/privacy-policy" class="text-fn-blue-l hover:underline">Privacy Policy</a>
                         </label>
                     </div>
                     @error('terms')
-                    <p class="text-xs text-red-400 mt-1">{{ $message }}</p>
+                    <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -314,21 +314,21 @@
 
             <!-- Trust badges -->
             <div class="flex items-center justify-center gap-5 mt-8 pt-6 border-t border-fn-text/7">
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
                     SSL Secured
                 </div>
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
                     GDPR Compliant
                 </div>
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />

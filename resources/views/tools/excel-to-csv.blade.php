@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,8 +51,7 @@
                             </svg>
                             Choose Excel File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="file-input"
                             accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -66,7 +65,7 @@
                             📗</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">report.xlsx</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · Excel Spreadsheet</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · Excel Spreadsheet</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -86,25 +85,25 @@
 
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Output Mode</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
                                 <select id="opt-output"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                     <option value="file">First sheet → single .csv</option>
                                     <option value="zip">All sheets → ZIP of .csv files</option>
                                 </select>
-                                <p class="text-fn-text3 text-xs mt-1.5" id="output-mode-hint">Downloads the first sheet
+                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">Downloads the first sheet
                                     as a single CSV file.</p>
                             </div>
 
                             {{-- Sheet name / index --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="sheet-option-wrap">
-                                <label for="opt-sheet" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="opt-sheet" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Sheet Name or Index
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="opt-sheet" placeholder='e.g. Sales or 0'
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5" id="sheet-hint">Leave blank to use the first
+                                <p class="text-fn-text3 text-sm mt-1.5" id="sheet-hint">Leave blank to use the first
                                     sheet.</p>
                             </div>
                         </div>
@@ -114,29 +113,29 @@
 
                             {{-- Separator --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">CSV Separator</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">CSV Separator</label>
                                 <div class="grid grid-cols-4 gap-2 mb-2">
                                     @foreach([[',','Comma'],[';','Semicolon'],['\\t','Tab'],['|','Pipe']] as [$sep,
                                     $lbl])
                                     <button type="button"
-                                        class="sep-btn {{ $sep === ',' ? 'active' : '' }} py-1.5 rounded-lg border text-xs font-mono font-bold transition-all"
+                                        class="sep-btn {{ $sep === ',' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
                                         data-sep="{{ $sep }}">
                                         {{ $sep === '\\t' ? 'TAB' : $sep }}
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-xs" id="sep-hint">Comma — standard CSV format</p>
+                                <p class="text-fn-text3 text-sm" id="sep-hint">Comma — standard CSV format</p>
                             </div>
 
                             {{-- Output filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Output Filename
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="opt-filename" placeholder="e.g. export.csv"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to your Excel filename with .csv or
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your Excel filename with .csv or
                                     .zip</p>
                             </div>
                         </div>
@@ -194,7 +193,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -220,7 +219,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -238,9 +237,9 @@
                     <div id="sheet-tabs-wrap" class="hidden max-w-2xl mx-auto mb-4 text-left">
                         <div class="flex items-center gap-1 flex-wrap mb-3" id="sheet-tabs"></div>
                         <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-52">
-                            <table id="csv-preview-table" class="w-full text-xs border-collapse"></table>
+                            <table id="csv-preview-table" class="w-full text-sm border-collapse"></table>
                         </div>
-                        <p class="text-fn-text3 text-xs mt-2" id="sheet-preview-meta"></p>
+                        <p class="text-fn-text3 text-sm mt-2" id="sheet-preview-meta"></p>
                     </div>
 
                     <div
@@ -249,7 +248,7 @@
                             id="output-icon">📊</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.csv</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">CSV File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">CSV File</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -282,7 +281,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

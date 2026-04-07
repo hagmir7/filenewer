@@ -35,12 +35,12 @@
                     <h1 class="text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
                     @if(str_contains($tool->tags ?? '', 'popular'))
                     <span
-                        class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-xs font-semibold rounded-full">🔥
+                        class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-sm font-semibold rounded-full">🔥
                         Popular</span>
                     @endif
                     @if(str_contains($tool->tags ?? '', 'new'))
                     <span
-                        class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-xs font-semibold rounded-full">New</span>
+                        class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">New</span>
                     @endif
                 </div>
                 <p class="text-fn-text3 text-sm leading-relaxed max-w-xl">{{ $tool->description }}</p>

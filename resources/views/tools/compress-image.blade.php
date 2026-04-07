@@ -14,17 +14,17 @@
 
             <!-- Quality Slider -->
             <div class="flex items-center gap-3 flex-1 min-w-[200px]">
-                <label class="text-fn-text3 text-xs font-medium whitespace-nowrap">Quality</label>
+                <label class="text-fn-text3 text-sm font-medium whitespace-nowrap">Quality</label>
                 <input id="quality-slider" type="range" min="10" max="100" value="82"
                     class="flex-1 accent-purple-500 cursor-pointer h-1.5 rounded-full" />
-                <span id="quality-val" class="text-fn-text2 text-xs font-mono font-semibold w-8 text-right">82%</span>
+                <span id="quality-val" class="text-fn-text2 text-sm font-mono font-semibold w-8 text-right">82%</span>
             </div>
 
             <!-- Output Format -->
             <div class="flex items-center gap-2">
-                <label class="text-fn-text3 text-xs font-medium whitespace-nowrap">Output</label>
+                <label class="text-fn-text3 text-sm font-medium whitespace-nowrap">Output</label>
                 <select id="output-format"
-                    class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-xs font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
+                    class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
                     <option value="original">Same as input</option>
                     <option value="image/jpeg">Force JPG</option>
                     <option value="image/png">Force PNG</option>
@@ -34,9 +34,9 @@
 
             <!-- Max dimension -->
             <div class="flex items-center gap-2">
-                <label class="text-fn-text3 text-xs font-medium whitespace-nowrap">Max Width/Height</label>
+                <label class="text-fn-text3 text-sm font-medium whitespace-nowrap">Max Width/Height</label>
                 <select id="max-dim"
-                    class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-xs font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
+                    class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
                     <option value="0">No resize</option>
                     <option value="3840">4K (3840px)</option>
                     <option value="1920">1080p (1920px)</option>
@@ -90,24 +90,24 @@
                 <!-- Stats bar -->
                 <div id="stats-bar" class="flex flex-wrap items-center gap-5 mb-5 px-1">
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-xs">Images:</span>
-                        <span id="stat-count" class="text-fn-text2 text-xs font-mono font-semibold">0</span>
+                        <span class="text-fn-text3 text-sm">Images:</span>
+                        <span id="stat-count" class="text-fn-text2 text-sm font-mono font-semibold">0</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-xs">Original:</span>
-                        <span id="stat-original" class="text-fn-text2 text-xs font-mono font-semibold">0 KB</span>
+                        <span class="text-fn-text3 text-sm">Original:</span>
+                        <span id="stat-original" class="text-fn-text2 text-sm font-mono font-semibold">0 KB</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-xs">Compressed:</span>
-                        <span id="stat-compressed" class="text-fn-text2 text-xs font-mono font-semibold">0 KB</span>
+                        <span class="text-fn-text3 text-sm">Compressed:</span>
+                        <span id="stat-compressed" class="text-fn-text2 text-sm font-mono font-semibold">0 KB</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-xs">Saved:</span>
-                        <span id="stat-saved" class="text-fn-green text-xs font-mono font-bold">0%</span>
+                        <span class="text-fn-text3 text-sm">Saved:</span>
+                        <span id="stat-saved" class="text-fn-green text-sm font-mono font-bold">0%</span>
                     </div>
                     <div class="ml-auto flex items-center gap-2">
                         <button id="add-more-btn"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19" />
@@ -116,7 +116,7 @@
                             Add More
                         </button>
                         <button id="clear-all-btn"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all">
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all">
                             Clear All
                         </button>
                     </div>
@@ -137,8 +137,8 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" />
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <span class="text-fn-text2 text-xs font-medium">Compressing images…</span>
-            <span id="progress-text" class="text-fn-text3 text-xs font-mono ml-auto">0 / 0</span>
+            <span class="text-fn-text2 text-sm font-medium">Compressing images…</span>
+            <span id="progress-text" class="text-fn-text3 text-sm font-mono ml-auto">0 / 0</span>
         </div>
 
     </div>
@@ -149,7 +149,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Simple Process</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
             <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Three steps to smaller
                 images</h2>
             <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No accounts, no uploads to servers.
@@ -197,7 +197,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <div class="mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">What's Included</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">What's Included</p>
             <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Built for web
                 performance and bulk workflows</h2>
             <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">Whether you're optimizing a single hero image or a
@@ -264,7 +264,7 @@
     <div class="max-w-3xl mx-auto px-6">
 
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">FAQ</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">FAQ</p>
             <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
         </div>
 
@@ -361,7 +361,7 @@
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Get More</p>
+        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get More</p>
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Need unlimited
             bulk compression or API access?</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
@@ -382,7 +382,7 @@
                 View Pro Plans
             </a>
         </div>
-        <p class="text-fn-text3 text-xs mt-5">✓ Free to use &nbsp;·&nbsp; ✓ No uploads to server &nbsp;·&nbsp; ✓ No
+        <p class="text-fn-text3 text-sm mt-5">✓ Free to use &nbsp;·&nbsp; ✓ No uploads to server &nbsp;·&nbsp; ✓ No
             account needed</p>
     </div>
 </section>
@@ -515,8 +515,8 @@
                     </svg>
                 </div>
                 <div class="p-4">
-                    <p class="text-fn-text2 text-xs font-medium truncate mb-1">${escHtml(item.file.name)}</p>
-                    <p class="text-fn-text3 text-xs">Compressing…</p>
+                    <p class="text-fn-text2 text-sm font-medium truncate mb-1">${escHtml(item.file.name)}</p>
+                    <p class="text-fn-text3 text-sm">Compressing…</p>
                 </div>`;
             return;
         }
@@ -525,8 +525,8 @@
             existing.innerHTML = `
                 <div class="aspect-video bg-fn-bg flex items-center justify-center text-fn-red text-2xl">⚠️</div>
                 <div class="p-4">
-                    <p class="text-fn-text2 text-xs font-medium truncate mb-1">${escHtml(item.file.name)}</p>
-                    <p class="text-fn-red text-xs">Failed to compress</p>
+                    <p class="text-fn-text2 text-sm font-medium truncate mb-1">${escHtml(item.file.name)}</p>
+                    <p class="text-fn-red text-sm">Failed to compress</p>
                 </div>`;
             return;
         }
@@ -539,21 +539,21 @@
                 <img src="${thumbUrl}" alt="${escHtml(item.file.name)}" class="w-full h-full object-contain" loading="lazy" />
             </div>
             <div class="p-4">
-                <p class="text-fn-text2 text-xs font-medium truncate mb-2">${escHtml(item.file.name)}</p>
+                <p class="text-fn-text2 text-sm font-medium truncate mb-2">${escHtml(item.file.name)}</p>
                 <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center gap-3 text-xs font-mono">
+                    <div class="flex items-center gap-3 text-sm font-mono">
                         <span class="text-fn-text3">${fmtSize(item.originalSize)}</span>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-text3"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         <span class="text-fn-text2 font-semibold">${fmtSize(item.compressedSize)}</span>
                     </div>
-                    <span class="text-xs font-bold font-mono ${sc}">${fmtPct(item.originalSize, item.compressedSize)}</span>
+                    <span class="text-sm font-bold font-mono ${sc}">${fmtPct(item.originalSize, item.compressedSize)}</span>
                 </div>
                 <!-- Savings bar -->
                 <div class="w-full bg-fn-bg rounded-full h-1 mb-3 overflow-hidden">
                     <div class="h-1 rounded-full bg-fn-green transition-all" style="width:${Math.max(0, Math.min(100, ((item.originalSize - item.compressedSize) / item.originalSize) * 100)).toFixed(1)}%"></div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button class="download-single flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all" data-id="${item.id}">
+                    <button class="download-single flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all" data-id="${item.id}">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         Download
                     </button>

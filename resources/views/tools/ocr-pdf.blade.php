@@ -19,9 +19,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -54,8 +54,7 @@
                             </svg>
                             Choose PDF File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href="/pricing"
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -68,7 +67,7 @@
                             📕</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">—</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -85,30 +84,30 @@
 
                         {{-- DPI --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                 DPI — <span id="dpi-val" class="text-fn-blue-l">300</span>
                                 <span class="font-normal text-fn-text3 ml-1" id="dpi-hint">(Recommended)</span>
                             </label>
                             <input type="range" id="opt-dpi" min="72" max="600" value="300" step="1"
                                 class="w-full accent-fn-blue cursor-pointer" />
-                            <div class="flex justify-between text-fn-text3 text-xs mt-1">
+                            <div class="flex justify-between text-fn-text3 text-sm mt-1">
                                 <span>72 Fast</span><span>300</span><span>600 Best</span>
                             </div>
                         </div>
 
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-pages" class="text-xs font-semibold text-fn-text2 block mb-2">
+                            <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-2">
                                 Pages <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                             </label>
                             <input type="text" id="opt-pages" placeholder="e.g. 1,2,3 or blank for all"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-fn-text3 text-xs mt-1.5">Leave blank to extract all pages</p>
+                            <p class="text-fn-text3 text-sm mt-1.5">Leave blank to extract all pages</p>
                         </div>
 
                         {{-- Output --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Output</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
                             <div class="flex flex-col gap-2">
                                 @php $ocrOutputs = [['json','Preview text inline'],['file','Download .txt file']];
                                 @endphp
@@ -116,7 +115,7 @@
                                 <label class="flex items-center gap-2 cursor-pointer">
                                     <input type="radio" name="ocr-output" value="{{ $oval }}" {{ $oval==='json'
                                         ? 'checked' : '' }} class="accent-fn-blue" />
-                                    <span class="text-xs text-fn-text2 font-semibold">{{ $olabel }}</span>
+                                    <span class="text-sm text-fn-text2 font-semibold">{{ $olabel }}</span>
                                 </label>
                                 @endforeach
                             </div>
@@ -178,7 +177,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -204,7 +203,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -226,8 +225,8 @@
                         @foreach($ocrStatChips as [$sid,$slabel])
                         <div
                             class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface2 border border-fn-text/8 rounded-lg">
-                            <span class="text-xs text-fn-text3">{{ $slabel }}:</span>
-                            <span class="text-xs font-bold text-fn-text2" id="{{ $sid }}">—</span>
+                            <span class="text-sm text-fn-text3">{{ $slabel }}:</span>
+                            <span class="text-sm font-bold text-fn-text2" id="{{ $sid }}">—</span>
                         </div>
                         @endforeach
                         {{-- Method badges --}}
@@ -240,7 +239,7 @@
                             <div class="flex items-center gap-2 flex-wrap" id="page-tabs"></div>
                             <div class="flex gap-2 shrink-0">
                                 <button type="button" id="btn-copy-text"
-                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -249,7 +248,7 @@
                                     <span id="copy-label">Copy</span>
                                 </button>
                                 <a id="btn-download-txt" href="#" download="extracted.txt"
-                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg transition-all hover:bg-fn-green/20">
+                                    class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg transition-all hover:bg-fn-green/20">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -265,7 +264,7 @@
                             class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-5 py-4 focus:outline-none resize-none leading-relaxed cursor-default"></textarea>
 
                         {{-- Empty page notice --}}
-                        <div id="empty-page-notice" class="hidden mt-2 flex items-center gap-2 text-xs text-fn-text3">
+                        <div id="empty-page-notice" class="hidden mt-2 flex items-center gap-2 text-sm text-fn-text3">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -293,7 +292,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-5 text-fn-text3 text-xs flex items-center gap-1.5">
+                    <p class="mt-5 text-fn-text3 text-sm flex items-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -318,7 +317,7 @@
                             📄</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">extracted.txt</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">Text File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Text File</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -351,7 +350,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

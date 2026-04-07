@@ -41,7 +41,7 @@
 
                             {{-- Version --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">UUID Version</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">UUID Version</label>
                                 <div class="grid grid-cols-3 gap-1.5">
                                     @php $uuidVersions = [1,3,4,5,6,7]; @endphp
                                     @foreach($uuidVersions as $v)
@@ -50,18 +50,18 @@
                                         data-ver="{{ $v }}">v{{ $v }}</button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-xs mt-2" id="ver-desc">Random (cryptographically secure)
+                                <p class="text-fn-text3 text-sm mt-2" id="ver-desc">Random (cryptographically secure)
                                 </p>
                             </div>
 
                             {{-- Count --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Count — <span id="count-val" class="text-fn-blue-l">1</span>
                                 </label>
                                 <input type="range" id="opt-count" min="1" max="50" value="1" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
-                                <div class="flex justify-between text-fn-text3 text-xs">
+                                <div class="flex justify-between text-fn-text3 text-sm">
                                     <span>1</span><span>10</span><span>25</span><span>50</span>
                                 </div>
                                 <input type="number" id="opt-count-num" min="1" max="50" value="1"
@@ -72,9 +72,9 @@
                             <div id="name-opts"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Namespace</label>
+                                    <label class="text-sm font-semibold text-fn-text2 block mb-1.5">Namespace</label>
                                     <select id="opt-namespace"
-                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
+                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                         <option value="dns">DNS</option>
                                         <option value="url">URL</option>
                                         <option value="oid">OID</option>
@@ -82,7 +82,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="opt-name" class="text-xs font-semibold text-fn-text2 block mb-1.5">Name
+                                    <label for="opt-name" class="text-sm font-semibold text-fn-text2 block mb-1.5">Name
                                         <span class="text-fn-red">*</span></label>
                                     <input type="text" id="opt-name" placeholder="e.g. example.com"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
@@ -91,7 +91,7 @@
 
                             {{-- Format options --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Format</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Format</label>
                                 @php
                                 $fmtToggles = [
                                 ['opt-uppercase', 'Uppercase'],
@@ -111,31 +111,31 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-xs text-fn-text2 font-semibold">{{ $tlabel }}</span>
+                                    <span class="text-sm text-fn-text2 font-semibold">{{ $tlabel }}</span>
                                 </label>
                                 @endforeach
                             </div>
 
                             {{-- Prefix / Suffix / Seed --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Extra Options</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Extra Options</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="text-xs text-fn-text3 block mb-1">Prefix</label>
+                                        <label class="text-sm text-fn-text3 block mb-1">Prefix</label>
                                         <input type="text" id="opt-prefix" placeholder="ID-"
-                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                     <div>
-                                        <label class="text-xs text-fn-text3 block mb-1">Suffix</label>
+                                        <label class="text-sm text-fn-text3 block mb-1">Suffix</label>
                                         <input type="text" id="opt-suffix" placeholder="-END"
-                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-xs text-fn-text3 block mb-1">Seed <span
+                                    <label class="text-sm text-fn-text3 block mb-1">Seed <span
                                             class="font-normal">(optional — for reproducibility)</span></label>
                                     <input type="number" id="opt-seed" placeholder="e.g. 42"
-                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
+                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
 
@@ -153,12 +153,12 @@
                         {{-- ── RIGHT: Output ── --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2" id="gen-output-label">Generated UUIDs</p>
+                                <p class="text-sm font-semibold text-fn-text2" id="gen-output-label">Generated UUIDs</p>
                                 <div class="flex gap-2">
                                     <span id="gen-desc-badge"
-                                        class="hidden text-xs px-2 py-1 bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l rounded-lg font-semibold"></span>
+                                        class="hidden text-sm px-2 py-1 bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l rounded-lg font-semibold"></span>
                                     <button type="button" id="gen-copy-all"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -168,7 +168,7 @@
                                         <span id="gen-copy-label">Copy all</span>
                                     </button>
                                     <button type="button" id="gen-regen"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -197,7 +197,7 @@
                             </div>
 
                             <div id="gen-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -227,7 +227,7 @@
                         {{-- Quick paste --}}
                         <div class="flex flex-wrap gap-2">
                             <button type="button" id="val-paste"
-                                class="flex items-center gap-1 px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                class="flex items-center gap-1 px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                     <path
@@ -236,7 +236,7 @@
                                 </svg>
                                 Paste
                             </button>
-                            <span class="text-xs text-fn-text3 self-center">Try:</span>
+                            <span class="text-sm text-fn-text3 self-center">Try:</span>
                             @php
                             $valExamples = [
                             '550e8400-e29b-41d4-a716-446655440000',
@@ -246,7 +246,7 @@
                             @endphp
                             @foreach($valExamples as $ve)
                             <button type="button"
-                                class="val-example px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-mono rounded-lg transition-all"
+                                class="val-example px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-mono rounded-lg transition-all"
                                 data-uuid="{{ $ve }}">{{ Str::limit($ve, 20) }}</button>
                             @endforeach
                         </div>
@@ -257,20 +257,20 @@
                                 <span class="text-3xl" id="val-icon">✅</span>
                                 <div>
                                     <p class="font-bold text-base" id="val-title">Valid UUID</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5 font-mono" id="val-uuid-display"></p>
+                                    <p class="text-fn-text3 text-sm mt-0.5 font-mono" id="val-uuid-display"></p>
                                 </div>
                             </div>
                             {{-- Info chips --}}
                             <div class="flex flex-wrap gap-2" id="val-chips"></div>
                             {{-- Formatted versions --}}
                             <div id="val-formats-wrap" class="hidden">
-                                <p class="text-xs font-semibold text-fn-text2 mb-2">All Formats</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-2">All Formats</p>
                                 <div class="grid sm:grid-cols-2 gap-1.5" id="val-formats"></div>
                             </div>
                         </div>
 
                         <div id="val-error"
-                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -287,7 +287,7 @@
                         {{-- Options --}}
                         <div class="space-y-4">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Version</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Version</label>
                                 <div class="grid grid-cols-3 gap-1.5">
                                     @foreach($uuidVersions as $v)
                                     <button type="button"
@@ -298,12 +298,12 @@
                             </div>
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Count — <span id="bulk-count-val" class="text-fn-blue-l">10</span>
                                 </label>
                                 <input type="range" id="bulk-count" min="1" max="1000" value="10" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
-                                <div class="flex justify-between text-fn-text3 text-xs mb-2">
+                                <div class="flex justify-between text-fn-text3 text-sm mb-2">
                                     <span>1</span><span>250</span><span>500</span><span>1000</span>
                                 </div>
                                 <input type="number" id="bulk-count-num" min="1" max="1000" value="10"
@@ -311,7 +311,7 @@
                             </div>
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Export Format</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Export Format</label>
                                 <div class="space-y-1.5">
                                     @php $bulkFormats = [['standard','One per line'],['csv','CSV with
                                     header'],['json','JSON array'],['sql','SQL INSERT'],['array','JS array']]; @endphp
@@ -320,8 +320,8 @@
                                         class="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-fn-surface transition-colors">
                                         <input type="radio" name="bulk-format" value="{{ $fval }}" {{ $fval==='json'
                                             ? 'checked' : '' }} class="accent-fn-blue" />
-                                        <span class="text-xs text-fn-text2 font-semibold">{{ $flabel }}</span>
-                                        <span class="text-fn-text3 text-xs font-mono ml-auto">{{ $fval }}</span>
+                                        <span class="text-sm text-fn-text2 font-semibold">{{ $flabel }}</span>
+                                        <span class="text-fn-text3 text-sm font-mono ml-auto">{{ $fval }}</span>
                                     </label>
                                     @endforeach
                                 </div>
@@ -329,7 +329,7 @@
 
                             <div class="grid grid-cols-2 gap-2">
                                 <button type="button" id="bulk-preview-btn"
-                                    class="py-2.5 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-bold rounded-xl transition-all hover:bg-fn-surface2 flex items-center justify-center gap-1.5">
+                                    class="py-2.5 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-bold rounded-xl transition-all hover:bg-fn-surface2 flex items-center justify-center gap-1.5">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -338,7 +338,7 @@
                                     Preview
                                 </button>
                                 <button type="button" id="bulk-download-btn"
-                                    class="py-2.5 bg-fn-blue text-white text-xs font-bold rounded-xl transition-all hover:bg-fn-blue-l flex items-center justify-center gap-1.5">
+                                    class="py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l flex items-center justify-center gap-1.5">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -353,11 +353,11 @@
                         {{-- Preview output --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Preview</p>
+                                <p class="text-sm font-semibold text-fn-text2">Preview</p>
                                 <div class="flex gap-2">
-                                    <span id="bulk-meta" class="hidden text-xs text-fn-text3"></span>
+                                    <span id="bulk-meta" class="hidden text-sm text-fn-text3"></span>
                                     <button type="button" id="bulk-copy-btn"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -367,7 +367,7 @@
                                         <span id="bulk-copy-label">Copy</span>
                                     </button>
                                     <a id="bulk-dl-link" href="#" download="uuids.txt"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -381,9 +381,9 @@
                             </div>
                             <textarea id="bulk-output" rows="20" readonly spellcheck="false"
                                 placeholder="Click Preview or Download to generate UUIDs…"
-                                class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
+                                class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             <div id="bulk-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -425,16 +425,16 @@
                     <span class="text-base font-black text-fn-text">{{ $ver }}</span>
                     @if($sortable)
                     <span
-                        class="text-xs px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold">✓
+                        class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold">✓
                         Sortable</span>
                     @else
                     <span
-                        class="text-xs px-2 py-0.5 bg-fn-text/6 border border-fn-text/10 text-fn-text3 rounded-md font-semibold">Not
+                        class="text-sm px-2 py-0.5 bg-fn-text/6 border border-fn-text/10 text-fn-text3 rounded-md font-semibold">Not
                         sortable</span>
                     @endif
                 </div>
-                <p class="text-xs font-mono text-fn-blue-l mb-1.5">{{ $algo }}</p>
-                <p class="text-xs text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-1.5">{{ $algo }}</p>
+                <p class="text-sm text-fn-text3 leading-relaxed">{{ $desc }}</p>
             </div>
             @endforeach
         </div>

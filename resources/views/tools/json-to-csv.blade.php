@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -77,8 +77,7 @@
                                 </svg>
                                 Choose JSON File
                             </div>
-                            <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                    class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                             <input type="file" id="file-input" accept=".json,application/json"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -91,7 +90,7 @@
                                 📋</div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="file-name">data.json</p>
-                                <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · JSON File</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · JSON File</p>
                             </div>
                             <button type="button" id="remove-file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -106,20 +105,20 @@
                         {{-- File options --}}
                         <div class="mt-4 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="file-opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="file-opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Output Filename
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="file-opt-filename" placeholder="e.g. export.csv"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to your JSON filename with .csv
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your JSON filename with .csv
                                     extension</p>
                             </div>
                             <div
                                 class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-2">
                                 <div class="flex items-center gap-3">
                                     <div
-                                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-fn-amber/10 border border-fn-amber/20 text-fn-amber text-xs font-bold">
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-fn-amber/10 border border-fn-amber/20 text-fn-amber text-sm font-bold">
                                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -134,7 +133,7 @@
                                         <polyline points="12 5 19 12 12 19" />
                                     </svg>
                                     <div
-                                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-fn-green/10 border border-fn-green/20 text-fn-green text-xs font-bold">
+                                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-fn-green/10 border border-fn-green/20 text-fn-green text-sm font-bold">
                                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -146,7 +145,7 @@
                                         CSV
                                     </div>
                                 </div>
-                                <p class="text-fn-text3 text-xs">JSON array of objects converted to flat,
+                                <p class="text-fn-text3 text-sm">JSON array of objects converted to flat,
                                     comma-separated rows.</p>
                             </div>
                         </div>
@@ -163,7 +162,7 @@
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
                             <div class="absolute top-3 right-3 flex gap-2">
                                 <button type="button" id="btn-paste"
-                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path
@@ -173,7 +172,7 @@
                                     Paste
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="3 6 5 6 21 6" />
@@ -188,24 +187,24 @@
                         </div>
 
                         {{-- JSON validation status --}}
-                        <div id="json-status" class="hidden mt-3 flex items-center gap-2 text-xs font-semibold"></div>
+                        <div id="json-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold"></div>
 
                         {{-- Text options --}}
                         <div class="mt-4 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="text-opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="text-opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Output Filename
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="text-opt-filename" placeholder="e.g. export.csv"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to <span
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to <span
                                         class="font-mono">output.csv</span></p>
                             </div>
                             <div
                                 class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-1.5">
-                                <p class="text-xs font-semibold text-fn-text2">Expected format</p>
-                                <p class="text-fn-text3 text-xs leading-relaxed">An array of objects: <span
+                                <p class="text-sm font-semibold text-fn-text2">Expected format</p>
+                                <p class="text-fn-text3 text-sm leading-relaxed">An array of objects: <span
                                         class="font-mono text-fn-text2 bg-fn-surface px-1 py-0.5 rounded">[{…},
                                         {…}]</span>. All keys across objects become CSV column headers.</p>
                             </div>
@@ -265,7 +264,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -291,7 +290,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -308,11 +307,11 @@
                     {{-- CSV preview (text mode only) --}}
                     <div id="csv-preview-wrap" class="hidden max-w-2xl mx-auto mb-6 text-left">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2">CSV Preview</p>
-                            <span id="csv-preview-meta" class="text-xs text-fn-text3"></span>
+                            <p class="text-sm font-semibold text-fn-text2">CSV Preview</p>
+                            <span id="csv-preview-meta" class="text-sm text-fn-text3"></span>
                         </div>
                         <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-52">
-                            <table id="csv-preview-table" class="w-full text-xs border-collapse"></table>
+                            <table id="csv-preview-table" class="w-full text-sm border-collapse"></table>
                         </div>
                     </div>
 
@@ -323,7 +322,7 @@
                             📊</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.csv</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">CSV File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">CSV File</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -352,7 +351,7 @@
                         </button>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

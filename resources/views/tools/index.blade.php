@@ -29,9 +29,9 @@
                 <input id="global-search" type="text" placeholder="Search tools… e.g. PDF, compress, invoice, CSV"
                     class="search-input w-full pl-12 pr-14 py-3.5 bg-fn-surface border border-fn-text/10 rounded-2xl text-fn-text text-base placeholder:text-fn-text3 font-sans transition-all" />
                 <kbd
-                    class="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 bg-fn-surface2 border border-fn-text/10 rounded-md text-fn-text3 text-xs font-mono">⌘K</kbd>
+                    class="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 bg-fn-surface2 border border-fn-text/10 rounded-md text-fn-text3 text-sm font-mono">⌘K</kbd>
             </div>
-            <p id="search-count" class="text-fn-text3 text-xs text-center mt-2.5 h-4"></p>
+            <p id="search-count" class="text-fn-text3 text-sm text-center mt-2.5 h-4"></p>
         </div>
 
         {{-- Stats bar --}}
@@ -84,9 +84,9 @@
                     Showing <strong class="text-fn-text font-semibold">{{ $totalTools }}</strong> tools
                 </p>
                 <div class="flex items-center gap-2">
-                    <span class="text-fn-text3 text-xs">Sort:</span>
+                    <span class="text-fn-text3 text-sm">Sort:</span>
                     <select id="sort-select"
-                        class="bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-medium rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/50 cursor-pointer">
+                        class="bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-medium rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/50 cursor-pointer">
                         <option value="popular">Most Popular</option>
                         <option value="newest">Newest First</option>
                         <option value="az">A → Z</option>
@@ -106,7 +106,7 @@
                         {{ $category->icon }}
                     </div>
                     <h2 class="text-base font-bold tracking-tight">{{ $category->title }}</h2>
-                    <span class="px-2 py-0.5 bg-fn-surface2 rounded-full text-fn-text3 text-xs font-mono">
+                    <span class="px-2 py-0.5 bg-fn-surface2 rounded-full text-fn-text3 text-sm font-mono">
                         {{ $category->tools->count() }}
                     </span>
                     <div class="flex-1 h-px bg-fn-text/7"></div>
@@ -134,13 +134,13 @@
                                 {{-- Badges --}}
                                 @if(str_contains($tool->tags ?? '', 'popular'))
                                 <span
-                                    class="badge-popular shrink-0 px-1.5 py-0.5 text-xs font-semibold rounded-full border">🔥</span>
+                                    class="badge-popular shrink-0 px-1.5 py-0.5 text-sm font-semibold rounded-full border">🔥</span>
                                 @elseif(str_contains($tool->tags ?? '', 'new'))
                                 <span
-                                    class="badge-new shrink-0 px-1.5 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-xs font-semibold rounded-full">New</span>
+                                    class="badge-new shrink-0 px-1.5 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">New</span>
                                 @endif
                             </div>
-                            <p class="text-fn-text3 text-xs leading-relaxed">
+                            <p class="text-fn-text3 text-sm leading-relaxed">
                                 {{ \Illuminate\Support\Str::limit($tool->description, 50, '...') }}
                             </p>
                         </div>

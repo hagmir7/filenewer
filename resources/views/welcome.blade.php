@@ -10,7 +10,7 @@
 
             <!-- Badge -->
             <div
-                class="animate-fade-up opacity-0 delay-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-600 bg-fn-blue/10 text-fn-blue-l text-xs font-semibold tracking-wide uppercase mb-7">
+                class="animate-fade-up opacity-0 delay-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-600 bg-fn-blue/10 text-fn-blue-l text-sm font-semibold tracking-wide uppercase mb-7">
                 <span class="w-1.5 h-1.5 rounded-full bg-fn-blue-l animate-pulse-dot"></span>
                 Smarter File Processing
             </div>
@@ -92,7 +92,7 @@
         <div class="max-w-6xl mx-auto px-6">
 
             <div class="text-center mb-16">
-                <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Core Product</p>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Core Product</p>
                 <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything you need
                     to manage files</h2>
                 <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">Three powerful toolsets, built for
@@ -118,7 +118,7 @@
                     <p class="text-fn-text2 text-sm leading-relaxed mb-4">Transform any file format in seconds. Our
                         online file converter supports PDF, Word, Excel, CSV, images, and dozens more — with
                         pixel-perfect output every time.</p>
-                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-xs font-mono text-fn-text3">PDF ·
+                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">PDF ·
                         DOCX · CSV · JPG · SVG</span>
                 </div>
 
@@ -141,7 +141,7 @@
                     <p class="text-fn-text2 text-sm leading-relaxed mb-4">Generate professional invoices, contracts, and
                         reports automatically. Fill in your data and Filenewer produces a clean, print-ready PDF
                         instantly.</p>
-                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-xs font-mono text-fn-text3">Invoices
+                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Invoices
                         · Contracts · Reports</span>
                 </div>
 
@@ -163,7 +163,7 @@
                     <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract
                         content from files with intelligent automation. Handle bulk operations without writing a single
                         line of code.</p>
-                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-xs font-mono text-fn-text3">Compress
+                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress
                         · Merge · Extract · OCR</span>
                 </div>
 
@@ -176,7 +176,7 @@
         <div class="max-w-6xl mx-auto px-6">
 
             <div class="mb-16">
-                <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Why Filenewer</p>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Why Filenewer</p>
                 <h2 id="why-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Built for speed, trust,
                     and simplicity</h2>
                 <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">We stripped away everything that slows you
@@ -291,7 +291,7 @@
 
                 <!-- Left: Copy -->
                 <div>
-                    <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Privacy &amp;
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Privacy &amp;
                         Security</p>
                     <h2 id="security-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Your files stay
                         private. Always.</h2>
@@ -306,7 +306,7 @@
                                 🔒</div>
                             <div>
                                 <h3 class="font-semibold text-sm mb-1">AES-256 Encryption in Transit</h3>
-                                <p class="text-fn-text3 text-xs leading-relaxed">Every file you upload is encrypted over
+                                <p class="text-fn-text3 text-sm leading-relaxed">Every file you upload is encrypted over
                                     HTTPS using AES-256 — the same standard used by financial institutions worldwide.
                                 </p>
                             </div>
@@ -318,7 +318,7 @@
                                 🗑️</div>
                             <div>
                                 <h3 class="font-semibold text-sm mb-1">Automatic File Deletion</h3>
-                                <p class="text-fn-text3 text-xs leading-relaxed">Uploaded files are permanently deleted
+                                <p class="text-fn-text3 text-sm leading-relaxed">Uploaded files are permanently deleted
                                     from our servers within 1 hour of processing. No manual action needed.</p>
                             </div>
                         </div>
@@ -329,7 +329,7 @@
                                 🚫</div>
                             <div>
                                 <h3 class="font-semibold text-sm mb-1">Zero Data Sharing</h3>
-                                <p class="text-fn-text3 text-xs leading-relaxed">We never share, sell, train on, or
+                                <p class="text-fn-text3 text-sm leading-relaxed">We never share, sell, train on, or
                                     access your file contents. Your documents are processed and gone — full stop.</p>
                             </div>
                         </div>
@@ -340,7 +340,7 @@
                                 🌐</div>
                             <div>
                                 <h3 class="font-semibold text-sm mb-1">GDPR-Compliant Infrastructure</h3>
-                                <p class="text-fn-text3 text-xs leading-relaxed">Hosted on GDPR-compliant cloud
+                                <p class="text-fn-text3 text-sm leading-relaxed">Hosted on GDPR-compliant cloud
                                     infrastructure. Your data rights are respected regardless of where you are.</p>
                             </div>
                         </div>
@@ -355,7 +355,7 @@
                         <span class="w-3 h-3 rounded-full bg-fn-red"></span>
                         <span class="w-3 h-3 rounded-full bg-fn-amber"></span>
                         <span class="w-3 h-3 rounded-full bg-fn-green"></span>
-                        <span class="text-fn-text3 text-xs font-mono ml-auto">security-status.log</span>
+                        <span class="text-fn-text3 text-sm font-mono ml-auto">security-status.log</span>
                     </div>
 
                     <!-- Status rows -->
@@ -365,7 +365,7 @@
                             class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                             <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🔒 TLS 1.3 Encryption</span>
                             <span
-                                class="flex items-center gap-1.5 text-fn-green text-xs font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
+                                class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
                         </div>
 
                         <div
@@ -373,35 +373,35 @@
                             <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🛡️ AES-256 Storage
                                 Enc.</span>
                             <span
-                                class="flex items-center gap-1.5 text-fn-green text-xs font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
+                                class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
                         </div>
 
                         <div
                             class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                             <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🗑️ Auto-deletion (1hr)</span>
                             <span
-                                class="flex items-center gap-1.5 text-fn-green text-xs font-mono font-medium before:content-['●'] before:text-[0.5rem]">ENABLED</span>
+                                class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ENABLED</span>
                         </div>
 
                         <div
                             class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                             <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🚫 Third-party Data
                                 Share</span>
-                            <span class="text-fn-red text-xs font-mono font-medium">BLOCKED</span>
+                            <span class="text-fn-red text-sm font-mono font-medium">BLOCKED</span>
                         </div>
 
                         <div
                             class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                             <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🌍 GDPR Compliance</span>
                             <span
-                                class="flex items-center gap-1.5 text-fn-green text-xs font-mono font-medium before:content-['●'] before:text-[0.5rem]">VERIFIED</span>
+                                class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">VERIFIED</span>
                         </div>
 
                         <div
                             class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                             <span class="flex items-center gap-2.5 text-fn-text2 text-sm">📊 SOC 2 Audit Trail</span>
                             <span
-                                class="flex items-center gap-1.5 text-fn-green text-xs font-mono font-medium before:content-['●'] before:text-[0.5rem]">LOGGING</span>
+                                class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">LOGGING</span>
                         </div>
 
                     </div>
@@ -420,7 +420,7 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Get Started Today</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get Started Today</p>
             <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
                 processing files smarter — right now</h2>
             <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
@@ -443,7 +443,7 @@
                 </a>
             </div>
 
-            <p class="text-fn-text3 text-xs mt-5">✓ Free to use &nbsp;·&nbsp; ✓ Secure &amp; private &nbsp;·&nbsp; ✓ No
+            <p class="text-fn-text3 text-sm mt-5">✓ Free to use &nbsp;·&nbsp; ✓ Secure &amp; private &nbsp;·&nbsp; ✓ No
                 software to install</p>
         </div>
     </section>

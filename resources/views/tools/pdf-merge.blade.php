@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,7 +51,7 @@
                             </svg>
                             Choose PDF Files
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 20 files · 50MB each free · <a href=""
+                        <p class="text-fn-text3 text-sm mt-5">Max 20 files · 50MB each free · <a href=""
                                 class="text-fn-blue-l hover:underline">More on Pro</a></p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf" multiple
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -60,7 +60,7 @@
                     {{-- File list --}}
                     <div id="file-list-wrap" class="hidden mt-5">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-xs font-semibold text-fn-text2 flex items-center gap-2">
+                            <p class="text-sm font-semibold text-fn-text2 flex items-center gap-2">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                     class="text-fn-blue-l">
@@ -74,7 +74,7 @@
                                 Drag rows to reorder · <span id="file-count" class="text-fn-blue-l">0 files</span>
                             </p>
                             <button type="button" id="add-more-btn"
-                                class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-fn-blue-l hover:text-white hover:bg-fn-blue border border-fn-blue/30 rounded-lg transition-all relative">
+                                class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-blue-l hover:text-white hover:bg-fn-blue border border-fn-blue/30 rounded-lg transition-all relative">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="12" y1="5" x2="12" y2="19" />
@@ -87,7 +87,7 @@
                         </div>
                         <ul id="file-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></ul>
                         <div
-                            class="mt-3 pt-3 border-t border-fn-text/7 flex items-center justify-between text-xs text-fn-text3">
+                            class="mt-3 pt-3 border-t border-fn-text/7 flex items-center justify-between text-sm text-fn-text3">
                             <span id="total-size-label">Total: —</span>
                             <button type="button" id="clear-all-btn"
                                 class="text-fn-red/70 hover:text-fn-red transition-colors font-semibold">Clear
@@ -98,27 +98,27 @@
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-2 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-2">Output File Name</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Output File Name</label>
                             <input type="text" id="opt-filename" value="merged" placeholder="merged"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder-fn-text3" />
-                            <p class="text-fn-text3 text-xs mt-1">.pdf will be added automatically</p>
+                            <p class="text-fn-text3 text-sm mt-1">.pdf will be added automatically</p>
                         </div>
                         <div
                             class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-2">
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-bookmarks" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Add bookmarks per file</span>
+                                <span class="text-sm text-fn-text2">Add bookmarks per file</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-page-numbers"
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Add page numbers</span>
+                                <span class="text-sm text-fn-text2">Add page numbers</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-compress"
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-xs text-fn-text2">Compress output</span>
+                                <span class="text-sm text-fn-text2">Compress output</span>
                             </label>
                         </div>
                     </div>
@@ -179,7 +179,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -208,7 +208,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -221,7 +221,7 @@
                         ✅</div>
                     <h2 class="text-2xl font-bold mb-2">Merge Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-2">Your merged PDF is ready to download.</p>
-                    <p class="text-fn-text3 text-xs mb-8">
+                    <p class="text-fn-text3 text-sm mb-8">
                         File will be deleted in <span class="text-fn-amber font-semibold font-mono"
                             id="expiry-timer">60:00</span>
                     </p>
@@ -233,7 +233,7 @@
                             📎</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">merged.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-meta">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-meta">PDF Document</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -266,7 +266,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -393,10 +393,10 @@
                 </div>
                 <div class="w-8 h-8 rounded-lg bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-lg shrink-0">📕</div>
                 <div class="flex-1 min-w-0">
-                    <p class="font-semibold text-xs truncate">${escHtml(file.name)}</p>
-                    <p class="text-fn-text3 text-xs">${formatBytes(file.size)}</p>
+                    <p class="font-semibold text-sm truncate">${escHtml(file.name)}</p>
+                    <p class="text-fn-text3 text-sm">${formatBytes(file.size)}</p>
                 </div>
-                <span class="page-badge text-xs font-mono text-fn-text3 shrink-0">#${idx + 1}</span>
+                <span class="page-badge text-sm font-mono text-fn-text3 shrink-0">#${idx + 1}</span>
                 <button type="button" data-remove="${idx}" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>

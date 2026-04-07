@@ -36,11 +36,11 @@
                 <div
                     class="flex flex-wrap items-center gap-3 mb-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-semibold text-fn-text2 shrink-0">Encoding</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Encoding</span>
                         @php $encodingTypes = [['standard','Standard'],['url_safe','URL-safe'],['mime','MIME']]; @endphp
                         @foreach($encodingTypes as [$eval,$elabel])
                         <button type="button"
-                            class="enc-type-btn {{ $eval === 'standard' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
+                            class="enc-type-btn {{ $eval === 'standard' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
                             data-enc="{{ $eval }}">{{ $elabel }}</button>
                         @endforeach
                     </div>
@@ -57,28 +57,28 @@
                                     class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                 </div>
                             </div>
-                            <span class="text-xs font-semibold text-fn-text2">As Text</span>
+                            <span class="text-sm font-semibold text-fn-text2">As Text</span>
                         </label>
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-semibold text-fn-text2 shrink-0">Output</span>
+                            <span class="text-sm font-semibold text-fn-text2 shrink-0">Output</span>
                             @php $decOutputs = [['json','Preview'],['file','Download']]; @endphp
                             @foreach($decOutputs as [$doval,$dolabel])
                             <button type="button"
-                                class="dec-output-btn {{ $doval === 'json' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
+                                class="dec-output-btn {{ $doval === 'json' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
                                 data-decout="{{ $doval }}">{{ $dolabel }}</button>
                             @endforeach
                         </div>
                         <div class="flex items-center gap-2" id="decode-filename-wrap">
-                            <span class="text-xs text-fn-text3">Filename:</span>
+                            <span class="text-sm text-fn-text3">Filename:</span>
                             <input type="text" id="opt-decode-filename" placeholder="decoded.txt" value="decoded.txt"
-                                class="bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1 font-mono focus:outline-none w-28 focus:border-fn-blue/40" />
+                                class="bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1 font-mono focus:outline-none w-28 focus:border-fn-blue/40" />
                         </div>
                     </div>
                     {{-- Encode-specific: chunk size --}}
                     <div class="encode-only flex items-center gap-2">
-                        <span class="text-xs font-semibold text-fn-text2 shrink-0">Line wrap</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Line wrap</span>
                         <select id="opt-chunk"
-                            class="bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1 font-sans focus:outline-none cursor-pointer">
+                            class="bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1 font-sans focus:outline-none cursor-pointer">
                             <option value="0">None</option>
                             <option value="76">76 (MIME)</option>
                             <option value="64">64</option>
@@ -91,10 +91,10 @@
                     <div class="grid lg:grid-cols-2 gap-4">
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Input Text</p>
+                                <p class="text-sm font-semibold text-fn-text2">Input Text</p>
                                 <div class="flex gap-2">
                                     <button type="button" id="et-paste"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -105,7 +105,7 @@
                                         Paste
                                     </button>
                                     <button type="button" id="et-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
                                 </div>
                             </div>
                             <textarea id="et-input" rows="12" spellcheck="false"
@@ -123,11 +123,11 @@
                         </div>
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Base64 Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">Base64 Output</p>
                                 <div class="flex gap-2" id="et-output-actions">
-                                    <span id="et-stats" class="hidden text-xs text-fn-text3 self-center"></span>
+                                    <span id="et-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="et-copy"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -140,9 +140,9 @@
                             </div>
                             <textarea id="et-output" rows="12" readonly spellcheck="false"
                                 placeholder="Base64 encoded output will appear here…"
-                                class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
+                                class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             <div id="et-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -163,9 +163,9 @@
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                 <div class="text-4xl mb-3">📁</div>
                                 <h2 class="text-base font-bold mb-1">Drop any file here</h2>
-                                <p class="text-fn-text3 text-xs mb-4">Images, documents, audio — any file type</p>
+                                <p class="text-fn-text3 text-sm mb-4">Images, documents, audio — any file type</p>
                                 <div
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -174,7 +174,7 @@
                                     </svg>
                                     Choose File
                                 </div>
-                                <p class="text-fn-text3 text-xs mt-3">Max 10MB</p>
+                                <p class="text-fn-text3 text-sm mt-3">Max 10MB</p>
                                 <input type="file" id="ef-input"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
@@ -183,8 +183,8 @@
                                 <div class="w-10 h-10 rounded-lg bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-xl shrink-0"
                                     id="ef-icon">📄</div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-xs truncate" id="ef-file-name">file.png</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5" id="ef-file-meta">—</p>
+                                    <p class="font-semibold text-sm truncate" id="ef-file-name">file.png</p>
+                                    <p class="text-fn-text3 text-sm mt-0.5" id="ef-file-meta">—</p>
                                 </div>
                                 <button type="button" id="ef-remove"
                                     class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -208,11 +208,11 @@
 
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Base64 Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">Base64 Output</p>
                                 <div class="flex gap-2">
-                                    <span id="ef-stats" class="hidden text-xs text-fn-text3 self-center"></span>
+                                    <span id="ef-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="ef-copy"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -225,14 +225,14 @@
                             </div>
                             <textarea id="ef-output" rows="8" readonly spellcheck="false"
                                 placeholder="Base64 encoded output will appear here…"
-                                class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
+                                class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
 
                             {{-- Data URI card (shown for images) --}}
                             <div id="ef-data-uri-wrap" class="hidden space-y-2">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-xs font-semibold text-fn-text2">Data URI</p>
+                                    <p class="text-sm font-semibold text-fn-text2">Data URI</p>
                                     <button type="button" id="ef-copy-uri"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -243,16 +243,16 @@
                                     </button>
                                 </div>
                                 <textarea id="ef-data-uri" rows="3" readonly spellcheck="false"
-                                    class="w-full bg-fn-surface border border-fn-text/8 text-fn-text3 text-xs font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed cursor-default"></textarea>
+                                    class="w-full bg-fn-surface border border-fn-text/8 text-fn-text3 text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed cursor-default"></textarea>
                                 {{-- Image preview --}}
                                 <div id="ef-img-preview-wrap" class="hidden">
-                                    <p class="text-xs font-semibold text-fn-text2 mb-2">Image Preview</p>
+                                    <p class="text-sm font-semibold text-fn-text2 mb-2">Image Preview</p>
                                     <img id="ef-img-preview" src="" alt="Preview"
                                         class="max-h-40 rounded-xl border border-fn-text/8 object-contain bg-fn-surface2 w-full" />
                                 </div>
                             </div>
                             <div id="ef-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -268,10 +268,10 @@
                     <div class="grid lg:grid-cols-2 gap-4">
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Base64 Input</p>
+                                <p class="text-sm font-semibold text-fn-text2">Base64 Input</p>
                                 <div class="flex gap-2">
                                     <button type="button" id="dec-paste"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -282,12 +282,12 @@
                                         Paste
                                     </button>
                                     <button type="button" id="dec-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
                                 </div>
                             </div>
                             <textarea id="dec-input" rows="12" spellcheck="false"
                                 placeholder="Paste Base64 string here…&#10;e.g. SGVsbG8sIFdvcmxkIQ=="
-                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
+                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             <button type="button" id="dec-decode-btn"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
                                 disabled>
@@ -302,11 +302,11 @@
 
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Decoded Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">Decoded Output</p>
                                 <div class="flex gap-2">
-                                    <span id="dec-stats" class="hidden text-xs text-fn-text3 self-center"></span>
+                                    <span id="dec-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="dec-copy"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -316,7 +316,7 @@
                                         <span id="dec-copy-label">Copy</span>
                                     </button>
                                     <a id="dec-download" href="#" download="decoded.txt"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -332,7 +332,7 @@
                                 placeholder="Decoded text will appear here…"
                                 class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             <div id="dec-error"
-                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                                class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10" />
@@ -349,10 +349,10 @@
                     <div class="max-w-2xl">
                         <div class="space-y-2 mb-4">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Base64 String to Validate</p>
+                                <p class="text-sm font-semibold text-fn-text2">Base64 String to Validate</p>
                                 <div class="flex gap-2">
                                     <button type="button" id="val-paste"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                                             stroke-linejoin="round">
@@ -363,12 +363,12 @@
                                         Paste
                                     </button>
                                     <button type="button" id="val-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
                                 </div>
                             </div>
                             <textarea id="val-input" rows="8" spellcheck="false"
                                 placeholder="Paste Base64 string to validate…"
-                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
+                                class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             <button type="button" id="val-btn"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
                                 disabled>
@@ -386,14 +386,14 @@
                                 <span class="text-3xl" id="val-icon">✅</span>
                                 <div>
                                     <p class="font-bold text-base" id="val-title">Valid Base64</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5" id="val-message"></p>
+                                    <p class="text-fn-text3 text-sm mt-0.5" id="val-message"></p>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="val-stats"></div>
                         </div>
 
                         <div id="val-error"
-                            class="hidden mt-3 flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            class="hidden mt-3 flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10" />
@@ -427,8 +427,8 @@
             @foreach($encTypes as [$name,$chars,$desc])
             <div class="p-4 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <p class="font-bold text-sm mb-1">{{ $name }}</p>
-                <p class="text-xs font-mono text-fn-blue-l mb-2">{{ $chars }}</p>
-                <p class="text-xs text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-2">{{ $chars }}</p>
+                <p class="text-sm text-fn-text3 leading-relaxed">{{ $desc }}</p>
             </div>
             @endforeach
         </div>

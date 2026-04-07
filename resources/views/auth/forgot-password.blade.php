@@ -24,7 +24,7 @@
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-cyan text-xs font-semibold uppercase tracking-widest mb-4">Password Recovery</p>
+                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">Password Recovery</p>
                 <h2 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Happens to<br />
                     the best<br />
@@ -37,7 +37,7 @@
 
             <!-- Steps visual -->
             <div class="space-y-3">
-                <p class="text-xs font-semibold text-fn-text3 uppercase tracking-widest">How it works</p>
+                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">How it works</p>
 
                 <div class="flex items-start gap-3 p-3.5 bg-fn-surface2 border border-fn-text/7 rounded-xl">
                     <div
@@ -45,7 +45,7 @@
                         1</div>
                     <div class="flex-1 min-w-0 pt-0.5">
                         <p class="text-sm font-medium">Enter your email address</p>
-                        <p class="text-xs text-fn-text3 mt-0.5">The one linked to your Filenewer account</p>
+                        <p class="text-sm text-fn-text3 mt-0.5">The one linked to your Filenewer account</p>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
                         2</div>
                     <div class="flex-1 min-w-0 pt-0.5">
                         <p class="text-sm font-medium">Check your inbox</p>
-                        <p class="text-xs text-fn-text3 mt-0.5">A reset link will arrive within a minute</p>
+                        <p class="text-sm text-fn-text3 mt-0.5">A reset link will arrive within a minute</p>
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@
                         3</div>
                     <div class="flex-1 min-w-0 pt-0.5">
                         <p class="text-sm font-medium">Set a new password</p>
-                        <p class="text-xs text-fn-text3 mt-0.5">Back in your dashboard in no time</p>
+                        <p class="text-sm text-fn-text3 mt-0.5">Back in your dashboard in no time</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                     class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <p class="text-xs text-fn-text2 leading-relaxed">Reset links expire after 60 minutes and can only be
+                <p class="text-sm text-fn-text2 leading-relaxed">Reset links expire after 60 minutes and can only be
                     used once for your security.</p>
             </div>
         </div>
@@ -84,7 +84,7 @@
         <!-- Bottom brand -->
         <div class="relative z-10">
             <p class="text-fn-text3 text-sm font-medium italic">"Smarter File Processing."</p>
-            <p class="text-fn-text3 text-xs mt-1">— The Filenewer Team</p>
+            <p class="text-fn-text3 text-sm mt-1">— The Filenewer Team</p>
         </div>
     </div>
 
@@ -128,10 +128,10 @@
                 <p class="text-fn-text font-semibold text-sm mb-6">{{ session('email') ?? 'your email address' }}</p>
 
                 <div class="p-4 bg-fn-green/5 border border-fn-green/15 rounded-xl text-left mb-6">
-                    <p class="text-xs text-fn-text2 leading-relaxed">{{ session('status') }}</p>
+                    <p class="text-sm text-fn-text2 leading-relaxed">{{ session('status') }}</p>
                 </div>
 
-                <p class="text-xs text-fn-text3 mb-6">
+                <p class="text-sm text-fn-text3 mb-6">
                     Didn't receive the email? Check your spam folder or
                     <a href="/forgot-password" class="text-fn-blue-l hover:underline font-medium">try again</a>.
                 </p>
@@ -153,7 +153,7 @@
 
             <!-- Back link -->
             <a href="/login"
-                class="inline-flex items-center gap-1.5 text-xs text-fn-text3 hover:text-fn-text2 transition-colors mb-8 font-medium">
+                class="inline-flex items-center gap-1.5 text-sm text-fn-text3 hover:text-fn-text2 transition-colors mb-8 font-medium">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12" />
@@ -200,7 +200,7 @@
 
                 <!-- Email -->
                 <div class="space-y-1.5">
-                    <label class="text-xs font-semibold text-fn-text2 block" for="email">Email address</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="email">Email address</label>
                     <div class="relative">
                         <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -213,7 +213,7 @@
                             class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
                     @error('email')
-                    <p class="text-xs text-fn-red mt-1">{{ $message }}</p>
+                    <p class="text-sm text-fn-red mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -241,21 +241,21 @@
 
             <!-- Trust badges -->
             <div class="flex items-center justify-center gap-5 mt-8 pt-6 border-t border-fn-text/7">
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
                     SSL Secured
                 </div>
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
                     GDPR Compliant
                 </div>
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <rect x="3" y="11" width="18" height="11" rx="2" />

@@ -17,9 +17,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,10 +51,10 @@
                             </svg>
                             Choose PDF File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href="/pricing"
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
-                        <input type="file" id="file-input" accept=".pdf,application/pdf"
-                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                      <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+
+
+                        <input type="file" id="file-input" accept=".pdf,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
 
                     {{-- File preview --}}
@@ -65,7 +65,7 @@
                             📕</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">—</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -79,7 +79,7 @@
 
                     {{-- Compression level selector --}}
                     <div class="mt-5">
-                        <label class="text-xs font-semibold text-fn-text2 block mb-3">Compression Level</label>
+                        <label class="text-sm font-semibold text-fn-text2 block mb-3">Compression Level</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="level-grid">
                             @php
                             $levels = [
@@ -95,11 +95,11 @@
                                 data-level="{{ $lval }}">
                                 <div class="flex items-center justify-between w-full">
                                     <span class="text-sm font-bold">{{ $lname }}</span>
-                                    <span class="saving-badge text-xs font-bold px-1.5 py-0.5 rounded-md">{{ $lsaving
+                                    <span class="saving-badge text-sm font-bold px-1.5 py-0.5 rounded-md">{{ $lsaving
                                         }}</span>
                                 </div>
-                                <span class="text-xs font-mono opacity-70">{{ $lspec }}</span>
-                                <span class="text-xs leading-tight opacity-60">{{ $ldesc }}</span>
+                                <span class="text-sm font-mono opacity-70">{{ $lspec }}</span>
+                                <span class="text-sm leading-tight opacity-60">{{ $ldesc }}</span>
                             </button>
                             @endforeach
                         </div>
@@ -107,7 +107,7 @@
 
                     {{-- Password (optional) --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
-                        <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                        <label for="opt-password" class="text-sm font-semibold text-fn-text2 block mb-1.5">
                             PDF Password <span class="font-normal text-fn-text3 ml-1">(if encrypted)</span>
                         </label>
                         <div class="relative">
@@ -184,7 +184,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -213,7 +213,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -233,11 +233,11 @@
                             {{-- Reduction hero --}}
                             <div class="px-6 py-5 border-b border-fn-text/7 flex items-center justify-between">
                                 <div class="text-left">
-                                    <p class="text-xs text-fn-text3 font-semibold mb-1">Size Reduction</p>
+                                    <p class="text-sm text-fn-text3 font-semibold mb-1">Size Reduction</p>
                                     <p class="text-4xl font-black text-fn-green" id="reduction-pct">—</p>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-xs text-fn-text3 mb-3">
+                                    <div class="text-sm text-fn-text3 mb-3">
                                         <span id="orig-size">—</span>
                                         <svg class="inline w-3 h-3 mx-1 text-fn-green" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -268,8 +268,8 @@
                                 @endphp
                                 @foreach($statCols as [$sid,$slabel])
                                 <div class="flex-1 px-3 py-3 text-center">
-                                    <p class="text-xs text-fn-text3">{{ $slabel }}</p>
-                                    <p class="text-xs font-bold text-fn-text2 mt-0.5" id="{{ $sid }}">—</p>
+                                    <p class="text-sm text-fn-text3">{{ $slabel }}</p>
+                                    <p class="text-sm font-bold text-fn-text2 mt-0.5" id="{{ $sid }}">—</p>
                                 </div>
                                 @endforeach
                             </div>
@@ -284,7 +284,7 @@
                             📕</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">compressed.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -317,7 +317,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

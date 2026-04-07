@@ -45,9 +45,9 @@
                                 id="enc-step-{{ $n }}">
                                 <div
                                     class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                                    <span class="text-xs font-bold">{{ $n }}</span>
+                                    <span class="text-sm font-bold">{{ $n }}</span>
                                 </div>
-                                <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label
+                                <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label
                                     }}</span>
                             </div>
                             @if($n !== '3')
@@ -76,8 +76,7 @@
                                 </svg>
                                 Choose PDF File
                             </div>
-                            <p class="text-fn-text3 text-xs mt-4">Max 50MB free · <a href="/pricing"
-                                    class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                             <input type="file" id="enc-file-input" accept=".pdf,application/pdf"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -90,7 +89,7 @@
                                 📕</div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="enc-file-name">document.pdf</p>
-                                <p class="text-fn-text3 text-xs mt-0.5" id="enc-file-meta">— · PDF Document</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">— · PDF Document</p>
                             </div>
                             <button type="button" id="enc-remove-file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -105,11 +104,11 @@
                         {{-- Password fields --}}
                         <div class="mt-5 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                     User Password
                                     <span class="text-fn-red ml-0.5">*</span>
                                 </label>
-                                <p class="text-fn-text3 text-xs mb-2">Required to open the PDF</p>
+                                <p class="text-fn-text3 text-sm mb-2">Required to open the PDF</p>
                                 <div class="relative">
                                     <input type="password" id="enc-user-password" placeholder="e.g. mypassword123"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
@@ -138,15 +137,15 @@
                                     </div>
                                     @endfor
                                 </div>
-                                <p class="text-xs" id="enc-pw-strength-label"></p>
+                                <p class="text-sm" id="enc-pw-strength-label"></p>
                             </div>
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                            <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                 Owner Password
                                 <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                             </label>
-                            <p class="text-fn-text3 text-xs mb-2">Required to bypass restrictions</p>
+                            <p class="text-fn-text3 text-sm mb-2">Required to bypass restrictions</p>
                             <div class="relative">
                                 <input type="password" id="enc-owner-password" placeholder="e.g. admin456"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
@@ -173,13 +172,13 @@
                     {{-- Permissions --}}
                     <div class="mt-3 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-xs font-semibold text-fn-text2">Permissions</p>
+                            <p class="text-sm font-semibold text-fn-text2">Permissions</p>
                             <div class="flex gap-2">
                                 <button type="button" id="enc-allow-all"
-                                    class="text-xs text-fn-blue-l hover:underline font-semibold">Allow all</button>
-                                <span class="text-fn-text3 text-xs">·</span>
+                                    class="text-sm text-fn-blue-l hover:underline font-semibold">Allow all</button>
+                                <span class="text-fn-text3 text-sm">·</span>
                                 <button type="button" id="enc-restrict-all"
-                                    class="text-xs text-fn-red hover:underline font-semibold">Restrict all</button>
+                                    class="text-sm text-fn-red hover:underline font-semibold">Restrict all</button>
                             </div>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-2">
@@ -197,8 +196,8 @@
                                 <input type="checkbox" id="perm-{{ $pid }}" name="{{ $pid }}" checked
                                     class="perm-checkbox mt-0.5 w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue shrink-0" />
                                 <div>
-                                    <p class="text-xs font-semibold text-fn-text2">{{ $plabel }}</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5">{{ $pdesc }}</p>
+                                    <p class="text-sm font-semibold text-fn-text2">{{ $plabel }}</p>
+                                    <p class="text-fn-text3 text-sm mt-0.5">{{ $pdesc }}</p>
                                 </div>
                             </label>
                             @endforeach
@@ -217,9 +216,9 @@
                             id="dec-step-{{ $n }}">
                             <div
                                 class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                                <span class="text-xs font-bold">{{ $n }}</span>
+                                <span class="text-sm font-bold">{{ $n }}</span>
                             </div>
-                            <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label
+                            <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label
                                 }}</span>
                         </div>
                         @if($n !== '3')
@@ -247,8 +246,7 @@
                             </svg>
                             Choose PDF File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-4">Max 50MB free · <a href="/pricing"
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="dec-file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -260,7 +258,7 @@
                             🔒</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="dec-file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="dec-file-meta">— · Encrypted PDF</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">— · Encrypted PDF</p>
                         </div>
                         <button type="button" id="dec-remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -273,10 +271,10 @@
                     </div>
 
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
-                        <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                        <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
                             PDF Password <span class="text-fn-red ml-0.5">*</span>
                         </label>
-                        <p class="text-fn-text3 text-xs mb-2">Enter the password used to encrypt the PDF</p>
+                        <p class="text-fn-text3 text-sm mb-2">Enter the password used to encrypt the PDF</p>
                         <div class="relative">
                             <input type="password" id="dec-password" placeholder="Enter PDF password"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
@@ -324,7 +322,7 @@
                             </svg>
                             Choose PDF File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-4">Max 50MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         <input type="file" id="info-file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -336,7 +334,7 @@
                             📋</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="info-file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="info-file-meta">— · PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="info-file-meta">— · PDF Document</p>
                         </div>
                         <button type="button" id="info-remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -349,7 +347,7 @@
                     </div>
 
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
-                        <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                        <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
                             Password <span class="font-normal text-fn-text3 ml-1">(if encrypted)</span>
                         </label>
                         <div class="relative">
@@ -425,7 +423,7 @@
                         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                     <span id="progress-label">Starting…</span>
                     <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                 </div>
@@ -450,7 +448,7 @@
                                     stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                             </svg>
                         </div>
-                        <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                        <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                     </div>
                     @endforeach
                 </div>
@@ -471,7 +469,7 @@
                             <span id="info-enc-icon" class="text-xl">📄</span>
                             <div>
                                 <p class="text-sm font-bold" id="info-enc-label">Not Encrypted</p>
-                                <p class="text-xs text-fn-text3" id="info-enc-sub">This PDF has no password protection
+                                <p class="text-sm text-fn-text3" id="info-enc-sub">This PDF has no password protection
                                 </p>
                             </div>
                         </div>
@@ -487,7 +485,7 @@
                         id="dl-icon">🔒</div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">document_encrypted.pdf</p>
-                        <p class="text-fn-text3 text-xs mt-0.5" id="output-size">PDF Document</p>
+                        <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
                     </div>
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                 </div>
@@ -520,7 +518,7 @@
                     </a>
                 </div>
 
-                <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -674,7 +672,7 @@
         (i < score ? colors[score - 1] : 'bg-fn-text/10');
     });
     pwLabel.textContent  = labels[score - 1];
-    pwLabel.className    = 'text-xs ' + ['text-fn-red','text-fn-amber','text-fn-amber','text-fn-green'][score - 1];
+    pwLabel.className    = 'text-sm ' + ['text-fn-red','text-fn-amber','text-fn-amber','text-fn-green'][score - 1];
   });
 
   function getStrength(pw) {

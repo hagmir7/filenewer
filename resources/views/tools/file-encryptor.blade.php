@@ -42,20 +42,20 @@
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                 <div class="text-4xl mb-3">📄</div>
                                 <h2 class="text-base font-bold mb-1">Drop any file here</h2>
-                                <p class="text-fn-text3 text-xs mb-4">PDF, images, documents — any format supported</p>
-                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
+                                <p class="text-fn-text3 text-sm mb-4">PDF, images, documents — any format supported</p>
+                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                     Choose File
                                 </div>
-                                <p class="text-fn-text3 text-xs mt-3">Max 50MB free</p>
+                                <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                                 <input type="file" id="enc-file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
 
                             <div id="enc-file-preview" class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-lg bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-xl shrink-0" id="enc-file-icon">📄</div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-xs truncate" id="enc-file-name">file.pdf</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5" id="enc-file-meta">—</p>
+                                    <p class="font-semibold text-sm truncate" id="enc-file-name">file.pdf</p>
+                                    <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">—</p>
                                 </div>
                                 <button type="button" id="enc-remove" class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -64,7 +64,7 @@
 
                             {{-- Algorithm --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Algorithm</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Algorithm</label>
                                 <div class="grid grid-cols-3 gap-2">
                                     @php
                                         $algorithms = [
@@ -77,9 +77,9 @@
                                     <button type="button"
                                         class="algo-btn {{ $aval === 'AES-256-GCM' ? 'active' : '' }} flex flex-col items-start gap-0.5 p-3 rounded-xl border text-left transition-all"
                                         data-algo="{{ $aval }}">
-                                        <span class="text-xs font-bold font-mono">{{ $aval }}</span>
-                                        <span class="algo-badge text-xs font-semibold px-1.5 py-0.5 rounded-md">{{ $abadge }}</span>
-                                        <span class="text-fn-text3 text-xs leading-tight mt-0.5">{{ $adesc }}</span>
+                                        <span class="text-sm font-bold font-mono">{{ $aval }}</span>
+                                        <span class="algo-badge text-sm font-semibold px-1.5 py-0.5 rounded-md">{{ $abadge }}</span>
+                                        <span class="text-fn-text3 text-sm leading-tight mt-0.5">{{ $adesc }}</span>
                                     </button>
                                     @endforeach
                                 </div>
@@ -87,7 +87,7 @@
 
                             {{-- Password --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                     Encryption Password <span class="text-fn-red">*</span>
                                 </label>
                                 <div class="relative mb-2">
@@ -105,7 +105,7 @@
                                         <div class="strength-bar h-1 flex-1 rounded-full bg-fn-text/10 transition-all duration-300"></div>
                                         @endfor
                                     </div>
-                                    <p class="text-xs" id="enc-strength-label"></p>
+                                    <p class="text-sm" id="enc-strength-label"></p>
                                 </div>
 
                             </div>
@@ -117,7 +117,7 @@
 
                             {{-- How it works --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-                                <p class="text-xs font-semibold text-fn-text2">How it works</p>
+                                <p class="text-sm font-semibold text-fn-text2">How it works</p>
                                 @php
                                     $encSteps = [
                                         ['🔑','Password → PBKDF2 key derivation (100k rounds)'],
@@ -129,24 +129,24 @@
                                 @foreach($encSteps as [$icon,$text])
                                 <div class="flex items-start gap-2.5">
                                     <span class="text-base shrink-0">{{ $icon }}</span>
-                                    <span class="text-xs text-fn-text3 leading-relaxed">{{ $text }}</span>
+                                    <span class="text-sm text-fn-text3 leading-relaxed">{{ $text }}</span>
                                 </div>
                                 @endforeach
                             </div>
 
                             {{-- Output info --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-xs font-semibold text-fn-text2 mb-2">Output</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-2">Output</p>
                                 <div class="flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-lg bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0">🔒</div>
                                     <div>
-                                        <p class="text-xs font-semibold text-fn-text2" id="enc-output-preview">your_file.enc</p>
-                                        <p class="text-fn-text3 text-xs">Encrypted binary file · add .enc extension</p>
+                                        <p class="text-sm font-semibold text-fn-text2" id="enc-output-preview">your_file.enc</p>
+                                        <p class="text-fn-text3 text-sm">Encrypted binary file · add .enc extension</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="enc-error" class="hidden flex items-center gap-2 px-3 py-2.5 bg-fn-red/8 border border-fn-red/25 rounded-xl text-xs text-fn-red">
+                            <div id="enc-error" class="hidden flex items-center gap-2 px-3 py-2.5 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-red">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                                 <span id="enc-error-text"></span>
                             </div>
@@ -163,7 +163,7 @@
                                     <div class="w-10 h-10 rounded-lg bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-xl shrink-0">✅</div>
                                     <div class="flex-1 min-w-0">
                                         <p class="font-semibold text-sm truncate" id="enc-out-name">file.enc</p>
-                                        <p class="text-fn-text3 text-xs mt-0.5" id="enc-out-meta">—</p>
+                                        <p class="text-fn-text3 text-sm mt-0.5" id="enc-out-meta">—</p>
                                     </div>
                                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                                 </div>
@@ -189,8 +189,8 @@
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                 <div class="text-4xl mb-3">🔒</div>
                                 <h2 class="text-base font-bold mb-1">Drop your .enc file here</h2>
-                                <p class="text-fn-text3 text-xs mb-4">Files encrypted with Filenewer's encrypt tool</p>
-                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
+                                <p class="text-fn-text3 text-sm mb-4">Files encrypted with Filenewer's encrypt tool</p>
+                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                     Choose .enc File
                                 </div>
@@ -200,8 +200,8 @@
                             <div id="dec-file-preview" class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-lg bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-xl shrink-0">🔒</div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-xs truncate" id="dec-file-name">file.enc</p>
-                                    <p class="text-fn-text3 text-xs mt-0.5" id="dec-file-meta">—</p>
+                                    <p class="font-semibold text-sm truncate" id="dec-file-name">file.enc</p>
+                                    <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">—</p>
                                 </div>
                                 <button type="button" id="dec-remove" class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -209,7 +209,7 @@
                             </div>
 
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
                                     Decryption Password <span class="text-fn-red">*</span>
                                 </label>
                                 <div class="relative">
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
 
-                            <div id="dec-error" class="hidden flex items-start gap-2 px-3 py-2.5 bg-fn-red/8 border border-fn-red/25 rounded-xl text-xs text-fn-red">
+                            <div id="dec-error" class="hidden flex items-start gap-2 px-3 py-2.5 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-red">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                                 <span id="dec-error-text"></span>
                             </div>
@@ -239,7 +239,7 @@
                                     <div class="w-10 h-10 rounded-lg bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-xl shrink-0">🔓</div>
                                     <div class="flex-1 min-w-0">
                                         <p class="font-semibold text-sm truncate" id="dec-out-name">file.pdf</p>
-                                        <p class="text-fn-text3 text-xs mt-0.5" id="dec-out-meta">—</p>
+                                        <p class="text-fn-text3 text-sm mt-0.5" id="dec-out-meta">—</p>
                                     </div>
                                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                                 </div>
@@ -259,19 +259,19 @@
                                     <span class="text-xl shrink-0">⚠️</span>
                                     <div>
                                         <p class="text-sm font-bold text-fn-text mb-1">Important</p>
-                                        <p class="text-xs text-fn-text3 leading-relaxed">You must use the exact same password that was used to encrypt the file. If the password is wrong or the file is corrupted, decryption will fail.</p>
+                                        <p class="text-sm text-fn-text3 leading-relaxed">You must use the exact same password that was used to encrypt the file. If the password is wrong or the file is corrupted, decryption will fail.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-                                <p class="text-xs font-semibold text-fn-text2">Supported algorithms</p>
+                                <p class="text-sm font-semibold text-fn-text2">Supported algorithms</p>
                                 @foreach($algorithms as [$aval,$abadge,$adesc])
                                 <div class="flex items-center gap-2">
-                                    <span class="text-xs font-mono font-bold text-fn-blue-l w-28 shrink-0">{{ $aval }}</span>
-                                    <span class="text-xs text-fn-text3">{{ $adesc }}</span>
+                                    <span class="text-sm font-mono font-bold text-fn-blue-l w-28 shrink-0">{{ $aval }}</span>
+                                    <span class="text-sm text-fn-text3">{{ $adesc }}</span>
                                 </div>
                                 @endforeach
-                                <p class="text-xs text-fn-text3 mt-2">Algorithm is auto-detected from the file header — no need to specify.</p>
+                                <p class="text-sm text-fn-text3 mt-2">Algorithm is auto-detected from the file header — no need to specify.</p>
                             </div>
                         </div>
 
@@ -284,12 +284,12 @@
                     {{-- Input mode tabs --}}
                     <div class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-5 w-fit">
                         <button type="button" id="hash-tab-file"
-                            class="hash-tab-btn active flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all">
+                            class="hash-tab-btn active flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                             Hash File
                         </button>
                         <button type="button" id="hash-tab-text"
-                            class="hash-tab-btn flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold transition-all">
+                            class="hash-tab-btn flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
                             Hash Text
                         </button>
@@ -306,16 +306,16 @@
                                     class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-8 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                     <div class="text-3xl mb-2">#</div>
                                     <h2 class="text-base font-bold mb-1">Drop any file to hash</h2>
-                                    <p class="text-fn-text3 text-xs mb-3">Compute checksums for any file type</p>
-                                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">Choose File</div>
-                                    <p class="text-fn-text3 text-xs mt-2">Max 50MB</p>
+                                    <p class="text-fn-text3 text-sm mb-3">Compute checksums for any file type</p>
+                                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">Choose File</div>
+                                    <<p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                                     <input type="file" id="hash-file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
                                 <div id="hash-file-preview" class="hidden mt-3 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-lg bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-xl shrink-0">#</div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="font-semibold text-xs truncate" id="hash-file-name">file.pdf</p>
-                                        <p class="text-fn-text3 text-xs mt-0.5" id="hash-file-meta">—</p>
+                                        <p class="font-semibold text-sm truncate" id="hash-file-name">file.pdf</p>
+                                        <p class="text-fn-text3 text-sm mt-0.5" id="hash-file-meta">—</p>
                                     </div>
                                     <button type="button" id="hash-remove" class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -326,10 +326,10 @@
                             {{-- Text input --}}
                             <div id="hash-text-panel" class="hidden space-y-2">
                                 <div class="flex items-center justify-between">
-                                    <p class="text-xs font-semibold text-fn-text2">Input Text</p>
+                                    <p class="text-sm font-semibold text-fn-text2">Input Text</p>
                                     <div class="flex gap-2">
-                                        <button type="button" id="hash-text-paste" class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Paste</button>
-                                        <button type="button" id="hash-text-clear" class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                        <button type="button" id="hash-text-paste" class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">Paste</button>
+                                        <button type="button" id="hash-text-clear" class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
                                     </div>
                                 </div>
                                 <textarea id="hash-text-input" rows="8" spellcheck="false"
@@ -340,10 +340,10 @@
                             {{-- Algorithm selector --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center justify-between mb-2">
-                                    <label class="text-xs font-semibold text-fn-text2">Algorithms</label>
+                                    <label class="text-sm font-semibold text-fn-text2">Algorithms</label>
                                     <div class="flex gap-2">
-                                        <button type="button" id="hash-select-all" class="text-xs text-fn-blue-l hover:underline font-semibold">All</button>
-                                        <button type="button" id="hash-select-none" class="text-xs text-fn-text3 hover:underline font-semibold">None</button>
+                                        <button type="button" id="hash-select-all" class="text-sm text-fn-blue-l hover:underline font-semibold">All</button>
+                                        <button type="button" id="hash-select-none" class="text-sm text-fn-text3 hover:underline font-semibold">None</button>
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-1.5">
@@ -362,14 +362,14 @@
                                     <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-fn-surface transition-colors cursor-pointer">
                                         <input type="checkbox" name="hash-algo" value="{{ $hval }}" {{ $hdefault ? 'checked' : '' }}
                                             class="w-3.5 h-3.5 accent-fn-blue rounded" />
-                                        <span class="text-xs font-semibold text-fn-text2">{{ $hlabel }}</span>
-                                        <span class="text-fn-text3 text-xs ml-auto font-mono">{{ $hlen }}</span>
+                                        <span class="text-sm font-semibold text-fn-text2">{{ $hlabel }}</span>
+                                        <span class="text-fn-text3 text-sm ml-auto font-mono">{{ $hlen }}</span>
                                     </label>
                                     @endforeach
                                 </div>
                             </div>
 
-                            <div id="hash-error" class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-xs text-fn-red">
+                            <div id="hash-error" class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
                                 <span id="hash-error-text"></span>
                             </div>
@@ -384,11 +384,11 @@
                         {{-- Right: Results --}}
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
-                                <p class="text-xs font-semibold text-fn-text2">Hash Results</p>
+                                <p class="text-sm font-semibold text-fn-text2">Hash Results</p>
                                 <div class="flex gap-2">
-                                    <span id="hash-meta" class="hidden text-xs text-fn-text3"></span>
+                                    <span id="hash-meta" class="hidden text-sm text-fn-text3"></span>
                                     <button type="button" id="hash-copy-all"
-                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                        class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                                         <span id="hash-copy-all-label">Copy all</span>
                                     </button>
@@ -432,13 +432,13 @@
                 <div class="flex items-center justify-between mb-1.5">
                     <span class="font-bold text-sm">{{ $name }}</span>
                     @if($secure)
-                    <span class="text-xs px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold">✓ Secure</span>
+                    <span class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold">✓ Secure</span>
                     @else
-                    <span class="text-xs px-2 py-0.5 bg-fn-red/10 border border-fn-red/20 text-fn-red rounded-md font-semibold">Legacy</span>
+                    <span class="text-sm px-2 py-0.5 bg-fn-red/10 border border-fn-red/20 text-fn-red rounded-md font-semibold">Legacy</span>
                     @endif
                 </div>
-                <p class="text-xs font-mono text-fn-blue-l mb-1.5">{{ $len }}</p>
-                <p class="text-xs text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-1.5">{{ $len }}</p>
+                <p class="text-sm text-fn-text3 leading-relaxed">{{ $desc }}</p>
             </div>
             @endforeach
         </div>
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function () {
       bar.className = 'strength-bar h-1 flex-1 rounded-full transition-all duration-300 ' + (i < s ? colors[s-1] : 'bg-fn-text/10');
     });
     encStrLabel.textContent = labels[s-1];
-    encStrLabel.className   = 'text-xs ' + ['text-fn-red','text-fn-amber','text-fn-amber','text-fn-green'][s-1];
+    encStrLabel.className   = 'text-sm ' + ['text-fn-red','text-fn-amber','text-fn-amber','text-fn-green'][s-1];
   });
 
 

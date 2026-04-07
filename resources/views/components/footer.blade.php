@@ -88,23 +88,23 @@
 
         <!-- Bottom bar -->
         <div class="pt-7 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p class="text-fn-text3 text-xs md:text-sm">© 2025 Filenewer. All rights reserved.</p>
+            <p class="text-fn-text3 text-sm md:text-sm">© 2025 Filenewer. All rights reserved.</p>
             <ul class="flex items-center gap-5 list-none">
                 <li>
                     <a href="/pages/privacy-policy"
-                        class="text-fn-text3 text-xs md:text-sm hover:text-fn-text2 transition-colors">Privacy</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Privacy</a>
                 </li>
                 <li>
                     <a href="/pages/terms-of-service"
-                        class="text-fn-text3 text-xs md:text-sm hover:text-fn-text2 transition-colors">Terms</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Terms</a>
                 </li>
                 <li>
                     <a href="/sitemap.xml"
-                        class="text-fn-text3 text-xs md:text-sm hover:text-fn-text2 transition-colors">Sitemap</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Sitemap</a>
                 </li>
                 <li>
                     <a href="/contact"
-                        class="text-fn-text3 text-xs md:text-sm hover:text-fn-text2 transition-colors">Contact</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Contact</a>
                 </li>
             </ul>
         </div>

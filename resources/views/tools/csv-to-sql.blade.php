@@ -18,9 +18,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -79,8 +79,7 @@
                                 </svg>
                                 Choose CSV File
                             </div>
-                            <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                    class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                           <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -93,7 +92,7 @@
                                 📄</div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
-                                <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · CSV File</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
                             </div>
                             <button type="button" id="remove-file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -115,7 +114,7 @@
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
                             <div class="absolute top-3 right-3 flex gap-2">
                                 <button type="button" id="btn-paste"
-                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path
@@ -125,7 +124,7 @@
                                     Paste
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="3 6 5 6 21 6" />
@@ -138,7 +137,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-xs font-semibold"></div>
+                        <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold"></div>
                     </div>{{-- /panel-text --}}
 
                     {{-- ══ SHARED OPTIONS ══ --}}
@@ -149,7 +148,7 @@
 
                             {{-- SQL Dialect --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
                                 <div class="grid grid-cols-3 gap-2">
                                     @foreach([
                                     ['mysql', 'MySQL', '🐬'],
@@ -157,7 +156,7 @@
                                     ['sqlite', 'SQLite', '🪶'],
                                     ] as [$val, $lbl, $icon])
                                     <button type="button"
-                                        class="dialect-btn {{ $val === 'mysql' ? 'active' : '' }} flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl border text-xs font-semibold transition-all"
+                                        class="dialect-btn {{ $val === 'mysql' ? 'active' : '' }} flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all"
                                         data-dialect="{{ $val }}">
                                         <span class="text-lg">{{ $icon }}</span>
                                         <span>{{ $lbl }}</span>
@@ -168,12 +167,12 @@
 
                             {{-- Table name --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="opt-table" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="opt-table" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Table Name
                                 </label>
                                 <input type="text" id="opt-table" value="my_table" placeholder="e.g. users"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Used in <span
+                                <p class="text-fn-text3 text-sm mt-1.5">Used in <span
                                         class="font-mono text-fn-text2">INSERT INTO <span
                                             id="table-preview">my_table</span> …</span></p>
                             </div>
@@ -184,33 +183,33 @@
 
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-2">Output</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach([
                                     ['file', 'Download .sql', '💾'],
                                     ['text', 'Preview SQL', '👁'],
                                     ] as [$val, $lbl, $icon])
                                     <button type="button"
-                                        class="output-btn {{ $val === 'file' ? 'active' : '' }} flex items-center gap-2 py-2 px-3 rounded-xl border text-xs font-semibold transition-all"
+                                        class="output-btn {{ $val === 'file' ? 'active' : '' }} flex items-center gap-2 py-2 px-3 rounded-xl border text-sm font-semibold transition-all"
                                         data-output="{{ $val }}">
                                         <span>{{ $icon }}</span>
                                         <span>{{ $lbl }}</span>
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-xs mt-2" id="output-hint">Returns a downloadable .sql file.
+                                <p class="text-fn-text3 text-sm mt-2" id="output-hint">Returns a downloadable .sql file.
                                 </p>
                             </div>
 
                             {{-- Filename (only relevant for file output) --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="filename-wrap">
-                                <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                                <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Output Filename
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
                                 <input type="text" id="opt-filename" placeholder="e.g. users.sql"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-xs mt-1.5">Defaults to your table name with .sql extension
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your table name with .sql extension
                                 </p>
                             </div>
                         </div>
@@ -269,7 +268,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -295,7 +294,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -318,13 +317,13 @@
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center gap-2">
                                 <span id="dialect-badge"
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border"></span>
-                                <p class="text-xs font-semibold text-fn-text2">SQL Preview</p>
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-bold border"></span>
+                                <p class="text-sm font-semibold text-fn-text2">SQL Preview</p>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span id="sql-preview-meta" class="text-xs text-fn-text3"></span>
+                                <span id="sql-preview-meta" class="text-sm text-fn-text3"></span>
                                 <button type="button" id="btn-copy-sql"
-                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -336,7 +335,7 @@
                         </div>
                         <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-hidden">
                             <pre id="sql-preview-code"
-                                class="p-5 text-xs font-mono text-fn-text2 overflow-auto max-h-72 leading-relaxed whitespace-pre-wrap break-all"></pre>
+                                class="p-5 text-sm font-mono text-fn-text2 overflow-auto max-h-72 leading-relaxed whitespace-pre-wrap break-all"></pre>
                         </div>
                     </div>
 
@@ -348,7 +347,7 @@
                             🗄️</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.sql</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">SQL File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">SQL File</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -382,7 +381,7 @@
                             </a>
                         </div>
 
-                        <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                        <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

@@ -6,7 +6,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-xs text-fn-text3 mb-8" aria-label="Breadcrumb">
+        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-8" aria-label="Breadcrumb">
             <a href="/" class="hover:text-fn-text2 transition-colors">Home</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -25,7 +25,7 @@
             <div class="flex items-center gap-3 mb-5 flex-wrap">
                 @if($blog->category)
                 <a href="/blog?cat={{ Str::slug($blog->category) }}"
-                    class="px-3 py-1 bg-fn-blue/10 border border-fn-blue/25 rounded-full text-fn-blue-l text-xs font-semibold hover:bg-fn-blue/15 transition-colors">
+                    class="px-3 py-1 bg-fn-blue/10 border border-fn-blue/25 rounded-full text-fn-blue-l text-sm font-semibold hover:bg-fn-blue/15 transition-colors">
                     {{ $blog->category }}
                 </a>
                 <span class="text-fn-text3 text-sm">·</span>
@@ -60,16 +60,16 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold">{{ $blog->user->name }}</p>
-                        <p class="text-xs text-fn-text3">Author at Filenewer</p>
+                        <p class="text-sm text-fn-text3">Author at Filenewer</p>
                     </div>
                     @endif
                 </div>
                 <!-- Share buttons -->
                 <div class="flex items-center gap-2">
-                    <span class="text-fn-text3 text-xs font-medium mr-1">Share:</span>
+                    <span class="text-fn-text3 text-sm font-medium mr-1">Share:</span>
                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog->title) }}"
                         target="_blank" rel="noopener"
-                        class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-xs font-medium transition-all hover:text-fn-text">
+                        class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-sm font-medium transition-all hover:text-fn-text">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -78,7 +78,7 @@
                     </a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
                         target="_blank" rel="noopener"
-                        class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-xs font-medium transition-all hover:text-fn-text">
+                        class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-sm font-medium transition-all hover:text-fn-text">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -86,7 +86,7 @@
                         LinkedIn
                     </a>
                     <button onclick="copyLink()"
-                        class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-xs font-medium transition-all hover:text-fn-text"
+                        class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-sm font-medium transition-all hover:text-fn-text"
                         id="copy-btn">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -153,9 +153,9 @@
             <!-- Tags -->
             @if($blog->category)
             <div class="flex flex-wrap gap-2 mt-10 pt-8 border-t border-fn-text/7">
-                <span class="text-fn-text3 text-xs font-medium mr-1">Tags:</span>
+                <span class="text-fn-text3 text-sm font-medium mr-1">Tags:</span>
                 <a href="/blog?cat={{ Str::slug($blog->category) }}"
-                    class="px-3 py-1 bg-fn-surface border border-fn-text/10 rounded-full text-fn-text3 text-xs hover:border-fn-blue/30 hover:text-fn-blue-l transition-all">
+                    class="px-3 py-1 bg-fn-surface border border-fn-text/10 rounded-full text-fn-text3 text-sm hover:border-fn-blue/30 hover:text-fn-blue-l transition-all">
                     #{{ Str::slug($blog->category) }}
                 </a>
             </div>
@@ -170,7 +170,7 @@
                 </div>
                 <div>
                     <p class="font-semibold text-sm mb-0.5">{{ $blog->user->name }}</p>
-                    <p class="text-fn-text3 text-xs mb-3">Author · Filenewer</p>
+                    <p class="text-fn-text3 text-sm mb-3">Author · Filenewer</p>
                     @if($blog->user->bio)
                     <p class="text-fn-text2 text-sm leading-relaxed">{{ $blog->user->bio }}</p>
                     @else
@@ -188,7 +188,7 @@
                     class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(49%_0.24_264_/_10%)_0%,transparent_65%)] pointer-events-none">
                 </div>
                 <div class="relative z-10">
-                    <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-2">Try It Free</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-2">Try It Free</p>
                     <h3 class="font-serif text-xl font-normal mb-2">Process your files right now</h3>
                     <p class="text-fn-text3 text-sm mb-5">No account needed · Fast &amp; secure · 100% free</p>
                     <a href="/tools"
@@ -210,7 +210,7 @@
 
                 <!-- Table of Contents — auto-generated from headings via JS -->
                 <div class="bg-fn-surface border border-fn-text/7 rounded-2xl p-5">
-                    <p class="text-xs font-semibold uppercase tracking-widest text-fn-text3 mb-4">Table of Contents</p>
+                    <p class="text-sm font-semibold uppercase tracking-widest text-fn-text3 mb-4">Table of Contents</p>
                     <nav class="flex flex-col gap-0.5" id="toc-nav">
                         {{-- Populated by JS below --}}
                     </nav>
@@ -219,15 +219,15 @@
                 <!-- Reading progress -->
                 <div class="bg-fn-surface border border-fn-text/7 rounded-2xl p-5">
                     <div class="flex items-center justify-between mb-2">
-                        <p class="text-xs font-semibold text-fn-text3 uppercase tracking-widest">Reading</p>
-                        <p class="text-xs font-mono text-fn-text3" id="progress-pct">0%</p>
+                        <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">Reading</p>
+                        <p class="text-sm font-mono text-fn-text3" id="progress-pct">0%</p>
                     </div>
                     <div class="h-1.5 bg-fn-surface2 rounded-full overflow-hidden">
                         <div id="sidebar-progress" class="h-full rounded-full transition-all duration-200"
                             style="width: 0%; background: linear-gradient(90deg, oklch(49% 0.24 264), oklch(68% 0.17 210));">
                         </div>
                     </div>
-                    <p class="text-xs text-fn-text3 mt-2" id="reading-time-left">
+                    <p class="text-sm text-fn-text3 mt-2" id="reading-time-left">
                         ~{{ $blog->read_time ?? '5' }} min remaining
                     </p>
                 </div>
@@ -236,7 +236,7 @@
                 @if($blog->tools->isNotEmpty())
                 @foreach($blog->tools->take(1) as $tool)
                 <div class="bg-fn-blue/8 border border-fn-blue/20 rounded-2xl p-5">
-                    <p class="text-fn-blue-l text-xs font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-9 h-9 rounded-xl bg-fn-blue/15 flex items-center justify-center text-lg shrink-0">
                             🛠️
@@ -244,10 +244,10 @@
                         <p class="font-semibold text-sm">{{ $tool->name }}</p>
                     </div>
                     @if($tool->description)
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-4">{{ Str::limit($tool->description, 80) }}</p>
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-4">{{ Str::limit($tool->description, 80) }}</p>
                     @endif
                     <a href="/tools/{{ $tool->slug }}"
-                        class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-xs font-semibold rounded-lg transition-all">
+                        class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-lg transition-all">
                         Try for Free →
                     </a>
                 </div>
@@ -264,7 +264,7 @@
 @if($recommended->isNotEmpty())
 <section class="border-t border-fn-text/7 py-16 bg-fn-surface">
     <div class="max-w-6xl mx-auto px-6">
-        <p class="text-fn-text3 text-xs font-semibold uppercase tracking-widest mb-7">Related Articles</p>
+        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-7">Related Articles</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
             @foreach($recommended as $post)
@@ -285,16 +285,16 @@
 
                 <div class="p-5 flex flex-col flex-1">
                     @if($post->category)
-                    <span class="text-fn-blue-l text-xs font-semibold mb-2">{{ $post->category }}</span>
+                    <span class="text-fn-blue-l text-sm font-semibold mb-2">{{ $post->category }}</span>
                     @endif
                     <h3
                         class="font-serif text-base font-normal leading-snug tracking-tight mb-2 group-hover:text-fn-blue-l transition-colors duration-200">
                         {{ $post->title }}
                     </h3>
                     @if($post->excerpt)
-                    <p class="text-fn-text3 text-xs leading-relaxed mb-3 line-clamp-2">{{ $post->excerpt }}</p>
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-3 line-clamp-2">{{ $post->excerpt }}</p>
                     @endif
-                    <p class="text-fn-text3 text-xs mt-auto">
+                    <p class="text-fn-text3 text-sm mt-auto">
                         @if($post->read_time){{ $post->read_time }} min read · @endif
                         @if($post->published_at){{ \Carbon\Carbon::parse($post->published_at)->format('M j') }}@endif
                     </p>
@@ -342,7 +342,7 @@
                     .trim();
                 a.textContent = label || 'Section ' + (i + 1);
                 const isH3 = heading.tagName === 'H3';
-                a.className = `toc-link ${isH3 ? 'pl-6' : 'pl-3'} py-1.5 text-xs text-fn-text2 hover:text-fn-text transition-colors rounded-r-md block truncate`;
+                a.className = `toc-link ${isH3 ? 'pl-6' : 'pl-3'} py-1.5 text-sm text-fn-text2 hover:text-fn-text transition-colors rounded-r-md block truncate`;
                 tocNav.appendChild(a);
             });
         } else if (tocNav) {

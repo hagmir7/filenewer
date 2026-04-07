@@ -24,7 +24,7 @@
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-cyan text-xs font-semibold uppercase tracking-widest mb-4">Welcome back</p>
+                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">Welcome back</p>
                 <h1 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
                     Your files are<br />
                     waiting for<br />
@@ -37,14 +37,14 @@
 
             <!-- Recent activity visual -->
             <div class="space-y-3">
-                <p class="text-xs font-semibold text-fn-text3 uppercase tracking-widest">Recent Activity</p>
+                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">Recent Activity</p>
 
                 <div class="flex items-center gap-3 p-3.5 bg-fn-surface2 border border-fn-text/7 rounded-xl">
                     <div class="w-8 h-8 rounded-lg bg-fn-red/15 flex items-center justify-center text-sm shrink-0">📕
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium truncate">report_Q4.pdf → Word</p>
-                        <p class="text-xs text-fn-text3">2 hours ago</p>
+                        <p class="text-sm text-fn-text3">2 hours ago</p>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium truncate">users_export.csv → SQL</p>
-                        <p class="text-xs text-fn-text3">Yesterday</p>
+                        <p class="text-sm text-fn-text3">Yesterday</p>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium truncate">invoice_Nov_2025.pdf</p>
-                        <p class="text-xs text-fn-text3">3 days ago</p>
+                        <p class="text-sm text-fn-text3">3 days ago</p>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
@@ -85,7 +85,7 @@
                     class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <p class="text-xs text-fn-text2 leading-relaxed">Your session is protected with AES-256 encryption and
+                <p class="text-sm text-fn-text2 leading-relaxed">Your session is protected with AES-256 encryption and
                     automatically expires after 30 days of inactivity.</p>
             </div>
         </div>
@@ -93,7 +93,7 @@
         <!-- Bottom brand -->
         <div class="relative z-10">
             <p class="text-fn-text3 text-sm font-medium italic">"Smarter File Processing."</p>
-            <p class="text-fn-text3 text-xs mt-1">— The Filenewer Team</p>
+            <p class="text-fn-text3 text-sm mt-1">— The Filenewer Team</p>
         </div>
     </div>
 
@@ -186,7 +186,7 @@
             <!-- Divider -->
             <div class="flex items-center gap-3 mb-6">
                 <div class="flex-1 h-px bg-fn-text/8"></div>
-                <span class="text-fn-text3 text-xs font-medium">or sign in with email</span>
+                <span class="text-fn-text3 text-sm font-medium">or sign in with email</span>
                 <div class="flex-1 h-px bg-fn-text/8"></div>
             </div>
 
@@ -196,7 +196,7 @@
 
                 <!-- Email -->
                 <div class="space-y-1.5">
-                    <label class="text-xs font-semibold text-fn-text2 block" for="email">Email address</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="email">Email address</label>
                     <div class="relative">
                         <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -209,15 +209,15 @@
                             class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
                     @error('email')
-                    <p class="text-xs text-fn-red mt-1">{{ $message }}</p>
+                    <p class="text-sm text-fn-red mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Password -->
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <label class="text-xs font-semibold text-fn-text2" for="password">Password</label>
-                        <a href="/forgot-password" class="text-xs text-fn-blue-l hover:underline font-medium">Forgot
+                        <label class="text-sm font-semibold text-fn-text2" for="password">Password</label>
+                        <a href="/forgot-password" class="text-sm text-fn-blue-l hover:underline font-medium">Forgot
                             password?</a>
                     </div>
                     <div class="relative">
@@ -240,7 +240,7 @@
                         </button>
                     </div>
                     @error('password')
-                    <p class="text-xs text-fn-red mt-1">{{ $message }}</p>
+                    <p class="text-sm text-fn-red mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -248,7 +248,7 @@
                 <div class="flex items-center gap-2.5">
                     <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
                         class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface cursor-pointer accent-fn-blue" />
-                    <label for="remember" class="text-xs text-fn-text3 cursor-pointer select-none">Keep me signed in for
+                    <label for="remember" class="text-sm text-fn-text3 cursor-pointer select-none">Keep me signed in for
                         30 days</label>
                 </div>
 
@@ -272,21 +272,21 @@
 
             <!-- Trust badges -->
             <div class="flex items-center justify-center gap-5 mt-8 pt-6 border-t border-fn-text/7">
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
                     SSL Secured
                 </div>
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
                     GDPR Compliant
                 </div>
-                <div class="flex items-center gap-1.5 text-fn-text3 text-xs">
+                <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <rect x="3" y="11" width="18" height="11" rx="2" />

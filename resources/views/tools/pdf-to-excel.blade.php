@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,8 +51,7 @@
                             </svg>
                             Choose PDF File
                         </div>
-                        <p class="text-fn-text3 text-xs mt-5">Max 50MB free · <a href=""
-                                class="text-fn-blue-l hover:underline">200MB on Pro</a></p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                         {{-- Hidden real file input --}}
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -66,7 +65,7 @@
                             📕</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="file-meta">— · PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · PDF Document</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -82,7 +81,7 @@
                     <div class="mt-6 grid sm:grid-cols-2 gap-3">
                         {{-- Password (optional) --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-2">
+                            <label for="opt-password" class="text-sm font-semibold text-fn-text2 block mb-2">
                                 PDF Password
                                 <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                             </label>
@@ -110,7 +109,7 @@
 
                         {{-- Custom output filename (optional) --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-2">
+                            <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                 Output Filename
                                 <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                             </label>
@@ -118,7 +117,7 @@
                                 <input type="text" id="opt-filename" placeholder="e.g. my_report.xlsx"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
-                            <p class="text-fn-text3 text-xs mt-1.5">Defaults to your PDF filename with .xlsx extension
+                            <p class="text-fn-text3 text-sm mt-1.5">Defaults to your PDF filename with .xlsx extension
                             </p>
                         </div>
                     </div>
@@ -175,7 +174,7 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -202,7 +201,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -223,7 +222,7 @@
                             📊</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document.xlsx</p>
-                            <p class="text-fn-text3 text-xs mt-0.5" id="output-size">Excel Spreadsheet</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Excel Spreadsheet</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -257,7 +256,7 @@
                         </a>
                     </div>
 
-                    <p class="mt-6 text-fn-text3 text-xs flex items-center justify-center gap-1.5">
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
