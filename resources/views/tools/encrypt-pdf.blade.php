@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
+
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -617,468 +621,470 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── State ──
-  let activeMode   = 'encrypt'; // 'encrypt' | 'decrypt' | 'info'
-  let encFile      = null;
-  let decFile      = null;
-  let infoFile     = null;
-  let blobUrl      = null;
+      // ── State ──
+      let activeMode   = 'encrypt'; // 'encrypt' | 'decrypt' | 'info'
+      let encFile      = null;
+      let decFile      = null;
+      let infoFile     = null;
+      let blobUrl      = null;
 
-  // ── Mode tabs ──
-  document.querySelectorAll('.mode-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      activeMode = tab.dataset.mode;
-      document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      ['encrypt','decrypt','info'].forEach(m => {
-        document.getElementById('panel-' + m).classList.toggle('hidden', m !== activeMode);
+      // ── Mode tabs ──
+      document.querySelectorAll('.mode-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          activeMode = tab.dataset.mode;
+          document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          ['encrypt','decrypt','info'].forEach(m => {
+            document.getElementById('panel-' + m).classList.toggle('hidden', m !== activeMode);
+          });
+          updateActionBtn();
+          hideError();
+        });
       });
-      updateActionBtn();
-      hideError();
-    });
-  });
 
-  // ── Password show/hide toggles ──
-  document.querySelectorAll('.toggle-pw').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const input   = document.getElementById(btn.dataset.target);
-      const isPass  = input.type === 'password';
-      input.type    = isPass ? 'text' : 'password';
-      btn.querySelector('.eye-show').classList.toggle('hidden', isPass);
-      btn.querySelector('.eye-hide').classList.toggle('hidden', !isPass);
-    });
-  });
+      // ── Password show/hide toggles ──
+      document.querySelectorAll('.toggle-pw').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const input   = document.getElementById(btn.dataset.target);
+          const isPass  = input.type === 'password';
+          input.type    = isPass ? 'text' : 'password';
+          btn.querySelector('.eye-show').classList.toggle('hidden', isPass);
+          btn.querySelector('.eye-hide').classList.toggle('hidden', !isPass);
+        });
+      });
 
-  // ── Password strength meter ──
-  const userPwInput  = document.getElementById('enc-user-password');
-  const pwStrengthEl = document.getElementById('enc-pw-strength');
-  const pwLabel      = document.getElementById('enc-pw-strength-label');
-  const strengthBars = document.querySelectorAll('.strength-bar');
+      // ── Password strength meter ──
+      const userPwInput  = document.getElementById('enc-user-password');
+      const pwStrengthEl = document.getElementById('enc-pw-strength');
+      const pwLabel      = document.getElementById('enc-pw-strength-label');
+      const strengthBars = document.querySelectorAll('.strength-bar');
 
-  userPwInput.addEventListener('input', () => {
-    const pw  = userPwInput.value;
-    updateActionBtn();
-    if (!pw) { pwStrengthEl.classList.add('hidden'); return; }
-    pwStrengthEl.classList.remove('hidden');
-    const score = getStrength(pw);
-    const colors = ['bg-fn-red','bg-fn-amber','bg-fn-amber','bg-fn-green'];
-    const labels = ['Weak','Fair','Good','Strong'];
-    strengthBars.forEach((bar, i) => {
-      bar.className = 'strength-bar h-1 flex-1 rounded-full transition-all duration-300 ' +
-        (i < score ? colors[score - 1] : 'bg-fn-text/10');
-    });
-    pwLabel.textContent  = labels[score - 1];
-    pwLabel.className    = 'text-sm ' + ['text-fn-red','text-fn-amber','text-fn-amber','text-fn-green'][score - 1];
-  });
+      userPwInput.addEventListener('input', () => {
+        const pw  = userPwInput.value;
+        updateActionBtn();
+        if (!pw) { pwStrengthEl.classList.add('hidden'); return; }
+        pwStrengthEl.classList.remove('hidden');
+        const score = getStrength(pw);
+        const colors = ['bg-fn-red','bg-fn-amber','bg-fn-amber','bg-fn-green'];
+        const labels = ['Weak','Fair','Good','Strong'];
+        strengthBars.forEach((bar, i) => {
+          bar.className = 'strength-bar h-1 flex-1 rounded-full transition-all duration-300 ' +
+            (i < score ? colors[score - 1] : 'bg-fn-text/10');
+        });
+        pwLabel.textContent  = labels[score - 1];
+        pwLabel.className    = 'text-sm ' + ['text-fn-red','text-fn-amber','text-fn-amber','text-fn-green'][score - 1];
+      });
 
-  function getStrength(pw) {
-    let s = 0;
-    if (pw.length >= 8)  s++;
-    if (pw.length >= 12) s++;
-    if (/[A-Z]/.test(pw) && /[0-9]/.test(pw)) s++;
-    if (/[^A-Za-z0-9]/.test(pw)) s++;
-    return Math.max(1, Math.min(4, s));
-  }
-
-  // ── Allow all / Restrict all ──
-  document.getElementById('enc-allow-all').addEventListener('click', () => {
-    document.querySelectorAll('.perm-checkbox').forEach(cb => cb.checked = true);
-  });
-  document.getElementById('enc-restrict-all').addEventListener('click', () => {
-    document.querySelectorAll('.perm-checkbox').forEach(cb => cb.checked = false);
-  });
-
-  // ── File inputs: generic setup ──
-  function setupDropZone(dzId, inputId, previewId, nameId, metaId, removeBtnId, setter) {
-    const dz      = document.getElementById(dzId);
-    const input   = document.getElementById(inputId);
-    const preview = document.getElementById(previewId);
-    const removeB = document.getElementById(removeBtnId);
-
-    ['dragenter','dragover'].forEach(evt => {
-      dz.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('drag-over'); });
-    });
-    ['dragleave','dragend','drop'].forEach(evt => {
-      dz.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dz.classList.remove('drag-over'); });
-    });
-    dz.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-    input.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-    removeB.addEventListener('click', e => {
-      e.stopPropagation();
-      setter(null);
-      input.value = '';
-      preview.classList.add('hidden');
-      preview.classList.remove('flex');
-      dz.classList.remove('has-file');
-      updateActionBtn();
-      hideError();
-    });
-
-    function handleFile(file) {
-      hideError();
-      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-        showError('Please select a valid PDF file.');
-        return;
+      function getStrength(pw) {
+        let s = 0;
+        if (pw.length >= 8)  s++;
+        if (pw.length >= 12) s++;
+        if (/[A-Z]/.test(pw) && /[0-9]/.test(pw)) s++;
+        if (/[^A-Za-z0-9]/.test(pw)) s++;
+        return Math.max(1, Math.min(4, s));
       }
-      if (file.size > 50 * 1024 * 1024) {
-        showError('File exceeds the 50MB free limit.');
-        return;
+
+      // ── Allow all / Restrict all ──
+      document.getElementById('enc-allow-all').addEventListener('click', () => {
+        document.querySelectorAll('.perm-checkbox').forEach(cb => cb.checked = true);
+      });
+      document.getElementById('enc-restrict-all').addEventListener('click', () => {
+        document.querySelectorAll('.perm-checkbox').forEach(cb => cb.checked = false);
+      });
+
+      // ── File inputs: generic setup ──
+      function setupDropZone(dzId, inputId, previewId, nameId, metaId, removeBtnId, setter) {
+        const dz      = document.getElementById(dzId);
+        const input   = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const removeB = document.getElementById(removeBtnId);
+
+        ['dragenter','dragover'].forEach(evt => {
+          dz.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dz.classList.add('drag-over'); });
+        });
+        ['dragleave','dragend','drop'].forEach(evt => {
+          dz.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dz.classList.remove('drag-over'); });
+        });
+        dz.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+        input.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+        removeB.addEventListener('click', e => {
+          e.stopPropagation();
+          setter(null);
+          input.value = '';
+          preview.classList.add('hidden');
+          preview.classList.remove('flex');
+          dz.classList.remove('has-file');
+          updateActionBtn();
+          hideError();
+        });
+
+        function handleFile(file) {
+          hideError();
+          if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+            showError('Please select a valid PDF file.');
+            return;
+          }
+          if (file.size > 50 * 1024 * 1024) {
+            showError('File exceeds the 50MB free limit.');
+            return;
+          }
+          setter(file);
+          document.getElementById(nameId).textContent = file.name;
+          document.getElementById(metaId).textContent = formatBytes(file.size) + ' · PDF Document';
+          preview.classList.remove('hidden');
+          preview.classList.add('flex');
+          dz.classList.add('has-file');
+          updateActionBtn();
+        }
       }
-      setter(file);
-      document.getElementById(nameId).textContent = file.name;
-      document.getElementById(metaId).textContent = formatBytes(file.size) + ' · PDF Document';
-      preview.classList.remove('hidden');
-      preview.classList.add('flex');
-      dz.classList.add('has-file');
-      updateActionBtn();
-    }
-  }
 
-  setupDropZone('enc-drop-zone',  'enc-file-input',  'enc-file-preview',  'enc-file-name',  'enc-file-meta',  'enc-remove-file',  f => encFile  = f);
-  setupDropZone('dec-drop-zone',  'dec-file-input',  'dec-file-preview',  'dec-file-name',  'dec-file-meta',  'dec-remove-file',  f => decFile  = f);
-  setupDropZone('info-drop-zone', 'info-file-input', 'info-file-preview', 'info-file-name', 'info-file-meta', 'info-remove-file', f => infoFile = f);
+      setupDropZone('enc-drop-zone',  'enc-file-input',  'enc-file-preview',  'enc-file-name',  'enc-file-meta',  'enc-remove-file',  f => encFile  = f);
+      setupDropZone('dec-drop-zone',  'dec-file-input',  'dec-file-preview',  'dec-file-name',  'dec-file-meta',  'dec-remove-file',  f => decFile  = f);
+      setupDropZone('info-drop-zone', 'info-file-input', 'info-file-preview', 'info-file-name', 'info-file-meta', 'info-remove-file', f => infoFile = f);
 
-  // Also watch dec-password for button enable
-  document.getElementById('dec-password').addEventListener('input', updateActionBtn);
+      // Also watch dec-password for button enable
+      document.getElementById('dec-password').addEventListener('input', updateActionBtn);
 
-  function updateActionBtn() {
-    const btn   = document.getElementById('action-btn');
-    const label = document.getElementById('action-btn-label');
-    if (activeMode === 'encrypt') {
-      btn.disabled = !encFile || !userPwInput.value.trim();
-      label.textContent = 'Encrypt PDF';
-    } else if (activeMode === 'decrypt') {
-      btn.disabled = !decFile || !document.getElementById('dec-password').value.trim();
-      label.textContent = 'Decrypt PDF';
-    } else {
-      btn.disabled = !infoFile;
-      label.textContent = 'Get PDF Info';
-    }
-  }
+      function updateActionBtn() {
+        const btn   = document.getElementById('action-btn');
+        const label = document.getElementById('action-btn-label');
+        if (activeMode === 'encrypt') {
+          btn.disabled = !encFile || !userPwInput.value.trim();
+          label.textContent = 'Encrypt PDF';
+        } else if (activeMode === 'decrypt') {
+          btn.disabled = !decFile || !document.getElementById('dec-password').value.trim();
+          label.textContent = 'Decrypt PDF';
+        } else {
+          btn.disabled = !infoFile;
+          label.textContent = 'Get PDF Info';
+        }
+      }
 
-  // ── Action button ──
-  document.getElementById('action-btn').addEventListener('click', startAction);
+      // ── Action button ──
+      document.getElementById('action-btn').addEventListener('click', startAction);
 
-  async function startAction() {
-    hideError();
+      async function startAction() {
+        hideError();
 
-    if (activeMode === 'info') {
-      await doInfo();
-    } else {
-      showState('converting');
-      updateStepIndicator(activeMode, 2);
-      activeMode === 'encrypt' ? await doEncrypt() : await doDecrypt();
-    }
-  }
+        if (activeMode === 'info') {
+          await doInfo();
+        } else {
+          showState('converting');
+          updateStepIndicator(activeMode, 2);
+          activeMode === 'encrypt' ? await doEncrypt() : await doDecrypt();
+        }
+      }
 
-  // ── Encrypt ──
-  async function doEncrypt() {
-    document.getElementById('conv-title').textContent     = 'Encrypting your PDF…';
-    document.getElementById('conv-output-icon').textContent = '🔒';
-    updateProcLabels(['Uploading & validating PDF','Applying passwords & permissions','Generating protected PDF']);
+      // ── Encrypt ──
+      async function doEncrypt() {
+        document.getElementById('conv-title').textContent     = 'Encrypting your PDF…';
+        document.getElementById('conv-output-icon').textContent = '🔒';
+        updateProcLabels(['Uploading & validating PDF','Applying passwords & permissions','Generating protected PDF']);
 
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 30, 700, 'Uploading PDF…');
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 30, 700, 'Uploading PDF…');
 
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-      animateProgress(30, 70, 900, 'Applying passwords & permissions…');
-    }, 800);
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-      animateProgress(70, 90, 700, 'Generating protected PDF…');
-    }, 1900);
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
+          animateProgress(30, 70, 900, 'Applying passwords & permissions…');
+        }, 800);
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
+          animateProgress(70, 90, 700, 'Generating protected PDF…');
+        }, 1900);
 
-    const fd = new FormData();
-    fd.append('file',           encFile);
-    fd.append('user_password',  userPwInput.value.trim());
-    const ownerPw = document.getElementById('enc-owner-password').value.trim();
-    if (ownerPw) fd.append('owner_password', ownerPw);
-    fd.append('allow_printing',    document.getElementById('perm-allow_printing').checked    ? 'true' : 'false');
-    fd.append('allow_copying',     document.getElementById('perm-allow_copying').checked     ? 'true' : 'false');
-    fd.append('allow_editing',     document.getElementById('perm-allow_editing').checked     ? 'true' : 'false');
-    fd.append('allow_annotations', document.getElementById('perm-allow_annotations').checked ? 'true' : 'false');
+        const fd = new FormData();
+        fd.append('file',           encFile);
+        fd.append('user_password',  userPwInput.value.trim());
+        const ownerPw = document.getElementById('enc-owner-password').value.trim();
+        if (ownerPw) fd.append('owner_password', ownerPw);
+        fd.append('allow_printing',    document.getElementById('perm-allow_printing').checked    ? 'true' : 'false');
+        fd.append('allow_copying',     document.getElementById('perm-allow_copying').checked     ? 'true' : 'false');
+        fd.append('allow_editing',     document.getElementById('perm-allow_editing').checked     ? 'true' : 'false');
+        fd.append('allow_annotations', document.getElementById('perm-allow_annotations').checked ? 'true' : 'false');
 
-    try {
-      const res = await fetch('https://api.filenewer.com/api/tools/pdf-encrypt', { method: 'POST', body: fd });
-      clearTimeout(t2); clearTimeout(t3);
-      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Encryption failed.'); }
-      const blob      = await res.blob();
-      const fileName  = encFile.name.replace(/\.pdf$/i, '_encrypted.pdf');
-      finishDownload(blob, fileName, '🔒', 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
-      setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
-      animateProgress(90, 100, 300, 'Done!');
-      setTimeout(() => { showState('download'); updateStepIndicator('encrypt', 3); }, 500);
-    } catch(err) {
-      clearTimeout(t2); clearTimeout(t3);
-      showError(err.message);
-      showState('upload');
-      updateStepIndicator('encrypt', 1);
-    }
-  }
+        try {
+          const res = await fetch('https://api.filenewer.com/api/tools/pdf-encrypt', { method: 'POST', body: fd });
+          clearTimeout(t2); clearTimeout(t3);
+          if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Encryption failed.'); }
+          const blob      = await res.blob();
+          const fileName  = encFile.name.replace(/\.pdf$/i, '_encrypted.pdf');
+          finishDownload(blob, fileName, '🔒', 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
+          setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
+          animateProgress(90, 100, 300, 'Done!');
+          setTimeout(() => { showState('download'); updateStepIndicator('encrypt', 3); }, 500);
+        } catch(err) {
+          clearTimeout(t2); clearTimeout(t3);
+          showError(err.message);
+          showState('upload');
+          updateStepIndicator('encrypt', 1);
+        }
+      }
 
-  // ── Decrypt ──
-  async function doDecrypt() {
-    document.getElementById('conv-title').textContent      = 'Decrypting your PDF…';
-    document.getElementById('conv-output-icon').textContent = '🔓';
-    updateProcLabels(['Uploading & validating PDF','Verifying password','Removing encryption']);
+      // ── Decrypt ──
+      async function doDecrypt() {
+        document.getElementById('conv-title').textContent      = 'Decrypting your PDF…';
+        document.getElementById('conv-output-icon').textContent = '🔓';
+        updateProcLabels(['Uploading & validating PDF','Verifying password','Removing encryption']);
 
-    setProcessStep('proc-1','active');
-    animateProgress(0, 30, 700, 'Uploading PDF…');
+        setProcessStep('proc-1','active');
+        animateProgress(0, 30, 700, 'Uploading PDF…');
 
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-      animateProgress(30, 70, 800, 'Verifying password…');
-    }, 800);
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-      animateProgress(70, 90, 600, 'Removing encryption…');
-    }, 1700);
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
+          animateProgress(30, 70, 800, 'Verifying password…');
+        }, 800);
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
+          animateProgress(70, 90, 600, 'Removing encryption…');
+        }, 1700);
 
-    const fd = new FormData();
-    fd.append('file',     decFile);
-    fd.append('password', document.getElementById('dec-password').value.trim());
+        const fd = new FormData();
+        fd.append('file',     decFile);
+        fd.append('password', document.getElementById('dec-password').value.trim());
 
-    try {
-      const res = await fetch('https://api.filenewer.com/api/tools/pdf-decrypt', { method: 'POST', body: fd });
-      clearTimeout(t2); clearTimeout(t3);
-      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Decryption failed. Check your password.'); }
-      const blob     = await res.blob();
-      const fileName = decFile.name.replace(/\.pdf$/i, '_decrypted.pdf');
-      finishDownload(blob, fileName, '🔓', 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
-      setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
-      animateProgress(90, 100, 300, 'Done!');
-      setTimeout(() => { showState('download'); updateStepIndicator('decrypt', 3); }, 500);
-    } catch(err) {
-      clearTimeout(t2); clearTimeout(t3);
-      showError(err.message);
-      showState('upload');
-      updateStepIndicator('decrypt', 1);
-    }
-  }
+        try {
+          const res = await fetch('https://api.filenewer.com/api/tools/pdf-decrypt', { method: 'POST', body: fd });
+          clearTimeout(t2); clearTimeout(t3);
+          if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Decryption failed. Check your password.'); }
+          const blob     = await res.blob();
+          const fileName = decFile.name.replace(/\.pdf$/i, '_decrypted.pdf');
+          finishDownload(blob, fileName, '🔓', 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
+          setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
+          animateProgress(90, 100, 300, 'Done!');
+          setTimeout(() => { showState('download'); updateStepIndicator('decrypt', 3); }, 500);
+        } catch(err) {
+          clearTimeout(t2); clearTimeout(t3);
+          showError(err.message);
+          showState('upload');
+          updateStepIndicator('decrypt', 1);
+        }
+      }
 
-  // ── Info ──
-  async function doInfo() {
-    const btn = document.getElementById('action-btn');
-    btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Fetching info…`;
+      // ── Info ──
+      async function doInfo() {
+        const btn = document.getElementById('action-btn');
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Fetching info…`;
 
-    const fd = new FormData();
-    fd.append('file', infoFile);
-    const pw = document.getElementById('info-password').value.trim();
-    if (pw) fd.append('password', pw);
+        const fd = new FormData();
+        fd.append('file', infoFile);
+        const pw = document.getElementById('info-password').value.trim();
+        if (pw) fd.append('password', pw);
 
-    try {
-      const res  = await fetch('https://api.filenewer.com/api/tools/pdf-info', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Could not read PDF info.');
-      renderInfoResult(data);
-    } catch(err) {
-      showError(err.message);
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Get PDF Info`;
-    }
-  }
+        try {
+          const res  = await fetch('https://api.filenewer.com/api/tools/pdf-info', { method: 'POST', body: fd });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Could not read PDF info.');
+          renderInfoResult(data);
+        } catch(err) {
+          showError(err.message);
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Get PDF Info`;
+        }
+      }
 
-  function renderInfoResult(data) {
-    const isEncrypted = !!data.encrypted;
-    const banner      = document.getElementById('info-enc-banner');
-    banner.className  = 'px-5 py-3 flex items-center gap-3 border-b border-fn-text/7 ' +
-      (isEncrypted ? 'bg-fn-amber/8' : 'bg-fn-green/8');
-    document.getElementById('info-enc-icon').textContent  = isEncrypted ? '🔒' : '✅';
-    document.getElementById('info-enc-label').textContent = isEncrypted ? 'Encrypted PDF' : 'Not Encrypted';
-    document.getElementById('info-enc-sub').textContent   = isEncrypted
-      ? 'This PDF is password protected'
-      : 'This PDF has no password protection';
+      function renderInfoResult(data) {
+        const isEncrypted = !!data.encrypted;
+        const banner      = document.getElementById('info-enc-banner');
+        banner.className  = 'px-5 py-3 flex items-center gap-3 border-b border-fn-text/7 ' +
+          (isEncrypted ? 'bg-fn-amber/8' : 'bg-fn-green/8');
+        document.getElementById('info-enc-icon').textContent  = isEncrypted ? '🔒' : '✅';
+        document.getElementById('info-enc-label').textContent = isEncrypted ? 'Encrypted PDF' : 'Not Encrypted';
+        document.getElementById('info-enc-sub').textContent   = isEncrypted
+          ? 'This PDF is password protected'
+          : 'This PDF has no password protection';
 
-    const rows = [
-      ['Pages',       data.pages ?? '—'],
-      ['File Size',   data.file_size ? formatBytes(data.file_size) : '—'],
-      ['PDF Version', data.pdf_version ?? '—'],
-      ['Title',       data.metadata?.title   || '—'],
-      ['Author',      data.metadata?.author  || '—'],
-      ['Subject',     data.metadata?.subject || '—'],
-      ['Creator',     data.metadata?.creator || '—'],
-      ['Producer',    data.metadata?.producer|| '—'],
-      ['Created',     formatPdfDate(data.metadata?.created)  || '—'],
-      ['Modified',    formatPdfDate(data.metadata?.modified) || '—'],
-    ];
+        const rows = [
+          ['Pages',       data.pages ?? '—'],
+          ['File Size',   data.file_size ? formatBytes(data.file_size) : '—'],
+          ['PDF Version', data.pdf_version ?? '—'],
+          ['Title',       data.metadata?.title   || '—'],
+          ['Author',      data.metadata?.author  || '—'],
+          ['Subject',     data.metadata?.subject || '—'],
+          ['Creator',     data.metadata?.creator || '—'],
+          ['Producer',    data.metadata?.producer|| '—'],
+          ['Created',     formatPdfDate(data.metadata?.created)  || '—'],
+          ['Modified',    formatPdfDate(data.metadata?.modified) || '—'],
+        ];
 
-    const container = document.getElementById('info-rows');
-    container.innerHTML = '';
-    rows.forEach(([label, value]) => {
-      const div = document.createElement('div');
-      div.className = 'info-row';
-      div.innerHTML = `<span class="info-row-label">${label}</span><span class="info-row-value">${value}</span>`;
-      container.appendChild(div);
-    });
+        const container = document.getElementById('info-rows');
+        container.innerHTML = '';
+        rows.forEach(([label, value]) => {
+          const div = document.createElement('div');
+          div.className = 'info-row';
+          div.innerHTML = `<span class="info-row-label">${label}</span><span class="info-row-value">${value}</span>`;
+          container.appendChild(div);
+        });
 
-    document.getElementById('info-result-card').classList.remove('hidden');
-    document.getElementById('file-download-card').classList.add('hidden');
-    document.getElementById('download-link').classList.add('hidden');
-    document.getElementById('result-title').textContent    = 'PDF Info';
-    document.getElementById('result-subtitle').textContent = infoFile.name;
-    document.getElementById('result-icon').textContent     = '📋';
-    showState('download');
-  }
+        document.getElementById('info-result-card').classList.remove('hidden');
+        document.getElementById('file-download-card').classList.add('hidden');
+        document.getElementById('download-link').classList.add('hidden');
+        document.getElementById('result-title').textContent    = 'PDF Info';
+        document.getElementById('result-subtitle').textContent = infoFile.name;
+        document.getElementById('result-icon').textContent     = '📋';
+        showState('download');
+      }
 
-  function formatPdfDate(d) {
-    if (!d) return '';
-    // PDF dates: D:YYYYMMDDHHmmSS
-    const m = (d || '').replace('D:','').match(/^(\d{4})(\d{2})(\d{2})/);
-    if (!m) return d;
-    return `${m[1]}-${m[2]}-${m[3]}`;
-  }
+      function formatPdfDate(d) {
+        if (!d) return '';
+        // PDF dates: D:YYYYMMDDHHmmSS
+        const m = (d || '').replace('D:','').match(/^(\d{4})(\d{2})(\d{2})/);
+        if (!m) return d;
+        return `${m[1]}-${m[2]}-${m[3]}`;
+      }
 
-  // ── Finish download (encrypt/decrypt) ──
-  function finishDownload(blob, fileName, icon, title, subtitle, btnLabel) {
-    if (blobUrl) URL.revokeObjectURL(blobUrl);
-    blobUrl = URL.createObjectURL(blob);
-    const link    = document.getElementById('download-link');
-    link.href     = blobUrl;
-    link.download = fileName;
-    link.classList.remove('hidden');
-    document.getElementById('output-name').textContent  = fileName;
-    document.getElementById('output-size').textContent  = formatBytes(blob.size) + ' · PDF Document';
-    document.getElementById('dl-icon').textContent      = icon;
-    document.getElementById('result-icon').textContent  = '✅';
-    document.getElementById('result-title').textContent   = title;
-    document.getElementById('result-subtitle').textContent = subtitle;
-    document.getElementById('dl-btn-label').textContent  = btnLabel;
-    document.getElementById('info-result-card').classList.add('hidden');
-    document.getElementById('file-download-card').classList.remove('hidden');
-  }
+      // ── Finish download (encrypt/decrypt) ──
+      function finishDownload(blob, fileName, icon, title, subtitle, btnLabel) {
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        blobUrl = URL.createObjectURL(blob);
+        const link    = document.getElementById('download-link');
+        link.href     = blobUrl;
+        link.download = fileName;
+        link.classList.remove('hidden');
+        document.getElementById('output-name').textContent  = fileName;
+        document.getElementById('output-size').textContent  = formatBytes(blob.size) + ' · PDF Document';
+        document.getElementById('dl-icon').textContent      = icon;
+        document.getElementById('result-icon').textContent  = '✅';
+        document.getElementById('result-title').textContent   = title;
+        document.getElementById('result-subtitle').textContent = subtitle;
+        document.getElementById('dl-btn-label').textContent  = btnLabel;
+        document.getElementById('info-result-card').classList.add('hidden');
+        document.getElementById('file-download-card').classList.remove('hidden');
+      }
 
-  // ── Step indicators ──
-  function updateStepIndicator(mode, active) {
-    const prefix = mode === 'encrypt' ? 'enc' : 'dec';
-    if (mode === 'info') return;
-    [1,2,3].forEach(n => {
-      const el = document.getElementById(`${prefix}-step-${n}`);
-      if (!el) return;
-      el.classList.remove('active','done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
+      // ── Step indicators ──
+      function updateStepIndicator(mode, active) {
+        const prefix = mode === 'encrypt' ? 'enc' : 'dec';
+        if (mode === 'info') return;
+        [1,2,3].forEach(n => {
+          const el = document.getElementById(`${prefix}-step-${n}`);
+          if (!el) return;
+          el.classList.remove('active','done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
 
-  function updateProcLabels(labels) {
-    ['proc-1','proc-2','proc-3'].forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (el) el.querySelector('span').textContent = labels[i] || '';
-    });
-  }
+      function updateProcLabels(labels) {
+        ['proc-1','proc-2','proc-3'].forEach((id, i) => {
+          const el = document.getElementById(id);
+          if (el) el.querySelector('span').textContent = labels[i] || '';
+        });
+      }
 
-  // ── Helpers ──
-  function showState(state) {
-    ['upload','converting','download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
+      // ── Helpers ──
+      function showState(state) {
+        ['upload','converting','download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
 
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden'); spin.classList.add('hidden');
-    dot.style.borderColor = ''; dot.style.background = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264/15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162/15%)';
-    }
-  }
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden'); spin.classList.add('hidden');
+        dot.style.borderColor = ''; dot.style.background = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264/15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162/15%)';
+        }
+      }
 
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
 
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    encFile = decFile = infoFile = null;
-    // Reset all file zones
-    ['enc','dec','info'].forEach(p => {
-      const input   = document.getElementById(p + '-file-input');
-      const preview = document.getElementById(p + '-file-preview');
-      const dz      = document.getElementById(p + '-drop-zone');
-      if (input)   input.value = '';
-      if (preview) { preview.classList.add('hidden'); preview.classList.remove('flex'); }
-      if (dz)      dz.classList.remove('has-file');
-    });
-    // Reset passwords
-    ['enc-user-password','enc-owner-password','dec-password','info-password'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    // Reset permissions
-    document.querySelectorAll('.perm-checkbox').forEach(cb => cb.checked = true);
-    // Reset strength meter
-    pwStrengthEl.classList.add('hidden');
-    // Reset info result
-    document.getElementById('info-result-card').classList.add('hidden');
-    document.getElementById('file-download-card').classList.remove('hidden');
-    document.getElementById('download-link').classList.remove('hidden');
-    showState('upload');
-    updateActionBtn();
-    hideError();
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3'].forEach(id => setProcessStep(id, ''));
-  };
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        encFile = decFile = infoFile = null;
+        // Reset all file zones
+        ['enc','dec','info'].forEach(p => {
+          const input   = document.getElementById(p + '-file-input');
+          const preview = document.getElementById(p + '-file-preview');
+          const dz      = document.getElementById(p + '-drop-zone');
+          if (input)   input.value = '';
+          if (preview) { preview.classList.add('hidden'); preview.classList.remove('flex'); }
+          if (dz)      dz.classList.remove('has-file');
+        });
+        // Reset passwords
+        ['enc-user-password','enc-owner-password','dec-password','info-password'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        // Reset permissions
+        document.querySelectorAll('.perm-checkbox').forEach(cb => cb.checked = true);
+        // Reset strength meter
+        pwStrengthEl.classList.add('hidden');
+        // Reset info result
+        document.getElementById('info-result-card').classList.add('hidden');
+        document.getElementById('file-download-card').classList.remove('hidden');
+        document.getElementById('download-link').classList.remove('hidden');
+        showState('upload');
+        updateActionBtn();
+        hideError();
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3'].forEach(id => setProcessStep(id, ''));
+      };
 
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
-  function formatBytes(bytes) {
-    if (!bytes) return '—';
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
+      }
+      function formatBytes(bytes) {
+        if (!bytes) return '—';
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
 
-  const uploadError = document.getElementById('upload-error');
-  const errorText   = document.getElementById('error-text');
+      const uploadError = document.getElementById('upload-error');
+      const errorText   = document.getElementById('error-text');
 
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
-    });
-  });
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+        });
+      });
 
-}); // end DOMContentLoaded
-</script>
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

@@ -1,4 +1,7 @@
 @extends('layouts.base')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -492,331 +495,333 @@
 </style>
 
 {{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  const API = 'https://api.filenewer.com/api/tools';
-  let activeTab    = 'encode-text';
-  let activeEnc    = 'standard';
-  let activeDecOut = 'json';
-  let efFile       = null;
-  let decBlobUrl   = null;
+      const API = 'https://api.filenewer.com/api/tools';
+      let activeTab    = 'encode-text';
+      let activeEnc    = 'standard';
+      let activeDecOut = 'json';
+      let efFile       = null;
+      let decBlobUrl   = null;
 
-  // ── Tab switching ──
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      activeTab = btn.dataset.tab;
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      document.getElementById('panel-' + activeTab).classList.remove('hidden');
-      // Show/hide options bar sections
-      document.querySelectorAll('.decode-only').forEach(el =>
-        el.classList.toggle('hidden', activeTab !== 'decode'));
-      document.querySelectorAll('.encode-only').forEach(el =>
-        el.classList.toggle('hidden', activeTab === 'decode' || activeTab === 'validate'));
-    });
-  });
-
-  // ── Encoding type buttons ──
-  document.querySelectorAll('.enc-type-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.enc-type-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeEnc = btn.dataset.enc;
-    });
-  });
-
-  // ── Decode output buttons ──
-  document.querySelectorAll('.dec-output-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.dec-output-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeDecOut = btn.dataset.decout;
-      document.getElementById('decode-filename-wrap').classList.toggle('hidden', activeDecOut !== 'file');
-    });
-  });
-
-  // ── Paste & clear helpers ──
-  function setupPasteClear(pasteId, clearId, targetId, btnId) {
-    document.getElementById(pasteId)?.addEventListener('click', async () => {
-      try {
-        document.getElementById(targetId).value = await navigator.clipboard.readText();
-        if (btnId) document.getElementById(btnId).disabled = false;
-      } catch(_) {}
-    });
-    document.getElementById(clearId)?.addEventListener('click', () => {
-      document.getElementById(targetId).value = '';
-      if (btnId) document.getElementById(btnId).disabled = true;
-    });
-  }
-
-  setupPasteClear('et-paste', 'et-clear', 'et-input', 'et-encode-btn');
-  setupPasteClear('dec-paste', 'dec-clear', 'dec-input', 'dec-decode-btn');
-  setupPasteClear('val-paste', 'val-clear', 'val-input', 'val-btn');
-
-  // Enable buttons on input
-  ['et-input','dec-input','val-input'].forEach(id => {
-    const el  = document.getElementById(id);
-    const btn = { 'et-input':'et-encode-btn', 'dec-input':'dec-decode-btn', 'val-input':'val-btn' }[id];
-    el.addEventListener('input', () => {
-      document.getElementById(btn).disabled = !el.value.trim();
-    });
-  });
-
-  // ── Copy helpers ──
-  function setupCopy(btnId, labelId, getVal) {
-    document.getElementById(btnId)?.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(getVal());
-        const lbl = document.getElementById(labelId);
-        lbl.textContent = 'Copied!';
-        setTimeout(() => { lbl.textContent = 'Copy'; }, 2000);
-      } catch(_) {}
-    });
-  }
-
-  setupCopy('et-copy', 'et-copy-label', () => document.getElementById('et-output').value);
-  setupCopy('ef-copy', 'ef-copy-label', () => document.getElementById('ef-output').value);
-  setupCopy('ef-copy-uri', 'ef-copy-uri-label', () => document.getElementById('ef-data-uri').value);
-  setupCopy('dec-copy', 'dec-copy-label', () => document.getElementById('dec-output').value);
-
-  // ══ ENCODE TEXT ══
-  document.getElementById('et-encode-btn').addEventListener('click', async () => {
-    const text = document.getElementById('et-input').value;
-    if (!text) return;
-    setLoading('et-encode-btn');
-    hideEl('et-error');
-    try {
-      const res  = await fetch(`${API}/base64-encode-text`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({
-          text,
-          encoding:   activeEnc,
-          chunk_size: parseInt(document.getElementById('opt-chunk').value) || 0,
-        }),
+      // ── Tab switching ──
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeTab = btn.dataset.tab;
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+          document.getElementById('panel-' + activeTab).classList.remove('hidden');
+          // Show/hide options bar sections
+          document.querySelectorAll('.decode-only').forEach(el =>
+            el.classList.toggle('hidden', activeTab !== 'decode'));
+          document.querySelectorAll('.encode-only').forEach(el =>
+            el.classList.toggle('hidden', activeTab === 'decode' || activeTab === 'validate'));
+        });
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Encoding failed.');
-      document.getElementById('et-output').value = data.encoded ?? '';
-      document.getElementById('et-stats').textContent =
-        `${data.original_size_kb ?? 0} KB → ${data.encoded_size_kb ?? 0} KB (+${Math.round(data.overhead_percent ?? 0)}% overhead)`;
-      showEl('et-stats');
-      showEl('et-copy');
-    } catch(err) {
-      document.getElementById('et-error-text').textContent = err.message;
-      showEl('et-error', 'flex');
-    } finally {
-      resetBtn('et-encode-btn', 'Encode');
-    }
-  });
 
-  // ══ ENCODE FILE ══
-  const efDropZone = document.getElementById('ef-drop-zone');
-  const efInput    = document.getElementById('ef-input');
+      // ── Encoding type buttons ──
+      document.querySelectorAll('.enc-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.enc-type-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeEnc = btn.dataset.enc;
+        });
+      });
 
-  ['dragenter','dragover'].forEach(evt => {
-    efDropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); efDropZone.classList.add('drag-over'); });
-  });
-  ['dragleave','dragend','drop'].forEach(evt => {
-    efDropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); efDropZone.classList.remove('drag-over'); });
-  });
-  efDropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleEfFile(e.dataTransfer.files[0]); });
-  efInput.addEventListener('change', e => { if (e.target.files[0]) handleEfFile(e.target.files[0]); });
-  document.getElementById('ef-remove').addEventListener('click', () => {
-    efFile = null; efInput.value = '';
-    hideEl('ef-file-preview');
-    document.getElementById('ef-encode-btn').disabled = true;
-  });
+      // ── Decode output buttons ──
+      document.querySelectorAll('.dec-output-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.dec-output-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeDecOut = btn.dataset.decout;
+          document.getElementById('decode-filename-wrap').classList.toggle('hidden', activeDecOut !== 'file');
+        });
+      });
 
-  function handleEfFile(file) {
-    if (file.size > 10 * 1024 * 1024) {
-      document.getElementById('ef-error-text').textContent = 'File exceeds the 10MB limit.';
-      showEl('ef-error', 'flex');
-      return;
-    }
-    efFile = file;
-    const ext  = file.name.split('.').pop().toLowerCase();
-    const imgExts = ['png','jpg','jpeg','gif','webp','svg','bmp'];
-    document.getElementById('ef-icon').textContent       = imgExts.includes(ext) ? '🖼️' : '📄';
-    document.getElementById('ef-file-name').textContent  = file.name;
-    document.getElementById('ef-file-meta').textContent  = formatBytes(file.size) + ' · ' + (file.type || ext.toUpperCase());
-    showEl('ef-file-preview', 'flex');
-    document.getElementById('ef-encode-btn').disabled = false;
-    hideEl('ef-error');
-  }
+      // ── Paste & clear helpers ──
+      function setupPasteClear(pasteId, clearId, targetId, btnId) {
+        document.getElementById(pasteId)?.addEventListener('click', async () => {
+          try {
+            document.getElementById(targetId).value = await navigator.clipboard.readText();
+            if (btnId) document.getElementById(btnId).disabled = false;
+          } catch(_) {}
+        });
+        document.getElementById(clearId)?.addEventListener('click', () => {
+          document.getElementById(targetId).value = '';
+          if (btnId) document.getElementById(btnId).disabled = true;
+        });
+      }
 
-  document.getElementById('ef-encode-btn').addEventListener('click', async () => {
-    if (!efFile) return;
-    setLoading('ef-encode-btn');
-    hideEl('ef-error');
-    const fd = new FormData();
-    fd.append('file',       efFile);
-    fd.append('encoding',   activeEnc);
-    fd.append('chunk_size', document.getElementById('opt-chunk').value || 0);
-    try {
-      const res  = await fetch(`${API}/base64-encode-file`, { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Encoding failed.');
-      document.getElementById('ef-output').value = data.encoded ?? '';
-      document.getElementById('ef-stats').textContent =
-        `${data.original_size_kb ?? 0} KB → ${data.encoded_size_kb ?? 0} KB (+${Math.round(data.overhead_percent ?? 0)}% overhead)`;
-      showEl('ef-stats'); showEl('ef-copy');
-      if (data.data_uri) {
-        document.getElementById('ef-data-uri').value = data.data_uri;
-        showEl('ef-data-uri-wrap');
-        // Image preview
-        if (data.mime_type && data.mime_type.startsWith('image/')) {
-          document.getElementById('ef-img-preview').src = data.data_uri;
-          showEl('ef-img-preview-wrap');
-        } else {
-          hideEl('ef-img-preview-wrap');
+      setupPasteClear('et-paste', 'et-clear', 'et-input', 'et-encode-btn');
+      setupPasteClear('dec-paste', 'dec-clear', 'dec-input', 'dec-decode-btn');
+      setupPasteClear('val-paste', 'val-clear', 'val-input', 'val-btn');
+
+      // Enable buttons on input
+      ['et-input','dec-input','val-input'].forEach(id => {
+        const el  = document.getElementById(id);
+        const btn = { 'et-input':'et-encode-btn', 'dec-input':'dec-decode-btn', 'val-input':'val-btn' }[id];
+        el.addEventListener('input', () => {
+          document.getElementById(btn).disabled = !el.value.trim();
+        });
+      });
+
+      // ── Copy helpers ──
+      function setupCopy(btnId, labelId, getVal) {
+        document.getElementById(btnId)?.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(getVal());
+            const lbl = document.getElementById(labelId);
+            lbl.textContent = 'Copied!';
+            setTimeout(() => { lbl.textContent = 'Copy'; }, 2000);
+          } catch(_) {}
+        });
+      }
+
+      setupCopy('et-copy', 'et-copy-label', () => document.getElementById('et-output').value);
+      setupCopy('ef-copy', 'ef-copy-label', () => document.getElementById('ef-output').value);
+      setupCopy('ef-copy-uri', 'ef-copy-uri-label', () => document.getElementById('ef-data-uri').value);
+      setupCopy('dec-copy', 'dec-copy-label', () => document.getElementById('dec-output').value);
+
+      // ══ ENCODE TEXT ══
+      document.getElementById('et-encode-btn').addEventListener('click', async () => {
+        const text = document.getElementById('et-input').value;
+        if (!text) return;
+        setLoading('et-encode-btn');
+        hideEl('et-error');
+        try {
+          const res  = await fetch(`${API}/base64-encode-text`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({
+              text,
+              encoding:   activeEnc,
+              chunk_size: parseInt(document.getElementById('opt-chunk').value) || 0,
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Encoding failed.');
+          document.getElementById('et-output').value = data.encoded ?? '';
+          document.getElementById('et-stats').textContent =
+            `${data.original_size_kb ?? 0} KB → ${data.encoded_size_kb ?? 0} KB (+${Math.round(data.overhead_percent ?? 0)}% overhead)`;
+          showEl('et-stats');
+          showEl('et-copy');
+        } catch(err) {
+          document.getElementById('et-error-text').textContent = err.message;
+          showEl('et-error', 'flex');
+        } finally {
+          resetBtn('et-encode-btn', 'Encode');
         }
-      } else {
-        hideEl('ef-data-uri-wrap');
+      });
+
+      // ══ ENCODE FILE ══
+      const efDropZone = document.getElementById('ef-drop-zone');
+      const efInput    = document.getElementById('ef-input');
+
+      ['dragenter','dragover'].forEach(evt => {
+        efDropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); efDropZone.classList.add('drag-over'); });
+      });
+      ['dragleave','dragend','drop'].forEach(evt => {
+        efDropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); efDropZone.classList.remove('drag-over'); });
+      });
+      efDropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleEfFile(e.dataTransfer.files[0]); });
+      efInput.addEventListener('change', e => { if (e.target.files[0]) handleEfFile(e.target.files[0]); });
+      document.getElementById('ef-remove').addEventListener('click', () => {
+        efFile = null; efInput.value = '';
+        hideEl('ef-file-preview');
+        document.getElementById('ef-encode-btn').disabled = true;
+      });
+
+      function handleEfFile(file) {
+        if (file.size > 10 * 1024 * 1024) {
+          document.getElementById('ef-error-text').textContent = 'File exceeds the 10MB limit.';
+          showEl('ef-error', 'flex');
+          return;
+        }
+        efFile = file;
+        const ext  = file.name.split('.').pop().toLowerCase();
+        const imgExts = ['png','jpg','jpeg','gif','webp','svg','bmp'];
+        document.getElementById('ef-icon').textContent       = imgExts.includes(ext) ? '🖼️' : '📄';
+        document.getElementById('ef-file-name').textContent  = file.name;
+        document.getElementById('ef-file-meta').textContent  = formatBytes(file.size) + ' · ' + (file.type || ext.toUpperCase());
+        showEl('ef-file-preview', 'flex');
+        document.getElementById('ef-encode-btn').disabled = false;
+        hideEl('ef-error');
       }
-    } catch(err) {
-      document.getElementById('ef-error-text').textContent = err.message;
-      showEl('ef-error', 'flex');
-    } finally {
-      resetBtn('ef-encode-btn', 'Encode File');
-    }
-  });
 
-  // ══ DECODE ══
-  document.getElementById('dec-decode-btn').addEventListener('click', async () => {
-    const text = document.getElementById('dec-input').value.trim();
-    if (!text) return;
-    setLoading('dec-decode-btn');
-    hideEl('dec-error');
-    const filename = document.getElementById('opt-decode-filename').value.trim() || 'decoded.txt';
-    try {
-      const payload = {
-        text,
-        encoding:      activeEnc,
-        as_text:       document.getElementById('opt-as-text').checked,
-        text_encoding: 'utf-8',
-        output:        activeDecOut,
-      };
-      if (activeDecOut === 'file') payload.filename = filename;
-
-      const res = await fetch(`${API}/base64-decode`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload),
+      document.getElementById('ef-encode-btn').addEventListener('click', async () => {
+        if (!efFile) return;
+        setLoading('ef-encode-btn');
+        hideEl('ef-error');
+        const fd = new FormData();
+        fd.append('file',       efFile);
+        fd.append('encoding',   activeEnc);
+        fd.append('chunk_size', document.getElementById('opt-chunk').value || 0);
+        try {
+          const res  = await fetch(`${API}/base64-encode-file`, { method: 'POST', body: fd });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Encoding failed.');
+          document.getElementById('ef-output').value = data.encoded ?? '';
+          document.getElementById('ef-stats').textContent =
+            `${data.original_size_kb ?? 0} KB → ${data.encoded_size_kb ?? 0} KB (+${Math.round(data.overhead_percent ?? 0)}% overhead)`;
+          showEl('ef-stats'); showEl('ef-copy');
+          if (data.data_uri) {
+            document.getElementById('ef-data-uri').value = data.data_uri;
+            showEl('ef-data-uri-wrap');
+            // Image preview
+            if (data.mime_type && data.mime_type.startsWith('image/')) {
+              document.getElementById('ef-img-preview').src = data.data_uri;
+              showEl('ef-img-preview-wrap');
+            } else {
+              hideEl('ef-img-preview-wrap');
+            }
+          } else {
+            hideEl('ef-data-uri-wrap');
+          }
+        } catch(err) {
+          document.getElementById('ef-error-text').textContent = err.message;
+          showEl('ef-error', 'flex');
+        } finally {
+          resetBtn('ef-encode-btn', 'Encode File');
+        }
       });
 
-      if (activeDecOut === 'file') {
-        if (!res.ok) { const d = await res.json(); throw new Error(d.error || 'Decode failed.'); }
-        const blob = await res.blob();
-        if (decBlobUrl) URL.revokeObjectURL(decBlobUrl);
-        decBlobUrl = URL.createObjectURL(blob);
-        const dl = document.getElementById('dec-download');
-        dl.href     = decBlobUrl;
-        dl.download = filename;
-        document.getElementById('dec-output').value = `File ready to download: ${filename}\n(${formatBytes(blob.size)})`;
-        showEl('dec-download');
-        showEl('dec-stats');
-        document.getElementById('dec-stats').textContent = formatBytes(blob.size);
-        hideEl('dec-copy');
-      } else {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Decode failed.');
-        document.getElementById('dec-output').value = data.decoded_text ?? '';
-        document.getElementById('dec-stats').textContent =
-          `${data.original_size_kb ?? 0} KB → ${data.decoded_size_kb ?? 0} KB · ${data.text_encoding ?? 'utf-8'}`;
-        showEl('dec-stats'); showEl('dec-copy');
-        hideEl('dec-download');
+      // ══ DECODE ══
+      document.getElementById('dec-decode-btn').addEventListener('click', async () => {
+        const text = document.getElementById('dec-input').value.trim();
+        if (!text) return;
+        setLoading('dec-decode-btn');
+        hideEl('dec-error');
+        const filename = document.getElementById('opt-decode-filename').value.trim() || 'decoded.txt';
+        try {
+          const payload = {
+            text,
+            encoding:      activeEnc,
+            as_text:       document.getElementById('opt-as-text').checked,
+            text_encoding: 'utf-8',
+            output:        activeDecOut,
+          };
+          if (activeDecOut === 'file') payload.filename = filename;
+
+          const res = await fetch(`${API}/base64-decode`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload),
+          });
+
+          if (activeDecOut === 'file') {
+            if (!res.ok) { const d = await res.json(); throw new Error(d.error || 'Decode failed.'); }
+            const blob = await res.blob();
+            if (decBlobUrl) URL.revokeObjectURL(decBlobUrl);
+            decBlobUrl = URL.createObjectURL(blob);
+            const dl = document.getElementById('dec-download');
+            dl.href     = decBlobUrl;
+            dl.download = filename;
+            document.getElementById('dec-output').value = `File ready to download: ${filename}\n(${formatBytes(blob.size)})`;
+            showEl('dec-download');
+            showEl('dec-stats');
+            document.getElementById('dec-stats').textContent = formatBytes(blob.size);
+            hideEl('dec-copy');
+          } else {
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Decode failed.');
+            document.getElementById('dec-output').value = data.decoded_text ?? '';
+            document.getElementById('dec-stats').textContent =
+              `${data.original_size_kb ?? 0} KB → ${data.decoded_size_kb ?? 0} KB · ${data.text_encoding ?? 'utf-8'}`;
+            showEl('dec-stats'); showEl('dec-copy');
+            hideEl('dec-download');
+          }
+        } catch(err) {
+          document.getElementById('dec-error-text').textContent = err.message;
+          showEl('dec-error', 'flex');
+        } finally {
+          resetBtn('dec-decode-btn', 'Decode');
+        }
+      });
+
+      // ══ VALIDATE ══
+      document.getElementById('val-btn').addEventListener('click', async () => {
+        const text = document.getElementById('val-input').value.trim();
+        if (!text) return;
+        setLoading('val-btn');
+        hideEl('val-error'); hideEl('val-result');
+        try {
+          const res  = await fetch(`${API}/base64-validate`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ text }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Validation failed.');
+
+          const valid = data.is_valid;
+          const result = document.getElementById('val-result');
+          result.className = `p-5 rounded-2xl border ${valid
+            ? 'bg-fn-green/6 border-fn-green/20'
+            : 'bg-fn-red/6 border-fn-red/20'}`;
+          document.getElementById('val-icon').textContent    = valid ? '✅' : '❌';
+          document.getElementById('val-title').textContent   = valid ? 'Valid Base64' : 'Invalid Base64';
+          document.getElementById('val-message').textContent = data.message ?? '';
+
+          const statsEl = document.getElementById('val-stats');
+          statsEl.innerHTML = '';
+          const chips = [
+            ['Encoding',    data.encoding ?? '—'],
+            ['Input size',  (data.input_size ?? 0) + ' chars'],
+            ['Decoded size', (data.decoded_size_kb ?? 0) + ' KB'],
+            ['Decoded bytes', data.decoded_size ?? '—'],
+          ];
+          chips.forEach(([label, value]) => {
+            const div = document.createElement('div');
+            div.className = 'val-stat-chip';
+            div.innerHTML = `<div class="stat-label">${label}</div><div class="stat-value">${value}</div>`;
+            statsEl.appendChild(div);
+          });
+          showEl('val-result');
+        } catch(err) {
+          document.getElementById('val-error-text').textContent = err.message;
+          showEl('val-error', 'flex');
+        } finally {
+          resetBtn('val-btn', 'Validate');
+        }
+      });
+
+      // ── Utility ──
+      function showEl(id, display = 'block') {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove('hidden');
+        if (display === 'flex') el.classList.add('flex');
       }
-    } catch(err) {
-      document.getElementById('dec-error-text').textContent = err.message;
-      showEl('dec-error', 'flex');
-    } finally {
-      resetBtn('dec-decode-btn', 'Decode');
-    }
-  });
+      function hideEl(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      }
+      function setLoading(btnId) {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Working…`;
+      }
+      function resetBtn(btnId, label) {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        btn.disabled = false;
+        btn.innerHTML = label;
+      }
+      function formatBytes(bytes) {
+        if (!bytes) return '—';
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
 
-  // ══ VALIDATE ══
-  document.getElementById('val-btn').addEventListener('click', async () => {
-    const text = document.getElementById('val-input').value.trim();
-    if (!text) return;
-    setLoading('val-btn');
-    hideEl('val-error'); hideEl('val-result');
-    try {
-      const res  = await fetch(`${API}/base64-validate`, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ text }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Validation failed.');
-
-      const valid = data.is_valid;
-      const result = document.getElementById('val-result');
-      result.className = `p-5 rounded-2xl border ${valid
-        ? 'bg-fn-green/6 border-fn-green/20'
-        : 'bg-fn-red/6 border-fn-red/20'}`;
-      document.getElementById('val-icon').textContent    = valid ? '✅' : '❌';
-      document.getElementById('val-title').textContent   = valid ? 'Valid Base64' : 'Invalid Base64';
-      document.getElementById('val-message').textContent = data.message ?? '';
-
-      const statsEl = document.getElementById('val-stats');
-      statsEl.innerHTML = '';
-      const chips = [
-        ['Encoding',    data.encoding ?? '—'],
-        ['Input size',  (data.input_size ?? 0) + ' chars'],
-        ['Decoded size', (data.decoded_size_kb ?? 0) + ' KB'],
-        ['Decoded bytes', data.decoded_size ?? '—'],
-      ];
-      chips.forEach(([label, value]) => {
-        const div = document.createElement('div');
-        div.className = 'val-stat-chip';
-        div.innerHTML = `<div class="stat-label">${label}</div><div class="stat-value">${value}</div>`;
-        statsEl.appendChild(div);
-      });
-      showEl('val-result');
-    } catch(err) {
-      document.getElementById('val-error-text').textContent = err.message;
-      showEl('val-error', 'flex');
-    } finally {
-      resetBtn('val-btn', 'Validate');
-    }
-  });
-
-  // ── Utility ──
-  function showEl(id, display = 'block') {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove('hidden');
-    if (display === 'flex') el.classList.add('flex');
-  }
-  function hideEl(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.add('hidden');
-    el.classList.remove('flex');
-  }
-  function setLoading(btnId) {
-    const btn = document.getElementById(btnId);
-    if (!btn) return;
-    btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Working…`;
-  }
-  function resetBtn(btnId, label) {
-    const btn = document.getElementById(btnId);
-    if (!btn) return;
-    btn.disabled = false;
-    btn.innerHTML = label;
-  }
-  function formatBytes(bytes) {
-    if (!bytes) return '—';
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-}); // end DOMContentLoaded
-</script>
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

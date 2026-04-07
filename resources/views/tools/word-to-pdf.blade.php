@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'Word to PDF Converter – Free Online | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 

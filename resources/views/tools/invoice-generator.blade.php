@@ -1,4 +1,7 @@
 @extends('layouts.base')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -510,7 +513,7 @@
 @endpush
 
 <!-- ══════════════════════ SCRIPT ══════════════════════ -->
-@push('scripts')
+@push('footer')
 {{-- jsPDF for client-side PDF generation --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>

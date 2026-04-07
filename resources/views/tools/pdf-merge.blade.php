@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -287,358 +289,361 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    const dropZone     = document.getElementById('drop-zone');
-    const fileInput    = document.getElementById('file-input');
-    const addMoreInput = document.getElementById('add-more-input');
-    const mergeBtn     = document.getElementById('merge-btn');
-    const fileListWrap = document.getElementById('file-list-wrap');
-    const fileListEl   = document.getElementById('file-list');
-    const uploadError  = document.getElementById('upload-error');
-    const errorText    = document.getElementById('error-text');
+        const dropZone     = document.getElementById('drop-zone');
+        const fileInput    = document.getElementById('file-input');
+        const addMoreInput = document.getElementById('add-more-input');
+        const mergeBtn     = document.getElementById('merge-btn');
+        const fileListWrap = document.getElementById('file-list-wrap');
+        const fileListEl   = document.getElementById('file-list');
+        const uploadError  = document.getElementById('upload-error');
+        const errorText    = document.getElementById('error-text');
 
-    let files          = [];
-    let expiryInterval = null;
-    let dragSrcIndex   = null;
+        let files          = [];
+        let expiryInterval = null;
+        let dragSrcIndex   = null;
 
-    // ── Drag & drop on zone ──
-    ['dragenter','dragover'].forEach(evt => {
-        dropZone.addEventListener(evt, e => {
-            e.preventDefault(); e.stopPropagation();
-            dropZone.classList.add('drag-over');
-        });
-    });
-
-    ['dragleave','dragend','drop'].forEach(evt => {
-        dropZone.addEventListener(evt, e => {
-            e.preventDefault(); e.stopPropagation();
-            dropZone.classList.remove('drag-over');
-        });
-    });
-
-    dropZone.addEventListener('drop', e => {
-        addFiles(Array.from(e.dataTransfer.files));
-    });
-
-    fileInput.addEventListener('change', e => {
-        addFiles(Array.from(e.target.files));
-        e.target.value = '';
-    });
-
-    addMoreInput.addEventListener('change', e => {
-        addFiles(Array.from(e.target.files));
-        e.target.value = '';
-    });
-
-    document.getElementById('clear-all-btn').addEventListener('click', () => {
-        files = [];
-        renderFileList();
-    });
-
-    // ── Add files ──
-    function addFiles(newFiles) {
-        hideError();
-        for (const f of newFiles) {
-            if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) {
-                showError(`"${f.name}" is not a PDF file.`);
-                continue;
-            }
-            if (f.size > 50 * 1024 * 1024) {
-                showError(`"${f.name}" exceeds the 50MB limit.`);
-                continue;
-            }
-            if (files.length >= 20) {
-                showError('Maximum 20 files allowed on the free plan.');
-                break;
-            }
-            files.push(f);
-        }
-        renderFileList();
-    }
-
-    // ── Render file list ──
-    function renderFileList() {
-        fileListEl.innerHTML = '';
-
-        if (files.length === 0) {
-            fileListWrap.classList.add('hidden');
-            dropZone.classList.remove('has-files');
-            mergeBtn.disabled = true;
-            return;
-        }
-
-        fileListWrap.classList.remove('hidden');
-        dropZone.classList.add('has-files');
-        mergeBtn.disabled = files.length < 2;
-
-        document.getElementById('file-count').textContent = files.length + ' file' + (files.length !== 1 ? 's' : '');
-
-        const totalBytes = files.reduce((s, f) => s + f.size, 0);
-        document.getElementById('total-size-label').textContent = 'Total: ' + formatBytes(totalBytes);
-
-        files.forEach((file, idx) => {
-            const li = document.createElement('li');
-            li.className = 'file-row flex items-center gap-3 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl';
-            li.draggable = true;
-            li.dataset.index = idx;
-
-            li.innerHTML = `
-                <div class="drag-handle text-fn-text3 hover:text-fn-text2 shrink-0 transition-colors" title="Drag to reorder">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/>
-                    </svg>
-                </div>
-                <div class="w-8 h-8 rounded-lg bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-lg shrink-0">📕</div>
-                <div class="flex-1 min-w-0">
-                    <p class="font-semibold text-sm truncate">${escHtml(file.name)}</p>
-                    <p class="text-fn-text3 text-sm">${formatBytes(file.size)}</p>
-                </div>
-                <span class="page-badge text-sm font-mono text-fn-text3 shrink-0">#${idx + 1}</span>
-                <button type="button" data-remove="${idx}" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            `;
-
-            li.querySelector('[data-remove]').addEventListener('click', e => {
-                e.stopPropagation();
-                files.splice(parseInt(e.currentTarget.dataset.remove), 1);
-                renderFileList();
-            });
-
-            li.addEventListener('dragstart', e => {
-                dragSrcIndex = idx;
-                setTimeout(() => li.classList.add('dragging'), 0);
-                e.dataTransfer.effectAllowed = 'move';
-            });
-            li.addEventListener('dragend', () => {
-                li.classList.remove('dragging');
-                document.querySelectorAll('.file-row').forEach(r => r.classList.remove('drag-target'));
-            });
-            li.addEventListener('dragover', e => {
-                e.preventDefault();
-                e.dataTransfer.dropEffect = 'move';
-                document.querySelectorAll('.file-row').forEach(r => r.classList.remove('drag-target'));
-                li.classList.add('drag-target');
-            });
-            li.addEventListener('drop', e => {
+        // ── Drag & drop on zone ──
+        ['dragenter','dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
                 e.preventDefault(); e.stopPropagation();
-                const targetIndex = parseInt(li.dataset.index);
-                if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
-                    const moved = files.splice(dragSrcIndex, 1)[0];
-                    files.splice(targetIndex, 0, moved);
-                    renderFileList();
-                }
-                dragSrcIndex = null;
+                dropZone.classList.add('drag-over');
             });
-
-            fileListEl.appendChild(li);
         });
-    }
 
-    // ── Merge button ──
-    mergeBtn.addEventListener('click', startMerge);
-
-    async function startMerge() {
-        if (files.length < 2) return;
-        hideError();
-        showState('converting');
-        updateStepIndicator(2);
-
-        const formData = new FormData();
-        files.forEach(f => formData.append('pdfs[]', f));
-        formData.append('filename',     document.getElementById('opt-filename').value || 'merged');
-        formData.append('bookmarks',    document.getElementById('opt-bookmarks').checked    ? '1' : '0');
-        formData.append('page_numbers', document.getElementById('opt-page-numbers').checked ? '1' : '0');
-        formData.append('compress',     document.getElementById('opt-compress').checked     ? '1' : '0');
-        formData.append('_token',       '{{ csrf_token() }}');
-
-        setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 800, 'Uploading files…');
-
-        const t2 = setTimeout(() => {
-            setProcessStep('proc-1', 'done');
-            setProcessStep('proc-2', 'active');
-            animateProgress(20, 50, 1000, 'Reading PDF structures…');
-        }, 1000);
-
-        const t3 = setTimeout(() => {
-            setProcessStep('proc-2', 'done');
-            setProcessStep('proc-3', 'active');
-            animateProgress(50, 75, 1200, 'Combining pages…');
-        }, 2200);
-
-        const t4 = setTimeout(() => {
-            setProcessStep('proc-3', 'done');
-            setProcessStep('proc-4', 'active');
-            animateProgress(75, 90, 1000, 'Finalising document…');
-        }, 3600);
-
-        try {
-            const res  = await fetch('', {
-                method: 'POST',
-                body:   formData,
+        ['dragleave','dragend','drop'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.classList.remove('drag-over');
             });
+        });
 
-            clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+        dropZone.addEventListener('drop', e => {
+            addFiles(Array.from(e.dataTransfer.files));
+        });
 
-            const data = await res.json();
+        fileInput.addEventListener('change', e => {
+            addFiles(Array.from(e.target.files));
+            e.target.value = '';
+        });
 
-            if (!res.ok || !data.success) {
-                throw new Error(data.message || 'Merge failed. Please try again.');
+        addMoreInput.addEventListener('change', e => {
+            addFiles(Array.from(e.target.files));
+            e.target.value = '';
+        });
+
+        document.getElementById('clear-all-btn').addEventListener('click', () => {
+            files = [];
+            renderFileList();
+        });
+
+        // ── Add files ──
+        function addFiles(newFiles) {
+            hideError();
+            for (const f of newFiles) {
+                if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) {
+                    showError(`"${f.name}" is not a PDF file.`);
+                    continue;
+                }
+                if (f.size > 50 * 1024 * 1024) {
+                    showError(`"${f.name}" exceeds the 50MB limit.`);
+                    continue;
+                }
+                if (files.length >= 20) {
+                    showError('Maximum 20 files allowed on the free plan.');
+                    break;
+                }
+                files.push(f);
+            }
+            renderFileList();
+        }
+
+        // ── Render file list ──
+        function renderFileList() {
+            fileListEl.innerHTML = '';
+
+            if (files.length === 0) {
+                fileListWrap.classList.add('hidden');
+                dropZone.classList.remove('has-files');
+                mergeBtn.disabled = true;
+                return;
             }
 
-            setProcessStep('proc-3', 'done');
-            setProcessStep('proc-4', 'done');
-            animateProgress(90, 100, 400, 'Done!');
+            fileListWrap.classList.remove('hidden');
+            dropZone.classList.add('has-files');
+            mergeBtn.disabled = files.length < 2;
 
-            const outName = (document.getElementById('opt-filename').value || 'merged').replace(/\.pdf$/i, '') + '.pdf';
+            document.getElementById('file-count').textContent = files.length + ' file' + (files.length !== 1 ? 's' : '');
 
-            setTimeout(() => {
-                document.getElementById('download-link').href      = data.download_url;
-                document.getElementById('output-name').textContent = outName;
-                document.getElementById('output-meta').textContent = formatBytes(data.file_size) + ' · ' + data.page_count + ' pages · PDF Document';
-                showState('download');
-                updateStepIndicator(3);
-                startExpiryTimer(3600);
-            }, 500);
+            const totalBytes = files.reduce((s, f) => s + f.size, 0);
+            document.getElementById('total-size-label').textContent = 'Total: ' + formatBytes(totalBytes);
 
-        } catch (err) {
-            clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-            showError(err.message || 'Something went wrong. Please try again.');
+            files.forEach((file, idx) => {
+                const li = document.createElement('li');
+                li.className = 'file-row flex items-center gap-3 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl';
+                li.draggable = true;
+                li.dataset.index = idx;
+
+                li.innerHTML = `
+                    <div class="drag-handle text-fn-text3 hover:text-fn-text2 shrink-0 transition-colors" title="Drag to reorder">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/>
+                        </svg>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-lg shrink-0">📕</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="font-semibold text-sm truncate">${escHtml(file.name)}</p>
+                        <p class="text-fn-text3 text-sm">${formatBytes(file.size)}</p>
+                    </div>
+                    <span class="page-badge text-sm font-mono text-fn-text3 shrink-0">#${idx + 1}</span>
+                    <button type="button" data-remove="${idx}" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                `;
+
+                li.querySelector('[data-remove]').addEventListener('click', e => {
+                    e.stopPropagation();
+                    files.splice(parseInt(e.currentTarget.dataset.remove), 1);
+                    renderFileList();
+                });
+
+                li.addEventListener('dragstart', e => {
+                    dragSrcIndex = idx;
+                    setTimeout(() => li.classList.add('dragging'), 0);
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                li.addEventListener('dragend', () => {
+                    li.classList.remove('dragging');
+                    document.querySelectorAll('.file-row').forEach(r => r.classList.remove('drag-target'));
+                });
+                li.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    document.querySelectorAll('.file-row').forEach(r => r.classList.remove('drag-target'));
+                    li.classList.add('drag-target');
+                });
+                li.addEventListener('drop', e => {
+                    e.preventDefault(); e.stopPropagation();
+                    const targetIndex = parseInt(li.dataset.index);
+                    if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
+                        const moved = files.splice(dragSrcIndex, 1)[0];
+                        files.splice(targetIndex, 0, moved);
+                        renderFileList();
+                    }
+                    dragSrcIndex = null;
+                });
+
+                fileListEl.appendChild(li);
+            });
+        }
+
+        // ── Merge button ──
+        mergeBtn.addEventListener('click', startMerge);
+
+        async function startMerge() {
+            if (files.length < 2) return;
+            hideError();
+            showState('converting');
+            updateStepIndicator(2);
+
+            const formData = new FormData();
+            files.forEach(f => formData.append('pdfs[]', f));
+            formData.append('filename',     document.getElementById('opt-filename').value || 'merged');
+            formData.append('bookmarks',    document.getElementById('opt-bookmarks').checked    ? '1' : '0');
+            formData.append('page_numbers', document.getElementById('opt-page-numbers').checked ? '1' : '0');
+            formData.append('compress',     document.getElementById('opt-compress').checked     ? '1' : '0');
+            formData.append('_token',       '{{ csrf_token() }}');
+
+            setProcessStep('proc-1', 'active');
+            animateProgress(0, 20, 800, 'Uploading files…');
+
+            const t2 = setTimeout(() => {
+                setProcessStep('proc-1', 'done');
+                setProcessStep('proc-2', 'active');
+                animateProgress(20, 50, 1000, 'Reading PDF structures…');
+            }, 1000);
+
+            const t3 = setTimeout(() => {
+                setProcessStep('proc-2', 'done');
+                setProcessStep('proc-3', 'active');
+                animateProgress(50, 75, 1200, 'Combining pages…');
+            }, 2200);
+
+            const t4 = setTimeout(() => {
+                setProcessStep('proc-3', 'done');
+                setProcessStep('proc-4', 'active');
+                animateProgress(75, 90, 1000, 'Finalising document…');
+            }, 3600);
+
+            try {
+                const res  = await fetch('', {
+                    method: 'POST',
+                    body:   formData,
+                });
+
+                clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || 'Merge failed. Please try again.');
+                }
+
+                setProcessStep('proc-3', 'done');
+                setProcessStep('proc-4', 'done');
+                animateProgress(90, 100, 400, 'Done!');
+
+                const outName = (document.getElementById('opt-filename').value || 'merged').replace(/\.pdf$/i, '') + '.pdf';
+
+                setTimeout(() => {
+                    document.getElementById('download-link').href      = data.download_url;
+                    document.getElementById('output-name').textContent = outName;
+                    document.getElementById('output-meta').textContent = formatBytes(data.file_size) + ' · ' + data.page_count + ' pages · PDF Document';
+                    showState('download');
+                    updateStepIndicator(3);
+                    startExpiryTimer(3600);
+                }, 500);
+
+            } catch (err) {
+                clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+                showError(err.message || 'Something went wrong. Please try again.');
+                showState('upload');
+                updateStepIndicator(1);
+            }
+        }
+
+        // ── State switcher ──
+        function showState(state) {
+            ['upload','converting','download'].forEach(s => {
+                document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+            });
+            if (state === 'download') {
+                document.getElementById('state-download').classList.add('bounce-in');
+            }
+        }
+
+        // ── Step indicator ──
+        function updateStepIndicator(active) {
+            [1,2,3].forEach(n => {
+                const el = document.getElementById('step-' + n);
+                el.classList.remove('active','done');
+                if (n < active)   el.classList.add('done');
+                if (n === active) el.classList.add('active');
+            });
+        }
+
+        // ── Processing steps ──
+        function setProcessStep(id, state) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const dot   = el.querySelector('.step-dot');
+            const check = el.querySelector('.check-icon');
+            const spin  = el.querySelector('.spin-icon');
+
+            check.classList.add('hidden');
+            spin.classList.add('hidden');
+            dot.style.borderColor = '';
+            dot.style.background  = '';
+
+            if (state === 'active') {
+                spin.classList.remove('hidden');
+                dot.style.borderColor = 'oklch(49% 0.24 264)';
+                dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+            }
+            if (state === 'done') {
+                check.classList.remove('hidden');
+                dot.style.borderColor = 'oklch(67% 0.18 162)';
+                dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+            }
+        }
+
+        // ── Progress bar ──
+        function animateProgress(from, to, duration, label) {
+            document.getElementById('progress-label').textContent = label;
+            const start = performance.now();
+            function step(now) {
+                const t   = Math.min((now - start) / duration, 1);
+                const pct = Math.round(from + (to - from) * t);
+                document.getElementById('progress-fill').style.width = pct + '%';
+                document.getElementById('progress-pct').textContent  = pct + '%';
+                if (t < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // ── Expiry countdown ──
+        function startExpiryTimer(seconds) {
+            clearInterval(expiryInterval);
+            let rem = seconds;
+            expiryInterval = setInterval(() => {
+                rem--;
+                const m  = String(Math.floor(rem / 60)).padStart(2,'0');
+                const s  = String(rem % 60).padStart(2,'0');
+                const el = document.getElementById('expiry-timer');
+                if (el) el.textContent = m + ':' + s;
+                if (rem <= 0) clearInterval(expiryInterval);
+            }, 1000);
+        }
+
+        // ── Reset ──
+        window.resetMerger = function () {
+            files = [];
+            renderFileList();
             showState('upload');
             updateStepIndicator(1);
-        }
-    }
+            clearInterval(expiryInterval);
+            animateProgress(0, 0, 0, 'Starting…');
+            ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+        };
 
-    // ── State switcher ──
-    function showState(state) {
-        ['upload','converting','download'].forEach(s => {
-            document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        // ── Error helpers ──
+        function showError(msg) {
+            errorText.textContent = msg;
+            uploadError.classList.remove('hidden');
+            uploadError.classList.add('flex');
+        }
+        function hideError() {
+            uploadError.classList.add('hidden');
+            uploadError.classList.remove('flex');
+        }
+
+        // ── Helpers ──
+        function formatBytes(bytes) {
+            if (bytes < 1024)    return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(1) + ' MB';
+        }
+
+        function escHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        // ── FAQ accordion ──
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const body   = btn.nextElementSibling;
+                const icon   = btn.querySelector('.faq-icon');
+                const isOpen = !body.classList.contains('hidden');
+
+                document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+                document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+
+                if (!isOpen) {
+                    body.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
         });
-        if (state === 'download') {
-            document.getElementById('state-download').classList.add('bounce-in');
-        }
-    }
 
-    // ── Step indicator ──
-    function updateStepIndicator(active) {
-        [1,2,3].forEach(n => {
-            const el = document.getElementById('step-' + n);
-            el.classList.remove('active','done');
-            if (n < active)   el.classList.add('done');
-            if (n === active) el.classList.add('active');
-        });
-    }
+    }); // end DOMContentLoaded
+    </script>
 
-    // ── Processing steps ──
-    function setProcessStep(id, state) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const dot   = el.querySelector('.step-dot');
-        const check = el.querySelector('.check-icon');
-        const spin  = el.querySelector('.spin-icon');
-
-        check.classList.add('hidden');
-        spin.classList.add('hidden');
-        dot.style.borderColor = '';
-        dot.style.background  = '';
-
-        if (state === 'active') {
-            spin.classList.remove('hidden');
-            dot.style.borderColor = 'oklch(49% 0.24 264)';
-            dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-        }
-        if (state === 'done') {
-            check.classList.remove('hidden');
-            dot.style.borderColor = 'oklch(67% 0.18 162)';
-            dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-        }
-    }
-
-    // ── Progress bar ──
-    function animateProgress(from, to, duration, label) {
-        document.getElementById('progress-label').textContent = label;
-        const start = performance.now();
-        function step(now) {
-            const t   = Math.min((now - start) / duration, 1);
-            const pct = Math.round(from + (to - from) * t);
-            document.getElementById('progress-fill').style.width = pct + '%';
-            document.getElementById('progress-pct').textContent  = pct + '%';
-            if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-    }
-
-    // ── Expiry countdown ──
-    function startExpiryTimer(seconds) {
-        clearInterval(expiryInterval);
-        let rem = seconds;
-        expiryInterval = setInterval(() => {
-            rem--;
-            const m  = String(Math.floor(rem / 60)).padStart(2,'0');
-            const s  = String(rem % 60).padStart(2,'0');
-            const el = document.getElementById('expiry-timer');
-            if (el) el.textContent = m + ':' + s;
-            if (rem <= 0) clearInterval(expiryInterval);
-        }, 1000);
-    }
-
-    // ── Reset ──
-    window.resetMerger = function () {
-        files = [];
-        renderFileList();
-        showState('upload');
-        updateStepIndicator(1);
-        clearInterval(expiryInterval);
-        animateProgress(0, 0, 0, 'Starting…');
-        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-    };
-
-    // ── Error helpers ──
-    function showError(msg) {
-        errorText.textContent = msg;
-        uploadError.classList.remove('hidden');
-        uploadError.classList.add('flex');
-    }
-    function hideError() {
-        uploadError.classList.add('hidden');
-        uploadError.classList.remove('flex');
-    }
-
-    // ── Helpers ──
-    function formatBytes(bytes) {
-        if (bytes < 1024)    return bytes + ' B';
-        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / 1048576).toFixed(1) + ' MB';
-    }
-
-    function escHtml(str) {
-        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    // ── FAQ accordion ──
-    document.querySelectorAll('.faq-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const body   = btn.nextElementSibling;
-            const icon   = btn.querySelector('.faq-icon');
-            const isOpen = !body.classList.contains('hidden');
-
-            document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-            document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-
-            if (!isOpen) {
-                body.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            }
-        });
-    });
-
-}); // end DOMContentLoaded
-</script>
+@endpush
 
 @endsection

@@ -1,4 +1,7 @@
 @extends('layouts.base')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -419,298 +422,300 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  let selectedFile  = null;
-  let activeLevel   = 'extreme';
-  let blobUrl       = null;
+      let selectedFile  = null;
+      let activeLevel   = 'extreme';
+      let blobUrl       = null;
 
-  // ── Drop zone ──
-  const dropZone    = document.getElementById('drop-zone');
-  const fileInput   = document.getElementById('file-input');
-  const filePreview = document.getElementById('file-preview');
+      // ── Drop zone ──
+      const dropZone    = document.getElementById('drop-zone');
+      const fileInput   = document.getElementById('file-input');
+      const filePreview = document.getElementById('file-preview');
 
-  ['dragenter','dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave','dragend','drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  document.getElementById('remove-file').addEventListener('click', e => {
-    e.stopPropagation();
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    document.getElementById('compress-btn').disabled = true;
-    hideError();
-  });
-
-  function handleFile(file) {
-    hideError();
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    document.getElementById('compress-btn').disabled = false;
-  }
-
-  // ── Level buttons ──
-  document.querySelectorAll('.level-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeLevel = btn.dataset.level;
-    });
-  });
-
-  // ── Password toggle ──
-  document.getElementById('toggle-password').addEventListener('click', () => {
-    const input  = document.getElementById('opt-password');
-    const isPass = input.type === 'password';
-    input.type   = isPass ? 'text' : 'password';
-    document.getElementById('eye-show').classList.toggle('hidden', isPass);
-    document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
-  });
-
-  // ── Compress ──
-  document.getElementById('compress-btn').addEventListener('click', startCompression);
-
-  async function startCompression() {
-    if (!selectedFile) return;
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    document.getElementById('conv-title').textContent = `Compressing with ${activeLevel} level…`;
-
-    const fd = new FormData();
-    fd.append('file',              selectedFile);
-    fd.append('compression_level', activeLevel);
-    fd.append('output',            'json'); // get stats + base64 so we can show savings
-    const pw = document.getElementById('opt-password').value.trim();
-    if (pw) fd.append('password', pw);
-
-    setProcessStep('proc-1','active');
-    animateProgress(0, 20, 700, 'Uploading & reading PDF…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-      animateProgress(20, 55, 1200, 'Compressing images to target DPI…');
-    }, 800);
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-      animateProgress(55, 78, 900, 'Cleaning PDF structure & streams…');
-    }, 2100);
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
-      animateProgress(78, 90, 600, 'Finalising compressed file…');
-    }, 3100);
-
-    try {
-      const res = await fetch('https://api.filenewer.com/api/tools/pdf-compress', {
-        method: 'POST',
-        body:   fd,
+      ['dragenter','dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave','dragend','drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      document.getElementById('remove-file').addEventListener('click', e => {
+        e.stopPropagation();
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        document.getElementById('compress-btn').disabled = true;
+        hideError();
       });
 
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
-      if (!res.ok) {
-        const d = await res.json().catch(() => ({}));
-        throw new Error(d.error || 'Compression failed. Please try again.');
+      function handleFile(file) {
+        hideError();
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+          showError('Please select a valid PDF file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        document.getElementById('compress-btn').disabled = false;
       }
 
-      const ct = res.headers.get('Content-Type') || '';
+      // ── Level buttons ──
+      document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeLevel = btn.dataset.level;
+        });
+      });
 
-      let blob, stats = {};
+      // ── Password toggle ──
+      document.getElementById('toggle-password').addEventListener('click', () => {
+        const input  = document.getElementById('opt-password');
+        const isPass = input.type === 'password';
+        input.type   = isPass ? 'text' : 'password';
+        document.getElementById('eye-show').classList.toggle('hidden', isPass);
+        document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
+      });
 
-      if (ct.includes('application/json')) {
-        // JSON response with base64 — output=json path
-        const data = await res.json();
-        stats = data;
-        // Decode base64 → blob
-        const binary = atob(data.pdf_base64 || '');
-        const bytes  = new Uint8Array(binary.length);
-        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-        blob = new Blob([bytes], { type: 'application/pdf' });
-      } else {
-        // Binary PDF — read stats from response headers
-        blob = await res.blob();
-        stats = {
-          original_size_kb:   parseFloat(res.headers.get('X-Original-Size-KB'))   || (selectedFile.size / 1024),
-          compressed_size_kb: parseFloat(res.headers.get('X-Compressed-Size-KB')) || (blob.size / 1024),
-          reduction_percent:  parseFloat(res.headers.get('X-Reduction-Percent'))   || 0,
-          compression_level:  res.headers.get('X-Compression-Level') || activeLevel,
-          filename:           res.headers.get('Content-Disposition')?.match(/filename="?([^"]+)"?/)?.[1] || null,
-        };
+      // ── Compress ──
+      document.getElementById('compress-btn').addEventListener('click', startCompression);
+
+      async function startCompression() {
+        if (!selectedFile) return;
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
+
+        document.getElementById('conv-title').textContent = `Compressing with ${activeLevel} level…`;
+
+        const fd = new FormData();
+        fd.append('file',              selectedFile);
+        fd.append('compression_level', activeLevel);
+        fd.append('output',            'json'); // get stats + base64 so we can show savings
+        const pw = document.getElementById('opt-password').value.trim();
+        if (pw) fd.append('password', pw);
+
+        setProcessStep('proc-1','active');
+        animateProgress(0, 20, 700, 'Uploading & reading PDF…');
+
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
+          animateProgress(20, 55, 1200, 'Compressing images to target DPI…');
+        }, 800);
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
+          animateProgress(55, 78, 900, 'Cleaning PDF structure & streams…');
+        }, 2100);
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
+          animateProgress(78, 90, 600, 'Finalising compressed file…');
+        }, 3100);
+
+        try {
+          const res = await fetch('https://api.filenewer.com/api/tools/pdf-compress', {
+            method: 'POST',
+            body:   fd,
+          });
+
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          if (!res.ok) {
+            const d = await res.json().catch(() => ({}));
+            throw new Error(d.error || 'Compression failed. Please try again.');
+          }
+
+          const ct = res.headers.get('Content-Type') || '';
+
+          let blob, stats = {};
+
+          if (ct.includes('application/json')) {
+            // JSON response with base64 — output=json path
+            const data = await res.json();
+            stats = data;
+            // Decode base64 → blob
+            const binary = atob(data.pdf_base64 || '');
+            const bytes  = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+            blob = new Blob([bytes], { type: 'application/pdf' });
+          } else {
+            // Binary PDF — read stats from response headers
+            blob = await res.blob();
+            stats = {
+              original_size_kb:   parseFloat(res.headers.get('X-Original-Size-KB'))   || (selectedFile.size / 1024),
+              compressed_size_kb: parseFloat(res.headers.get('X-Compressed-Size-KB')) || (blob.size / 1024),
+              reduction_percent:  parseFloat(res.headers.get('X-Reduction-Percent'))   || 0,
+              compression_level:  res.headers.get('X-Compression-Level') || activeLevel,
+              filename:           res.headers.get('Content-Disposition')?.match(/filename="?([^"]+)"?/)?.[1] || null,
+            };
+          }
+
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+
+          const fileName = stats.filename
+            || selectedFile.name.replace(/\.pdf$/i, `_compressed_${activeLevel}.pdf`);
+
+          // Wire download
+          const link    = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = fileName;
+
+          // Populate results
+          const origKb  = stats.original_size_kb   ?? (selectedFile.size / 1024);
+          const compKb  = stats.compressed_size_kb  ?? (blob.size / 1024);
+          const pct     = stats.reduction_percent    ?? Math.round((1 - compKb / origKb) * 100);
+          const savedKb = origKb - compKb;
+
+          document.getElementById('reduction-pct').textContent = Math.round(pct) + '%';
+          document.getElementById('orig-size').textContent     = formatKb(origKb);
+          document.getElementById('comp-size').textContent     = formatKb(compKb);
+          document.getElementById('stat-level').textContent    = capitalize(stats.compression_level || activeLevel);
+          document.getElementById('stat-saved').textContent    = formatKb(savedKb);
+          document.getElementById('stat-orig-kb').textContent  = formatKb(origKb);
+          document.getElementById('stat-comp-kb').textContent  = formatKb(compKb);
+          document.getElementById('output-name').textContent   = fileName;
+          document.getElementById('output-size').textContent   = formatKb(compKb) + ' · PDF Document';
+          document.getElementById('result-subtitle').textContent =
+            `Reduced from ${formatKb(origKb)} to ${formatKb(compKb)} — saved ${Math.round(pct)}%`;
+
+          // Animated bar chart
+          const barPct = Math.max(5, Math.round((compKb / origKb) * 100));
+          setTimeout(() => {
+            document.getElementById('bar-comp').style.height = barPct + '%';
+          }, 400);
+
+          setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
+          animateProgress(90, 100, 300, 'Done!');
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+        } catch(err) {
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showState('upload');
+          updateStepIndicator(1);
+          showError(err.message || 'Something went wrong. Please try again.');
+        }
       }
 
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
+      // ── Helpers ──
+      function formatKb(kb) {
+        if (!kb && kb !== 0) return '—';
+        if (kb >= 1024) return (kb / 1024).toFixed(2) + ' MB';
+        return Math.round(kb) + ' KB';
+      }
+      function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : '—'; }
 
-      const fileName = stats.filename
-        || selectedFile.name.replace(/\.pdf$/i, `_compressed_${activeLevel}.pdf`);
+      function showState(state) {
+        ['upload','converting','download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
 
-      // Wire download
-      const link    = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = fileName;
+      function updateStepIndicator(active) {
+        [1,2,3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active','done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
 
-      // Populate results
-      const origKb  = stats.original_size_kb   ?? (selectedFile.size / 1024);
-      const compKb  = stats.compressed_size_kb  ?? (blob.size / 1024);
-      const pct     = stats.reduction_percent    ?? Math.round((1 - compKb / origKb) * 100);
-      const savedKb = origKb - compKb;
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden'); spin.classList.add('hidden');
+        dot.style.borderColor = ''; dot.style.background = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264/15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162/15%)';
+        }
+      }
 
-      document.getElementById('reduction-pct').textContent = Math.round(pct) + '%';
-      document.getElementById('orig-size').textContent     = formatKb(origKb);
-      document.getElementById('comp-size').textContent     = formatKb(compKb);
-      document.getElementById('stat-level').textContent    = capitalize(stats.compression_level || activeLevel);
-      document.getElementById('stat-saved').textContent    = formatKb(savedKb);
-      document.getElementById('stat-orig-kb').textContent  = formatKb(origKb);
-      document.getElementById('stat-comp-kb').textContent  = formatKb(compKb);
-      document.getElementById('output-name').textContent   = fileName;
-      document.getElementById('output-size').textContent   = formatKb(compKb) + ' · PDF Document';
-      document.getElementById('result-subtitle').textContent =
-        `Reduced from ${formatKb(origKb)} to ${formatKb(compKb)} — saved ${Math.round(pct)}%`;
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
 
-      // Animated bar chart
-      const barPct = Math.max(5, Math.round((compKb / origKb) * 100));
-      setTimeout(() => {
-        document.getElementById('bar-comp').style.height = barPct + '%';
-      }, 400);
+      function showError(msg) {
+        document.getElementById('error-text').textContent = msg;
+        const el = document.getElementById('upload-error');
+        el.classList.remove('hidden'); el.classList.add('flex');
+      }
+      function hideError() {
+        const el = document.getElementById('upload-error');
+        el.classList.add('hidden'); el.classList.remove('flex');
+      }
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
 
-      setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
-      animateProgress(90, 100, 300, 'Done!');
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        document.getElementById('opt-password').value  = '';
+        document.getElementById('compress-btn').disabled = true;
+        // Reset bar chart
+        document.getElementById('bar-comp').style.height = '30%';
+        // Reset to extreme
+        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.level-btn[data-level="extreme"]').classList.add('active');
+        activeLevel = 'extreme';
+        hideError();
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
 
-    } catch(err) {
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showState('upload');
-      updateStepIndicator(1);
-      showError(err.message || 'Something went wrong. Please try again.');
-    }
-  }
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+        });
+      });
 
-  // ── Helpers ──
-  function formatKb(kb) {
-    if (!kb && kb !== 0) return '—';
-    if (kb >= 1024) return (kb / 1024).toFixed(2) + ' MB';
-    return Math.round(kb) + ' KB';
-  }
-  function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : '—'; }
-
-  function showState(state) {
-    ['upload','converting','download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
-
-  function updateStepIndicator(active) {
-    [1,2,3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active','done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
-
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden'); spin.classList.add('hidden');
-    dot.style.borderColor = ''; dot.style.background = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264/15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162/15%)';
-    }
-  }
-
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  function showError(msg) {
-    document.getElementById('error-text').textContent = msg;
-    const el = document.getElementById('upload-error');
-    el.classList.remove('hidden'); el.classList.add('flex');
-  }
-  function hideError() {
-    const el = document.getElementById('upload-error');
-    el.classList.add('hidden'); el.classList.remove('flex');
-  }
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    document.getElementById('opt-password').value  = '';
-    document.getElementById('compress-btn').disabled = true;
-    // Reset bar chart
-    document.getElementById('bar-comp').style.height = '30%';
-    // Reset to extreme
-    document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.level-btn[data-level="extreme"]').classList.add('active');
-    activeLevel = 'extreme';
-    hideError();
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
-
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
-    });
-  });
-
-}); // end DOMContentLoaded
-</script>
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

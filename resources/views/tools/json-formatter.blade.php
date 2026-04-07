@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'JSON Formatter & Validator – Free Online | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -475,426 +477,428 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── State ──
-  let activeTab    = 'text';
-  let activeIndent = 4;
-  let activeOutput = 'text';
-  let selectedFile = null;
-  let fileBlobUrl  = null;
-  let textBlobUrl  = null;
+      // ── State ──
+      let activeTab    = 'text';
+      let activeIndent = 4;
+      let activeOutput = 'text';
+      let selectedFile = null;
+      let fileBlobUrl  = null;
+      let textBlobUrl  = null;
 
-  // ── Tab switching ──
-  document.getElementById('tab-text').addEventListener('click', () => switchTab('text'));
-  document.getElementById('tab-file').addEventListener('click', () => switchTab('file'));
+      // ── Tab switching ──
+      document.getElementById('tab-text').addEventListener('click', () => switchTab('text'));
+      document.getElementById('tab-file').addEventListener('click', () => switchTab('file'));
 
-  function switchTab(tab) {
-    activeTab = tab;
-    document.getElementById('tab-text').classList.toggle('active', tab === 'text');
-    document.getElementById('tab-file').classList.toggle('active', tab === 'file');
-    document.getElementById('panel-text').classList.toggle('hidden', tab !== 'text');
-    document.getElementById('panel-file').classList.toggle('hidden', tab !== 'file');
-    hideGeneralError();
-    refreshFormatBtn();
-  }
-
-  // ── Indent buttons ──
-  document.querySelectorAll('.indent-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.indent-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeIndent = parseInt(btn.dataset.indent);
-    });
-  });
-
-  // ── Output buttons ──
-  document.querySelectorAll('.output-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeOutput = btn.dataset.output;
-    });
-  });
-
-  // ── Minify toggle: disable indent when active ──
-  document.getElementById('opt-minify').addEventListener('change', e => {
-    document.querySelectorAll('.indent-btn').forEach(b => {
-      b.classList.toggle('muted', e.target.checked);
-    });
-  });
-
-  // ── Text tab: live validation ──
-  const jsonInput  = document.getElementById('json-input');
-  const jsonOutput = document.getElementById('json-output');
-
-  let validateTimer = null;
-  jsonInput.addEventListener('input', () => {
-    clearTimeout(validateTimer);
-    validateTimer = setTimeout(liveValidate, 400);
-    refreshFormatBtn();
-  });
-
-  function liveValidate() {
-    const raw = jsonInput.value.trim();
-    const statusEl = document.getElementById('text-input-status');
-    const errBanner = document.getElementById('text-error-banner');
-    const errGutter = document.getElementById('error-gutter');
-
-    if (!raw) {
-      jsonInput.className = jsonInput.className.replace(/\b(valid|invalid)\b/g, '').trim();
-      statusEl.classList.add('hidden');
-      errBanner.classList.add('hidden');
-      errGutter.classList.add('hidden');
-      return;
-    }
-    try {
-      JSON.parse(raw);
-      jsonInput.classList.remove('invalid'); jsonInput.classList.add('valid');
-      statusEl.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green inline-block mr-1"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">Valid JSON</span>`;
-      statusEl.classList.remove('hidden');
-      errBanner.classList.add('hidden');
-      errGutter.classList.add('hidden');
-    } catch(e) {
-      jsonInput.classList.remove('valid'); jsonInput.classList.add('invalid');
-      statusEl.innerHTML = `<span class="text-fn-red">⚠ Invalid</span>`;
-      statusEl.classList.remove('hidden');
-      document.getElementById('text-error-msg').textContent = e.message;
-      errBanner.classList.remove('hidden');
-      errGutter.classList.remove('hidden');
-    }
-  }
-
-  function refreshFormatBtn() {
-    const btn = document.getElementById('format-btn');
-    if (activeTab === 'text') {
-      btn.disabled = !jsonInput.value.trim();
-    } else {
-      btn.disabled = !selectedFile;
-    }
-  }
-
-  // Paste & clear
-  document.getElementById('btn-paste').addEventListener('click', async () => {
-    try { jsonInput.value = await navigator.clipboard.readText(); liveValidate(); refreshFormatBtn(); } catch(_) {}
-  });
-  document.getElementById('btn-clear-text').addEventListener('click', () => {
-    jsonInput.value = '';
-    jsonOutput.value = '';
-    jsonInput.className = jsonInput.className.replace(/\b(valid|invalid)\b/g,'').trim();
-    document.getElementById('text-input-status').classList.add('hidden');
-    document.getElementById('text-error-banner').classList.add('hidden');
-    document.getElementById('error-gutter').classList.add('hidden');
-    document.getElementById('stats-bar').classList.add('hidden');
-    document.getElementById('btn-copy').classList.add('hidden');
-    document.getElementById('btn-download').classList.add('hidden');
-    if (textBlobUrl) { URL.revokeObjectURL(textBlobUrl); textBlobUrl = null; }
-    refreshFormatBtn();
-  });
-
-  // ── File tab ──
-  const dropZone   = document.getElementById('drop-zone');
-  const fileInput  = document.getElementById('file-input');
-  const filePreview = document.getElementById('file-preview');
-
-  ['dragenter','dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave','dragend','drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  document.getElementById('remove-file').addEventListener('click', () => resetFile());
-
-  function handleFile(file) {
-    hideGeneralError();
-    if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
-      showGeneralError('Please select a valid JSON file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) { showGeneralError('File exceeds the 50MB free limit.'); return; }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    document.getElementById('file-result').classList.add('hidden');
-    refreshFormatBtn();
-  }
-
-  window.resetFile = function() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    document.getElementById('file-result').classList.add('hidden');
-    if (fileBlobUrl) { URL.revokeObjectURL(fileBlobUrl); fileBlobUrl = null; }
-    refreshFormatBtn();
-  };
-
-  // ── Format button ──
-  document.getElementById('format-btn').addEventListener('click', doFormat);
-
-  async function doFormat() {
-    hideGeneralError();
-    const btn = document.getElementById('format-btn');
-    btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-3 h-3" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Formatting…`;
-
-    const sortKeys   = document.getElementById('opt-sort').checked;
-    const minify     = document.getElementById('opt-minify').checked;
-    const ensureAscii = document.getElementById('opt-ascii').checked;
-
-    try {
-      if (activeTab === 'text') {
-        await formatText(sortKeys, minify, ensureAscii);
-      } else {
-        await formatFile(sortKeys, minify, ensureAscii);
-      }
-    } catch(err) {
-      showGeneralError(err.message || 'Something went wrong. Please try again.');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Format`;
-      refreshFormatBtn();
-    }
-  }
-
-  // ── Format text → /api/tools/format-json-text ──
-  async function formatText(sortKeys, minify, ensureAscii) {
-    let jsonValue;
-    try { jsonValue = JSON.parse(jsonInput.value.trim()); }
-    catch(e) { throw new Error('Cannot format — invalid JSON: ' + e.message); }
-
-    const payload = {
-      json:         jsonValue,
-      indent:       minify ? 0 : activeIndent,
-      sort_keys:    sortKeys,
-      minify:       minify,
-      ensure_ascii: ensureAscii,
-      output:       activeOutput,
-    };
-
-    const res  = await fetch('https://api.filenewer.com/api/tools/format-json-text', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}));
-      throw new Error(d.error || 'Formatting failed.');
-    }
-
-    const data = await res.json();
-
-    if (!data.is_valid) {
-      document.getElementById('text-error-msg').textContent =
-        data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
-      document.getElementById('text-error-banner').classList.remove('hidden');
-      document.getElementById('error-gutter').classList.remove('hidden');
-      jsonInput.classList.add('invalid');
-      jsonOutput.value = '';
-      document.getElementById('stats-bar').classList.add('hidden');
-      return;
-    }
-
-    const formatted = data.formatted ?? '';
-    jsonOutput.value = formatted;
-
-    // Stats
-    populateStats(data);
-    document.getElementById('stats-bar').classList.remove('hidden');
-
-    // Copy / Download buttons
-    const copyBtn = document.getElementById('btn-copy');
-    const dlBtn   = document.getElementById('btn-download');
-
-    copyBtn.classList.remove('hidden');
-    if (textBlobUrl) URL.revokeObjectURL(textBlobUrl);
-    textBlobUrl       = URL.createObjectURL(new Blob([formatted], { type: 'application/json' }));
-    dlBtn.href        = textBlobUrl;
-    dlBtn.download    = 'formatted.json';
-    dlBtn.classList.remove('hidden');
-
-    // Hide error banners
-    document.getElementById('text-error-banner').classList.add('hidden');
-    document.getElementById('error-gutter').classList.add('hidden');
-    jsonInput.classList.remove('invalid'); jsonInput.classList.add('valid');
-  }
-
-  // ── Format file → /api/tools/format-json-file ──
-  async function formatFile(sortKeys, minify, ensureAscii) {
-    const fd = new FormData();
-    fd.append('file',         selectedFile);
-    fd.append('indent',       minify ? 0 : activeIndent);
-    fd.append('sort_keys',    sortKeys   ? 'true' : 'false');
-    fd.append('minify',       minify     ? 'true' : 'false');
-    fd.append('ensure_ascii', ensureAscii ? 'true' : 'false');
-    fd.append('output',       'file'); // always get file back; we show stats from headers/blob
-
-    const res = await fetch('https://api.filenewer.com/api/tools/format-json-file', {
-      method: 'POST',
-      body:   fd,
-    });
-
-    const fileResultEl  = document.getElementById('file-result');
-    const fileErrBanner = document.getElementById('file-error-banner');
-    const fileStatsRows = document.getElementById('file-stats-rows');
-
-    fileResultEl.classList.remove('hidden');
-
-    // Always read as text first — the API may return JSON even for output=file
-    const rawText = await res.text();
-
-    // Try to parse as JSON (API response with formatted field or error)
-    let data = null;
-    try { data = JSON.parse(rawText); } catch(_) { data = null; }
-
-    if (data !== null) {
-      // Got a JSON response — either { is_valid, formatted, ... } or { error }
-      if (data.is_valid === false) {
-        document.getElementById('file-result-icon').textContent  = '❌';
-        document.getElementById('file-result-title').textContent = 'Invalid JSON';
-        document.getElementById('file-error-msg').textContent    =
-          data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
-        fileErrBanner.classList.remove('hidden');
-        fileStatsRows.innerHTML = '';
-        return;
+      function switchTab(tab) {
+        activeTab = tab;
+        document.getElementById('tab-text').classList.toggle('active', tab === 'text');
+        document.getElementById('tab-file').classList.toggle('active', tab === 'file');
+        document.getElementById('panel-text').classList.toggle('hidden', tab !== 'text');
+        document.getElementById('panel-file').classList.toggle('hidden', tab !== 'file');
+        hideGeneralError();
+        refreshFormatBtn();
       }
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Formatting failed.');
-      }
-
-      // Valid JSON response — use the `formatted` field as the file content
-      const formatted = data.formatted ?? rawText;
-      fileErrBanner.classList.add('hidden');
-      document.getElementById('file-result-icon').textContent  = '✅';
-      document.getElementById('file-result-title').textContent = 'Format Complete';
-
-      const blob    = new Blob([formatted], { type: 'application/json' });
-      const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
-      if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
-      fileBlobUrl = URL.createObjectURL(blob);
-
-      const dlLink = document.getElementById('file-download-link');
-      dlLink.href     = fileBlobUrl;
-      dlLink.download = outName;
-
-      document.getElementById('file-output-name').textContent = outName;
-      document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
-
-      // Populate stats from API response
-      fileStatsRows.innerHTML = '';
-      const apiStats = [
-        ['Type',           data.type       ?? '—'],
-        ['Depth',          data.depth      ?? '—'],
-        ['Keys',           data.key_count  ?? '—'],
-        ['Items',          data.item_count ?? '—'],
-        ['Original size',  data.size_original_kb  != null ? data.size_original_kb  + ' KB' : formatBytes(selectedFile.size)],
-        ['Formatted size', data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : formatBytes(blob.size)],
-        ['Indent',         data.minified ? 'Minified' : (data.indent ?? activeIndent) + ' spaces'],
-        ['Sort keys',      data.sorted_keys ? 'Yes' : 'No'],
-      ];
-      apiStats.forEach(([label, value]) => {
-        const div = document.createElement('div');
-        div.className = 'stat-row';
-        div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
-        fileStatsRows.appendChild(div);
+      // ── Indent buttons ──
+      document.querySelectorAll('.indent-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.indent-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeIndent = parseInt(btn.dataset.indent);
+        });
       });
 
-    } else {
-      // Raw file response (binary/plain text) — treat as direct file download
-      if (!res.ok) throw new Error('Formatting failed.');
-
-      fileErrBanner.classList.add('hidden');
-      document.getElementById('file-result-icon').textContent  = '✅';
-      document.getElementById('file-result-title').textContent = 'Format Complete';
-
-      const blob    = new Blob([rawText], { type: 'application/json' });
-      const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
-      if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
-      fileBlobUrl = URL.createObjectURL(blob);
-
-      const dlLink = document.getElementById('file-download-link');
-      dlLink.href     = fileBlobUrl;
-      dlLink.download = outName;
-
-      document.getElementById('file-output-name').textContent = outName;
-      document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
-
-      fileStatsRows.innerHTML = '';
-      const knownStats = [
-        ['Original size', formatBytes(selectedFile.size)],
-        ['Formatted size', formatBytes(blob.size)],
-        ['Indent',  minify ? 'Minified' : `${activeIndent} spaces`],
-        ['Sort keys', sortKeys ? 'Yes' : 'No'],
-      ];
-      knownStats.forEach(([label, value]) => {
-        const div = document.createElement('div');
-        div.className = 'stat-row';
-        div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
-        fileStatsRows.appendChild(div);
+      // ── Output buttons ──
+      document.querySelectorAll('.output-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeOutput = btn.dataset.output;
+        });
       });
-    }
-  }
 
-  // ── Populate stats bar (text mode) ──
-  function populateStats(data) {
-    document.getElementById('stat-type').textContent      = data.type       ?? '—';
-    document.getElementById('stat-depth').textContent     = data.depth      ?? '—';
-    document.getElementById('stat-keys').textContent      = data.key_count  ?? '—';
-    document.getElementById('stat-items').textContent     = data.item_count ?? '—';
-    document.getElementById('stat-size-orig').textContent = data.size_original_kb  != null ? data.size_original_kb  + ' KB' : '—';
-    document.getElementById('stat-size-fmt').textContent  = data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : '—';
-  }
+      // ── Minify toggle: disable indent when active ──
+      document.getElementById('opt-minify').addEventListener('change', e => {
+        document.querySelectorAll('.indent-btn').forEach(b => {
+          b.classList.toggle('muted', e.target.checked);
+        });
+      });
 
-  // ── Copy button ──
-  document.getElementById('btn-copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(jsonOutput.value);
-      const label = document.getElementById('copy-label');
-      label.textContent = 'Copied!';
-      setTimeout(() => { label.textContent = 'Copy'; }, 2000);
-    } catch(_) {}
-  });
+      // ── Text tab: live validation ──
+      const jsonInput  = document.getElementById('json-input');
+      const jsonOutput = document.getElementById('json-output');
 
-  // ── Helpers ──
-  function showGeneralError(msg) {
-    document.getElementById('general-error-text').textContent = msg;
-    document.getElementById('general-error').classList.remove('hidden');
-    document.getElementById('general-error').classList.add('flex');
-  }
-  function hideGeneralError() {
-    document.getElementById('general-error').classList.add('hidden');
-    document.getElementById('general-error').classList.remove('flex');
-  }
-  function formatBytes(bytes) {
-    if (!bytes) return '—';
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
+      let validateTimer = null;
+      jsonInput.addEventListener('input', () => {
+        clearTimeout(validateTimer);
+        validateTimer = setTimeout(liveValidate, 400);
+        refreshFormatBtn();
+      });
 
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
-    });
-  });
+      function liveValidate() {
+        const raw = jsonInput.value.trim();
+        const statusEl = document.getElementById('text-input-status');
+        const errBanner = document.getElementById('text-error-banner');
+        const errGutter = document.getElementById('error-gutter');
 
-}); // end DOMContentLoaded
-</script>
+        if (!raw) {
+          jsonInput.className = jsonInput.className.replace(/\b(valid|invalid)\b/g, '').trim();
+          statusEl.classList.add('hidden');
+          errBanner.classList.add('hidden');
+          errGutter.classList.add('hidden');
+          return;
+        }
+        try {
+          JSON.parse(raw);
+          jsonInput.classList.remove('invalid'); jsonInput.classList.add('valid');
+          statusEl.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green inline-block mr-1"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">Valid JSON</span>`;
+          statusEl.classList.remove('hidden');
+          errBanner.classList.add('hidden');
+          errGutter.classList.add('hidden');
+        } catch(e) {
+          jsonInput.classList.remove('valid'); jsonInput.classList.add('invalid');
+          statusEl.innerHTML = `<span class="text-fn-red">⚠ Invalid</span>`;
+          statusEl.classList.remove('hidden');
+          document.getElementById('text-error-msg').textContent = e.message;
+          errBanner.classList.remove('hidden');
+          errGutter.classList.remove('hidden');
+        }
+      }
+
+      function refreshFormatBtn() {
+        const btn = document.getElementById('format-btn');
+        if (activeTab === 'text') {
+          btn.disabled = !jsonInput.value.trim();
+        } else {
+          btn.disabled = !selectedFile;
+        }
+      }
+
+      // Paste & clear
+      document.getElementById('btn-paste').addEventListener('click', async () => {
+        try { jsonInput.value = await navigator.clipboard.readText(); liveValidate(); refreshFormatBtn(); } catch(_) {}
+      });
+      document.getElementById('btn-clear-text').addEventListener('click', () => {
+        jsonInput.value = '';
+        jsonOutput.value = '';
+        jsonInput.className = jsonInput.className.replace(/\b(valid|invalid)\b/g,'').trim();
+        document.getElementById('text-input-status').classList.add('hidden');
+        document.getElementById('text-error-banner').classList.add('hidden');
+        document.getElementById('error-gutter').classList.add('hidden');
+        document.getElementById('stats-bar').classList.add('hidden');
+        document.getElementById('btn-copy').classList.add('hidden');
+        document.getElementById('btn-download').classList.add('hidden');
+        if (textBlobUrl) { URL.revokeObjectURL(textBlobUrl); textBlobUrl = null; }
+        refreshFormatBtn();
+      });
+
+      // ── File tab ──
+      const dropZone   = document.getElementById('drop-zone');
+      const fileInput  = document.getElementById('file-input');
+      const filePreview = document.getElementById('file-preview');
+
+      ['dragenter','dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave','dragend','drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      document.getElementById('remove-file').addEventListener('click', () => resetFile());
+
+      function handleFile(file) {
+        hideGeneralError();
+        if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
+          showGeneralError('Please select a valid JSON file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) { showGeneralError('File exceeds the 50MB free limit.'); return; }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        document.getElementById('file-result').classList.add('hidden');
+        refreshFormatBtn();
+      }
+
+      window.resetFile = function() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        document.getElementById('file-result').classList.add('hidden');
+        if (fileBlobUrl) { URL.revokeObjectURL(fileBlobUrl); fileBlobUrl = null; }
+        refreshFormatBtn();
+      };
+
+      // ── Format button ──
+      document.getElementById('format-btn').addEventListener('click', doFormat);
+
+      async function doFormat() {
+        hideGeneralError();
+        const btn = document.getElementById('format-btn');
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="spin w-3 h-3" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Formatting…`;
+
+        const sortKeys   = document.getElementById('opt-sort').checked;
+        const minify     = document.getElementById('opt-minify').checked;
+        const ensureAscii = document.getElementById('opt-ascii').checked;
+
+        try {
+          if (activeTab === 'text') {
+            await formatText(sortKeys, minify, ensureAscii);
+          } else {
+            await formatFile(sortKeys, minify, ensureAscii);
+          }
+        } catch(err) {
+          showGeneralError(err.message || 'Something went wrong. Please try again.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Format`;
+          refreshFormatBtn();
+        }
+      }
+
+      // ── Format text → /api/tools/format-json-text ──
+      async function formatText(sortKeys, minify, ensureAscii) {
+        let jsonValue;
+        try { jsonValue = JSON.parse(jsonInput.value.trim()); }
+        catch(e) { throw new Error('Cannot format — invalid JSON: ' + e.message); }
+
+        const payload = {
+          json:         jsonValue,
+          indent:       minify ? 0 : activeIndent,
+          sort_keys:    sortKeys,
+          minify:       minify,
+          ensure_ascii: ensureAscii,
+          output:       activeOutput,
+        };
+
+        const res  = await fetch('https://api.filenewer.com/api/tools/format-json-text', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const d = await res.json().catch(() => ({}));
+          throw new Error(d.error || 'Formatting failed.');
+        }
+
+        const data = await res.json();
+
+        if (!data.is_valid) {
+          document.getElementById('text-error-msg').textContent =
+            data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
+          document.getElementById('text-error-banner').classList.remove('hidden');
+          document.getElementById('error-gutter').classList.remove('hidden');
+          jsonInput.classList.add('invalid');
+          jsonOutput.value = '';
+          document.getElementById('stats-bar').classList.add('hidden');
+          return;
+        }
+
+        const formatted = data.formatted ?? '';
+        jsonOutput.value = formatted;
+
+        // Stats
+        populateStats(data);
+        document.getElementById('stats-bar').classList.remove('hidden');
+
+        // Copy / Download buttons
+        const copyBtn = document.getElementById('btn-copy');
+        const dlBtn   = document.getElementById('btn-download');
+
+        copyBtn.classList.remove('hidden');
+        if (textBlobUrl) URL.revokeObjectURL(textBlobUrl);
+        textBlobUrl       = URL.createObjectURL(new Blob([formatted], { type: 'application/json' }));
+        dlBtn.href        = textBlobUrl;
+        dlBtn.download    = 'formatted.json';
+        dlBtn.classList.remove('hidden');
+
+        // Hide error banners
+        document.getElementById('text-error-banner').classList.add('hidden');
+        document.getElementById('error-gutter').classList.add('hidden');
+        jsonInput.classList.remove('invalid'); jsonInput.classList.add('valid');
+      }
+
+      // ── Format file → /api/tools/format-json-file ──
+      async function formatFile(sortKeys, minify, ensureAscii) {
+        const fd = new FormData();
+        fd.append('file',         selectedFile);
+        fd.append('indent',       minify ? 0 : activeIndent);
+        fd.append('sort_keys',    sortKeys   ? 'true' : 'false');
+        fd.append('minify',       minify     ? 'true' : 'false');
+        fd.append('ensure_ascii', ensureAscii ? 'true' : 'false');
+        fd.append('output',       'file'); // always get file back; we show stats from headers/blob
+
+        const res = await fetch('https://api.filenewer.com/api/tools/format-json-file', {
+          method: 'POST',
+          body:   fd,
+        });
+
+        const fileResultEl  = document.getElementById('file-result');
+        const fileErrBanner = document.getElementById('file-error-banner');
+        const fileStatsRows = document.getElementById('file-stats-rows');
+
+        fileResultEl.classList.remove('hidden');
+
+        // Always read as text first — the API may return JSON even for output=file
+        const rawText = await res.text();
+
+        // Try to parse as JSON (API response with formatted field or error)
+        let data = null;
+        try { data = JSON.parse(rawText); } catch(_) { data = null; }
+
+        if (data !== null) {
+          // Got a JSON response — either { is_valid, formatted, ... } or { error }
+          if (data.is_valid === false) {
+            document.getElementById('file-result-icon').textContent  = '❌';
+            document.getElementById('file-result-title').textContent = 'Invalid JSON';
+            document.getElementById('file-error-msg').textContent    =
+              data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
+            fileErrBanner.classList.remove('hidden');
+            fileStatsRows.innerHTML = '';
+            return;
+          }
+
+          if (!res.ok) {
+            throw new Error(data.error || 'Formatting failed.');
+          }
+
+          // Valid JSON response — use the `formatted` field as the file content
+          const formatted = data.formatted ?? rawText;
+          fileErrBanner.classList.add('hidden');
+          document.getElementById('file-result-icon').textContent  = '✅';
+          document.getElementById('file-result-title').textContent = 'Format Complete';
+
+          const blob    = new Blob([formatted], { type: 'application/json' });
+          const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
+          if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
+          fileBlobUrl = URL.createObjectURL(blob);
+
+          const dlLink = document.getElementById('file-download-link');
+          dlLink.href     = fileBlobUrl;
+          dlLink.download = outName;
+
+          document.getElementById('file-output-name').textContent = outName;
+          document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
+
+          // Populate stats from API response
+          fileStatsRows.innerHTML = '';
+          const apiStats = [
+            ['Type',           data.type       ?? '—'],
+            ['Depth',          data.depth      ?? '—'],
+            ['Keys',           data.key_count  ?? '—'],
+            ['Items',          data.item_count ?? '—'],
+            ['Original size',  data.size_original_kb  != null ? data.size_original_kb  + ' KB' : formatBytes(selectedFile.size)],
+            ['Formatted size', data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : formatBytes(blob.size)],
+            ['Indent',         data.minified ? 'Minified' : (data.indent ?? activeIndent) + ' spaces'],
+            ['Sort keys',      data.sorted_keys ? 'Yes' : 'No'],
+          ];
+          apiStats.forEach(([label, value]) => {
+            const div = document.createElement('div');
+            div.className = 'stat-row';
+            div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
+            fileStatsRows.appendChild(div);
+          });
+
+        } else {
+          // Raw file response (binary/plain text) — treat as direct file download
+          if (!res.ok) throw new Error('Formatting failed.');
+
+          fileErrBanner.classList.add('hidden');
+          document.getElementById('file-result-icon').textContent  = '✅';
+          document.getElementById('file-result-title').textContent = 'Format Complete';
+
+          const blob    = new Blob([rawText], { type: 'application/json' });
+          const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
+          if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
+          fileBlobUrl = URL.createObjectURL(blob);
+
+          const dlLink = document.getElementById('file-download-link');
+          dlLink.href     = fileBlobUrl;
+          dlLink.download = outName;
+
+          document.getElementById('file-output-name').textContent = outName;
+          document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
+
+          fileStatsRows.innerHTML = '';
+          const knownStats = [
+            ['Original size', formatBytes(selectedFile.size)],
+            ['Formatted size', formatBytes(blob.size)],
+            ['Indent',  minify ? 'Minified' : `${activeIndent} spaces`],
+            ['Sort keys', sortKeys ? 'Yes' : 'No'],
+          ];
+          knownStats.forEach(([label, value]) => {
+            const div = document.createElement('div');
+            div.className = 'stat-row';
+            div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
+            fileStatsRows.appendChild(div);
+          });
+        }
+      }
+
+      // ── Populate stats bar (text mode) ──
+      function populateStats(data) {
+        document.getElementById('stat-type').textContent      = data.type       ?? '—';
+        document.getElementById('stat-depth').textContent     = data.depth      ?? '—';
+        document.getElementById('stat-keys').textContent      = data.key_count  ?? '—';
+        document.getElementById('stat-items').textContent     = data.item_count ?? '—';
+        document.getElementById('stat-size-orig').textContent = data.size_original_kb  != null ? data.size_original_kb  + ' KB' : '—';
+        document.getElementById('stat-size-fmt').textContent  = data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : '—';
+      }
+
+      // ── Copy button ──
+      document.getElementById('btn-copy').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(jsonOutput.value);
+          const label = document.getElementById('copy-label');
+          label.textContent = 'Copied!';
+          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+        } catch(_) {}
+      });
+
+      // ── Helpers ──
+      function showGeneralError(msg) {
+        document.getElementById('general-error-text').textContent = msg;
+        document.getElementById('general-error').classList.remove('hidden');
+        document.getElementById('general-error').classList.add('flex');
+      }
+      function hideGeneralError() {
+        document.getElementById('general-error').classList.add('hidden');
+        document.getElementById('general-error').classList.remove('flex');
+      }
+      function formatBytes(bytes) {
+        if (!bytes) return '—';
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

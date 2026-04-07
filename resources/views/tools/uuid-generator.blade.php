@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'UUID Generator – Generate, Validate & Export UUIDs | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -444,515 +446,518 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ STYLES ══ --}}
-<style>
-    .tab-btn {
-        color: var(--fn-text3);
-    }
+@push('styles')
+    {{-- ══ STYLES ══ --}}
+    <style>
+        .tab-btn {
+            color: var(--fn-text3);
+        }
 
-    .tab-btn.active {
-        background: var(--fn-surface);
-        color: var(--fn-text);
-        box-shadow: 0 1px 6px oklch(0% 0 0/14%);
-    }
+        .tab-btn.active {
+            background: var(--fn-surface);
+            color: var(--fn-text);
+            box-shadow: 0 1px 6px oklch(0% 0 0/14%);
+        }
 
-    .ver-btn,
-    .bulk-ver-btn {
-        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-        background: var(--fn-surface);
-        color: var(--fn-text3);
-    }
+        .ver-btn,
+        .bulk-ver-btn {
+            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+            background: var(--fn-surface);
+            color: var(--fn-text3);
+        }
 
-    .ver-btn.active,
-    .bulk-ver-btn.active {
-        color: var(--fn-blue-l);
-        border-color: oklch(49% 0.24 264/40%);
-        background: oklch(49% 0.24 264/8%);
-    }
+        .ver-btn.active,
+        .bulk-ver-btn.active {
+            color: var(--fn-blue-l);
+            border-color: oklch(49% 0.24 264/40%);
+            background: oklch(49% 0.24 264/8%);
+        }
 
-    .ver-btn:not(.active):hover,
-    .bulk-ver-btn:not(.active):hover {
-        border-color: oklch(49% 0.24 264/25%);
-        color: var(--fn-text);
-    }
+        .ver-btn:not(.active):hover,
+        .bulk-ver-btn:not(.active):hover {
+            border-color: oklch(49% 0.24 264/25%);
+            color: var(--fn-text);
+        }
 
-    .uuid-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        background: var(--fn-surface2);
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-        border-radius: 10px;
-        transition: border-color .15s;
-        cursor: pointer;
-    }
+        .uuid-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--fn-surface2);
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+            border-radius: 10px;
+            transition: border-color .15s;
+            cursor: pointer;
+        }
 
-    .uuid-row:hover {
-        border-color: oklch(49% 0.24 264/30%);
-    }
+        .uuid-row:hover {
+            border-color: oklch(49% 0.24 264/30%);
+        }
 
-    .uuid-row .uuid-text {
-        font-family: monospace;
-        font-size: 13px;
-        color: var(--fn-text2);
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+        .uuid-row .uuid-text {
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--fn-text2);
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-    .uuid-row .uuid-num {
-        font-size: 10px;
-        color: var(--fn-text3);
-        width: 20px;
-        text-align: right;
-        flex-shrink: 0;
-    }
+        .uuid-row .uuid-num {
+            font-size: 10px;
+            color: var(--fn-text3);
+            width: 20px;
+            text-align: right;
+            flex-shrink: 0;
+        }
 
-    .uuid-row .uuid-copy {
-        font-size: 10px;
-        color: var(--fn-blue-l);
-        font-weight: 700;
-        opacity: 0;
-        transition: opacity .15s;
-        flex-shrink: 0;
-    }
+        .uuid-row .uuid-copy {
+            font-size: 10px;
+            color: var(--fn-blue-l);
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity .15s;
+            flex-shrink: 0;
+        }
 
-    .uuid-row:hover .uuid-copy {
-        opacity: 1;
-    }
+        .uuid-row:hover .uuid-copy {
+            opacity: 1;
+        }
 
-    .uuid-row.copied {
-        border-color: oklch(67% 0.18 162/40%);
-        background: oklch(67% 0.18 162/6%);
-    }
+        .uuid-row.copied {
+            border-color: oklch(67% 0.18 162/40%);
+            background: oklch(67% 0.18 162/6%);
+        }
 
-    .val-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        padding: 4px 10px;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: 700;
-        background: var(--fn-surface2);
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-        color: var(--fn-text2);
-    }
+        .val-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--fn-surface2);
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+            color: var(--fn-text2);
+        }
 
-    .fmt-row {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 10px;
-        background: var(--fn-surface2);
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: border-color .15s;
-    }
+        .fmt-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: var(--fn-surface2);
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color .15s;
+        }
 
-    .fmt-row:hover {
-        border-color: oklch(49% 0.24 264/30%);
-    }
+        .fmt-row:hover {
+            border-color: oklch(49% 0.24 264/30%);
+        }
 
-    .fmt-row-label {
-        font-size: 10px;
-        color: var(--fn-text3);
-        width: 80px;
-        flex-shrink: 0;
-    }
+        .fmt-row-label {
+            font-size: 10px;
+            color: var(--fn-text3);
+            width: 80px;
+            flex-shrink: 0;
+        }
 
-    .fmt-row-value {
-        font-size: 11px;
-        font-family: monospace;
-        color: var(--fn-text2);
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+        .fmt-row-value {
+            font-size: 11px;
+            font-family: monospace;
+            color: var(--fn-text2);
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-    .fmt-row-copy {
-        font-size: 10px;
-        color: var(--fn-blue-l);
-        font-weight: 700;
-        opacity: 0;
-        flex-shrink: 0;
-        transition: opacity .15s;
-    }
+        .fmt-row-copy {
+            font-size: 10px;
+            color: var(--fn-blue-l);
+            font-weight: 700;
+            opacity: 0;
+            flex-shrink: 0;
+            transition: opacity .15s;
+        }
 
-    .fmt-row:hover .fmt-row-copy {
-        opacity: 1;
-    }
-</style>
+        .fmt-row:hover .fmt-row-copy {
+            opacity: 1;
+        }
+    </style>
+@endpush
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+      const API = 'https://api.filenewer.com/api/tools';
 
-  const API = 'https://api.filenewer.com/api/tools';
-
-  // ── Version descriptions ──
-  const verDescs = {
-    1: 'Time-based (MAC address)',
-    3: 'MD5 name-based (deterministic)',
-    4: 'Random (cryptographically secure)',
-    5: 'SHA-1 name-based (deterministic)',
-    6: 'Reordered time-based (sortable)',
-    7: 'Unix timestamp ms (sortable, modern)',
-  };
-
-  // ── Tab switching ──
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
-    });
-  });
-
-  // ══ GENERATE TAB ══
-
-  let genVersion = 4;
-  let bulkVersion = 4;
-  let bulkBlobUrl = null;
-
-  // Version buttons
-  document.querySelectorAll('.ver-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.ver-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      genVersion = parseInt(btn.dataset.ver);
-      document.getElementById('ver-desc').textContent = verDescs[genVersion] ?? '';
-      // Show/hide name options
-      const needsName = genVersion === 3 || genVersion === 5;
-      document.getElementById('name-opts').classList.toggle('hidden', !needsName);
-    });
-  });
-
-  // Count slider ↔ number sync
-  const countRange = document.getElementById('opt-count');
-  const countNum   = document.getElementById('opt-count-num');
-  countRange.addEventListener('input', () => {
-    document.getElementById('count-val').textContent = countRange.value;
-    countNum.value = countRange.value;
-  });
-  countNum.addEventListener('input', () => {
-    const v = Math.max(1, Math.min(50, parseInt(countNum.value) || 1));
-    countNum.value   = v;
-    countRange.value = v;
-    document.getElementById('count-val').textContent = v;
-  });
-
-  // Generate button
-  document.getElementById('gen-btn').addEventListener('click', doGenerate);
-  document.getElementById('gen-regen').addEventListener('click', doGenerate);
-
-  async function doGenerate() {
-    const btn = document.getElementById('gen-btn');
-    btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Generating…`;
-
-    const count = parseInt(countNum.value) || 1;
-    hideEl('gen-error');
-
-    const payload = {
-      version:   genVersion,
-      count,
-      uppercase: document.getElementById('opt-uppercase').checked,
-      hyphens:   document.getElementById('opt-hyphens').checked,
-      braces:    document.getElementById('opt-braces').checked,
-      prefix:    document.getElementById('opt-prefix').value || '',
-      suffix:    document.getElementById('opt-suffix').value || '',
-    };
-
-    const needsName = genVersion === 3 || genVersion === 5;
-    if (needsName) {
-      payload.namespace = document.getElementById('opt-namespace').value;
-      payload.name      = document.getElementById('opt-name').value;
-    }
-
-    const seed = document.getElementById('opt-seed').value;
-    if (seed) payload.seed = parseInt(seed);
-
-    try {
-      const res  = await fetch(`${API}/uuid-generate`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Generation failed.');
-
-      renderUUIDs(data.uuids ?? [], data.description ?? verDescs[genVersion]);
-    } catch(err) {
-      document.getElementById('gen-error-text').textContent = err.message;
-      showEl('gen-error', 'flex');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`;
-    }
-  }
-
-  function renderUUIDs(uuids, desc) {
-    const list = document.getElementById('gen-uuid-list');
-    list.innerHTML = '';
-    hideEl('gen-empty'); // remove empty state if still there
-
-    const empty = document.createElement('div');
-    empty.id = 'gen-empty';
-    empty.className = 'hidden';
-    list.appendChild(empty);
-
-    uuids.forEach((uuid, idx) => {
-      const row = document.createElement('div');
-      row.className = 'uuid-row';
-      row.innerHTML = `
-        <span class="uuid-num">${idx + 1}</span>
-        <span class="uuid-text">${escHtml(uuid)}</span>
-        <span class="uuid-copy">Copy</span>`;
-      row.addEventListener('click', () => {
-        navigator.clipboard.writeText(uuid).catch(() => {});
-        row.classList.add('copied');
-        row.querySelector('.uuid-copy').textContent = 'Copied!';
-        setTimeout(() => {
-          row.classList.remove('copied');
-          row.querySelector('.uuid-copy').textContent = 'Copy';
-        }, 1500);
-      });
-      list.appendChild(row);
-    });
-
-    // Badge + actions
-    document.getElementById('gen-desc-badge').textContent = desc;
-    showEl('gen-desc-badge');
-    showEl('gen-copy-all');
-    showEl('gen-regen');
-    document.getElementById('gen-output-label').textContent = `Generated UUIDs (${uuids.length})`;
-
-    // Copy all
-    document.getElementById('gen-copy-all').onclick = async () => {
-      await navigator.clipboard.writeText(uuids.join('\n')).catch(() => {});
-      document.getElementById('gen-copy-label').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
-    };
-  }
-
-  // ══ VALIDATE TAB ══
-
-  const valInput = document.getElementById('val-input');
-  const valBtn   = document.getElementById('val-btn');
-
-  valInput.addEventListener('input', () => { valBtn.disabled = !valInput.value.trim(); });
-  valInput.addEventListener('keydown', e => { if (e.key === 'Enter') doValidate(); });
-  valBtn.addEventListener('click', doValidate);
-
-  document.getElementById('val-paste').addEventListener('click', async () => {
-    try { valInput.value = await navigator.clipboard.readText(); valBtn.disabled = false; } catch(_) {}
-  });
-
-  document.querySelectorAll('.val-example').forEach(btn => {
-    btn.addEventListener('click', () => {
-      valInput.value = btn.dataset.uuid;
-      valBtn.disabled = false;
-      doValidate();
-    });
-  });
-
-  async function doValidate() {
-    const uuid = valInput.value.trim();
-    if (!uuid) return;
-    valBtn.disabled = true;
-    valBtn.textContent = '…';
-    hideEl('val-error'); hideEl('val-result');
-
-    try {
-      const res  = await fetch(`${API}/uuid-validate`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ uuid }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Validation failed.');
-
-      const valid = data.is_valid;
-      const result = document.getElementById('val-result');
-      result.className = `p-5 rounded-2xl border space-y-4 ${valid
-        ? 'bg-fn-green/6 border-fn-green/20'
-        : 'bg-fn-red/6 border-fn-red/20'}`;
-
-      document.getElementById('val-icon').textContent         = valid ? '✅' : '❌';
-      document.getElementById('val-title').textContent        = valid ? 'Valid UUID' : 'Invalid UUID';
-      document.getElementById('val-uuid-display').textContent = data.uuid ?? uuid;
-
-      // Chips
-      const chips = document.getElementById('val-chips');
-      chips.innerHTML = '';
-      if (valid) {
-        [
-          ['Version', 'v' + data.version],
-          ['Variant', data.variant ?? '—'],
-          ['Type', data.description ?? '—'],
-        ].forEach(([label, val]) => {
-          const span = document.createElement('span');
-          span.className = 'val-chip';
-          span.innerHTML = `<span class="text-fn-text3">${label}:</span> ${escHtml(String(val))}`;
-          chips.appendChild(span);
-        });
-      }
-
-      // Format cards
-      const fmts = data.formatted ?? {};
-      const fmtDefs = [
-        ['Standard',    fmts.standard],
-        ['Uppercase',   fmts.uppercase],
-        ['No hyphens',  fmts.no_hyphens],
-        ['Braces',      fmts.braces],
-        ['URN',         fmts.urn],
-        ['Hex',         fmts.hex],
-      ].filter(([,v]) => v != null);
-
-      const fmtWrap = document.getElementById('val-formats-wrap');
-      const fmtEl   = document.getElementById('val-formats');
-      if (valid && fmtDefs.length > 0) {
-        fmtEl.innerHTML = '';
-        fmtDefs.forEach(([label, value]) => {
-          const div = document.createElement('div');
-          div.className = 'fmt-row';
-          div.innerHTML = `
-            <span class="fmt-row-label">${label}</span>
-            <span class="fmt-row-value">${escHtml(String(value))}</span>
-            <span class="fmt-row-copy">Copy</span>`;
-          div.addEventListener('click', () => {
-            navigator.clipboard.writeText(String(value)).catch(() => {});
-            div.querySelector('.fmt-row-copy').textContent = 'Copied!';
-            setTimeout(() => { div.querySelector('.fmt-row-copy').textContent = 'Copy'; }, 1500);
-          });
-          fmtEl.appendChild(div);
-        });
-        fmtWrap.classList.remove('hidden');
-      } else {
-        fmtWrap.classList.add('hidden');
-      }
-
-      showEl('val-result');
-    } catch(err) {
-      document.getElementById('val-error-text').textContent = err.message;
-      showEl('val-error', 'flex');
-    } finally {
-      valBtn.disabled = false;
-      valBtn.textContent = 'Validate';
-    }
-  }
-
-  // ══ BULK TAB ══
-
-  // Version buttons (bulk)
-  document.querySelectorAll('.bulk-ver-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.bulk-ver-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      bulkVersion = parseInt(btn.dataset.ver);
-    });
-  });
-
-  // Count sync
-  const bulkRange = document.getElementById('bulk-count');
-  const bulkNum   = document.getElementById('bulk-count-num');
-  bulkRange.addEventListener('input', () => {
-    document.getElementById('bulk-count-val').textContent = bulkRange.value;
-    bulkNum.value = bulkRange.value;
-  });
-  bulkNum.addEventListener('input', () => {
-    const v = Math.max(1, Math.min(1000, parseInt(bulkNum.value) || 1));
-    bulkNum.value   = v;
-    bulkRange.value = v;
-    document.getElementById('bulk-count-val').textContent = v;
-  });
-
-  document.getElementById('bulk-preview-btn').addEventListener('click', () => doBulk('preview'));
-  document.getElementById('bulk-download-btn').addEventListener('click', () => doBulk('download'));
-
-  async function doBulk(mode) {
-    const count  = parseInt(bulkNum.value) || 10;
-    const format = document.querySelector('input[name="bulk-format"]:checked').value;
-    hideEl('bulk-error');
-
-    const previewBtn  = document.getElementById('bulk-preview-btn');
-    const downloadBtn = document.getElementById('bulk-download-btn');
-    previewBtn.disabled  = true;
-    downloadBtn.disabled = true;
-
-    try {
-      const res  = await fetch(`${API}/uuid-bulk`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ version: bulkVersion, count, format, output: 'json' }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Bulk generation failed.');
-
-      // Build output string
-      let output = '';
-      if (data.export) {
-        output = data.export;
-      } else if (Array.isArray(data.uuids)) {
-        output = data.uuids.join('\n');
-      }
-
-      document.getElementById('bulk-output').value = output;
-      document.getElementById('bulk-meta').textContent = `${count} UUIDs · v${bulkVersion} · ${format}`;
-      showEl('bulk-meta');
-      showEl('bulk-copy-btn');
-
-      // Wire copy
-      document.getElementById('bulk-copy-btn').onclick = async () => {
-        await navigator.clipboard.writeText(output).catch(() => {});
-        document.getElementById('bulk-copy-label').textContent = 'Copied!';
-        setTimeout(() => { document.getElementById('bulk-copy-label').textContent = 'Copy'; }, 2000);
+      // ── Version descriptions ──
+      const verDescs = {
+        1: 'Time-based (MAC address)',
+        3: 'MD5 name-based (deterministic)',
+        4: 'Random (cryptographically secure)',
+        5: 'SHA-1 name-based (deterministic)',
+        6: 'Reordered time-based (sortable)',
+        7: 'Unix timestamp ms (sortable, modern)',
       };
 
-      // Download link
-      const extMap = { standard:'txt', csv:'csv', json:'json', sql:'sql', array:'js' };
-      const ext    = extMap[format] ?? 'txt';
-      if (bulkBlobUrl) URL.revokeObjectURL(bulkBlobUrl);
-      bulkBlobUrl = URL.createObjectURL(new Blob([output], { type: 'text/plain;charset=utf-8;' }));
-      const dlLink = document.getElementById('bulk-dl-link');
-      dlLink.href     = bulkBlobUrl;
-      dlLink.download = `uuids_v${bulkVersion}.${ext}`;
-      document.getElementById('bulk-dl-label').textContent = `Download .${ext}`;
-      showEl('bulk-dl-link');
+      // ── Tab switching ──
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+          document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
+        });
+      });
 
-      if (mode === 'download') dlLink.click();
+      // ══ GENERATE TAB ══
 
-    } catch(err) {
-      document.getElementById('bulk-error-text').textContent = err.message;
-      showEl('bulk-error', 'flex');
-    } finally {
-      previewBtn.disabled  = false;
-      downloadBtn.disabled = false;
-    }
-  }
+      let genVersion = 4;
+      let bulkVersion = 4;
+      let bulkBlobUrl = null;
 
-  // ── Utility ──
-  function showEl(id, display = 'block') {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.remove('hidden');
-    if (display === 'flex') el.classList.add('flex');
-  }
-  function hideEl(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.add('hidden');
-    el.classList.remove('flex');
-  }
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
+      // Version buttons
+      document.querySelectorAll('.ver-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.ver-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          genVersion = parseInt(btn.dataset.ver);
+          document.getElementById('ver-desc').textContent = verDescs[genVersion] ?? '';
+          // Show/hide name options
+          const needsName = genVersion === 3 || genVersion === 5;
+          document.getElementById('name-opts').classList.toggle('hidden', !needsName);
+        });
+      });
 
-}); // end DOMContentLoaded
-</script>
+      // Count slider ↔ number sync
+      const countRange = document.getElementById('opt-count');
+      const countNum   = document.getElementById('opt-count-num');
+      countRange.addEventListener('input', () => {
+        document.getElementById('count-val').textContent = countRange.value;
+        countNum.value = countRange.value;
+      });
+      countNum.addEventListener('input', () => {
+        const v = Math.max(1, Math.min(50, parseInt(countNum.value) || 1));
+        countNum.value   = v;
+        countRange.value = v;
+        document.getElementById('count-val').textContent = v;
+      });
+
+      // Generate button
+      document.getElementById('gen-btn').addEventListener('click', doGenerate);
+      document.getElementById('gen-regen').addEventListener('click', doGenerate);
+
+      async function doGenerate() {
+        const btn = document.getElementById('gen-btn');
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Generating…`;
+
+        const count = parseInt(countNum.value) || 1;
+        hideEl('gen-error');
+
+        const payload = {
+          version:   genVersion,
+          count,
+          uppercase: document.getElementById('opt-uppercase').checked,
+          hyphens:   document.getElementById('opt-hyphens').checked,
+          braces:    document.getElementById('opt-braces').checked,
+          prefix:    document.getElementById('opt-prefix').value || '',
+          suffix:    document.getElementById('opt-suffix').value || '',
+        };
+
+        const needsName = genVersion === 3 || genVersion === 5;
+        if (needsName) {
+          payload.namespace = document.getElementById('opt-namespace').value;
+          payload.name      = document.getElementById('opt-name').value;
+        }
+
+        const seed = document.getElementById('opt-seed').value;
+        if (seed) payload.seed = parseInt(seed);
+
+        try {
+          const res  = await fetch(`${API}/uuid-generate`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Generation failed.');
+
+          renderUUIDs(data.uuids ?? [], data.description ?? verDescs[genVersion]);
+        } catch(err) {
+          document.getElementById('gen-error-text').textContent = err.message;
+          showEl('gen-error', 'flex');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`;
+        }
+      }
+
+      function renderUUIDs(uuids, desc) {
+        const list = document.getElementById('gen-uuid-list');
+        list.innerHTML = '';
+        hideEl('gen-empty'); // remove empty state if still there
+
+        const empty = document.createElement('div');
+        empty.id = 'gen-empty';
+        empty.className = 'hidden';
+        list.appendChild(empty);
+
+        uuids.forEach((uuid, idx) => {
+          const row = document.createElement('div');
+          row.className = 'uuid-row';
+          row.innerHTML = `
+            <span class="uuid-num">${idx + 1}</span>
+            <span class="uuid-text">${escHtml(uuid)}</span>
+            <span class="uuid-copy">Copy</span>`;
+          row.addEventListener('click', () => {
+            navigator.clipboard.writeText(uuid).catch(() => {});
+            row.classList.add('copied');
+            row.querySelector('.uuid-copy').textContent = 'Copied!';
+            setTimeout(() => {
+              row.classList.remove('copied');
+              row.querySelector('.uuid-copy').textContent = 'Copy';
+            }, 1500);
+          });
+          list.appendChild(row);
+        });
+
+        // Badge + actions
+        document.getElementById('gen-desc-badge').textContent = desc;
+        showEl('gen-desc-badge');
+        showEl('gen-copy-all');
+        showEl('gen-regen');
+        document.getElementById('gen-output-label').textContent = `Generated UUIDs (${uuids.length})`;
+
+        // Copy all
+        document.getElementById('gen-copy-all').onclick = async () => {
+          await navigator.clipboard.writeText(uuids.join('\n')).catch(() => {});
+          document.getElementById('gen-copy-label').textContent = 'Copied!';
+          setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
+        };
+      }
+
+      // ══ VALIDATE TAB ══
+
+      const valInput = document.getElementById('val-input');
+      const valBtn   = document.getElementById('val-btn');
+
+      valInput.addEventListener('input', () => { valBtn.disabled = !valInput.value.trim(); });
+      valInput.addEventListener('keydown', e => { if (e.key === 'Enter') doValidate(); });
+      valBtn.addEventListener('click', doValidate);
+
+      document.getElementById('val-paste').addEventListener('click', async () => {
+        try { valInput.value = await navigator.clipboard.readText(); valBtn.disabled = false; } catch(_) {}
+      });
+
+      document.querySelectorAll('.val-example').forEach(btn => {
+        btn.addEventListener('click', () => {
+          valInput.value = btn.dataset.uuid;
+          valBtn.disabled = false;
+          doValidate();
+        });
+      });
+
+      async function doValidate() {
+        const uuid = valInput.value.trim();
+        if (!uuid) return;
+        valBtn.disabled = true;
+        valBtn.textContent = '…';
+        hideEl('val-error'); hideEl('val-result');
+
+        try {
+          const res  = await fetch(`${API}/uuid-validate`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uuid }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Validation failed.');
+
+          const valid = data.is_valid;
+          const result = document.getElementById('val-result');
+          result.className = `p-5 rounded-2xl border space-y-4 ${valid
+            ? 'bg-fn-green/6 border-fn-green/20'
+            : 'bg-fn-red/6 border-fn-red/20'}`;
+
+          document.getElementById('val-icon').textContent         = valid ? '✅' : '❌';
+          document.getElementById('val-title').textContent        = valid ? 'Valid UUID' : 'Invalid UUID';
+          document.getElementById('val-uuid-display').textContent = data.uuid ?? uuid;
+
+          // Chips
+          const chips = document.getElementById('val-chips');
+          chips.innerHTML = '';
+          if (valid) {
+            [
+              ['Version', 'v' + data.version],
+              ['Variant', data.variant ?? '—'],
+              ['Type', data.description ?? '—'],
+            ].forEach(([label, val]) => {
+              const span = document.createElement('span');
+              span.className = 'val-chip';
+              span.innerHTML = `<span class="text-fn-text3">${label}:</span> ${escHtml(String(val))}`;
+              chips.appendChild(span);
+            });
+          }
+
+          // Format cards
+          const fmts = data.formatted ?? {};
+          const fmtDefs = [
+            ['Standard',    fmts.standard],
+            ['Uppercase',   fmts.uppercase],
+            ['No hyphens',  fmts.no_hyphens],
+            ['Braces',      fmts.braces],
+            ['URN',         fmts.urn],
+            ['Hex',         fmts.hex],
+          ].filter(([,v]) => v != null);
+
+          const fmtWrap = document.getElementById('val-formats-wrap');
+          const fmtEl   = document.getElementById('val-formats');
+          if (valid && fmtDefs.length > 0) {
+            fmtEl.innerHTML = '';
+            fmtDefs.forEach(([label, value]) => {
+              const div = document.createElement('div');
+              div.className = 'fmt-row';
+              div.innerHTML = `
+                <span class="fmt-row-label">${label}</span>
+                <span class="fmt-row-value">${escHtml(String(value))}</span>
+                <span class="fmt-row-copy">Copy</span>`;
+              div.addEventListener('click', () => {
+                navigator.clipboard.writeText(String(value)).catch(() => {});
+                div.querySelector('.fmt-row-copy').textContent = 'Copied!';
+                setTimeout(() => { div.querySelector('.fmt-row-copy').textContent = 'Copy'; }, 1500);
+              });
+              fmtEl.appendChild(div);
+            });
+            fmtWrap.classList.remove('hidden');
+          } else {
+            fmtWrap.classList.add('hidden');
+          }
+
+          showEl('val-result');
+        } catch(err) {
+          document.getElementById('val-error-text').textContent = err.message;
+          showEl('val-error', 'flex');
+        } finally {
+          valBtn.disabled = false;
+          valBtn.textContent = 'Validate';
+        }
+      }
+
+      // ══ BULK TAB ══
+
+      // Version buttons (bulk)
+      document.querySelectorAll('.bulk-ver-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.bulk-ver-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          bulkVersion = parseInt(btn.dataset.ver);
+        });
+      });
+
+      // Count sync
+      const bulkRange = document.getElementById('bulk-count');
+      const bulkNum   = document.getElementById('bulk-count-num');
+      bulkRange.addEventListener('input', () => {
+        document.getElementById('bulk-count-val').textContent = bulkRange.value;
+        bulkNum.value = bulkRange.value;
+      });
+      bulkNum.addEventListener('input', () => {
+        const v = Math.max(1, Math.min(1000, parseInt(bulkNum.value) || 1));
+        bulkNum.value   = v;
+        bulkRange.value = v;
+        document.getElementById('bulk-count-val').textContent = v;
+      });
+
+      document.getElementById('bulk-preview-btn').addEventListener('click', () => doBulk('preview'));
+      document.getElementById('bulk-download-btn').addEventListener('click', () => doBulk('download'));
+
+      async function doBulk(mode) {
+        const count  = parseInt(bulkNum.value) || 10;
+        const format = document.querySelector('input[name="bulk-format"]:checked').value;
+        hideEl('bulk-error');
+
+        const previewBtn  = document.getElementById('bulk-preview-btn');
+        const downloadBtn = document.getElementById('bulk-download-btn');
+        previewBtn.disabled  = true;
+        downloadBtn.disabled = true;
+
+        try {
+          const res  = await fetch(`${API}/uuid-bulk`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ version: bulkVersion, count, format, output: 'json' }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Bulk generation failed.');
+
+          // Build output string
+          let output = '';
+          if (data.export) {
+            output = data.export;
+          } else if (Array.isArray(data.uuids)) {
+            output = data.uuids.join('\n');
+          }
+
+          document.getElementById('bulk-output').value = output;
+          document.getElementById('bulk-meta').textContent = `${count} UUIDs · v${bulkVersion} · ${format}`;
+          showEl('bulk-meta');
+          showEl('bulk-copy-btn');
+
+          // Wire copy
+          document.getElementById('bulk-copy-btn').onclick = async () => {
+            await navigator.clipboard.writeText(output).catch(() => {});
+            document.getElementById('bulk-copy-label').textContent = 'Copied!';
+            setTimeout(() => { document.getElementById('bulk-copy-label').textContent = 'Copy'; }, 2000);
+          };
+
+          // Download link
+          const extMap = { standard:'txt', csv:'csv', json:'json', sql:'sql', array:'js' };
+          const ext    = extMap[format] ?? 'txt';
+          if (bulkBlobUrl) URL.revokeObjectURL(bulkBlobUrl);
+          bulkBlobUrl = URL.createObjectURL(new Blob([output], { type: 'text/plain;charset=utf-8;' }));
+          const dlLink = document.getElementById('bulk-dl-link');
+          dlLink.href     = bulkBlobUrl;
+          dlLink.download = `uuids_v${bulkVersion}.${ext}`;
+          document.getElementById('bulk-dl-label').textContent = `Download .${ext}`;
+          showEl('bulk-dl-link');
+
+          if (mode === 'download') dlLink.click();
+
+        } catch(err) {
+          document.getElementById('bulk-error-text').textContent = err.message;
+          showEl('bulk-error', 'flex');
+        } finally {
+          previewBtn.disabled  = false;
+          downloadBtn.disabled = false;
+        }
+      }
+
+      // ── Utility ──
+      function showEl(id, display = 'block') {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove('hidden');
+        if (display === 'flex') el.classList.add('flex');
+      }
+      function hideEl(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      }
+      function escHtml(s) {
+        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

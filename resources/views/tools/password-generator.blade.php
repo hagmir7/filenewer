@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'Password Generator – Secure & Random Passwords | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -521,479 +523,483 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ STYLES ══ --}}
-<style>
-    .tab-btn {
-        color: var(--fn-text3);
-    }
+@push('styles')
+    {{-- ══ STYLES ══ --}}
+    <style>
+        .tab-btn {
+            color: var(--fn-text3);
+        }
 
-    .tab-btn.active {
-        background: var(--fn-surface);
-        color: var(--fn-text);
-        box-shadow: 0 1px 6px oklch(0% 0 0/14%);
-    }
+        .tab-btn.active {
+            background: var(--fn-surface);
+            color: var(--fn-text);
+            box-shadow: 0 1px 6px oklch(0% 0 0/14%);
+        }
 
-    .sep-preset-btn {
-        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-        background: var(--fn-surface);
-        color: var(--fn-text3);
-    }
+        .sep-preset-btn {
+            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+            background: var(--fn-surface);
+            color: var(--fn-text3);
+        }
 
-    .sep-preset-btn.active {
-        color: var(--fn-blue-l);
-        border-color: oklch(49% 0.24 264/40%);
-        background: oklch(49% 0.24 264/8%);
-    }
+        .sep-preset-btn.active {
+            color: var(--fn-blue-l);
+            border-color: oklch(49% 0.24 264/40%);
+            background: oklch(49% 0.24 264/8%);
+        }
 
-    .pw-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        background: var(--fn-surface2);
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: border-color .15s;
-    }
+        .pw-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--fn-surface2);
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color .15s;
+        }
 
-    .pw-row:hover {
-        border-color: oklch(49% 0.24 264/30%);
-    }
+        .pw-row:hover {
+            border-color: oklch(49% 0.24 264/30%);
+        }
 
-    .pw-row.copied {
-        border-color: oklch(67% 0.18 162/40%);
-        background: oklch(67% 0.18 162/6%);
-    }
+        .pw-row.copied {
+            border-color: oklch(67% 0.18 162/40%);
+            background: oklch(67% 0.18 162/6%);
+        }
 
-    .pw-text {
-        font-family: monospace;
-        font-size: 14px;
-        color: var(--fn-text);
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+        .pw-text {
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--fn-text);
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-    .pw-copy {
-        font-size: 10px;
-        font-weight: 700;
-        color: var(--fn-blue-l);
-        opacity: 0;
-        transition: opacity .15s;
-        flex-shrink: 0;
-    }
+        .pw-copy {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--fn-blue-l);
+            opacity: 0;
+            transition: opacity .15s;
+            flex-shrink: 0;
+        }
 
-    .pw-row:hover .pw-copy {
-        opacity: 1;
-    }
+        .pw-row:hover .pw-copy {
+            opacity: 1;
+        }
 
-    .crack-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 8px 12px;
-        background: var(--fn-surface);
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-        border-radius: 8px;
-    }
+        .crack-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--fn-surface);
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+            border-radius: 8px;
+        }
 
-    .crack-scenario {
-        font-size: 10px;
-        color: var(--fn-text3);
-        width: 120px;
-        flex-shrink: 0;
-    }
+        .crack-scenario {
+            font-size: 10px;
+            color: var(--fn-text3);
+            width: 120px;
+            flex-shrink: 0;
+        }
 
-    .crack-value {
-        font-size: 11px;
-        font-weight: 700;
-        color: var(--fn-text2);
-    }
-</style>
+        .crack-value {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--fn-text2);
+        }
+    </style>
+@endpush
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  const API = 'https://api.filenewer.com/api/tools';
+      const API = 'https://api.filenewer.com/api/tools';
 
-  const strengthConfig = {
-    very_weak:   { label: 'Very Weak',   color: 'oklch(62% 0.22 25)',  bg: 'oklch(62% 0.22 25/12%)', border: 'oklch(62% 0.22 25/30%)', pct: 10 },
-    weak:        { label: 'Weak',        color: 'oklch(75% 0.15 55)',  bg: 'oklch(75% 0.15 55/12%)', border: 'oklch(75% 0.15 55/30%)', pct: 30 },
-    moderate:    { label: 'Moderate',    color: 'oklch(80% 0.16 80)',  bg: 'oklch(80% 0.16 80/12%)', border: 'oklch(80% 0.16 80/30%)', pct: 55 },
-    strong:      { label: 'Strong',      color: 'oklch(67% 0.18 162)', bg: 'oklch(67% 0.18 162/12%)', border: 'oklch(67% 0.18 162/30%)', pct: 80 },
-    very_strong: { label: 'Very Strong', color: 'oklch(49% 0.24 264)', bg: 'oklch(49% 0.24 264/12%)', border: 'oklch(49% 0.24 264/30%)', pct: 100 },
-  };
+      const strengthConfig = {
+        very_weak:   { label: 'Very Weak',   color: 'oklch(62% 0.22 25)',  bg: 'oklch(62% 0.22 25/12%)', border: 'oklch(62% 0.22 25/30%)', pct: 10 },
+        weak:        { label: 'Weak',        color: 'oklch(75% 0.15 55)',  bg: 'oklch(75% 0.15 55/12%)', border: 'oklch(75% 0.15 55/30%)', pct: 30 },
+        moderate:    { label: 'Moderate',    color: 'oklch(80% 0.16 80)',  bg: 'oklch(80% 0.16 80/12%)', border: 'oklch(80% 0.16 80/30%)', pct: 55 },
+        strong:      { label: 'Strong',      color: 'oklch(67% 0.18 162)', bg: 'oklch(67% 0.18 162/12%)', border: 'oklch(67% 0.18 162/30%)', pct: 80 },
+        very_strong: { label: 'Very Strong', color: 'oklch(49% 0.24 264)', bg: 'oklch(49% 0.24 264/12%)', border: 'oklch(49% 0.24 264/30%)', pct: 100 },
+      };
 
-  // ── Tab switching ──
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
-    });
-  });
-
-  // ══ GENERATE ══
-
-  // Sync length slider ↔ number input
-  const pwLenRange = document.getElementById('pw-length');
-  const pwLenNum   = document.getElementById('pw-length-num');
-  pwLenRange.addEventListener('input', () => { document.getElementById('pw-len-val').textContent = pwLenRange.value; pwLenNum.value = pwLenRange.value; });
-  pwLenNum.addEventListener('input', () => {
-    const v = Math.max(4, Math.min(256, parseInt(pwLenNum.value)||16));
-    pwLenNum.value = v; pwLenRange.value = Math.min(v, 128);
-    document.getElementById('pw-len-val').textContent = v;
-  });
-
-  // Sync count slider
-  document.getElementById('pw-count').addEventListener('input', e => {
-    document.getElementById('pw-count-val').textContent = e.target.value;
-  });
-
-  document.getElementById('gen-btn').addEventListener('click', doGenerate);
-  document.getElementById('gen-regen').addEventListener('click', doGenerate);
-
-  async function doGenerate() {
-    hideEl('gen-error');
-    setLoading('gen-btn', 'Generating…');
-
-    const payload = {
-      length:            parseInt(pwLenNum.value) || 16,
-      count:             parseInt(document.getElementById('pw-count').value) || 1,
-      uppercase:         document.getElementById('pw-uppercase').checked,
-      lowercase:         document.getElementById('pw-lowercase').checked,
-      digits:            document.getElementById('pw-digits').checked,
-      symbols:           document.getElementById('pw-symbols').checked,
-      exclude_similar:   document.getElementById('pw-exclude-similar').checked,
-      exclude_ambiguous: document.getElementById('pw-exclude-ambiguous').checked,
-      no_repeat:         document.getElementById('pw-no-repeat').checked,
-      exclude_chars:     document.getElementById('pw-exclude-chars').value || '',
-      prefix:            document.getElementById('pw-prefix').value || '',
-      suffix:            document.getElementById('pw-suffix').value || '',
-      custom_chars:      document.getElementById('pw-custom-chars').value || '',
-    };
-
-    try {
-      const res  = await fetch(`${API}/password-generate`, {
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
+      // ── Tab switching ──
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+          document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
+        });
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Generation failed.');
-      renderPasswords(data);
-    } catch(err) {
-      document.getElementById('gen-error-text').textContent = err.message;
-      showEl('gen-error', 'flex');
-    } finally {
-      resetLoading('gen-btn', `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`);
-    }
-  }
 
-  function renderPasswords(data) {
-    const passwords = data.passwords ?? [];
-    const strength  = data.strength  ?? 'moderate';
-    const cfg       = strengthConfig[strength] ?? strengthConfig.moderate;
+      // ══ GENERATE ══
 
-    // Meta bar
-    document.getElementById('gen-strength-badge').textContent  = cfg.label;
-    document.getElementById('gen-strength-badge').style.background = cfg.bg;
-    document.getElementById('gen-strength-badge').style.color      = cfg.color;
-    document.getElementById('gen-strength-badge').style.border     = `1px solid ${cfg.border}`;
-    document.getElementById('gen-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
-    document.getElementById('gen-pool').textContent    = data.pool_size ? data.pool_size + ' chars' : '—';
-    showEl('gen-meta-bar', 'flex');
-    showEl('gen-copy-all');
-
-    // Password rows
-    const list = document.getElementById('pw-list');
-    list.innerHTML = '';
-    passwords.forEach(pw => {
-      const row = document.createElement('div');
-      row.className = 'pw-row';
-      row.innerHTML = `<span class="pw-text">${escHtml(pw)}</span><span class="pw-copy">Copy</span>`;
-      row.addEventListener('click', () => {
-        navigator.clipboard.writeText(pw).catch(() => {});
-        row.classList.add('copied');
-        row.querySelector('.pw-copy').textContent = 'Copied!';
-        setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = 'Copy'; }, 1500);
+      // Sync length slider ↔ number input
+      const pwLenRange = document.getElementById('pw-length');
+      const pwLenNum   = document.getElementById('pw-length-num');
+      pwLenRange.addEventListener('input', () => { document.getElementById('pw-len-val').textContent = pwLenRange.value; pwLenNum.value = pwLenRange.value; });
+      pwLenNum.addEventListener('input', () => {
+        const v = Math.max(4, Math.min(256, parseInt(pwLenNum.value)||16));
+        pwLenNum.value = v; pwLenRange.value = Math.min(v, 128);
+        document.getElementById('pw-len-val').textContent = v;
       });
-      list.appendChild(row);
-    });
 
-    // Copy all
-    document.getElementById('gen-copy-all').onclick = async () => {
-      await navigator.clipboard.writeText(passwords.join('\n')).catch(() => {});
-      document.getElementById('gen-copy-label').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
-    };
-
-    // Crack time
-    if (data.crack_time) {
-      renderCrackTime('crack-time-grid', data.crack_time);
-      showEl('crack-time-card');
-    }
-  }
-
-  // ══ PASSPHRASE ══
-  document.getElementById('pp-words').addEventListener('input', e => {
-    document.getElementById('pp-words-val').textContent = e.target.value;
-  });
-  document.getElementById('pp-count').addEventListener('input', e => {
-    document.getElementById('pp-count-val').textContent = e.target.value;
-  });
-
-  // Separator presets
-  document.querySelectorAll('.sep-preset-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.sep-preset-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('pp-separator').value = btn.dataset.sep === '␣' ? ' ' : btn.dataset.sep;
-    });
-  });
-  document.getElementById('pp-separator').addEventListener('input', () => {
-    document.querySelectorAll('.sep-preset-btn').forEach(b => b.classList.remove('active'));
-  });
-
-  document.getElementById('pp-gen-btn').addEventListener('click', doPassphrase);
-  document.getElementById('pp-regen').addEventListener('click', doPassphrase);
-
-  async function doPassphrase() {
-    hideEl('pp-error');
-    setLoading('pp-gen-btn', 'Generating…');
-    const payload = {
-      words:         parseInt(document.getElementById('pp-words').value) || 4,
-      count:         parseInt(document.getElementById('pp-count').value) || 3,
-      separator:     document.getElementById('pp-separator').value,
-      capitalize:    document.getElementById('pp-capitalize').checked,
-      include_digit: document.getElementById('pp-digit').checked,
-    };
-    try {
-      const res  = await fetch(`${API}/passphrase-generate`, {
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
+      // Sync count slider
+      document.getElementById('pw-count').addEventListener('input', e => {
+        document.getElementById('pw-count-val').textContent = e.target.value;
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Generation failed.');
-      renderPassphrases(data);
-    } catch(err) {
-      document.getElementById('pp-error-text').textContent = err.message;
-      showEl('pp-error', 'flex');
-    } finally {
-      resetLoading('pp-gen-btn', `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate Passphrases`);
-    }
-  }
 
-  function renderPassphrases(data) {
-    const phrases = data.passphrases ?? [];
-    const strength = data.strength ?? 'moderate';
-    const cfg = strengthConfig[strength] ?? strengthConfig.moderate;
+      document.getElementById('gen-btn').addEventListener('click', doGenerate);
+      document.getElementById('gen-regen').addEventListener('click', doGenerate);
 
-    document.getElementById('pp-strength-badge').textContent       = cfg.label;
-    document.getElementById('pp-strength-badge').style.background  = cfg.bg;
-    document.getElementById('pp-strength-badge').style.color       = cfg.color;
-    document.getElementById('pp-strength-badge').style.border      = `1px solid ${cfg.border}`;
-    document.getElementById('pp-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
-    showEl('pp-meta-bar', 'flex');
-    showEl('pp-copy-all');
+      async function doGenerate() {
+        hideEl('gen-error');
+        setLoading('gen-btn', 'Generating…');
 
-    const list = document.getElementById('pp-list');
-    list.innerHTML = '';
-    phrases.forEach(ph => {
-      const row = document.createElement('div');
-      row.className = 'pw-row';
-      row.innerHTML = `<span class="pw-text">${escHtml(ph)}</span><span class="pw-copy">Copy</span>`;
-      row.addEventListener('click', () => {
-        navigator.clipboard.writeText(ph).catch(() => {});
-        row.classList.add('copied');
-        row.querySelector('.pw-copy').textContent = 'Copied!';
-        setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = 'Copy'; }, 1500);
+        const payload = {
+          length:            parseInt(pwLenNum.value) || 16,
+          count:             parseInt(document.getElementById('pw-count').value) || 1,
+          uppercase:         document.getElementById('pw-uppercase').checked,
+          lowercase:         document.getElementById('pw-lowercase').checked,
+          digits:            document.getElementById('pw-digits').checked,
+          symbols:           document.getElementById('pw-symbols').checked,
+          exclude_similar:   document.getElementById('pw-exclude-similar').checked,
+          exclude_ambiguous: document.getElementById('pw-exclude-ambiguous').checked,
+          no_repeat:         document.getElementById('pw-no-repeat').checked,
+          exclude_chars:     document.getElementById('pw-exclude-chars').value || '',
+          prefix:            document.getElementById('pw-prefix').value || '',
+          suffix:            document.getElementById('pw-suffix').value || '',
+          custom_chars:      document.getElementById('pw-custom-chars').value || '',
+        };
+
+        try {
+          const res  = await fetch(`${API}/password-generate`, {
+            method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Generation failed.');
+          renderPasswords(data);
+        } catch(err) {
+          document.getElementById('gen-error-text').textContent = err.message;
+          showEl('gen-error', 'flex');
+        } finally {
+          resetLoading('gen-btn', `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`);
+        }
+      }
+
+      function renderPasswords(data) {
+        const passwords = data.passwords ?? [];
+        const strength  = data.strength  ?? 'moderate';
+        const cfg       = strengthConfig[strength] ?? strengthConfig.moderate;
+
+        // Meta bar
+        document.getElementById('gen-strength-badge').textContent  = cfg.label;
+        document.getElementById('gen-strength-badge').style.background = cfg.bg;
+        document.getElementById('gen-strength-badge').style.color      = cfg.color;
+        document.getElementById('gen-strength-badge').style.border     = `1px solid ${cfg.border}`;
+        document.getElementById('gen-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
+        document.getElementById('gen-pool').textContent    = data.pool_size ? data.pool_size + ' chars' : '—';
+        showEl('gen-meta-bar', 'flex');
+        showEl('gen-copy-all');
+
+        // Password rows
+        const list = document.getElementById('pw-list');
+        list.innerHTML = '';
+        passwords.forEach(pw => {
+          const row = document.createElement('div');
+          row.className = 'pw-row';
+          row.innerHTML = `<span class="pw-text">${escHtml(pw)}</span><span class="pw-copy">Copy</span>`;
+          row.addEventListener('click', () => {
+            navigator.clipboard.writeText(pw).catch(() => {});
+            row.classList.add('copied');
+            row.querySelector('.pw-copy').textContent = 'Copied!';
+            setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = 'Copy'; }, 1500);
+          });
+          list.appendChild(row);
+        });
+
+        // Copy all
+        document.getElementById('gen-copy-all').onclick = async () => {
+          await navigator.clipboard.writeText(passwords.join('\n')).catch(() => {});
+          document.getElementById('gen-copy-label').textContent = 'Copied!';
+          setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
+        };
+
+        // Crack time
+        if (data.crack_time) {
+          renderCrackTime('crack-time-grid', data.crack_time);
+          showEl('crack-time-card');
+        }
+      }
+
+      // ══ PASSPHRASE ══
+      document.getElementById('pp-words').addEventListener('input', e => {
+        document.getElementById('pp-words-val').textContent = e.target.value;
       });
-      list.appendChild(row);
-    });
-
-    document.getElementById('pp-copy-all').onclick = async () => {
-      await navigator.clipboard.writeText(phrases.join('\n')).catch(() => {});
-      document.getElementById('pp-copy-label').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('pp-copy-label').textContent = 'Copy all'; }, 2000);
-    };
-
-    if (data.crack_time) {
-      renderCrackTime('pp-crack-grid', data.crack_time);
-      showEl('pp-crack-card');
-    }
-  }
-
-  // ══ STRENGTH ══
-  const strInput = document.getElementById('str-input');
-
-  // Show/hide toggle
-  document.getElementById('str-toggle-vis').addEventListener('click', () => {
-    const isPass = strInput.type === 'password';
-    strInput.type = isPass ? 'text' : 'password';
-    document.getElementById('str-eye-show').classList.toggle('hidden', isPass);
-    document.getElementById('str-eye-hide').classList.toggle('hidden', !isPass);
-    document.getElementById('str-toggle-vis').querySelector('span:last-child')?.remove();
-  });
-
-  // Live bar (client-side estimate)
-  let strDebounce = null;
-  strInput.addEventListener('input', () => {
-    updateLiveBar(strInput.value);
-    clearTimeout(strDebounce);
-    if (strInput.value.length >= 4) {
-      strDebounce = setTimeout(doStrengthCheck, 700);
-    } else {
-      hideEl('str-result');
-    }
-  });
-
-  function updateLiveBar(pw) {
-    let bits = 0;
-    if (pw.length > 0) {
-      let pool = 0;
-      if (/[a-z]/.test(pw)) pool += 26;
-      if (/[A-Z]/.test(pw)) pool += 26;
-      if (/[0-9]/.test(pw)) pool += 10;
-      if (/[^a-zA-Z0-9]/.test(pw)) pool += 32;
-      bits = pool > 0 ? Math.log2(pool) * pw.length : 0;
-    }
-    const level = bits < 28 ? 'very_weak' : bits < 36 ? 'weak' : bits < 60 ? 'moderate' : bits < 128 ? 'strong' : 'very_strong';
-    const cfg   = strengthConfig[level];
-    document.getElementById('str-bar').style.width       = cfg.pct + '%';
-    document.getElementById('str-bar').style.background  = cfg.color;
-    document.getElementById('str-live-label').textContent = pw.length ? cfg.label : '—';
-    document.getElementById('str-live-label').style.color = pw.length ? cfg.color : '';
-    document.getElementById('str-live-entropy').textContent = pw.length ? bits.toFixed(1) + ' bits' : '';
-  }
-
-  async function doStrengthCheck() {
-    const pw = strInput.value;
-    if (!pw) return;
-    hideEl('str-error');
-    try {
-      const res  = await fetch(`${API}/password-strength`, {
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ password: pw }),
+      document.getElementById('pp-count').addEventListener('input', e => {
+        document.getElementById('pp-count-val').textContent = e.target.value;
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Check failed.');
-      renderStrength(data);
-    } catch(err) {
-      document.getElementById('str-error-text').textContent = err.message;
-      showEl('str-error', 'flex');
-    }
-  }
 
-  function renderStrength(data) {
-    const strength = data.strength ?? 'moderate';
-    const cfg      = strengthConfig[strength] ?? strengthConfig.moderate;
-    const score    = data.score ?? cfg.pct;
-
-    // Score card
-    const card = document.getElementById('str-score-card');
-    card.style.background = cfg.bg;
-    card.style.border     = `1px solid ${cfg.border}`;
-
-    document.getElementById('str-strength-label').textContent = cfg.label;
-    document.getElementById('str-strength-label').style.color = cfg.color;
-    document.getElementById('str-entropy-label').textContent  =
-      `Entropy: ${(data.entropy ?? 0).toFixed(1)} bits  ·  Score: ${score}/100`;
-    document.getElementById('str-score-num').textContent = score;
-
-    // Animated circle
-    const circle = document.getElementById('str-score-circle');
-    circle.style.stroke = cfg.color;
-    const circ = 2 * Math.PI * 15.9;
-    circle.style.strokeDasharray  = circ;
-    circle.style.strokeDashoffset = circ * (1 - score / 100);
-
-    // Character pills
-    const pills = document.getElementById('str-char-pills');
-    pills.innerHTML = '';
-    const checks = [
-      ['has_uppercase', 'Uppercase A–Z'],
-      ['has_lowercase', 'Lowercase a–z'],
-      ['has_digits',    'Digits 0–9'],
-      ['has_symbols',   'Symbols'],
-    ];
-    checks.forEach(([key, label]) => {
-      const ok  = data[key] ?? false;
-      const span = document.createElement('span');
-      span.className = `text-sm font-semibold px-2.5 py-1 rounded-lg border ${ok
-        ? 'bg-fn-green/10 border-fn-green/25 text-fn-green'
-        : 'bg-fn-text/6 border-fn-text/10 text-fn-text3'}`;
-      span.innerHTML = `${ok ? '✓' : '✗'} ${label}`;
-      pills.appendChild(span);
-    });
-
-    // Crack time
-    if (data.crack_time) {
-      renderCrackTime('str-crack-grid', data.crack_time);
-    }
-
-    // Issues
-    const allIssues = [...(data.issues ?? []), ...(data.suggestions ?? [])];
-    if (allIssues.length > 0) {
-      const list = document.getElementById('str-issues-list');
-      list.innerHTML = '';
-      allIssues.forEach(issue => {
-        const li = document.createElement('li');
-        li.className = 'text-sm text-fn-text2 flex items-start gap-1.5';
-        li.innerHTML = `<span class="text-fn-amber mt-0.5">•</span>${escHtml(issue)}`;
-        list.appendChild(li);
+      // Separator presets
+      document.querySelectorAll('.sep-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sep-preset-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('pp-separator').value = btn.dataset.sep === '␣' ? ' ' : btn.dataset.sep;
+        });
       });
-      showEl('str-issues-wrap');
-    } else {
-      hideEl('str-issues-wrap');
-    }
+      document.getElementById('pp-separator').addEventListener('input', () => {
+        document.querySelectorAll('.sep-preset-btn').forEach(b => b.classList.remove('active'));
+      });
 
-    showEl('str-result');
-  }
+      document.getElementById('pp-gen-btn').addEventListener('click', doPassphrase);
+      document.getElementById('pp-regen').addEventListener('click', doPassphrase);
 
-  // ── Shared crack time renderer ──
-  const crackScenarios = [
-    ['online_throttled',   'Online (throttled)'],
-    ['online_unthrottled', 'Online (fast)'],
-    ['offline_slow',       'Offline (slow hash)'],
-    ['offline_fast',       'Offline (GPU)'],
-    ['massive_attack',     'Massive attack'],
-  ];
+      async function doPassphrase() {
+        hideEl('pp-error');
+        setLoading('pp-gen-btn', 'Generating…');
+        const payload = {
+          words:         parseInt(document.getElementById('pp-words').value) || 4,
+          count:         parseInt(document.getElementById('pp-count').value) || 3,
+          separator:     document.getElementById('pp-separator').value,
+          capitalize:    document.getElementById('pp-capitalize').checked,
+          include_digit: document.getElementById('pp-digit').checked,
+        };
+        try {
+          const res  = await fetch(`${API}/passphrase-generate`, {
+            method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Generation failed.');
+          renderPassphrases(data);
+        } catch(err) {
+          document.getElementById('pp-error-text').textContent = err.message;
+          showEl('pp-error', 'flex');
+        } finally {
+          resetLoading('pp-gen-btn', `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate Passphrases`);
+        }
+      }
 
-  function renderCrackTime(gridId, crackTime) {
-    const grid = document.getElementById(gridId);
-    grid.innerHTML = '';
-    crackScenarios.forEach(([key, label]) => {
-      if (!crackTime[key]) return;
-      const div = document.createElement('div');
-      div.className = 'crack-row';
-      div.innerHTML = `<span class="crack-scenario">${label}</span><span class="crack-value">${escHtml(crackTime[key])}</span>`;
-      grid.appendChild(div);
-    });
-  }
+      function renderPassphrases(data) {
+        const phrases = data.passphrases ?? [];
+        const strength = data.strength ?? 'moderate';
+        const cfg = strengthConfig[strength] ?? strengthConfig.moderate;
 
-  // ── Helpers ──
-  function showEl(id, display='block') {
-    const el = document.getElementById(id); if(!el) return;
-    el.classList.remove('hidden');
-    if (display==='flex') el.classList.add('flex');
-  }
-  function hideEl(id) {
-    const el = document.getElementById(id); if(!el) return;
-    el.classList.add('hidden'); el.classList.remove('flex');
-  }
-  function setLoading(btnId, label) {
-    const btn = document.getElementById(btnId); if(!btn) return;
-    btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> ${label}`;
-  }
-  function resetLoading(btnId, html) {
-    const btn = document.getElementById(btnId); if(!btn) return;
-    btn.disabled = false; btn.innerHTML = html;
-  }
-  function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+        document.getElementById('pp-strength-badge').textContent       = cfg.label;
+        document.getElementById('pp-strength-badge').style.background  = cfg.bg;
+        document.getElementById('pp-strength-badge').style.color       = cfg.color;
+        document.getElementById('pp-strength-badge').style.border      = `1px solid ${cfg.border}`;
+        document.getElementById('pp-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
+        showEl('pp-meta-bar', 'flex');
+        showEl('pp-copy-all');
 
-}); // end DOMContentLoaded
-</script>
+        const list = document.getElementById('pp-list');
+        list.innerHTML = '';
+        phrases.forEach(ph => {
+          const row = document.createElement('div');
+          row.className = 'pw-row';
+          row.innerHTML = `<span class="pw-text">${escHtml(ph)}</span><span class="pw-copy">Copy</span>`;
+          row.addEventListener('click', () => {
+            navigator.clipboard.writeText(ph).catch(() => {});
+            row.classList.add('copied');
+            row.querySelector('.pw-copy').textContent = 'Copied!';
+            setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = 'Copy'; }, 1500);
+          });
+          list.appendChild(row);
+        });
+
+        document.getElementById('pp-copy-all').onclick = async () => {
+          await navigator.clipboard.writeText(phrases.join('\n')).catch(() => {});
+          document.getElementById('pp-copy-label').textContent = 'Copied!';
+          setTimeout(() => { document.getElementById('pp-copy-label').textContent = 'Copy all'; }, 2000);
+        };
+
+        if (data.crack_time) {
+          renderCrackTime('pp-crack-grid', data.crack_time);
+          showEl('pp-crack-card');
+        }
+      }
+
+      // ══ STRENGTH ══
+      const strInput = document.getElementById('str-input');
+
+      // Show/hide toggle
+      document.getElementById('str-toggle-vis').addEventListener('click', () => {
+        const isPass = strInput.type === 'password';
+        strInput.type = isPass ? 'text' : 'password';
+        document.getElementById('str-eye-show').classList.toggle('hidden', isPass);
+        document.getElementById('str-eye-hide').classList.toggle('hidden', !isPass);
+        document.getElementById('str-toggle-vis').querySelector('span:last-child')?.remove();
+      });
+
+      // Live bar (client-side estimate)
+      let strDebounce = null;
+      strInput.addEventListener('input', () => {
+        updateLiveBar(strInput.value);
+        clearTimeout(strDebounce);
+        if (strInput.value.length >= 4) {
+          strDebounce = setTimeout(doStrengthCheck, 700);
+        } else {
+          hideEl('str-result');
+        }
+      });
+
+      function updateLiveBar(pw) {
+        let bits = 0;
+        if (pw.length > 0) {
+          let pool = 0;
+          if (/[a-z]/.test(pw)) pool += 26;
+          if (/[A-Z]/.test(pw)) pool += 26;
+          if (/[0-9]/.test(pw)) pool += 10;
+          if (/[^a-zA-Z0-9]/.test(pw)) pool += 32;
+          bits = pool > 0 ? Math.log2(pool) * pw.length : 0;
+        }
+        const level = bits < 28 ? 'very_weak' : bits < 36 ? 'weak' : bits < 60 ? 'moderate' : bits < 128 ? 'strong' : 'very_strong';
+        const cfg   = strengthConfig[level];
+        document.getElementById('str-bar').style.width       = cfg.pct + '%';
+        document.getElementById('str-bar').style.background  = cfg.color;
+        document.getElementById('str-live-label').textContent = pw.length ? cfg.label : '—';
+        document.getElementById('str-live-label').style.color = pw.length ? cfg.color : '';
+        document.getElementById('str-live-entropy').textContent = pw.length ? bits.toFixed(1) + ' bits' : '';
+      }
+
+      async function doStrengthCheck() {
+        const pw = strInput.value;
+        if (!pw) return;
+        hideEl('str-error');
+        try {
+          const res  = await fetch(`${API}/password-strength`, {
+            method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ password: pw }),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Check failed.');
+          renderStrength(data);
+        } catch(err) {
+          document.getElementById('str-error-text').textContent = err.message;
+          showEl('str-error', 'flex');
+        }
+      }
+
+      function renderStrength(data) {
+        const strength = data.strength ?? 'moderate';
+        const cfg      = strengthConfig[strength] ?? strengthConfig.moderate;
+        const score    = data.score ?? cfg.pct;
+
+        // Score card
+        const card = document.getElementById('str-score-card');
+        card.style.background = cfg.bg;
+        card.style.border     = `1px solid ${cfg.border}`;
+
+        document.getElementById('str-strength-label').textContent = cfg.label;
+        document.getElementById('str-strength-label').style.color = cfg.color;
+        document.getElementById('str-entropy-label').textContent  =
+          `Entropy: ${(data.entropy ?? 0).toFixed(1)} bits  ·  Score: ${score}/100`;
+        document.getElementById('str-score-num').textContent = score;
+
+        // Animated circle
+        const circle = document.getElementById('str-score-circle');
+        circle.style.stroke = cfg.color;
+        const circ = 2 * Math.PI * 15.9;
+        circle.style.strokeDasharray  = circ;
+        circle.style.strokeDashoffset = circ * (1 - score / 100);
+
+        // Character pills
+        const pills = document.getElementById('str-char-pills');
+        pills.innerHTML = '';
+        const checks = [
+          ['has_uppercase', 'Uppercase A–Z'],
+          ['has_lowercase', 'Lowercase a–z'],
+          ['has_digits',    'Digits 0–9'],
+          ['has_symbols',   'Symbols'],
+        ];
+        checks.forEach(([key, label]) => {
+          const ok  = data[key] ?? false;
+          const span = document.createElement('span');
+          span.className = `text-sm font-semibold px-2.5 py-1 rounded-lg border ${ok
+            ? 'bg-fn-green/10 border-fn-green/25 text-fn-green'
+            : 'bg-fn-text/6 border-fn-text/10 text-fn-text3'}`;
+          span.innerHTML = `${ok ? '✓' : '✗'} ${label}`;
+          pills.appendChild(span);
+        });
+
+        // Crack time
+        if (data.crack_time) {
+          renderCrackTime('str-crack-grid', data.crack_time);
+        }
+
+        // Issues
+        const allIssues = [...(data.issues ?? []), ...(data.suggestions ?? [])];
+        if (allIssues.length > 0) {
+          const list = document.getElementById('str-issues-list');
+          list.innerHTML = '';
+          allIssues.forEach(issue => {
+            const li = document.createElement('li');
+            li.className = 'text-sm text-fn-text2 flex items-start gap-1.5';
+            li.innerHTML = `<span class="text-fn-amber mt-0.5">•</span>${escHtml(issue)}`;
+            list.appendChild(li);
+          });
+          showEl('str-issues-wrap');
+        } else {
+          hideEl('str-issues-wrap');
+        }
+
+        showEl('str-result');
+      }
+
+      // ── Shared crack time renderer ──
+      const crackScenarios = [
+        ['online_throttled',   'Online (throttled)'],
+        ['online_unthrottled', 'Online (fast)'],
+        ['offline_slow',       'Offline (slow hash)'],
+        ['offline_fast',       'Offline (GPU)'],
+        ['massive_attack',     'Massive attack'],
+      ];
+
+      function renderCrackTime(gridId, crackTime) {
+        const grid = document.getElementById(gridId);
+        grid.innerHTML = '';
+        crackScenarios.forEach(([key, label]) => {
+          if (!crackTime[key]) return;
+          const div = document.createElement('div');
+          div.className = 'crack-row';
+          div.innerHTML = `<span class="crack-scenario">${label}</span><span class="crack-value">${escHtml(crackTime[key])}</span>`;
+          grid.appendChild(div);
+        });
+      }
+
+      // ── Helpers ──
+      function showEl(id, display='block') {
+        const el = document.getElementById(id); if(!el) return;
+        el.classList.remove('hidden');
+        if (display==='flex') el.classList.add('flex');
+      }
+      function hideEl(id) {
+        const el = document.getElementById(id); if(!el) return;
+        el.classList.add('hidden'); el.classList.remove('flex');
+      }
+      function setLoading(btnId, label) {
+        const btn = document.getElementById(btnId); if(!btn) return;
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> ${label}`;
+      }
+      function resetLoading(btnId, html) {
+        const btn = document.getElementById(btnId); if(!btn) return;
+        btn.disabled = false; btn.innerHTML = html;
+      }
+      function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

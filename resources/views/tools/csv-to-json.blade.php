@@ -1,5 +1,8 @@
 @extends('layouts.base')
 
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -361,333 +364,335 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    // ── Element refs ──
-    const dropZone    = document.getElementById('drop-zone');
-    const fileInput   = document.getElementById('file-input');
-    const convertBtn  = document.getElementById('convert-btn');
-    const filePreview = document.getElementById('file-preview');
-    const removeFile  = document.getElementById('remove-file');
-    const uploadError = document.getElementById('upload-error');
-    const errorText   = document.getElementById('error-text');
+        // ── Element refs ──
+        const dropZone    = document.getElementById('drop-zone');
+        const fileInput   = document.getElementById('file-input');
+        const convertBtn  = document.getElementById('convert-btn');
+        const filePreview = document.getElementById('file-preview');
+        const removeFile  = document.getElementById('remove-file');
+        const uploadError = document.getElementById('upload-error');
+        const errorText   = document.getElementById('error-text');
 
-    let selectedFile   = null;
-    let expiryInterval = null;
+        let selectedFile   = null;
+        let expiryInterval = null;
 
-    // ── Drag & drop ──
-    ['dragenter','dragover'].forEach(evt => {
-        dropZone.addEventListener(evt, e => {
-            e.preventDefault(); e.stopPropagation();
-            dropZone.classList.add('drag-over');
-        });
-    });
-
-    ['dragleave','dragend','drop'].forEach(evt => {
-        dropZone.addEventListener(evt, e => {
-            e.preventDefault(); e.stopPropagation();
-            dropZone.classList.remove('drag-over');
-        });
-    });
-
-    dropZone.addEventListener('drop', e => {
-        const file = e.dataTransfer.files[0];
-        if (file) handleFile(file);
-    });
-
-    fileInput.addEventListener('change', e => {
-        if (e.target.files[0]) handleFile(e.target.files[0]);
-    });
-
-    removeFile.addEventListener('click', e => {
-        e.stopPropagation();
-        resetFile();
-    });
-
-    // ── Handle selected file ──
-    function handleFile(file) {
-        hideError();
-
-        const validTypes = ['text/csv','text/tab-separated-values','application/csv','application/vnd.ms-excel'];
-        const validExts  = ['.csv','.tsv'];
-        const ext        = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-
-        if (!validTypes.includes(file.type) && !validExts.includes(ext)) {
-            showError('Please select a valid CSV or TSV file.');
-            return;
-        }
-
-        if (file.size > 50 * 1024 * 1024) {
-            showError('File exceeds the 50MB free limit.');
-            return;
-        }
-
-        selectedFile = file;
-        document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + (ext === '.tsv' ? 'TSV' : 'CSV') + ' File';
-        document.getElementById('output-name').textContent = file.name.replace(/\.(csv|tsv)$/i, '.json');
-
-        filePreview.classList.remove('hidden');
-        filePreview.classList.add('flex');
-        dropZone.classList.add('has-file');
-        convertBtn.disabled = false;
-    }
-
-    function resetFile() {
-        selectedFile    = null;
-        fileInput.value = '';
-        filePreview.classList.add('hidden');
-        filePreview.classList.remove('flex');
-        dropZone.classList.remove('has-file');
-        convertBtn.disabled = true;
-        hideError();
-    }
-
-    // ── Convert button ──
-    convertBtn.addEventListener('click', startConversion);
-
-    async function startConversion() {
-        if (!selectedFile) return;
-
-        hideError();
-        showState('converting');
-        updateStepIndicator(2);
-
-        const formData = new FormData();
-        formData.append('csv',          selectedFile);
-        formData.append('delimiter',    document.getElementById('opt-delimiter').value);
-        formData.append('format',       document.getElementById('opt-format').value);
-        formData.append('auto_types',   document.getElementById('opt-types').checked   ? '1' : '0');
-        formData.append('has_header',   document.getElementById('opt-header').checked  ? '1' : '0');
-        formData.append('pretty_print', document.getElementById('opt-pretty').checked  ? '1' : '0');
-        formData.append('_token',       '{{ csrf_token() }}');
-
-        setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 800, 'Uploading file…');
-
-        const t2 = setTimeout(() => {
-            setProcessStep('proc-1', 'done');
-            setProcessStep('proc-2', 'active');
-            animateProgress(20, 50, 1000, 'Detecting headers & delimiter…');
-        }, 1000);
-
-        const t3 = setTimeout(() => {
-            setProcessStep('proc-2', 'done');
-            setProcessStep('proc-3', 'active');
-            animateProgress(50, 75, 1200, 'Inferring data types…');
-        }, 2200);
-
-        const t4 = setTimeout(() => {
-            setProcessStep('proc-3', 'done');
-            setProcessStep('proc-4', 'active');
-            animateProgress(75, 90, 1000, 'Generating JSON…');
-        }, 3600);
-
-        try {
-            const res  = await fetch('', {
-                method: 'POST',
-                body:   formData,
+        // ── Drag & drop ──
+        ['dragenter','dragover'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.classList.add('drag-over');
             });
+        });
 
-            clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+        ['dragleave','dragend','drop'].forEach(evt => {
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault(); e.stopPropagation();
+                dropZone.classList.remove('drag-over');
+            });
+        });
 
-            const data = await res.json();
+        dropZone.addEventListener('drop', e => {
+            const file = e.dataTransfer.files[0];
+            if (file) handleFile(file);
+        });
 
-            if (!res.ok || !data.success) {
-                throw new Error(data.message || 'Conversion failed. Please try again.');
+        fileInput.addEventListener('change', e => {
+            if (e.target.files[0]) handleFile(e.target.files[0]);
+        });
+
+        removeFile.addEventListener('click', e => {
+            e.stopPropagation();
+            resetFile();
+        });
+
+        // ── Handle selected file ──
+        function handleFile(file) {
+            hideError();
+
+            const validTypes = ['text/csv','text/tab-separated-values','application/csv','application/vnd.ms-excel'];
+            const validExts  = ['.csv','.tsv'];
+            const ext        = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+
+            if (!validTypes.includes(file.type) && !validExts.includes(ext)) {
+                showError('Please select a valid CSV or TSV file.');
+                return;
             }
 
-            setProcessStep('proc-3', 'done');
-            setProcessStep('proc-4', 'done');
-            animateProgress(90, 100, 400, 'Done!');
+            if (file.size > 50 * 1024 * 1024) {
+                showError('File exceeds the 50MB free limit.');
+                return;
+            }
 
-            setTimeout(() => {
-                document.getElementById('download-link').href       = data.download_url;
-                document.getElementById('output-size').textContent  = formatBytes(data.file_size) + ' · JSON File';
-                document.getElementById('stat-rows').textContent    = data.row_count.toLocaleString();
-                document.getElementById('stat-cols').textContent    = data.col_count.toLocaleString();
-                document.getElementById('stat-size').textContent    = formatBytes(data.file_size);
+            selectedFile = file;
+            document.getElementById('file-name').textContent = file.name;
+            document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + (ext === '.tsv' ? 'TSV' : 'CSV') + ' File';
+            document.getElementById('output-name').textContent = file.name.replace(/\.(csv|tsv)$/i, '.json');
 
-                // Syntax-highlighted preview
-                document.getElementById('json-preview').innerHTML = syntaxHighlight(data.preview_json);
+            filePreview.classList.remove('hidden');
+            filePreview.classList.add('flex');
+            dropZone.classList.add('has-file');
+            convertBtn.disabled = false;
+        }
 
-                showState('download');
-                updateStepIndicator(3);
-                startExpiryTimer(3600);
-            }, 500);
+        function resetFile() {
+            selectedFile    = null;
+            fileInput.value = '';
+            filePreview.classList.add('hidden');
+            filePreview.classList.remove('flex');
+            dropZone.classList.remove('has-file');
+            convertBtn.disabled = true;
+            hideError();
+        }
 
-        } catch (err) {
-            clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-            showError(err.message || 'Something went wrong. Please try again.');
+        // ── Convert button ──
+        convertBtn.addEventListener('click', startConversion);
+
+        async function startConversion() {
+            if (!selectedFile) return;
+
+            hideError();
+            showState('converting');
+            updateStepIndicator(2);
+
+            const formData = new FormData();
+            formData.append('csv',          selectedFile);
+            formData.append('delimiter',    document.getElementById('opt-delimiter').value);
+            formData.append('format',       document.getElementById('opt-format').value);
+            formData.append('auto_types',   document.getElementById('opt-types').checked   ? '1' : '0');
+            formData.append('has_header',   document.getElementById('opt-header').checked  ? '1' : '0');
+            formData.append('pretty_print', document.getElementById('opt-pretty').checked  ? '1' : '0');
+            formData.append('_token',       '{{ csrf_token() }}');
+
+            setProcessStep('proc-1', 'active');
+            animateProgress(0, 20, 800, 'Uploading file…');
+
+            const t2 = setTimeout(() => {
+                setProcessStep('proc-1', 'done');
+                setProcessStep('proc-2', 'active');
+                animateProgress(20, 50, 1000, 'Detecting headers & delimiter…');
+            }, 1000);
+
+            const t3 = setTimeout(() => {
+                setProcessStep('proc-2', 'done');
+                setProcessStep('proc-3', 'active');
+                animateProgress(50, 75, 1200, 'Inferring data types…');
+            }, 2200);
+
+            const t4 = setTimeout(() => {
+                setProcessStep('proc-3', 'done');
+                setProcessStep('proc-4', 'active');
+                animateProgress(75, 90, 1000, 'Generating JSON…');
+            }, 3600);
+
+            try {
+                const res  = await fetch('', {
+                    method: 'POST',
+                    body:   formData,
+                });
+
+                clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || 'Conversion failed. Please try again.');
+                }
+
+                setProcessStep('proc-3', 'done');
+                setProcessStep('proc-4', 'done');
+                animateProgress(90, 100, 400, 'Done!');
+
+                setTimeout(() => {
+                    document.getElementById('download-link').href       = data.download_url;
+                    document.getElementById('output-size').textContent  = formatBytes(data.file_size) + ' · JSON File';
+                    document.getElementById('stat-rows').textContent    = data.row_count.toLocaleString();
+                    document.getElementById('stat-cols').textContent    = data.col_count.toLocaleString();
+                    document.getElementById('stat-size').textContent    = formatBytes(data.file_size);
+
+                    // Syntax-highlighted preview
+                    document.getElementById('json-preview').innerHTML = syntaxHighlight(data.preview_json);
+
+                    showState('download');
+                    updateStepIndicator(3);
+                    startExpiryTimer(3600);
+                }, 500);
+
+            } catch (err) {
+                clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+                showError(err.message || 'Something went wrong. Please try again.');
+                showState('upload');
+                updateStepIndicator(1);
+            }
+        }
+
+        // ── Copy button ──
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            const text = document.getElementById('json-preview').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                this.classList.add('copy-btn-success');
+                this.innerHTML = `
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Copied!
+                `;
+                setTimeout(() => {
+                    this.classList.remove('copy-btn-success');
+                    this.innerHTML = `
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        Copy
+                    `;
+                }, 2000);
+            });
+        });
+
+        // ── Syntax highlighter ──
+        function syntaxHighlight(json) {
+            if (typeof json !== 'string') json = JSON.stringify(json, null, 2);
+            return json
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    let cls = 'num';
+                    if (/^"/.test(match)) {
+                        cls = /:$/.test(match) ? 'key' : 'str';
+                    } else if (/true|false/.test(match)) {
+                        cls = 'bool';
+                    } else if (/null/.test(match)) {
+                        cls = 'null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+        }
+
+        // ── State switcher ──
+        function showState(state) {
+            ['upload','converting','download'].forEach(s => {
+                document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+            });
+            if (state === 'download') {
+                document.getElementById('state-download').classList.add('bounce-in');
+            }
+        }
+
+        // ── Step indicator ──
+        function updateStepIndicator(active) {
+            [1,2,3].forEach(n => {
+                const el = document.getElementById('step-' + n);
+                el.classList.remove('active','done');
+                if (n < active)   el.classList.add('done');
+                if (n === active) el.classList.add('active');
+            });
+        }
+
+        // ── Processing steps ──
+        function setProcessStep(id, state) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const dot   = el.querySelector('.step-dot');
+            const check = el.querySelector('.check-icon');
+            const spin  = el.querySelector('.spin-icon');
+
+            check.classList.add('hidden');
+            spin.classList.add('hidden');
+            dot.style.borderColor = '';
+            dot.style.background  = '';
+
+            if (state === 'active') {
+                spin.classList.remove('hidden');
+                dot.style.borderColor = 'oklch(49% 0.24 264)';
+                dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+            }
+            if (state === 'done') {
+                check.classList.remove('hidden');
+                dot.style.borderColor = 'oklch(67% 0.18 162)';
+                dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+            }
+        }
+
+        // ── Progress bar ──
+        function animateProgress(from, to, duration, label) {
+            document.getElementById('progress-label').textContent = label;
+            const start = performance.now();
+            function step(now) {
+                const t   = Math.min((now - start) / duration, 1);
+                const pct = Math.round(from + (to - from) * t);
+                document.getElementById('progress-fill').style.width = pct + '%';
+                document.getElementById('progress-pct').textContent  = pct + '%';
+                if (t < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // ── Expiry countdown ──
+        function startExpiryTimer(seconds) {
+            clearInterval(expiryInterval);
+            let rem = seconds;
+            expiryInterval = setInterval(() => {
+                rem--;
+                const m  = String(Math.floor(rem / 60)).padStart(2,'0');
+                const s  = String(rem % 60).padStart(2,'0');
+                const el = document.getElementById('expiry-timer');
+                if (el) el.textContent = m + ':' + s;
+                if (rem <= 0) clearInterval(expiryInterval);
+            }, 1000);
+        }
+
+        // ── Reset ──
+        window.resetConverter = function () {
+            resetFile();
             showState('upload');
             updateStepIndicator(1);
+            clearInterval(expiryInterval);
+            animateProgress(0, 0, 0, 'Starting…');
+            ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+        };
+
+        // ── Error helpers ──
+        function showError(msg) {
+            errorText.textContent = msg;
+            uploadError.classList.remove('hidden');
+            uploadError.classList.add('flex');
         }
-    }
+        function hideError() {
+            uploadError.classList.add('hidden');
+            uploadError.classList.remove('flex');
+        }
 
-    // ── Copy button ──
-    document.getElementById('copy-btn').addEventListener('click', function () {
-        const text = document.getElementById('json-preview').textContent;
-        navigator.clipboard.writeText(text).then(() => {
-            this.classList.add('copy-btn-success');
-            this.innerHTML = `
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Copied!
-            `;
-            setTimeout(() => {
-                this.classList.remove('copy-btn-success');
-                this.innerHTML = `
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
-                    Copy
-                `;
-            }, 2000);
-        });
-    });
+        // ── Format bytes ──
+        function formatBytes(bytes) {
+            if (bytes < 1024)    return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(1) + ' MB';
+        }
 
-    // ── Syntax highlighter ──
-    function syntaxHighlight(json) {
-        if (typeof json !== 'string') json = JSON.stringify(json, null, 2);
-        return json
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-                let cls = 'num';
-                if (/^"/.test(match)) {
-                    cls = /:$/.test(match) ? 'key' : 'str';
-                } else if (/true|false/.test(match)) {
-                    cls = 'bool';
-                } else if (/null/.test(match)) {
-                    cls = 'null';
+        // ── FAQ accordion ──
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const body   = btn.nextElementSibling;
+                const icon   = btn.querySelector('.faq-icon');
+                const isOpen = !body.classList.contains('hidden');
+
+                document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+                document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+
+                if (!isOpen) {
+                    body.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
                 }
-                return '<span class="' + cls + '">' + match + '</span>';
             });
-    }
-
-    // ── State switcher ──
-    function showState(state) {
-        ['upload','converting','download'].forEach(s => {
-            document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
-        if (state === 'download') {
-            document.getElementById('state-download').classList.add('bounce-in');
-        }
-    }
 
-    // ── Step indicator ──
-    function updateStepIndicator(active) {
-        [1,2,3].forEach(n => {
-            const el = document.getElementById('step-' + n);
-            el.classList.remove('active','done');
-            if (n < active)   el.classList.add('done');
-            if (n === active) el.classList.add('active');
-        });
-    }
-
-    // ── Processing steps ──
-    function setProcessStep(id, state) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const dot   = el.querySelector('.step-dot');
-        const check = el.querySelector('.check-icon');
-        const spin  = el.querySelector('.spin-icon');
-
-        check.classList.add('hidden');
-        spin.classList.add('hidden');
-        dot.style.borderColor = '';
-        dot.style.background  = '';
-
-        if (state === 'active') {
-            spin.classList.remove('hidden');
-            dot.style.borderColor = 'oklch(49% 0.24 264)';
-            dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-        }
-        if (state === 'done') {
-            check.classList.remove('hidden');
-            dot.style.borderColor = 'oklch(67% 0.18 162)';
-            dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-        }
-    }
-
-    // ── Progress bar ──
-    function animateProgress(from, to, duration, label) {
-        document.getElementById('progress-label').textContent = label;
-        const start = performance.now();
-        function step(now) {
-            const t   = Math.min((now - start) / duration, 1);
-            const pct = Math.round(from + (to - from) * t);
-            document.getElementById('progress-fill').style.width = pct + '%';
-            document.getElementById('progress-pct').textContent  = pct + '%';
-            if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-    }
-
-    // ── Expiry countdown ──
-    function startExpiryTimer(seconds) {
-        clearInterval(expiryInterval);
-        let rem = seconds;
-        expiryInterval = setInterval(() => {
-            rem--;
-            const m  = String(Math.floor(rem / 60)).padStart(2,'0');
-            const s  = String(rem % 60).padStart(2,'0');
-            const el = document.getElementById('expiry-timer');
-            if (el) el.textContent = m + ':' + s;
-            if (rem <= 0) clearInterval(expiryInterval);
-        }, 1000);
-    }
-
-    // ── Reset ──
-    window.resetConverter = function () {
-        resetFile();
-        showState('upload');
-        updateStepIndicator(1);
-        clearInterval(expiryInterval);
-        animateProgress(0, 0, 0, 'Starting…');
-        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-    };
-
-    // ── Error helpers ──
-    function showError(msg) {
-        errorText.textContent = msg;
-        uploadError.classList.remove('hidden');
-        uploadError.classList.add('flex');
-    }
-    function hideError() {
-        uploadError.classList.add('hidden');
-        uploadError.classList.remove('flex');
-    }
-
-    // ── Format bytes ──
-    function formatBytes(bytes) {
-        if (bytes < 1024)    return bytes + ' B';
-        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / 1048576).toFixed(1) + ' MB';
-    }
-
-    // ── FAQ accordion ──
-    document.querySelectorAll('.faq-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const body   = btn.nextElementSibling;
-            const icon   = btn.querySelector('.faq-icon');
-            const isOpen = !body.classList.contains('hidden');
-
-            document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-            document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-
-            if (!isOpen) {
-                body.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            }
-        });
-    });
-
-}); // end DOMContentLoaded
-</script>
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

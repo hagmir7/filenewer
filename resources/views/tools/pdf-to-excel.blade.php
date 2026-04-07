@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -312,315 +314,318 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Element refs ──
-  const dropZone      = document.getElementById('drop-zone');
-  const fileInput     = document.getElementById('file-input');
-  const convertBtn    = document.getElementById('convert-btn');
-  const filePreview   = document.getElementById('file-preview');
-  const removeFile    = document.getElementById('remove-file');
-  const uploadError   = document.getElementById('upload-error');
-  const errorText     = document.getElementById('error-text');
-  const togglePwdBtn  = document.getElementById('toggle-password');
-  const pwdInput      = document.getElementById('opt-password');
-  const eyeShow       = document.getElementById('eye-show');
-  const eyeHide       = document.getElementById('eye-hide');
+      // ── Element refs ──
+      const dropZone      = document.getElementById('drop-zone');
+      const fileInput     = document.getElementById('file-input');
+      const convertBtn    = document.getElementById('convert-btn');
+      const filePreview   = document.getElementById('file-preview');
+      const removeFile    = document.getElementById('remove-file');
+      const uploadError   = document.getElementById('upload-error');
+      const errorText     = document.getElementById('error-text');
+      const togglePwdBtn  = document.getElementById('toggle-password');
+      const pwdInput      = document.getElementById('opt-password');
+      const eyeShow       = document.getElementById('eye-show');
+      const eyeHide       = document.getElementById('eye-hide');
 
-  let selectedFile = null;
-  let blobUrl      = null;
+      let selectedFile = null;
+      let blobUrl      = null;
 
-  // ── Password visibility toggle ──
-  togglePwdBtn.addEventListener('click', () => {
-    const isPassword = pwdInput.type === 'password';
-    pwdInput.type = isPassword ? 'text' : 'password';
-    eyeShow.classList.toggle('hidden', isPassword);
-    eyeHide.classList.toggle('hidden', !isPassword);
-  });
-
-  // ── Drag & drop ──
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropZone.classList.add('drag-over');
-    });
-  });
-
-  ['dragleave', 'dragend', 'drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => {
-      e.preventDefault();
-      e.stopPropagation();
-      dropZone.classList.remove('drag-over');
-    });
-  });
-
-  dropZone.addEventListener('drop', e => {
-    const file = e.dataTransfer.files[0];
-    if (file) handleFile(file);
-  });
-
-  // ── File input change ──
-  fileInput.addEventListener('change', e => {
-    if (e.target.files[0]) handleFile(e.target.files[0]);
-  });
-
-  // ── Remove file ──
-  removeFile.addEventListener('click', e => {
-    e.stopPropagation();
-    resetFile();
-  });
-
-  // ── Handle selected file ──
-  function handleFile(file) {
-    hideError();
-
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
-      return;
-    }
-
-    if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
-      return;
-    }
-
-    selectedFile = file;
-
-    // Pre-fill output filename input with the PDF name swapped to .xlsx
-    const defaultXlsx = file.name.replace(/\.pdf$/i, '.xlsx');
-    const filenameInput = document.getElementById('opt-filename');
-    if (!filenameInput.value) filenameInput.value = defaultXlsx;
-
-    document.getElementById('file-name').textContent   = file.name;
-    document.getElementById('file-meta').textContent   = formatBytes(file.size) + ' · PDF Document';
-    document.getElementById('output-name').textContent = defaultXlsx;
-
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    convertBtn.disabled = false;
-  }
-
-  function resetFile() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    convertBtn.disabled = true;
-    hideError();
-  }
-
-  // ── Convert button ──
-  convertBtn.addEventListener('click', startConversion);
-
-  async function startConversion() {
-    if (!selectedFile) return;
-
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    // ── Build FormData ──
-    // Required: file
-    // Optional: password, filename
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    const password = document.getElementById('opt-password').value.trim();
-    if (password) formData.append('password', password);
-
-    const customFilename = document.getElementById('opt-filename').value.trim();
-    const outputFilename = customFilename || selectedFile.name.replace(/\.pdf$/i, '.xlsx');
-    if (customFilename) formData.append('filename', customFilename);
-
-    // ── Animated progress steps ──
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 800, 'Uploading file…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1', 'done');
-      setProcessStep('proc-2', 'active');
-      animateProgress(20, 50, 1000, 'Detecting tables & data regions…');
-    }, 1000);
-
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2', 'done');
-      setProcessStep('proc-3', 'active');
-      animateProgress(50, 75, 1200, 'Extracting rows, columns & values…');
-    }, 2200);
-
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'active');
-      animateProgress(75, 90, 1000, 'Generating Excel spreadsheet…');
-    }, 3600);
-
-    try {
-      const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-excel', {
-        method: 'POST',
-        body:   formData,
+      // ── Password visibility toggle ──
+      togglePwdBtn.addEventListener('click', () => {
+        const isPassword = pwdInput.type === 'password';
+        pwdInput.type = isPassword ? 'text' : 'password';
+        eyeShow.classList.toggle('hidden', isPassword);
+        eyeHide.classList.toggle('hidden', !isPassword);
       });
 
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+      // ── Drag & drop ──
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.add('drag-over');
+        });
+      });
 
-      // ── On error the API returns JSON { "error": "..." } ──
-      if (!res.ok) {
-        let errMsg = 'Conversion failed. Please try again.';
+      ['dragleave', 'dragend', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.remove('drag-over');
+        });
+      });
+
+      dropZone.addEventListener('drop', e => {
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      // ── File input change ──
+      fileInput.addEventListener('change', e => {
+        if (e.target.files[0]) handleFile(e.target.files[0]);
+      });
+
+      // ── Remove file ──
+      removeFile.addEventListener('click', e => {
+        e.stopPropagation();
+        resetFile();
+      });
+
+      // ── Handle selected file ──
+      function handleFile(file) {
+        hideError();
+
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+          showError('Please select a valid PDF file.');
+          return;
+        }
+
+        if (file.size > 50 * 1024 * 1024) {
+          showError('File exceeds the 50MB free limit.');
+          return;
+        }
+
+        selectedFile = file;
+
+        // Pre-fill output filename input with the PDF name swapped to .xlsx
+        const defaultXlsx = file.name.replace(/\.pdf$/i, '.xlsx');
+        const filenameInput = document.getElementById('opt-filename');
+        if (!filenameInput.value) filenameInput.value = defaultXlsx;
+
+        document.getElementById('file-name').textContent   = file.name;
+        document.getElementById('file-meta').textContent   = formatBytes(file.size) + ' · PDF Document';
+        document.getElementById('output-name').textContent = defaultXlsx;
+
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        convertBtn.disabled = false;
+      }
+
+      function resetFile() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        convertBtn.disabled = true;
+        hideError();
+      }
+
+      // ── Convert button ──
+      convertBtn.addEventListener('click', startConversion);
+
+      async function startConversion() {
+        if (!selectedFile) return;
+
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
+
+        // ── Build FormData ──
+        // Required: file
+        // Optional: password, filename
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        const password = document.getElementById('opt-password').value.trim();
+        if (password) formData.append('password', password);
+
+        const customFilename = document.getElementById('opt-filename').value.trim();
+        const outputFilename = customFilename || selectedFile.name.replace(/\.pdf$/i, '.xlsx');
+        if (customFilename) formData.append('filename', customFilename);
+
+        // ── Animated progress steps ──
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 20, 800, 'Uploading file…');
+
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1', 'done');
+          setProcessStep('proc-2', 'active');
+          animateProgress(20, 50, 1000, 'Detecting tables & data regions…');
+        }, 1000);
+
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2', 'done');
+          setProcessStep('proc-3', 'active');
+          animateProgress(50, 75, 1200, 'Extracting rows, columns & values…');
+        }, 2200);
+
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'active');
+          animateProgress(75, 90, 1000, 'Generating Excel spreadsheet…');
+        }, 3600);
+
         try {
-          const errData = await res.json();
-          if (errData.error) errMsg = errData.error;
-        } catch (_) {}
-        throw new Error(errMsg);
+          const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-excel', {
+            method: 'POST',
+            body:   formData,
+          });
+
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          // ── On error the API returns JSON { "error": "..." } ──
+          if (!res.ok) {
+            let errMsg = 'Conversion failed. Please try again.';
+            try {
+              const errData = await res.json();
+              if (errData.error) errMsg = errData.error;
+            } catch (_) {}
+            throw new Error(errMsg);
+          }
+
+          // ── On success the API streams binary .xlsx bytes directly ──
+          const blob     = await res.blob();
+          const fileName = outputFilename.endsWith('.xlsx') ? outputFilename : outputFilename + '.xlsx';
+
+          // Revoke previous blob URL if any
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+
+          // Wire up the download anchor
+          const link    = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = fileName;
+
+          document.getElementById('output-name').textContent = fileName;
+          document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Spreadsheet';
+
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'done');
+          animateProgress(90, 100, 400, 'Done!');
+
+          setTimeout(() => {
+            showState('download');
+            updateStepIndicator(3);
+          }, 500);
+
+        } catch (err) {
+          console.error(err);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showError(err.message || 'Something went wrong. Please try again.');
+          showState('upload');
+          updateStepIndicator(1);
+        }
       }
 
-      // ── On success the API streams binary .xlsx bytes directly ──
-      const blob     = await res.blob();
-      const fileName = outputFilename.endsWith('.xlsx') ? outputFilename : outputFilename + '.xlsx';
-
-      // Revoke previous blob URL if any
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
-
-      // Wire up the download anchor
-      const link    = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = fileName;
-
-      document.getElementById('output-name').textContent = fileName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Spreadsheet';
-
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 400, 'Done!');
-
-      setTimeout(() => {
-        showState('download');
-        updateStepIndicator(3);
-      }, 500);
-
-    } catch (err) {
-      console.error(err);
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
-      showState('upload');
-      updateStepIndicator(1);
-    }
-  }
-
-  // ── State switcher ──
-  function showState(state) {
-    ['upload', 'converting', 'download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') {
-      document.getElementById('state-download').classList.add('bounce-in');
-    }
-  }
-
-  // ── Step indicator ──
-  function updateStepIndicator(active) {
-    [1, 2, 3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active', 'done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
-
-  // ── Processing steps ──
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-
-    check.classList.add('hidden');
-    spin.classList.add('hidden');
-    dot.style.borderColor = '';
-    dot.style.background  = '';
-
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-    }
-  }
-
-  // ── Progress bar ──
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  // ── Reset ──
-  window.resetConverter = function () {
-    if (blobUrl) {
-      URL.revokeObjectURL(blobUrl);
-      blobUrl = null;
-    }
-    resetFile();
-    document.getElementById('opt-password').value = '';
-    document.getElementById('opt-filename').value = '';
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
-
-  // ── Error helpers ──
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
-
-  // ── Format bytes ──
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-  // ── FAQ accordion ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-
-      if (!isOpen) {
-        body.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
+      // ── State switcher ──
+      function showState(state) {
+        ['upload', 'converting', 'download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') {
+          document.getElementById('state-download').classList.add('bounce-in');
+        }
       }
-    });
-  });
 
-}); // end DOMContentLoaded
-</script>
+      // ── Step indicator ──
+      function updateStepIndicator(active) {
+        [1, 2, 3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active', 'done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      // ── Processing steps ──
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+
+        check.classList.add('hidden');
+        spin.classList.add('hidden');
+        dot.style.borderColor = '';
+        dot.style.background  = '';
+
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+        }
+      }
+
+      // ── Progress bar ──
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      // ── Reset ──
+      window.resetConverter = function () {
+        if (blobUrl) {
+          URL.revokeObjectURL(blobUrl);
+          blobUrl = null;
+        }
+        resetFile();
+        document.getElementById('opt-password').value = '';
+        document.getElementById('opt-filename').value = '';
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
+
+      // ── Error helpers ──
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
+      }
+
+      // ── Format bytes ──
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ accordion ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+
+          if (!isOpen) {
+            body.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+
+@endpush
 
 @endsection

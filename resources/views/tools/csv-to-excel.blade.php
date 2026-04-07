@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'CSV to Excel Converter – Free Online | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -533,488 +535,490 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Refs ──
-  const tabFile      = document.getElementById('tab-file');
-  const tabText      = document.getElementById('tab-text');
-  const panelFile    = document.getElementById('panel-file');
-  const panelText    = document.getElementById('panel-text');
-  const dropZone     = document.getElementById('drop-zone');
-  const fileInput    = document.getElementById('file-input');
-  const convertBtn   = document.getElementById('convert-btn');
-  const filePreview  = document.getElementById('file-preview');
-  const removeFileBtn = document.getElementById('remove-file');
-  const uploadError  = document.getElementById('upload-error');
-  const errorText    = document.getElementById('error-text');
-  const csvTA        = document.getElementById('csv-textarea');
-  const csvStatus    = document.getElementById('csv-status');
-  const smSingle     = document.getElementById('sheet-mode-single');
-  const smMulti      = document.getElementById('sheet-mode-multi');
-  const panelSingle  = document.getElementById('panel-single');
-  const panelMulti   = document.getElementById('panel-multi');
-  const sheetEditors = document.getElementById('sheet-editors');
-  const multiStatus  = document.getElementById('multi-status');
-  const singleSheetNameWrap = document.getElementById('single-sheet-name-wrap');
+      // ── Refs ──
+      const tabFile      = document.getElementById('tab-file');
+      const tabText      = document.getElementById('tab-text');
+      const panelFile    = document.getElementById('panel-file');
+      const panelText    = document.getElementById('panel-text');
+      const dropZone     = document.getElementById('drop-zone');
+      const fileInput    = document.getElementById('file-input');
+      const convertBtn   = document.getElementById('convert-btn');
+      const filePreview  = document.getElementById('file-preview');
+      const removeFileBtn = document.getElementById('remove-file');
+      const uploadError  = document.getElementById('upload-error');
+      const errorText    = document.getElementById('error-text');
+      const csvTA        = document.getElementById('csv-textarea');
+      const csvStatus    = document.getElementById('csv-status');
+      const smSingle     = document.getElementById('sheet-mode-single');
+      const smMulti      = document.getElementById('sheet-mode-multi');
+      const panelSingle  = document.getElementById('panel-single');
+      const panelMulti   = document.getElementById('panel-multi');
+      const sheetEditors = document.getElementById('sheet-editors');
+      const multiStatus  = document.getElementById('multi-status');
+      const singleSheetNameWrap = document.getElementById('single-sheet-name-wrap');
 
-  let selectedFile  = null;
-  let blobUrl       = null;
-  let activeTab     = 'file';
-  let sheetMode     = 'single';
-  let csvValid      = false;
-  let activeSepFile = ',';
-  let activeSepText = ',';
-  let sheetCount    = 0;
+      let selectedFile  = null;
+      let blobUrl       = null;
+      let activeTab     = 'file';
+      let sheetMode     = 'single';
+      let csvValid      = false;
+      let activeSepFile = ',';
+      let activeSepText = ',';
+      let sheetCount    = 0;
 
-  const sepLabels = {
-    ',':   'Comma — standard',
-    ';':   'Semicolon — European locale',
-    '\\t': 'Tab — TSV format',
-    '|':   'Pipe separator',
-  };
+      const sepLabels = {
+        ',':   'Comma — standard',
+        ';':   'Semicolon — European locale',
+        '\\t': 'Tab — TSV format',
+        '|':   'Pipe separator',
+      };
 
-  // ── Tab switching ──
-  tabFile.addEventListener('click', () => switchTab('file'));
-  tabText.addEventListener('click', () => switchTab('text'));
+      // ── Tab switching ──
+      tabFile.addEventListener('click', () => switchTab('file'));
+      tabText.addEventListener('click', () => switchTab('text'));
 
-  function switchTab(tab) {
-    activeTab = tab;
-    tabFile.classList.toggle('active', tab === 'file');
-    tabText.classList.toggle('active', tab === 'text');
-    panelFile.classList.toggle('hidden', tab !== 'file');
-    panelText.classList.toggle('hidden', tab !== 'text');
-    hideError();
-    refreshConvertBtn();
-  }
-
-  // ── Sheet mode (text tab) ──
-  smSingle.addEventListener('click', () => switchSheetMode('single'));
-  smMulti.addEventListener('click',  () => switchSheetMode('multi'));
-
-  function switchSheetMode(mode) {
-    sheetMode = mode;
-    smSingle.classList.toggle('active', mode === 'single');
-    smMulti.classList.toggle('active',  mode === 'multi');
-    panelSingle.classList.toggle('hidden', mode !== 'single');
-    panelMulti.classList.toggle('hidden',  mode !== 'multi');
-    singleSheetNameWrap.style.opacity  = mode === 'single' ? '1' : '0.4';
-    document.getElementById('text-opt-sheet').disabled = mode !== 'single';
-    refreshConvertBtn();
-  }
-
-  // ── Separator buttons — file tab ──
-  document.querySelectorAll('.file-sep-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.file-sep-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeSepFile = btn.dataset.sep;
-      document.getElementById('file-sep-hint').textContent = sepLabels[activeSepFile] ?? '';
-    });
-  });
-
-  // ── Separator buttons — text tab ──
-  document.querySelectorAll('.text-sep-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.text-sep-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeSepText = btn.dataset.sep;
-      document.getElementById('text-sep-hint').textContent = sepLabels[activeSepText] ?? '';
-      validateCsv(); // re-validate with new sep
-    });
-  });
-
-  // ── Drag & drop ──
-  ['dragenter','dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave','dragend','drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  removeFileBtn.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
-  function handleFile(file) {
-    hideError();
-    if (!file.name.toLowerCase().endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
-      showError('Please select a valid CSV file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
-      return;
-    }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
-    const fnInput = document.getElementById('file-opt-filename');
-    if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.xlsx');
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    refreshConvertBtn();
-  }
-
-  function resetFile() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    refreshConvertBtn();
-    hideError();
-  }
-
-  // ── CSV textarea validation (single sheet) ──
-  let validateTimer = null;
-  csvTA.addEventListener('input', () => { clearTimeout(validateTimer); validateTimer = setTimeout(validateCsv, 300); });
-
-  function validateCsv() {
-    const raw = csvTA.value.trim();
-    if (!raw) {
-      csvStatus.classList.add('hidden');
-      csvValid = false;
-      refreshConvertBtn();
-      return;
-    }
-    const lines = raw.split('\n').filter(Boolean);
-    if (lines.length < 2) {
-      csvValid = false;
-      csvStatus.innerHTML = errStatus('Need at least a header row and one data row');
-    } else {
-      const sep  = activeSepText === '\\t' ? '\t' : activeSepText;
-      const cols  = lines[0].split(sep).length;
-      csvValid = true;
-      csvStatus.innerHTML = okStatus(`Valid CSV · ${lines.length - 1} row${lines.length - 1 !== 1 ? 's' : ''} · ${cols} column${cols !== 1 ? 's' : ''}`);
-    }
-    csvStatus.classList.remove('hidden');
-    csvStatus.classList.add('flex');
-    refreshConvertBtn();
-  }
-
-  // ── Multi-sheet editors ──
-  let sheetEditorData = []; // [{ name, csv }]
-
-  function addSheetEditor(name = '', csv = '') {
-    sheetCount++;
-    const idx  = sheetCount;
-    const id   = `sheet-editor-${idx}`;
-    const div  = document.createElement('div');
-    div.className = 'sheet-editor p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2';
-    div.id = id;
-    div.innerHTML = `
-      <div class="flex items-center gap-2">
-        <input type="text" placeholder="Sheet name, e.g. Users" value="${escHtml(name)}"
-          class="sheet-name-input flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60"
-          data-idx="${idx}" />
-        <button type="button" class="remove-sheet-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all" data-id="${id}">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <textarea rows="5" placeholder="Paste CSV for this sheet…" spellcheck="false"
-        class="sheet-csv-input w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"
-        data-idx="${idx}">${escHtml(csv)}</textarea>`;
-    sheetEditors.appendChild(div);
-    div.querySelector('.remove-sheet-btn').addEventListener('click', () => {
-      div.remove();
-      validateMulti();
-    });
-    div.querySelector('.sheet-csv-input').addEventListener('input', validateMulti);
-    div.querySelector('.sheet-name-input').addEventListener('input', validateMulti);
-    validateMulti();
-  }
-
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function getSheetEditorData() {
-    return [...sheetEditors.querySelectorAll('.sheet-editor')].map(div => ({
-      name: div.querySelector('.sheet-name-input').value.trim(),
-      csv:  div.querySelector('.sheet-csv-input').value.trim(),
-    }));
-  }
-
-  function validateMulti() {
-    const sheets = getSheetEditorData();
-    if (sheets.length === 0) {
-      multiStatus.innerHTML = errStatus('Add at least one sheet');
-      multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
-      refreshConvertBtn(); return;
-    }
-    const invalid = sheets.find(s => !s.csv || s.csv.split('\n').filter(Boolean).length < 2);
-    if (invalid) {
-      multiStatus.innerHTML = errStatus('Each sheet needs a header row and at least one data row');
-      multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
-      refreshConvertBtn(); return;
-    }
-    multiStatus.innerHTML = okStatus(`${sheets.length} sheet${sheets.length !== 1 ? 's' : ''} ready`);
-    multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
-    refreshConvertBtn();
-  }
-
-  document.getElementById('btn-add-sheet').addEventListener('click', () => addSheetEditor());
-
-  // Init with two default sheets
-  addSheetEditor('Sheet1', '');
-  addSheetEditor('Sheet2', '');
-
-  // ── Paste & clear (single) ──
-  document.getElementById('btn-paste').addEventListener('click', async () => {
-    try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
-  });
-  document.getElementById('btn-clear').addEventListener('click', () => {
-    csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
-  });
-
-  function refreshConvertBtn() {
-    if (activeTab === 'file') {
-      convertBtn.disabled = !selectedFile;
-    } else if (sheetMode === 'single') {
-      convertBtn.disabled = !csvValid;
-    } else {
-      const sheets = getSheetEditorData();
-      convertBtn.disabled = sheets.length === 0 || sheets.some(s => !s.csv || s.csv.split('\n').filter(Boolean).length < 2);
-    }
-  }
-
-  // ── Convert ──
-  convertBtn.addEventListener('click', startConversion);
-
-  async function startConversion() {
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    const isFile = activeTab === 'file';
-    let endpoint, fetchBody, fetchHeaders = {};
-
-    if (isFile) {
-      // ── multipart/form-data → /api/tools/csv-file-to-excel ──
-      endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-excel';
-      const fd = new FormData();
-      fd.append('file', selectedFile);
-      const sheet    = document.getElementById('file-opt-sheet').value.trim();
-      const filename = document.getElementById('file-opt-filename').value.trim();
-      // Only send separator if user has overridden from auto
-      if (activeSepFile !== ',') fd.append('separator', activeSepFile === '\\t' ? '\t' : activeSepFile);
-      if (sheet)    fd.append('sheet_name', sheet);
-      if (filename) fd.append('filename',   filename);
-      fetchBody = fd;
-
-    } else if (sheetMode === 'single') {
-      // ── application/json single → /api/tools/csv-text-to-excel ──
-      endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-excel';
-      const sheet    = document.getElementById('text-opt-sheet').value.trim();
-      const filename = document.getElementById('text-opt-filename').value.trim();
-      const sep      = activeSepText === '\\t' ? '\t' : activeSepText;
-      const payload  = { csv: csvTA.value.trim(), separator: sep };
-      if (sheet)    payload.sheet_name = sheet;
-      if (filename) payload.filename   = filename;
-      fetchBody    = JSON.stringify(payload);
-      fetchHeaders = { 'Content-Type': 'application/json' };
-
-    } else {
-      // ── application/json multi-sheet → /api/tools/csv-text-to-excel ──
-      endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-excel';
-      const sheets   = getSheetEditorData();
-      const filename = document.getElementById('text-opt-filename').value.trim();
-      const sep      = activeSepText === '\\t' ? '\t' : activeSepText;
-      // Build sheets object: { "SheetName": "csv string", ... }
-      const sheetsObj = {};
-      sheets.forEach((s, i) => { sheetsObj[s.name || `Sheet${i + 1}`] = s.csv; });
-      const payload = { sheets: sheetsObj, separator: sep };
-      if (filename) payload.filename = filename;
-      fetchBody    = JSON.stringify(payload);
-      fetchHeaders = { 'Content-Type': 'application/json' };
-    }
-
-    // Determine output filename
-    let outputFilename;
-    if (isFile) {
-      const custom = document.getElementById('file-opt-filename').value.trim();
-      outputFilename = custom
-        ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
-        : (selectedFile?.name.replace(/\.csv$/i, '.xlsx') ?? 'output.xlsx');
-    } else {
-      const custom = document.getElementById('text-opt-filename').value.trim();
-      outputFilename = custom
-        ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
-        : 'output.xlsx';
-    }
-
-    // Animate
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(22, 52, 800, 'Applying styles & column widths…');
-    }, 700);
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(52, 76, 800, 'Building worksheet(s)…');
-    }, 1600);
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(76, 90, 600, 'Generating Excel workbook…');
-    }, 2600);
-
-    try {
-      const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
-
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
-      if (!res.ok) {
-        let errMsg = 'Conversion failed. Please try again.';
-        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
-        throw new Error(errMsg);
+      function switchTab(tab) {
+        activeTab = tab;
+        tabFile.classList.toggle('active', tab === 'file');
+        tabText.classList.toggle('active', tab === 'text');
+        panelFile.classList.toggle('hidden', tab !== 'file');
+        panelText.classList.toggle('hidden', tab !== 'text');
+        hideError();
+        refreshConvertBtn();
       }
 
-      const blob = await res.blob();
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
+      // ── Sheet mode (text tab) ──
+      smSingle.addEventListener('click', () => switchSheetMode('single'));
+      smMulti.addEventListener('click',  () => switchSheetMode('multi'));
 
-      const link    = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = outputFilename;
+      function switchSheetMode(mode) {
+        sheetMode = mode;
+        smSingle.classList.toggle('active', mode === 'single');
+        smMulti.classList.toggle('active',  mode === 'multi');
+        panelSingle.classList.toggle('hidden', mode !== 'single');
+        panelMulti.classList.toggle('hidden',  mode !== 'multi');
+        singleSheetNameWrap.style.opacity  = mode === 'single' ? '1' : '0.4';
+        document.getElementById('text-opt-sheet').disabled = mode !== 'single';
+        refreshConvertBtn();
+      }
 
-      document.getElementById('output-name').textContent = outputFilename;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
+      // ── Separator buttons — file tab ──
+      document.querySelectorAll('.file-sep-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.file-sep-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeSepFile = btn.dataset.sep;
+          document.getElementById('file-sep-hint').textContent = sepLabels[activeSepFile] ?? '';
+        });
+      });
 
-      setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 300, 'Done!');
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+      // ── Separator buttons — text tab ──
+      document.querySelectorAll('.text-sep-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.text-sep-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeSepText = btn.dataset.sep;
+          document.getElementById('text-sep-hint').textContent = sepLabels[activeSepText] ?? '';
+          validateCsv(); // re-validate with new sep
+        });
+      });
 
-    } catch (err) {
-      console.error(err);
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
-      showState('upload');
-      updateStepIndicator(1);
-    }
-  }
+      // ── Drag & drop ──
+      ['dragenter','dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave','dragend','drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      removeFileBtn.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
 
-  // ── Helpers ──
-  function okStatus(msg) {
-    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
-  }
-  function errStatus(msg) {
-    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
-  }
+      function handleFile(file) {
+        hideError();
+        if (!file.name.toLowerCase().endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
+          showError('Please select a valid CSV file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+          showError('File exceeds the 50MB free limit.');
+          return;
+        }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
+        const fnInput = document.getElementById('file-opt-filename');
+        if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.xlsx');
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        refreshConvertBtn();
+      }
 
-  function showState(state) {
-    ['upload','converting','download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
+      function resetFile() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        refreshConvertBtn();
+        hideError();
+      }
 
-  function updateStepIndicator(active) {
-    [1,2,3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active','done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
+      // ── CSV textarea validation (single sheet) ──
+      let validateTimer = null;
+      csvTA.addEventListener('input', () => { clearTimeout(validateTimer); validateTimer = setTimeout(validateCsv, 300); });
 
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden'); spin.classList.add('hidden');
-    dot.style.borderColor = ''; dot.style.background = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264/15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162/15%)';
-    }
-  }
+      function validateCsv() {
+        const raw = csvTA.value.trim();
+        if (!raw) {
+          csvStatus.classList.add('hidden');
+          csvValid = false;
+          refreshConvertBtn();
+          return;
+        }
+        const lines = raw.split('\n').filter(Boolean);
+        if (lines.length < 2) {
+          csvValid = false;
+          csvStatus.innerHTML = errStatus('Need at least a header row and one data row');
+        } else {
+          const sep  = activeSepText === '\\t' ? '\t' : activeSepText;
+          const cols  = lines[0].split(sep).length;
+          csvValid = true;
+          csvStatus.innerHTML = okStatus(`Valid CSV · ${lines.length - 1} row${lines.length - 1 !== 1 ? 's' : ''} · ${cols} column${cols !== 1 ? 's' : ''}`);
+        }
+        csvStatus.classList.remove('hidden');
+        csvStatus.classList.add('flex');
+        refreshConvertBtn();
+      }
 
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
+      // ── Multi-sheet editors ──
+      let sheetEditorData = []; // [{ name, csv }]
 
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    resetFile();
-    csvTA.value = '';
-    csvStatus.classList.add('hidden');
-    csvValid = false;
-    document.getElementById('file-opt-sheet').value    = '';
-    document.getElementById('file-opt-filename').value = '';
-    document.getElementById('text-opt-sheet').value    = '';
-    document.getElementById('text-opt-filename').value = '';
-    // Reset separators
-    document.querySelectorAll('.file-sep-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.file-sep-btn[data-sep=","]').classList.add('active');
-    activeSepFile = ',';
-    document.getElementById('file-sep-hint').textContent = 'Auto-detected · override if needed';
-    document.querySelectorAll('.text-sep-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.text-sep-btn[data-sep=","]').classList.add('active');
-    activeSepText = ',';
-    document.getElementById('text-sep-hint').textContent = sepLabels[','];
-    // Reset sheet editors
-    sheetEditors.innerHTML = '';
-    sheetCount = 0;
-    addSheetEditor('Sheet1', '');
-    addSheetEditor('Sheet2', '');
-    multiStatus.classList.add('hidden');
-    switchSheetMode('single');
-    switchTab('file');
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
+      function addSheetEditor(name = '', csv = '') {
+        sheetCount++;
+        const idx  = sheetCount;
+        const id   = `sheet-editor-${idx}`;
+        const div  = document.createElement('div');
+        div.className = 'sheet-editor p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2';
+        div.id = id;
+        div.innerHTML = `
+          <div class="flex items-center gap-2">
+            <input type="text" placeholder="Sheet name, e.g. Users" value="${escHtml(name)}"
+              class="sheet-name-input flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60"
+              data-idx="${idx}" />
+            <button type="button" class="remove-sheet-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all" data-id="${id}">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <textarea rows="5" placeholder="Paste CSV for this sheet…" spellcheck="false"
+            class="sheet-csv-input w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"
+            data-idx="${idx}">${escHtml(csv)}</textarea>`;
+        sheetEditors.appendChild(div);
+        div.querySelector('.remove-sheet-btn').addEventListener('click', () => {
+          div.remove();
+          validateMulti();
+        });
+        div.querySelector('.sheet-csv-input').addEventListener('input', validateMulti);
+        div.querySelector('.sheet-name-input').addEventListener('input', validateMulti);
+        validateMulti();
+      }
 
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
+      function escHtml(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
 
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
-    });
-  });
+      function getSheetEditorData() {
+        return [...sheetEditors.querySelectorAll('.sheet-editor')].map(div => ({
+          name: div.querySelector('.sheet-name-input').value.trim(),
+          csv:  div.querySelector('.sheet-csv-input').value.trim(),
+        }));
+      }
 
-}); // end DOMContentLoaded
-</script>
+      function validateMulti() {
+        const sheets = getSheetEditorData();
+        if (sheets.length === 0) {
+          multiStatus.innerHTML = errStatus('Add at least one sheet');
+          multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
+          refreshConvertBtn(); return;
+        }
+        const invalid = sheets.find(s => !s.csv || s.csv.split('\n').filter(Boolean).length < 2);
+        if (invalid) {
+          multiStatus.innerHTML = errStatus('Each sheet needs a header row and at least one data row');
+          multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
+          refreshConvertBtn(); return;
+        }
+        multiStatus.innerHTML = okStatus(`${sheets.length} sheet${sheets.length !== 1 ? 's' : ''} ready`);
+        multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
+        refreshConvertBtn();
+      }
+
+      document.getElementById('btn-add-sheet').addEventListener('click', () => addSheetEditor());
+
+      // Init with two default sheets
+      addSheetEditor('Sheet1', '');
+      addSheetEditor('Sheet2', '');
+
+      // ── Paste & clear (single) ──
+      document.getElementById('btn-paste').addEventListener('click', async () => {
+        try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
+      });
+      document.getElementById('btn-clear').addEventListener('click', () => {
+        csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
+      });
+
+      function refreshConvertBtn() {
+        if (activeTab === 'file') {
+          convertBtn.disabled = !selectedFile;
+        } else if (sheetMode === 'single') {
+          convertBtn.disabled = !csvValid;
+        } else {
+          const sheets = getSheetEditorData();
+          convertBtn.disabled = sheets.length === 0 || sheets.some(s => !s.csv || s.csv.split('\n').filter(Boolean).length < 2);
+        }
+      }
+
+      // ── Convert ──
+      convertBtn.addEventListener('click', startConversion);
+
+      async function startConversion() {
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
+
+        const isFile = activeTab === 'file';
+        let endpoint, fetchBody, fetchHeaders = {};
+
+        if (isFile) {
+          // ── multipart/form-data → /api/tools/csv-file-to-excel ──
+          endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-excel';
+          const fd = new FormData();
+          fd.append('file', selectedFile);
+          const sheet    = document.getElementById('file-opt-sheet').value.trim();
+          const filename = document.getElementById('file-opt-filename').value.trim();
+          // Only send separator if user has overridden from auto
+          if (activeSepFile !== ',') fd.append('separator', activeSepFile === '\\t' ? '\t' : activeSepFile);
+          if (sheet)    fd.append('sheet_name', sheet);
+          if (filename) fd.append('filename',   filename);
+          fetchBody = fd;
+
+        } else if (sheetMode === 'single') {
+          // ── application/json single → /api/tools/csv-text-to-excel ──
+          endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-excel';
+          const sheet    = document.getElementById('text-opt-sheet').value.trim();
+          const filename = document.getElementById('text-opt-filename').value.trim();
+          const sep      = activeSepText === '\\t' ? '\t' : activeSepText;
+          const payload  = { csv: csvTA.value.trim(), separator: sep };
+          if (sheet)    payload.sheet_name = sheet;
+          if (filename) payload.filename   = filename;
+          fetchBody    = JSON.stringify(payload);
+          fetchHeaders = { 'Content-Type': 'application/json' };
+
+        } else {
+          // ── application/json multi-sheet → /api/tools/csv-text-to-excel ──
+          endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-excel';
+          const sheets   = getSheetEditorData();
+          const filename = document.getElementById('text-opt-filename').value.trim();
+          const sep      = activeSepText === '\\t' ? '\t' : activeSepText;
+          // Build sheets object: { "SheetName": "csv string", ... }
+          const sheetsObj = {};
+          sheets.forEach((s, i) => { sheetsObj[s.name || `Sheet${i + 1}`] = s.csv; });
+          const payload = { sheets: sheetsObj, separator: sep };
+          if (filename) payload.filename = filename;
+          fetchBody    = JSON.stringify(payload);
+          fetchHeaders = { 'Content-Type': 'application/json' };
+        }
+
+        // Determine output filename
+        let outputFilename;
+        if (isFile) {
+          const custom = document.getElementById('file-opt-filename').value.trim();
+          outputFilename = custom
+            ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
+            : (selectedFile?.name.replace(/\.csv$/i, '.xlsx') ?? 'output.xlsx');
+        } else {
+          const custom = document.getElementById('text-opt-filename').value.trim();
+          outputFilename = custom
+            ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
+            : 'output.xlsx';
+        }
+
+        // Animate
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
+
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
+          animateProgress(22, 52, 800, 'Applying styles & column widths…');
+        }, 700);
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
+          animateProgress(52, 76, 800, 'Building worksheet(s)…');
+        }, 1600);
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
+          animateProgress(76, 90, 600, 'Generating Excel workbook…');
+        }, 2600);
+
+        try {
+          const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
+
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          if (!res.ok) {
+            let errMsg = 'Conversion failed. Please try again.';
+            try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+            throw new Error(errMsg);
+          }
+
+          const blob = await res.blob();
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+
+          const link    = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = outputFilename;
+
+          document.getElementById('output-name').textContent = outputFilename;
+          document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
+
+          setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
+          animateProgress(90, 100, 300, 'Done!');
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+        } catch (err) {
+          console.error(err);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showError(err.message || 'Something went wrong. Please try again.');
+          showState('upload');
+          updateStepIndicator(1);
+        }
+      }
+
+      // ── Helpers ──
+      function okStatus(msg) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
+      }
+      function errStatus(msg) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
+      }
+
+      function showState(state) {
+        ['upload','converting','download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
+
+      function updateStepIndicator(active) {
+        [1,2,3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active','done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden'); spin.classList.add('hidden');
+        dot.style.borderColor = ''; dot.style.background = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264/15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162/15%)';
+        }
+      }
+
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        resetFile();
+        csvTA.value = '';
+        csvStatus.classList.add('hidden');
+        csvValid = false;
+        document.getElementById('file-opt-sheet').value    = '';
+        document.getElementById('file-opt-filename').value = '';
+        document.getElementById('text-opt-sheet').value    = '';
+        document.getElementById('text-opt-filename').value = '';
+        // Reset separators
+        document.querySelectorAll('.file-sep-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.file-sep-btn[data-sep=","]').classList.add('active');
+        activeSepFile = ',';
+        document.getElementById('file-sep-hint').textContent = 'Auto-detected · override if needed';
+        document.querySelectorAll('.text-sep-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.text-sep-btn[data-sep=","]').classList.add('active');
+        activeSepText = ',';
+        document.getElementById('text-sep-hint').textContent = sepLabels[','];
+        // Reset sheet editors
+        sheetEditors.innerHTML = '';
+        sheetCount = 0;
+        addSheetEditor('Sheet1', '');
+        addSheetEditor('Sheet2', '');
+        multiStatus.classList.add('hidden');
+        switchSheetMode('single');
+        switchTab('file');
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
+      }
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

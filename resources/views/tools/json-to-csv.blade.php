@@ -1,4 +1,10 @@
 @extends('layouts.base')
+
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
+
+
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -447,412 +453,415 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Refs ──
-  const tabFile     = document.getElementById('tab-file');
-  const tabText     = document.getElementById('tab-text');
-  const panelFile   = document.getElementById('panel-file');
-  const panelText   = document.getElementById('panel-text');
-  const dropZone    = document.getElementById('drop-zone');
-  const fileInput   = document.getElementById('file-input');
-  const convertBtn  = document.getElementById('convert-btn');
-  const filePreview = document.getElementById('file-preview');
-  const removeFile  = document.getElementById('remove-file');
-  const uploadError = document.getElementById('upload-error');
-  const errorText   = document.getElementById('error-text');
-  const jsonTA      = document.getElementById('json-textarea');
-  const jsonStatus  = document.getElementById('json-status');
-  const btnPaste    = document.getElementById('btn-paste');
-  const btnClear    = document.getElementById('btn-clear');
+      // ── Refs ──
+      const tabFile     = document.getElementById('tab-file');
+      const tabText     = document.getElementById('tab-text');
+      const panelFile   = document.getElementById('panel-file');
+      const panelText   = document.getElementById('panel-text');
+      const dropZone    = document.getElementById('drop-zone');
+      const fileInput   = document.getElementById('file-input');
+      const convertBtn  = document.getElementById('convert-btn');
+      const filePreview = document.getElementById('file-preview');
+      const removeFile  = document.getElementById('remove-file');
+      const uploadError = document.getElementById('upload-error');
+      const errorText   = document.getElementById('error-text');
+      const jsonTA      = document.getElementById('json-textarea');
+      const jsonStatus  = document.getElementById('json-status');
+      const btnPaste    = document.getElementById('btn-paste');
+      const btnClear    = document.getElementById('btn-clear');
 
-  let selectedFile = null;
-  let blobUrl      = null;
-  let activeTab    = 'file'; // 'file' | 'text'
-  let jsonValid    = false;
+      let selectedFile = null;
+      let blobUrl      = null;
+      let activeTab    = 'file'; // 'file' | 'text'
+      let jsonValid    = false;
 
-  // ── Tab switching ──
-  tabFile.addEventListener('click', () => switchTab('file'));
-  tabText.addEventListener('click', () => switchTab('text'));
+      // ── Tab switching ──
+      tabFile.addEventListener('click', () => switchTab('file'));
+      tabText.addEventListener('click', () => switchTab('text'));
 
-  function switchTab(tab) {
-    activeTab = tab;
-    tabFile.classList.toggle('active', tab === 'file');
-    tabText.classList.toggle('active', tab === 'text');
-    panelFile.classList.toggle('hidden', tab !== 'file');
-    panelText.classList.toggle('hidden', tab !== 'text');
-    hideError();
-    refreshConvertBtn();
-  }
-
-  function refreshConvertBtn() {
-    if (activeTab === 'file') {
-      convertBtn.disabled = !selectedFile;
-    } else {
-      convertBtn.disabled = !jsonValid;
-    }
-  }
-
-  // ── Drag & drop (file tab) ──
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave', 'dragend', 'drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
-  function handleFile(file) {
-    hideError();
-    if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
-      showError('Please select a valid JSON file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
-      return;
-    }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
-    const filenameInput = document.getElementById('file-opt-filename');
-    if (!filenameInput.value) filenameInput.value = file.name.replace(/\.json$/i, '.csv');
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    refreshConvertBtn();
-  }
-
-  function resetFile() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    refreshConvertBtn();
-    hideError();
-  }
-
-  // ── JSON textarea (text tab) ──
-  let validateTimer = null;
-
-  jsonTA.addEventListener('input', () => {
-    clearTimeout(validateTimer);
-    validateTimer = setTimeout(validateJson, 300);
-  });
-
-  function validateJson() {
-    const raw = jsonTA.value.trim();
-    if (!raw) {
-      jsonStatus.classList.add('hidden');
-      jsonValid = false;
-      refreshConvertBtn();
-      return;
-    }
-    try {
-      const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) throw new Error('Root must be an array');
-      if (parsed.length === 0) throw new Error('Array is empty');
-      if (typeof parsed[0] !== 'object' || Array.isArray(parsed[0])) throw new Error('Array items must be objects');
-      jsonValid = true;
-      jsonStatus.innerHTML = `
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="text-fn-green">Valid JSON · ${parsed.length} row${parsed.length !== 1 ? 's' : ''} · ${Object.keys(parsed[0]).length} keys detected</span>`;
-    } catch (e) {
-      jsonValid = false;
-      jsonStatus.innerHTML = `
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <span class="text-fn-red">${e.message}</span>`;
-    }
-    jsonStatus.classList.remove('hidden');
-    jsonStatus.classList.add('flex');
-    refreshConvertBtn();
-  }
-
-  // Paste & clear buttons
-  btnPaste.addEventListener('click', async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      jsonTA.value = text;
-      validateJson();
-    } catch (_) {}
-  });
-  btnClear.addEventListener('click', () => {
-    jsonTA.value = '';
-    jsonStatus.classList.add('hidden');
-    jsonValid = false;
-    refreshConvertBtn();
-  });
-
-  // ── Convert ──
-  convertBtn.addEventListener('click', startConversion);
-
-  async function startConversion() {
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    const isFile = activeTab === 'file';
-
-    const endpoint = isFile
-      ? 'https://api.filenewer.com/api/tools/json-file-to-csv'
-      : 'https://api.filenewer.com/api/tools/json-text-to-csv';
-
-    const customFilename = isFile
-      ? document.getElementById('file-opt-filename').value.trim()
-      : document.getElementById('text-opt-filename').value.trim();
-
-    const outputFilename = customFilename
-      ? (customFilename.toLowerCase().endsWith('.csv') ? customFilename : customFilename + '.csv')
-      : (isFile ? (selectedFile?.name.replace(/\.json$/i, '.csv') ?? 'output.csv') : 'output.csv');
-
-    // File tab → multipart/form-data; Text tab → application/json (matching Postman)
-    let fetchBody, fetchHeaders = {};
-    if (isFile) {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('output', 'file');
-      if (customFilename) formData.append('filename', customFilename);
-      fetchBody = formData;
-      // Let browser set Content-Type + boundary automatically
-    } else {
-      const payload = { json: JSON.parse(jsonTA.value.trim()), output: 'file' };
-      if (customFilename) payload.filename = customFilename;
-      fetchBody    = JSON.stringify(payload);
-      fetchHeaders = { 'Content-Type': 'application/json' };
-    }
-
-    // Animate
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 600, isFile ? 'Uploading JSON file…' : 'Parsing JSON text…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1', 'done');
-      setProcessStep('proc-2', 'active');
-      animateProgress(25, 55, 800, 'Flattening structure & extracting keys…');
-    }, 700);
-
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2', 'done');
-      setProcessStep('proc-3', 'active');
-      animateProgress(55, 78, 700, 'Building CSV rows…');
-    }, 1600);
-
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'active');
-      animateProgress(78, 90, 500, 'Generating output file…');
-    }, 2400);
-
-    try {
-      const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
-
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
-      if (!res.ok) {
-        let errMsg = 'Conversion failed. Please try again.';
-        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
-        throw new Error(errMsg);
+      function switchTab(tab) {
+        activeTab = tab;
+        tabFile.classList.toggle('active', tab === 'file');
+        tabText.classList.toggle('active', tab === 'text');
+        panelFile.classList.toggle('hidden', tab !== 'file');
+        panelText.classList.toggle('hidden', tab !== 'text');
+        hideError();
+        refreshConvertBtn();
       }
 
-      // API always returns binary CSV file (output=file)
-      const blob    = await res.blob();
-      const csvText = await blob.text(); // also read as text for preview
-
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
-
-      const link    = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = outputFilename;
-
-      document.getElementById('output-name').textContent = outputFilename;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · CSV File';
-
-      // Build preview for text/paste mode
-      const previewWrap = document.getElementById('csv-preview-wrap');
-      if (!isFile) {
-        renderCsvPreview(csvText);
-        previewWrap.classList.remove('hidden');
-      } else {
-        previewWrap.classList.add('hidden');
+      function refreshConvertBtn() {
+        if (activeTab === 'file') {
+          convertBtn.disabled = !selectedFile;
+        } else {
+          convertBtn.disabled = !jsonValid;
+        }
       }
 
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 300, 'Done!');
-
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
-    } catch (err) {
-      console.error(err);
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
-      showState('upload');
-      updateStepIndicator(1);
-    }
-  }
-
-  // ── CSV table preview ──
-  function renderCsvPreview(csvText) {
-    const lines   = csvText.trim().split('\n').filter(Boolean);
-    const headers = parseCsvLine(lines[0]);
-    const rows    = lines.slice(1, 11); // show up to 10 data rows
-    const total   = lines.length - 1;
-
-    document.getElementById('csv-preview-meta').textContent =
-      `${total} row${total !== 1 ? 's' : ''} · ${headers.length} column${headers.length !== 1 ? 's' : ''}${total > 10 ? ' · showing first 10' : ''}`;
-
-    const table = document.getElementById('csv-preview-table');
-    table.innerHTML = '';
-
-    const thead = document.createElement('thead');
-    const trh   = document.createElement('tr');
-    headers.forEach(h => {
-      const th = document.createElement('th');
-      th.textContent = h;
-      trh.appendChild(th);
-    });
-    thead.appendChild(trh);
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    rows.forEach(line => {
-      const cells = parseCsvLine(line);
-      const tr    = document.createElement('tr');
-      headers.forEach((_, i) => {
-        const td = document.createElement('td');
-        td.textContent = cells[i] ?? '';
-        td.title       = cells[i] ?? '';
-        tr.appendChild(td);
+      // ── Drag & drop (file tab) ──
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
       });
-      tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-  }
+      ['dragleave', 'dragend', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
 
-  function parseCsvLine(line) {
-    const result = [];
-    let cur = '', inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') {
-        if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
-        else inQ = !inQ;
-      } else if (ch === ',' && !inQ) {
-        result.push(cur); cur = '';
-      } else {
-        cur += ch;
+      function handleFile(file) {
+        hideError();
+        if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
+          showError('Please select a valid JSON file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+          showError('File exceeds the 50MB free limit.');
+          return;
+        }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
+        const filenameInput = document.getElementById('file-opt-filename');
+        if (!filenameInput.value) filenameInput.value = file.name.replace(/\.json$/i, '.csv');
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        refreshConvertBtn();
       }
-    }
-    result.push(cur);
-    return result;
-  }
 
-  // ── Helpers ──
-  function showState(state) {
-    ['upload', 'converting', 'download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
-
-  function updateStepIndicator(active) {
-    [1, 2, 3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active', 'done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
-
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden');
-    spin.classList.add('hidden');
-    dot.style.borderColor = '';
-    dot.style.background  = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-    }
-  }
-
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    resetFile();
-    jsonTA.value = '';
-    jsonStatus.classList.add('hidden');
-    jsonValid = false;
-    document.getElementById('file-opt-filename').value = '';
-    document.getElementById('text-opt-filename').value = '';
-    document.getElementById('csv-preview-wrap').classList.add('hidden');
-    switchTab('file');
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
-
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
-
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) {
-        body.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
+      function resetFile() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        refreshConvertBtn();
+        hideError();
       }
-    });
-  });
 
-}); // end DOMContentLoaded
-</script>
+      // ── JSON textarea (text tab) ──
+      let validateTimer = null;
+
+      jsonTA.addEventListener('input', () => {
+        clearTimeout(validateTimer);
+        validateTimer = setTimeout(validateJson, 300);
+      });
+
+      function validateJson() {
+        const raw = jsonTA.value.trim();
+        if (!raw) {
+          jsonStatus.classList.add('hidden');
+          jsonValid = false;
+          refreshConvertBtn();
+          return;
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) throw new Error('Root must be an array');
+          if (parsed.length === 0) throw new Error('Array is empty');
+          if (typeof parsed[0] !== 'object' || Array.isArray(parsed[0])) throw new Error('Array items must be objects');
+          jsonValid = true;
+          jsonStatus.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-fn-green">Valid JSON · ${parsed.length} row${parsed.length !== 1 ? 's' : ''} · ${Object.keys(parsed[0]).length} keys detected</span>`;
+        } catch (e) {
+          jsonValid = false;
+          jsonStatus.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span class="text-fn-red">${e.message}</span>`;
+        }
+        jsonStatus.classList.remove('hidden');
+        jsonStatus.classList.add('flex');
+        refreshConvertBtn();
+      }
+
+      // Paste & clear buttons
+      btnPaste.addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          jsonTA.value = text;
+          validateJson();
+        } catch (_) {}
+      });
+      btnClear.addEventListener('click', () => {
+        jsonTA.value = '';
+        jsonStatus.classList.add('hidden');
+        jsonValid = false;
+        refreshConvertBtn();
+      });
+
+      // ── Convert ──
+      convertBtn.addEventListener('click', startConversion);
+
+      async function startConversion() {
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
+
+        const isFile = activeTab === 'file';
+
+        const endpoint = isFile
+          ? 'https://api.filenewer.com/api/tools/json-file-to-csv'
+          : 'https://api.filenewer.com/api/tools/json-text-to-csv';
+
+        const customFilename = isFile
+          ? document.getElementById('file-opt-filename').value.trim()
+          : document.getElementById('text-opt-filename').value.trim();
+
+        const outputFilename = customFilename
+          ? (customFilename.toLowerCase().endsWith('.csv') ? customFilename : customFilename + '.csv')
+          : (isFile ? (selectedFile?.name.replace(/\.json$/i, '.csv') ?? 'output.csv') : 'output.csv');
+
+        // File tab → multipart/form-data; Text tab → application/json (matching Postman)
+        let fetchBody, fetchHeaders = {};
+        if (isFile) {
+          const formData = new FormData();
+          formData.append('file', selectedFile);
+          formData.append('output', 'file');
+          if (customFilename) formData.append('filename', customFilename);
+          fetchBody = formData;
+          // Let browser set Content-Type + boundary automatically
+        } else {
+          const payload = { json: JSON.parse(jsonTA.value.trim()), output: 'file' };
+          if (customFilename) payload.filename = customFilename;
+          fetchBody    = JSON.stringify(payload);
+          fetchHeaders = { 'Content-Type': 'application/json' };
+        }
+
+        // Animate
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 25, 600, isFile ? 'Uploading JSON file…' : 'Parsing JSON text…');
+
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1', 'done');
+          setProcessStep('proc-2', 'active');
+          animateProgress(25, 55, 800, 'Flattening structure & extracting keys…');
+        }, 700);
+
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2', 'done');
+          setProcessStep('proc-3', 'active');
+          animateProgress(55, 78, 700, 'Building CSV rows…');
+        }, 1600);
+
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'active');
+          animateProgress(78, 90, 500, 'Generating output file…');
+        }, 2400);
+
+        try {
+          const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
+
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          if (!res.ok) {
+            let errMsg = 'Conversion failed. Please try again.';
+            try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+            throw new Error(errMsg);
+          }
+
+          // API always returns binary CSV file (output=file)
+          const blob    = await res.blob();
+          const csvText = await blob.text(); // also read as text for preview
+
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+
+          const link    = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = outputFilename;
+
+          document.getElementById('output-name').textContent = outputFilename;
+          document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · CSV File';
+
+          // Build preview for text/paste mode
+          const previewWrap = document.getElementById('csv-preview-wrap');
+          if (!isFile) {
+            renderCsvPreview(csvText);
+            previewWrap.classList.remove('hidden');
+          } else {
+            previewWrap.classList.add('hidden');
+          }
+
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'done');
+          animateProgress(90, 100, 300, 'Done!');
+
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
+
+        } catch (err) {
+          console.error(err);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showError(err.message || 'Something went wrong. Please try again.');
+          showState('upload');
+          updateStepIndicator(1);
+        }
+      }
+
+      // ── CSV table preview ──
+      function renderCsvPreview(csvText) {
+        const lines   = csvText.trim().split('\n').filter(Boolean);
+        const headers = parseCsvLine(lines[0]);
+        const rows    = lines.slice(1, 11); // show up to 10 data rows
+        const total   = lines.length - 1;
+
+        document.getElementById('csv-preview-meta').textContent =
+          `${total} row${total !== 1 ? 's' : ''} · ${headers.length} column${headers.length !== 1 ? 's' : ''}${total > 10 ? ' · showing first 10' : ''}`;
+
+        const table = document.getElementById('csv-preview-table');
+        table.innerHTML = '';
+
+        const thead = document.createElement('thead');
+        const trh   = document.createElement('tr');
+        headers.forEach(h => {
+          const th = document.createElement('th');
+          th.textContent = h;
+          trh.appendChild(th);
+        });
+        thead.appendChild(trh);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        rows.forEach(line => {
+          const cells = parseCsvLine(line);
+          const tr    = document.createElement('tr');
+          headers.forEach((_, i) => {
+            const td = document.createElement('td');
+            td.textContent = cells[i] ?? '';
+            td.title       = cells[i] ?? '';
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+      }
+
+      function parseCsvLine(line) {
+        const result = [];
+        let cur = '', inQ = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
+            else inQ = !inQ;
+          } else if (ch === ',' && !inQ) {
+            result.push(cur); cur = '';
+          } else {
+            cur += ch;
+          }
+        }
+        result.push(cur);
+        return result;
+      }
+
+      // ── Helpers ──
+      function showState(state) {
+        ['upload', 'converting', 'download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
+
+      function updateStepIndicator(active) {
+        [1, 2, 3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active', 'done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden');
+        spin.classList.add('hidden');
+        dot.style.borderColor = '';
+        dot.style.background  = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+        }
+      }
+
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        resetFile();
+        jsonTA.value = '';
+        jsonStatus.classList.add('hidden');
+        jsonValid = false;
+        document.getElementById('file-opt-filename').value = '';
+        document.getElementById('text-opt-filename').value = '';
+        document.getElementById('csv-preview-wrap').classList.add('hidden');
+        switchTab('file');
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
+      }
+
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) {
+            body.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+
+@endpush
 
 @endsection

@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'CSV to SQL Converter – Free Online | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -487,455 +489,457 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Refs ──
-  const tabFile     = document.getElementById('tab-file');
-  const tabText     = document.getElementById('tab-text');
-  const panelFile   = document.getElementById('panel-file');
-  const panelText   = document.getElementById('panel-text');
-  const dropZone    = document.getElementById('drop-zone');
-  const fileInput   = document.getElementById('file-input');
-  const convertBtn  = document.getElementById('convert-btn');
-  const filePreview = document.getElementById('file-preview');
-  const removeFile  = document.getElementById('remove-file');
-  const uploadError = document.getElementById('upload-error');
-  const errorText   = document.getElementById('error-text');
-  const csvTA       = document.getElementById('csv-textarea');
-  const csvStatus   = document.getElementById('csv-status');
-  const tableInput  = document.getElementById('opt-table');
-  const tablePreview = document.getElementById('table-preview');
-  const outputHint  = document.getElementById('output-hint');
-  const filenameWrap = document.getElementById('filename-wrap');
+      // ── Refs ──
+      const tabFile     = document.getElementById('tab-file');
+      const tabText     = document.getElementById('tab-text');
+      const panelFile   = document.getElementById('panel-file');
+      const panelText   = document.getElementById('panel-text');
+      const dropZone    = document.getElementById('drop-zone');
+      const fileInput   = document.getElementById('file-input');
+      const convertBtn  = document.getElementById('convert-btn');
+      const filePreview = document.getElementById('file-preview');
+      const removeFile  = document.getElementById('remove-file');
+      const uploadError = document.getElementById('upload-error');
+      const errorText   = document.getElementById('error-text');
+      const csvTA       = document.getElementById('csv-textarea');
+      const csvStatus   = document.getElementById('csv-status');
+      const tableInput  = document.getElementById('opt-table');
+      const tablePreview = document.getElementById('table-preview');
+      const outputHint  = document.getElementById('output-hint');
+      const filenameWrap = document.getElementById('filename-wrap');
 
-  let selectedFile = null;
-  let blobUrl      = null;
-  let activeTab    = 'file';
-  let activeDialect = 'mysql';
-  let activeOutput  = 'file';
-  let csvValid      = false;
-  let fullSqlText   = ''; // stored for copy button
+      let selectedFile = null;
+      let blobUrl      = null;
+      let activeTab    = 'file';
+      let activeDialect = 'mysql';
+      let activeOutput  = 'file';
+      let csvValid      = false;
+      let fullSqlText   = ''; // stored for copy button
 
-  // ── Tab switching ──
-  tabFile.addEventListener('click', () => switchTab('file'));
-  tabText.addEventListener('click', () => switchTab('text'));
+      // ── Tab switching ──
+      tabFile.addEventListener('click', () => switchTab('file'));
+      tabText.addEventListener('click', () => switchTab('text'));
 
-  function switchTab(tab) {
-    activeTab = tab;
-    tabFile.classList.toggle('active', tab === 'file');
-    tabText.classList.toggle('active', tab === 'text');
-    panelFile.classList.toggle('hidden', tab !== 'file');
-    panelText.classList.toggle('hidden', tab !== 'text');
-    hideError();
-    refreshConvertBtn();
-  }
+      function switchTab(tab) {
+        activeTab = tab;
+        tabFile.classList.toggle('active', tab === 'file');
+        tabText.classList.toggle('active', tab === 'text');
+        panelFile.classList.toggle('hidden', tab !== 'file');
+        panelText.classList.toggle('hidden', tab !== 'text');
+        hideError();
+        refreshConvertBtn();
+      }
 
-  // ── Table name live preview ──
-  tableInput.addEventListener('input', () => {
-    tablePreview.textContent = tableInput.value.trim() || 'my_table';
-  });
-
-  // ── Dialect buttons ──
-  document.querySelectorAll('.dialect-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeDialect = btn.dataset.dialect;
-    });
-  });
-
-  // ── Output mode buttons ──
-  document.querySelectorAll('.output-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeOutput = btn.dataset.output;
-      const isFile = activeOutput === 'file';
-      outputHint.textContent = isFile
-        ? 'Returns a downloadable .sql file.'
-        : 'Displays the generated SQL inline with a copy button.';
-      filenameWrap.style.opacity = isFile ? '1' : '0.4';
-      document.getElementById('opt-filename').disabled = !isFile;
-      document.getElementById('convert-btn-label').textContent = isFile ? 'Generate SQL' : 'Preview SQL';
-    });
-  });
-
-  // ── Drag & drop ──
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave', 'dragend', 'drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
-  function handleFile(file) {
-    hideError();
-    const ext = file.name.toLowerCase();
-    if (!ext.endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
-      showError('Please select a valid CSV file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
-      return;
-    }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
-    const fnInput = document.getElementById('opt-filename');
-    if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.sql');
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    refreshConvertBtn();
-  }
-
-  function resetFile() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    refreshConvertBtn();
-    hideError();
-  }
-
-  // ── CSV text validation ──
-  let validateTimer = null;
-  csvTA.addEventListener('input', () => {
-    clearTimeout(validateTimer);
-    validateTimer = setTimeout(validateCsv, 300);
-  });
-
-  function validateCsv() {
-    const raw = csvTA.value.trim();
-    if (!raw) {
-      csvStatus.classList.add('hidden');
-      csvValid = false;
-      refreshConvertBtn();
-      return;
-    }
-    const lines = raw.split('\n').filter(Boolean);
-    if (lines.length < 2) {
-      csvValid = false;
-      csvStatus.innerHTML = errStatus('Need at least a header row and one data row');
-    } else {
-      csvValid = true;
-      const cols = lines[0].split(/[,;\t|]/).length;
-      csvStatus.innerHTML = okStatus(`Valid CSV · ${lines.length - 1} row${lines.length - 1 !== 1 ? 's' : ''} · ${cols} column${cols !== 1 ? 's' : ''}`);
-    }
-    csvStatus.classList.remove('hidden');
-    csvStatus.classList.add('flex');
-    refreshConvertBtn();
-  }
-
-  function okStatus(msg) {
-    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
-  }
-  function errStatus(msg) {
-    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
-  }
-
-  // Paste & clear
-  document.getElementById('btn-paste').addEventListener('click', async () => {
-    try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
-  });
-  document.getElementById('btn-clear').addEventListener('click', () => {
-    csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
-  });
-
-  function refreshConvertBtn() {
-    convertBtn.disabled = activeTab === 'file' ? !selectedFile : !csvValid;
-  }
-
-  // ── Convert ──
-  convertBtn.addEventListener('click', startConversion);
-
-  async function startConversion() {
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    const isFile     = activeTab === 'file';
-    const tableName  = tableInput.value.trim() || 'my_table';
-    const customFile = document.getElementById('opt-filename').value.trim();
-    const outputFilename = customFile
-      ? (customFile.toLowerCase().endsWith('.sql') ? customFile : customFile + '.sql')
-      : tableName + '.sql';
-
-    let endpoint, fetchBody, fetchHeaders = {};
-
-    if (isFile) {
-      // multipart/form-data → /api/tools/csv-file-to-sql
-      endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-sql';
-      const formData = new FormData();
-      formData.append('file',       selectedFile);
-      formData.append('table_name', tableName);
-      formData.append('dialect',    activeDialect);
-      formData.append('output',     activeOutput);
-      if (customFile) formData.append('filename', customFile);
-      fetchBody = formData;
-    } else {
-      // application/json → /api/tools/csv-text-to-sql
-      endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-sql';
-      const payload = {
-        csv:        csvTA.value.trim(),
-        table_name: tableName,
-        dialect:    activeDialect,
-        output:     activeOutput,
-      };
-      if (customFile) payload.filename = customFile;
-      fetchBody    = JSON.stringify(payload);
-      fetchHeaders = { 'Content-Type': 'application/json' };
-    }
-
-    // Animate
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1', 'done');
-      setProcessStep('proc-2', 'active');
-      animateProgress(22, 50, 800, 'Inferring column types…');
-    }, 700);
-
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2', 'done');
-      setProcessStep('proc-3', 'active');
-      animateProgress(50, 76, 800, 'Building INSERT statements…');
-    }, 1600);
-
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'active');
-      animateProgress(76, 90, 600, 'Generating output…');
-    }, 2600);
-
-    try {
-      const res = await fetch(endpoint, {
-        method:  'POST',
-        headers: fetchHeaders,
-        body:    fetchBody,
+      // ── Table name live preview ──
+      tableInput.addEventListener('input', () => {
+        tablePreview.textContent = tableInput.value.trim() || 'my_table';
       });
 
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+      // ── Dialect buttons ──
+      document.querySelectorAll('.dialect-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeDialect = btn.dataset.dialect;
+        });
+      });
 
-      if (!res.ok) {
-        let errMsg = 'Conversion failed. Please try again.';
-        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
-        throw new Error(errMsg);
+      // ── Output mode buttons ──
+      document.querySelectorAll('.output-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeOutput = btn.dataset.output;
+          const isFile = activeOutput === 'file';
+          outputHint.textContent = isFile
+            ? 'Returns a downloadable .sql file.'
+            : 'Displays the generated SQL inline with a copy button.';
+          filenameWrap.style.opacity = isFile ? '1' : '0.4';
+          document.getElementById('opt-filename').disabled = !isFile;
+          document.getElementById('convert-btn-label').textContent = isFile ? 'Generate SQL' : 'Preview SQL';
+        });
+      });
+
+      // ── Drag & drop ──
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave', 'dragend', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
+
+      function handleFile(file) {
+        hideError();
+        const ext = file.name.toLowerCase();
+        if (!ext.endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
+          showError('Please select a valid CSV file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+          showError('File exceeds the 50MB free limit.');
+          return;
+        }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
+        const fnInput = document.getElementById('opt-filename');
+        if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.sql');
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        refreshConvertBtn();
       }
 
-      const dialectLabels = { mysql: '🐬 MySQL', postgres: '🐘 PostgreSQL', sqlite: '🪶 SQLite' };
-      const dialectColors = {
-        mysql:    { bg: 'oklch(62% 0.18 200 / 12%)', border: 'oklch(62% 0.18 200 / 35%)', color: 'oklch(62% 0.18 200)' },
-        postgres: { bg: 'oklch(55% 0.20 260 / 12%)', border: 'oklch(55% 0.20 260 / 35%)', color: 'oklch(55% 0.20 260)' },
-        sqlite:   { bg: 'oklch(65% 0.15 55  / 12%)', border: 'oklch(65% 0.15 55  / 35%)', color: 'oklch(65% 0.15 55)'  },
+      function resetFile() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        refreshConvertBtn();
+        hideError();
+      }
+
+      // ── CSV text validation ──
+      let validateTimer = null;
+      csvTA.addEventListener('input', () => {
+        clearTimeout(validateTimer);
+        validateTimer = setTimeout(validateCsv, 300);
+      });
+
+      function validateCsv() {
+        const raw = csvTA.value.trim();
+        if (!raw) {
+          csvStatus.classList.add('hidden');
+          csvValid = false;
+          refreshConvertBtn();
+          return;
+        }
+        const lines = raw.split('\n').filter(Boolean);
+        if (lines.length < 2) {
+          csvValid = false;
+          csvStatus.innerHTML = errStatus('Need at least a header row and one data row');
+        } else {
+          csvValid = true;
+          const cols = lines[0].split(/[,;\t|]/).length;
+          csvStatus.innerHTML = okStatus(`Valid CSV · ${lines.length - 1} row${lines.length - 1 !== 1 ? 's' : ''} · ${cols} column${cols !== 1 ? 's' : ''}`);
+        }
+        csvStatus.classList.remove('hidden');
+        csvStatus.classList.add('flex');
+        refreshConvertBtn();
+      }
+
+      function okStatus(msg) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
+      }
+      function errStatus(msg) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
+      }
+
+      // Paste & clear
+      document.getElementById('btn-paste').addEventListener('click', async () => {
+        try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
+      });
+      document.getElementById('btn-clear').addEventListener('click', () => {
+        csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
+      });
+
+      function refreshConvertBtn() {
+        convertBtn.disabled = activeTab === 'file' ? !selectedFile : !csvValid;
+      }
+
+      // ── Convert ──
+      convertBtn.addEventListener('click', startConversion);
+
+      async function startConversion() {
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
+
+        const isFile     = activeTab === 'file';
+        const tableName  = tableInput.value.trim() || 'my_table';
+        const customFile = document.getElementById('opt-filename').value.trim();
+        const outputFilename = customFile
+          ? (customFile.toLowerCase().endsWith('.sql') ? customFile : customFile + '.sql')
+          : tableName + '.sql';
+
+        let endpoint, fetchBody, fetchHeaders = {};
+
+        if (isFile) {
+          // multipart/form-data → /api/tools/csv-file-to-sql
+          endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-sql';
+          const formData = new FormData();
+          formData.append('file',       selectedFile);
+          formData.append('table_name', tableName);
+          formData.append('dialect',    activeDialect);
+          formData.append('output',     activeOutput);
+          if (customFile) formData.append('filename', customFile);
+          fetchBody = formData;
+        } else {
+          // application/json → /api/tools/csv-text-to-sql
+          endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-sql';
+          const payload = {
+            csv:        csvTA.value.trim(),
+            table_name: tableName,
+            dialect:    activeDialect,
+            output:     activeOutput,
+          };
+          if (customFile) payload.filename = customFile;
+          fetchBody    = JSON.stringify(payload);
+          fetchHeaders = { 'Content-Type': 'application/json' };
+        }
+
+        // Animate
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
+
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1', 'done');
+          setProcessStep('proc-2', 'active');
+          animateProgress(22, 50, 800, 'Inferring column types…');
+        }, 700);
+
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2', 'done');
+          setProcessStep('proc-3', 'active');
+          animateProgress(50, 76, 800, 'Building INSERT statements…');
+        }, 1600);
+
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'active');
+          animateProgress(76, 90, 600, 'Generating output…');
+        }, 2600);
+
+        try {
+          const res = await fetch(endpoint, {
+            method:  'POST',
+            headers: fetchHeaders,
+            body:    fetchBody,
+          });
+
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          if (!res.ok) {
+            let errMsg = 'Conversion failed. Please try again.';
+            try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+            throw new Error(errMsg);
+          }
+
+          const dialectLabels = { mysql: '🐬 MySQL', postgres: '🐘 PostgreSQL', sqlite: '🪶 SQLite' };
+          const dialectColors = {
+            mysql:    { bg: 'oklch(62% 0.18 200 / 12%)', border: 'oklch(62% 0.18 200 / 35%)', color: 'oklch(62% 0.18 200)' },
+            postgres: { bg: 'oklch(55% 0.20 260 / 12%)', border: 'oklch(55% 0.20 260 / 35%)', color: 'oklch(55% 0.20 260)' },
+            sqlite:   { bg: 'oklch(65% 0.15 55  / 12%)', border: 'oklch(65% 0.15 55  / 35%)', color: 'oklch(65% 0.15 55)'  },
+          };
+
+          if (activeOutput === 'text') {
+            // Response is JSON { sql: "...", table: "...", dialect: "..." }
+            const data    = await res.json();
+            const sqlText = data.sql ?? '';
+            fullSqlText   = sqlText;
+
+            const blob    = new Blob([sqlText], { type: 'text/plain;charset=utf-8;' });
+            if (blobUrl) URL.revokeObjectURL(blobUrl);
+            blobUrl = URL.createObjectURL(blob);
+
+            const link    = document.getElementById('download-link');
+            link.href     = blobUrl;
+            link.download = outputFilename;
+
+            // Populate preview
+            const previewCode = document.getElementById('sql-preview-code');
+            const PREVIEW_LIMIT = 8000;
+            previewCode.textContent = sqlText.length > PREVIEW_LIMIT
+              ? sqlText.slice(0, PREVIEW_LIMIT) + '\n\n-- … truncated for preview, full file in download …'
+              : sqlText;
+
+            const lines = sqlText.split('\n').length;
+            document.getElementById('sql-preview-meta').textContent = `${lines} lines · ${formatBytes(blob.size)}`;
+
+            // Dialect badge
+            const badge = document.getElementById('dialect-badge');
+            const dc    = dialectColors[activeDialect];
+            badge.textContent   = dialectLabels[activeDialect];
+            badge.style.background   = dc.bg;
+            badge.style.borderColor  = dc.border;
+            badge.style.color        = dc.color;
+
+            document.getElementById('sql-preview-wrap').classList.remove('hidden');
+            document.getElementById('download-subtitle').textContent = 'SQL preview ready — copy or download the file.';
+
+          } else {
+            // Response is binary .sql file
+            const blob = await res.blob();
+            if (blobUrl) URL.revokeObjectURL(blobUrl);
+            blobUrl = URL.createObjectURL(blob);
+
+            const link    = document.getElementById('download-link');
+            link.href     = blobUrl;
+            link.download = outputFilename;
+
+            // Also read for copy support
+            fullSqlText = await blob.text();
+
+            document.getElementById('sql-preview-wrap').classList.add('hidden');
+            document.getElementById('download-subtitle').textContent = 'Your SQL file is ready.';
+            document.getElementById('output-name').textContent = outputFilename;
+            document.getElementById('output-size').textContent = formatBytes(blob.size) + ` · ${dialectLabels[activeDialect]} SQL`;
+          }
+
+          document.getElementById('output-name').textContent       = outputFilename;
+          document.getElementById('output-size').textContent       = formatBytes(new Blob([fullSqlText]).size) + ` · ${dialectLabels[activeDialect]} SQL`;
+          document.getElementById('download-btn-label').textContent = 'Download SQL';
+
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'done');
+          animateProgress(90, 100, 300, 'Done!');
+
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+        } catch (err) {
+          console.error(err);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showError(err.message || 'Something went wrong. Please try again.');
+          showState('upload');
+          updateStepIndicator(1);
+        }
+      }
+
+      // ── Copy SQL button ──
+      document.getElementById('btn-copy-sql').addEventListener('click', async () => {
+        if (!fullSqlText) return;
+        try {
+          await navigator.clipboard.writeText(fullSqlText);
+          const label = document.getElementById('copy-label');
+          label.textContent = 'Copied!';
+          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+        } catch (_) {}
+      });
+
+      // ── Helpers ──
+      function showState(state) {
+        ['upload', 'converting', 'download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
+
+      function updateStepIndicator(active) {
+        [1, 2, 3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active', 'done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden');
+        spin.classList.add('hidden');
+        dot.style.borderColor = '';
+        dot.style.background  = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+        }
+      }
+
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        resetFile();
+        csvTA.value = '';
+        csvStatus.classList.add('hidden');
+        csvValid    = false;
+        fullSqlText = '';
+        tableInput.value = 'my_table';
+        tablePreview.textContent = 'my_table';
+        document.getElementById('opt-filename').value = '';
+        document.getElementById('opt-filename').disabled = false;
+        filenameWrap.style.opacity = '1';
+        // Reset dialect to mysql
+        document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.dialect-btn[data-dialect="mysql"]').classList.add('active');
+        activeDialect = 'mysql';
+        // Reset output to file
+        document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.output-btn[data-output="file"]').classList.add('active');
+        activeOutput = 'file';
+        outputHint.textContent = 'Returns a downloadable .sql file.';
+        document.getElementById('convert-btn-label').textContent = 'Generate SQL';
+        document.getElementById('sql-preview-wrap').classList.add('hidden');
+        switchTab('file');
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
 
-      if (activeOutput === 'text') {
-        // Response is JSON { sql: "...", table: "...", dialect: "..." }
-        const data    = await res.json();
-        const sqlText = data.sql ?? '';
-        fullSqlText   = sqlText;
-
-        const blob    = new Blob([sqlText], { type: 'text/plain;charset=utf-8;' });
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = URL.createObjectURL(blob);
-
-        const link    = document.getElementById('download-link');
-        link.href     = blobUrl;
-        link.download = outputFilename;
-
-        // Populate preview
-        const previewCode = document.getElementById('sql-preview-code');
-        const PREVIEW_LIMIT = 8000;
-        previewCode.textContent = sqlText.length > PREVIEW_LIMIT
-          ? sqlText.slice(0, PREVIEW_LIMIT) + '\n\n-- … truncated for preview, full file in download …'
-          : sqlText;
-
-        const lines = sqlText.split('\n').length;
-        document.getElementById('sql-preview-meta').textContent = `${lines} lines · ${formatBytes(blob.size)}`;
-
-        // Dialect badge
-        const badge = document.getElementById('dialect-badge');
-        const dc    = dialectColors[activeDialect];
-        badge.textContent   = dialectLabels[activeDialect];
-        badge.style.background   = dc.bg;
-        badge.style.borderColor  = dc.border;
-        badge.style.color        = dc.color;
-
-        document.getElementById('sql-preview-wrap').classList.remove('hidden');
-        document.getElementById('download-subtitle').textContent = 'SQL preview ready — copy or download the file.';
-
-      } else {
-        // Response is binary .sql file
-        const blob = await res.blob();
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = URL.createObjectURL(blob);
-
-        const link    = document.getElementById('download-link');
-        link.href     = blobUrl;
-        link.download = outputFilename;
-
-        // Also read for copy support
-        fullSqlText = await blob.text();
-
-        document.getElementById('sql-preview-wrap').classList.add('hidden');
-        document.getElementById('download-subtitle').textContent = 'Your SQL file is ready.';
-        document.getElementById('output-name').textContent = outputFilename;
-        document.getElementById('output-size').textContent = formatBytes(blob.size) + ` · ${dialectLabels[activeDialect]} SQL`;
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
       }
 
-      document.getElementById('output-name').textContent       = outputFilename;
-      document.getElementById('output-size').textContent       = formatBytes(new Blob([fullSqlText]).size) + ` · ${dialectLabels[activeDialect]} SQL`;
-      document.getElementById('download-btn-label').textContent = 'Download SQL';
-
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 300, 'Done!');
-
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
-    } catch (err) {
-      console.error(err);
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
-      showState('upload');
-      updateStepIndicator(1);
-    }
-  }
-
-  // ── Copy SQL button ──
-  document.getElementById('btn-copy-sql').addEventListener('click', async () => {
-    if (!fullSqlText) return;
-    try {
-      await navigator.clipboard.writeText(fullSqlText);
-      const label = document.getElementById('copy-label');
-      label.textContent = 'Copied!';
-      setTimeout(() => { label.textContent = 'Copy'; }, 2000);
-    } catch (_) {}
-  });
-
-  // ── Helpers ──
-  function showState(state) {
-    ['upload', 'converting', 'download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
-
-  function updateStepIndicator(active) {
-    [1, 2, 3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active', 'done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
-
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden');
-    spin.classList.add('hidden');
-    dot.style.borderColor = '';
-    dot.style.background  = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-    }
-  }
-
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    resetFile();
-    csvTA.value = '';
-    csvStatus.classList.add('hidden');
-    csvValid    = false;
-    fullSqlText = '';
-    tableInput.value = 'my_table';
-    tablePreview.textContent = 'my_table';
-    document.getElementById('opt-filename').value = '';
-    document.getElementById('opt-filename').disabled = false;
-    filenameWrap.style.opacity = '1';
-    // Reset dialect to mysql
-    document.querySelectorAll('.dialect-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.dialect-btn[data-dialect="mysql"]').classList.add('active');
-    activeDialect = 'mysql';
-    // Reset output to file
-    document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector('.output-btn[data-output="file"]').classList.add('active');
-    activeOutput = 'file';
-    outputHint.textContent = 'Returns a downloadable .sql file.';
-    document.getElementById('convert-btn-label').textContent = 'Generate SQL';
-    document.getElementById('sql-preview-wrap').classList.add('hidden');
-    switchTab('file');
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
-
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
-
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) {
-        body.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
       }
-    });
-  });
 
-}); // end DOMContentLoaded
-</script>
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) {
+            body.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

@@ -1,4 +1,8 @@
 @extends('layouts.base')
+
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -374,376 +378,378 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Element refs ──
-  const dropZone     = document.getElementById('drop-zone');
-  const fileInput    = document.getElementById('file-input');
-  const convertBtn   = document.getElementById('convert-btn');
-  const filePreview  = document.getElementById('file-preview');
-  const removeFile   = document.getElementById('remove-file');
-  const uploadError  = document.getElementById('upload-error');
-  const errorText    = document.getElementById('error-text');
-  const outputSelect = document.getElementById('opt-output');
-  const pageInput    = document.getElementById('opt-page');
-  const dpiRange     = document.getElementById('opt-dpi');
-  const qualityRange = document.getElementById('opt-quality');
-  const dpiVal       = document.getElementById('dpi-val');
-  const qualityVal   = document.getElementById('quality-val');
-  const dpiHint      = document.getElementById('dpi-hint');
-  const qualityHint  = document.getElementById('quality-hint');
-  const togglePwdBtn = document.getElementById('toggle-password');
-  const pwdInput     = document.getElementById('opt-password');
-  const eyeShow      = document.getElementById('eye-show');
-  const eyeHide      = document.getElementById('eye-hide');
-  const pageOptNote  = document.getElementById('page-opt-note');
-  const outputModeHint = document.getElementById('output-mode-hint');
+      // ── Element refs ──
+      const dropZone     = document.getElementById('drop-zone');
+      const fileInput    = document.getElementById('file-input');
+      const convertBtn   = document.getElementById('convert-btn');
+      const filePreview  = document.getElementById('file-preview');
+      const removeFile   = document.getElementById('remove-file');
+      const uploadError  = document.getElementById('upload-error');
+      const errorText    = document.getElementById('error-text');
+      const outputSelect = document.getElementById('opt-output');
+      const pageInput    = document.getElementById('opt-page');
+      const dpiRange     = document.getElementById('opt-dpi');
+      const qualityRange = document.getElementById('opt-quality');
+      const dpiVal       = document.getElementById('dpi-val');
+      const qualityVal   = document.getElementById('quality-val');
+      const dpiHint      = document.getElementById('dpi-hint');
+      const qualityHint  = document.getElementById('quality-hint');
+      const togglePwdBtn = document.getElementById('toggle-password');
+      const pwdInput     = document.getElementById('opt-password');
+      const eyeShow      = document.getElementById('eye-show');
+      const eyeHide      = document.getElementById('eye-hide');
+      const pageOptNote  = document.getElementById('page-opt-note');
+      const outputModeHint = document.getElementById('output-mode-hint');
 
-  let selectedFile = null;
-  let blobUrl      = null;
+      let selectedFile = null;
+      let blobUrl      = null;
 
-  // ── DPI hints ──
-  const dpiHints = [
-    [72,  72,  'Web preview · Very small'],
-    [73,  149, 'Below general use'],
-    [150, 150, 'General use · Small'],
-    [151, 199, 'Good quality'],
-    [200, 200, 'Default · Medium'],
-    [201, 299, 'Above default'],
-    [300, 300, 'Print ready · Large'],
-    [301, 599, 'High resolution'],
-    [600, 600, 'Hi-res · Very large'],
-  ];
+      // ── DPI hints ──
+      const dpiHints = [
+        [72,  72,  'Web preview · Very small'],
+        [73,  149, 'Below general use'],
+        [150, 150, 'General use · Small'],
+        [151, 199, 'Good quality'],
+        [200, 200, 'Default · Medium'],
+        [201, 299, 'Above default'],
+        [300, 300, 'Print ready · Large'],
+        [301, 599, 'High resolution'],
+        [600, 600, 'Hi-res · Very large'],
+      ];
 
-  const qualityHints = [
-    [1,  59,  'Low quality'],
-    [60, 74,  'Web preview'],
-    [75, 84,  'General use'],
-    [85, 89,  'Default'],
-    [90, 94,  'Print ready'],
-    [95, 99,  'High quality'],
-    [100,100, 'Maximum quality'],
-  ];
+      const qualityHints = [
+        [1,  59,  'Low quality'],
+        [60, 74,  'Web preview'],
+        [75, 84,  'General use'],
+        [85, 89,  'Default'],
+        [90, 94,  'Print ready'],
+        [95, 99,  'High quality'],
+        [100,100, 'Maximum quality'],
+      ];
 
-  function getDpiHint(v) {
-    return dpiHints.find(([lo, hi]) => v >= lo && v <= hi)?.[2] ?? '';
-  }
-  function getQualityHint(v) {
-    return qualityHints.find(([lo, hi]) => v >= lo && v <= hi)?.[2] ?? '';
-  }
+      function getDpiHint(v) {
+        return dpiHints.find(([lo, hi]) => v >= lo && v <= hi)?.[2] ?? '';
+      }
+      function getQualityHint(v) {
+        return qualityHints.find(([lo, hi]) => v >= lo && v <= hi)?.[2] ?? '';
+      }
 
-  dpiRange.addEventListener('input', () => {
-    dpiVal.textContent  = dpiRange.value;
-    dpiHint.textContent = '(' + getDpiHint(+dpiRange.value) + ')';
-  });
-
-  qualityRange.addEventListener('input', () => {
-    qualityVal.textContent  = qualityRange.value;
-    qualityHint.textContent = '(' + getQualityHint(+qualityRange.value) + ')';
-  });
-
-  // Init hints
-  dpiHint.textContent     = '(' + getDpiHint(200) + ')';
-  qualityHint.textContent = '(' + getQualityHint(85) + ')';
-
-  // ── Preset buttons ──
-  document.querySelectorAll('.preset-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const d = +btn.dataset.dpi;
-      const q = +btn.dataset.quality;
-      dpiRange.value     = d;
-      qualityRange.value = q;
-      dpiVal.textContent     = d;
-      qualityVal.textContent = q;
-      dpiHint.textContent     = '(' + getDpiHint(d) + ')';
-      qualityHint.textContent = '(' + getQualityHint(q) + ')';
-    });
-  });
-
-  // ── Output mode toggle ──
-  outputSelect.addEventListener('change', () => {
-    const isSingle = outputSelect.value === 'single';
-    pageInput.disabled = !isSingle;
-    pageOptNote.textContent = isSingle ? '(leave blank for page 1)' : '(ZIP mode: ignored)';
-    outputModeHint.textContent = isSingle
-      ? 'Exports one specific page as a single JPG file.'
-      : 'Every page exported as a JPG, bundled in a ZIP archive.';
-  });
-
-  // ── Password toggle ──
-  togglePwdBtn.addEventListener('click', () => {
-    const isPassword = pwdInput.type === 'password';
-    pwdInput.type = isPassword ? 'text' : 'password';
-    eyeShow.classList.toggle('hidden', isPassword);
-    eyeHide.classList.toggle('hidden', !isPassword);
-  });
-
-  // ── Drag & drop ──
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave', 'dragend', 'drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
-  // ── Handle file ──
-  function handleFile(file) {
-    hideError();
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
-      return;
-    }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    convertBtn.disabled = false;
-  }
-
-  function resetFile() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    convertBtn.disabled = true;
-    hideError();
-  }
-
-  // ── Convert ──
-  convertBtn.addEventListener('click', startConversion);
-
-  async function startConversion() {
-    if (!selectedFile) return;
-
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    const outputMode = outputSelect.value; // 'zip' | 'single'
-    const dpi        = dpiRange.value;
-    const quality    = qualityRange.value;
-    const password   = pwdInput.value.trim();
-    const page       = pageInput.value.trim();
-
-    const baseName   = selectedFile.name.replace(/\.pdf$/i, '');
-    const isSingle   = outputMode === 'single';
-    const pageNum    = isSingle && page ? parseInt(page, 10) : 1;
-
-    const formData = new FormData();
-    formData.append('file',    selectedFile);
-    formData.append('output',  outputMode);
-    formData.append('dpi',     dpi);
-    formData.append('quality', quality);
-    if (password) formData.append('password', password);
-    if (isSingle && page && parseInt(page, 10) > 1) formData.append('page', page);
-
-    // Animate progress
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 800, 'Uploading file…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1', 'done');
-      setProcessStep('proc-2', 'active');
-      animateProgress(20, 55, 1200, 'Rendering pages at ' + dpi + ' DPI…');
-    }, 1000);
-
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2', 'done');
-      setProcessStep('proc-3', 'active');
-      animateProgress(55, 78, 1000, 'Compressing & optimising JPGs…');
-    }, 2400);
-
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'active');
-      animateProgress(78, 90, 800, 'Packaging output file…');
-    }, 3600);
-
-    try {
-      const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-jpg', {
-        method: 'POST',
-        body:   formData,
+      dpiRange.addEventListener('input', () => {
+        dpiVal.textContent  = dpiRange.value;
+        dpiHint.textContent = '(' + getDpiHint(+dpiRange.value) + ')';
       });
 
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+      qualityRange.addEventListener('input', () => {
+        qualityVal.textContent  = qualityRange.value;
+        qualityHint.textContent = '(' + getQualityHint(+qualityRange.value) + ')';
+      });
 
-      if (!res.ok) {
-        let errMsg = 'Conversion failed. Please try again.';
-        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
-        throw new Error(errMsg);
+      // Init hints
+      dpiHint.textContent     = '(' + getDpiHint(200) + ')';
+      qualityHint.textContent = '(' + getQualityHint(85) + ')';
+
+      // ── Preset buttons ──
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const d = +btn.dataset.dpi;
+          const q = +btn.dataset.quality;
+          dpiRange.value     = d;
+          qualityRange.value = q;
+          dpiVal.textContent     = d;
+          qualityVal.textContent = q;
+          dpiHint.textContent     = '(' + getDpiHint(d) + ')';
+          qualityHint.textContent = '(' + getQualityHint(q) + ')';
+        });
+      });
+
+      // ── Output mode toggle ──
+      outputSelect.addEventListener('change', () => {
+        const isSingle = outputSelect.value === 'single';
+        pageInput.disabled = !isSingle;
+        pageOptNote.textContent = isSingle ? '(leave blank for page 1)' : '(ZIP mode: ignored)';
+        outputModeHint.textContent = isSingle
+          ? 'Exports one specific page as a single JPG file.'
+          : 'Every page exported as a JPG, bundled in a ZIP archive.';
+      });
+
+      // ── Password toggle ──
+      togglePwdBtn.addEventListener('click', () => {
+        const isPassword = pwdInput.type === 'password';
+        pwdInput.type = isPassword ? 'text' : 'password';
+        eyeShow.classList.toggle('hidden', isPassword);
+        eyeHide.classList.toggle('hidden', !isPassword);
+      });
+
+      // ── Drag & drop ──
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave', 'dragend', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
+
+      // ── Handle file ──
+      function handleFile(file) {
+        hideError();
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+          showError('Please select a valid PDF file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+          showError('File exceeds the 50MB free limit.');
+          return;
+        }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        convertBtn.disabled = false;
       }
 
-      const contentType = res.headers.get('Content-Type') || '';
-      let blob, fileName, downloadLabel, subtitle;
-
-      if (contentType.includes('application/json')) {
-        // base64 JSON response (shouldn't happen with zip/single, but handle gracefully)
-        const data = await res.json();
-        // Re-construct as a zip from base64 pages using JSZip if available,
-        // otherwise just download the JSON for debugging
-        const jsonStr = JSON.stringify(data, null, 2);
-        blob          = new Blob([jsonStr], { type: 'application/json' });
-        fileName      = baseName + '_pages.json';
-        downloadLabel = 'Download JSON';
-        subtitle      = `${data.total_pages ?? ''} pages · ${data.dpi ?? dpi} DPI · Q${data.quality ?? quality}`;
-      } else if (isSingle) {
-        blob          = await res.blob();
-        fileName      = baseName + '_page_' + pageNum + '.jpg';
-        downloadLabel = 'Download JPG';
-        subtitle      = 'Single page JPG · ' + formatBytes(blob.size);
-      } else {
-        blob          = await res.blob();
-        fileName      = baseName + '_pages.zip';
-        downloadLabel = 'Download ZIP';
-        subtitle      = 'ZIP of JPG images · ' + formatBytes(blob.size);
+      function resetFile() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        convertBtn.disabled = true;
+        hideError();
       }
 
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
+      // ── Convert ──
+      convertBtn.addEventListener('click', startConversion);
 
-      const link    = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = fileName;
+      async function startConversion() {
+        if (!selectedFile) return;
 
-      document.getElementById('output-name').textContent      = fileName;
-      document.getElementById('output-size').textContent      = subtitle;
-      document.getElementById('download-btn-label').textContent = downloadLabel;
-      document.getElementById('download-subtitle').textContent  = isSingle
-        ? 'Your JPG image is ready.'
-        : 'Your JPG images are packed and ready.';
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
 
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 400, 'Done!');
+        const outputMode = outputSelect.value; // 'zip' | 'single'
+        const dpi        = dpiRange.value;
+        const quality    = qualityRange.value;
+        const password   = pwdInput.value.trim();
+        const page       = pageInput.value.trim();
 
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+        const baseName   = selectedFile.name.replace(/\.pdf$/i, '');
+        const isSingle   = outputMode === 'single';
+        const pageNum    = isSingle && page ? parseInt(page, 10) : 1;
 
-    } catch (err) {
-      console.error(err);
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
-      showState('upload');
-      updateStepIndicator(1);
-    }
-  }
+        const formData = new FormData();
+        formData.append('file',    selectedFile);
+        formData.append('output',  outputMode);
+        formData.append('dpi',     dpi);
+        formData.append('quality', quality);
+        if (password) formData.append('password', password);
+        if (isSingle && page && parseInt(page, 10) > 1) formData.append('page', page);
 
-  // ── Helpers ──
-  function showState(state) {
-    ['upload', 'converting', 'download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
+        // Animate progress
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 20, 800, 'Uploading file…');
 
-  function updateStepIndicator(active) {
-    [1, 2, 3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active', 'done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1', 'done');
+          setProcessStep('proc-2', 'active');
+          animateProgress(20, 55, 1200, 'Rendering pages at ' + dpi + ' DPI…');
+        }, 1000);
 
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden');
-    spin.classList.add('hidden');
-    dot.style.borderColor = '';
-    dot.style.background  = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-    }
-  }
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2', 'done');
+          setProcessStep('proc-3', 'active');
+          animateProgress(55, 78, 1000, 'Compressing & optimising JPGs…');
+        }, 2400);
 
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'active');
+          animateProgress(78, 90, 800, 'Packaging output file…');
+        }, 3600);
 
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    resetFile();
-    pwdInput.value         = '';
-    pageInput.value        = '1';
-    dpiRange.value         = 200;
-    qualityRange.value     = 85;
-    dpiVal.textContent     = 200;
-    qualityVal.textContent = 85;
-    dpiHint.textContent     = '(' + getDpiHint(200) + ')';
-    qualityHint.textContent = '(' + getQualityHint(85) + ')';
-    outputSelect.value     = 'zip';
-    pageInput.disabled     = true;
-    pageOptNote.textContent = '(ZIP mode: ignored)';
-    outputModeHint.textContent = 'Every page exported as a JPG, bundled in a ZIP archive.';
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
+        try {
+          const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-jpg', {
+            method: 'POST',
+            body:   formData,
+          });
 
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
+          if (!res.ok) {
+            let errMsg = 'Conversion failed. Please try again.';
+            try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+            throw new Error(errMsg);
+          }
 
-  // ── FAQ accordion ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) {
-        body.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
+          const contentType = res.headers.get('Content-Type') || '';
+          let blob, fileName, downloadLabel, subtitle;
+
+          if (contentType.includes('application/json')) {
+            // base64 JSON response (shouldn't happen with zip/single, but handle gracefully)
+            const data = await res.json();
+            // Re-construct as a zip from base64 pages using JSZip if available,
+            // otherwise just download the JSON for debugging
+            const jsonStr = JSON.stringify(data, null, 2);
+            blob          = new Blob([jsonStr], { type: 'application/json' });
+            fileName      = baseName + '_pages.json';
+            downloadLabel = 'Download JSON';
+            subtitle      = `${data.total_pages ?? ''} pages · ${data.dpi ?? dpi} DPI · Q${data.quality ?? quality}`;
+          } else if (isSingle) {
+            blob          = await res.blob();
+            fileName      = baseName + '_page_' + pageNum + '.jpg';
+            downloadLabel = 'Download JPG';
+            subtitle      = 'Single page JPG · ' + formatBytes(blob.size);
+          } else {
+            blob          = await res.blob();
+            fileName      = baseName + '_pages.zip';
+            downloadLabel = 'Download ZIP';
+            subtitle      = 'ZIP of JPG images · ' + formatBytes(blob.size);
+          }
+
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+
+          const link    = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = fileName;
+
+          document.getElementById('output-name').textContent      = fileName;
+          document.getElementById('output-size').textContent      = subtitle;
+          document.getElementById('download-btn-label').textContent = downloadLabel;
+          document.getElementById('download-subtitle').textContent  = isSingle
+            ? 'Your JPG image is ready.'
+            : 'Your JPG images are packed and ready.';
+
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'done');
+          animateProgress(90, 100, 400, 'Done!');
+
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+        } catch (err) {
+          console.error(err);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showError(err.message || 'Something went wrong. Please try again.');
+          showState('upload');
+          updateStepIndicator(1);
+        }
       }
-    });
-  });
 
-}); // end DOMContentLoaded
-</script>
+      // ── Helpers ──
+      function showState(state) {
+        ['upload', 'converting', 'download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
+
+      function updateStepIndicator(active) {
+        [1, 2, 3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active', 'done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden');
+        spin.classList.add('hidden');
+        dot.style.borderColor = '';
+        dot.style.background  = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+        }
+      }
+
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        resetFile();
+        pwdInput.value         = '';
+        pageInput.value        = '1';
+        dpiRange.value         = 200;
+        qualityRange.value     = 85;
+        dpiVal.textContent     = 200;
+        qualityVal.textContent = 85;
+        dpiHint.textContent     = '(' + getDpiHint(200) + ')';
+        qualityHint.textContent = '(' + getQualityHint(85) + ')';
+        outputSelect.value     = 'zip';
+        pageInput.disabled     = true;
+        pageOptNote.textContent = '(ZIP mode: ignored)';
+        outputModeHint.textContent = 'Every page exported as a JPG, bundled in a ZIP archive.';
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
+      }
+
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ accordion ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) {
+            body.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

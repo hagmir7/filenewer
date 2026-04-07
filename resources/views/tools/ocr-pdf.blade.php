@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'PDF OCR – Extract Text from PDF Online | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -413,370 +415,374 @@
 <x-tools-section />
 
 {{-- ══ STYLES ══ --}}
-<style>
-    .page-tab {
-        padding: 4px 10px;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: 600;
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-        background: var(--fn-surface);
-        color: var(--fn-text3);
-        cursor: pointer;
-        transition: all .15s;
-        white-space: nowrap;
-    }
+@push('styles')
+    <style>
+        .page-tab {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+            background: var(--fn-surface);
+            color: var(--fn-text3);
+            cursor: pointer;
+            transition: all .15s;
+            white-space: nowrap;
+        }
 
-    .page-tab.active {
-        background: oklch(49% 0.24 264/10%);
-        border-color: oklch(49% 0.24 264/35%);
-        color: var(--fn-blue-l);
-    }
+        .page-tab.active {
+            background: oklch(49% 0.24 264/10%);
+            border-color: oklch(49% 0.24 264/35%);
+            color: var(--fn-blue-l);
+        }
 
-    .page-tab:not(.active):hover {
-        border-color: oklch(49% 0.24 264/20%);
-        color: var(--fn-text);
-    }
+        .page-tab:not(.active):hover {
+            border-color: oklch(49% 0.24 264/20%);
+            color: var(--fn-text);
+        }
 
-    .method-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        padding: 2px 8px;
-        border-radius: 6px;
-        font-size: 10px;
-        font-weight: 700;
-        border: 1px solid;
-    }
+        .method-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            border: 1px solid;
+        }
 
-    .method-badge.digital {
-        background: oklch(67% 0.18 162/12%);
-        border-color: oklch(67% 0.18 162/30%);
-        color: oklch(67% 0.18 162);
-    }
+        .method-badge.digital {
+            background: oklch(67% 0.18 162/12%);
+            border-color: oklch(67% 0.18 162/30%);
+            color: oklch(67% 0.18 162);
+        }
 
-    .method-badge.image {
-        background: oklch(75% 0.15 55/12%);
-        border-color: oklch(75% 0.15 55/30%);
-        color: oklch(65% 0.15 55);
-    }
-</style>
+        .method-badge.image {
+            background: oklch(75% 0.15 55/12%);
+            border-color: oklch(75% 0.15 55/30%);
+            color: oklch(65% 0.15 55);
+        }
+    </style>
+@endpush
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  let selectedFile = null;
-  let blobUrl      = null;
-  let ocrPages     = []; // array of page objects from API
+      let selectedFile = null;
+      let blobUrl      = null;
+      let ocrPages     = []; // array of page objects from API
 
-  // ── DPI slider ──
-  const dpiHints = [[72,100,'Fast'],[101,199,'Draft'],[200,250,'Good'],[251,350,'Recommended'],[351,450,'High'],[451,600,'Maximum']];
-  document.getElementById('opt-dpi').addEventListener('input', e => {
-    const v = +e.target.value;
-    document.getElementById('dpi-val').textContent  = v;
-    const hint = dpiHints.find(([lo,hi]) => v >= lo && v <= hi);
-    document.getElementById('dpi-hint').textContent = hint ? `(${hint[2]})` : '';
-  });
-
-  // ── Drop zone ──
-  const dropZone   = document.getElementById('drop-zone');
-  const fileInput  = document.getElementById('file-input');
-  const filePreview = document.getElementById('file-preview');
-
-  ['dragenter','dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave','dragend','drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  document.getElementById('remove-file').addEventListener('click', e => {
-    e.stopPropagation();
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    document.getElementById('extract-btn').disabled = true;
-    hideError();
-  });
-
-  function handleFile(file) {
-    hideError();
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    document.getElementById('extract-btn').disabled = false;
-  }
-
-  // ── Extract ──
-  document.getElementById('extract-btn').addEventListener('click', startExtraction);
-
-  async function startExtraction() {
-    if (!selectedFile) return;
-    hideError();
-
-    const outputMode = document.querySelector('input[name="ocr-output"]:checked').value;
-    const dpi        = document.getElementById('opt-dpi').value;
-    const pages      = document.getElementById('opt-pages').value.trim();
-
-    showState('converting');
-    updateStepIndicator(2);
-
-    const fd = new FormData();
-    fd.append('file',   selectedFile);
-    fd.append('output', outputMode);
-    fd.append('dpi',    dpi);
-    if (pages) fd.append('pages', pages);
-
-    setProcessStep('proc-1','active');
-    animateProgress(0, 20, 700, 'Uploading & reading PDF…');
-
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-      animateProgress(20, 50, 1000, 'Detecting text vs scanned pages…');
-    }, 800);
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-      animateProgress(50, 78, 1200, 'Extracting & preprocessing text…');
-    }, 1900);
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
-      animateProgress(78, 90, 700, 'Assembling full text output…');
-    }, 3300);
-
-    try {
-      const res = await fetch('https://api.filenewer.com/api/tools/ocr-pdf', {
-        method: 'POST',
-        body:   fd,
+      // ── DPI slider ──
+      const dpiHints = [[72,100,'Fast'],[101,199,'Draft'],[200,250,'Good'],[251,350,'Recommended'],[351,450,'High'],[451,600,'Maximum']];
+      document.getElementById('opt-dpi').addEventListener('input', e => {
+        const v = +e.target.value;
+        document.getElementById('dpi-val').textContent  = v;
+        const hint = dpiHints.find(([lo,hi]) => v >= lo && v <= hi);
+        document.getElementById('dpi-hint').textContent = hint ? `(${hint[2]})` : '';
       });
 
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+      // ── Drop zone ──
+      const dropZone   = document.getElementById('drop-zone');
+      const fileInput  = document.getElementById('file-input');
+      const filePreview = document.getElementById('file-preview');
 
-      if (!res.ok) {
-        const d = await res.json().catch(() => ({}));
-        throw new Error(d.error || 'OCR failed. Please try again.');
+      ['dragenter','dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave','dragend','drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      document.getElementById('remove-file').addEventListener('click', e => {
+        e.stopPropagation();
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        document.getElementById('extract-btn').disabled = true;
+        hideError();
+      });
+
+      function handleFile(file) {
+        hideError();
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+          showError('Please select a valid PDF file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        document.getElementById('extract-btn').disabled = false;
       }
 
-      setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
-      animateProgress(90, 100, 300, 'Done!');
+      // ── Extract ──
+      document.getElementById('extract-btn').addEventListener('click', startExtraction);
 
-      if (outputMode === 'file') {
-        // Binary .txt download
-        const blob     = await res.blob();
-        const fileName = selectedFile.name.replace(/\.pdf$/i, '_extracted.txt');
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = URL.createObjectURL(blob);
+      async function startExtraction() {
+        if (!selectedFile) return;
+        hideError();
 
-        document.getElementById('download-link').href     = blobUrl;
-        document.getElementById('download-link').download = fileName;
-        document.getElementById('output-name').textContent = fileName;
-        document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Text File';
-        document.getElementById('dl-subtitle').textContent =
-          `Text extracted from ${selectedFile.name}`;
+        const outputMode = document.querySelector('input[name="ocr-output"]:checked').value;
+        const dpi        = document.getElementById('opt-dpi').value;
+        const pages      = document.getElementById('opt-pages').value.trim();
 
-        setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+        showState('converting');
+        updateStepIndicator(2);
 
-      } else {
-        // JSON response — show inline preview
-        const data = await res.json();
-        ocrPages = data.pages ?? [];
+        const fd = new FormData();
+        fd.append('file',   selectedFile);
+        fd.append('output', outputMode);
+        fd.append('dpi',    dpi);
+        if (pages) fd.append('pages', pages);
 
-        // Stats
-        document.getElementById('stat-pages').textContent = data.total_pages ?? ocrPages.length;
-        document.getElementById('stat-words').textContent = (data.word_count ?? 0).toLocaleString();
-        document.getElementById('stat-chars').textContent = (data.char_count ?? 0).toLocaleString();
-        document.getElementById('stat-dpi').textContent   = (data.dpi ?? dpi) + ' DPI';
+        setProcessStep('proc-1','active');
+        animateProgress(0, 20, 700, 'Uploading & reading PDF…');
 
-        // Method badges
-        const hasDigital = ocrPages.some(p => p.method === 'digital');
-        const hasImage   = ocrPages.some(p => p.method === 'image');
-        const badgesEl   = document.getElementById('method-badges');
-        badgesEl.innerHTML = '';
-        if (hasDigital) badgesEl.innerHTML += `<span class="method-badge digital">✓ Digital</span>`;
-        if (hasImage)   badgesEl.innerHTML += `<span class="method-badge image">⚙ Image OCR</span>`;
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
+          animateProgress(20, 50, 1000, 'Detecting text vs scanned pages…');
+        }, 800);
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
+          animateProgress(50, 78, 1200, 'Extracting & preprocessing text…');
+        }, 1900);
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
+          animateProgress(78, 90, 700, 'Assembling full text output…');
+        }, 3300);
 
-        // Build page tabs
-        const tabsEl = document.getElementById('page-tabs');
-        tabsEl.innerHTML = '';
-        // "All" tab
-        const allTab = document.createElement('button');
-        allTab.type = 'button';
-        allTab.className = 'page-tab active';
-        allTab.textContent = 'All pages';
-        allTab.addEventListener('click', () => showPageText(-1, data.full_text, allTab));
-        tabsEl.appendChild(allTab);
+        try {
+          const res = await fetch('https://api.filenewer.com/api/tools/ocr-pdf', {
+            method: 'POST',
+            body:   fd,
+          });
 
-        ocrPages.forEach((page, idx) => {
-          const tab = document.createElement('button');
-          tab.type = 'button';
-          tab.className = 'page-tab';
-          tab.textContent = `P${page.page}`;
-          tab.title = `Page ${page.page} · ${page.word_count ?? 0} words · ${page.method}`;
-          tab.addEventListener('click', () => showPageText(idx, page.text, tab));
-          tabsEl.appendChild(tab);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          if (!res.ok) {
+            const d = await res.json().catch(() => ({}));
+            throw new Error(d.error || 'OCR failed. Please try again.');
+          }
+
+          setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
+          animateProgress(90, 100, 300, 'Done!');
+
+          if (outputMode === 'file') {
+            // Binary .txt download
+            const blob     = await res.blob();
+            const fileName = selectedFile.name.replace(/\.pdf$/i, '_extracted.txt');
+            if (blobUrl) URL.revokeObjectURL(blobUrl);
+            blobUrl = URL.createObjectURL(blob);
+
+            document.getElementById('download-link').href     = blobUrl;
+            document.getElementById('download-link').download = fileName;
+            document.getElementById('output-name').textContent = fileName;
+            document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Text File';
+            document.getElementById('dl-subtitle').textContent =
+              `Text extracted from ${selectedFile.name}`;
+
+            setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+          } else {
+            // JSON response — show inline preview
+            const data = await res.json();
+            ocrPages = data.pages ?? [];
+
+            // Stats
+            document.getElementById('stat-pages').textContent = data.total_pages ?? ocrPages.length;
+            document.getElementById('stat-words').textContent = (data.word_count ?? 0).toLocaleString();
+            document.getElementById('stat-chars').textContent = (data.char_count ?? 0).toLocaleString();
+            document.getElementById('stat-dpi').textContent   = (data.dpi ?? dpi) + ' DPI';
+
+            // Method badges
+            const hasDigital = ocrPages.some(p => p.method === 'digital');
+            const hasImage   = ocrPages.some(p => p.method === 'image');
+            const badgesEl   = document.getElementById('method-badges');
+            badgesEl.innerHTML = '';
+            if (hasDigital) badgesEl.innerHTML += `<span class="method-badge digital">✓ Digital</span>`;
+            if (hasImage)   badgesEl.innerHTML += `<span class="method-badge image">⚙ Image OCR</span>`;
+
+            // Build page tabs
+            const tabsEl = document.getElementById('page-tabs');
+            tabsEl.innerHTML = '';
+            // "All" tab
+            const allTab = document.createElement('button');
+            allTab.type = 'button';
+            allTab.className = 'page-tab active';
+            allTab.textContent = 'All pages';
+            allTab.addEventListener('click', () => showPageText(-1, data.full_text, allTab));
+            tabsEl.appendChild(allTab);
+
+            ocrPages.forEach((page, idx) => {
+              const tab = document.createElement('button');
+              tab.type = 'button';
+              tab.className = 'page-tab';
+              tab.textContent = `P${page.page}`;
+              tab.title = `Page ${page.page} · ${page.word_count ?? 0} words · ${page.method}`;
+              tab.addEventListener('click', () => showPageText(idx, page.text, tab));
+              tabsEl.appendChild(tab);
+            });
+
+            // Show full text initially
+            const outputTA = document.getElementById('ocr-output');
+            outputTA.value = data.full_text ?? '';
+            document.getElementById('empty-page-notice').classList.add('hidden');
+
+            // Wire download btn
+            const txtBlob = new Blob([data.full_text ?? ''], { type: 'text/plain;charset=utf-8;' });
+            if (blobUrl) URL.revokeObjectURL(blobUrl);
+            blobUrl = URL.createObjectURL(txtBlob);
+            const dlBtn   = document.getElementById('btn-download-txt');
+            dlBtn.href     = blobUrl;
+            dlBtn.download = selectedFile.name.replace(/\.pdf$/i, '_extracted.txt');
+
+            setTimeout(() => { showState('result'); updateStepIndicator(3); }, 500);
+          }
+
+        } catch(err) {
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showState('upload');
+          updateStepIndicator(1);
+          showError(err.message || 'Something went wrong. Please try again.');
+        }
+      }
+
+      function showPageText(idx, text, clickedTab) {
+        document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+        clickedTab.classList.add('active');
+        document.getElementById('ocr-output').value = text ?? '';
+        const isEmpty = !text || text.trim() === '';
+        document.getElementById('empty-page-notice').classList.toggle('hidden', !isEmpty || idx === -1);
+
+        // Update download blob to current page text if single page
+        if (idx >= 0 && blobUrl) {
+          URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(new Blob([text ?? ''], { type: 'text/plain;charset=utf-8;' }));
+          document.getElementById('btn-download-txt').href = blobUrl;
+        }
+      }
+
+      // ── Copy ──
+      document.getElementById('btn-copy-text').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(document.getElementById('ocr-output').value);
+          const label = document.getElementById('copy-label');
+          label.textContent = 'Copied!';
+          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+        } catch(_) {}
+      });
+
+      // ── Helpers ──
+      function showState(state) {
+        ['upload','converting','result','download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
-
-        // Show full text initially
-        const outputTA = document.getElementById('ocr-output');
-        outputTA.value = data.full_text ?? '';
-        document.getElementById('empty-page-notice').classList.add('hidden');
-
-        // Wire download btn
-        const txtBlob = new Blob([data.full_text ?? ''], { type: 'text/plain;charset=utf-8;' });
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = URL.createObjectURL(txtBlob);
-        const dlBtn   = document.getElementById('btn-download-txt');
-        dlBtn.href     = blobUrl;
-        dlBtn.download = selectedFile.name.replace(/\.pdf$/i, '_extracted.txt');
-
-        setTimeout(() => { showState('result'); updateStepIndicator(3); }, 500);
       }
 
-    } catch(err) {
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showState('upload');
-      updateStepIndicator(1);
-      showError(err.message || 'Something went wrong. Please try again.');
-    }
-  }
+      function updateStepIndicator(active) {
+        [1,2,3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active','done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
 
-  function showPageText(idx, text, clickedTab) {
-    document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
-    clickedTab.classList.add('active');
-    document.getElementById('ocr-output').value = text ?? '';
-    const isEmpty = !text || text.trim() === '';
-    document.getElementById('empty-page-notice').classList.toggle('hidden', !isEmpty || idx === -1);
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden'); spin.classList.add('hidden');
+        dot.style.borderColor = ''; dot.style.background = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264/15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162/15%)';
+        }
+      }
 
-    // Update download blob to current page text if single page
-    if (idx >= 0 && blobUrl) {
-      URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(new Blob([text ?? ''], { type: 'text/plain;charset=utf-8;' }));
-      document.getElementById('btn-download-txt').href = blobUrl;
-    }
-  }
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
 
-  // ── Copy ──
-  document.getElementById('btn-copy-text').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(document.getElementById('ocr-output').value);
-      const label = document.getElementById('copy-label');
-      label.textContent = 'Copied!';
-      setTimeout(() => { label.textContent = 'Copy'; }, 2000);
-    } catch(_) {}
-  });
+      function showError(msg) {
+        document.getElementById('error-text').textContent = msg;
+        const el = document.getElementById('upload-error');
+        el.classList.remove('hidden'); el.classList.add('flex');
+      }
+      function hideError() {
+        const el = document.getElementById('upload-error');
+        el.classList.add('hidden'); el.classList.remove('flex');
+      }
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
 
-  // ── Helpers ──
-  function showState(state) {
-    ['upload','converting','result','download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-  }
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        document.getElementById('extract-btn').disabled = true;
+        document.getElementById('opt-dpi').value   = '300';
+        document.getElementById('dpi-val').textContent = '300';
+        document.getElementById('dpi-hint').textContent = '(Recommended)';
+        document.getElementById('opt-pages').value = '';
+        document.querySelector('input[name="ocr-output"][value="json"]').checked = true;
+        document.getElementById('ocr-output').value = '';
+        document.getElementById('page-tabs').innerHTML = '';
+        document.getElementById('method-badges').innerHTML = '';
+        ocrPages = [];
+        hideError();
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
 
-  function updateStepIndicator(active) {
-    [1,2,3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active','done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+        });
+      });
 
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden'); spin.classList.add('hidden');
-    dot.style.borderColor = ''; dot.style.background = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264/15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162/15%)';
-    }
-  }
-
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  function showError(msg) {
-    document.getElementById('error-text').textContent = msg;
-    const el = document.getElementById('upload-error');
-    el.classList.remove('hidden'); el.classList.add('flex');
-  }
-  function hideError() {
-    const el = document.getElementById('upload-error');
-    el.classList.add('hidden'); el.classList.remove('flex');
-  }
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    document.getElementById('extract-btn').disabled = true;
-    document.getElementById('opt-dpi').value   = '300';
-    document.getElementById('dpi-val').textContent = '300';
-    document.getElementById('dpi-hint').textContent = '(Recommended)';
-    document.getElementById('opt-pages').value = '';
-    document.querySelector('input[name="ocr-output"][value="json"]').checked = true;
-    document.getElementById('ocr-output').value = '';
-    document.getElementById('page-tabs').innerHTML = '';
-    document.getElementById('method-badges').innerHTML = '';
-    ocrPages = [];
-    hideError();
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
-
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
-    });
-  });
-
-}); // end DOMContentLoaded
-</script>
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

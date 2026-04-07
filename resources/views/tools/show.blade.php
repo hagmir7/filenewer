@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 @section('content')
 
 {{-- ══ TOOL HERO ══ --}}
@@ -279,132 +281,134 @@
 
 <x-faqs />
 
-<script>
-    // ── File formats per tool slug ──
-        const toolFormats = {
-            'pdf-to-word':    { accept: '.pdf', formats: 'PDF', icon: '📕' },
-            'pdf-to-excel':   { accept: '.pdf', formats: 'PDF', icon: '📕' },
-            'pdf-to-jpg':     { accept: '.pdf', formats: 'PDF', icon: '📕' },
-            'word-to-pdf':    { accept: '.doc,.docx', formats: 'DOC, DOCX', icon: '📄' },
-            'merge-pdf':      { accept: '.pdf', formats: 'PDF', icon: '📕', multiple: true },
-            'split-pdf':      { accept: '.pdf', formats: 'PDF', icon: '📕' },
-            'compress-pdf':   { accept: '.pdf', formats: 'PDF', icon: '📕' },
-            'compress-image': { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '🖼️' },
-            'resize-image':   { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '🖼️' },
-            'csv-to-json':    { accept: '.csv', formats: 'CSV', icon: '📊' },
-            'json-to-csv':    { accept: '.json', formats: 'JSON', icon: '📊' },
-            'excel-to-csv':   { accept: '.xlsx,.xls', formats: 'XLSX, XLS', icon: '📗' },
-        };
+@push('footer')
+    <script>
+        // ── File formats per tool slug ──
+            const toolFormats = {
+                'pdf-to-word':    { accept: '.pdf', formats: 'PDF', icon: '📕' },
+                'pdf-to-excel':   { accept: '.pdf', formats: 'PDF', icon: '📕' },
+                'pdf-to-jpg':     { accept: '.pdf', formats: 'PDF', icon: '📕' },
+                'word-to-pdf':    { accept: '.doc,.docx', formats: 'DOC, DOCX', icon: '📄' },
+                'merge-pdf':      { accept: '.pdf', formats: 'PDF', icon: '📕', multiple: true },
+                'split-pdf':      { accept: '.pdf', formats: 'PDF', icon: '📕' },
+                'compress-pdf':   { accept: '.pdf', formats: 'PDF', icon: '📕' },
+                'compress-image': { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '🖼️' },
+                'resize-image':   { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '🖼️' },
+                'csv-to-json':    { accept: '.csv', formats: 'CSV', icon: '📊' },
+                'json-to-csv':    { accept: '.json', formats: 'JSON', icon: '📊' },
+                'excel-to-csv':   { accept: '.xlsx,.xls', formats: 'XLSX, XLS', icon: '📗' },
+            };
 
-        const slug = '{{ $tool->slug }}';
-        const config = toolFormats[slug] || { accept: '*', formats: 'Any file', icon: '📄' };
+            const slug = '{{ $tool->slug }}';
+            const config = toolFormats[slug] || { accept: '*', formats: 'Any file', icon: '📄' };
 
-        // Apply accepted formats
-        document.getElementById('file-input').setAttribute('accept', config.accept);
-        document.getElementById('supported-formats').textContent = config.formats;
-        if (config.multiple) {
-            document.getElementById('file-input').setAttribute('multiple', true);
-        }
+            // Apply accepted formats
+            document.getElementById('file-input').setAttribute('accept', config.accept);
+            document.getElementById('supported-formats').textContent = config.formats;
+            if (config.multiple) {
+                document.getElementById('file-input').setAttribute('multiple', true);
+            }
 
-        let selectedFile = null;
+            let selectedFile = null;
 
-        function handleDrop(e) {
-            e.preventDefault();
-            document.getElementById('upload-zone').classList.remove('drag-over');
-            const file = e.dataTransfer.files[0];
-            if (file) showPreview(file);
-        }
+            function handleDrop(e) {
+                e.preventDefault();
+                document.getElementById('upload-zone').classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file) showPreview(file);
+            }
 
-        function handleFileSelect(input) {
-            if (input.files[0]) showPreview(input.files[0]);
-        }
+            function handleFileSelect(input) {
+                if (input.files[0]) showPreview(input.files[0]);
+            }
 
-        function showPreview(file) {
-            selectedFile = file;
-            document.getElementById('upload-zone').classList.add('hidden');
-            document.getElementById('file-preview').classList.remove('hidden');
-            document.getElementById('preview-name').textContent = file.name;
-            document.getElementById('preview-icon').textContent = config.icon;
-            document.getElementById('preview-size').textContent = formatBytes(file.size);
-        }
-
-        function resetFile() {
-            selectedFile = null;
-            document.getElementById('file-preview').classList.add('hidden');
-            document.getElementById('upload-zone').classList.remove('hidden');
-            document.getElementById('file-input').value = '';
-        }
-
-        function resetAll() {
-            resetFile();
-            document.getElementById('result-wrap').classList.add('hidden');
-            document.getElementById('progress-wrap').classList.add('hidden');
-        }
-
-        function startConvert() {
-            if (!selectedFile) return;
-
-            // Show progress
-            document.getElementById('file-preview').classList.add('hidden');
-            document.getElementById('progress-wrap').classList.remove('hidden');
-
-            // Build form data
-            const formData = new FormData();
-            formData.append('file', selectedFile);
-            formData.append('_token', '{{ csrf_token() }}');
-
-            // Simulate progress then POST
-            let pct = 0;
-            const bar = document.getElementById('progress-bar');
-            const pctLabel = document.getElementById('progress-pct');
-            const label = document.getElementById('progress-label');
-
-            const tick = setInterval(() => {
-                pct = Math.min(pct + Math.random() * 15, 85);
-                bar.style.width = pct + '%';
-                pctLabel.textContent = Math.round(pct) + '%';
-                if (pct > 40) label.textContent = 'Converting…';
-            }, 300);
-
-            fetch('/tools/{{ $tool->slug }}/process', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(res => {
-                if (!res.ok) throw new Error('Conversion failed');
-                return res.blob();
-            })
-            .then(blob => {
-                clearInterval(tick);
-                bar.style.width = '100%';
-                pctLabel.textContent = '100%';
-
-                setTimeout(() => {
-                    document.getElementById('progress-wrap').classList.add('hidden');
-                    document.getElementById('result-wrap').classList.remove('hidden');
-
-                    const url = URL.createObjectURL(blob);
-                    const ext = config.formats.split(',')[0].trim().toLowerCase();
-                    const outName = selectedFile.name.replace(/\.[^.]+$/, '') + '.' + ext;
-
-                    document.getElementById('download-btn').href = url;
-                    document.getElementById('download-btn').download = outName;
-                    document.getElementById('result-filename').textContent = outName;
-                }, 400);
-            })
-            .catch(() => {
-                clearInterval(tick);
-                document.getElementById('progress-wrap').classList.add('hidden');
+            function showPreview(file) {
+                selectedFile = file;
+                document.getElementById('upload-zone').classList.add('hidden');
                 document.getElementById('file-preview').classList.remove('hidden');
-                alert('Something went wrong. Please try again.');
-            });
-        }
+                document.getElementById('preview-name').textContent = file.name;
+                document.getElementById('preview-icon').textContent = config.icon;
+                document.getElementById('preview-size').textContent = formatBytes(file.size);
+            }
 
-        function formatBytes(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-            return (bytes / 1048576).toFixed(1) + ' MB';
-        }
-</script>
+            function resetFile() {
+                selectedFile = null;
+                document.getElementById('file-preview').classList.add('hidden');
+                document.getElementById('upload-zone').classList.remove('hidden');
+                document.getElementById('file-input').value = '';
+            }
+
+            function resetAll() {
+                resetFile();
+                document.getElementById('result-wrap').classList.add('hidden');
+                document.getElementById('progress-wrap').classList.add('hidden');
+            }
+
+            function startConvert() {
+                if (!selectedFile) return;
+
+                // Show progress
+                document.getElementById('file-preview').classList.add('hidden');
+                document.getElementById('progress-wrap').classList.remove('hidden');
+
+                // Build form data
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+                formData.append('_token', '{{ csrf_token() }}');
+
+                // Simulate progress then POST
+                let pct = 0;
+                const bar = document.getElementById('progress-bar');
+                const pctLabel = document.getElementById('progress-pct');
+                const label = document.getElementById('progress-label');
+
+                const tick = setInterval(() => {
+                    pct = Math.min(pct + Math.random() * 15, 85);
+                    bar.style.width = pct + '%';
+                    pctLabel.textContent = Math.round(pct) + '%';
+                    if (pct > 40) label.textContent = 'Converting…';
+                }, 300);
+
+                fetch('/tools/{{ $tool->slug }}/process', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error('Conversion failed');
+                    return res.blob();
+                })
+                .then(blob => {
+                    clearInterval(tick);
+                    bar.style.width = '100%';
+                    pctLabel.textContent = '100%';
+
+                    setTimeout(() => {
+                        document.getElementById('progress-wrap').classList.add('hidden');
+                        document.getElementById('result-wrap').classList.remove('hidden');
+
+                        const url = URL.createObjectURL(blob);
+                        const ext = config.formats.split(',')[0].trim().toLowerCase();
+                        const outName = selectedFile.name.replace(/\.[^.]+$/, '') + '.' + ext;
+
+                        document.getElementById('download-btn').href = url;
+                        document.getElementById('download-btn').download = outName;
+                        document.getElementById('result-filename').textContent = outName;
+                    }, 400);
+                })
+                .catch(() => {
+                    clearInterval(tick);
+                    document.getElementById('progress-wrap').classList.add('hidden');
+                    document.getElementById('file-preview').classList.remove('hidden');
+                    alert('Something went wrong. Please try again.');
+                });
+            }
+
+            function formatBytes(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+    </script>
+@endpush
 
 @endsection

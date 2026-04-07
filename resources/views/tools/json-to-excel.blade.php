@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
-@section('title', 'JSON to Excel Converter – Free Online | Filenewer')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -470,420 +472,423 @@
     }
 </style>
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Refs ──
-  const tabFile        = document.getElementById('tab-file');
-  const tabText        = document.getElementById('tab-text');
-  const panelFile      = document.getElementById('panel-file');
-  const panelText      = document.getElementById('panel-text');
-  const dropZone       = document.getElementById('drop-zone');
-  const fileInput      = document.getElementById('file-input');
-  const convertBtn     = document.getElementById('convert-btn');
-  const filePreview    = document.getElementById('file-preview');
-  const removeFile     = document.getElementById('remove-file');
-  const uploadError    = document.getElementById('upload-error');
-  const errorText      = document.getElementById('error-text');
-  const jsonTA         = document.getElementById('json-textarea');
-  const jsonMultiTA    = document.getElementById('json-multi-textarea');
-  const jsonStatus     = document.getElementById('json-status');
-  const jsonMultiStatus = document.getElementById('json-multi-status');
-  const sheetModeSingle = document.getElementById('sheet-mode-single');
-  const sheetModeMulti  = document.getElementById('sheet-mode-multi');
-  const panelSingle    = document.getElementById('panel-single');
-  const panelMulti     = document.getElementById('panel-multi');
-  const textSheetNote  = document.getElementById('text-sheet-note');
-  const textSheetInput = document.getElementById('text-opt-sheet');
+      // ── Refs ──
+      const tabFile        = document.getElementById('tab-file');
+      const tabText        = document.getElementById('tab-text');
+      const panelFile      = document.getElementById('panel-file');
+      const panelText      = document.getElementById('panel-text');
+      const dropZone       = document.getElementById('drop-zone');
+      const fileInput      = document.getElementById('file-input');
+      const convertBtn     = document.getElementById('convert-btn');
+      const filePreview    = document.getElementById('file-preview');
+      const removeFile     = document.getElementById('remove-file');
+      const uploadError    = document.getElementById('upload-error');
+      const errorText      = document.getElementById('error-text');
+      const jsonTA         = document.getElementById('json-textarea');
+      const jsonMultiTA    = document.getElementById('json-multi-textarea');
+      const jsonStatus     = document.getElementById('json-status');
+      const jsonMultiStatus = document.getElementById('json-multi-status');
+      const sheetModeSingle = document.getElementById('sheet-mode-single');
+      const sheetModeMulti  = document.getElementById('sheet-mode-multi');
+      const panelSingle    = document.getElementById('panel-single');
+      const panelMulti     = document.getElementById('panel-multi');
+      const textSheetNote  = document.getElementById('text-sheet-note');
+      const textSheetInput = document.getElementById('text-opt-sheet');
 
-  let selectedFile  = null;
-  let blobUrl       = null;
-  let activeTab     = 'file';   // 'file' | 'text'
-  let sheetMode     = 'single'; // 'single' | 'multi'
-  let jsonValid     = false;
-  let jsonMultiValid = false;
+      let selectedFile  = null;
+      let blobUrl       = null;
+      let activeTab     = 'file';   // 'file' | 'text'
+      let sheetMode     = 'single'; // 'single' | 'multi'
+      let jsonValid     = false;
+      let jsonMultiValid = false;
 
-  // ── Tab switching ──
-  tabFile.addEventListener('click', () => switchTab('file'));
-  tabText.addEventListener('click', () => switchTab('text'));
+      // ── Tab switching ──
+      tabFile.addEventListener('click', () => switchTab('file'));
+      tabText.addEventListener('click', () => switchTab('text'));
 
-  function switchTab(tab) {
-    activeTab = tab;
-    tabFile.classList.toggle('active', tab === 'file');
-    tabText.classList.toggle('active', tab === 'text');
-    panelFile.classList.toggle('hidden', tab !== 'file');
-    panelText.classList.toggle('hidden', tab !== 'text');
-    hideError();
-    refreshConvertBtn();
-  }
-
-  // ── Sheet mode switching (text tab) ──
-  sheetModeSingle.addEventListener('click', () => switchSheetMode('single'));
-  sheetModeMulti.addEventListener('click',  () => switchSheetMode('multi'));
-
-  function switchSheetMode(mode) {
-    sheetMode = mode;
-    sheetModeSingle.classList.toggle('active', mode === 'single');
-    sheetModeMulti.classList.toggle('active',  mode === 'multi');
-    panelSingle.classList.toggle('hidden', mode !== 'single');
-    panelMulti.classList.toggle('hidden',  mode !== 'multi');
-    // Sheet name field only makes sense for single sheet
-    textSheetInput.disabled = mode === 'multi';
-    textSheetNote.textContent = mode === 'multi'
-      ? '(ignored — sheet names come from JSON keys)'
-      : '(optional — single sheet only)';
-    refreshConvertBtn();
-  }
-
-  function refreshConvertBtn() {
-    if (activeTab === 'file') {
-      convertBtn.disabled = !selectedFile;
-    } else {
-      convertBtn.disabled = sheetMode === 'single' ? !jsonValid : !jsonMultiValid;
-    }
-  }
-
-  // ── Drag & drop ──
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave', 'dragend', 'drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-  removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
-  function handleFile(file) {
-    hideError();
-    if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
-      showError('Please select a valid JSON file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
-      return;
-    }
-    selectedFile = file;
-    document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
-    const fnInput = document.getElementById('file-opt-filename');
-    if (!fnInput.value) fnInput.value = file.name.replace(/\.json$/i, '.xlsx');
-    filePreview.classList.remove('hidden');
-    filePreview.classList.add('flex');
-    dropZone.classList.add('has-file');
-    refreshConvertBtn();
-  }
-
-  function resetFile() {
-    selectedFile    = null;
-    fileInput.value = '';
-    filePreview.classList.add('hidden');
-    filePreview.classList.remove('flex');
-    dropZone.classList.remove('has-file');
-    refreshConvertBtn();
-    hideError();
-  }
-
-  // ── JSON validation — single sheet ──
-  let validateTimer = null;
-  jsonTA.addEventListener('input', () => {
-    clearTimeout(validateTimer);
-    validateTimer = setTimeout(() => validateJson(jsonTA, jsonStatus, 'single'), 300);
-  });
-
-  // ── JSON validation — multi-sheet ──
-  let validateMultiTimer = null;
-  jsonMultiTA.addEventListener('input', () => {
-    clearTimeout(validateMultiTimer);
-    validateMultiTimer = setTimeout(() => validateJson(jsonMultiTA, jsonMultiStatus, 'multi'), 300);
-  });
-
-  function validateJson(textarea, statusEl, mode) {
-    const raw = textarea.value.trim();
-    if (!raw) {
-      statusEl.classList.add('hidden');
-      if (mode === 'single') jsonValid = false;
-      else jsonMultiValid = false;
-      refreshConvertBtn();
-      return;
-    }
-    try {
-      const parsed = JSON.parse(raw);
-      if (mode === 'single') {
-        if (!Array.isArray(parsed))              throw new Error('Root must be a JSON array [ … ]');
-        if (parsed.length === 0)                 throw new Error('Array is empty');
-        if (typeof parsed[0] !== 'object' || Array.isArray(parsed[0])) throw new Error('Array items must be objects');
-        jsonValid = true;
-        statusEl.innerHTML = okStatus(`Valid JSON · ${parsed.length} row${parsed.length !== 1 ? 's' : ''} · ${Object.keys(parsed[0]).length} keys`);
-      } else {
-        if (Array.isArray(parsed) || typeof parsed !== 'object') throw new Error('Root must be an object { "SheetName": [ … ] }');
-        const sheets = Object.keys(parsed);
-        if (sheets.length === 0) throw new Error('No sheets found');
-        sheets.forEach(k => {
-          if (!Array.isArray(parsed[k])) throw new Error(`"${k}" must be an array`);
-        });
-        jsonMultiValid = true;
-        const rows = sheets.reduce((s, k) => s + parsed[k].length, 0);
-        statusEl.innerHTML = okStatus(`Valid · ${sheets.length} sheet${sheets.length !== 1 ? 's' : ''} · ${rows} total rows`);
+      function switchTab(tab) {
+        activeTab = tab;
+        tabFile.classList.toggle('active', tab === 'file');
+        tabText.classList.toggle('active', tab === 'text');
+        panelFile.classList.toggle('hidden', tab !== 'file');
+        panelText.classList.toggle('hidden', tab !== 'text');
+        hideError();
+        refreshConvertBtn();
       }
-    } catch (e) {
-      if (mode === 'single') jsonValid = false;
-      else jsonMultiValid = false;
-      statusEl.innerHTML = errStatus(e.message);
-    }
-    statusEl.classList.remove('hidden');
-    statusEl.classList.add('flex');
-    refreshConvertBtn();
-  }
 
-  function okStatus(msg) {
-    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
-  }
-  function errStatus(msg) {
-    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
-  }
+      // ── Sheet mode switching (text tab) ──
+      sheetModeSingle.addEventListener('click', () => switchSheetMode('single'));
+      sheetModeMulti.addEventListener('click',  () => switchSheetMode('multi'));
 
-  // ── Paste & clear buttons ──
-  document.getElementById('btn-paste').addEventListener('click', async () => {
-    try { jsonTA.value = await navigator.clipboard.readText(); validateJson(jsonTA, jsonStatus, 'single'); } catch (_) {}
-  });
-  document.getElementById('btn-clear').addEventListener('click', () => {
-    jsonTA.value = ''; jsonStatus.classList.add('hidden'); jsonValid = false; refreshConvertBtn();
-  });
-  document.getElementById('btn-paste-multi').addEventListener('click', async () => {
-    try { jsonMultiTA.value = await navigator.clipboard.readText(); validateJson(jsonMultiTA, jsonMultiStatus, 'multi'); } catch (_) {}
-  });
-  document.getElementById('btn-clear-multi').addEventListener('click', () => {
-    jsonMultiTA.value = ''; jsonMultiStatus.classList.add('hidden'); jsonMultiValid = false; refreshConvertBtn();
-  });
-
-  // ── Convert ──
-  convertBtn.addEventListener('click', startConversion);
-
-  async function startConversion() {
-    hideError();
-    showState('converting');
-    updateStepIndicator(2);
-
-    const isFile = activeTab === 'file';
-    let endpoint, fetchBody, fetchHeaders = {};
-
-    if (isFile) {
-      // ── File upload → multipart/form-data → /api/tools/json-file-to-excel ──
-      endpoint = 'https://api.filenewer.com/api/tools/json-file-to-excel';
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      const sheetName  = document.getElementById('file-opt-sheet').value.trim();
-      const customFile = document.getElementById('file-opt-filename').value.trim();
-      if (sheetName)  formData.append('sheet_name', sheetName);
-      if (customFile) formData.append('filename',   customFile);
-      fetchBody = formData;
-      // headers left empty so browser sets multipart boundary
-
-    } else {
-      // ── Paste/text → application/json → /api/tools/json-text-to-excel ──
-      endpoint = 'https://api.filenewer.com/api/tools/json-text-to-excel';
-      const customFile = document.getElementById('text-opt-filename').value.trim();
-      let payload = {};
-
-      if (sheetMode === 'single') {
-        const sheetName = document.getElementById('text-opt-sheet').value.trim();
-        payload.json = JSON.parse(jsonTA.value.trim());
-        if (sheetName)  payload.sheet_name = sheetName;
-      } else {
-        // multi-sheet: send "sheets" key
-        payload.sheets = JSON.parse(jsonMultiTA.value.trim());
+      function switchSheetMode(mode) {
+        sheetMode = mode;
+        sheetModeSingle.classList.toggle('active', mode === 'single');
+        sheetModeMulti.classList.toggle('active',  mode === 'multi');
+        panelSingle.classList.toggle('hidden', mode !== 'single');
+        panelMulti.classList.toggle('hidden',  mode !== 'multi');
+        // Sheet name field only makes sense for single sheet
+        textSheetInput.disabled = mode === 'multi';
+        textSheetNote.textContent = mode === 'multi'
+          ? '(ignored — sheet names come from JSON keys)'
+          : '(optional — single sheet only)';
+        refreshConvertBtn();
       }
-      if (customFile) payload.filename = customFile;
-      fetchBody    = JSON.stringify(payload);
-      fetchHeaders = { 'Content-Type': 'application/json' };
-    }
 
-    // ── Determine output filename for the download anchor ──
-    let outputFilename;
-    if (isFile) {
-      const custom = document.getElementById('file-opt-filename').value.trim();
-      outputFilename = custom
-        ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
-        : selectedFile.name.replace(/\.json$/i, '.xlsx');
-    } else {
-      const custom = document.getElementById('text-opt-filename').value.trim();
-      outputFilename = custom
-        ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
-        : 'output.xlsx';
-    }
+      function refreshConvertBtn() {
+        if (activeTab === 'file') {
+          convertBtn.disabled = !selectedFile;
+        } else {
+          convertBtn.disabled = sheetMode === 'single' ? !jsonValid : !jsonMultiValid;
+        }
+      }
 
-    // Animate
-    setProcessStep('proc-1', 'active');
-    animateProgress(0, 22, 600, 'Parsing JSON structure…');
+      // ── Drag & drop ──
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave', 'dragend', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+      removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
 
-    const t2 = setTimeout(() => {
-      setProcessStep('proc-1', 'done');
-      setProcessStep('proc-2', 'active');
-      animateProgress(22, 50, 800, 'Flattening nested fields…');
-    }, 700);
+      function handleFile(file) {
+        hideError();
+        if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
+          showError('Please select a valid JSON file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) {
+          showError('File exceeds the 50MB free limit.');
+          return;
+        }
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
+        const fnInput = document.getElementById('file-opt-filename');
+        if (!fnInput.value) fnInput.value = file.name.replace(/\.json$/i, '.xlsx');
+        filePreview.classList.remove('hidden');
+        filePreview.classList.add('flex');
+        dropZone.classList.add('has-file');
+        refreshConvertBtn();
+      }
 
-    const t3 = setTimeout(() => {
-      setProcessStep('proc-2', 'done');
-      setProcessStep('proc-3', 'active');
-      animateProgress(50, 76, 900, 'Building styled worksheet(s)…');
-    }, 1600);
+      function resetFile() {
+        selectedFile    = null;
+        fileInput.value = '';
+        filePreview.classList.add('hidden');
+        filePreview.classList.remove('flex');
+        dropZone.classList.remove('has-file');
+        refreshConvertBtn();
+        hideError();
+      }
 
-    const t4 = setTimeout(() => {
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'active');
-      animateProgress(76, 90, 700, 'Generating Excel workbook…');
-    }, 2700);
-
-    try {
-      const res = await fetch(endpoint, {
-        method:  'POST',
-        headers: fetchHeaders,
-        body:    fetchBody,
+      // ── JSON validation — single sheet ──
+      let validateTimer = null;
+      jsonTA.addEventListener('input', () => {
+        clearTimeout(validateTimer);
+        validateTimer = setTimeout(() => validateJson(jsonTA, jsonStatus, 'single'), 300);
       });
 
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+      // ── JSON validation — multi-sheet ──
+      let validateMultiTimer = null;
+      jsonMultiTA.addEventListener('input', () => {
+        clearTimeout(validateMultiTimer);
+        validateMultiTimer = setTimeout(() => validateJson(jsonMultiTA, jsonMultiStatus, 'multi'), 300);
+      });
 
-      if (!res.ok) {
-        let errMsg = 'Conversion failed. Please try again.';
-        try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
-        throw new Error(errMsg);
+      function validateJson(textarea, statusEl, mode) {
+        const raw = textarea.value.trim();
+        if (!raw) {
+          statusEl.classList.add('hidden');
+          if (mode === 'single') jsonValid = false;
+          else jsonMultiValid = false;
+          refreshConvertBtn();
+          return;
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          if (mode === 'single') {
+            if (!Array.isArray(parsed))              throw new Error('Root must be a JSON array [ … ]');
+            if (parsed.length === 0)                 throw new Error('Array is empty');
+            if (typeof parsed[0] !== 'object' || Array.isArray(parsed[0])) throw new Error('Array items must be objects');
+            jsonValid = true;
+            statusEl.innerHTML = okStatus(`Valid JSON · ${parsed.length} row${parsed.length !== 1 ? 's' : ''} · ${Object.keys(parsed[0]).length} keys`);
+          } else {
+            if (Array.isArray(parsed) || typeof parsed !== 'object') throw new Error('Root must be an object { "SheetName": [ … ] }');
+            const sheets = Object.keys(parsed);
+            if (sheets.length === 0) throw new Error('No sheets found');
+            sheets.forEach(k => {
+              if (!Array.isArray(parsed[k])) throw new Error(`"${k}" must be an array`);
+            });
+            jsonMultiValid = true;
+            const rows = sheets.reduce((s, k) => s + parsed[k].length, 0);
+            statusEl.innerHTML = okStatus(`Valid · ${sheets.length} sheet${sheets.length !== 1 ? 's' : ''} · ${rows} total rows`);
+          }
+        } catch (e) {
+          if (mode === 'single') jsonValid = false;
+          else jsonMultiValid = false;
+          statusEl.innerHTML = errStatus(e.message);
+        }
+        statusEl.classList.remove('hidden');
+        statusEl.classList.add('flex');
+        refreshConvertBtn();
       }
 
-      const blob = await res.blob();
-
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
-
-      const link    = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = outputFilename;
-
-      document.getElementById('output-name').textContent = outputFilename;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
-
-      setProcessStep('proc-3', 'done');
-      setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 300, 'Done!');
-
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
-    } catch (err) {
-      console.error(err);
-      clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
-      showState('upload');
-      updateStepIndicator(1);
-    }
-  }
-
-  // ── Helpers ──
-  function showState(state) {
-    ['upload', 'converting', 'download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-    if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-  }
-
-  function updateStepIndicator(active) {
-    [1, 2, 3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active', 'done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
-
-  function setProcessStep(id, state) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const dot   = el.querySelector('.step-dot');
-    const check = el.querySelector('.check-icon');
-    const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden');
-    spin.classList.add('hidden');
-    dot.style.borderColor = '';
-    dot.style.background  = '';
-    if (state === 'active') {
-      spin.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(49% 0.24 264)';
-      dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
-    }
-    if (state === 'done') {
-      check.classList.remove('hidden');
-      dot.style.borderColor = 'oklch(67% 0.18 162)';
-      dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
-    }
-  }
-
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  window.resetConverter = function () {
-    if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
-    resetFile();
-    jsonTA.value      = '';
-    jsonMultiTA.value = '';
-    jsonStatus.classList.add('hidden');
-    jsonMultiStatus.classList.add('hidden');
-    jsonValid      = false;
-    jsonMultiValid = false;
-    document.getElementById('file-opt-sheet').value    = '';
-    document.getElementById('file-opt-filename').value = '';
-    document.getElementById('text-opt-sheet').value    = '';
-    document.getElementById('text-opt-filename').value = '';
-    switchSheetMode('single');
-    switchTab('file');
-    showState('upload');
-    updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
-    ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-  };
-
-  function showError(msg) {
-    errorText.textContent = msg;
-    uploadError.classList.remove('hidden');
-    uploadError.classList.add('flex');
-  }
-  function hideError() {
-    uploadError.classList.add('hidden');
-    uploadError.classList.remove('flex');
-  }
-
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
-
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) {
-        body.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
+      function okStatus(msg) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
       }
-    });
-  });
+      function errStatus(msg) {
+        return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
+      }
 
-}); // end DOMContentLoaded
-</script>
+      // ── Paste & clear buttons ──
+      document.getElementById('btn-paste').addEventListener('click', async () => {
+        try { jsonTA.value = await navigator.clipboard.readText(); validateJson(jsonTA, jsonStatus, 'single'); } catch (_) {}
+      });
+      document.getElementById('btn-clear').addEventListener('click', () => {
+        jsonTA.value = ''; jsonStatus.classList.add('hidden'); jsonValid = false; refreshConvertBtn();
+      });
+      document.getElementById('btn-paste-multi').addEventListener('click', async () => {
+        try { jsonMultiTA.value = await navigator.clipboard.readText(); validateJson(jsonMultiTA, jsonMultiStatus, 'multi'); } catch (_) {}
+      });
+      document.getElementById('btn-clear-multi').addEventListener('click', () => {
+        jsonMultiTA.value = ''; jsonMultiStatus.classList.add('hidden'); jsonMultiValid = false; refreshConvertBtn();
+      });
+
+      // ── Convert ──
+      convertBtn.addEventListener('click', startConversion);
+
+      async function startConversion() {
+        hideError();
+        showState('converting');
+        updateStepIndicator(2);
+
+        const isFile = activeTab === 'file';
+        let endpoint, fetchBody, fetchHeaders = {};
+
+        if (isFile) {
+          // ── File upload → multipart/form-data → /api/tools/json-file-to-excel ──
+          endpoint = 'https://api.filenewer.com/api/tools/json-file-to-excel';
+          const formData = new FormData();
+          formData.append('file', selectedFile);
+          const sheetName  = document.getElementById('file-opt-sheet').value.trim();
+          const customFile = document.getElementById('file-opt-filename').value.trim();
+          if (sheetName)  formData.append('sheet_name', sheetName);
+          if (customFile) formData.append('filename',   customFile);
+          fetchBody = formData;
+          // headers left empty so browser sets multipart boundary
+
+        } else {
+          // ── Paste/text → application/json → /api/tools/json-text-to-excel ──
+          endpoint = 'https://api.filenewer.com/api/tools/json-text-to-excel';
+          const customFile = document.getElementById('text-opt-filename').value.trim();
+          let payload = {};
+
+          if (sheetMode === 'single') {
+            const sheetName = document.getElementById('text-opt-sheet').value.trim();
+            payload.json = JSON.parse(jsonTA.value.trim());
+            if (sheetName)  payload.sheet_name = sheetName;
+          } else {
+            // multi-sheet: send "sheets" key
+            payload.sheets = JSON.parse(jsonMultiTA.value.trim());
+          }
+          if (customFile) payload.filename = customFile;
+          fetchBody    = JSON.stringify(payload);
+          fetchHeaders = { 'Content-Type': 'application/json' };
+        }
+
+        // ── Determine output filename for the download anchor ──
+        let outputFilename;
+        if (isFile) {
+          const custom = document.getElementById('file-opt-filename').value.trim();
+          outputFilename = custom
+            ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
+            : selectedFile.name.replace(/\.json$/i, '.xlsx');
+        } else {
+          const custom = document.getElementById('text-opt-filename').value.trim();
+          outputFilename = custom
+            ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
+            : 'output.xlsx';
+        }
+
+        // Animate
+        setProcessStep('proc-1', 'active');
+        animateProgress(0, 22, 600, 'Parsing JSON structure…');
+
+        const t2 = setTimeout(() => {
+          setProcessStep('proc-1', 'done');
+          setProcessStep('proc-2', 'active');
+          animateProgress(22, 50, 800, 'Flattening nested fields…');
+        }, 700);
+
+        const t3 = setTimeout(() => {
+          setProcessStep('proc-2', 'done');
+          setProcessStep('proc-3', 'active');
+          animateProgress(50, 76, 900, 'Building styled worksheet(s)…');
+        }, 1600);
+
+        const t4 = setTimeout(() => {
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'active');
+          animateProgress(76, 90, 700, 'Generating Excel workbook…');
+        }, 2700);
+
+        try {
+          const res = await fetch(endpoint, {
+            method:  'POST',
+            headers: fetchHeaders,
+            body:    fetchBody,
+          });
+
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+
+          if (!res.ok) {
+            let errMsg = 'Conversion failed. Please try again.';
+            try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+            throw new Error(errMsg);
+          }
+
+          const blob = await res.blob();
+
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(blob);
+
+          const link    = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = outputFilename;
+
+          document.getElementById('output-name').textContent = outputFilename;
+          document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
+
+          setProcessStep('proc-3', 'done');
+          setProcessStep('proc-4', 'done');
+          animateProgress(90, 100, 300, 'Done!');
+
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+        } catch (err) {
+          console.error(err);
+          clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
+          showError(err.message || 'Something went wrong. Please try again.');
+          showState('upload');
+          updateStepIndicator(1);
+        }
+      }
+
+      // ── Helpers ──
+      function showState(state) {
+        ['upload', 'converting', 'download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+        if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+      }
+
+      function updateStepIndicator(active) {
+        [1, 2, 3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active', 'done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      function setProcessStep(id, state) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const dot   = el.querySelector('.step-dot');
+        const check = el.querySelector('.check-icon');
+        const spin  = el.querySelector('.spin-icon');
+        check.classList.add('hidden');
+        spin.classList.add('hidden');
+        dot.style.borderColor = '';
+        dot.style.background  = '';
+        if (state === 'active') {
+          spin.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(49% 0.24 264)';
+          dot.style.background  = 'oklch(49% 0.24 264 / 15%)';
+        }
+        if (state === 'done') {
+          check.classList.remove('hidden');
+          dot.style.borderColor = 'oklch(67% 0.18 162)';
+          dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
+        }
+      }
+
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      window.resetConverter = function () {
+        if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+        resetFile();
+        jsonTA.value      = '';
+        jsonMultiTA.value = '';
+        jsonStatus.classList.add('hidden');
+        jsonMultiStatus.classList.add('hidden');
+        jsonValid      = false;
+        jsonMultiValid = false;
+        document.getElementById('file-opt-sheet').value    = '';
+        document.getElementById('file-opt-filename').value = '';
+        document.getElementById('text-opt-sheet').value    = '';
+        document.getElementById('text-opt-filename').value = '';
+        switchSheetMode('single');
+        switchTab('file');
+        showState('upload');
+        updateStepIndicator(1);
+        animateProgress(0, 0, 0, 'Starting…');
+        ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
+      };
+
+      function showError(msg) {
+        errorText.textContent = msg;
+        uploadError.classList.remove('hidden');
+        uploadError.classList.add('flex');
+      }
+      function hideError() {
+        uploadError.classList.add('hidden');
+        uploadError.classList.remove('flex');
+      }
+
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) {
+            body.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+
+@endpush
 
 @endsection

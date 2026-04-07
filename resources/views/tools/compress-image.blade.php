@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -388,7 +390,7 @@
 </section>
 
 <!-- ══════════════════════ SCRIPT ══════════════════════ -->
-@push('scripts')
+@push('footer')
 {{-- JSZip for Download All --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 

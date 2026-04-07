@@ -1,4 +1,7 @@
 @extends('layouts.base')
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 
 @section('content')
 
@@ -415,542 +418,546 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ STYLES ══ --}}
-<style>
-    .wm-type-btn {
-        color: var(--fn-text3);
-        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-        background: var(--fn-surface);
-    }
+@push('styles')
+    {{-- ══ STYLES ══ --}}
+    <style>
+        .wm-type-btn {
+            color: var(--fn-text3);
+            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+            background: var(--fn-surface);
+        }
 
-    .wm-type-btn.active {
-        color: var(--fn-blue-l);
-        border-color: oklch(49% 0.24 264/40%);
-        background: oklch(49% 0.24 264/8%);
-    }
+        .wm-type-btn.active {
+            color: var(--fn-blue-l);
+            border-color: oklch(49% 0.24 264/40%);
+            background: oklch(49% 0.24 264/8%);
+        }
 
-    .pos-btn {
-        color: var(--fn-text3);
-        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-        background: var(--fn-surface);
-    }
+        .pos-btn {
+            color: var(--fn-text3);
+            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+            background: var(--fn-surface);
+        }
 
-    .pos-btn.active {
-        color: var(--fn-blue-l);
-        border-color: oklch(49% 0.24 264/40%);
-        background: oklch(49% 0.24 264/8%);
-    }
+        .pos-btn.active {
+            color: var(--fn-blue-l);
+            border-color: oklch(49% 0.24 264/40%);
+            background: oklch(49% 0.24 264/8%);
+        }
 
-    .pos-btn:not(.active):hover {
-        border-color: oklch(49% 0.24 264/25%);
-        color: var(--fn-text);
-    }
+        .pos-btn:not(.active):hover {
+            border-color: oklch(49% 0.24 264/25%);
+            color: var(--fn-text);
+        }
 
-    .color-btn.active {
-        outline: 3px solid oklch(49% 0.24 264);
-        outline-offset: 2px;
-    }
+        .color-btn.active {
+            outline: 3px solid oklch(49% 0.24 264);
+            outline-offset: 2px;
+        }
 
-    /* Preview positioning */
-    #preview-watermark {
-        transition: all .2s ease;
-    }
-</style>
+        /* Preview positioning */
+        #preview-watermark {
+            transition: all .2s ease;
+        }
+    </style>
+@endpush
 
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // ── State ──
-        let selectedFile = null;
-        let selectedImage = null;
-        let blobUrl = null;
-        let wmType = 'text'; // 'text' | 'image'
-        let activeColor = 'grey';
-        let activePos = 'center';
+            // ── State ──
+            let selectedFile = null;
+            let selectedImage = null;
+            let blobUrl = null;
+            let wmType = 'text'; // 'text' | 'image'
+            let activeColor = 'grey';
+            let activePos = 'center';
 
-        const colorHexMap = {
-            red: '#ef4444',
-            blue: '#3b82f6',
-            grey: '#9ca3af',
-            black: '#111827',
-            green: '#22c55e',
-            yellow: '#eab308',
-            white: '#ffffff',
-        };
+            const colorHexMap = {
+                red: '#ef4444',
+                blue: '#3b82f6',
+                grey: '#9ca3af',
+                black: '#111827',
+                green: '#22c55e',
+                yellow: '#eab308',
+                white: '#ffffff',
+            };
 
-        // ── Watermark type toggle ──
-        document.querySelectorAll('.wm-type-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                wmType = btn.dataset.type;
-                document.querySelectorAll('.wm-type-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById('text-options').classList.toggle('hidden', wmType !== 'text');
-                document.getElementById('image-options').classList.toggle('hidden', wmType !== 'image');
-                document.getElementById('angle-wrap').style.opacity = '1';
-                // Show/hide preview elements
-                document.getElementById('preview-text').classList.toggle('hidden', wmType !== 'text');
-                document.getElementById('preview-img').classList.toggle('hidden', wmType !== 'image');
+            // ── Watermark type toggle ──
+            document.querySelectorAll('.wm-type-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    wmType = btn.dataset.type;
+                    document.querySelectorAll('.wm-type-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById('text-options').classList.toggle('hidden', wmType !== 'text');
+                    document.getElementById('image-options').classList.toggle('hidden', wmType !== 'image');
+                    document.getElementById('angle-wrap').style.opacity = '1';
+                    // Show/hide preview elements
+                    document.getElementById('preview-text').classList.toggle('hidden', wmType !== 'text');
+                    document.getElementById('preview-img').classList.toggle('hidden', wmType !== 'image');
+                    updateActionBtn();
+                });
+            });
+
+            // ── PDF drop zone ──
+            const dropZone = document.getElementById('drop-zone');
+            const fileInput = document.getElementById('file-input');
+            const filePreview = document.getElementById('file-preview');
+
+            ['dragenter', 'dragover'].forEach(evt => {
+                dropZone.addEventListener(evt, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.add('drag-over');
+                });
+            });
+            ['dragleave', 'dragend', 'drop'].forEach(evt => {
+                dropZone.addEventListener(evt, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.remove('drag-over');
+                });
+            });
+            dropZone.addEventListener('drop', e => {
+                if (e.dataTransfer.files[0]) handlePdf(e.dataTransfer.files[0]);
+            });
+            fileInput.addEventListener('change', e => {
+                if (e.target.files[0]) handlePdf(e.target.files[0]);
+            });
+            document.getElementById('remove-file').addEventListener('click', e => {
+                e.stopPropagation();
+                selectedFile = null;
+                fileInput.value = '';
+                filePreview.classList.add('hidden');
+                filePreview.classList.remove('flex');
+                dropZone.classList.remove('has-file');
+                updateActionBtn();
+                hideError();
+            });
+
+            function handlePdf(file) {
+                hideError();
+                if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+                    showError('Please select a valid PDF file.');
+                    return;
+                }
+                if (file.size > 50 * 1024 * 1024) {
+                    showError('File exceeds the 50MB free limit.');
+                    return;
+                }
+                selectedFile = file;
+                document.getElementById('file-name').textContent = file.name;
+                document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+                filePreview.classList.remove('hidden');
+                filePreview.classList.add('flex');
+                dropZone.classList.add('has-file');
+                updateActionBtn();
+            }
+
+            // ── Image drop zone ──
+            const imgDropZone = document.getElementById('img-drop-zone');
+            const imgInput = document.getElementById('img-input');
+            const imgPreviewWrap = document.getElementById('img-preview-wrap');
+
+            ['dragenter', 'dragover'].forEach(evt => {
+                imgDropZone.addEventListener(evt, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    imgDropZone.classList.add('drag-over');
+                });
+            });
+            ['dragleave', 'dragend', 'drop'].forEach(evt => {
+                imgDropZone.addEventListener(evt, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    imgDropZone.classList.remove('drag-over');
+                });
+            });
+            imgDropZone.addEventListener('drop', e => {
+                if (e.dataTransfer.files[0]) handleImage(e.dataTransfer.files[0]);
+            });
+            imgInput.addEventListener('change', e => {
+                if (e.target.files[0]) handleImage(e.target.files[0]);
+            });
+            document.getElementById('remove-img').addEventListener('click', () => {
+                selectedImage = null;
+                imgInput.value = '';
+                imgPreviewWrap.classList.add('hidden');
+                imgPreviewWrap.classList.remove('flex');
+                imgDropZone.classList.remove('has-file');
+                document.getElementById('preview-img').src = '';
                 updateActionBtn();
             });
-        });
 
-        // ── PDF drop zone ──
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('file-input');
-        const filePreview = document.getElementById('file-preview');
-
-        ['dragenter', 'dragover'].forEach(evt => {
-            dropZone.addEventListener(evt, e => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropZone.classList.add('drag-over');
-            });
-        });
-        ['dragleave', 'dragend', 'drop'].forEach(evt => {
-            dropZone.addEventListener(evt, e => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropZone.classList.remove('drag-over');
-            });
-        });
-        dropZone.addEventListener('drop', e => {
-            if (e.dataTransfer.files[0]) handlePdf(e.dataTransfer.files[0]);
-        });
-        fileInput.addEventListener('change', e => {
-            if (e.target.files[0]) handlePdf(e.target.files[0]);
-        });
-        document.getElementById('remove-file').addEventListener('click', e => {
-            e.stopPropagation();
-            selectedFile = null;
-            fileInput.value = '';
-            filePreview.classList.add('hidden');
-            filePreview.classList.remove('flex');
-            dropZone.classList.remove('has-file');
-            updateActionBtn();
-            hideError();
-        });
-
-        function handlePdf(file) {
-            hideError();
-            if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-                showError('Please select a valid PDF file.');
-                return;
+            function handleImage(file) {
+                hideError();
+                if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
+                    showError('Please select a PNG or JPG image for the watermark.');
+                    return;
+                }
+                selectedImage = file;
+                document.getElementById('img-name').textContent = file.name;
+                document.getElementById('img-meta').textContent = formatBytes(file.size) + ' · ' + (file.type === 'image/png' ? 'PNG' : 'JPEG');
+                // Thumb + preview
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('img-preview-thumb').src = e.target.result;
+                    const previewImg = document.getElementById('preview-img');
+                    previewImg.src = e.target.result;
+                    previewImg.classList.remove('hidden');
+                    document.getElementById('preview-text').classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+                imgPreviewWrap.classList.remove('hidden');
+                imgPreviewWrap.classList.add('flex');
+                imgDropZone.classList.add('has-file');
+                updateActionBtn();
             }
-            if (file.size > 50 * 1024 * 1024) {
-                showError('File exceeds the 50MB free limit.');
-                return;
-            }
-            selectedFile = file;
-            document.getElementById('file-name').textContent = file.name;
-            document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
-            filePreview.classList.remove('hidden');
-            filePreview.classList.add('flex');
-            dropZone.classList.add('has-file');
-            updateActionBtn();
-        }
 
-        // ── Image drop zone ──
-        const imgDropZone = document.getElementById('img-drop-zone');
-        const imgInput = document.getElementById('img-input');
-        const imgPreviewWrap = document.getElementById('img-preview-wrap');
-
-        ['dragenter', 'dragover'].forEach(evt => {
-            imgDropZone.addEventListener(evt, e => {
-                e.preventDefault();
-                e.stopPropagation();
-                imgDropZone.classList.add('drag-over');
+            // ── Preset text buttons ──
+            document.querySelectorAll('.preset-text-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('opt-text').value = btn.textContent.trim();
+                    updatePreview();
+                });
             });
-        });
-        ['dragleave', 'dragend', 'drop'].forEach(evt => {
-            imgDropZone.addEventListener(evt, e => {
-                e.preventDefault();
-                e.stopPropagation();
-                imgDropZone.classList.remove('drag-over');
+
+            // ── Color buttons ──
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.color-btn').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.borderColor = 'transparent';
+                    });
+                    btn.classList.add('active');
+                    btn.style.borderColor = btn.style.backgroundColor;
+                    activeColor = btn.dataset.color;
+                    document.getElementById('color-label').textContent = btn.title;
+                    updatePreview();
+                });
             });
-        });
-        imgDropZone.addEventListener('drop', e => {
-            if (e.dataTransfer.files[0]) handleImage(e.dataTransfer.files[0]);
-        });
-        imgInput.addEventListener('change', e => {
-            if (e.target.files[0]) handleImage(e.target.files[0]);
-        });
-        document.getElementById('remove-img').addEventListener('click', () => {
-            selectedImage = null;
-            imgInput.value = '';
-            imgPreviewWrap.classList.add('hidden');
-            imgPreviewWrap.classList.remove('flex');
-            imgDropZone.classList.remove('has-file');
-            document.getElementById('preview-img').src = '';
-            updateActionBtn();
-        });
 
-        function handleImage(file) {
-            hideError();
-            if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
-                showError('Please select a PNG or JPG image for the watermark.');
-                return;
-            }
-            selectedImage = file;
-            document.getElementById('img-name').textContent = file.name;
-            document.getElementById('img-meta').textContent = formatBytes(file.size) + ' · ' + (file.type === 'image/png' ? 'PNG' : 'JPEG');
-            // Thumb + preview
-            const reader = new FileReader();
-            reader.onload = e => {
-                document.getElementById('img-preview-thumb').src = e.target.result;
-                const previewImg = document.getElementById('preview-img');
-                previewImg.src = e.target.result;
-                previewImg.classList.remove('hidden');
-                document.getElementById('preview-text').classList.add('hidden');
-            };
-            reader.readAsDataURL(file);
-            imgPreviewWrap.classList.remove('hidden');
-            imgPreviewWrap.classList.add('flex');
-            imgDropZone.classList.add('has-file');
-            updateActionBtn();
-        }
+            // ── Position grid ──
+            document.querySelectorAll('.pos-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activePos = btn.dataset.pos;
+                    updatePreview();
+                });
+            });
 
-        // ── Preset text buttons ──
-        document.querySelectorAll('.preset-text-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('opt-text').value = btn.textContent.trim();
+            // ── Sliders ──
+            document.getElementById('opt-opacity').addEventListener('input', e => {
+                document.getElementById('opacity-val').textContent = parseFloat(e.target.value).toFixed(2);
                 updatePreview();
             });
-        });
+            document.getElementById('opt-angle').addEventListener('input', e => {
+                document.getElementById('angle-val').textContent = e.target.value + '°';
+                updatePreview();
+            });
+            document.getElementById('opt-font-size').addEventListener('input', e => {
+                document.getElementById('font-size-val').textContent = e.target.value;
+                updatePreview();
+            });
+            document.getElementById('opt-text').addEventListener('input', updatePreview);
 
-        // ── Color buttons ──
-        document.querySelectorAll('.color-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            // ── Live preview ──
+            function updatePreview() {
+                const previewWM = document.getElementById('preview-watermark');
+                const previewTxt = document.getElementById('preview-text');
+                const previewImg = document.getElementById('preview-img');
+                const opacity = parseFloat(document.getElementById('opt-opacity').value);
+                const angle = parseInt(document.getElementById('opt-angle').value);
+
+                // Position mapping → flexbox alignment
+                const posMap = {
+                    'center': ['center', 'center'],
+                    'top': ['flex-start', 'center'],
+                    'bottom': ['flex-end', 'center'],
+                    'top-left': ['flex-start', 'flex-start'],
+                    'top-right': ['flex-start', 'flex-end'],
+                    'bottom-left': ['flex-end', 'flex-start'],
+                    'bottom-right': ['flex-end', 'flex-end'],
+                    'left': ['center', 'flex-start'],
+                    'right': ['center', 'flex-end'],
+                };
+                const [alignItems, justifyContent] = posMap[activePos] || ['center', 'center'];
+                previewWM.style.alignItems = alignItems;
+                previewWM.style.justifyContent = justifyContent;
+                previewWM.style.padding = activePos === 'center' ? '0' : '16px';
+
+                if (wmType === 'text') {
+                    const text = document.getElementById('opt-text').value || 'WATERMARK';
+                    const fontSize = parseInt(document.getElementById('opt-font-size').value);
+                    const hex = colorHexMap[activeColor] || '#9ca3af';
+                    previewTxt.textContent = text;
+                    previewTxt.style.color = hexWithOpacity(hex, opacity);
+                    previewTxt.style.transform = `rotate(${angle}deg)`;
+                    previewTxt.style.fontSize = Math.max(10, Math.round(fontSize * 0.55)) + 'px';
+                } else {
+                    previewImg.style.opacity = opacity;
+                    previewImg.style.transform = `rotate(${angle}deg)`;
+                }
+            }
+
+            function hexWithOpacity(hex, opacity) {
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+                return `rgba(${r},${g},${b},${opacity})`;
+            }
+
+            // Init preview
+            updatePreview();
+
+            // ── Refresh convert button ──
+            function updateActionBtn() {
+                const btn = document.getElementById('action-btn');
+                if (wmType === 'text') {
+                    btn.disabled = !selectedFile;
+                } else {
+                    btn.disabled = !selectedFile || !selectedImage;
+                }
+            }
+
+            // ── Convert ──
+            document.getElementById('action-btn').addEventListener('click', startConversion);
+
+            async function startConversion() {
+                hideError();
+                showState('converting');
+                updateStepIndicator(2);
+
+                const opacity = parseFloat(document.getElementById('opt-opacity').value);
+                const angle = parseInt(document.getElementById('opt-angle').value);
+                const pages = document.getElementById('opt-pages').value.trim();
+                const fileName = selectedFile.name.replace(/\.pdf$/i, '_watermarked.pdf');
+
+                const fd = new FormData();
+                fd.append('file', selectedFile);
+                fd.append('watermark_type', wmType);
+                fd.append('position', activePos);
+                fd.append('opacity', opacity);
+                fd.append('angle', angle);
+                if (pages) fd.append('pages', pages);
+
+                if (wmType === 'text') {
+                    fd.append('watermark_text', document.getElementById('opt-text').value.trim() || 'CONFIDENTIAL');
+                    fd.append('color', activeColor);
+                    fd.append('font_size', document.getElementById('opt-font-size').value);
+                } else {
+                    fd.append('watermark_image', selectedImage);
+                }
+
+                setProcessStep('proc-1', 'active');
+                animateProgress(0, 25, 700, 'Uploading & reading PDF…');
+
+                const t2 = setTimeout(() => {
+                    setProcessStep('proc-1', 'done');
+                    setProcessStep('proc-2', 'active');
+                    animateProgress(25, 55, 900, 'Rendering watermark layer…');
+                }, 800);
+                const t3 = setTimeout(() => {
+                    setProcessStep('proc-2', 'done');
+                    setProcessStep('proc-3', 'active');
+                    animateProgress(55, 78, 800, 'Stamping pages…');
+                }, 1800);
+                const t4 = setTimeout(() => {
+                    setProcessStep('proc-3', 'done');
+                    setProcessStep('proc-4', 'active');
+                    animateProgress(78, 90, 600, 'Generating output PDF…');
+                }, 2700);
+
+                try {
+                    const res = await fetch('https://api.filenewer.com/api/tools/pdf-watermark', {
+                        method: 'POST',
+                        body: fd
+                    });
+                    clearTimeout(t2);
+                    clearTimeout(t3);
+                    clearTimeout(t4);
+                    if (!res.ok) {
+                        const d = await res.json().catch(() => ({}));
+                        throw new Error(d.error || 'Watermarking failed. Please try again.');
+                    }
+                    const blob = await res.blob();
+                    if (blobUrl) URL.revokeObjectURL(blobUrl);
+                    blobUrl = URL.createObjectURL(blob);
+
+                    const link = document.getElementById('download-link');
+                    link.href = blobUrl;
+                    link.download = fileName;
+
+                    document.getElementById('output-name').textContent = fileName;
+                    document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
+
+                    setProcessStep('proc-3', 'done');
+                    setProcessStep('proc-4', 'done');
+                    animateProgress(90, 100, 300, 'Done!');
+                    setTimeout(() => {
+                        showState('download');
+                        updateStepIndicator(3);
+                    }, 500);
+
+                } catch (err) {
+                    clearTimeout(t2);
+                    clearTimeout(t3);
+                    clearTimeout(t4);
+                    showError(err.message);
+                    showState('upload');
+                    updateStepIndicator(1);
+                }
+            }
+
+            // ── Helpers ──
+            function showState(state) {
+                ['upload', 'converting', 'download'].forEach(s => {
+                    document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+                });
+                if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
+            }
+
+            function updateStepIndicator(active) {
+                [1, 2, 3].forEach(n => {
+                    const el = document.getElementById('step-' + n);
+                    el.classList.remove('active', 'done');
+                    if (n < active) el.classList.add('done');
+                    if (n === active) el.classList.add('active');
+                });
+            }
+
+            function setProcessStep(id, state) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const dot = el.querySelector('.step-dot');
+                const check = el.querySelector('.check-icon');
+                const spin = el.querySelector('.spin-icon');
+                check.classList.add('hidden');
+                spin.classList.add('hidden');
+                dot.style.borderColor = '';
+                dot.style.background = '';
+                if (state === 'active') {
+                    spin.classList.remove('hidden');
+                    dot.style.borderColor = 'oklch(49% 0.24 264)';
+                    dot.style.background = 'oklch(49% 0.24 264/15%)';
+                }
+                if (state === 'done') {
+                    check.classList.remove('hidden');
+                    dot.style.borderColor = 'oklch(67% 0.18 162)';
+                    dot.style.background = 'oklch(67% 0.18 162/15%)';
+                }
+            }
+
+            function animateProgress(from, to, duration, label) {
+                document.getElementById('progress-label').textContent = label;
+                const start = performance.now();
+
+                function step(now) {
+                    const t = Math.min((now - start) / duration, 1);
+                    const pct = Math.round(from + (to - from) * t);
+                    document.getElementById('progress-fill').style.width = pct + '%';
+                    document.getElementById('progress-pct').textContent = pct + '%';
+                    if (t < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            window.resetConverter = function() {
+                if (blobUrl) {
+                    URL.revokeObjectURL(blobUrl);
+                    blobUrl = null;
+                }
+                // Reset files
+                selectedFile = null;
+                selectedImage = null;
+                fileInput.value = '';
+                imgInput.value = '';
+                filePreview.classList.add('hidden');
+                filePreview.classList.remove('flex');
+                imgPreviewWrap.classList.add('hidden');
+                imgPreviewWrap.classList.remove('flex');
+                dropZone.classList.remove('has-file');
+                imgDropZone.classList.remove('has-file');
+                // Reset type to text
+                wmType = 'text';
+                document.getElementById('type-text').classList.add('active');
+                document.getElementById('type-image').classList.remove('active');
+                document.getElementById('text-options').classList.remove('hidden');
+                document.getElementById('image-options').classList.add('hidden');
+                document.getElementById('preview-text').classList.remove('hidden');
+                document.getElementById('preview-img').classList.add('hidden');
+                document.getElementById('preview-img').src = '';
+                // Reset fields
+                document.getElementById('opt-text').value = 'CONFIDENTIAL';
+                document.getElementById('opt-opacity').value = '0.3';
+                document.getElementById('opt-angle').value = '45';
+                document.getElementById('opt-font-size').value = '60';
+                document.getElementById('opt-pages').value = '';
+                document.getElementById('opacity-val').textContent = '0.30';
+                document.getElementById('angle-val').textContent = '45°';
+                document.getElementById('font-size-val').textContent = '60';
+                // Reset color to grey
+                activeColor = 'grey';
                 document.querySelectorAll('.color-btn').forEach(b => {
                     b.classList.remove('active');
                     b.style.borderColor = 'transparent';
                 });
-                btn.classList.add('active');
-                btn.style.borderColor = btn.style.backgroundColor;
-                activeColor = btn.dataset.color;
-                document.getElementById('color-label').textContent = btn.title;
-                updatePreview();
-            });
-        });
-
-        // ── Position grid ──
-        document.querySelectorAll('.pos-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+                const greyBtn = document.querySelector('.color-btn[data-color="grey"]');
+                greyBtn.classList.add('active');
+                greyBtn.style.borderColor = '#6b7280';
+                document.getElementById('color-label').textContent = 'Grey';
+                // Reset position to center
+                activePos = 'center';
                 document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activePos = btn.dataset.pos;
+                document.querySelector('.pos-btn[data-pos="center"]').classList.add('active');
                 updatePreview();
-            });
-        });
-
-        // ── Sliders ──
-        document.getElementById('opt-opacity').addEventListener('input', e => {
-            document.getElementById('opacity-val').textContent = parseFloat(e.target.value).toFixed(2);
-            updatePreview();
-        });
-        document.getElementById('opt-angle').addEventListener('input', e => {
-            document.getElementById('angle-val').textContent = e.target.value + '°';
-            updatePreview();
-        });
-        document.getElementById('opt-font-size').addEventListener('input', e => {
-            document.getElementById('font-size-val').textContent = e.target.value;
-            updatePreview();
-        });
-        document.getElementById('opt-text').addEventListener('input', updatePreview);
-
-        // ── Live preview ──
-        function updatePreview() {
-            const previewWM = document.getElementById('preview-watermark');
-            const previewTxt = document.getElementById('preview-text');
-            const previewImg = document.getElementById('preview-img');
-            const opacity = parseFloat(document.getElementById('opt-opacity').value);
-            const angle = parseInt(document.getElementById('opt-angle').value);
-
-            // Position mapping → flexbox alignment
-            const posMap = {
-                'center': ['center', 'center'],
-                'top': ['flex-start', 'center'],
-                'bottom': ['flex-end', 'center'],
-                'top-left': ['flex-start', 'flex-start'],
-                'top-right': ['flex-start', 'flex-end'],
-                'bottom-left': ['flex-end', 'flex-start'],
-                'bottom-right': ['flex-end', 'flex-end'],
-                'left': ['center', 'flex-start'],
-                'right': ['center', 'flex-end'],
-            };
-            const [alignItems, justifyContent] = posMap[activePos] || ['center', 'center'];
-            previewWM.style.alignItems = alignItems;
-            previewWM.style.justifyContent = justifyContent;
-            previewWM.style.padding = activePos === 'center' ? '0' : '16px';
-
-            if (wmType === 'text') {
-                const text = document.getElementById('opt-text').value || 'WATERMARK';
-                const fontSize = parseInt(document.getElementById('opt-font-size').value);
-                const hex = colorHexMap[activeColor] || '#9ca3af';
-                previewTxt.textContent = text;
-                previewTxt.style.color = hexWithOpacity(hex, opacity);
-                previewTxt.style.transform = `rotate(${angle}deg)`;
-                previewTxt.style.fontSize = Math.max(10, Math.round(fontSize * 0.55)) + 'px';
-            } else {
-                previewImg.style.opacity = opacity;
-                previewImg.style.transform = `rotate(${angle}deg)`;
-            }
-        }
-
-        function hexWithOpacity(hex, opacity) {
-            const r = parseInt(hex.slice(1, 3), 16);
-            const g = parseInt(hex.slice(3, 5), 16);
-            const b = parseInt(hex.slice(5, 7), 16);
-            return `rgba(${r},${g},${b},${opacity})`;
-        }
-
-        // Init preview
-        updatePreview();
-
-        // ── Refresh convert button ──
-        function updateActionBtn() {
-            const btn = document.getElementById('action-btn');
-            if (wmType === 'text') {
-                btn.disabled = !selectedFile;
-            } else {
-                btn.disabled = !selectedFile || !selectedImage;
-            }
-        }
-
-        // ── Convert ──
-        document.getElementById('action-btn').addEventListener('click', startConversion);
-
-        async function startConversion() {
-            hideError();
-            showState('converting');
-            updateStepIndicator(2);
-
-            const opacity = parseFloat(document.getElementById('opt-opacity').value);
-            const angle = parseInt(document.getElementById('opt-angle').value);
-            const pages = document.getElementById('opt-pages').value.trim();
-            const fileName = selectedFile.name.replace(/\.pdf$/i, '_watermarked.pdf');
-
-            const fd = new FormData();
-            fd.append('file', selectedFile);
-            fd.append('watermark_type', wmType);
-            fd.append('position', activePos);
-            fd.append('opacity', opacity);
-            fd.append('angle', angle);
-            if (pages) fd.append('pages', pages);
-
-            if (wmType === 'text') {
-                fd.append('watermark_text', document.getElementById('opt-text').value.trim() || 'CONFIDENTIAL');
-                fd.append('color', activeColor);
-                fd.append('font_size', document.getElementById('opt-font-size').value);
-            } else {
-                fd.append('watermark_image', selectedImage);
-            }
-
-            setProcessStep('proc-1', 'active');
-            animateProgress(0, 25, 700, 'Uploading & reading PDF…');
-
-            const t2 = setTimeout(() => {
-                setProcessStep('proc-1', 'done');
-                setProcessStep('proc-2', 'active');
-                animateProgress(25, 55, 900, 'Rendering watermark layer…');
-            }, 800);
-            const t3 = setTimeout(() => {
-                setProcessStep('proc-2', 'done');
-                setProcessStep('proc-3', 'active');
-                animateProgress(55, 78, 800, 'Stamping pages…');
-            }, 1800);
-            const t4 = setTimeout(() => {
-                setProcessStep('proc-3', 'done');
-                setProcessStep('proc-4', 'active');
-                animateProgress(78, 90, 600, 'Generating output PDF…');
-            }, 2700);
-
-            try {
-                const res = await fetch('https://api.filenewer.com/api/tools/pdf-watermark', {
-                    method: 'POST',
-                    body: fd
-                });
-                clearTimeout(t2);
-                clearTimeout(t3);
-                clearTimeout(t4);
-                if (!res.ok) {
-                    const d = await res.json().catch(() => ({}));
-                    throw new Error(d.error || 'Watermarking failed. Please try again.');
-                }
-                const blob = await res.blob();
-                if (blobUrl) URL.revokeObjectURL(blobUrl);
-                blobUrl = URL.createObjectURL(blob);
-
-                const link = document.getElementById('download-link');
-                link.href = blobUrl;
-                link.download = fileName;
-
-                document.getElementById('output-name').textContent = fileName;
-                document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
-
-                setProcessStep('proc-3', 'done');
-                setProcessStep('proc-4', 'done');
-                animateProgress(90, 100, 300, 'Done!');
-                setTimeout(() => {
-                    showState('download');
-                    updateStepIndicator(3);
-                }, 500);
-
-            } catch (err) {
-                clearTimeout(t2);
-                clearTimeout(t3);
-                clearTimeout(t4);
-                showError(err.message);
+                updateActionBtn();
+                hideError();
                 showState('upload');
                 updateStepIndicator(1);
-            }
-        }
+                animateProgress(0, 0, 0, 'Starting…');
+                ['proc-1', 'proc-2', 'proc-3', 'proc-4'].forEach(id => setProcessStep(id, ''));
+            };
 
-        // ── Helpers ──
-        function showState(state) {
-            ['upload', 'converting', 'download'].forEach(s => {
-                document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+            function showError(msg) {
+                const el = document.getElementById('upload-error');
+                document.getElementById('error-text').textContent = msg;
+                el.classList.remove('hidden');
+                el.classList.add('flex');
+            }
+
+            function hideError() {
+                const el = document.getElementById('upload-error');
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+            }
+
+            function formatBytes(bytes) {
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+
+            // ── FAQ ──
+            document.querySelectorAll('.faq-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const body = btn.nextElementSibling;
+                    const icon = btn.querySelector('.faq-icon');
+                    const isOpen = !body.classList.contains('hidden');
+                    document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+                    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+                    if (!isOpen) {
+                        body.classList.remove('hidden');
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
             });
-            if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-        }
 
-        function updateStepIndicator(active) {
-            [1, 2, 3].forEach(n => {
-                const el = document.getElementById('step-' + n);
-                el.classList.remove('active', 'done');
-                if (n < active) el.classList.add('done');
-                if (n === active) el.classList.add('active');
-            });
-        }
-
-        function setProcessStep(id, state) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const dot = el.querySelector('.step-dot');
-            const check = el.querySelector('.check-icon');
-            const spin = el.querySelector('.spin-icon');
-            check.classList.add('hidden');
-            spin.classList.add('hidden');
-            dot.style.borderColor = '';
-            dot.style.background = '';
-            if (state === 'active') {
-                spin.classList.remove('hidden');
-                dot.style.borderColor = 'oklch(49% 0.24 264)';
-                dot.style.background = 'oklch(49% 0.24 264/15%)';
-            }
-            if (state === 'done') {
-                check.classList.remove('hidden');
-                dot.style.borderColor = 'oklch(67% 0.18 162)';
-                dot.style.background = 'oklch(67% 0.18 162/15%)';
-            }
-        }
-
-        function animateProgress(from, to, duration, label) {
-            document.getElementById('progress-label').textContent = label;
-            const start = performance.now();
-
-            function step(now) {
-                const t = Math.min((now - start) / duration, 1);
-                const pct = Math.round(from + (to - from) * t);
-                document.getElementById('progress-fill').style.width = pct + '%';
-                document.getElementById('progress-pct').textContent = pct + '%';
-                if (t < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-        }
-
-        window.resetConverter = function() {
-            if (blobUrl) {
-                URL.revokeObjectURL(blobUrl);
-                blobUrl = null;
-            }
-            // Reset files
-            selectedFile = null;
-            selectedImage = null;
-            fileInput.value = '';
-            imgInput.value = '';
-            filePreview.classList.add('hidden');
-            filePreview.classList.remove('flex');
-            imgPreviewWrap.classList.add('hidden');
-            imgPreviewWrap.classList.remove('flex');
-            dropZone.classList.remove('has-file');
-            imgDropZone.classList.remove('has-file');
-            // Reset type to text
-            wmType = 'text';
-            document.getElementById('type-text').classList.add('active');
-            document.getElementById('type-image').classList.remove('active');
-            document.getElementById('text-options').classList.remove('hidden');
-            document.getElementById('image-options').classList.add('hidden');
-            document.getElementById('preview-text').classList.remove('hidden');
-            document.getElementById('preview-img').classList.add('hidden');
-            document.getElementById('preview-img').src = '';
-            // Reset fields
-            document.getElementById('opt-text').value = 'CONFIDENTIAL';
-            document.getElementById('opt-opacity').value = '0.3';
-            document.getElementById('opt-angle').value = '45';
-            document.getElementById('opt-font-size').value = '60';
-            document.getElementById('opt-pages').value = '';
-            document.getElementById('opacity-val').textContent = '0.30';
-            document.getElementById('angle-val').textContent = '45°';
-            document.getElementById('font-size-val').textContent = '60';
-            // Reset color to grey
-            activeColor = 'grey';
-            document.querySelectorAll('.color-btn').forEach(b => {
-                b.classList.remove('active');
-                b.style.borderColor = 'transparent';
-            });
-            const greyBtn = document.querySelector('.color-btn[data-color="grey"]');
-            greyBtn.classList.add('active');
-            greyBtn.style.borderColor = '#6b7280';
-            document.getElementById('color-label').textContent = 'Grey';
-            // Reset position to center
-            activePos = 'center';
-            document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.pos-btn[data-pos="center"]').classList.add('active');
-            updatePreview();
-            updateActionBtn();
-            hideError();
-            showState('upload');
-            updateStepIndicator(1);
-            animateProgress(0, 0, 0, 'Starting…');
-            ['proc-1', 'proc-2', 'proc-3', 'proc-4'].forEach(id => setProcessStep(id, ''));
-        };
-
-        function showError(msg) {
-            const el = document.getElementById('upload-error');
-            document.getElementById('error-text').textContent = msg;
-            el.classList.remove('hidden');
-            el.classList.add('flex');
-        }
-
-        function hideError() {
-            const el = document.getElementById('upload-error');
-            el.classList.add('hidden');
-            el.classList.remove('flex');
-        }
-
-        function formatBytes(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-            return (bytes / 1048576).toFixed(1) + ' MB';
-        }
-
-        // ── FAQ ──
-        document.querySelectorAll('.faq-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const body = btn.nextElementSibling;
-                const icon = btn.querySelector('.faq-icon');
-                const isOpen = !body.classList.contains('hidden');
-                document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-                document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-                if (!isOpen) {
-                    body.classList.remove('hidden');
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-    }); // end DOMContentLoaded
-</script>
+        }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection

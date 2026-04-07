@@ -1,5 +1,9 @@
 @extends('layouts.base')
 
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
+
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -593,6 +597,7 @@
     }
 </style>
 
+@push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -969,5 +974,7 @@
 
 }); // end DOMContentLoaded
 </script>
+
+@endpush
 
 @endsection

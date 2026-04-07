@@ -1,5 +1,7 @@
 @extends('layouts.base')
-
+@push('scripts')
+<x-ld-json :tool="$tool" />
+@endpush
 @section('content')
 
 <x-tool-hero :tool="$tool" />
@@ -307,427 +309,431 @@
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
-{{-- ══ STYLES ══ --}}
-<style>
-    .global-rot-btn {
-        color: var(--fn-text2);
-        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-        background: var(--fn-surface);
-    }
-
-    .global-rot-btn:hover {
-        border-color: oklch(49% 0.24 264/30%);
-        color: var(--fn-blue-l);
-        background: oklch(49% 0.24 264/6%);
-    }
-
-    .page-card {
-        border: 2px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-        border-radius: 12px;
-        background: var(--fn-surface2);
-        cursor: pointer;
-        transition: border-color .2s, box-shadow .2s;
-        user-select: none;
-    }
-
-    .page-card:hover {
-        border-color: oklch(49% 0.24 264/35%);
-    }
-
-    .page-card.rotated {
-        border-color: oklch(49% 0.24 264/50%);
-        background: oklch(49% 0.24 264/5%);
-    }
-
-    .page-thumb {
-        aspect-ratio: 210/297;
-        background: white;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .page-thumb-lines {
-        position: absolute;
-        inset: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        opacity: 0.15;
-    }
-
-    .page-thumb-line {
-        height: 2px;
-        background: #374151;
-        border-radius: 1px;
-    }
-
-    .page-rot-badge {
-        font-size: 10px;
-        font-weight: 700;
-        padding: 1px 6px;
-        border-radius: 6px;
-        transition: all .2s;
-    }
-
-    .page-rot-badge.is-zero {
-        background: oklch(var(--fn-surface2-l, 22%) 0 0/1);
-        color: var(--fn-text3);
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-    }
-
-    .page-rot-badge.not-zero {
-        background: oklch(49% 0.24 264/12%);
-        color: var(--fn-blue-l);
-        border: 1px solid oklch(49% 0.24 264/30%);
-    }
-
-    .page-ctrl-btn {
-        width: 22px;
-        height: 22px;
-        border-radius: 6px;
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/12%);
-        background: var(--fn-surface);
-        color: var(--fn-text3);
-        font-size: 11px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all .15s;
-        cursor: pointer;
-    }
-
-    .page-ctrl-btn:hover {
-        border-color: oklch(49% 0.24 264/30%);
-        color: var(--fn-blue-l);
-    }
-</style>
-
-{{-- ══ JAVASCRIPT ══ --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-
-  // ── State ──
-  let selectedFile  = null;
-  let blobUrl       = null;
-  let pageData      = [];   // [{ page, width, height, rotation (original) }]
-  let userRotations = [];   // per-page additional rotation (0/90/180/270)
-
-  // ── Drop zone ──
-  const dropZone   = document.getElementById('drop-zone');
-  const fileInput  = document.getElementById('file-input');
-
-  ['dragenter','dragover'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
-  });
-  ['dragleave','dragend','drop'].forEach(evt => {
-    dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
-  });
-  dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-
-  function handleFile(file) {
-    hideError();
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
-      return;
-    }
-    if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
-    selectedFile = file;
-    loadPageInfo();
-  }
-
-  // ── Change file ──
-  document.getElementById('change-file-btn').addEventListener('click', () => {
-    showState('upload');
-    updateStepIndicator(1);
-    selectedFile  = null;
-    fileInput.value = '';
-    pageData      = [];
-    userRotations = [];
-    document.getElementById('page-grid').innerHTML = '';
-  });
-
-  // ── Load page info via /api/tools/pdf-pages ──
-  async function loadPageInfo() {
-    showState('loading');
-    updateStepIndicator(2);
-
-    const fd = new FormData();
-    fd.append('file', selectedFile);
-
-    try {
-      const res  = await fetch('https://api.filenewer.com/api/tools/pdf-pages', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Could not read PDF pages.');
-
-      pageData      = data.pages ?? [];
-      userRotations = pageData.map(() => 0);
-
-      // Populate file info bar
-      document.getElementById('cfg-file-name').textContent = selectedFile.name;
-      document.getElementById('cfg-file-meta').textContent =
-        formatBytes(selectedFile.size) + ' · ' + pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
-      document.getElementById('page-count-label').textContent =
-        pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
-
-      buildPageGrid();
-      showState('configure');
-
-    } catch(err) {
-      showState('upload');
-      updateStepIndicator(1);
-      showError(err.message || 'Failed to read PDF. Please try again.');
-    }
-  }
-
-  // ── Build page grid ──
-  function buildPageGrid() {
-    const grid = document.getElementById('page-grid');
-    grid.innerHTML = '';
-
-    pageData.forEach((page, idx) => {
-      const card = document.createElement('div');
-      card.className = 'page-card p-2';
-      card.id = `page-card-${idx}`;
-      card.innerHTML = pageCardHTML(page, idx, userRotations[idx]);
-      grid.appendChild(card);
-
-      // Click to cycle
-      card.querySelector('.page-thumb').addEventListener('click', () => cycleRotation(idx));
-      // CW button
-      card.querySelector('.btn-cw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, 90); });
-      // CCW button
-      card.querySelector('.btn-ccw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, -90); });
-    });
-  }
-
-  function pageCardHTML(page, idx, userRot) {
-    const totalRot   = (page.rotation + userRot + 360) % 360;
-    const isLandscape = (totalRot === 90 || totalRot === 270);
-    const badgeClass  = userRot === 0 ? 'is-zero' : 'not-zero';
-    const badgeText   = userRot === 0 ? `${totalRot}°` : `+${userRot}° → ${totalRot}°`;
-
-    return `
-      <div class="page-thumb mb-2" style="transform-origin:center; ${isLandscape ? 'aspect-ratio:297/210' : ''}">
-        <div class="absolute inset-0" style="transform:rotate(${totalRot}deg); transition:transform .3s ease;">
-          <div style="position:absolute;inset:0;background:white;border-radius:6px;"></div>
-          <div class="page-thumb-lines">
-            <div class="page-thumb-line" style="width:85%"></div>
-            <div class="page-thumb-line" style="width:70%"></div>
-            <div class="page-thumb-line" style="width:90%"></div>
-            <div class="page-thumb-line" style="width:60%"></div>
-            <div class="page-thumb-line" style="width:80%"></div>
-            <div class="page-thumb-line" style="width:65%"></div>
-            <div class="page-thumb-line" style="width:75%"></div>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center justify-between px-1">
-        <div>
-          <p class="text-sm font-bold text-fn-text2">P${page.page}</p>
-          <span class="page-rot-badge ${badgeClass}">${badgeText}</span>
-        </div>
-        <div class="flex gap-1">
-          <button class="page-ctrl-btn btn-ccw" title="Rotate left 90°">↺</button>
-          <button class="page-ctrl-btn btn-cw"  title="Rotate right 90°">↻</button>
-        </div>
-      </div>`;
-  }
-
-  function cycleRotation(idx) {
-    userRotations[idx] = (userRotations[idx] + 90) % 360;
-    refreshCard(idx);
-  }
-
-  function addRotation(idx, delta) {
-    userRotations[idx] = ((userRotations[idx] + delta) + 360) % 360;
-    refreshCard(idx);
-  }
-
-  function refreshCard(idx) {
-    const card = document.getElementById(`page-card-${idx}`);
-    if (!card) return;
-    card.innerHTML = pageCardHTML(pageData[idx], idx, userRotations[idx]);
-    card.classList.toggle('rotated', userRotations[idx] !== 0);
-    card.querySelector('.page-thumb').addEventListener('click', () => cycleRotation(idx));
-    card.querySelector('.btn-cw').addEventListener('click',  e => { e.stopPropagation(); addRotation(idx, 90); });
-    card.querySelector('.btn-ccw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, -90); });
-  }
-
-  // ── Global rotation buttons ──
-  document.querySelectorAll('.global-rot-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const rot = parseInt(btn.dataset.rot);
-      userRotations = userRotations.map(() => rot);
-      buildPageGrid(); // rebuild all cards
-    });
-  });
-
-  // ── Apply rotation ──
-  document.getElementById('apply-btn').addEventListener('click', applyRotation);
-
-  async function applyRotation() {
-    document.getElementById('apply-error').classList.add('hidden');
-
-    // Determine which pages need rotation (user rotation ≠ 0)
-    // If all pages have the same non-zero rotation → use global rotation param
-    // Otherwise → per-page approach: send multiple requests or group by rotation value
-    // API supports: rotation + optional pages= comma list
-    // Strategy: group pages by their userRotation value, send one request per group,
-    // then combine. If only one rotation value is used → single request.
-
-    const rotGroups = {};
-    userRotations.forEach((rot, idx) => {
-      if (rot === 0) return; // skip no-change pages
-      if (!rotGroups[rot]) rotGroups[rot] = [];
-      rotGroups[rot].push(pageData[idx].page);
-    });
-
-    const allZero = Object.keys(rotGroups).length === 0;
-    if (allZero) {
-      document.getElementById('apply-error-text').textContent = 'No rotation applied — please rotate at least one page.';
-      document.getElementById('apply-error').classList.remove('hidden');
-      return;
-    }
-
-    showState('converting');
-    animateProgress(0, 30, 600, 'Preparing rotation…');
-
-    try {
-      let resultBlob;
-      const rotEntries = Object.entries(rotGroups);
-
-      if (rotEntries.length === 1) {
-        // Single rotation value — one API call
-        const [rotation, pages] = rotEntries[0];
-        const allPages = pages.length === pageData.length;
-        resultBlob = await callRotateApi(selectedFile, rotation, allPages ? null : pages.join(','));
-        animateProgress(30, 90, 800, 'Rotating pages…');
-
-      } else {
-        // Multiple rotation values — chain calls: each call takes output of previous as input
-        animateProgress(30, 50, 500, 'Rotating first group…');
-        let currentBlob = null;
-
-        for (let i = 0; i < rotEntries.length; i++) {
-          const [rotation, pages] = rotEntries[i];
-          const sourceFile = currentBlob
-            ? new File([currentBlob], selectedFile.name, { type: 'application/pdf' })
-            : selectedFile;
-
-          currentBlob = await callRotateApi(sourceFile, rotation, pages.join(','));
-          animateProgress(50 + Math.round((i + 1) / rotEntries.length * 35), 85, 400,
-            `Rotating group ${i + 1} of ${rotEntries.length}…`);
+@push('styles')
+    {{-- ══ STYLES ══ --}}
+    <style>
+        .global-rot-btn {
+            color: var(--fn-text2);
+            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+            background: var(--fn-surface);
         }
-        resultBlob = currentBlob;
+
+        .global-rot-btn:hover {
+            border-color: oklch(49% 0.24 264/30%);
+            color: var(--fn-blue-l);
+            background: oklch(49% 0.24 264/6%);
+        }
+
+        .page-card {
+            border: 2px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+            border-radius: 12px;
+            background: var(--fn-surface2);
+            cursor: pointer;
+            transition: border-color .2s, box-shadow .2s;
+            user-select: none;
+        }
+
+        .page-card:hover {
+            border-color: oklch(49% 0.24 264/35%);
+        }
+
+        .page-card.rotated {
+            border-color: oklch(49% 0.24 264/50%);
+            background: oklch(49% 0.24 264/5%);
+        }
+
+        .page-thumb {
+            aspect-ratio: 210/297;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .page-thumb-lines {
+            position: absolute;
+            inset: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            opacity: 0.15;
+        }
+
+        .page-thumb-line {
+            height: 2px;
+            background: #374151;
+            border-radius: 1px;
+        }
+
+        .page-rot-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 6px;
+            transition: all .2s;
+        }
+
+        .page-rot-badge.is-zero {
+            background: oklch(var(--fn-surface2-l, 22%) 0 0/1);
+            color: var(--fn-text3);
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+        }
+
+        .page-rot-badge.not-zero {
+            background: oklch(49% 0.24 264/12%);
+            color: var(--fn-blue-l);
+            border: 1px solid oklch(49% 0.24 264/30%);
+        }
+
+        .page-ctrl-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/12%);
+            background: var(--fn-surface);
+            color: var(--fn-text3);
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .15s;
+            cursor: pointer;
+        }
+
+        .page-ctrl-btn:hover {
+            border-color: oklch(49% 0.24 264/30%);
+            color: var(--fn-blue-l);
+        }
+    </style>
+@endpush
+
+@push('footer')
+    {{-- ══ JAVASCRIPT ══ --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+      // ── State ──
+      let selectedFile  = null;
+      let blobUrl       = null;
+      let pageData      = [];   // [{ page, width, height, rotation (original) }]
+      let userRotations = [];   // per-page additional rotation (0/90/180/270)
+
+      // ── Drop zone ──
+      const dropZone   = document.getElementById('drop-zone');
+      const fileInput  = document.getElementById('file-input');
+
+      ['dragenter','dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+      });
+      ['dragleave','dragend','drop'].forEach(evt => {
+        dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
+      });
+      dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+      fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+      function handleFile(file) {
+        hideError();
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+          showError('Please select a valid PDF file.');
+          return;
+        }
+        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
+        selectedFile = file;
+        loadPageInfo();
       }
 
-      animateProgress(90, 100, 300, 'Done!');
+      // ── Change file ──
+      document.getElementById('change-file-btn').addEventListener('click', () => {
+        showState('upload');
+        updateStepIndicator(1);
+        selectedFile  = null;
+        fileInput.value = '';
+        pageData      = [];
+        userRotations = [];
+        document.getElementById('page-grid').innerHTML = '';
+      });
 
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(resultBlob);
+      // ── Load page info via /api/tools/pdf-pages ──
+      async function loadPageInfo() {
+        showState('loading');
+        updateStepIndicator(2);
 
-      const fileName = selectedFile.name.replace(/\.pdf$/i, '_rotated.pdf');
-      const link = document.getElementById('download-link');
-      link.href     = blobUrl;
-      link.download = fileName;
+        const fd = new FormData();
+        fd.append('file', selectedFile);
 
-      document.getElementById('output-name').textContent = fileName;
-      document.getElementById('output-size').textContent = formatBytes(resultBlob.size) + ' · PDF Document';
+        try {
+          const res  = await fetch('https://api.filenewer.com/api/tools/pdf-pages', { method: 'POST', body: fd });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Could not read PDF pages.');
 
-      setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+          pageData      = data.pages ?? [];
+          userRotations = pageData.map(() => 0);
 
-    } catch(err) {
-      showState('configure');
-      document.getElementById('apply-error-text').textContent = err.message || 'Rotation failed. Please try again.';
-      document.getElementById('apply-error').classList.remove('hidden');
-    }
-  }
+          // Populate file info bar
+          document.getElementById('cfg-file-name').textContent = selectedFile.name;
+          document.getElementById('cfg-file-meta').textContent =
+            formatBytes(selectedFile.size) + ' · ' + pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
+          document.getElementById('page-count-label').textContent =
+            pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
 
-  async function callRotateApi(file, rotation, pages) {
-    const fd = new FormData();
-    fd.append('file',     file);
-    fd.append('rotation', rotation);
-    if (pages) fd.append('pages', pages);
+          buildPageGrid();
+          showState('configure');
 
-    const res = await fetch('https://api.filenewer.com/api/tools/pdf-rotate', { method: 'POST', body: fd });
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}));
-      throw new Error(d.error || 'Rotation failed.');
-    }
-    return await res.blob();
-  }
+        } catch(err) {
+          showState('upload');
+          updateStepIndicator(1);
+          showError(err.message || 'Failed to read PDF. Please try again.');
+        }
+      }
 
-  // ── Rotate again button ──
-  document.getElementById('rotate-again-btn').addEventListener('click', () => {
-    // Go back to configure with same file
-    userRotations = pageData.map(() => 0);
-    buildPageGrid();
-    showState('configure');
-    updateStepIndicator(2);
-  });
+      // ── Build page grid ──
+      function buildPageGrid() {
+        const grid = document.getElementById('page-grid');
+        grid.innerHTML = '';
 
-  // ── Helpers ──
-  function showState(state) {
-    ['upload','loading','configure','converting','download'].forEach(s => {
-      document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
-    });
-  }
+        pageData.forEach((page, idx) => {
+          const card = document.createElement('div');
+          card.className = 'page-card p-2';
+          card.id = `page-card-${idx}`;
+          card.innerHTML = pageCardHTML(page, idx, userRotations[idx]);
+          grid.appendChild(card);
 
-  function updateStepIndicator(active) {
-    [1,2,3].forEach(n => {
-      const el = document.getElementById('step-' + n);
-      el.classList.remove('active','done');
-      if (n < active)   el.classList.add('done');
-      if (n === active) el.classList.add('active');
-    });
-  }
+          // Click to cycle
+          card.querySelector('.page-thumb').addEventListener('click', () => cycleRotation(idx));
+          // CW button
+          card.querySelector('.btn-cw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, 90); });
+          // CCW button
+          card.querySelector('.btn-ccw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, -90); });
+        });
+      }
 
-  function animateProgress(from, to, duration, label) {
-    document.getElementById('progress-label').textContent = label;
-    const start = performance.now();
-    function step(now) {
-      const t   = Math.min((now - start) / duration, 1);
-      const pct = Math.round(from + (to - from) * t);
-      document.getElementById('progress-fill').style.width = pct + '%';
-      document.getElementById('progress-pct').textContent  = pct + '%';
-      if (t < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
+      function pageCardHTML(page, idx, userRot) {
+        const totalRot   = (page.rotation + userRot + 360) % 360;
+        const isLandscape = (totalRot === 90 || totalRot === 270);
+        const badgeClass  = userRot === 0 ? 'is-zero' : 'not-zero';
+        const badgeText   = userRot === 0 ? `${totalRot}°` : `+${userRot}° → ${totalRot}°`;
 
-  function showError(msg) {
-    document.getElementById('error-text').textContent = msg;
-    document.getElementById('upload-error').classList.remove('hidden');
-    document.getElementById('upload-error').classList.add('flex');
-  }
-  function hideError() {
-    document.getElementById('upload-error').classList.add('hidden');
-    document.getElementById('upload-error').classList.remove('flex');
-  }
-  function formatBytes(bytes) {
-    if (bytes < 1024)    return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / 1048576).toFixed(1) + ' MB';
-  }
+        return `
+          <div class="page-thumb mb-2" style="transform-origin:center; ${isLandscape ? 'aspect-ratio:297/210' : ''}">
+            <div class="absolute inset-0" style="transform:rotate(${totalRot}deg); transition:transform .3s ease;">
+              <div style="position:absolute;inset:0;background:white;border-radius:6px;"></div>
+              <div class="page-thumb-lines">
+                <div class="page-thumb-line" style="width:85%"></div>
+                <div class="page-thumb-line" style="width:70%"></div>
+                <div class="page-thumb-line" style="width:90%"></div>
+                <div class="page-thumb-line" style="width:60%"></div>
+                <div class="page-thumb-line" style="width:80%"></div>
+                <div class="page-thumb-line" style="width:65%"></div>
+                <div class="page-thumb-line" style="width:75%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between px-1">
+            <div>
+              <p class="text-sm font-bold text-fn-text2">P${page.page}</p>
+              <span class="page-rot-badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="flex gap-1">
+              <button class="page-ctrl-btn btn-ccw" title="Rotate left 90°">↺</button>
+              <button class="page-ctrl-btn btn-cw"  title="Rotate right 90°">↻</button>
+            </div>
+          </div>`;
+      }
 
-  // ── FAQ ──
-  document.querySelectorAll('.faq-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const body   = btn.nextElementSibling;
-      const icon   = btn.querySelector('.faq-icon');
-      const isOpen = !body.classList.contains('hidden');
-      document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
-    });
-  });
+      function cycleRotation(idx) {
+        userRotations[idx] = (userRotations[idx] + 90) % 360;
+        refreshCard(idx);
+      }
 
-}); // end DOMContentLoaded
-</script>
+      function addRotation(idx, delta) {
+        userRotations[idx] = ((userRotations[idx] + delta) + 360) % 360;
+        refreshCard(idx);
+      }
+
+      function refreshCard(idx) {
+        const card = document.getElementById(`page-card-${idx}`);
+        if (!card) return;
+        card.innerHTML = pageCardHTML(pageData[idx], idx, userRotations[idx]);
+        card.classList.toggle('rotated', userRotations[idx] !== 0);
+        card.querySelector('.page-thumb').addEventListener('click', () => cycleRotation(idx));
+        card.querySelector('.btn-cw').addEventListener('click',  e => { e.stopPropagation(); addRotation(idx, 90); });
+        card.querySelector('.btn-ccw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, -90); });
+      }
+
+      // ── Global rotation buttons ──
+      document.querySelectorAll('.global-rot-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const rot = parseInt(btn.dataset.rot);
+          userRotations = userRotations.map(() => rot);
+          buildPageGrid(); // rebuild all cards
+        });
+      });
+
+      // ── Apply rotation ──
+      document.getElementById('apply-btn').addEventListener('click', applyRotation);
+
+      async function applyRotation() {
+        document.getElementById('apply-error').classList.add('hidden');
+
+        // Determine which pages need rotation (user rotation ≠ 0)
+        // If all pages have the same non-zero rotation → use global rotation param
+        // Otherwise → per-page approach: send multiple requests or group by rotation value
+        // API supports: rotation + optional pages= comma list
+        // Strategy: group pages by their userRotation value, send one request per group,
+        // then combine. If only one rotation value is used → single request.
+
+        const rotGroups = {};
+        userRotations.forEach((rot, idx) => {
+          if (rot === 0) return; // skip no-change pages
+          if (!rotGroups[rot]) rotGroups[rot] = [];
+          rotGroups[rot].push(pageData[idx].page);
+        });
+
+        const allZero = Object.keys(rotGroups).length === 0;
+        if (allZero) {
+          document.getElementById('apply-error-text').textContent = 'No rotation applied — please rotate at least one page.';
+          document.getElementById('apply-error').classList.remove('hidden');
+          return;
+        }
+
+        showState('converting');
+        animateProgress(0, 30, 600, 'Preparing rotation…');
+
+        try {
+          let resultBlob;
+          const rotEntries = Object.entries(rotGroups);
+
+          if (rotEntries.length === 1) {
+            // Single rotation value — one API call
+            const [rotation, pages] = rotEntries[0];
+            const allPages = pages.length === pageData.length;
+            resultBlob = await callRotateApi(selectedFile, rotation, allPages ? null : pages.join(','));
+            animateProgress(30, 90, 800, 'Rotating pages…');
+
+          } else {
+            // Multiple rotation values — chain calls: each call takes output of previous as input
+            animateProgress(30, 50, 500, 'Rotating first group…');
+            let currentBlob = null;
+
+            for (let i = 0; i < rotEntries.length; i++) {
+              const [rotation, pages] = rotEntries[i];
+              const sourceFile = currentBlob
+                ? new File([currentBlob], selectedFile.name, { type: 'application/pdf' })
+                : selectedFile;
+
+              currentBlob = await callRotateApi(sourceFile, rotation, pages.join(','));
+              animateProgress(50 + Math.round((i + 1) / rotEntries.length * 35), 85, 400,
+                `Rotating group ${i + 1} of ${rotEntries.length}…`);
+            }
+            resultBlob = currentBlob;
+          }
+
+          animateProgress(90, 100, 300, 'Done!');
+
+          if (blobUrl) URL.revokeObjectURL(blobUrl);
+          blobUrl = URL.createObjectURL(resultBlob);
+
+          const fileName = selectedFile.name.replace(/\.pdf$/i, '_rotated.pdf');
+          const link = document.getElementById('download-link');
+          link.href     = blobUrl;
+          link.download = fileName;
+
+          document.getElementById('output-name').textContent = fileName;
+          document.getElementById('output-size').textContent = formatBytes(resultBlob.size) + ' · PDF Document';
+
+          setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
+
+        } catch(err) {
+          showState('configure');
+          document.getElementById('apply-error-text').textContent = err.message || 'Rotation failed. Please try again.';
+          document.getElementById('apply-error').classList.remove('hidden');
+        }
+      }
+
+      async function callRotateApi(file, rotation, pages) {
+        const fd = new FormData();
+        fd.append('file',     file);
+        fd.append('rotation', rotation);
+        if (pages) fd.append('pages', pages);
+
+        const res = await fetch('https://api.filenewer.com/api/tools/pdf-rotate', { method: 'POST', body: fd });
+        if (!res.ok) {
+          const d = await res.json().catch(() => ({}));
+          throw new Error(d.error || 'Rotation failed.');
+        }
+        return await res.blob();
+      }
+
+      // ── Rotate again button ──
+      document.getElementById('rotate-again-btn').addEventListener('click', () => {
+        // Go back to configure with same file
+        userRotations = pageData.map(() => 0);
+        buildPageGrid();
+        showState('configure');
+        updateStepIndicator(2);
+      });
+
+      // ── Helpers ──
+      function showState(state) {
+        ['upload','loading','configure','converting','download'].forEach(s => {
+          document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
+        });
+      }
+
+      function updateStepIndicator(active) {
+        [1,2,3].forEach(n => {
+          const el = document.getElementById('step-' + n);
+          el.classList.remove('active','done');
+          if (n < active)   el.classList.add('done');
+          if (n === active) el.classList.add('active');
+        });
+      }
+
+      function animateProgress(from, to, duration, label) {
+        document.getElementById('progress-label').textContent = label;
+        const start = performance.now();
+        function step(now) {
+          const t   = Math.min((now - start) / duration, 1);
+          const pct = Math.round(from + (to - from) * t);
+          document.getElementById('progress-fill').style.width = pct + '%';
+          document.getElementById('progress-pct').textContent  = pct + '%';
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function showError(msg) {
+        document.getElementById('error-text').textContent = msg;
+        document.getElementById('upload-error').classList.remove('hidden');
+        document.getElementById('upload-error').classList.add('flex');
+      }
+      function hideError() {
+        document.getElementById('upload-error').classList.add('hidden');
+        document.getElementById('upload-error').classList.remove('flex');
+      }
+      function formatBytes(bytes) {
+        if (bytes < 1024)    return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(1) + ' MB';
+      }
+
+      // ── FAQ ──
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const body   = btn.nextElementSibling;
+          const icon   = btn.querySelector('.faq-icon');
+          const isOpen = !body.classList.contains('hidden');
+          document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+          document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+          if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+        });
+      });
+
+    }); // end DOMContentLoaded
+    </script>
+@endpush
 
 @endsection
