@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <!-- Logo -->
         <a href="/">
-            <img src="/filenewer-logo.svg" alt="Filenewer" class="h-[40px] md:h-[57px]">
+            <img src="/filenewer-logo.svg" alt="Filenewer" width="100" height="50" class="h-[40px] w-auto md:h-[57px]">
         </a>
 
         <!-- Links -->

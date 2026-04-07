@@ -4,7 +4,7 @@
             <!-- Brand -->
             <div class="lg:col-span-1">
                 <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-tight text-fn-text mb-3">
-                    <img src="/filenewer-logo.svg" alt="Filenewer" class="h-[40px] md:h-[47px]">
+                    <img src="/filenewer-logo.svg" alt="Filenewer" width="100" height="50" class="h-[40px] w-auto md:h-[47px]">
                 </a>
                 <p class="text-fn-text3 text-sm leading-relaxed max-w-[220px]">Smarter File Processing. Convert,
                     generate, and manage your business files fast, free, and securely.</p>
