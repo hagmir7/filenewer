@@ -40,6 +40,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     @stack('scripts')
     @stack('styles')
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="MVOHoGZmMjs1xCZHU4fAjg" async></script>
 </head>
 <body class="font-sans bg-fn-bg text-fn-text antialiased overflow-x-hidden">
     <x-nav />
