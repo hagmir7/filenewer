@@ -91,89 +91,104 @@
                     {{-- Options --}}
                     <div class="mt-6 space-y-3">
 
-                        {{-- Row 1: Output mode + Pages --}}
+                        {{-- Row 1: Include Headers + Include Tables --}}
                         <div class="grid sm:grid-cols-2 gap-3">
 
-                            {{-- Output mode --}}
+                            {{-- Include Headers --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
-                                <select id="opt-output"
-                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
-                                    <option value="zip">All pages &rarr; ZIP of .jpg files</option>
-                                    <option value="single">First page &rarr; single .jpg</option>
-                                </select>
-                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">All pages exported as
-                                    individual JPG images, bundled in a ZIP archive.</p>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Heading
+                                    Markers</label>
+                                <div class="flex items-center gap-3">
+                                    <label class="toggle-label flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="opt-headers" checked
+                                            class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
+                                        <span class="text-sm text-fn-text2">Yes</span>
+                                    </label>
+                                </div>
+                                <p class="text-fn-text3 text-sm mt-1.5">Adds underline markers (===, ---) below headings
+                                    for readability.</p>
                             </div>
 
-                            {{-- Pages --}}
-                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="pages-option-wrap">
-                                <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Pages
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
-                                </label>
-                                <input type="text" id="opt-pages" placeholder="e.g. 1,3,5"
-                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5" id="pages-hint">Leave blank to convert all
-                                    pages.</p>
+                            {{-- Include Tables --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Tables</label>
+                                <div class="flex items-center gap-3">
+                                    <label class="toggle-label flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="opt-tables" checked
+                                            class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
+                                        <span class="text-sm text-fn-text2">Yes</span>
+                                    </label>
+                                </div>
+                                <p class="text-fn-text3 text-sm mt-1.5">Renders tables as ASCII grid tables in the
+                                    output.</p>
                             </div>
                         </div>
 
-                        {{-- Row 2: DPI + Quality --}}
+                        {{-- Row 2: Include Comments + Encoding --}}
                         <div class="grid sm:grid-cols-2 gap-3">
 
-                            {{-- DPI --}}
+                            {{-- Include Comments --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Comments</label>
+                                <div class="flex items-center gap-3">
+                                    <label class="toggle-label flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="opt-comments"
+                                            class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
+                                        <span class="text-sm text-fn-text2">Yes</span>
+                                    </label>
+                                </div>
+                                <p class="text-fn-text3 text-sm mt-1.5">Extract and include document comments in the
+                                    text output.</p>
+                            </div>
+
+                            {{-- Encoding --}}
                             @php
-                            $dpiOptions = [
-                            ['72', '72'],
-                            ['150', '150'],
-                            ['200', '200'],
-                            ['300', '300'],
-                            ['600', '600'],
+                            $encOptions = [
+                            ['utf-8', 'UTF-8'],
+                            ['ascii', 'ASCII'],
+                            ['latin-1', 'Latin-1'],
                             ];
                             @endphp
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Resolution (DPI)</label>
-                                <div class="grid grid-cols-5 gap-2 mb-2">
-                                    @foreach($dpiOptions as [$dpi, $lbl])
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Text Encoding</label>
+                                <div class="grid grid-cols-3 gap-2 mb-2">
+                                    @foreach($encOptions as [$enc, $encLabel])
                                     <button type="button"
-                                        class="dpi-btn {{ $dpi === '200' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
-                                        data-dpi="{{ $dpi }}">
-                                        {{ $lbl }}
+                                        class="enc-btn {{ $enc === 'utf-8' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
+                                        data-enc="{{ $enc }}">
+                                        {{ $encLabel }}
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm" id="dpi-hint">200 DPI &mdash; balanced quality and file
-                                    size</p>
-                            </div>
-
-                            {{-- Quality --}}
-                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label for="opt-quality" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    JPG Quality
-                                    <span class="font-normal text-fn-text3 ml-1">(<span
-                                            id="quality-value">85</span>%)</span>
-                                </label>
-                                <input type="range" id="opt-quality" min="10" max="100" value="85"
-                                    class="w-full accent-fn-blue cursor-pointer" />
-                                <div class="flex justify-between text-fn-text3 text-xs mt-1">
-                                    <span>Small file</span>
-                                    <span>Best quality</span>
-                                </div>
+                                <p class="text-fn-text3 text-sm" id="enc-hint">UTF-8 &mdash; universal encoding,
+                                    supports all languages</p>
                             </div>
                         </div>
 
-                        {{-- Row 3: Output filename --}}
+                        {{-- Row 3: Page separator + Output filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
+
+                            {{-- Page separator --}}
+                            <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                                <label for="opt-page-sep" class="text-sm font-semibold text-fn-text2 block mb-2">
+                                    Page Separator
+                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                </label>
+                                <input type="text" id="opt-page-sep" placeholder="e.g. --- Page Break ---"
+                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
+                                <p class="text-fn-text3 text-sm mt-1.5">Insert a custom separator between page breaks.
+                                </p>
+                            </div>
+
+                            {{-- Output filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Output Filename
                                     <span class="font-normal text-fn-text3 ml-1">(optional)</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. pages.zip"
+                                <input type="text" id="opt-filename" placeholder="e.g. output.txt"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your Word filename with .zip or .jpg
-                                </p>
+                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your Word filename with .txt</p>
                             </div>
                         </div>
                     </div>
@@ -198,7 +213,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to JPG
+                        Convert to TXT
                     </button>
 
                 </div>
@@ -218,12 +233,12 @@
                                 style="animation-delay:.3s"></span>
                         </div>
                         <div id="conv-output-icon"
-                            class="w-16 h-16 rounded-2xl bg-fn-orange/10 border border-fn-orange/20 flex items-center justify-center text-3xl">
-                            🖼️</div>
+                            class="w-16 h-16 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-3xl">
+                            📝</div>
                     </div>
 
                     <h2 class="text-xl font-bold mb-2">Converting your file&hellip;</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 30 seconds</p>
+                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
 
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
@@ -238,9 +253,9 @@
                     @php
                     $procSteps = [
                     ['proc-1', 'Uploading & reading document'],
-                    ['proc-2', 'Converting Word to PDF'],
-                    ['proc-3', 'Rendering pages to JPG'],
-                    ['proc-4', 'Packaging output file'],
+                    ['proc-2', 'Parsing paragraphs & headings'],
+                    ['proc-3', 'Extracting tables & comments'],
+                    ['proc-4', 'Encoding & packaging text file'],
                     ];
                     @endphp
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -271,31 +286,52 @@
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
                         ✅</div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your JPG images are ready.</p>
+                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your text file is ready.</p>
 
-                    {{-- Page preview --}}
-                    <div id="page-preview-wrap" class="hidden max-w-2xl mx-auto mb-6 text-left">
-                        <div class="flex items-center gap-1 flex-wrap mb-3" id="page-tabs"></div>
-                        <div
-                            class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-hidden flex items-center justify-center p-4">
-                            <img id="page-preview-img" class="max-w-full max-h-64 rounded-lg shadow-lg"
-                                alt="Page preview" />
+                    {{-- Stats bar --}}
+                    <div id="stats-wrap" class="hidden max-w-lg mx-auto mb-6">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
+                                <p class="text-lg font-bold text-fn-text" id="stat-paragraphs">0</p>
+                                <p class="text-fn-text3 text-xs font-semibold">Paragraphs</p>
+                            </div>
+                            <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
+                                <p class="text-lg font-bold text-fn-text" id="stat-words">0</p>
+                                <p class="text-fn-text3 text-xs font-semibold">Words</p>
+                            </div>
+                            <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
+                                <p class="text-lg font-bold text-fn-text" id="stat-tables">0</p>
+                                <p class="text-fn-text3 text-xs font-semibold">Tables</p>
+                            </div>
+                            <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
+                                <p class="text-lg font-bold text-fn-text" id="stat-headings">0</p>
+                                <p class="text-fn-text3 text-xs font-semibold">Headings</p>
+                            </div>
                         </div>
-                        <p class="text-fn-text3 text-sm mt-2" id="page-preview-meta"></p>
+                    </div>
+
+                    {{-- Text preview --}}
+                    <div id="text-preview-wrap" class="hidden max-w-2xl mx-auto mb-6 text-left">
+                        <p class="text-fn-text2 text-sm font-semibold mb-2">Preview</p>
+                        <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-52 p-4">
+                            <pre id="text-preview"
+                                class="text-sm text-fn-text2 whitespace-pre-wrap font-mono leading-relaxed"></pre>
+                        </div>
+                        <p class="text-fn-text3 text-sm mt-2" id="text-preview-meta"></p>
                     </div>
 
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
-                        <div class="w-12 h-12 rounded-xl bg-fn-orange/12 border border-fn-orange/20 flex items-center justify-center text-2xl shrink-0"
-                            id="output-icon">🖼️</div>
+                        <div class="w-12 h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-2xl shrink-0"
+                            id="output-icon">📝</div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="output-name">output.zip</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
+                            <p class="font-semibold text-sm truncate" id="output-name">output.txt</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Text File</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
 
-                    <a id="download-link" href="#" download="output.zip"
+                    <a id="download-link" href="#" download="output.txt"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -304,7 +340,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download ZIP</span>
+                        <span id="download-btn-label">Download TXT</span>
                     </a>
 
                     <div class="flex items-center justify-center gap-3 flex-wrap">
@@ -349,13 +385,14 @@
             200MB files and batch conversion.'],
             ['Does it support both .docx and .doc?', 'Yes, both modern .docx (Word 2007+) and legacy .doc (Word 97-2003)
             formats are fully supported.'],
-            ['Can I convert specific pages only?', 'Yes, enter page numbers separated by commas (e.g. 1,3,5) in the
-            Pages field. Leave blank to convert all pages.'],
-            ['What DPI should I use?', '200 DPI (default) is great for general use. Use 72 for web thumbnails, 150 for
-            sharing, 300 for print-ready quality, or 600 for archival resolution.'],
-            ['What does JPG quality control?', 'Higher quality (90-100) produces sharper images with larger file sizes.
-            Lower quality (60-75) gives smaller files with slight compression artifacts. The default of 85 is a good
-            balance.'],
+            ['What are heading markers?', 'Heading markers add underline characters below headings so they stand out in
+            plain text. For example, Heading 1 gets a row of equal signs (===) and Heading 2 gets dashes (---).'],
+            ['Will tables be preserved?', 'Yes, tables are rendered as ASCII grid tables with borders made of + - and |
+            characters. You can disable this in the options if you prefer plain text only.'],
+            ['Can I include document comments?', 'Yes, toggle Include Comments to extract comments from the Word file
+            and append them to the text output.'],
+            ['What encoding should I choose?', 'UTF-8 (default) supports all languages including Arabic, Chinese, and
+            accented characters. Use ASCII for basic English only, or Latin-1 for Western European languages.'],
             ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
             within 1 hour. We never read, share or store your content.'],
             ];
@@ -386,44 +423,25 @@
 
 {{-- ══ STYLES ══ --}}
 <style>
-    .dpi-btn {
+    .enc-btn {
         color: var(--fn-text3);
         border-color: oklch(var(--fn-text-l, 80%) 0 0 / 10%);
         background: var(--fn-surface);
     }
 
-    .dpi-btn.active {
+    .enc-btn.active {
         color: var(--fn-blue-l);
         border-color: oklch(49% 0.24 264 / 40%);
         background: oklch(49% 0.24 264 / 8%);
     }
 
-    .dpi-btn:not(.active):hover {
+    .enc-btn:not(.active):hover {
         border-color: oklch(49% 0.24 264 / 25%);
         color: var(--fn-text);
     }
 
-    .page-tab {
-        padding: 4px 12px;
-        border-radius: 8px;
-        font-size: 11px;
-        font-weight: 600;
-        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0 / 10%);
-        background: var(--fn-surface);
-        color: var(--fn-text3);
-        cursor: pointer;
-        transition: all .15s;
-    }
-
-    .page-tab.active {
-        background: oklch(49% 0.24 264 / 10%);
-        border-color: oklch(49% 0.24 264 / 35%);
-        color: var(--fn-blue-l);
-    }
-
-    input[type="range"] {
-        height: 6px;
-        border-radius: 3px;
+    #text-preview {
+        tab-size: 4;
     }
 </style>
 
@@ -438,48 +456,24 @@
       var removeFile  = document.getElementById('remove-file');
       var uploadError = document.getElementById('upload-error');
       var errorText   = document.getElementById('error-text');
-      var outputSel   = document.getElementById('opt-output');
-      var pagesInput  = document.getElementById('opt-pages');
-      var pagesHint   = document.getElementById('pages-hint');
-      var outputHint  = document.getElementById('output-mode-hint');
-      var qualitySlider = document.getElementById('opt-quality');
-      var qualityValue  = document.getElementById('quality-value');
 
       var selectedFile  = null;
       var blobUrl       = null;
-      var activeDpi     = '200';
-      var previewPages  = [];
-      var API_BASE      = '{{ config("services.api.base_url", "https://api.filenewer.com") }}';
+      var activeEnc     = 'utf-8';
 
-      qualitySlider.addEventListener('input', function () {
-        qualityValue.textContent = qualitySlider.value;
-      });
-
-      var dpiHints = {
-        '72':  '72 DPI \u2014 web preview, thumbnails',
-        '150': '150 DPI \u2014 general sharing',
-        '200': '200 DPI \u2014 balanced quality and file size',
-        '300': '300 DPI \u2014 print-ready quality',
-        '600': '600 DPI \u2014 high resolution archive'
+      var encHints = {
+        'utf-8':   'UTF-8 \u2014 universal encoding, supports all languages',
+        'ascii':   'ASCII \u2014 basic English characters only',
+        'latin-1': 'Latin-1 \u2014 Western European languages'
       };
 
-      document.querySelectorAll('.dpi-btn').forEach(function (btn) {
+      document.querySelectorAll('.enc-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          document.querySelectorAll('.dpi-btn').forEach(function (b) { b.classList.remove('active'); });
+          document.querySelectorAll('.enc-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
-          activeDpi = btn.dataset.dpi;
-          document.getElementById('dpi-hint').textContent = dpiHints[activeDpi] || '';
+          activeEnc = btn.dataset.enc;
+          document.getElementById('enc-hint').textContent = encHints[activeEnc] || '';
         });
-      });
-
-      outputSel.addEventListener('change', function () {
-        var isSingle = outputSel.value === 'single';
-        outputHint.textContent = isSingle
-          ? 'Downloads the first (or specified) page as a single JPG image.'
-          : 'All pages exported as individual JPG images, bundled in a ZIP archive.';
-        pagesHint.textContent = isSingle
-          ? 'Enter a page number, or leave blank for the first page.'
-          : 'Leave blank to convert all pages, or specify pages like 1,3,5.';
       });
 
       ['dragenter', 'dragover'].forEach(function (evt) {
@@ -513,7 +507,7 @@
         document.getElementById('file-name').textContent = file.name;
         document.getElementById('file-meta').textContent = formatBytes(file.size) + ' \u00b7 Word Document';
         var fnInput = document.getElementById('opt-filename');
-        if (!fnInput.value) fnInput.value = file.name.replace(/\.docx?$/i, '.zip');
+        if (!fnInput.value) fnInput.value = file.name.replace(/\.docx?$/i, '.txt');
         filePreview.classList.remove('hidden');
         filePreview.classList.add('flex');
         dropZone.classList.add('has-file');
@@ -539,60 +533,78 @@
         showState('converting');
         updateStepIndicator(2);
 
-        var outputMode     = outputSel.value;
-        var pagesVal       = pagesInput.value.trim();
-        var customFilename = document.getElementById('opt-filename').value.trim();
-        var isSingle       = outputMode === 'single';
-        var baseName       = selectedFile.name.replace(/\.docx?$/i, '');
-        var defaultExt     = isSingle ? '.jpg' : '.zip';
-        var outputFilename = customFilename
-          ? (customFilename.indexOf('.') !== -1 ? customFilename : customFilename + defaultExt)
-          : baseName + (isSingle ? '_page_1.jpg' : '_pages.zip');
+        var includeHeaders  = document.getElementById('opt-headers').checked;
+        var includeTables   = document.getElementById('opt-tables').checked;
+        var includeComments = document.getElementById('opt-comments').checked;
+        var pageSep         = document.getElementById('opt-page-sep').value.trim();
+        var customFilename  = document.getElementById('opt-filename').value.trim();
+        var baseName        = selectedFile.name.replace(/\.docx?$/i, '');
+        var outputFilename  = customFilename
+          ? (customFilename.indexOf('.') !== -1 ? customFilename : customFilename + '.txt')
+          : baseName + '.txt';
 
-        var formData = new FormData();
-        formData.append('file',    selectedFile);
-        formData.append('output',  outputMode);
-        formData.append('dpi',     activeDpi);
-        formData.append('quality', qualitySlider.value);
-        if (pagesVal) formData.append('pages', pagesVal);
+        // Build form for JSON response (stats + preview)
+        var jsonForm = new FormData();
+        jsonForm.append('file',             selectedFile);
+        jsonForm.append('output',           'json');
+        jsonForm.append('include_headers',  includeHeaders  ? 'true' : 'false');
+        jsonForm.append('include_tables',   includeTables   ? 'true' : 'false');
+        jsonForm.append('include_comments', includeComments ? 'true' : 'false');
+        jsonForm.append('encoding',         activeEnc);
+        if (pageSep) jsonForm.append('page_separator', pageSep);
 
+        // Build form for file download
+        var fileForm = new FormData();
+        fileForm.append('file',             selectedFile);
+        fileForm.append('output',           'file');
+        fileForm.append('include_headers',  includeHeaders  ? 'true' : 'false');
+        fileForm.append('include_tables',   includeTables   ? 'true' : 'false');
+        fileForm.append('include_comments', includeComments ? 'true' : 'false');
+        fileForm.append('encoding',         activeEnc);
+        if (pageSep) fileForm.append('page_separator', pageSep);
+
+        // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 15, 700, 'Uploading & reading document\u2026');
+        animateProgress(0, 20, 700, 'Uploading & reading document\u2026');
 
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(15, 40, 1200, 'Converting Word to PDF\u2026');
+          animateProgress(20, 50, 900, 'Parsing paragraphs & headings\u2026');
         }, 800);
 
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(40, 75, 1500, 'Rendering pages to JPG\u2026');
-        }, 2200);
+          animateProgress(50, 75, 900, 'Extracting tables & comments\u2026');
+        }, 1800);
 
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(75, 90, 700, 'Packaging output file\u2026');
-        }, 4000);
+          animateProgress(75, 90, 700, 'Encoding & packaging text file\u2026');
+        }, 2900);
 
         try {
-          var res = await fetch(API_BASE + '/api/tools/word-to-jpg', {
-            method: 'POST',
-            body:   formData
-          });
+          // Fire both requests in parallel
+          var results = await Promise.all([
+            fetch('https://api.filenewer.com/api/tools/word-to-txt', { method: 'POST', body: jsonForm }).catch(function () { return null; }),
+            fetch('https://api.filenewer.com/api/tools/word-to-txt', { method: 'POST', body: fileForm })
+          ]);
+
+          var jsonRes = results[0];
+          var fileRes = results[1];
 
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
 
-          if (!res.ok) {
+          if (!fileRes.ok) {
             var errMsg = 'Conversion failed. Please try again.';
-            try { var d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
+            try { var d = await fileRes.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
 
-          var blob = await res.blob();
-
+          // File blob
+          var blob = await fileRes.blob();
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
 
@@ -601,15 +613,44 @@
           link.download = outputFilename;
 
           document.getElementById('output-name').textContent        = outputFilename;
-          document.getElementById('output-size').textContent        = formatBytes(blob.size) + (isSingle ? ' \u00b7 JPG Image' : ' \u00b7 ZIP Archive');
-          document.getElementById('download-btn-label').textContent = isSingle ? 'Download JPG' : 'Download ZIP';
-          document.getElementById('download-subtitle').textContent  = isSingle
-            ? 'Your JPG image is ready.'
-            : 'Your JPG images are packed and ready.';
-          document.getElementById('output-icon').textContent        = isSingle ? '\uD83D\uDDBC\uFE0F' : '\uD83D\uDDDC\uFE0F';
+          document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 Text File';
+          document.getElementById('download-btn-label').textContent = 'Download TXT';
+          document.getElementById('download-subtitle').textContent  = 'Your text file is ready.';
 
-          // Preview is skipped — the main file download is ready
-          document.getElementById('page-preview-wrap').classList.add('hidden');
+          // Stats + preview from JSON response (non-blocking)
+          var statsWrap       = document.getElementById('stats-wrap');
+          var textPreviewWrap = document.getElementById('text-preview-wrap');
+
+          if (jsonRes && jsonRes.ok) {
+            try {
+              var data = await jsonRes.json();
+
+              document.getElementById('stat-paragraphs').textContent = data.paragraphs || 0;
+              document.getElementById('stat-words').textContent      = data.words || 0;
+              document.getElementById('stat-tables').textContent     = data.tables || 0;
+              document.getElementById('stat-headings').textContent   = data.headings || 0;
+              statsWrap.classList.remove('hidden');
+
+              if (data.text) {
+                var preview    = data.text.substring(0, 2000);
+                var totalChars = data.chars || data.text.length;
+                document.getElementById('text-preview').textContent = preview + (totalChars > 2000 ? '\n\u2026' : '');
+                document.getElementById('text-preview-meta').textContent =
+                  (data.words || 0) + ' words \u00b7 ' + totalChars.toLocaleString() + ' characters' +
+                  (totalChars > 2000 ? ' \u00b7 showing first 2,000 chars' : '') +
+                  ' \u00b7 ' + (data.size_original_kb || 0) + ' KB \u2192 ' + (data.size_text_kb || 0) + ' KB';
+                textPreviewWrap.classList.remove('hidden');
+              } else {
+                textPreviewWrap.classList.add('hidden');
+              }
+            } catch (_) {
+              statsWrap.classList.add('hidden');
+              textPreviewWrap.classList.add('hidden');
+            }
+          } else {
+            statsWrap.classList.add('hidden');
+            textPreviewWrap.classList.add('hidden');
+          }
 
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
@@ -624,32 +665,6 @@
           showState('upload');
           updateStepIndicator(1);
         }
-      }
-
-      function buildPageTabs(pages) {
-        var container = document.getElementById('page-tabs');
-        container.innerHTML = '';
-        pages.forEach(function (pg, i) {
-          var btn = document.createElement('button');
-          btn.type      = 'button';
-          btn.textContent = 'Page ' + pg.page;
-          btn.className = 'page-tab' + (i === 0 ? ' active' : '');
-          btn.addEventListener('click', function () {
-            document.querySelectorAll('.page-tab').forEach(function (b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            showPagePreview(pg, pages.length);
-          });
-          container.appendChild(btn);
-        });
-      }
-
-      function showPagePreview(pg, totalPages) {
-        var img = document.getElementById('page-preview-img');
-        img.src = 'data:image/jpeg;base64,' + pg.base64;
-        img.alt = 'Page ' + pg.page + ' preview';
-        document.getElementById('page-preview-meta').textContent =
-          'Page ' + pg.page + ' \u00b7 ' + pg.width + '\u00d7' + pg.height + 'px \u00b7 ' + pg.size_kb.toFixed(1) + ' KB' +
-          (totalPages > 1 ? ' \u00b7 ' + totalPages + ' pages total' : '');
       }
 
       function showState(state) {
@@ -712,19 +727,17 @@
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         resetFile();
-        document.getElementById('opt-filename').value = '';
-        document.getElementById('opt-pages').value    = '';
-        outputSel.value = 'zip';
-        outputHint.textContent = 'All pages exported as individual JPG images, bundled in a ZIP archive.';
-        pagesHint.textContent  = 'Leave blank to convert all pages.';
-        document.querySelectorAll('.dpi-btn').forEach(function (b) { b.classList.remove('active'); });
-        document.querySelector('.dpi-btn[data-dpi="200"]').classList.add('active');
-        activeDpi = '200';
-        document.getElementById('dpi-hint').textContent = dpiHints['200'];
-        qualitySlider.value = 85;
-        qualityValue.textContent = '85';
-        previewPages = [];
-        document.getElementById('page-preview-wrap').classList.add('hidden');
+        document.getElementById('opt-filename').value   = '';
+        document.getElementById('opt-page-sep').value   = '';
+        document.getElementById('opt-headers').checked  = true;
+        document.getElementById('opt-tables').checked   = true;
+        document.getElementById('opt-comments').checked = false;
+        document.querySelectorAll('.enc-btn').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelector('.enc-btn[data-enc="utf-8"]').classList.add('active');
+        activeEnc = 'utf-8';
+        document.getElementById('enc-hint').textContent = encHints['utf-8'];
+        document.getElementById('stats-wrap').classList.add('hidden');
+        document.getElementById('text-preview-wrap').classList.add('hidden');
         showState('upload');
         updateStepIndicator(1);
         animateProgress(0, 0, 0, 'Starting\u2026');
