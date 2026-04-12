@@ -300,6 +300,9 @@
 </section>
 
 
+
+
+
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -338,6 +341,8 @@
         </div>
     </div>
 </section>
+
+<x-tools-content :tool="$tool" />
 
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />

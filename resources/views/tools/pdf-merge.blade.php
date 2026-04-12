@@ -286,6 +286,7 @@
 {{-- ══ FAQ ══ --}}
 <x-faqs />
 
+<x-tools-content :tool="$tool" />
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
 
