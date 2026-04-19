@@ -4,7 +4,6 @@
 <x-ld-json :tool="$tool" />
 @endpush
 
-
 @section('content')
 
 <x-tool-hero :tool="$tool" />
