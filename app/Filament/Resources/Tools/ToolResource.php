@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ToolResource extends Resource
 {
@@ -27,6 +28,12 @@ class ToolResource extends Resource
     public static function getModelLabel(): string
     {
         return __("Tool");
+    }
+
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->orderByDesc('created_at');
     }
 
 
