@@ -2,6 +2,7 @@
 
 @push('scripts')
 <x-ld-json :tool="$tool" />
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
 @endpush
 
 
@@ -800,8 +801,17 @@
     document.getElementById('stat-images').textContent   = data.image_count ?? 0;
     document.getElementById('stat-headings').textContent = headings.length;
 
-    // Rendered preview
-    document.getElementById('md-preview').innerHTML = mdToHtml(md);
+    // Rendered preview — defer so the UI can paint "Converting done" first
+    const previewEl = document.getElementById('md-preview');
+    previewEl.innerHTML = '<p style="color:var(--fn-text3);text-align:center;padding:20px;">Rendering preview…</p>';
+    setTimeout(() => {
+      try {
+        previewEl.innerHTML = mdToHtml(md);
+      } catch (e) {
+        console.error('Preview render failed:', e);
+        previewEl.innerHTML = '<p style="color:var(--fn-red);text-align:center;padding:20px;">Preview could not render — use the Source view instead.</p>';
+      }
+    }, 50);
 
     // Source
     document.getElementById('md-source').textContent = md;
@@ -868,159 +878,28 @@
     }
   });
 
-  // ── Lightweight Markdown → HTML renderer ──
-  // Supports: headings (atx+setext), bold, italic, strikethrough, code, links,
-  // images, lists, blockquotes, code fences, tables, hr
+  // ── Markdown → HTML renderer (uses marked.js if available) ──
   function mdToHtml(md) {
     if (!md) return '<p style="color:var(--fn-text3);text-align:center;">No content</p>';
 
-    const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-    // Split into lines, process in passes
-    let lines = md.split('\n');
-    const out = [];
-    let i = 0;
-
-    // Inline replacements (applied per line, not inside code)
-    function inline(text) {
-      let s = esc(text);
-      // Images  ![alt](src)
-      s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1"/>');
-      // Links   [text](url)
-      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-      // Code `...`
-      s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-      // Bold+Italic ***text***
-      s = s.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
-      // Bold **text**
-      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      // Italic *text*  or _text_
-      s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
-      s = s.replace(/(^|[^_])_([^_\n]+)_(?!_)/g, '$1<em>$2</em>');
-      // Strikethrough ~~text~~
-      s = s.replace(/~~([^~]+)~~/g, '<del>$1</del>');
-      return s;
-    }
-
-    while (i < lines.length) {
-      const line = lines[i];
-
-      // Fenced code block
-      const fenceMatch = line.match(/^```(\w*)\s*$/);
-      if (fenceMatch) {
-        const lang = fenceMatch[1] || '';
-        const buf = [];
-        i++;
-        while (i < lines.length && !lines[i].match(/^```\s*$/)) {
-          buf.push(lines[i]);
-          i++;
-        }
-        i++; // skip closing
-        out.push(`<pre><code${lang ? ` class="language-${esc(lang)}"` : ''}>${esc(buf.join('\n'))}</code></pre>`);
-        continue;
-      }
-
-      // Setext H1 / H2 (current line followed by === or ---)
-      if (i + 1 < lines.length && line.trim() && lines[i + 1].match(/^=+\s*$/)) {
-        out.push(`<h1>${inline(line.trim())}</h1>`);
-        i += 2; continue;
-      }
-      if (i + 1 < lines.length && line.trim() && lines[i + 1].match(/^-{3,}\s*$/)) {
-        out.push(`<h2>${inline(line.trim())}</h2>`);
-        i += 2; continue;
-      }
-
-      // ATX headings
-      const hMatch = line.match(/^(#{1,6})\s+(.+)$/);
-      if (hMatch) {
-        const lvl = hMatch[1].length;
-        out.push(`<h${lvl}>${inline(hMatch[2].trim())}</h${lvl}>`);
-        i++; continue;
-      }
-
-      // HR
-      if (line.match(/^(-{3,}|\*{3,}|_{3,})\s*$/)) {
-        out.push('<hr/>');
-        i++; continue;
-      }
-
-      // Table
-      if (line.match(/^\s*\|.*\|\s*$/) && i + 1 < lines.length && lines[i + 1].match(/^\s*\|?[\s:|-]+\|?\s*$/)) {
-        const headerCells = line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
-        i += 2; // skip header + separator
-        const bodyRows = [];
-        while (i < lines.length && lines[i].match(/^\s*\|.*\|\s*$/)) {
-          const cells = lines[i].trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
-          bodyRows.push(cells);
-          i++;
-        }
-        let html = '<table><thead><tr>';
-        headerCells.forEach(c => html += `<th>${inline(c)}</th>`);
-        html += '</tr></thead><tbody>';
-        bodyRows.forEach(row => {
-          html += '<tr>';
-          headerCells.forEach((_, idx) => html += `<td>${inline(row[idx] ?? '')}</td>`);
-          html += '</tr>';
+    // If marked.js is available, use it (much faster + safer for huge docs)
+    if (typeof marked !== 'undefined') {
+      try {
+        marked.setOptions({
+          gfm: true,
+          breaks: false,
+          headerIds: false,
+          mangle: false,
         });
-        html += '</tbody></table>';
-        out.push(html);
-        continue;
-      }
-
-      // Blockquote
-      if (line.match(/^>\s?/)) {
-        const buf = [];
-        while (i < lines.length && lines[i].match(/^>\s?/)) {
-          buf.push(lines[i].replace(/^>\s?/, ''));
-          i++;
-        }
-        out.push(`<blockquote><p>${inline(buf.join(' '))}</p></blockquote>`);
-        continue;
-      }
-
-      // Unordered list
-      if (line.match(/^[\s]*[-*+]\s+/)) {
-        let html = '<ul>';
-        while (i < lines.length && lines[i].match(/^[\s]*[-*+]\s+/)) {
-          const item = lines[i].replace(/^[\s]*[-*+]\s+/, '');
-          html += `<li>${inline(item)}</li>`;
-          i++;
-        }
-        html += '</ul>';
-        out.push(html);
-        continue;
-      }
-
-      // Ordered list
-      if (line.match(/^[\s]*\d+\.\s+/)) {
-        let html = '<ol>';
-        while (i < lines.length && lines[i].match(/^[\s]*\d+\.\s+/)) {
-          const item = lines[i].replace(/^[\s]*\d+\.\s+/, '');
-          html += `<li>${inline(item)}</li>`;
-          i++;
-        }
-        html += '</ol>';
-        out.push(html);
-        continue;
-      }
-
-      // Empty line
-      if (!line.trim()) {
-        i++; continue;
-      }
-
-      // Paragraph — collect until blank line
-      const paraBuf = [];
-      while (i < lines.length && lines[i].trim() && !lines[i].match(/^(#{1,6}\s|>|\s*[-*+]\s|\s*\d+\.\s|```|\|)/)) {
-        paraBuf.push(lines[i]);
-        i++;
-      }
-      if (paraBuf.length > 0) {
-        out.push(`<p>${inline(paraBuf.join(' '))}</p>`);
+        return marked.parse(md);
+      } catch (e) {
+        console.warn('marked.js failed, falling back to plain text:', e);
       }
     }
 
-    return out.join('\n');
+    // Fallback: escape and show as preformatted text (no regex — won't freeze)
+    const esc = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return '<pre style="white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.7;">' + esc + '</pre>';
   }
 
   // ── Helpers ──
