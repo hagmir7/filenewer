@@ -632,7 +632,7 @@
     }, 2500);
 
     try {
-      const res = await fetch('https://api.filenewer.com/api/convert/pdf/png/', {
+      const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-png', {
         method: 'POST',
         body: fd,
       });
