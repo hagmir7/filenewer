@@ -758,7 +758,7 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     let sqlForDetection = '';
 
     if (activeTab === 'file') {
-      endpoint = 'https://api.filenewer.com/api/tools/sql-file-to-excel/';
+      endpoint = 'https://api.filenewer.com/api/tools/sql-file-to-excel';
       const fd = new FormData();
       fd.append('file',           selectedFile);
       fd.append('include_stats',  includeStats);
@@ -769,7 +769,7 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
         if (selectedFile.size < 5 * 1024 * 1024) sqlForDetection = await selectedFile.text();
       } catch(_) {}
     } else {
-      endpoint = 'https://api.filenewer.com/api/tools/sql-text-to-excel/';
+      endpoint = 'https://api.filenewer.com/api/tools/sql-text-to-excel';
       sqlForDetection = sqlTA.value;
       const payload = {
         sql:            sqlTA.value,
