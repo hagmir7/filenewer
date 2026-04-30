@@ -639,7 +639,7 @@
     const baseName = selectedFile.name.replace(/\.pdf$/i, '');
     const outName  = (title ? title.replace(/[^a-z0-9]/gi, '_').toLowerCase() : baseName) + '.' + format;
 
-    const endpoint = `https://api.filenewer.com/api/convert/pdf-to-${format}/`;
+    const endpoint = `https://api.filenewer.com/api/convert/pdf-to-${format}`;
 
     const fd = new FormData();
     fd.append('file', selectedFile);

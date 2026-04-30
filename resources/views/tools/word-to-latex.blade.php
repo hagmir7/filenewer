@@ -544,7 +544,7 @@
     }, 2200);
 
     try {
-      const res = await fetch('https://api.filenewer.com/api/tools/word-to-latexs', {
+      const res = await fetch('https://api.filenewer.com/api/tools/word-to-latex', {
         method: 'POST',
         body: fd,
       });
