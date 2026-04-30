@@ -895,7 +895,7 @@
       let res, endpoint, fetchOpts;
 
       if (activeTab === 'text') {
-        endpoint  = 'https://api.filenewer.com/api/convert/json-text-to-xml/';
+        endpoint  = 'https://api.filenewer.com/api/tools/json-text-to-xml';
         const payload = {
           json:                JSON.parse(jsonTA.value),
           root_element:        rootEl,
@@ -913,7 +913,7 @@
         };
         lastJson = jsonTA.value;
       } else {
-        endpoint = 'https://api.filenewer.com/api/convert/json-file-to-xml/';
+        endpoint = 'https://api.filenewer.com/api/tools/json-file-to-xml';
         const fd = new FormData();
         fd.append('file',                selectedFile);
         fd.append('root_element',        rootEl);
