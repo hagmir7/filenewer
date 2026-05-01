@@ -832,7 +832,7 @@
     }, 2400);
 
     try {
-      const res = await fetch('https://api.filenewer.com/api/convert/ipynb-to-pdf/', {
+      const res = await fetch('https://api.filenewer.com/api/tools/ipynb-to-pdf', {
         method: 'POST',
         body:   fd,
       });
