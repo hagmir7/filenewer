@@ -7,16 +7,16 @@
     <div class="absolute inset-0 grid-lines pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
 
-    <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
-            @if(request('category') && $categories->isNotEmpty())
-            @php $categoryTitle = $categories->first()->title; @endphp
-            {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
-            @else
-            Free online tools you need,<br> In one place
-            @endif
-        </h1>
-    </div>
+        <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
+                @if(request('category') && $categories->isNotEmpty())
+                @php $categoryTitle = $categories->first()->title; @endphp
+                {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
+                @else
+                The Fastest Online File Tools,<br> For Modern Work
+                @endif
+            </h1>
+        </div>
         {{-- Search bar --}}
         <div class="animate-fade-up opacity-0 delay-2 max-w-2xl mx-auto mb-6">
             <div class="relative">
@@ -162,6 +162,255 @@
         </main>
     </div>
 </div>
+
+
+<!-- ══════════════════════ FEATURES ══════════════════════ -->
+<section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <div class="text-center mb-16">
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Core Product</p>
+            <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything you need
+                to manage files</h2>
+            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">Three powerful toolsets, built for
+                teams and individuals who need results without the complexity.</p>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
+
+            <!-- Card 1 -->
+            <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group">
+                <div
+                    class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-blue/10 border border-fn-blue/25">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-refresh">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">File Conversion Tools</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Transform any file format in seconds. Our
+                    online file converter supports PDF, Word, Excel, CSV, images, and dozens more — with
+                    pixel-perfect output every time.</p>
+                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">PDF ·
+                    DOCX · CSV · JPG · SVG</span>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group">
+                <div
+                    class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-cyan/10 border border-fn-cyan/25">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-file-certificate">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                        <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" />
+                        <path d="M3 14a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                        <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Business Document Generators</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Generate professional invoices, contracts, and
+                    reports automatically. Fill in your data and Filenewer produces a clean, print-ready PDF
+                    instantly.</p>
+                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Invoices
+                    · Contracts · Reports</span>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group">
+                <div
+                    class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-green/10 border border-fn-green/25">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-sparkles-2">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M13 7a9.3 9.3 0 0 0 1.516 -.546c.911 -.438 1.494 -1.015 1.937 -1.932c.207 -.428 .382 -.928 .547 -1.522c.165 .595 .34 1.095 .547 1.521c.443 .918 1.026 1.495 1.937 1.933c.426 .205 .925 .38 1.516 .546a9.3 9.3 0 0 0 -1.516 .547c-.911 .438 -1.494 1.015 -1.937 1.932a9 9 0 0 0 -.547 1.521c-.165 -.594 -.34 -1.095 -.547 -1.521c-.443 -.918 -1.026 -1.494 -1.937 -1.932a9 9 0 0 0 -1.516 -.547" />
+                        <path
+                            d="M3 14a21 21 0 0 0 1.652 -.532c2.542 -.953 3.853 -2.238 4.816 -4.806a20 20 0 0 0 .532 -1.662a20 20 0 0 0 .532 1.662c.963 2.567 2.275 3.853 4.816 4.806q .75 .28 1.652 .532a21 21 0 0 0 -1.652 .532c-2.542 .953 -3.854 2.238 -4.816 4.806a20 20 0 0 0 -.532 1.662a20 20 0 0 0 -.532 -1.662c-.963 -2.568 -2.275 -3.853 -4.816 -4.806a21 21 0 0 0 -1.652 -.532" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Smart File Processing</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract
+                    content from files with intelligent automation. Handle bulk operations without writing a single
+                    line of code.</p>
+                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress
+                    · Merge · Extract · OCR</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ SECURITY ══════════════════════ -->
+<section id="security" class="py-24 bg-fn-bg relative overflow-hidden cyan-glow" aria-labelledby="security-heading">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+            <!-- Left: Copy -->
+            <div>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Privacy &amp;
+                    Security</p>
+                <h2 id="security-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Your files stay
+                    private. Always.</h2>
+                <p class="text-fn-text2 text-lg leading-relaxed">We built secure file processing into every layer of
+                    Filenewer — from upload to deletion, your data is fully protected.</p>
+
+                <div class="flex flex-col gap-5 mt-9">
+
+                    <div class="flex gap-4">
+                        <div
+                            class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
+                            🔒</div>
+                        <div>
+                            <h3 class="font-semibold text-sm mb-1">AES-256 Encryption in Transit</h3>
+                            <p class="text-fn-text3 text-sm leading-relaxed">Every file you upload is encrypted over
+                                HTTPS using AES-256 — the same standard used by financial institutions worldwide.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div
+                            class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
+                            🗑️</div>
+                        <div>
+                            <h3 class="font-semibold text-sm mb-1">Automatic File Deletion</h3>
+                            <p class="text-fn-text3 text-sm leading-relaxed">Uploaded files are permanently deleted
+                                from our servers within 1 hour of processing. No manual action needed.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div
+                            class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
+                            🚫</div>
+                        <div>
+                            <h3 class="font-semibold text-sm mb-1">Zero Data Sharing</h3>
+                            <p class="text-fn-text3 text-sm leading-relaxed">We never share, sell, train on, or
+                                access your file contents. Your documents are processed and gone — full stop.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div
+                            class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
+                            🌐</div>
+                        <div>
+                            <h3 class="font-semibold text-sm mb-1">GDPR-Compliant Infrastructure</h3>
+                            <p class="text-fn-text3 text-sm leading-relaxed">Hosted on GDPR-compliant cloud
+                                infrastructure. Your data rights are respected regardless of where you are.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right: Status Panel -->
+            <div class="security-panel relative bg-fn-surface border border-white/[0.07] rounded-2xl p-8">
+                <!-- Terminal chrome -->
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="w-3 h-3 rounded-full bg-fn-red"></span>
+                    <span class="w-3 h-3 rounded-full bg-fn-amber"></span>
+                    <span class="w-3 h-3 rounded-full bg-fn-green"></span>
+                    <span class="text-fn-text3 text-sm font-mono ml-auto">security-status.log</span>
+                </div>
+
+                <!-- Status rows -->
+                <div class="flex flex-col gap-3">
+
+                    <div
+                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
+                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🔒 TLS 1.3 Encryption</span>
+                        <span
+                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
+                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🛡️ AES-256 Storage
+                            Enc.</span>
+                        <span
+                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
+                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🗑️ Auto-deletion (1hr)</span>
+                        <span
+                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ENABLED</span>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
+                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🚫 Third-party Data
+                            Share</span>
+                        <span class="text-fn-red text-sm font-mono font-medium">BLOCKED</span>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
+                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm">🌍 GDPR Compliance</span>
+                        <span
+                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">VERIFIED</span>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
+                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm">📊 SOC 2 Audit Trail</span>
+                        <span
+                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">LOGGING</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ CTA ══════════════════════ -->
+<section id="cta" class="py-24 bg-fn-surface border-y border-white/[0.07] text-center relative overflow-hidden"
+    aria-labelledby="cta-heading">
+    <!-- Glow -->
+    <div
+        class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get Started Today</p>
+        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
+            processing files smarter — right now</h2>
+        <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
+            Join thousands of freelancers, developers, and small businesses who rely on Filenewer's online file
+            tools every day. No credit card required.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3">
+            <a href="/signup"
+                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
+                Start Free — No Sign-up Needed
+            </a>
+            <a href="/tools"
+                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
+                Browse All Tools
+            </a>
+        </div>
+
+        <p class="text-fn-text3 text-sm mt-5">✓ Free to use &nbsp;·&nbsp; ✓ Secure &amp; private &nbsp;·&nbsp; ✓ No
+            software to install</p>
+    </div>
+</section>
 
 <script>
     const allCards   = document.querySelectorAll('.tool-card');
