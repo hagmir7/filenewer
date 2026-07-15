@@ -1,9 +1,9 @@
 <section class="relative pt-8 pb-8 overflow-hidden hero-glow">
     <div class="absolute inset-0 grid-lines pointer-events-none"></div>
-    <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 relative z-10">
 
         {{-- Breadcrumb --}}
-        <nav class="flex items-center gap-1 md:gap-2 text-sm text-fn-text3 mb-6">
+        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-6">
             <a href="/" class="hover:text-fn-text transition-colors">Home</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -25,14 +25,14 @@
         </nav>
 
         {{-- Tool heading --}}
-        <div class="flex items-start gap-5 mb-6">
+        <div class="md:flex items-start gap-5 mb-6">
             <div
                 class="w-14 h-14 rounded-2xl bg-fn-surface2 border border-fn-text/10 flex items-center justify-center text-3xl shrink-0">
                 {{ $tool->icon }}
             </div>
             <div>
                 <div class="flex items-center gap-3 mb-1 flex-wrap">
-                    <h1 class="text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
+                    <h1 class="text-lg md:text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
                     @if(str_contains($tool->tags ?? '', 'popular'))
                     <span
                         class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-sm font-semibold rounded-full">🔥

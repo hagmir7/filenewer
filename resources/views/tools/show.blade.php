@@ -32,7 +32,7 @@
         </nav>
 
         {{-- Tool heading --}}
-        <div class="flex items-start gap-5 mb-6">
+        <div class="md:flex items-start gap-5 mb-6">
             <div
                 class="w-14 h-14 rounded-2xl bg-fn-surface2 border border-fn-text/10 flex items-center justify-center text-3xl shrink-0">
                 {{ $tool->icon }}
