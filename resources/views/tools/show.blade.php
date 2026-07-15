@@ -10,7 +10,7 @@
     <div class="max-w-4xl mx-auto px-6 relative z-10">
 
         {{-- Breadcrumb --}}
-        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-6">
+        <nav class="flex items-center gap-1 md:gap-2 text-sm text-fn-text3 mb-6">
             <a href="/" class="hover:text-fn-text transition-colors">Home</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -38,8 +38,8 @@
                 {{ $tool->icon }}
             </div>
             <div>
-                <div class="flex items-center gap-3 mb-1 flex-wrap">
-                    <h1 class="text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
+                <div class="md:flex items-center gap-3 mb-1 flex-wrap">
+                    <h1 class="text-lg md:text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
                     @if(str_contains($tool->tags ?? '', 'popular'))
                     <span
                         class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-sm font-semibold rounded-full">🔥

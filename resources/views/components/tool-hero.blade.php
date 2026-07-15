@@ -3,7 +3,7 @@
     <div class="max-w-5xl mx-auto px-6 relative z-10">
 
         {{-- Breadcrumb --}}
-        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-6">
+        <nav class="flex items-center gap-1 md:gap-2 text-sm text-fn-text3 mb-6">
             <a href="/" class="hover:text-fn-text transition-colors">Home</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
