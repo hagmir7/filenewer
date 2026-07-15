@@ -691,7 +691,7 @@
     if (translateTo) payload.translate_to = translateTo;
 
     try {
-      const res = await fetch('https://api.filenewer.com/api/tools/youtube-transcript/', {
+      const res = await fetch('https://api.filenewer.com/api/tools/youtube-transcript', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(payload),
