@@ -11,42 +11,42 @@
 
 
 {{-- ══ TOOL CARD ══ --}}
-<section class="pb-10 sm:pb-16">
+<section class="pb-8 sm:pb-16 overflow-x-hidden">
     <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
 
             {{-- Step indicator --}}
             <div
-                class="flex items-center justify-center gap-0 px-4 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2 overflow-x-auto">
+                class="flex items-center justify-center gap-0 px-2 sm:px-8 py-3 sm:py-5 border-b border-fn-text/7 bg-fn-surface2 overflow-x-auto">
                 @foreach([['1','Paste URL'],['2','Fetching'],['3','Result']] as [$n, $label])
-                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-1.5 sm:gap-2 shrink-0"
+                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-1 sm:gap-2 shrink-0"
                     id="step-{{ $n }}">
                     <div
-                        class="step-dot w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs sm:text-sm font-bold">{{ $n }}</span>
+                        class="step-dot w-4 h-4 sm:w-6 sm:h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-[10px] sm:text-sm font-bold">{{ $n }}</span>
                     </div>
                     <span
-                        class="step-label text-xs sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{
+                        class="step-label text-[10px] sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{
                         $label }}</span>
                 </div>
                 @if($n !== '3')
-                <div class="w-6 sm:w-10 h-px bg-fn-text/10 mx-1.5 sm:mx-2 shrink-0"></div>
+                <div class="w-3 sm:w-10 h-px bg-fn-text/10 mx-1 sm:mx-2 shrink-0"></div>
                 @endif
                 @endforeach
             </div>
 
-            <div class="p-4 sm:p-8 lg:p-10">
+            <div class="p-3 sm:p-8 lg:p-10">
 
                 {{-- ── STATE: Input ── --}}
                 <div id="state-upload">
 
                     {{-- URL input --}}
-                    <div class="mb-5">
+                    <div class="mb-4 sm:mb-5">
                         <label for="yt-url" class="text-xs font-semibold text-fn-text2 block mb-2">YouTube URL</label>
 
                         {{-- On mobile: stacked input + button; on sm+: inline --}}
                         <div class="flex flex-col sm:flex-row gap-2">
-                            <div class="relative flex-1">
+                            <div class="relative flex-1 min-w-0">
                                 <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
                                         class="text-fn-red">
@@ -55,8 +55,8 @@
                                     </svg>
                                 </div>
                                 <input type="url" id="yt-url" autocomplete="off" spellcheck="false"
-                                    placeholder="https://www.youtube.com/watch?v=..."
-                                    class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm rounded-xl pl-9 pr-3 py-3 sm:py-3.5 focus:outline-none focus:border-fn-red/40 placeholder:text-fn-text3/50 transition-colors" />
+                                    placeholder="https://youtube.com/watch?v=..."
+                                    class="w-full min-w-0 bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm rounded-xl pl-9 pr-3 py-3 sm:py-3.5 focus:outline-none focus:border-fn-red/40 placeholder:text-fn-text3/50 transition-colors" />
                             </div>
                             <button type="button" id="btn-paste-url"
                                 class="flex items-center justify-center gap-1.5 px-4 py-3 bg-fn-surface border border-fn-text/10 text-fn-text2 hover:text-fn-text text-sm font-semibold rounded-xl transition-all shrink-0">
@@ -71,25 +71,25 @@
                         </div>
 
                         <div class="mt-1.5">
-                            <span id="url-status" class="text-xs text-fn-text3">Supports youtube.com, youtu.be, Shorts,
-                                and embed URLs</span>
+                            <span id="url-status" class="text-xs text-fn-text3 break-words">Supports youtube.com,
+                                youtu.be, Shorts, and embed URLs</span>
                         </div>
                     </div>
 
                     {{-- Options --}}
-                    <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-5">
-                        <div class="flex items-center justify-between mb-3">
+                    <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4 sm:mb-5">
+                        <div class="flex items-center justify-between mb-3 gap-2">
                             <p class="text-sm font-semibold text-fn-text2">Transcript Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <span class="text-xs text-fn-text3 shrink-0">Optional</span>
                         </div>
 
                         {{-- Language selects: side by side on all screens --}}
                         <div class="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
-                            <div>
+                            <div class="min-w-0">
                                 <label for="opt-language"
                                     class="text-xs font-semibold text-fn-text2 block mb-1.5">Language</label>
                                 <select id="opt-language"
-                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-2 sm:px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
+                                    class="w-full min-w-0 bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-2 sm:px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer truncate">
                                     <option value="en" selected>English</option>
                                     <option value="ar">Arabic (عربي)</option>
                                     <option value="fr">French</option>
@@ -102,11 +102,11 @@
                                     <option value="ru">Russian</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="min-w-0">
                                 <label for="opt-translate"
                                     class="text-xs font-semibold text-fn-text2 block mb-1.5">Translate to</label>
                                 <select id="opt-translate"
-                                    class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-2 sm:px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
+                                    class="w-full min-w-0 bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-2 sm:px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer truncate">
                                     <option value="" selected>No translation</option>
                                     <option value="en">English</option>
                                     <option value="ar">Arabic (عربي)</option>
@@ -133,14 +133,15 @@
                                 ['fmt-json', 'json', '⚙️', 'JSON', 'Processing', false],
                                 ] as [$fid, $fval, $ficon, $flabel, $fdesc, $fdefault])
                                 <label id="{{ $fid }}-wrap"
-                                    class="fmt-card {{ $fdefault ? 'active' : '' }} flex items-center gap-2 px-2.5 py-2 border rounded-lg cursor-pointer transition-all">
+                                    class="fmt-card {{ $fdefault ? 'active' : '' }} flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 border rounded-lg cursor-pointer transition-all min-w-0">
                                     <input type="radio" name="output_format" value="{{ $fval }}" {{ $fdefault
                                         ? 'checked' : '' }} class="sr-only fmt-radio" />
-                                    <span class="text-base shrink-0">{{ $ficon }}</span>
+                                    <span class="text-sm sm:text-base shrink-0">{{ $ficon }}</span>
                                     <div class="min-w-0">
-                                        <p class="text-xs font-bold text-fn-text leading-none">{{ $flabel }}</p>
-                                        <p class="text-xs text-fn-text3 leading-tight mt-0.5 hidden sm:block">{{ $fdesc
-                                            }}</p>
+                                        <p class="text-xs font-bold text-fn-text leading-none truncate">{{ $flabel }}
+                                        </p>
+                                        <p class="text-xs text-fn-text3 leading-tight mt-0.5 hidden sm:block truncate">
+                                            {{ $fdesc }}</p>
                                     </div>
                                 </label>
                                 @endforeach
@@ -148,7 +149,7 @@
                         </div>
 
                         {{-- Toggles: 2 cols on sm+ --}}
-                        <div class="grid sm:grid-cols-2 gap-1.5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                             @foreach([
                             ['opt-timestamps', 'Include timestamps', 'Add [HH:MM:SS] before each line', false],
                             ['opt-auto', 'Auto-captions', 'Fall back to auto-generated captions', true],
@@ -176,15 +177,15 @@
 
                     {{-- Error banner --}}
                     <div id="upload-error"
-                        class="hidden mb-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
+                        class="hidden mb-4 items-start gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round"
+                            stroke-width="2" class="text-fn-red shrink-0 mt-0.5" stroke-linecap="round"
                             stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text" class="break-words">Something went wrong.</span>
                     </div>
 
                     <button id="convert-btn" type="button" disabled
@@ -199,11 +200,11 @@
                 </div>
 
                 {{-- ── STATE: Fetching ── --}}
-                <div id="state-converting" class="hidden text-center py-6">
-                    <div class="flex items-center justify-center gap-3 sm:gap-5 mb-6 sm:mb-8">
-                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shrink-0"
+                <div id="state-converting" class="hidden text-center py-4 sm:py-6">
+                    <div class="flex items-center justify-center gap-2 sm:gap-5 mb-5 sm:mb-8">
+                        <div class="w-11 h-11 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shrink-0"
                             style="background: oklch(52% 0.22 25 / 12%); border: 1px solid oklch(52% 0.22 25 / 25%)">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
                                 style="color: oklch(52% 0.22 25)">
                                 <path
                                     d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -218,23 +219,24 @@
                                 style="animation-delay:.3s"></span>
                         </div>
                         <div
-                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-2xl sm:text-3xl shrink-0">
+                            class="w-11 h-11 sm:w-16 sm:h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-xl sm:text-3xl shrink-0">
                             📝</div>
                     </div>
 
-                    <h2 class="text-lg sm:text-xl font-bold mb-2" id="fetching-title">Fetching Transcript…</h2>
-                    <p class="text-fn-text3 text-sm mb-6 sm:mb-8 px-4" id="converting-subtitle">Connecting to YouTube
-                        &amp; extracting captions</p>
+                    <h2 class="text-base sm:text-xl font-bold mb-2 px-2" id="fetching-title">Fetching Transcript…</h2>
+                    <p class="text-fn-text3 text-xs sm:text-sm mb-5 sm:mb-8 px-4 break-words" id="converting-subtitle">
+                        Connecting to YouTube &amp; extracting captions</p>
 
-                    <div class="max-w-md mx-auto mb-3">
+                    <div class="max-w-md mx-auto mb-3 px-2">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-6 sm:mb-8">
-                        <span id="progress-label" class="text-xs sm:text-sm">Starting…</span>
+                    <div
+                        class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-5 sm:mb-8 px-2 gap-2">
+                        <span id="progress-label" class="text-xs sm:text-sm truncate">Starting…</span>
                         <span id="progress-pct"
-                            class="font-mono font-semibold text-fn-text2 text-xs sm:text-sm">0%</span>
+                            class="font-mono font-semibold text-fn-text2 text-xs sm:text-sm shrink-0">0%</span>
                     </div>
 
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left px-2">
@@ -258,7 +260,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{!! $plabel !!}</span>
+                            <span class="text-xs sm:text-sm text-fn-text3 break-words min-w-0">{!! $plabel !!}</span>
                         </div>
                         @endforeach
                     </div>
@@ -273,8 +275,8 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <p class="text-xs text-fn-text2 leading-relaxed">Captions not found — falling back to <span
-                                class="font-semibold">Whisper AI</span> transcription. This may take a minute…</p>
+                        <p class="text-xs text-fn-text2 leading-relaxed break-words">Captions not found — falling back
+                            to <span class="font-semibold">Whisper AI</span> transcription. This may take a minute…</p>
                     </div>
                 </div>
 
@@ -283,10 +285,10 @@
 
                     {{-- Video info bar --}}
                     <div
-                        class="flex items-start gap-3 mb-4 sm:mb-5 p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0"
+                        class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-5 p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0"
                             style="background: oklch(52% 0.22 25 / 12%); border: 1px solid oklch(52% 0.22 25 / 22%)">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"
                                 style="color: oklch(52% 0.22 25)">
                                 <path
                                     d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -311,34 +313,35 @@
 
                     {{-- Toolbar: stacks on mobile --}}
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="text-xs font-semibold text-fn-text2" id="result-format-label">Plain text</span>
-                            <span id="result-stats" class="text-xs text-fn-text3"></span>
+                        <div class="flex items-center gap-2 flex-wrap min-w-0">
+                            <span class="text-xs font-semibold text-fn-text2 truncate" id="result-format-label">Plain
+                                text</span>
+                            <span id="result-stats" class="text-xs text-fn-text3 shrink-0"></span>
                         </div>
-                        <div class="flex items-center gap-1.5 flex-wrap">
+                        <div class="grid grid-cols-3 sm:flex sm:items-center gap-1.5">
                             <button type="button" id="btn-copy"
-                                class="flex items-center gap-1.5 px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
+                                class="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-label">Copy</span>
+                                <span id="copy-label" class="truncate">Copy</span>
                             </button>
                             <button type="button" id="btn-download-txt"
-                                class="flex items-center gap-1.5 px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
+                                class="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                <span id="download-ext-label">Download .txt</span>
+                                <span id="download-ext-label" class="truncate">Download .txt</span>
                             </button>
                             <button type="button" onclick="resetConverter()"
-                                class="flex items-center gap-1.5 px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
+                                class="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
                                     <polyline points="1 4 1 10 7 10" />
                                     <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                 </svg>
@@ -349,18 +352,18 @@
 
                     {{-- Transcript output --}}
                     <pre id="transcript-output"
-                        class="w-full bg-fn-surface2 border border-fn-text/10 rounded-xl px-4 sm:px-5 py-4 text-xs sm:text-sm text-fn-text2 leading-relaxed overflow-auto max-h-64 sm:max-h-[32rem] whitespace-pre-wrap font-sans"></pre>
+                        class="w-full bg-fn-surface2 border border-fn-text/10 rounded-xl px-3 sm:px-5 py-4 text-xs sm:text-sm text-fn-text2 leading-relaxed overflow-auto max-h-64 sm:max-h-[32rem] whitespace-pre-wrap break-words font-sans"></pre>
 
                     {{-- Method badge + privacy note --}}
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-3 gap-2">
                         <div class="flex items-center gap-1.5" id="method-badge"></div>
-                        <p class="text-fn-text3 text-xs flex items-center gap-1.5">
+                        <p class="text-fn-text3 text-xs flex items-start gap-1.5">
                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="text-fn-green shrink-0">
+                                class="text-fn-green shrink-0 mt-0.5">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                             </svg>
-                            Transcript not stored — cleared after your session ends.
+                            <span>Transcript not stored — cleared after your session ends.</span>
                         </p>
                     </div>
 
@@ -373,17 +376,17 @@
 
 
 {{-- ══ HOW IT WORKS ══ --}}
-<section class="py-10 sm:py-12 border-t border-fn-text/7 bg-fn-surface2">
+<section class="py-8 sm:py-12 border-t border-fn-text/7 bg-fn-surface2 overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
         <h2 class="text-lg font-bold mb-1 text-center">How It Works</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6 sm:mb-8">Two-strategy approach for maximum coverage</p>
+        <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-8">Two-strategy approach for maximum coverage</p>
         <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
             <div class="p-4 sm:p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <div class="flex items-center gap-2.5 mb-3">
                     <div
                         class="w-9 h-9 rounded-xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-lg shrink-0">
                         ⚡</div>
-                    <div>
+                    <div class="min-w-0">
                         <p class="font-bold text-sm">Strategy 1 — Transcript API</p>
                         <p class="text-xs text-fn-green font-semibold">Fast · ⭐⭐⭐⭐</p>
                     </div>
@@ -391,21 +394,21 @@
                 <p class="text-xs text-fn-text2 leading-relaxed mb-3">Directly fetches the caption track embedded by the
                     video creator or auto-generated by YouTube. Instant — no audio processing needed.</p>
                 <div class="flex flex-col gap-1 text-xs text-fn-text3">
-                    <div class="flex items-center gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                    <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                            class="text-fn-green shrink-0">
+                            class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> No extra dependencies</div>
-                    <div class="flex items-center gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                        </svg> <span>No extra dependencies</span></div>
+                    <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                            class="text-fn-green shrink-0">
+                            class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> Language selection &amp; translation</div>
-                    <div class="flex items-center gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                        </svg> <span>Language selection &amp; translation</span></div>
+                    <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                            class="text-fn-green shrink-0">
+                            class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> Supports auto-generated captions</div>
+                        </svg> <span>Supports auto-generated captions</span></div>
                 </div>
             </div>
             <div class="p-4 sm:p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -413,7 +416,7 @@
                     <div
                         class="w-9 h-9 rounded-xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-lg shrink-0">
                         🎙️</div>
-                    <div>
+                    <div class="min-w-0">
                         <p class="font-bold text-sm">Strategy 2 — Whisper AI</p>
                         <p class="text-xs text-fn-purple font-semibold">Slower · ⭐⭐⭐⭐⭐</p>
                     </div>
@@ -421,23 +424,23 @@
                 <p class="text-xs text-fn-text2 leading-relaxed mb-3">Falls back to downloading the audio and running
                     OpenAI Whisper for AI-powered speech-to-text when no captions are available.</p>
                 <div class="flex flex-col gap-1 text-xs text-fn-text3">
-                    <div class="flex items-center gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                    <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                            class="text-fn-green shrink-0">
+                            class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> Works on any video, even without captions</div>
-                    <div class="flex items-center gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                        </svg> <span>Works on any video, even without captions</span></div>
+                    <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                            class="text-fn-green shrink-0">
+                            class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> Highest transcription accuracy</div>
-                    <div class="flex items-center gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                        </svg> <span>Highest transcription accuracy</span></div>
+                    <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="text-fn-amber shrink-0">
+                            class="text-fn-amber shrink-0 mt-0.5">
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
-                        </svg> Takes longer — audio download + AI processing</div>
+                        </svg> <span>Takes longer — audio download + AI processing</span></div>
                 </div>
             </div>
         </div>
@@ -446,7 +449,7 @@
 
 
 {{-- ══ OUTPUT FORMATS ══ --}}
-<section class="py-10 sm:py-12 border-t border-fn-text/7 bg-fn-surface">
+<section class="py-8 sm:py-12 border-t border-fn-text/7 bg-fn-surface overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
         <h2 class="text-lg font-bold mb-1 text-center">Output Formats</h2>
         <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-6">Choose the format that fits your workflow</p>
@@ -457,10 +460,10 @@
             ['🌐', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'],
             ['⚙️', 'json', 'JSON', 'Processing', 'Raw segments array with start, duration, and text fields'],
             ] as [$icon, $val, $name, $use, $desc])
-            <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+            <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl min-w-0">
                 <div class="text-xl sm:text-2xl mb-1.5 sm:mb-2">{{ $icon }}</div>
-                <p class="font-bold text-sm">{{ $name }}</p>
-                <p class="text-xs text-fn-blue-l font-semibold mt-0.5">{{ $use }}</p>
+                <p class="font-bold text-sm truncate">{{ $name }}</p>
+                <p class="text-xs text-fn-blue-l font-semibold mt-0.5 break-words">{{ $use }}</p>
                 <p class="text-xs text-fn-text3 mt-1.5 leading-relaxed hidden sm:block">{{ $desc }}</p>
             </div>
             @endforeach
@@ -470,9 +473,9 @@
 
 
 {{-- ══ FAQ ══ --}}
-<section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface2">
+<section class="py-8 sm:py-16 border-t border-fn-text/7 bg-fn-surface2 overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 text-center">Frequently Asked Questions
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">Frequently Asked Questions
         </h2>
         <div class="space-y-2 sm:space-y-3">
             @foreach([
@@ -496,8 +499,8 @@
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
-                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface transition-colors">
-                    <span class="font-semibold text-sm pr-3">{{ $q }}</span>
+                    class="faq-btn w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface transition-colors">
+                    <span class="font-semibold text-sm pr-1">{{ $q }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -505,7 +508,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed break-words">{{ $a }}</p>
                 </div>
             </div>
             @endforeach
@@ -535,6 +538,7 @@
         font-size: 11px;
         font-weight: 600;
         color: var(--fn-text3);
+        max-width: 100%;
     }
 
     /* Transcript scrollbar */
@@ -550,6 +554,37 @@
     #transcript-output::-webkit-scrollbar-thumb {
         background: oklch(0% 0 0 / 15%);
         border-radius: 4px;
+    }
+
+    /* Guard against any accidental horizontal overflow on small screens */
+    #state-upload,
+    #state-converting,
+    #state-download {
+        max-width: 100%;
+    }
+
+    #video-title,
+    #transcript-output,
+    .meta-chip {
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    /* Extra-narrow phones (< 380px) — tighten spacing & type a bit further */
+    @media (max-width: 380px) {
+        .step-label {
+            font-size: 9px;
+        }
+
+        #convert-btn {
+            font-size: 14px;
+        }
+
+        #transcript-output {
+            font-size: 11px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
     }
 </style>
 
@@ -584,7 +619,7 @@
     if (vid) {
       status.innerHTML = `<span class="text-fn-green flex items-center gap-1.5 flex-wrap">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
-        Valid URL · ID: <code class="font-mono">${vid}</code>
+        Valid URL · ID: <code class="font-mono break-all">${vid}</code>
       </span>`;
       convertBtn.disabled = false;
       hideError();
