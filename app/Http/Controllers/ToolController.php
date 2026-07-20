@@ -21,12 +21,21 @@ class ToolController extends Controller
 
         $categories = $categories->get();
 
+        // Default SEO
         $title = 'Filenewer - The Fastest Online File Tools, For Modern Work';
         $description = 'Convert, compress, edit and generate files instantly. 50+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
 
-        if ($request->input('category') && $categories->isNotEmpty()) {
+        // If URL contains /tools
+        if ($request->is('tools') || $request->is('tools/*')) {
+            $title = 'Free Online File Tools - PDF, Image, Document & Data Utilities | Filenewer';
+            $description = 'Explore 50+ free online file tools to convert, compress, edit, merge, split, generate, and optimize PDFs, images, documents, spreadsheets, videos, and more. Fast, secure, and no registration required.';
+        }
+
+        // Category-specific SEO
+        if ($request->filled('category') && $categories->isNotEmpty()) {
             $categoryName = $categories->first()->title;
             $title = "{$categoryName} — Free Online Tools";
+            $description = "Discover free {$categoryName} tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.";
         }
 
         return view('tools.index', compact('categories', 'title', 'description'));
