@@ -13,7 +13,7 @@
                 @php $categoryTitle = $categories->first()->title; @endphp
                 {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
                 @else
-                The Fastest Online File Tools,<br> For Modern Work
+                Filenewer - The Fastest Online File Tools,<br> For Modern Work
                 @endif
             </h1>
         </div>

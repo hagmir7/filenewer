@@ -21,7 +21,7 @@ class ToolController extends Controller
 
         $categories = $categories->get();
 
-        $title = 'Free Online Tools — PDF, Image, Data & More';
+        $title = 'Filenewer - The Fastest Online File Tools, For Modern Work';
         $description = 'Convert, compress, edit and generate files instantly. 50+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
 
         if ($request->input('category') && $categories->isNotEmpty()) {
