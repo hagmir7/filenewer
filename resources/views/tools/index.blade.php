@@ -12,8 +12,11 @@
                 @if(request('category') && $categories->isNotEmpty())
                 @php $categoryTitle = $categories->first()->title; @endphp
                 {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
+                @elseif(request()->is('tools') || request()->is('tools/*'))
+                Free Online File Tools for PDF, Images, Documents & More
                 @else
-                Filenewer - The Fastest Online File Tools,<br> For Modern Work
+                Filenewer - The Fastest Online File Tools,<br>
+                For Modern Work
                 @endif
             </h1>
         </div>
