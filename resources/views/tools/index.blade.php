@@ -13,7 +13,7 @@
                 @php $categoryTitle = $categories->first()->title; @endphp
                 {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
                 @elseif(request()->is('tools') || request()->is('tools/*'))
-                Free Online File Tools for PDF, Images, Documents & More
+                Free Online File Tools for <br> PDF, Images, Documents & More
                 @else
                 Filenewer - The Fastest Online File Tools,<br>
                 For Modern Work
