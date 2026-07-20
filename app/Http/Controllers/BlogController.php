@@ -17,6 +17,7 @@ class BlogController extends Controller
         return view('blog.index', [
             'blogs' => $blogs,
             'title' => 'Blog - Filenewer',
+            'description' => 'Explore the Filenewer Blog for expert tutorials, file conversion guides, productivity tips, and the latest insights on PDF, image, document, video, and data tools. Learn how to work smarter with free online file utilities.',
         ]);
     }
 
