@@ -16,18 +16,22 @@
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
 
             {{-- ── EDITOR + PREVIEW SPLIT ── --}}
-            <div class="flex flex-col lg:flex-row" style="min-height: 70vh;">
+            <div class="flex flex-col lg:flex-row" id="split-row"
+                style="height: calc(100vh - 220px); min-height: 500px; max-height: 900px;">
 
                 {{-- ══ LEFT: Editor pane ══ --}}
-                <div class="flex flex-col lg:w-1/2 border-b lg:border-b-0 lg:border-r border-fn-text/8" id="editor-pane">
+                <div class="flex flex-col lg:w-1/2 border-b lg:border-b-0 lg:border-r border-fn-text/8 h-full overflow-hidden"
+                    id="editor-pane">
 
                     {{-- Editor toolbar --}}
-                    <div class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0">
+                    <div
+                        class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0">
                         <div class="flex items-center gap-2">
                             {{-- Traffic-light dots --}}
                             <div class="flex gap-1.5">
                                 <span class="w-3 h-3 rounded-full bg-fn-red/50"></span>
-                                <span class="w-3 h-3 rounded-full bg-fn-amber/50" style="background: oklch(82% 0.18 80 / 60%)"></span>
+                                <span class="w-3 h-3 rounded-full bg-fn-amber/50"
+                                    style="background: oklch(82% 0.18 80 / 60%)"></span>
                                 <span class="w-3 h-3 rounded-full bg-fn-green/50"></span>
                             </div>
                             <span class="text-xs font-semibold text-fn-text3 ml-1">HTML</span>
@@ -35,17 +39,31 @@
                         <div class="flex items-center gap-1">
                             <button type="button" id="btn-sample" title="Load sample"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all flex items-center gap-1">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                </svg>
                                 Sample
                             </button>
                             <button type="button" id="btn-paste-editor" title="Paste from clipboard"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all flex items-center gap-1">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                                    <rect x="8" y="2" width="8" height="4" rx="1" />
+                                </svg>
                                 Paste
                             </button>
                             <button type="button" id="btn-format" title="Format HTML"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-blue text-xs font-semibold rounded-lg transition-all flex items-center gap-1">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="21" y1="10" x2="7" y2="10" />
+                                    <line x1="21" y1="6" x2="3" y2="6" />
+                                    <line x1="21" y1="14" x2="3" y2="14" />
+                                    <line x1="21" y1="18" x2="7" y2="18" />
+                                </svg>
                                 Format
                             </button>
                             <button type="button" id="btn-clear-editor" title="Clear editor"
@@ -56,29 +74,33 @@
                     </div>
 
                     {{-- Code textarea with line numbers overlay --}}
-                    <div class="relative flex-1 overflow-hidden" id="editor-wrap">
-                        <div class="absolute inset-0 flex">
-                            {{-- Line numbers --}}
-                            <div id="line-numbers"
-                                class="select-none text-right text-xs font-mono text-fn-text3/40 leading-relaxed px-2 py-3 pt-3 shrink-0 overflow-hidden"
-                                style="min-width: 2.8rem; background: var(--fn-surface2); border-right: 1px solid oklch(0% 0 0 / 6%)">
-                                <div>1</div>
-                            </div>
-                            {{-- Textarea --}}
-                            <textarea id="html-editor" spellcheck="false" autocomplete="off" autocorrect="off"
-                                placeholder="Paste or type your HTML here…"
-                                class="flex-1 resize-none bg-fn-surface text-fn-text text-xs sm:text-sm font-mono leading-relaxed px-4 py-3 focus:outline-none placeholder:text-fn-text3/30 overflow-auto"
-                                style="tab-size: 2; -moz-tab-size: 2;"></textarea>
+                    <div class="flex flex-1 overflow-hidden min-h-0" id="editor-wrap">
+                        {{-- Line numbers --}}
+                        <div id="line-numbers"
+                            class="select-none text-right text-xs font-mono text-fn-text3/40 leading-relaxed px-2 py-3 shrink-0 overflow-hidden"
+                            style="min-width: 2.8rem; background: var(--fn-surface2); border-right: 1px solid oklch(0% 0 0 / 6%); line-height: 1.65;">
+                            <div>1</div>
                         </div>
+                        {{-- Textarea --}}
+                        <textarea id="html-editor" spellcheck="false" autocomplete="off" autocorrect="off"
+                            placeholder="Paste or type your HTML here…"
+                            class="flex-1 resize-none bg-fn-surface text-fn-text text-xs sm:text-sm font-mono leading-relaxed px-4 py-3 focus:outline-none placeholder:text-fn-text3/30 overflow-auto w-full"
+                            style="tab-size: 2; -moz-tab-size: 2; line-height: 1.65;"></textarea>
                     </div>
 
                     {{-- Editor status bar --}}
-                    <div class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
+                    <div
+                        class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
                         <span id="editor-status">Ready</span>
                         <div class="flex items-center gap-3">
                             <span id="editor-meta">0 lines · 0 chars</span>
                             <span id="error-badge" class="hidden items-center gap-1 text-fn-red font-semibold">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg>
                                 <span id="error-badge-text">0 issues</span>
                             </span>
                         </div>
@@ -86,30 +108,39 @@
                 </div>
 
                 {{-- ══ RIGHT: Preview pane ══ --}}
-                <div class="flex flex-col lg:w-1/2" id="preview-pane">
+                <div class="flex flex-col lg:w-1/2 h-full overflow-hidden" id="preview-pane">
 
                     {{-- Preview toolbar --}}
-                    <div class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0 gap-2">
+                    <div
+                        class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0 gap-2">
 
                         {{-- Viewport switcher --}}
                         <div class="flex items-center gap-1 p-0.5 bg-fn-surface border border-fn-text/8 rounded-lg">
                             @foreach([
-                                ['vp-desktop', 'desktop', 'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM11 20h2m-4 1h8', 'Desktop'],
-                                ['vp-tablet',  'tablet',  'M12 17h.01M7 21h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z', 'Tablet'],
-                                ['vp-mobile',  'mobile',  'M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z', 'Mobile'],
+                            ['vp-desktop', 'desktop', 'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0
+                            0-1-1zM11 20h2m-4 1h8', 'Desktop'],
+                            ['vp-tablet', 'tablet', 'M12 17h.01M7 21h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2
+                            2v14a2 2 0 0 0 2 2z', 'Tablet'],
+                            ['vp-mobile', 'mobile', 'M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2
+                            2v14a2 2 0 0 0 2 2z', 'Mobile'],
                             ] as [$id, $val, $path, $label])
                             <button type="button" id="{{ $id }}" data-vp="{{ $val }}" title="{{ $label }}"
                                 class="vp-btn {{ $val === 'desktop' ? 'active' : '' }} p-1.5 rounded-md transition-all">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="{{ $path }}"/>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="{{ $path }}" />
                                 </svg>
                             </button>
                             @endforeach
                         </div>
 
                         {{-- URL bar (fake) --}}
-                        <div class="flex-1 mx-2 hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface border border-fn-text/10 rounded-lg min-w-0">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-fn-green shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <div
+                            class="flex-1 mx-2 hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface border border-fn-text/10 rounded-lg min-w-0">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" class="text-fn-green shrink-0">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
                             <span class="text-xs text-fn-text3 font-mono truncate">preview://local</span>
                         </div>
 
@@ -117,54 +148,96 @@
                         <div class="flex items-center gap-1 shrink-0">
                             <button type="button" id="btn-refresh" title="Refresh preview"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="1 4 1 10 7 10" />
+                                    <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                                </svg>
                             </button>
                             <button type="button" id="btn-theme-toggle" title="Toggle preview theme"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
-                                <svg id="icon-dark" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                                <svg id="icon-light" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                                <svg id="icon-dark" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                </svg>
+                                <svg id="icon-light" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="hidden">
+                                    <circle cx="12" cy="12" r="5" />
+                                    <line x1="12" y1="1" x2="12" y2="3" />
+                                    <line x1="12" y1="21" x2="12" y2="23" />
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                    <line x1="1" y1="12" x2="3" y2="12" />
+                                    <line x1="21" y1="12" x2="23" y2="12" />
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                                </svg>
                             </button>
                             <button type="button" id="btn-open-new" title="Open in new tab"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                    <polyline points="15 3 21 3 21 9" />
+                                    <line x1="10" y1="14" x2="21" y2="3" />
+                                </svg>
                             </button>
                             <button type="button" id="btn-download-html" title="Download as .html"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-green rounded-lg transition-all">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
                             </button>
                             {{-- Copy HTML --}}
                             <button type="button" id="btn-copy-html" title="Copy HTML"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
                             </button>
                         </div>
                     </div>
 
                     {{-- Preview iframe wrapper --}}
-                    <div class="flex-1 relative overflow-hidden bg-fn-surface" id="preview-outer" style="background: repeating-linear-gradient(45deg, oklch(0% 0 0 / 2%) 0, oklch(0% 0 0 / 2%) 1px, transparent 0, transparent 50%) 0 0 / 12px 12px;">
-                        <div id="preview-frame-wrap" class="absolute inset-0 flex items-start justify-center transition-all duration-300 p-0" style="overflow: auto;">
+                    <div class="flex-1 relative overflow-hidden bg-fn-surface" id="preview-outer"
+                        style="background: repeating-linear-gradient(45deg, oklch(0% 0 0 / 2%) 0, oklch(0% 0 0 / 2%) 1px, transparent 0, transparent 50%) 0 0 / 12px 12px;">
+                        <div id="preview-frame-wrap"
+                            class="absolute inset-0 flex items-start justify-center transition-all duration-300 p-0"
+                            style="overflow: auto;">
                             <iframe id="preview-frame"
                                 sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
                                 class="w-full h-full border-0 transition-all duration-300 bg-white"
-                                style="min-height: 100%;"
-                                title="HTML Preview"></iframe>
+                                style="min-height: 100%;" title="HTML Preview"></iframe>
                         </div>
 
                         {{-- Empty state --}}
-                        <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 pointer-events-none">
-                            <div class="w-16 h-16 rounded-2xl bg-fn-surface2 border border-fn-text/8 flex items-center justify-center mb-4">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-fn-text3">
-                                    <polyline points="16 18 22 12 16 6"/>
-                                    <polyline points="8 6 2 12 8 18"/>
+                        <div id="empty-state"
+                            class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 pointer-events-none">
+                            <div
+                                class="w-16 h-16 rounded-2xl bg-fn-surface2 border border-fn-text/8 flex items-center justify-center mb-4">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                    class="text-fn-text3">
+                                    <polyline points="16 18 22 12 16 6" />
+                                    <polyline points="8 6 2 12 8 18" />
                                 </svg>
                             </div>
                             <p class="font-semibold text-fn-text2 mb-1">No HTML yet</p>
-                            <p class="text-sm text-fn-text3">Type or paste HTML on the left — the preview updates instantly</p>
+                            <p class="text-sm text-fn-text3">Type or paste HTML on the left — the preview updates
+                                instantly</p>
                         </div>
                     </div>
 
                     {{-- Preview status bar --}}
-                    <div class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
+                    <div
+                        class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
                         <span id="preview-status">Waiting for input…</span>
                         <span id="preview-size" class="font-mono"></span>
                     </div>
@@ -172,17 +245,18 @@
             </div>
 
             {{-- ── BOTTOM TOOLBAR ── --}}
-            <div class="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3 bg-fn-surface2 border-t border-fn-text/8">
+            <div
+                class="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3 bg-fn-surface2 border-t border-fn-text/8">
 
                 {{-- Quick-insert snippets --}}
                 <div class="flex items-center gap-1.5 flex-wrap">
                     <span class="text-xs text-fn-text3 font-semibold mr-1 hidden sm:inline">Insert:</span>
                     @foreach([
-                        ['snippet-table',    'Table'],
-                        ['snippet-form',     'Form'],
-                        ['snippet-card',     'Card'],
-                        ['snippet-nav',      'Navbar'],
-                        ['snippet-hero',     'Hero'],
+                    ['snippet-table', 'Table'],
+                    ['snippet-form', 'Form'],
+                    ['snippet-card', 'Card'],
+                    ['snippet-nav', 'Navbar'],
+                    ['snippet-hero', 'Hero'],
                     ] as [$sid, $slabel])
                     <button type="button" id="{{ $sid }}"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
@@ -195,8 +269,12 @@
                 <label class="flex items-center gap-2 cursor-pointer select-none">
                     <div class="toggle-wrap relative w-8 h-4 shrink-0">
                         <input type="checkbox" id="auto-preview" checked class="sr-only peer" />
-                        <div class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors"></div>
-                        <div class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4"></div>
+                        <div
+                            class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
+                        </div>
+                        <div
+                            class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
+                        </div>
                     </div>
                     <span class="text-xs font-semibold text-fn-text3">Live preview</span>
                 </label>
@@ -214,12 +292,15 @@
         <p class="text-fn-text3 text-sm text-center mb-8">A full HTML workbench — right in your browser</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             @foreach([
-                ['⚡', 'Live preview',        'The iframe updates as you type — no button needed. Toggle off for large documents.'],
-                ['📐', 'Viewport switching',  'Test your layout at desktop, tablet (768px), and mobile (390px) widths instantly.'],
-                ['🎨', 'Dark/Light canvas',   'Toggle the preview background between white and dark to test your design on both.'],
-                ['✂️',  'Quick snippets',      'Insert common patterns — tables, forms, cards, navbars, heroes — with one click.'],
-                ['🔢', 'Line numbers',        'Always-visible line count so you can navigate large documents without guessing.'],
-                ['💾', 'Download & open',     'Export your HTML as a .html file or open the preview in a new browser tab.'],
+            ['⚡', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large documents.'],
+            ['📐', 'Viewport switching', 'Test your layout at desktop, tablet (768px), and mobile (390px) widths
+            instantly.'],
+            ['🎨', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
+            both.'],
+            ['✂️', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
+            click.'],
+            ['🔢', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
+            ['💾', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
             ] as [$icon, $title, $desc])
             <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <span class="text-xl shrink-0 mt-0.5">{{ $icon }}</span>
@@ -237,20 +318,38 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 text-center">Frequently Asked Questions
+        </h2>
         <div class="space-y-2 sm:space-y-3">
             @foreach([
-                ['Is the preview safe — can scripts run?', 'Yes — the preview iframe runs with the sandbox attribute set to allow-scripts and allow-same-origin. This means JavaScript in your HTML will execute so you can test interactive components, but access to cookies, localStorage, and parent-frame resources is restricted.'],
-                ['Does the content get sent anywhere?', 'No. Everything runs entirely in your browser. Your HTML is never sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab discards it completely.'],
-                ['What is the dark/light canvas toggle?', 'It switches the preview iframe\'s background color between white (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode backgrounds without adding any CSS to your HTML.'],
-                ['Can I test responsive layouts?', 'Yes — the viewport switcher constrains the preview iframe to desktop (full width), tablet (768px), or mobile (390px). You can see exactly how your layout reflows at each breakpoint.'],
-                ['What do the quick-insert snippets add?', 'Each snippet injects a self-contained HTML block at the cursor position (or end of document): Table adds a styled data table, Form adds a labelled input form, Card adds a content card, Navbar adds a navigation bar, and Hero adds a full-width hero section.'],
-                ['Can I open the result in a new tab?', 'Yes — click the open-in-new-tab button in the preview toolbar. This writes the current HTML into a new blank window using document.write, so your full page — including scripts and styles — renders in a standalone browser tab.'],
+            ['Is the preview safe — can scripts run?', 'Yes — the preview iframe runs with the sandbox attribute set to
+            allow-scripts and allow-same-origin. This means JavaScript in your HTML will execute so you can test
+            interactive components, but access to cookies, localStorage, and parent-frame resources is restricted.'],
+            ['Does the content get sent anywhere?', 'No. Everything runs entirely in your browser. Your HTML is never
+            sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab discards it
+            completely.'],
+            ['What is the dark/light canvas toggle?', 'It switches the preview iframe\'s background color between white
+            (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode backgrounds without
+            adding any CSS to your HTML.'],
+            ['Can I test responsive layouts?', 'Yes — the viewport switcher constrains the preview iframe to desktop
+            (full width), tablet (768px), or mobile (390px). You can see exactly how your layout reflows at each
+            breakpoint.'],
+            ['What do the quick-insert snippets add?', 'Each snippet injects a self-contained HTML block at the cursor
+            position (or end of document): Table adds a styled data table, Form adds a labelled input form, Card adds a
+            content card, Navbar adds a navigation bar, and Hero adds a full-width hero section.'],
+            ['Can I open the result in a new tab?', 'Yes — click the open-in-new-tab button in the preview toolbar. This
+            writes the current HTML into a new blank window using document.write, so your full page — including scripts
+            and styles — renders in a standalone browser tab.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
-                <button type="button" class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
                     <span class="font-semibold text-sm pr-3">{{ $q }}</span>
-                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
                     <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
@@ -270,36 +369,74 @@
         caret-color: oklch(62% 0.20 250);
         line-height: 1.65;
     }
-    #html-editor, #line-numbers {
+
+    #html-editor,
+    #line-numbers {
         line-height: 1.65;
         font-size: 13px;
     }
+
     @media (min-width: 640px) {
-        #html-editor, #line-numbers { font-size: 13.5px; }
+
+        #html-editor,
+        #line-numbers {
+            font-size: 13.5px;
+        }
     }
+
     #html-editor::-webkit-scrollbar,
-    #line-numbers::-webkit-scrollbar { width: 4px; height: 4px; }
+    #line-numbers::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+
     #html-editor::-webkit-scrollbar-track,
-    #line-numbers::-webkit-scrollbar-track { background: transparent; }
-    #html-editor::-webkit-scrollbar-thumb { background: oklch(0% 0 0 / 15%); border-radius: 4px; }
+    #line-numbers::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    #html-editor::-webkit-scrollbar-thumb {
+        background: oklch(0% 0 0 / 15%);
+        border-radius: 4px;
+    }
 
     /* ── Editor/Preview min heights on mobile ── */
-    #editor-pane  { min-height: 45vh; }
-    #preview-pane { min-height: 45vh; }
-    @media (min-width: 1024px) {
-        #editor-pane, #preview-pane { min-height: 0; }
+    #editor-pane {
+        min-height: 45vh;
     }
-    #editor-wrap { min-height: 0; flex: 1 1 0; }
+
+    #preview-pane {
+        min-height: 45vh;
+    }
+
+    @media (min-width: 1024px) {
+
+        #editor-pane,
+        #preview-pane {
+            min-height: 0;
+        }
+    }
+
+    #editor-wrap {
+        min-height: 0;
+        flex: 1 1 0;
+    }
 
     /* ── Toolbar buttons ── */
     .toolbar-btn {
         border-radius: 6px;
         transition: background .12s, color .12s;
     }
-    .toolbar-btn:hover { background: oklch(0% 0 0 / 5%); }
+
+    .toolbar-btn:hover {
+        background: oklch(0% 0 0 / 5%);
+    }
 
     /* ── Viewport buttons ── */
-    .vp-btn { color: var(--fn-text3); }
+    .vp-btn {
+        color: var(--fn-text3);
+    }
+
     .vp-btn.active {
         background: var(--fn-surface2);
         color: var(--fn-text);
@@ -307,21 +444,44 @@
     }
 
     /* ── Snippet buttons ── */
-    .snippet-btn:hover { background: var(--fn-surface2); }
+    .snippet-btn:hover {
+        background: var(--fn-surface2);
+    }
 
     /* ── Preview viewport frames ── */
-    #preview-frame.vp-tablet { max-width: 768px; border-left: 1px solid oklch(0% 0 0 / 8%); border-right: 1px solid oklch(0% 0 0 / 8%); }
-    #preview-frame.vp-mobile { max-width: 390px; border-left: 1px solid oklch(0% 0 0 / 8%); border-right: 1px solid oklch(0% 0 0 / 8%); border-radius: 16px; overflow: hidden; }
+    #preview-frame.vp-tablet {
+        max-width: 768px;
+        border-left: 1px solid oklch(0% 0 0 / 8%);
+        border-right: 1px solid oklch(0% 0 0 / 8%);
+    }
+
+    #preview-frame.vp-mobile {
+        max-width: 390px;
+        border-left: 1px solid oklch(0% 0 0 / 8%);
+        border-right: 1px solid oklch(0% 0 0 / 8%);
+        border-radius: 16px;
+        overflow: hidden;
+    }
 
     /* ── Step indicator (if base layout uses it) ── */
-    .step-item.active .step-dot  { border-color: oklch(49% 0.24 264); background: oklch(49% 0.24 264 / 12%); }
-    .step-item.active .step-label { color: var(--fn-text); }
-    .step-item.done .step-dot    { border-color: oklch(67% 0.18 162); background: oklch(67% 0.18 162 / 12%); }
+    .step-item.active .step-dot {
+        border-color: oklch(49% 0.24 264);
+        background: oklch(49% 0.24 264 / 12%);
+    }
+
+    .step-item.active .step-label {
+        color: var(--fn-text);
+    }
+
+    .step-item.done .step-dot {
+        border-color: oklch(67% 0.18 162);
+        background: oklch(67% 0.18 162 / 12%);
+    }
 </style>
 
 @push('footer')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
   const editor     = document.getElementById('html-editor');
   const frame      = document.getElementById('preview-frame');
