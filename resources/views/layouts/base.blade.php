@@ -41,6 +41,7 @@
     @stack('scripts')
     @stack('styles')
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="MVOHoGZmMjs1xCZHU4fAjg" async></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2122873535768550" crossorigin="anonymous"></script>
 </head>
 <body class="font-sans bg-fn-bg text-fn-text antialiased overflow-x-hidden">
     <x-nav />
