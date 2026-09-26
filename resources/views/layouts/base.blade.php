@@ -25,9 +25,11 @@
     <meta name="twitter:description" content="{{ Str::limit($description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.', 169, '') }}" />
     {{-- <meta name="twitter:image" content="https://www.filenewer.com/images/og-pdf-to-word.png" /> --}}
     {{-- <link rel="manifest" href="/site.webmanifest" /> --}}
-    <meta name="google-site-verification" content="EQZYRJ21rxnFbPlDE5uDwRL5FIdDfphpwnhPp5h2Yz4" />
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Preconnect for performance -->
+    <meta name="google-adsense-account" content="ca-pub-5306320936731470">
+    <meta name="google-site-verification" content="Pyz_dZTtqYYTpgqR_U-mRi67lCHeqOvFSNgA-Pmztpk" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.filenewer.com" />
@@ -41,7 +43,6 @@
     @stack('scripts')
     @stack('styles')
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="MVOHoGZmMjs1xCZHU4fAjg" async></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2122873535768550" crossorigin="anonymous"></script>
 </head>
 <body class="font-sans bg-fn-bg text-fn-text antialiased overflow-x-hidden">
     <x-nav />
