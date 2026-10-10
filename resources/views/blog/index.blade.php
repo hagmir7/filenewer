@@ -186,7 +186,13 @@
                     </div>
                     <span class="text-4xl relative z-10">
                         @switch($catKey)
-                        @case('tutorial') 🟩 @break
+                        @case('tutorial') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-excel">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+  <path d="M10 12l4 5" />
+  <path d="M10 17l4 -5" />
+</svg> @break
                         @case('tips') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M15 8h.01" />
@@ -194,7 +200,14 @@
 	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
 	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
 </svg> @break
-                        @case('automation') 🧾 @break
+                        @case('automation') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-invoice">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M19 12v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-14a2 2 0 0 1 2 -2h7l5 5v4" />
+  <path d="M9 7h1" />
+  <path d="M9 11h6" />
+  <path d="M9 15h6" />
+</svg> @break
                         @case('security') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-check">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v.5" />

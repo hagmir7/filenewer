@@ -45,7 +45,13 @@
                 <div class="flex items-center gap-3 mb-4">
                     <div
                         class="w-9 h-9 rounded-lg flex items-center justify-center text-base bg-fn-green/15 flex-shrink-0">
-                        🟩</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-excel">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+  <path d="M10 12l4 5" />
+  <path d="M10 17l4 -5" />
+</svg></div>
                     <h3 class="font-semibold text-sm">CSV to SQL Converter</h3>
                 </div>
                 <p class="text-fn-text3 text-sm leading-relaxed">Upload any CSV and get clean, ready-to-run SQL
@@ -67,7 +73,14 @@
                 <div class="flex items-center gap-3 mb-4">
                     <div
                         class="w-9 h-9 rounded-lg flex items-center justify-center text-base bg-fn-blue/15 flex-shrink-0">
-                        🧾</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-invoice">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M19 12v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-14a2 2 0 0 1 2 -2h7l5 5v4" />
+  <path d="M9 7h1" />
+  <path d="M9 11h6" />
+  <path d="M9 15h6" />
+</svg></div>
                     <h3 class="font-semibold text-sm">Invoice PDF Generator</h3>
                 </div>
                 <p class="text-fn-text3 text-sm leading-relaxed">Create professional branded invoices in seconds.
