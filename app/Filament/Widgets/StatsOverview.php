@@ -1,4 +1,3 @@
-```php
 <?php
 
 namespace App\Filament\Widgets;
@@ -59,4 +58,3 @@ class StatsOverview extends BaseWidget
         ];
     }
 }
-```
