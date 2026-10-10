@@ -201,7 +201,7 @@
                         {{-- Toggles --}}
                         <div class="pt-3 border-t border-fn-text/8 grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
                             @foreach([
-                            ['opt-sort', '🔤', 'Sort keys alphabetically', 'Reorder object keys A → Z', false],
+                            ['opt-sort', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-typography" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 20l3 0" /><path d="M14 20l7 0" /><path d="M6.9 15l6.9 0" /><path d="M10.2 6.3l5.8 13.7" /><path d="M5 20l6 -16l2 0l7 16" /></svg>', 'Sort keys alphabetically', 'Reorder object keys A → Z', false],
                             ['opt-unicode', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-globe">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M7 9a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />

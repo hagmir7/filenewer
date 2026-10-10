@@ -580,7 +580,7 @@
           errGutter.classList.add('hidden');
         } catch(e) {
           jsonInput.classList.remove('valid'); jsonInput.classList.add('invalid');
-          statusEl.innerHTML = `<span class="text-fn-red">⚠ Invalid</span>`;
+          statusEl.innerHTML = `<span class="text-fn-red"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg> Invalid</span>`;
           statusEl.classList.remove('hidden');
           document.getElementById('text-error-msg').textContent = e.message;
           errBanner.classList.remove('hidden');
@@ -780,7 +780,11 @@
         if (data !== null) {
           // Got a JSON response — either { is_valid, formatted, ... } or { error }
           if (data.is_valid === false) {
-            document.getElementById('file-result-icon').textContent  = '❌';
+            document.getElementById('file-result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>';
             document.getElementById('file-result-title').textContent = 'Invalid JSON';
             document.getElementById('file-error-msg').textContent    =
               data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');

@@ -126,7 +126,7 @@
 	<path d="M10 10h4" />
 	<path d="M12 14v-4" />
 </svg>', 'Page ranges', 'Custom ranges like 1-3, 4-6'],
-                            ['pages', '🎯', 'Specific pages','Individual pages like 1, 3, 5'],
+                            ['pages', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>', 'Specific pages','Individual pages like 1, 3, 5'],
                             ] as [$mval, $micon, $mname, $mdesc])
                             <button type="button"
                                 class="mode-card {{ $mval === 'page' ? 'active' : '' }} flex flex-col items-start gap-1 p-3 rounded-xl border text-left transition-all"

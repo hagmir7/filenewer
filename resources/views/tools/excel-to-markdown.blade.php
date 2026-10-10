@@ -114,7 +114,7 @@
   <path d="M16 16l3.923 -.98" />
 </svg>', 'Table of contents', 'Adds a "Contents" section linking to each
                                 sheet', true],
-                                ['opt-stats', '📐', 'Column statistics', 'Adds type / unique / min·max·mean per column',
+                                ['opt-stats', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ruler" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M17 3l4 4l-14 14l-4 -4z" /><path d="M16 7l-1.5 -1.5" /><path d="M13 10l-1.5 -1.5" /><path d="M10 13l-1.5 -1.5" /><path d="M7 16l-1.5 -1.5" /></svg>', 'Column statistics', 'Adds type / unique / min·max·mean per column',
                                 true],
                                 ] as [$tid, $ticon, $tlabel, $tdesc, $tdefault])
                                 <label class="flex items-start gap-2.5 cursor-pointer select-none">
@@ -146,9 +146,9 @@
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Column alignment</label>
                                 <div class="flex gap-1">
                                     @foreach([
-                                    ['left', '⬅', 'Left'],
+                                    ['left', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>', 'Left'],
                                     ['center', '↔', 'Center'],
-                                    ['right', '➡', 'Right'],
+                                    ['right', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-right" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>', 'Right'],
                                     ] as [$av, $aicon, $alabel])
                                     <button type="button"
                                         class="align-btn {{ $av === 'left' ? 'active' : '' }} flex-1 flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"

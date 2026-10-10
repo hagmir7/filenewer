@@ -128,7 +128,7 @@
 	<path d="M6 4l8.85 10.85" />
 </svg>', 'Split by row count', 'Divide each sheet every N
                                         rows', false],
-                                        ['split-sheets', 'sheets', '🎯', 'Extract specific sheets', 'Choose which sheets
+                                        ['split-sheets', 'sheets', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>', 'Extract specific sheets', 'Choose which sheets
                                         to extract by name', false],
                                         ] as [$mid, $mval, $micon, $mlabel, $mdesc, $mdefault])
                                         <label id="{{ $mid }}-wrap"
@@ -487,7 +487,7 @@
 	<path d="M6 4l8.85 10.85" />
 </svg>', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row
             preserved in each chunk. Best for large sheets that need to be imported into systems with row limits.'],
-            ['🎯', 'Extract sheets', 'sheets', 'Pick exactly which sheet names to extract. Only those sheets are
+            ['<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>', 'Extract sheets', 'sheets', 'Pick exactly which sheet names to extract. Only those sheets are
             included in the output ZIP. Best for pulling specific sheets from a large workbook without the rest.'],
             ] as [$icon, $name, $val, $desc])
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -902,7 +902,7 @@
       const text = document.getElementById('json-preview').textContent;
       await navigator.clipboard.writeText(text);
       const btn = document.getElementById('btn-copy-json');
-      btn.textContent = '✓ Copied!';
+      btn.textContent = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Copied!';
       setTimeout(() => { btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy JSON'; }, 2000);
     } catch(_) {}
   });

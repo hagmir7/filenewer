@@ -18,9 +18,12 @@
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $pwTabs = [
-                ['generate', '⚡', 'Password'],
-                ['passphrase', '💬', 'Passphrase'],
-                ['strength', '🛡', 'Strength Check'],
+                ['generate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+</svg>', 'Password'],
+                ['passphrase', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 9h8" /><path d="M8 13h6" /><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12" /></svg>', 'Passphrase'],
+                ['strength', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shield" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /></svg>', 'Strength Check'],
                 ];
                 @endphp
                 @foreach($pwTabs as [$tval,$ticon,$tlabel])
@@ -229,7 +232,7 @@
                             {{-- Crack time (shown after generate) --}}
                             <div id="crack-time-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M17 8l1 -1" /><path d="M14 3h-4" /></svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="crack-time-grid"></div>
                             </div>
 
@@ -377,7 +380,7 @@
 
                             <div id="pp-crack-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M17 8l1 -1" /><path d="M14 3h-4" /></svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="pp-crack-grid"></div>
                             </div>
 
@@ -464,14 +467,14 @@
 
                             {{-- Crack time --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3">⏱ Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M17 8l1 -1" /><path d="M14 3h-4" /></svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="str-crack-grid"></div>
                             </div>
 
                             {{-- Issues & suggestions --}}
                             <div id="str-issues-wrap"
                                 class="hidden p-4 bg-fn-amber/6 border border-fn-amber/20 rounded-xl space-y-2">
-                                <p class="text-sm font-semibold text-fn-amber">⚠ Issues & Suggestions</p>
+                                <p class="text-sm font-semibold text-fn-amber"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg> Issues & Suggestions</p>
                                 <ul id="str-issues-list" class="space-y-1"></ul>
                             </div>
 
@@ -930,7 +933,7 @@
           span.className = `text-sm font-semibold px-2.5 py-1 rounded-lg border ${ok
             ? 'bg-fn-green/10 border-fn-green/25 text-fn-green'
             : 'bg-fn-text/6 border-fn-text/10 text-fn-text3'}`;
-          span.innerHTML = `${ok ? '✓' : '✗'} ${label}`;
+          span.innerHTML = `${ok ? '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>'} ${label}`;
           pills.appendChild(span);
         });
 

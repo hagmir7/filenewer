@@ -131,7 +131,7 @@
                                 ['90', '↻ 90°', 'Rotate right 90°'],
                                 ['180', '↻ 180°', 'Flip upside down'],
                                 ['270', '↺ 90°', 'Rotate left 90°'],
-                                ['0', '✕ Reset', 'Reset all to 0°'],
+                                ['0', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Reset', 'Reset all to 0°'],
                                 ];
                                 @endphp
                                 @foreach($rotBtns as [$rval,$rlabel,$rtitle])

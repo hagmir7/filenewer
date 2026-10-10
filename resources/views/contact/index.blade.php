@@ -10,7 +10,7 @@
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 font-bold text-xl tracking-tight relative z-10">
             <div class="w-9 h-9 bg-fn-blue rounded-xl flex items-center justify-center shrink-0">
-                📩
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail-down" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 19h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5" /><path d="M3 7l9 6l9 -6" /><path d="M19 16v6" /><path d="M22 19l-3 3l-3 -3" /></svg>
             </div>
             Filenewer
         </a>

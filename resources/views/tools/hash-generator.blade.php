@@ -19,7 +19,7 @@
                 @php
                 $hashTabs = [
                 ['generate', '#', 'Generate Hash'],
-                ['compare', '⚖', 'Compare Hashes'],
+                ['compare', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-scale" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M7 20l10 0" /><path d="M6 6l6 -1l6 1" /><path d="M12 3l0 17" /><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" /><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" /></svg>', 'Compare Hashes'],
                 ['checksum', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -483,9 +483,9 @@
                         <td class="px-4 py-2.5 text-sm font-mono text-fn-text3">{{ $bits }}</td>
                         <td class="px-4 py-2.5">
                             @if($secure)
-                            <span class="text-sm font-bold text-fn-green">✓</span>
+                            <span class="text-sm font-bold text-fn-green"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg></span>
                             @else
-                            <span class="text-sm font-bold text-fn-red">✗ Legacy</span>
+                            <span class="text-sm font-bold text-fn-red"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy</span>
                             @endif
                         </td>
                         <td class="px-4 py-2.5 text-sm text-fn-text3">{{ $use }}</td>
@@ -786,7 +786,7 @@
         <div class="hr-header">
           <span class="hr-algo">${escHtml(algo.toUpperCase())}</span>
           <span class="hr-bits">${bits} bits</span>
-          <span class="hr-secure ${secure ? 'text-fn-green' : 'text-fn-red'}">${secure ? '✓ Secure' : '✗ Legacy'}</span>
+          <span class="hr-secure ${secure ? 'text-fn-green' : 'text-fn-red'}">${secure ? '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Secure' : '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy'}</span>
           <span class="hr-copy">Copy</span>
         </div>
         <div class="hr-value">${escHtml(hash)}</div>`;
@@ -851,7 +851,11 @@
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '❌';
+</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>';
       document.getElementById('cmp-title').textContent   = match ? 'Hashes Match' : 'Hashes Do Not Match';
       document.getElementById('cmp-message').textContent = data.message ?? '';
 
@@ -944,8 +948,12 @@
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '❌';
-        document.getElementById('chk-verify-title').textContent = matches ? 'Checksum Verified ✓' : 'Checksum Mismatch!';
+</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>';
+        document.getElementById('chk-verify-title').textContent = matches ? 'Checksum Verified <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>' : 'Checksum Mismatch!';
         document.getElementById('chk-verify-sub').textContent   = matches
           ? 'The file matches the expected checksum.'
           : 'The computed checksum does not match. File may be corrupted or tampered.';

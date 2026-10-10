@@ -866,8 +866,8 @@
     if (stats.h2Count > 0)    chips.push(['chip-chapters', 'Sections', stats.h2Count + '']);
     if (stats.imgCount > 0)   chips.push(['chip-images',   'Images',   stats.imgCount + '']);
     if (stats.tableCount > 0) chips.push(['chip-meta',     'Tables',   stats.tableCount + '']);
-    if (stats.hasCode)        chips.push(['chip-meta',     'Code blocks', '✓']);
-    if (stats.hasStyle)       chips.push(['chip-lang',     'CSS styles', '✓']);
+    if (stats.hasCode)        chips.push(['chip-meta',     'Code blocks', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>']);
+    if (stats.hasStyle)       chips.push(['chip-lang',     'CSS styles', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>']);
     if (stats.autoTitle)      chips.push(['chip-lang',     'Title',    stats.autoTitle]);
 
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }

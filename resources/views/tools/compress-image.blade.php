@@ -170,7 +170,7 @@
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">01</div>
                 <div
                     class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-purple-500/10 border border-purple-500/25">
-                    📂</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-folder-open" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" /></svg></div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Upload Your Images</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed">Drag and drop up to 20 JPG, PNG, or WebP files at once.
                     Or click to open a file picker. All formats accepted up to 25 MB each.</p>
@@ -180,7 +180,7 @@
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
                 <div
                     class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-blue/10 border border-fn-blue/25">
-                    🎚️</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 4v4" /><path d="M6 12v8" /><path d="M10 16a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M12 4v10" /><path d="M12 18v2" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v11" /></svg></div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Set Quality &amp; Options</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed">Dial in your target quality (10–100%), choose an output
                     format, and optionally cap the maximum width or height for resizing.</p>
@@ -190,7 +190,7 @@
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">03</div>
                 <div
                     class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-green/10 border border-fn-green/25">
-                    ⬇️</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-down" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 5l0 14" /><path d="M18 13l-6 6" /><path d="M6 13l6 6" /></svg></div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Download Compressed Files</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed">Download images individually or grab everything as a
                     single ZIP. See exactly how much space you saved per image before downloading.</p>
@@ -231,7 +231,7 @@
 
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🎚️</div>
+                <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 10a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M6 4v4" /><path d="M6 12v8" /><path d="M10 16a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M12 4v10" /><path d="M12 18v2" /><path d="M16 7a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M18 4v1" /><path d="M18 9v11" /></svg></div>
                 <h3 class="font-semibold text-base mb-2">Adjustable Quality</h3>
                 <p class="text-fn-text3 text-sm leading-relaxed">Slide between 10% and 100% quality. The tool shows
                     real-time before/after file sizes so you can find the perfect compression/quality balance.</p>
@@ -250,7 +250,7 @@
 
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">📐</div>
+                <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ruler" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M17 3l4 4l-14 14l-4 -4z" /><path d="M16 7l-1.5 -1.5" /><path d="M13 10l-1.5 -1.5" /><path d="M10 13l-1.5 -1.5" /><path d="M7 16l-1.5 -1.5" /></svg></div>
                 <h3 class="font-semibold text-base mb-2">Smart Resizing</h3>
                 <p class="text-fn-text3 text-sm leading-relaxed">Cap images at a max dimension (e.g. 1920px) while
                     preserving aspect ratio. Ideal for creating web-ready thumbnails or reducing oversized camera
@@ -412,7 +412,7 @@
                 View Pro Plans
             </a>
         </div>
-        <p class="text-fn-text3 text-sm mt-5">✓ Free to use &nbsp;·&nbsp; ✓ No uploads to server &nbsp;·&nbsp; ✓ No
+        <p class="text-fn-text3 text-sm mt-5"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Free to use &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> No uploads to server &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> No
             account needed</p>
     </div>
 </section>
@@ -553,7 +553,7 @@
 
         if (item.status === 'error') {
             existing.innerHTML = `
-                <div class="aspect-video bg-fn-bg flex items-center justify-center text-fn-red text-2xl">⚠️</div>
+                <div class="aspect-video bg-fn-bg flex items-center justify-center text-fn-red text-2xl"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg></div>
                 <div class="p-4">
                     <p class="text-fn-text2 text-sm font-medium truncate mb-1">${escHtml(item.file.name)}</p>
                     <p class="text-fn-red text-sm">Failed to compress</p>

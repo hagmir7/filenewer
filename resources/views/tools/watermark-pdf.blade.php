@@ -91,7 +91,7 @@
                                     <button type="button" id="type-text"
                                         class="wm-type-btn active flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"
                                         data-type="text">
-                                        <span>🔤</span> Text
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-typography" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 20l3 0" /><path d="M14 20l7 0" /><path d="M6.9 15l6.9 0" /><path d="M10.2 6.3l5.8 13.7" /><path d="M5 20l6 -16l2 0l7 16" /></svg></span> Text
                                     </button>
                                     <button type="button" id="type-image"
                                         class="wm-type-btn flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"

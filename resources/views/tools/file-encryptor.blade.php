@@ -422,7 +422,7 @@
                     <div class="space-y-4">
                         <div class="p-5 bg-fn-amber/6 border border-fn-amber/20 rounded-xl">
                             <div class="flex items-start gap-3">
-                                <span class="text-xl shrink-0">⚠️</span>
+                                <span class="text-xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg></span>
                                 <div>
                                     <p class="text-sm font-bold text-fn-text mb-1">Important</p>
                                     <p class="text-sm text-fn-text3 leading-relaxed">You must use the exact same
@@ -642,7 +642,7 @@
                     <span class="font-bold text-sm">{{ $name }}</span>
                     @if($secure)
                     <span
-                        class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold">✓
+                        class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>
                         Secure</span>
                     @else
                     <span

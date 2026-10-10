@@ -133,7 +133,7 @@
                             <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.15s"></span>
                             <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.3s"></span>
                         </div>
-                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-xl sm:text-3xl">🎧</div>
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-xl sm:text-3xl"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-headphones" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M4 15v-3a8 8 0 0 1 16 0v3" /></svg></div>
                     </div>
 
                     <h2 class="text-base sm:text-xl font-bold mb-1.5 sm:mb-2">Converting to MP3…</h2>
@@ -182,7 +182,7 @@
                     </div>
 
                     <div class="max-w-sm mx-auto p-3 sm:p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-left">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-lg sm:text-2xl shrink-0">🎧</div>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-lg sm:text-2xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-headphones" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M4 15v-3a8 8 0 0 1 16 0v3" /></svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-xs sm:text-sm truncate" id="output-name">audio.mp3</p>
                             <p class="text-fn-text3 text-xs sm:text-sm mt-0.5" id="output-size">MP3 Audio</p>
