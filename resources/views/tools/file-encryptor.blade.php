@@ -182,7 +182,7 @@
                             @endphp
                             @foreach($encSteps as [$icon,$text])
                             <div class="flex items-start gap-2.5">
-                                <span class="text-base shrink-0">{{ $icon }}</span>
+                                <span class="text-base shrink-0">{!! $icon !!}</span>
                                 <span class="text-sm text-fn-text3 leading-relaxed">{{ $text }}</span>
                             </div>
                             @endforeach

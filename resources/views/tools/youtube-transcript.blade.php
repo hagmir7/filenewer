@@ -148,7 +148,7 @@
                                     class="fmt-card {{ $fdefault ? 'active' : '' }} flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 border rounded-lg cursor-pointer transition-all min-w-0">
                                     <input type="radio" name="output_format" value="{{ $fval }}" {{ $fdefault
                                         ? 'checked' : '' }} class="sr-only fmt-radio" />
-                                    <span class="text-sm sm:text-base shrink-0">{{ $ficon }}</span>
+                                    <span class="text-sm sm:text-base shrink-0">{!! $ficon !!}</span>
                                     <div class="min-w-0">
                                         <p class="text-xs font-bold text-fn-text leading-none truncate">{{ $flabel }}
                                         </p>
