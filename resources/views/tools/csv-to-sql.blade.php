@@ -183,7 +183,7 @@
                                     <button type="button"
                                         class="dialect-btn {{ $val === 'mysql' ? 'active' : '' }} flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all"
                                         data-dialect="{{ $val }}">
-                                        <span class="text-lg">{{ $icon }}</span>
+                                        <span class="text-lg">{!! $icon !!}</span>
                                         <span>{{ $lbl }}</span>
                                     </button>
                                     @endforeach
@@ -222,7 +222,7 @@
                                     <button type="button"
                                         class="output-btn {{ $val === 'file' ? 'active' : '' }} flex items-center gap-2 py-2 px-3 rounded-xl border text-sm font-semibold transition-all"
                                         data-output="{{ $val }}">
-                                        <span>{{ $icon }}</span>
+                                        <span>{!! $icon !!}</span>
                                         <span>{{ $lbl }}</span>
                                     </button>
                                     @endforeach

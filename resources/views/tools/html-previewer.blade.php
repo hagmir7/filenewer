@@ -292,8 +292,22 @@
         <p class="text-fn-text3 text-sm text-center mb-8">A full HTML workbench — right in your browser</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             @foreach([
-            ['⚡', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large documents.'],
-            ['📐', 'Viewport switching', 'Test your layout at desktop, tablet (768px), and mobile (390px) widths
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+            </svg>', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large documents.'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-ruler-2">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M17 3l4 4l-14 14l-4 -4z" />
+                <path d="M16 7l-1.5 -1.5" />
+                <path d="M13 10l-1.5 -1.5" />
+                <path d="M10 13l-1.5 -1.5" />
+                <path d="M7 16l-1.5 -1.5" />
+            </svg>', 'Viewport switching', 'Test your layout at desktop, tablet (768px), and mobile (390px) widths
             instantly.'],
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -311,7 +325,15 @@
 	<path d="M6 4l8.85 10.85" />
 </svg>', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
             click.'],
-            ['🔢', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-123">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 10l2 -2v8" />
+                <path d="M9 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
+                <path
+                    d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
+            </svg>', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
@@ -320,7 +342,7 @@
 </svg>', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
             ] as [$icon, $title, $desc])
             <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
-                <span class="text-xl shrink-0 mt-0.5">{{ $icon }}</span>
+                <span class="text-xl shrink-0 mt-0.5">{!! $icon !!}</span>
                 <div>
                     <p class="font-bold text-sm mb-0.5">{{ $title }}</p>
                     <p class="text-xs text-fn-text3 leading-relaxed">{{ $desc }}</p>

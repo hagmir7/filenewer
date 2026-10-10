@@ -463,7 +463,7 @@
             ] as [$icon, $name, $color, $badge, $desc, $input, $output, $md])
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <div class="flex items-start gap-3 mb-3">
-                    <span class="text-2xl">{{ $icon }}</span>
+                    <span class="text-2xl">{!! $icon !!}</span>
                     <div>
                         <div class="flex items-center gap-2">
                             <p class="font-bold text-sm">{{ $name }}</p>

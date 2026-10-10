@@ -119,9 +119,19 @@
   <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
 </svg>', 'Stack rows', 'Append same-named sheets row by
                                         row', true],
-                                        ['mode-separate', 'separate_sheets', '📑', 'Separate sheets', 'One tab per file
+                                        ['mode-separate', 'separate_sheets', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+</svg>', 'Separate sheets', 'One tab per file
                                         — keep files distinct', false],
-                                        ['mode-sideby', 'side_by_side', '↔️', 'Side by side', 'Place files horizontally
+                                        ['mode-sideby', 'side_by_side', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-horizontal">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M7 8l-4 4l4 4" />
+  <path d="M17 8l4 4l-4 4" />
+  <path d="M3 12l18 0" />
+</svg>', 'Side by side', 'Place files horizontally
                                         for comparison', false],
                                         ] as [$mid, $mval, $micon, $mlabel, $mdesc, $mdefault])
                                         <label id="{{ $mid }}-wrap"
@@ -406,15 +416,25 @@
 </svg>', 'Stack rows', 'stack', 'fn-green', 'Sheets with the same name are combined row by row — all January
             "Sales" sheets stack into one "Sales" sheet. Best for monthly reports or log files with identical
             structure.'],
-            ['📑', 'Separate sheets', 'separate_sheets', 'fn-blue-l', 'Each file gets its own tab in the output
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+</svg>', 'Separate sheets', 'separate_sheets', 'fn-blue-l', 'Each file gets its own tab in the output
             workbook. Sheet names are prefixed with the source filename to avoid collisions. Best for keeping files
             distinct inside one workbook.'],
-            ['↔️', 'Side by side', 'side_by_side', 'fn-purple', 'Files are placed horizontally on the same sheet with a
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-horizontal">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M7 8l-4 4l4 4" />
+  <path d="M17 8l4 4l-4 4" />
+  <path d="M3 12l18 0" />
+</svg>', 'Side by side', 'side_by_side', 'fn-purple', 'Files are placed horizontally on the same sheet with a
             label column separating each. Best for comparisons — budget vs actuals, forecast vs results.'],
             ] as [$icon, $name, $val, $color, $desc])
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <div class="flex items-center gap-2.5 mb-3">
-                    <span class="text-2xl">{{ $icon }}</span>
+                    <span class="text-2xl">{!! $icon !!}</span>
                     <div>
                         <p class="font-bold text-sm">{{ $name }}</p>
                         <code class="text-xs font-mono text-fn-text3">{{ $val }}</code>

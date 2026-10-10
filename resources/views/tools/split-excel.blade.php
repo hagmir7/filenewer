@@ -113,7 +113,12 @@
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Split mode</label>
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
-                                        ['split-sheet', 'sheet', '📑', 'One file per sheet', 'Each tab becomes its own
+                                        ['split-sheet', 'sheet', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+</svg>', 'One file per sheet', 'Each tab becomes its own
                                         .xlsx file', true],
                                         ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -467,7 +472,12 @@
         <p class="text-fn-text3 text-sm text-center mb-6">Three ways to break your workbook into parts</p>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
-            ['📑', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after the
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+</svg>', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after the
             sheet. Best for workbooks where each sheet represents a different dataset, region, or time period.'],
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
