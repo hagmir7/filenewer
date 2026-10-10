@@ -71,7 +71,13 @@
             <div id="drop-empty" class="flex flex-col items-center justify-center py-20 px-6 text-center">
                 <div
                     class="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-5 bg-purple-500/10 border border-purple-500/20 group-hover:border-purple-500/40 transition-colors">
-                    🖼️</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M15 8h.01" />
+	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg></div>
                 <p class="text-fn-text2 font-semibold text-base mb-2">Drop images here or click to browse</p>
                 <p class="text-fn-text3 text-sm mb-5">Supports JPG, PNG, WebP · Up to 20 images · Max 25 MB each</p>
                 <label for="file-input"
@@ -226,7 +232,10 @@
 
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🔄</div>
+                <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rotate">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5" />
+</svg></div>
                 <h3 class="font-semibold text-base mb-2">Format Conversion</h3>
                 <p class="text-fn-text3 text-sm leading-relaxed">Convert between JPG, PNG, and WebP on the fly. Force
                     all outputs to WebP for maximum web performance with the same visual quality.</p>
@@ -251,7 +260,12 @@
 
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🔒</div>
+                <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                 <h3 class="font-semibold text-base mb-2">Fully Private</h3>
                 <p class="text-fn-text3 text-sm leading-relaxed">All compression happens in your browser using the
                     Canvas API. Your images never leave your device — no uploads, no storage, no privacy risk.</p>

@@ -344,7 +344,12 @@
 
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">🔒</div>
+                <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                 <h3 class="font-semibold text-base mb-2">100% Private</h3>
                 <p class="text-fn-text3 text-sm leading-relaxed">Invoice data never leaves your browser. The PDF is
                     generated client-side — no server, no storage, no data exposure.</p>

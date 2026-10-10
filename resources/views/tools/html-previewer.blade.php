@@ -297,7 +297,13 @@
             instantly.'],
             ['🎨', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
             both.'],
-            ['✂️', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+	<path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+	<path d="M9.15 14.85l8.85 -10.85" />
+	<path d="M6 4l8.85 10.85" />
+</svg>', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
             click.'],
             ['🔢', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
             ['💾', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
@@ -561,7 +567,12 @@
   <div class="cards">
     <div class="card"><div class="card-icon">🚀</div><h3>Fast</h3><p>Instant live preview as you type — no build step needed.</p></div>
     <div class="card"><div class="card-icon">📱</div><h3>Responsive</h3><p>Switch between desktop, tablet and mobile viewports.</p></div>
-    <div class="card"><div class="card-icon">🔒</div><h3>Private</h3><p>Nothing is sent to any server. Runs entirely in your browser.</p></div>
+    <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div><h3>Private</h3><p>Nothing is sent to any server. Runs entirely in your browser.</p></div>
   </div>
 
   <section class="table-section">

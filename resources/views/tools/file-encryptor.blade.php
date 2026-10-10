@@ -19,7 +19,12 @@
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $fsTabs = [
-                ['encrypt', '🔒', 'Encrypt File'],
+                ['encrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg>', 'Encrypt File'],
                 ['decrypt', '🔓', 'Decrypt File'],
                 ['hash', '#', 'Hash File / Text'],
                 ];
@@ -45,7 +50,12 @@
 
                             <div id="enc-drop-zone"
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
-                                <div class="text-4xl mb-3">📄</div>
+                                <div class="text-4xl mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg></div>
                                 <h2 class="text-base font-bold mb-1">Drop any file here</h2>
                                 <p class="text-fn-text3 text-sm mb-4">PDF, images, documents — any format supported</p>
                                 <div
@@ -66,7 +76,12 @@
                             <div id="enc-file-preview"
                                 class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-lg bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-xl shrink-0"
-                                    id="enc-file-icon">📄</div>
+                                    id="enc-file-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg></div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-semibold text-sm truncate" id="enc-file-name">file.pdf</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">—</p>
@@ -156,7 +171,12 @@
                             $encSteps = [
                             ['🔑','Password → PBKDF2 key derivation (100k rounds)'],
                             ['🎲','Random salt & IV generated per file'],
-                            ['🔒','File encrypted with chosen algorithm'],
+                            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg>','File encrypted with chosen algorithm'],
                             ['📦','Metadata header prepended to .enc file'],
                             ];
                             @endphp
@@ -174,7 +194,12 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0">
-                                    🔒</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                                 <div>
                                     <p class="text-sm font-semibold text-fn-text2" id="enc-output-preview">your_file.enc
                                     </p>
@@ -241,7 +266,12 @@
 
                         <div id="dec-drop-zone"
                             class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
-                            <div class="text-4xl mb-3">🔒</div>
+                            <div class="text-4xl mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                             <h2 class="text-base font-bold mb-1">Drop your .enc file here</h2>
                             <p class="text-fn-text3 text-sm mb-4">Files encrypted with Filenewer's encrypt tool</p>
                             <div
@@ -262,7 +292,12 @@
                             class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                             <div
                                 class="w-10 h-10 rounded-lg bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-xl shrink-0">
-                                🔒</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="dec-file-name">file.enc</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">—</p>
@@ -795,7 +830,12 @@
     } catch(err) {
       document.getElementById('enc-error-text').textContent = err.message;
       showEl('enc-error', 'flex');
-    } finally { resetBtn(encBtn, '🔒 Encrypt File'); }
+    } finally { resetBtn(encBtn, '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg> Encrypt File'); }
   });
 
   // ══ DECRYPT ══

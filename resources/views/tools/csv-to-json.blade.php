@@ -40,7 +40,13 @@
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-cyan/10 border border-fn-cyan/20 flex items-center justify-center text-4xl">
-                                📊</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg></div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
                         <p class="text-fn-text3 text-sm mb-6">or click to browse — supports .csv and .tsv</p>
@@ -64,7 +70,13 @@
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-cyan/12 border border-fn-cyan/20 flex items-center justify-center text-2xl shrink-0">
-                            📊</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
@@ -155,7 +167,13 @@
                     <div class="flex items-center justify-center gap-5 mb-8">
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-cyan/10 border border-fn-cyan/20 flex items-center justify-center text-3xl">
-                            📊</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg></div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>

@@ -35,7 +35,7 @@
         <div class="inline md:flex items-start gap-5 mb-6">
             <div
                 class="w-14 h-14 rounded-2xl bg-fn-surface2 border border-fn-text/10 flex items-center justify-center text-3xl shrink-0">
-                {{ $tool->icon }}
+                {!! $tool->icon !!}
             </div>
             <div>
                 <div class="md:flex items-center gap-3 mb-1 flex-wrap">
@@ -146,7 +146,12 @@
         <div id="file-preview" class="hidden px-6 pb-6">
             <div class="bg-fn-surface2 rounded-xl p-4 flex items-center gap-4">
                 <div class="w-10 h-10 rounded-lg bg-fn-surface border border-fn-text/10 flex items-center justify-center text-xl shrink-0"
-                    id="preview-icon">📄</div>
+                    id="preview-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg></div>
                 <div class="flex-1 min-w-0">
                     <p class="font-medium text-sm text-fn-text truncate" id="preview-name">filename.pdf</p>
                     <p class="text-fn-text3 text-sm mt-0.5" id="preview-size">2.4 MB</p>
@@ -258,7 +263,7 @@
                 class="bg-fn-surface border border-fn-text/8 rounded-xl p-4 flex items-center gap-3.5 hover:border-fn-text/20 transition-colors group">
                 <div
                     class="w-9 h-9 rounded-lg bg-fn-surface2 border border-fn-text/10 flex items-center justify-center text-base shrink-0">
-                    {{ $related->icon }}
+                    {!! $related->icon !!}
                 </div>
                 <div class="flex-1 min-w-0">
                     <p class="font-semibold text-sm">{{ $related->name }}</p>
@@ -285,22 +290,92 @@
     <script>
         // ── File formats per tool slug ──
             const toolFormats = {
-                'pdf-to-word':    { accept: '.pdf', formats: 'PDF', icon: '📕' },
-                'pdf-to-excel':   { accept: '.pdf', formats: 'PDF', icon: '📕' },
-                'pdf-to-jpg':     { accept: '.pdf', formats: 'PDF', icon: '📕' },
-                'word-to-pdf':    { accept: '.doc,.docx', formats: 'DOC, DOCX', icon: '📄' },
-                'merge-pdf':      { accept: '.pdf', formats: 'PDF', icon: '📕', multiple: true },
-                'split-pdf':      { accept: '.pdf', formats: 'PDF', icon: '📕' },
-                'compress-pdf':   { accept: '.pdf', formats: 'PDF', icon: '📕' },
-                'compress-image': { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '🖼️' },
-                'resize-image':   { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '🖼️' },
-                'csv-to-json':    { accept: '.csv', formats: 'CSV', icon: '📊' },
-                'json-to-csv':    { accept: '.json', formats: 'JSON', icon: '📊' },
+                'pdf-to-word':    { accept: '.pdf', formats: 'PDF', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>' },
+                'pdf-to-excel':   { accept: '.pdf', formats: 'PDF', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>' },
+                'pdf-to-jpg':     { accept: '.pdf', formats: 'PDF', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>' },
+                'word-to-pdf':    { accept: '.doc,.docx', formats: 'DOC, DOCX', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg>' },
+                'merge-pdf':      { accept: '.pdf', formats: 'PDF', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>', multiple: true },
+                'split-pdf':      { accept: '.pdf', formats: 'PDF', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>' },
+                'compress-pdf':   { accept: '.pdf', formats: 'PDF', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>' },
+                'compress-image': { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M15 8h.01" />
+	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg>' },
+                'resize-image':   { accept: '.jpg,.jpeg,.png,.webp', formats: 'JPG, PNG, WebP', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M15 8h.01" />
+	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg>' },
+                'csv-to-json':    { accept: '.csv', formats: 'CSV', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg>' },
+                'json-to-csv':    { accept: '.json', formats: 'JSON', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg>' },
                 'excel-to-csv':   { accept: '.xlsx,.xls', formats: 'XLSX, XLS', icon: '📗' },
             };
 
             const slug = '{{ $tool->slug }}';
-            const config = toolFormats[slug] || { accept: '*', formats: 'Any file', icon: '📄' };
+            const config = toolFormats[slug] || { accept: '*', formats: 'Any file', icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg>' };
 
             // Apply accepted formats
             document.getElementById('file-input').setAttribute('accept', config.accept);

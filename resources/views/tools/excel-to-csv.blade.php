@@ -186,7 +186,13 @@
                         </div>
                         <div id="conv-output-icon"
                             class="w-16 h-16 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-3xl">
-                            📊</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg></div>
                     </div>
 
                     <h2 class="text-xl font-bold mb-2">Converting your file…</h2>
@@ -249,7 +255,13 @@
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-2xl shrink-0"
-                            id="output-icon">📊</div>
+                            id="output-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.csv</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">CSV File</p>
@@ -593,7 +605,23 @@
           document.getElementById('download-subtitle').textContent  = isZip
             ? 'Your CSV files are packed and ready.'
             : 'Your CSV file is ready.';
-          document.getElementById('output-icon').textContent        = isZip ? '🗜️' : '📊';
+          document.getElementById('output-icon').textContent        = isZip ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-minimize">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 9l4 0l0 -4" />
+	<path d="M3 3l6 6" />
+	<path d="M5 15l4 0l0 4" />
+	<path d="M3 21l6 -6" />
+	<path d="M19 9l-4 0l0 -4" />
+	<path d="M15 9l6 -6" />
+	<path d="M19 15l-4 0l0 4" />
+	<path d="M15 15l6 6" />
+</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+	<path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+	<path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+	<path d="M4 20h14" />
+</svg>';
 
           // ── Sheet preview: request again with output=text to get the JSON for preview ──
           // Only show preview for file mode (single sheet); skip for zip

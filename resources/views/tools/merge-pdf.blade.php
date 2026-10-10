@@ -42,7 +42,13 @@
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                📕</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop PDF files here</h2>
                         <p class="text-fn-text3 text-sm mb-6">Drop 2 or more PDFs — or click to browse from your computer</p>
@@ -162,7 +168,13 @@
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
-                        <div class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">📕</div>
+                        <div class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.15s"></span>
@@ -231,7 +243,13 @@
                     </div>
 
                     <div class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
-                        <div class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">📕</div>
+                        <div class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">merged.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
@@ -492,7 +510,13 @@ document.addEventListener('DOMContentLoaded', function () {
           </svg>
         </span>
         <span class="file-order">${idx + 1}</span>
-        <span class="file-icon">📕</span>
+        <span class="file-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></span>
         <div class="file-info">
           <p class="file-name"></p>
           <p class="file-meta">${formatBytes(file.size)} · PDF Document</p>

@@ -115,7 +115,13 @@
                                         @foreach([
                                         ['split-sheet', 'sheet', '📑', 'One file per sheet', 'Each tab becomes its own
                                         .xlsx file', true],
-                                        ['split-chunk', 'chunk', '✂️', 'Split by row count', 'Divide each sheet every N
+                                        ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+	<path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+	<path d="M9.15 14.85l8.85 -10.85" />
+	<path d="M6 4l8.85 10.85" />
+</svg>', 'Split by row count', 'Divide each sheet every N
                                         rows', false],
                                         ['split-sheets', 'sheets', '🎯', 'Extract specific sheets', 'Choose which sheets
                                         to extract by name', false],
@@ -344,7 +350,17 @@
                             class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                             <div
                                 class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
-                                🗜️</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-minimize">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 9l4 0l0 -4" />
+	<path d="M3 3l6 6" />
+	<path d="M5 15l4 0l0 4" />
+	<path d="M3 21l6 -6" />
+	<path d="M19 9l-4 0l0 -4" />
+	<path d="M15 9l6 -6" />
+	<path d="M19 15l-4 0l0 4" />
+	<path d="M15 15l6 6" />
+</svg></div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="output-name">split_sheets.zip</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
@@ -445,7 +461,13 @@
             @foreach([
             ['📑', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after the
             sheet. Best for workbooks where each sheet represents a different dataset, region, or time period.'],
-            ['✂️', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+	<path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+	<path d="M9.15 14.85l8.85 -10.85" />
+	<path d="M6 4l8.85 10.85" />
+</svg>', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row
             preserved in each chunk. Best for large sheets that need to be imported into systems with row limits.'],
             ['🎯', 'Extract sheets', 'sheets', 'Pick exactly which sheet names to extract. Only those sheets are
             included in the output ZIP. Best for pulling specific sheets from a large workbook without the rest.'],

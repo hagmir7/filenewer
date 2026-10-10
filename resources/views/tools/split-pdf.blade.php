@@ -41,7 +41,13 @@
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                📕</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
                         <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
@@ -65,7 +71,13 @@
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
-                            📕</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
@@ -85,9 +97,26 @@
                         <label class="text-sm font-semibold text-fn-text2 block mb-3">Split Mode</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                             @foreach([
-                            ['page', '📄', 'Every page', 'One PDF per page'],
+                            ['page', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg>', 'Every page', 'One PDF per page'],
                             ['chunk', '📚', 'Every N pages', 'Groups of N pages'],
-                            ['range', '📏', 'Page ranges', 'Custom ranges like 1-3, 4-6'],
+                            ['range', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-text-resize">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M3 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+	<path d="M17 5a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+	<path d="M3 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+	<path d="M17 19a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+	<path d="M5 7v10" />
+	<path d="M7 5h10" />
+	<path d="M7 19h10" />
+	<path d="M19 7v10" />
+	<path d="M10 10h4" />
+	<path d="M12 14v-4" />
+</svg>', 'Page ranges', 'Custom ranges like 1-3, 4-6'],
                             ['pages', '🎯', 'Specific pages','Individual pages like 1, 3, 5'],
                             ] as [$mval, $micon, $mname, $mdesc])
                             <button type="button"
@@ -236,7 +265,13 @@
                     <div class="flex items-center justify-center gap-5 mb-8">
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
-                            📕</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>

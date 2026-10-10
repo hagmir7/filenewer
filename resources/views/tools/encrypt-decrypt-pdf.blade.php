@@ -18,7 +18,12 @@
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $modes = [
-                ['encrypt', '🔒', 'Encrypt PDF'],
+                ['encrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg>', 'Encrypt PDF'],
                 ['decrypt', '🔓', 'Decrypt PDF'],
                 ['info', '📋', 'PDF Info'],
                 ];
@@ -66,7 +71,13 @@
                             <div class="flex items-center justify-center mb-4">
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                    📕</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                             </div>
                             <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
                             <p class="text-fn-text3 text-sm mb-5">or click to browse from your computer</p>
@@ -90,7 +101,13 @@
                             class="hidden mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
                                 class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
-                                📕</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="enc-file-name">document.pdf</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">— · PDF Document</p>
@@ -236,7 +253,12 @@
                         <div class="flex items-center justify-center mb-4">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-4xl">
-                                🔒</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your encrypted PDF here</h2>
                         <p class="text-fn-text3 text-sm mb-5">or click to browse from your computer</p>
@@ -259,7 +281,12 @@
                         class="hidden mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-2xl shrink-0">
-                            🔒</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="dec-file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">— · Encrypted PDF</p>
@@ -408,7 +435,13 @@
                 <div class="flex items-center justify-center gap-5 mb-8">
                     <div
                         class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
-                        📕</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg></div>
                     <div class="flex gap-1">
                         <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                             style="animation-delay:0s"></span>
@@ -418,7 +451,12 @@
                             style="animation-delay:.3s"></span>
                     </div>
                     <div class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl"
-                        id="conv-output-icon">🔒</div>
+                        id="conv-output-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                 </div>
                 <h2 class="text-xl font-bold mb-2" id="conv-title">Processing your PDF…</h2>
                 <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
@@ -470,7 +508,12 @@
                     <div class="bg-fn-surface2 border border-fn-text/8 rounded-2xl overflow-hidden">
                         {{-- Encryption status banner --}}
                         <div id="info-enc-banner" class="px-5 py-3 flex items-center gap-3 border-b border-fn-text/7">
-                            <span id="info-enc-icon" class="text-xl">📄</span>
+                            <span id="info-enc-icon" class="text-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg></span>
                             <div>
                                 <p class="text-sm font-bold" id="info-enc-label">Not Encrypted</p>
                                 <p class="text-sm text-fn-text3" id="info-enc-sub">This PDF has no password protection
@@ -486,7 +529,12 @@
                 <div id="file-download-card"
                     class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                     <div class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0"
-                        id="dl-icon">🔒</div>
+                        id="dl-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg></div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">document_encrypted.pdf</p>
                         <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
@@ -786,7 +834,12 @@
       // ── Encrypt ──
       async function doEncrypt() {
         document.getElementById('conv-title').textContent     = 'Encrypting your PDF…';
-        document.getElementById('conv-output-icon').textContent = '🔒';
+        document.getElementById('conv-output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg>';
         updateProcLabels(['Uploading & validating PDF','Applying passwords & permissions','Generating protected PDF']);
 
         setProcessStep('proc-1', 'active');
@@ -817,7 +870,12 @@
           if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Encryption failed.'); }
           const blob      = await res.blob();
           const fileName  = encFile.name.replace(/\.pdf$/i, '_encrypted.pdf');
-          finishDownload(blob, fileName, '🔒', 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
+          finishDownload(blob, fileName, '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg>', 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
           setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
           animateProgress(90, 100, 300, 'Done!');
           setTimeout(() => { showState('download'); updateStepIndicator('encrypt', 3); }, 500);
@@ -898,7 +956,12 @@
         const banner      = document.getElementById('info-enc-banner');
         banner.className  = 'px-5 py-3 flex items-center gap-3 border-b border-fn-text/7 ' +
           (isEncrypted ? 'bg-fn-amber/8' : 'bg-fn-green/8');
-        document.getElementById('info-enc-icon').textContent  = isEncrypted ? '🔒' : '✅';
+        document.getElementById('info-enc-icon').textContent  = isEncrypted ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+</svg>' : '✅';
         document.getElementById('info-enc-label').textContent = isEncrypted ? 'Encrypted PDF' : 'Not Encrypted';
         document.getElementById('info-enc-sub').textContent   = isEncrypted
           ? 'This PDF is password protected'

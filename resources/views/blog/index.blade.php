@@ -57,7 +57,13 @@
                     <div class="relative z-10 text-center px-8">
                         <div
                             class="w-20 h-20 rounded-2xl bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-4xl mx-auto mb-4">
-                            📕
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+	<path d="M17 12h3" />
+	<path d="M21 8h-4v8" />
+</svg>
                         </div>
                         <span
                             class="inline-block px-3 py-1 bg-fn-blue/15 border border-fn-blue/30 rounded-full text-fn-blue-l text-sm font-semibold">
@@ -181,12 +187,29 @@
                     <span class="text-4xl relative z-10">
                         @switch($catKey)
                         @case('tutorial') 🟩 @break
-                        @case('tips') 🖼️ @break
+                        @case('tips') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M15 8h.01" />
+	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg> @break
                         @case('automation') 🧾 @break
-                        @case('security') 🔐 @break
+                        @case('security') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-check">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v.5" />
+	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+	<path d="M15 19l2 2l4 -4" />
+</svg> @break
                         @case('developer') ⚡ @break
                         @case('updates') 🚀 @break
-                        @default 📄
+                        @default <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg>
                         @endswitch
                     </span>
                     @endif

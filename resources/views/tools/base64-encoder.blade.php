@@ -184,7 +184,12 @@
                             <div id="ef-file-preview"
                                 class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-lg bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-xl shrink-0"
-                                    id="ef-icon">📄</div>
+                                    id="ef-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg></div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-semibold text-sm truncate" id="ef-file-name">file.png</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="ef-file-meta">—</p>
@@ -646,7 +651,18 @@
         efFile = file;
         const ext  = file.name.split('.').pop().toLowerCase();
         const imgExts = ['png','jpg','jpeg','gif','webp','svg','bmp'];
-        document.getElementById('ef-icon').textContent       = imgExts.includes(ext) ? '🖼️' : '📄';
+        document.getElementById('ef-icon').textContent       = imgExts.includes(ext) ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M15 8h.01" />
+	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg>';
         document.getElementById('ef-file-name').textContent  = file.name;
         document.getElementById('ef-file-meta').textContent  = formatBytes(file.size) + ' · ' + (file.type || ext.toUpperCase());
         showEl('ef-file-preview', 'flex');
