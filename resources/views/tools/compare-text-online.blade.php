@@ -412,7 +412,11 @@
                     <div class="flex flex-wrap items-center gap-3 mb-5">
                         <div id="verdict-badge"
                             class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-sm font-bold">
-                            <span id="verdict-icon">✅</span>
+                            <span id="verdict-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></span>
                             <span id="verdict-text">Identical</span>
                         </div>
                         <div
@@ -928,7 +932,11 @@
     const badge = document.getElementById('verdict-badge');
     badge.className = 'inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-sm font-bold ' +
       (isIdentical ? 'verdict-match' : 'verdict-diff');
-    document.getElementById('verdict-icon').textContent = isIdentical ? '✅' : '🔀';
+    document.getElementById('verdict-icon').textContent = isIdentical ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>' : '🔀';
     document.getElementById('verdict-text').textContent = isIdentical ? 'Identical' : 'Differences found';
 
     document.getElementById('similarity-val').textContent =

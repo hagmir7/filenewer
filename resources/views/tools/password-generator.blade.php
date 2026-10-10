@@ -27,7 +27,7 @@
                 <button type="button"
                     class="tab-btn {{ $tval === 'generate' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}">
-                    <span>{{ $ticon }}</span><span>{{ $tlabel }}</span>
+                    <span>{!! $ticon !!}</span><span>{{ $tlabel }}</span>
                 </button>
                 @endforeach
             </div>

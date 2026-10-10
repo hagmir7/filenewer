@@ -24,7 +24,12 @@
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
 </svg>', 'Encrypt PDF'],
-                ['decrypt', '🔓', 'Decrypt PDF'],
+                ['decrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg>', 'Decrypt PDF'],
                 ['info', '📋', 'PDF Info'],
                 ];
                 @endphp
@@ -499,7 +504,11 @@
             {{-- ── STATE: Result ── --}}
             <div id="state-download" class="hidden text-center py-6">
                 <div class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5"
-                    id="result-icon">✅</div>
+                    id="result-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></div>
                 <h2 class="text-2xl font-bold mb-2" id="result-title">Done!</h2>
                 <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your file is ready.</p>
 
@@ -890,7 +899,12 @@
       // ── Decrypt ──
       async function doDecrypt() {
         document.getElementById('conv-title').textContent      = 'Decrypting your PDF…';
-        document.getElementById('conv-output-icon').textContent = '🔓';
+        document.getElementById('conv-output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg>';
         updateProcLabels(['Uploading & validating PDF','Verifying password','Removing encryption']);
 
         setProcessStep('proc-1','active');
@@ -915,7 +929,12 @@
           if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Decryption failed. Check your password.'); }
           const blob     = await res.blob();
           const fileName = decFile.name.replace(/\.pdf$/i, '_decrypted.pdf');
-          finishDownload(blob, fileName, '🔓', 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
+          finishDownload(blob, fileName, '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg>', 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
           setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
           animateProgress(90, 100, 300, 'Done!');
           setTimeout(() => { showState('download'); updateStepIndicator('decrypt', 3); }, 500);
@@ -961,7 +980,11 @@
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>' : '✅';
+</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>';
         document.getElementById('info-enc-label').textContent = isEncrypted ? 'Encrypted PDF' : 'Not Encrypted';
         document.getElementById('info-enc-sub').textContent   = isEncrypted
           ? 'This PDF is password protected'
@@ -1017,7 +1040,11 @@
         document.getElementById('output-name').textContent  = fileName;
         document.getElementById('output-size').textContent  = formatBytes(blob.size) + ' · PDF Document';
         document.getElementById('dl-icon').textContent      = icon;
-        document.getElementById('result-icon').textContent  = '✅';
+        document.getElementById('result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>';
         document.getElementById('result-title').textContent   = title;
         document.getElementById('result-subtitle').textContent = subtitle;
         document.getElementById('dl-btn-label').textContent  = btnLabel;

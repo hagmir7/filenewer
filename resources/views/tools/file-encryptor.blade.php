@@ -25,7 +25,12 @@
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
 </svg>', 'Encrypt File'],
-                ['decrypt', '🔓', 'Decrypt File'],
+                ['decrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg>', 'Decrypt File'],
                 ['hash', '#', 'Hash File / Text'],
                 ];
                 @endphp
@@ -33,7 +38,7 @@
                 <button type="button"
                     class="tab-btn {{ $tval === 'encrypt' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}">
-                    <span class="{{ $tval === 'hash' ? 'font-black text-base' : '' }}">{{ $ticon }}</span>
+                    <span class="{{ $tval === 'hash' ? 'font-black text-base' : '' }}">{!! $ticon !!}</span>
                     <span>{{ $tlabel }}</span>
                 </button>
                 @endforeach
@@ -169,15 +174,33 @@
                             <p class="text-sm font-semibold text-fn-text2">How it works</p>
                             @php
                             $encSteps = [
-                            ['🔑','Password → PBKDF2 key derivation (100k rounds)'],
-                            ['🎲','Random salt & IV generated per file'],
+                            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-key">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0" />
+  <path d="M15 9h.01" />
+</svg>','Password → PBKDF2 key derivation (100k rounds)'],
+                            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dice">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <circle cx="8.5" cy="8.5" r=".5" fill="currentColor" />
+  <circle cx="15.5" cy="8.5" r=".5" fill="currentColor" />
+  <circle cx="15.5" cy="15.5" r=".5" fill="currentColor" />
+  <circle cx="8.5" cy="15.5" r=".5" fill="currentColor" />
+</svg>','Random salt & IV generated per file'],
                             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
 </svg>','File encrypted with chosen algorithm'],
-                            ['📦','Metadata header prepended to .enc file'],
+                            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+  <path d="M12 12l8 -4.5" />
+  <path d="M12 12l0 9" />
+  <path d="M12 12l-8 -4.5" />
+  <path d="M16 5.25l-8 4.5" />
+</svg>','Metadata header prepended to .enc file'],
                             ];
                             @endphp
                             @foreach($encSteps as [$icon,$text])
@@ -234,7 +257,11 @@
                             <div class="flex items-center gap-3 mb-3">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-xl shrink-0">
-                                    ✅</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-semibold text-sm truncate" id="enc-out-name">file.enc</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="enc-out-meta">—</p>
@@ -365,7 +392,12 @@
                             <div class="flex items-center gap-3 mb-3">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-xl shrink-0">
-                                    🔓</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg></div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-semibold text-sm truncate" id="dec-out-name">file.pdf</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="dec-out-meta">—</p>
@@ -875,7 +907,12 @@
     } catch(err) {
       document.getElementById('dec-error-text').textContent = err.message;
       showEl('dec-error', 'flex');
-    } finally { resetBtn(document.getElementById('dec-btn'), '🔓 Decrypt File'); }
+    } finally { resetBtn(document.getElementById('dec-btn'), '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg> Decrypt File'); }
   });
 
   // ══ HASH ══

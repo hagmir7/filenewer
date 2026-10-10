@@ -287,7 +287,11 @@
                             {{-- Stats card --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl">
                                 <div class="flex items-center gap-2 mb-3">
-                                    <span class="text-lg" id="file-result-icon">✅</span>
+                                    <span class="text-lg" id="file-result-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></span>
                                     <p class="font-bold text-sm" id="file-result-title">Format Complete</p>
                                 </div>
                                 <div class="space-y-2" id="file-stats-rows"></div>
@@ -780,7 +784,11 @@
           // Valid JSON response — use the `formatted` field as the file content
           const formatted = data.formatted ?? rawText;
           fileErrBanner.classList.add('hidden');
-          document.getElementById('file-result-icon').textContent  = '✅';
+          document.getElementById('file-result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>';
           document.getElementById('file-result-title').textContent = 'Format Complete';
 
           const blob    = new Blob([formatted], { type: 'application/json' });
@@ -819,7 +827,11 @@
           if (!res.ok) throw new Error('Formatting failed.');
 
           fileErrBanner.classList.add('hidden');
-          document.getElementById('file-result-icon').textContent  = '✅';
+          document.getElementById('file-result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>';
           document.getElementById('file-result-title').textContent = 'Format Complete';
 
           const blob    = new Blob([rawText], { type: 'application/json' });

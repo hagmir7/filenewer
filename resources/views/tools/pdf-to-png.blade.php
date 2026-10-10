@@ -98,7 +98,14 @@
                         <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                             @foreach([
-                            ['zip', '📦', 'All pages as ZIP', 'One PNG per page in a zip archive'],
+                            ['zip', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+  <path d="M12 12l8 -4.5" />
+  <path d="M12 12l0 9" />
+  <path d="M12 12l-8 -4.5" />
+  <path d="M16 5.25l-8 4.5" />
+</svg>', 'All pages as ZIP', 'One PNG per page in a zip archive'],
                             ['single', '🖼', 'Single page', 'Just the first page (or specified page)'],
                             ['base64', '⚙️', 'Base64 JSON', 'For frontend / mobile integration'],
                             ] as [$mval, $micon, $mname, $mdesc])
@@ -293,7 +300,11 @@
                 <div id="state-download" class="hidden text-center py-6">
                     <div
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
-                        ✅</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your PNG files are ready.</p>
 
@@ -313,7 +324,14 @@
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0"
-                            id="output-icon">📦</div>
+                            id="output-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+  <path d="M12 12l8 -4.5" />
+  <path d="M12 12l0 9" />
+  <path d="M12 12l-8 -4.5" />
+  <path d="M16 5.25l-8 4.5" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document_pages.zip</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
@@ -710,7 +728,14 @@
       link.download = outputName;
       document.getElementById('output-name').textContent = outputName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ZIP Archive';
-      document.getElementById('output-icon').textContent = '📦';
+      document.getElementById('output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+  <path d="M12 12l8 -4.5" />
+  <path d="M12 12l0 9" />
+  <path d="M12 12l-8 -4.5" />
+  <path d="M16 5.25l-8 4.5" />
+</svg>';
       document.getElementById('download-label').textContent = 'Download ZIP';
       document.getElementById('result-subtitle').textContent = 'Your PNG files are ready in a zip archive.';
     }

@@ -279,7 +279,11 @@
                         {{-- Result --}}
                         <div id="cmp-result" class="hidden p-5 rounded-2xl border">
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="text-3xl" id="cmp-icon">✅</span>
+                                <span class="text-3xl" id="cmp-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></span>
                                 <div>
                                     <p class="font-bold text-base" id="cmp-title">Hashes Match</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="cmp-message"></p>
@@ -408,7 +412,11 @@
                             </div>
                             {{-- Verify result --}}
                             <div id="chk-verify-result" class="hidden p-4 rounded-2xl border flex items-center gap-3">
-                                <span class="text-2xl" id="chk-verify-icon">✅</span>
+                                <span class="text-2xl" id="chk-verify-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></span>
                                 <div>
                                     <p class="font-bold text-sm" id="chk-verify-title">Checksum Verified</p>
                                     <p class="text-sm text-fn-text3 mt-0.5" id="chk-verify-sub"></p>
@@ -839,7 +847,11 @@
       result.className = `p-5 rounded-2xl border ${match
         ? 'bg-fn-green/6 border-fn-green/20'
         : 'bg-fn-red/6 border-fn-red/20'}`;
-      document.getElementById('cmp-icon').textContent    = match ? '✅' : '❌';
+      document.getElementById('cmp-icon').textContent    = match ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>' : '❌';
       document.getElementById('cmp-title').textContent   = match ? 'Hashes Match' : 'Hashes Do Not Match';
       document.getElementById('cmp-message').textContent = data.message ?? '';
 
@@ -928,7 +940,11 @@
         verifyEl.className = `p-4 rounded-2xl border flex items-center gap-3 ${matches
           ? 'bg-fn-green/6 border-fn-green/20'
           : 'bg-fn-red/6 border-fn-red/20'}`;
-        document.getElementById('chk-verify-icon').textContent  = matches ? '✅' : '❌';
+        document.getElementById('chk-verify-icon').textContent  = matches ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>' : '❌';
         document.getElementById('chk-verify-title').textContent = matches ? 'Checksum Verified ✓' : 'Checksum Mismatch!';
         document.getElementById('chk-verify-sub').textContent   = matches
           ? 'The file matches the expected checksum.'

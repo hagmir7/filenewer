@@ -19,15 +19,24 @@
                 $b64Tabs = [
                 ['encode-text', '✏️', 'Encode Text'],
                 ['encode-file', '📁', 'Encode File'],
-                ['decode', '🔓', 'Decode'],
-                ['validate', '✅', 'Validate'],
+                ['decode', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M8 11v-5a4 4 0 0 1 8 0" />
+</svg>', 'Decode'],
+                ['validate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>', 'Validate'],
                 ];
                 @endphp
                 @foreach($b64Tabs as [$tval,$ticon,$tlabel])
                 <button type="button"
                     class="tab-btn {{ $tval === 'encode-text' ? 'active' : '' }} flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}">
-                    <span>{{ $ticon }}</span>
+                    <span>{!! $ticon !!}</span>
                     <span>{{ $tlabel }}</span>
                 </button>
                 @endforeach
@@ -391,7 +400,11 @@
                         {{-- Validation result --}}
                         <div id="val-result" class="hidden p-5 rounded-2xl border">
                             <div class="flex items-center gap-3 mb-4">
-                                <span class="text-3xl" id="val-icon">✅</span>
+                                <span class="text-3xl" id="val-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg></span>
                                 <div>
                                     <p class="font-bold text-base" id="val-title">Valid Base64</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="val-message"></p>
@@ -780,7 +793,11 @@
           result.className = `p-5 rounded-2xl border ${valid
             ? 'bg-fn-green/6 border-fn-green/20'
             : 'bg-fn-red/6 border-fn-red/20'}`;
-          document.getElementById('val-icon').textContent    = valid ? '✅' : '❌';
+          document.getElementById('val-icon').textContent    = valid ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>' : '❌';
           document.getElementById('val-title').textContent   = valid ? 'Valid Base64' : 'Invalid Base64';
           document.getElementById('val-message').textContent = data.message ?? '';
 

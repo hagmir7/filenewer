@@ -216,7 +216,14 @@
 
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
-                <div class="text-3xl mb-4">📦</div>
+                <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+  <path d="M12 12l8 -4.5" />
+  <path d="M12 12l0 9" />
+  <path d="M12 12l-8 -4.5" />
+  <path d="M16 5.25l-8 4.5" />
+</svg></div>
                 <h3 class="font-semibold text-base mb-2">Bulk Compression</h3>
                 <p class="text-fn-text3 text-sm leading-relaxed">Process up to 20 images in one go. Drag a whole folder,
                     adjust quality once, and download everything. No repetitive single-file uploads.</p>

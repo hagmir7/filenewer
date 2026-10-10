@@ -44,11 +44,12 @@
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
-  <path d="M16 5l3 3" />
-</svg></div>
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                                    <path d="M16 5l3 3" />
+                                </svg>
+                            </div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your Word document here</h2>
                         <p class="text-fn-text3 text-sm mb-6">Supports .docx and .doc — or click to browse</p>
@@ -74,11 +75,12 @@
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
-  <path d="M16 5l3 3" />
-</svg></div>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                                <path d="M16 5l3 3" />
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
@@ -99,7 +101,16 @@
 
                         <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
                             @foreach([
-                            ['opt-toc', '📚', 'Include table of contents', 'Auto-generated from headings', false],
+                            ['opt-toc', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                <path d="M5 8h4" />
+                                <path d="M9 16h4" />
+                                <path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041" />
+                                <path d="M14 9l4 -1" />
+                                <path d="M16 16l3.923 -.98" />
+                                </svg>', 'Include table of contents', 'Auto-generated from headings', false],
                             ['opt-tables', '▦', 'Convert tables', 'Keep tables as Markdown tables', true],
                             ['opt-images', '🖼', 'Image placeholders', 'Insert ![Image N](...) markers', false],
                             ['opt-emphasis', 'B', 'Keep bold & italic', 'Preserve **bold** and *italic*', true],
@@ -117,7 +128,7 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
-                                        <span class="text-fn-text3">{{ $ticon }}</span>
+                                        <span class="text-fn-text3">{!! $ticon !!}</span>
                                         {{ $tlabel }}
                                     </p>
                                     <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ $tdesc }}</p>
@@ -204,11 +215,12 @@
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
-  <path d="M16 5l3 3" />
-</svg></div>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                                <path d="M16 5l3 3" />
+                            </svg>
+                        </div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
@@ -270,7 +282,11 @@
                     <div class="flex flex-wrap items-center gap-3 mb-4">
                         <div
                             class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-fn-green/25 bg-fn-green/8 text-fn-green text-sm font-bold">
-                            <span>✅</span>
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                <path d="M9 12l2 2l4 -4" />
+                                </svg></span>
                             <span>Conversion Complete</span>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap" id="stats-chips">
