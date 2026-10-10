@@ -295,7 +295,13 @@
             ['⚡', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large documents.'],
             ['📐', 'Viewport switching', 'Test your layout at desktop, tablet (768px), and mobile (390px) widths
             instantly.'],
-            ['🎨', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+  <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+</svg>', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
             both.'],
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -306,7 +312,12 @@
 </svg>', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
             click.'],
             ['🔢', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
-            ['💾', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+  <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M14 4l0 4l-6 0l0 -4" />
+</svg>', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
             ] as [$icon, $title, $desc])
             <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <span class="text-xl shrink-0 mt-0.5">{{ $icon }}</span>
@@ -566,7 +577,12 @@
 
   <div class="cards">
     <div class="card"><div class="card-icon">🚀</div><h3>Fast</h3><p>Instant live preview as you type — no build step needed.</p></div>
-    <div class="card"><div class="card-icon">📱</div><h3>Responsive</h3><p>Switch between desktop, tablet and mobile viewports.</p></div>
+    <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14" />
+  <path d="M11 4h2" />
+  <path d="M12 17v.01" />
+</svg></div><h3>Responsive</h3><p>Switch between desktop, tablet and mobile viewports.</p></div>
     <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
@@ -629,7 +645,13 @@
 
     'snippet-card': `
 <div style="max-width:320px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;font-family:system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.06);">
-  <div style="height:140px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:3rem;">🎨</div>
+  <div style="height:140px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:3rem;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+  <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+</svg></div>
   <div style="padding:1.1rem;">
     <h3 style="margin:0 0 .35rem;font-size:1rem;font-weight:700;">Card Title</h3>
     <p style="margin:0 0 1rem;font-size:.85rem;color:#6b7280;line-height:1.5;">A description of this card goes here. Keep it short and clear.</p>

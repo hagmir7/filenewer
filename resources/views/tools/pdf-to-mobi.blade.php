@@ -186,7 +186,12 @@
                                             class="fmt-btn active flex flex-col items-center gap-1.5 px-3 py-2.5 border rounded-lg cursor-pointer transition-all text-center">
                                             <input type="radio" name="output_format" value="mobi" id="fmt-mobi" checked
                                                 class="sr-only" />
-                                            <span class="text-lg">📱</span>
+                                            <span class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14" />
+  <path d="M11 4h2" />
+  <path d="M12 17v.01" />
+</svg></span>
                                             <span class="text-xs font-bold">.mobi</span>
                                             <span class="text-xs text-fn-text3 leading-tight">Kindle · ⭐⭐⭐⭐⭐</span>
                                         </label>
@@ -194,7 +199,14 @@
                                             class="fmt-btn flex flex-col items-center gap-1.5 px-3 py-2.5 border rounded-lg cursor-pointer transition-all text-center">
                                             <input type="radio" name="output_format" value="epub" id="fmt-epub"
                                                 class="sr-only" />
-                                            <span class="text-lg">📖</span>
+                                            <span class="text-lg"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+  <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+  <path d="M3 6l0 13" />
+  <path d="M12 6l0 13" />
+  <path d="M21 6l0 13" />
+</svg></span>
                                             <span class="text-xs font-bold">.epub</span>
                                             <span class="text-xs text-fn-text3 leading-tight">Universal · ⭐⭐⭐</span>
                                         </label>
@@ -252,7 +264,12 @@
                         </div>
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-3xl">
-                            📱</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14" />
+  <path d="M11 4h2" />
+  <path d="M12 17v.01" />
+</svg></div>
                     </div>
 
                     <h2 class="text-xl font-bold mb-2" id="converting-title">Converting PDF to MOBI…</h2>
@@ -315,7 +332,12 @@
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-2xl shrink-0">
-                            📱</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14" />
+  <path d="M11 4h2" />
+  <path d="M12 17v.01" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">book.mobi</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Kindle eBook</p>
@@ -385,7 +407,12 @@
                 <div class="flex items-center gap-2.5 mb-3">
                     <div
                         class="w-9 h-9 rounded-xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-lg">
-                        📱</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14" />
+  <path d="M11 4h2" />
+  <path d="M12 17v.01" />
+</svg></div>
                     <div>
                         <p class="font-bold text-sm">.mobi — Calibre</p>
                         <p class="text-xs text-fn-amber font-semibold">⭐⭐⭐⭐⭐ Best quality</p>
@@ -399,7 +426,14 @@
                 <div class="flex items-center gap-2.5 mb-3">
                     <div
                         class="w-9 h-9 rounded-xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-lg">
-                        📖</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+  <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+  <path d="M3 6l0 13" />
+  <path d="M12 6l0 13" />
+  <path d="M21 6l0 13" />
+</svg></div>
                     <div>
                         <p class="font-bold text-sm">.epub — Fallback</p>
                         <p class="text-xs text-fn-text3 font-semibold">⭐⭐⭐ Universal</p>

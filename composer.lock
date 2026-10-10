@@ -4496,7 +4496,11 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🐘 Nette PHP Generator: generates neat PHP code for you. Supports new PHP 8.5 features.",
+            "description": "<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
+  <path d="M8 10h.01" />
+</svg> Nette PHP Generator: generates neat PHP code for you. Supports new PHP 8.5 features.",
             "homepage": "https://nette.org",
             "keywords": [
                 "code",

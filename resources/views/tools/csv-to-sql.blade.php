@@ -163,9 +163,22 @@
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
                                 <div class="grid grid-cols-3 gap-2">
                                     @foreach([
-                                    ['mysql', 'MySQL', '🐬'],
-                                    ['postgres', 'PostgreSQL', '🐘'],
-                                    ['sqlite', 'SQLite', '🪶'],
+                                    ['mysql', 'MySQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dolphin">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 13c3 -1 5 -3 7 -6l1 -3c1 3 3 5 5 6c2 1 4 0 6 -2c0 5 -4 10 -10 10c-4 0 -7 -2 -9 -5" />
+  <path d="M7 13h.01" />
+</svg>'],
+                                    ['postgres', 'PostgreSQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
+  <path d="M8 10h.01" />
+</svg>'],
+                                    ['sqlite', 'SQLite', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-database">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
+  <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+  <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+</svg>'],
                                     ] as [$val, $lbl, $icon])
                                     <button type="button"
                                         class="dialect-btn {{ $val === 'mysql' ? 'active' : '' }} flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all"
@@ -198,7 +211,12 @@
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach([
-                                    ['file', 'Download .sql', '💾'],
+                                    ['file', 'Download .sql', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+  <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+  <path d="M14 4l0 4l-6 0l0 -4" />
+</svg>'],
                                     ['text', 'Preview SQL', '👁'],
                                     ] as [$val, $lbl, $icon])
                                     <button type="button"
@@ -751,7 +769,20 @@
             throw new Error(errMsg);
           }
 
-          const dialectLabels = { mysql: '🐬 MySQL', postgres: '🐘 PostgreSQL', sqlite: '🪶 SQLite' };
+          const dialectLabels = { mysql: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dolphin">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 13c3 -1 5 -3 7 -6l1 -3c1 3 3 5 5 6c2 1 4 0 6 -2c0 5 -4 10 -10 10c-4 0 -7 -2 -9 -5" />
+  <path d="M7 13h.01" />
+</svg> MySQL', postgres: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
+  <path d="M8 10h.01" />
+</svg> PostgreSQL', sqlite: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-database">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
+  <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+  <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+</svg> SQLite' };
           const dialectColors = {
             mysql:    { bg: 'oklch(62% 0.18 200 / 12%)', border: 'oklch(62% 0.18 200 / 35%)', color: 'oklch(62% 0.18 200)' },
             postgres: { bg: 'oklch(55% 0.20 260 / 12%)', border: 'oklch(55% 0.20 260 / 35%)', color: 'oklch(55% 0.20 260)' },

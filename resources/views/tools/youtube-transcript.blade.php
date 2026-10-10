@@ -127,7 +127,12 @@
                             <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output format</label>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                                 @foreach([
-                                ['fmt-text', 'text', '📝', 'Plain text', 'Reading & copying', true],
+                                ['fmt-text', 'text', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+  <path d="M16 5l3 3" />
+</svg>', 'Plain text', 'Reading & copying', true],
                                 ['fmt-srt', 'srt', '🎬', 'SRT', 'Video players', false],
                                 ['fmt-vtt', 'vtt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -227,7 +232,12 @@
                         </div>
                         <div
                             class="w-11 h-11 sm:w-16 sm:h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-xl sm:text-3xl shrink-0">
-                            📝</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+  <path d="M16 5l3 3" />
+</svg></div>
                     </div>
 
                     <h2 class="text-base sm:text-xl font-bold mb-2 px-2" id="fetching-title">Fetching Transcript…</h2>
@@ -462,7 +472,12 @@
         <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-6">Choose the format that fits your workflow</p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             @foreach([
-            ['📝', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with timestamps'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+  <path d="M16 5l3 3" />
+</svg>', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with timestamps'],
             ['🎬', 'srt', 'SRT', 'Video players', 'SubRip format — the standard for most video editing tools'],
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -744,7 +759,12 @@
     chips.innerHTML = '';
     [
       data.duration_str  && ['🕐', data.duration_str],
-      data.word_count    && ['📝', Number(data.word_count).toLocaleString() + ' words'],
+      data.word_count    && ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+  <path d="M16 5l3 3" />
+</svg>', Number(data.word_count).toLocaleString() + ' words'],
       data.segment_count && ['📋', data.segment_count + ' seg'],
       data.language      && ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
