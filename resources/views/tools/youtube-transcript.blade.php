@@ -129,7 +129,14 @@
                                 @foreach([
                                 ['fmt-text', 'text', '📝', 'Plain text', 'Reading & copying', true],
                                 ['fmt-srt', 'srt', '🎬', 'SRT', 'Video players', false],
-                                ['fmt-vtt', 'vtt', '🌐', 'VTT', 'HTML5 video', false],
+                                ['fmt-vtt', 'vtt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+  <path d="M3.6 9h16.8" />
+  <path d="M3.6 15h16.8" />
+  <path d="M11.5 3a17 17 0 0 0 0 18" />
+  <path d="M12.5 3a17 17 0 0 1 0 18" />
+</svg>', 'VTT', 'HTML5 video', false],
                                 ['fmt-json', 'json', '⚙️', 'JSON', 'Processing', false],
                                 ] as [$fid, $fval, $ficon, $flabel, $fdesc, $fdefault])
                                 <label id="{{ $fid }}-wrap"
@@ -457,7 +464,14 @@
             @foreach([
             ['📝', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with timestamps'],
             ['🎬', 'srt', 'SRT', 'Video players', 'SubRip format — the standard for most video editing tools'],
-            ['🌐', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+  <path d="M3.6 9h16.8" />
+  <path d="M3.6 15h16.8" />
+  <path d="M11.5 3a17 17 0 0 0 0 18" />
+  <path d="M12.5 3a17 17 0 0 1 0 18" />
+</svg>', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'],
             ['⚙️', 'json', 'JSON', 'Processing', 'Raw segments array with start, duration, and text fields'],
             ] as [$icon, $val, $name, $use, $desc])
             <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl min-w-0">
@@ -732,7 +746,14 @@
       data.duration_str  && ['🕐', data.duration_str],
       data.word_count    && ['📝', Number(data.word_count).toLocaleString() + ' words'],
       data.segment_count && ['📋', data.segment_count + ' seg'],
-      data.language      && ['🌐', data.language.toUpperCase()],
+      data.language      && ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+  <path d="M3.6 9h16.8" />
+  <path d="M3.6 15h16.8" />
+  <path d="M11.5 3a17 17 0 0 0 0 18" />
+  <path d="M12.5 3a17 17 0 0 1 0 18" />
+</svg>', data.language.toUpperCase()],
     ].filter(Boolean).forEach(([icon, label]) => {
       const chip = document.createElement('span');
       chip.className = 'meta-chip';
