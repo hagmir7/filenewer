@@ -153,7 +153,7 @@
                                     <button type="button"
                                         class="align-btn {{ $av === 'left' ? 'active' : '' }} flex-1 flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
                                         data-val="{{ $av }}">
-                                        <span>{{ $aicon }}</span>
+                                        <span>{!! $aicon !!}</span>
                                         <span>{{ $alabel }}</span>
                                     </button>
                                     @endforeach

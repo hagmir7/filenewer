@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
-                                        <span class="text-fn-text3">{{ $ticon }}</span>
+                                        <span class="text-fn-text3">{!! $ticon !!}</span>
                                         {{ $tlabel }}
                                     </p>
                                     <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ $tdesc }}</p>
