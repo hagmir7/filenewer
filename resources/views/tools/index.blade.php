@@ -126,7 +126,7 @@
                         {{-- Icon --}}
                         <div
                             class="w-10 h-10 rounded-xl bg-fn-surface2 border border-fn-text/10 flex items-center justify-center text-lg shrink-0">
-                            {{ $tool->icon }}
+                            {!! $tool->icon !!}
                         </div>
 
                         {{-- Body --}}
