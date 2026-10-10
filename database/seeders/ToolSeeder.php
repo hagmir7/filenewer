@@ -189,19 +189,22 @@ class ToolSeeder extends Seeder
         $order = 1;
 
         foreach ($tools as $tool) {
-            Tool::updateOrCreate(
-                ['slug' => $tool[1]],
-                [
-                    // 'name'        => $tool[0],
-                    // 'slug'        => $tool[1],
-                    // 'description' => $tool[2],
-                    'icon'        => $tool[3],
-                    // 'is_active'   => true,
-                    // 'order'       => $order++,
-                    // 'category_id' => $categoryIds[$tool[4]],
-                    // 'title'       => $tool[5],
-                ]
-            );
+            $tool = Tool::where('slug', $tool[1])->first();
+            if ($tool) {
+                $tool->update(
+                    [
+                        // 'name'        => $tool[0],
+                        // 'slug'        => $tool[1],
+                        // 'description' => $tool[2],
+                        'icon'        => $tool[3],
+                        // 'is_active'   => true,
+                        // 'order'       => $order++,
+                        // 'category_id' => $categoryIds[$tool[4]],
+                        // 'title'       => $tool[5],
+                    ]
+                );
+            }
+
         }
     }
 }
