@@ -527,7 +527,7 @@
 </svg>', 'json', 'JSON', 'Processing', 'Raw segments array with start, duration, and text fields'],
             ] as [$icon, $val, $name, $use, $desc])
             <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl min-w-0">
-                <div class="text-xl sm:text-2xl mb-1.5 sm:mb-2">{{ $icon }}</div>
+                <div class="text-xl sm:text-2xl mb-1.5 sm:mb-2">{!! $icon !!}</div>
                 <p class="font-bold text-sm truncate">{{ $name }}</p>
                 <p class="text-xs text-fn-blue-l font-semibold mt-0.5 break-words">{{ $use }}</p>
                 <p class="text-xs text-fn-text3 mt-1.5 leading-relaxed hidden sm:block">{{ $desc }}</p>
