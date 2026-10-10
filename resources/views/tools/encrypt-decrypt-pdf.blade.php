@@ -19,25 +19,29 @@
                 @php
                 $modes = [
                 ['encrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
-	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>', 'Encrypt PDF'],
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+                        <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                        <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                    </svg>', 'Encrypt PDF'],
                 ['decrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
-  <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  <path d="M8 11v-5a4 4 0 0 1 8 0" />
-</svg>', 'Decrypt PDF'],
-                ['info', '📋', 'PDF Info'],
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+                    <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                    <path d="M8 11v-5a4 4 0 0 1 8 0" />
+                    </svg>', 'Decrypt PDF'],
+                ['info', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                </svg>', 'PDF Info'],
                 ];
                 @endphp
                 @foreach($modes as [$mval, $micon, $mlabel])
                 <button type="button"
                     class="mode-tab {{ $mval === 'encrypt' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-mode="{{ $mval }}">
-                    <span>{{ $micon }}</span>
+                    <span>{!! $micon !!}</span>
                     <span>{{ $mlabel }}</span>
                 </button>
                 @endforeach
@@ -77,12 +81,12 @@
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                    <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                    <path d="M17 12h3" />
+                                    <path d="M21 8h-4v8" />
+                                </svg></div>
                             </div>
                             <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
                             <p class="text-fn-text3 text-sm mb-5">or click to browse from your computer</p>
@@ -107,12 +111,12 @@
                             <div
                                 class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                    <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                    <path d="M17 12h3" />
+                                    <path d="M21 8h-4v8" />
+                                </svg></div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="enc-file-name">document.pdf</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">— · PDF Document</p>
@@ -343,7 +347,11 @@
                         <div class="flex items-center justify-center mb-4">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
-                                📋</div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg></div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
                         <p class="text-fn-text3 text-sm mb-5">Inspect metadata, page count, encryption status and more
@@ -367,7 +375,11 @@
                         class="hidden mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
-                            📋</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="info-file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="info-file-meta">— · PDF Document</p>
@@ -1017,7 +1029,11 @@
         document.getElementById('download-link').classList.add('hidden');
         document.getElementById('result-title').textContent    = 'PDF Info';
         document.getElementById('result-subtitle').textContent = infoFile.name;
-        document.getElementById('result-icon').textContent     = '📋';
+        document.getElementById('result-icon').textContent     = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg>';
         showState('download');
       }
 

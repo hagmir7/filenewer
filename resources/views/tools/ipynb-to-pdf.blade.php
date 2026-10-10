@@ -436,7 +436,11 @@
         <p class="text-fn-text3 text-sm text-center mb-6">Choose what gets included in the PDF output</p>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
-            ['📋', 'Full', 'light', 'Default', 'Code input + cell outputs + markdown cells. Best for sharing complete
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg>', 'Full', 'light', 'Default', 'Code input + cell outputs + markdown cells. Best for sharing complete
             notebooks with collaborators.', true, true, true],
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />

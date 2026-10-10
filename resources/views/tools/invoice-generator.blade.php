@@ -268,7 +268,11 @@
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
                 <div
                     class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-cyan/10 border border-fn-cyan/25">
-                    📋</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg></div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Add Line Items</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed">List your services or products with quantities and unit
                     prices. Apply discounts, tax, and shipping — totals calculate live.</p>

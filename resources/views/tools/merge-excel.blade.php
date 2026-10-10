@@ -113,7 +113,11 @@
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Merge mode</label>
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
-                                        ['mode-stack', 'stack', '📋', 'Stack rows', 'Append same-named sheets row by
+                                        ['mode-stack', 'stack', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg>', 'Stack rows', 'Append same-named sheets row by
                                         row', true],
                                         ['mode-separate', 'separate_sheets', '📑', 'Separate sheets', 'One tab per file
                                         — keep files distinct', false],
@@ -395,7 +399,11 @@
         <p class="text-fn-text3 text-sm text-center mb-6">Three strategies to combine your Excel files</p>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
-            ['📋', 'Stack rows', 'stack', 'fn-green', 'Sheets with the same name are combined row by row — all January
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+</svg>', 'Stack rows', 'stack', 'fn-green', 'Sheets with the same name are combined row by row — all January
             "Sales" sheets stack into one "Sales" sheet. Best for monthly reports or log files with identical
             structure.'],
             ['📑', 'Separate sheets', 'separate_sheets', 'fn-blue-l', 'Each file gets its own tab in the output
