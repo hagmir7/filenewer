@@ -135,7 +135,7 @@
                                             class="mode-card {{ $mdefault ? 'active' : '' }} flex items-center gap-3 px-3 py-2.5 border rounded-xl cursor-pointer transition-all">
                                             <input type="radio" name="split_by" value="{{ $mval }}" {{ $mdefault
                                                 ? 'checked' : '' }} class="sr-only split-mode-radio" />
-                                            <span class="text-xl shrink-0">{{ $micon }}</span>
+                                            <span class="text-xl shrink-0">{!! $micon !!}</span>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-xs font-bold text-fn-text">{{ $mlabel }}</p>
                                                 <p class="text-xs text-fn-text3 leading-tight">{{ $mdesc }}</p>

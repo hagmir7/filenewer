@@ -114,31 +114,31 @@
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
                                         ['mode-stack', 'stack', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-  <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-</svg>', 'Stack rows', 'Append same-named sheets row by
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                                            </svg>', 'Stack rows', 'Append same-named sheets row by
                                         row', true],
                                         ['mode-separate', 'separate_sheets', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
-  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-</svg>', 'Separate sheets', 'One tab per file
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+                                        <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+                                        <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+                                        </svg>', 'Separate sheets', 'One tab per file
                                         — keep files distinct', false],
                                         ['mode-sideby', 'side_by_side', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-horizontal">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 8l-4 4l4 4" />
-  <path d="M17 8l4 4l-4 4" />
-  <path d="M3 12l18 0" />
-</svg>', 'Side by side', 'Place files horizontally
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M7 8l-4 4l4 4" />
+                                                <path d="M17 8l4 4l-4 4" />
+                                                <path d="M3 12l18 0" />
+                                                </svg>', 'Side by side', 'Place files horizontally
                                         for comparison', false],
                                         ] as [$mid, $mval, $micon, $mlabel, $mdesc, $mdefault])
                                         <label id="{{ $mid }}-wrap"
                                             class="mode-card {{ $mdefault ? 'active' : '' }} flex items-center gap-3 px-3 py-2.5 border rounded-xl cursor-pointer transition-all">
                                             <input type="radio" name="merge_mode" value="{{ $mval }}" {{ $mdefault
                                                 ? 'checked' : '' }} class="sr-only" />
-                                            <span class="text-xl shrink-0">{{ $micon }}</span>
+                                            <span class="text-xl shrink-0">{!! $micon !!}</span>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-xs font-bold text-fn-text">{{ $mlabel }}</p>
                                                 <p class="text-xs text-fn-text3 leading-tight">{{ $mdesc }}</p>
