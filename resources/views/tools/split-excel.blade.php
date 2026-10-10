@@ -114,19 +114,19 @@
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
                                         ['split-sheet', 'sheet', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
-  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-</svg>', 'One file per sheet', 'Each tab becomes its own
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+                                            <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+                                            <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+                                            </svg>', 'One file per sheet', 'Each tab becomes its own
                                         .xlsx file', true],
                                         ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-	<path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-	<path d="M9.15 14.85l8.85 -10.85" />
-	<path d="M6 4l8.85 10.85" />
-</svg>', 'Split by row count', 'Divide each sheet every N
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                            <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                            <path d="M9.15 14.85l8.85 -10.85" />
+                                            <path d="M6 4l8.85 10.85" />
+                                        </svg>', 'Split by row count', 'Divide each sheet every N
                                         rows', false],
                                         ['split-sheets', 'sheets', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>', 'Extract specific sheets', 'Choose which sheets
                                         to extract by name', false],

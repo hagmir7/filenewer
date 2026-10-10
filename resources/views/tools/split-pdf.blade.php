@@ -132,7 +132,7 @@
                                 class="mode-card {{ $mval === 'page' ? 'active' : '' }} flex flex-col items-start gap-1 p-3 rounded-xl border text-left transition-all"
                                 data-mode="{{ $mval }}">
                                 <div class="flex items-center gap-1.5 w-full">
-                                    <span class="text-base">{{ $micon }}</span>
+                                    <span class="text-base">{!! $micon !!}</span>
                                     <span class="text-sm font-bold">{{ $mname }}</span>
                                 </div>
                                 <span class="text-xs leading-tight opacity-70">{{ $mdesc }}</span>
