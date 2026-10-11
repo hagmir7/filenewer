@@ -113,14 +113,21 @@
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Split mode</label>
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
-                                        ['split-sheet', 'sheet', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+                                        ['split-sheet', 'sheet', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-files">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-                                            <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+                                            <path
+                                                d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
                                             <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-                                            </svg>', 'One file per sheet', 'Each tab becomes its own
+                                        </svg>', 'One file per sheet', 'Each tab becomes its own
                                         .xlsx file', true],
-                                        ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+                                        ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                                             <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
@@ -128,7 +135,15 @@
                                             <path d="M6 4l8.85 10.85" />
                                         </svg>', 'Split by row count', 'Divide each sheet every N
                                         rows', false],
-                                        ['split-sheets', 'sheets', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>', 'Extract specific sheets', 'Choose which sheets
+                                        ['split-sheets', 'sheets', '<svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-target" width="1em" height="1em"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                            style="vertical-align:-0.125em">
+                                            <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                            <path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
+                                            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                        </svg>', 'Extract specific sheets', 'Choose which sheets
                                         to extract by name', false],
                                         ] as [$mid, $mval, $micon, $mlabel, $mdesc, $mdefault])
                                         <label id="{{ $mid }}-wrap"
@@ -341,11 +356,16 @@
                     <div id="zip-result" class="hidden text-center py-4">
                         <div
                             class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </div>
                         <h2 class="text-2xl font-bold mb-2">Split Complete!</h2>
                         <p class="text-fn-text2 text-sm mb-6" id="zip-subtitle">Your files are ready inside a .zip
                             archive.</p>
@@ -359,17 +379,21 @@
                             class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                             <div
                                 class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-minimize">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M5 9l4 0l0 -4" />
-	<path d="M3 3l6 6" />
-	<path d="M5 15l4 0l0 4" />
-	<path d="M3 21l6 -6" />
-	<path d="M19 9l-4 0l0 -4" />
-	<path d="M15 9l6 -6" />
-	<path d="M19 15l-4 0l0 4" />
-	<path d="M15 15l6 6" />
-</svg></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-minimize">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 9l4 0l0 -4" />
+                                    <path d="M3 3l6 6" />
+                                    <path d="M5 15l4 0l0 4" />
+                                    <path d="M3 21l6 -6" />
+                                    <path d="M19 9l-4 0l0 -4" />
+                                    <path d="M15 9l6 -6" />
+                                    <path d="M19 15l-4 0l0 4" />
+                                    <path d="M15 15l6 6" />
+                                </svg>
+                            </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="output-name">split_sheets.zip</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
@@ -396,11 +420,16 @@
                             <div class="flex items-center gap-2">
                                 <div
                                     class="w-8 h-8 rounded-lg bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-base">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                    </svg>
+                                </div>
                                 <div>
                                     <p class="font-bold text-sm" id="json-result-title">Metadata preview</p>
                                     <p class="text-fn-text3 text-xs" id="json-result-meta">—</p>
@@ -472,22 +501,33 @@
         <p class="text-fn-text3 text-sm text-center mb-6">Three ways to break your workbook into parts</p>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-files">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-  <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
-  <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-</svg>', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after the
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-files">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+                <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
+                <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+            </svg>', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after
+            the
             sheet. Best for workbooks where each sheet represents a different dataset, region, or time period.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-	<path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-	<path d="M9.15 14.85l8.85 -10.85" />
-	<path d="M6 4l8.85 10.85" />
-</svg>', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                <path d="M9.15 14.85l8.85 -10.85" />
+                <path d="M6 4l8.85 10.85" />
+            </svg>', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row
             preserved in each chunk. Best for large sheets that need to be imported into systems with row limits.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>', 'Extract sheets', 'sheets', 'Pick exactly which sheet names to extract. Only those sheets are
+            ['<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em"
+                height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
+                <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0" />
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+            </svg>', 'Extract sheets', 'sheets', 'Pick exactly which sheet names to extract. Only those sheets are
             included in the output ZIP. Best for pulling specific sheets from a large workbook without the rest.'],
             ] as [$icon, $name, $val, $desc])
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">

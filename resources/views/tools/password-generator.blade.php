@@ -18,12 +18,24 @@
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $pwTabs = [
-                ['generate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-</svg>', 'Password'],
-                ['passphrase', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M8 9h8" /><path d="M8 13h6" /><path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12" /></svg>', 'Passphrase'],
-                ['strength', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shield" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /></svg>', 'Strength Check'],
+                ['generate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+                </svg>', 'Password'],
+                ['passphrase', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message"
+                    width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
+                    <path d="M8 9h8" />
+                    <path d="M8 13h6" />
+                    <path d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12" />
+                </svg>', 'Passphrase'],
+                ['strength', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shield"
+                    width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
+                    <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+                </svg>', 'Strength Check'],
                 ];
                 @endphp
                 @foreach($pwTabs as [$tval,$ticon,$tlabel])
@@ -232,7 +244,17 @@
                             {{-- Crack time (shown after generate) --}}
                             <div id="crack-time-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M17 8l1 -1" /><path d="M14 3h-4" /></svg> Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                        style="vertical-align:-0.125em">
+                                        <path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
+                                        <path d="M14.5 10.5l-2.5 2.5" />
+                                        <path d="M17 8l1 -1" />
+                                        <path d="M14 3h-4" />
+                                    </svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="crack-time-grid"></div>
                             </div>
 
@@ -380,7 +402,17 @@
 
                             <div id="pp-crack-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M17 8l1 -1" /><path d="M14 3h-4" /></svg> Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                        style="vertical-align:-0.125em">
+                                        <path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
+                                        <path d="M14.5 10.5l-2.5 2.5" />
+                                        <path d="M17 8l1 -1" />
+                                        <path d="M14 3h-4" />
+                                    </svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="pp-crack-grid"></div>
                             </div>
 
@@ -467,14 +499,33 @@
 
                             {{-- Crack time --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M17 8l1 -1" /><path d="M14 3h-4" /></svg> Estimated Crack Time</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3"><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-stopwatch" width="1em" height="1em"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                        style="vertical-align:-0.125em">
+                                        <path d="M5 13a7 7 0 1 0 14 0a7 7 0 0 0 -14 0z" />
+                                        <path d="M14.5 10.5l-2.5 2.5" />
+                                        <path d="M17 8l1 -1" />
+                                        <path d="M14 3h-4" />
+                                    </svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="str-crack-grid"></div>
                             </div>
 
                             {{-- Issues & suggestions --}}
                             <div id="str-issues-wrap"
                                 class="hidden p-4 bg-fn-amber/6 border border-fn-amber/20 rounded-xl space-y-2">
-                                <p class="text-sm font-semibold text-fn-amber"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg> Issues & Suggestions</p>
+                                <p class="text-sm font-semibold text-fn-amber"><svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                        style="vertical-align:-0.125em">
+                                        <path d="M12 9v4" />
+                                        <path
+                                            d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+                                        <path d="M12 16h.01" />
+                                    </svg> Issues & Suggestions</p>
                                 <ul id="str-issues-list" class="space-y-1"></ul>
                             </div>
 
@@ -529,103 +580,103 @@
 <x-tools-section />
 
 @push('styles')
-    {{-- ══ STYLES ══ --}}
-    <style>
-        .tab-btn {
-            color: var(--fn-text3);
-        }
+{{-- ══ STYLES ══ --}}
+<style>
+    .tab-btn {
+        color: var(--fn-text3);
+    }
 
-        .tab-btn.active {
-            background: var(--fn-surface);
-            color: var(--fn-text);
-            box-shadow: 0 1px 6px oklch(0% 0 0/14%);
-        }
+    .tab-btn.active {
+        background: var(--fn-surface);
+        color: var(--fn-text);
+        box-shadow: 0 1px 6px oklch(0% 0 0/14%);
+    }
 
-        .sep-preset-btn {
-            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-            background: var(--fn-surface);
-            color: var(--fn-text3);
-        }
+    .sep-preset-btn {
+        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+        background: var(--fn-surface);
+        color: var(--fn-text3);
+    }
 
-        .sep-preset-btn.active {
-            color: var(--fn-blue-l);
-            border-color: oklch(49% 0.24 264/40%);
-            background: oklch(49% 0.24 264/8%);
-        }
+    .sep-preset-btn.active {
+        color: var(--fn-blue-l);
+        border-color: oklch(49% 0.24 264/40%);
+        background: oklch(49% 0.24 264/8%);
+    }
 
-        .pw-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: var(--fn-surface2);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: border-color .15s;
-        }
+    .pw-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: var(--fn-surface2);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: border-color .15s;
+    }
 
-        .pw-row:hover {
-            border-color: oklch(49% 0.24 264/30%);
-        }
+    .pw-row:hover {
+        border-color: oklch(49% 0.24 264/30%);
+    }
 
-        .pw-row.copied {
-            border-color: oklch(67% 0.18 162/40%);
-            background: oklch(67% 0.18 162/6%);
-        }
+    .pw-row.copied {
+        border-color: oklch(67% 0.18 162/40%);
+        background: oklch(67% 0.18 162/6%);
+    }
 
-        .pw-text {
-            font-family: monospace;
-            font-size: 14px;
-            color: var(--fn-text);
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    .pw-text {
+        font-family: monospace;
+        font-size: 14px;
+        color: var(--fn-text);
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-        .pw-copy {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--fn-blue-l);
-            opacity: 0;
-            transition: opacity .15s;
-            flex-shrink: 0;
-        }
+    .pw-copy {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--fn-blue-l);
+        opacity: 0;
+        transition: opacity .15s;
+        flex-shrink: 0;
+    }
 
-        .pw-row:hover .pw-copy {
-            opacity: 1;
-        }
+    .pw-row:hover .pw-copy {
+        opacity: 1;
+    }
 
-        .crack-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--fn-surface);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-            border-radius: 8px;
-        }
+    .crack-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px 12px;
+        background: var(--fn-surface);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+        border-radius: 8px;
+    }
 
-        .crack-scenario {
-            font-size: 10px;
-            color: var(--fn-text3);
-            width: 120px;
-            flex-shrink: 0;
-        }
+    .crack-scenario {
+        font-size: 10px;
+        color: var(--fn-text3);
+        width: 120px;
+        flex-shrink: 0;
+    }
 
-        .crack-value {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--fn-text2);
-        }
-    </style>
+    .crack-value {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--fn-text2);
+    }
+</style>
 @endpush
 
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
       const API = 'https://api.filenewer.com/api/tools';
 
@@ -1004,7 +1055,7 @@
       function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
     }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

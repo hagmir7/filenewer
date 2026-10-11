@@ -127,36 +127,50 @@
                             <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output format</label>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                                 @foreach([
-                                ['fmt-text', 'text', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
-  <path d="M16 5l3 3" />
-</svg>', 'Plain text', 'Reading & copying', true],
-                                ['fmt-srt', 'srt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-movie">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-  <path d="M8 4l0 16" />
-  <path d="M16 4l0 16" />
-  <path d="M4 8l4 0" />
-  <path d="M4 16l4 0" />
-  <path d="M4 12l16 0" />
-  <path d="M16 8l4 0" />
-  <path d="M16 16l4 0" />
-</svg>', 'SRT', 'Video players', false],
-                                ['fmt-vtt', 'vtt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-  <path d="M3.6 9h16.8" />
-  <path d="M3.6 15h16.8" />
-  <path d="M11.5 3a17 17 0 0 0 0 18" />
-  <path d="M12.5 3a17 17 0 0 1 0 18" />
-</svg>', 'VTT', 'HTML5 video', false],
-                                ['fmt-json', 'json', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
-  <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-</svg>', 'JSON', 'Processing', false],
+                                ['fmt-text', 'text', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                                    <path d="M16 5l3 3" />
+                                </svg>', 'Plain text', 'Reading & copying', true],
+                                ['fmt-srt', 'srt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-movie">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                    <path d="M8 4l0 16" />
+                                    <path d="M16 4l0 16" />
+                                    <path d="M4 8l4 0" />
+                                    <path d="M4 16l4 0" />
+                                    <path d="M4 12l16 0" />
+                                    <path d="M16 8l4 0" />
+                                    <path d="M16 16l4 0" />
+                                </svg>', 'SRT', 'Video players', false],
+                                ['fmt-vtt', 'vtt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-world">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                                    <path d="M3.6 9h16.8" />
+                                    <path d="M3.6 15h16.8" />
+                                    <path d="M11.5 3a17 17 0 0 0 0 18" />
+                                    <path d="M12.5 3a17 17 0 0 1 0 18" />
+                                </svg>', 'VTT', 'HTML5 video', false],
+                                ['fmt-json', 'json', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
+                                    <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                </svg>', 'JSON', 'Processing', false],
                                 ] as [$fid, $fval, $ficon, $flabel, $fdesc, $fdefault])
                                 <label id="{{ $fid }}-wrap"
                                     class="fmt-card {{ $fdefault ? 'active' : '' }} flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 border rounded-lg cursor-pointer transition-all min-w-0">
@@ -246,12 +260,15 @@
                         </div>
                         <div
                             class="w-11 h-11 sm:w-16 sm:h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-xl sm:text-3xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
-  <path d="M16 5l3 3" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                                <path d="M16 5l3 3" />
+                            </svg>
+                        </div>
                     </div>
 
                     <h2 class="text-base sm:text-xl font-bold mb-2 px-2" id="fetching-title">Fetching Transcript…</h2>
@@ -416,10 +433,13 @@
                 <div class="flex items-center gap-2.5 mb-3">
                     <div
                         class="w-9 h-9 rounded-xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-lg shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-</svg></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+                        </svg>
+                    </div>
                     <div class="min-w-0">
                         <p class="font-bold text-sm">Strategy 1 — Transcript API</p>
                         <p class="text-xs text-fn-green font-semibold">Fast · ⭐⭐⭐⭐</p>
@@ -449,13 +469,16 @@
                 <div class="flex items-center gap-2.5 mb-3">
                     <div
                         class="w-9 h-9 rounded-xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-lg shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-microphone">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" />
-  <path d="M5 10a7 7 0 0 0 14 0" />
-  <path d="M8 21l8 0" />
-  <path d="M12 17l0 4" />
-</svg></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-microphone">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" />
+                            <path d="M5 10a7 7 0 0 0 14 0" />
+                            <path d="M8 21l8 0" />
+                            <path d="M12 17l0 4" />
+                        </svg>
+                    </div>
                     <div class="min-w-0">
                         <p class="font-bold text-sm">Strategy 2 — Whisper AI</p>
                         <p class="text-xs text-fn-purple font-semibold">Slower · ⭐⭐⭐⭐⭐</p>
@@ -495,36 +518,46 @@
         <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-6">Choose the format that fits your workflow</p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             @foreach([
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
-  <path d="M16 5l3 3" />
-</svg>', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with timestamps'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-movie">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-  <path d="M8 4l0 16" />
-  <path d="M16 4l0 16" />
-  <path d="M4 8l4 0" />
-  <path d="M4 16l4 0" />
-  <path d="M4 12l16 0" />
-  <path d="M16 8l4 0" />
-  <path d="M16 16l4 0" />
-</svg>', 'srt', 'SRT', 'Video players', 'SubRip format — the standard for most video editing tools'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-  <path d="M3.6 9h16.8" />
-  <path d="M3.6 15h16.8" />
-  <path d="M11.5 3a17 17 0 0 0 0 18" />
-  <path d="M12.5 3a17 17 0 0 1 0 18" />
-</svg>', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
-  <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-</svg>', 'json', 'JSON', 'Processing', 'Raw segments array with start, duration, and text fields'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
+                <path d="M16 5l3 3" />
+            </svg>', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with
+            timestamps'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-movie">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                <path d="M8 4l0 16" />
+                <path d="M16 4l0 16" />
+                <path d="M4 8l4 0" />
+                <path d="M4 16l4 0" />
+                <path d="M4 12l16 0" />
+                <path d="M16 8l4 0" />
+                <path d="M16 16l4 0" />
+            </svg>', 'srt', 'SRT', 'Video players', 'SubRip format — the standard for most video editing tools'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-world">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                <path d="M3.6 9h16.8" />
+                <path d="M3.6 15h16.8" />
+                <path d="M11.5 3a17 17 0 0 0 0 18" />
+                <path d="M12.5 3a17 17 0 0 1 0 18" />
+            </svg>', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
+                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+            </svg>', 'json', 'JSON', 'Processing', 'Raw segments array with start, duration, and text fields'],
             ] as [$icon, $val, $name, $use, $desc])
             <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl min-w-0">
                 <div class="text-xl sm:text-2xl mb-1.5 sm:mb-2">{!! $icon !!}</div>

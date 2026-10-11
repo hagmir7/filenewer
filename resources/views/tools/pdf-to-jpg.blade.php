@@ -40,13 +40,17 @@
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                    <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                    <path d="M17 12h3" />
+                                    <path d="M21 8h-4v8" />
+                                </svg>
+                            </div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
                         <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
@@ -70,13 +74,16 @@
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · PDF Document</p>
@@ -234,13 +241,16 @@
                     <div class="flex items-center justify-center gap-5 mb-8">
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg>
+                        </div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
@@ -251,13 +261,17 @@
                         </div>
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M15 8h.01" />
-	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
-	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M15 8h.01" />
+                                <path
+                                    d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+                                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+                                <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+                            </svg>
+                        </div>
                     </div>
 
                     <h2 class="text-xl font-bold mb-2">Converting your file…</h2>
@@ -304,11 +318,14 @@
                 <div id="state-download" class="hidden text-center py-6">
                     <div
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 12l2 2l4 -4" />
+                        </svg>
+                    </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your images are ready.</p>
 
@@ -316,13 +333,17 @@
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-2xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M15 8h.01" />
-	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
-	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M15 8h.01" />
+                                <path
+                                    d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+                                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+                                <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document_pages.zip</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">JPG Images</p>
@@ -415,9 +436,9 @@
 <x-tools-section />
 
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
       // ── Element refs ──
       const dropZone     = document.getElementById('drop-zone');
@@ -785,7 +806,7 @@
       });
 
     }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

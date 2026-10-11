@@ -16,13 +16,18 @@
         <div class="bg-fn-surface border border-fn-text/8 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl">
 
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-3 sm:px-8 py-3 sm:py-5 border-b border-fn-text/7 bg-fn-surface2 overflow-x-auto">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-3 sm:py-5 border-b border-fn-text/7 bg-fn-surface2 overflow-x-auto">
                 @foreach([['1','Enter URL'],['2','Converting'],['3','Download']] as [$n, $label])
-                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-1.5 sm:gap-2 shrink-0" id="step-{{ $n }}">
-                    <div class="step-dot w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-1.5 sm:gap-2 shrink-0"
+                    id="step-{{ $n }}">
+                    <div
+                        class="step-dot w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-xs sm:text-sm font-bold">{{ $n }}</span>
                     </div>
-                    <span class="step-label text-xs sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{ $label }}</span>
+                    <span
+                        class="step-label text-xs sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{
+                        $label }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-4 sm:w-10 h-px bg-fn-text/10 mx-1 sm:mx-2 shrink-0"></div>
@@ -40,26 +45,37 @@
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-xs font-semibold text-fn-text2">YouTube URL</p>
                             <div class="flex gap-1">
-                                <button type="button" id="btn-sample" class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Sample</button>
-                                <button type="button" id="btn-paste" class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                                <button type="button" id="btn-sample"
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Sample</button>
+                                <button type="button" id="btn-paste"
+                                    class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                                        <rect x="8" y="2" width="8" height="4" rx="1" />
+                                    </svg>
                                     Paste
                                 </button>
-                                <button type="button" id="btn-clear" class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                <button type="button" id="btn-clear"
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
 
                         <div class="relative">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-fn-text3">
-                                <rect x="2" y="2" width="20" height="20" rx="4"/>
-                                <polygon points="9.5 8 16 12 9.5 16 9.5 8" fill="currentColor" stroke="none"/>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                                class="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-fn-text3">
+                                <rect x="2" y="2" width="20" height="20" rx="4" />
+                                <polygon points="9.5 8 16 12 9.5 16 9.5 8" fill="currentColor" stroke="none" />
                             </svg>
                             <input type="url" id="url-input" spellcheck="false" autocomplete="off"
                                 placeholder="https://www.youtube.com/watch?v=… or youtu.be/…"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-xl pl-10 sm:pl-11 pr-4 py-3 sm:py-3.5 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                         </div>
 
-                        <p id="url-status" class="text-xs mt-1.5"><span class="text-fn-text3">Paste a YouTube video link</span></p>
+                        <p id="url-status" class="text-xs mt-1.5"><span class="text-fn-text3">Paste a YouTube video
+                                link</span></p>
                     </div>
 
                     {{-- Options --}}
@@ -71,7 +87,8 @@
 
                         <div class="grid sm:grid-cols-2 gap-2.5 sm:gap-3">
                             <div>
-                                <label for="opt-quality" class="text-xs font-semibold text-fn-text2 block mb-1.5">Quality (bitrate)</label>
+                                <label for="opt-quality"
+                                    class="text-xs font-semibold text-fn-text2 block mb-1.5">Quality (bitrate)</label>
                                 <select id="opt-quality"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40">
                                     <option value="128">128 kbps — smallest file</option>
@@ -89,35 +106,63 @@
                             </div>
                         </div>
 
-                        <label class="mt-2.5 sm:mt-3 flex items-center gap-2 cursor-pointer select-none px-3 py-2 bg-fn-surface border border-fn-text/10 rounded-lg hover:border-fn-blue/25 transition-colors">
+                        <label
+                            class="mt-2.5 sm:mt-3 flex items-center gap-2 cursor-pointer select-none px-3 py-2 bg-fn-surface border border-fn-text/10 rounded-lg hover:border-fn-blue/25 transition-colors">
                             <div class="toggle-wrap relative w-8 h-4 shrink-0">
                                 <input type="checkbox" id="opt-normalize" class="sr-only peer" />
-                                <div class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors"></div>
-                                <div class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4"></div>
+                                <div
+                                    class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
+                                </div>
+                                <div
+                                    class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
+                                </div>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-xs font-semibold text-fn-text2">Loudness normalization</p>
-                                <p class="text-xs text-fn-text3 leading-tight">Evens out volume to a consistent level</p>
+                                <p class="text-xs text-fn-text3 leading-tight">Evens out volume to a consistent level
+                                </p>
                             </div>
                         </label>
                     </div>
 
                     {{-- Copyright notice --}}
-                    <div class="mt-3 sm:mt-4 flex items-start gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 bg-fn-amber/6 border border-fn-amber/20 rounded-xl">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-amber shrink-0 mt-0.5"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-                        <p class="text-xs text-fn-text2 leading-relaxed">Only extract audio you own, that's royalty-free or Creative-Commons licensed, or that you have explicit permission to use. Downloading and redistributing audio from videos you don't have rights to typically violates YouTube's Terms of Service and copyright law.</p>
+                    <div
+                        class="mt-3 sm:mt-4 flex items-start gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 bg-fn-amber/6 border border-fn-amber/20 rounded-xl">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-fn-amber shrink-0 mt-0.5">
+                            <path d="M12 9v4" />
+                            <path d="M12 17h.01" />
+                            <path
+                                d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
+                        </svg>
+                        <p class="text-xs text-fn-text2 leading-relaxed">Only extract audio you own, that's royalty-free
+                            or Creative-Commons licensed, or that you have explicit permission to use. Downloading and
+                            redistributing audio from videos you don't have rights to typically violates YouTube's Terms
+                            of Service and copyright law.</p>
                     </div>
 
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-3 sm:mt-4 items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-xs sm:text-sm text-fn-text2">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
 
                     <button id="convert-btn" type="button" disabled
                         class="mt-4 sm:mt-6 w-full py-3 sm:py-3.5 bg-fn-blue text-white font-bold text-sm sm:text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
                         Convert to MP3
                     </button>
                 </div>
@@ -125,15 +170,32 @@
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-4 sm:py-6">
                     <div class="flex items-center justify-center gap-3 sm:gap-5 mb-5 sm:mb-8">
-                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-fn-red sm:w-7 sm:h-7"><rect x="2" y="2" width="20" height="20" rx="4"/><polygon points="9.5 8 16 12 9.5 16 9.5 8" fill="currentColor" stroke="none"/></svg>
+                        <div
+                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" class="text-fn-red sm:w-7 sm:h-7">
+                                <rect x="2" y="2" width="20" height="20" rx="4" />
+                                <polygon points="9.5 8 16 12 9.5 16 9.5 8" fill="currentColor" stroke="none" />
+                            </svg>
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:0s"></span>
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.15s"></span>
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.3s"></span>
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:0s"></span>
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:.15s"></span>
+                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:.3s"></span>
                         </div>
-                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-xl sm:text-3xl"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-headphones" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M4 15v-3a8 8 0 0 1 16 0v3" /></svg></div>
+                        <div
+                            class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-xl sm:text-3xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-headphones"
+                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                style="vertical-align:-0.125em">
+                                <path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
+                                <path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
+                                <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
+                            </svg></div>
                     </div>
 
                     <h2 class="text-base sm:text-xl font-bold mb-1.5 sm:mb-2">Converting to MP3…</h2>
@@ -144,22 +206,32 @@
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-xs sm:text-sm text-fn-text3 mb-5 sm:mb-8">
+                    <div
+                        class="flex items-center justify-between max-w-md mx-auto text-xs sm:text-sm text-fn-text3 mb-5 sm:mb-8">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
 
                     <div class="max-w-xs mx-auto flex flex-col gap-2.5 sm:gap-3 text-left">
                         @foreach([
-                            ['proc-1','Resolving video URL'],
-                            ['proc-2','Extracting audio stream'],
-                            ['proc-3','Encoding to MP3'],
-                            ['proc-4','Finalizing file'],
+                        ['proc-1','Resolving video URL'],
+                        ['proc-2','Extracting audio stream'],
+                        ['proc-3','Encoding to MP3'],
+                        ['proc-4','Finalizing file'],
                         ] as [$pid, $plabel])
                         <div class="flex items-center gap-2.5 sm:gap-3" id="{{ $pid }}">
-                            <div class="step-dot w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
-                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg>
+                            <div
+                                class="step-dot w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
                             </div>
                             <span class="text-xs sm:text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
@@ -169,11 +241,15 @@
 
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-4 sm:py-6">
-                    <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-2xl sm:text-4xl mx-auto mb-3 sm:mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                    <div
+                        class="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-2xl sm:text-4xl mx-auto mb-3 sm:mb-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 12l2 2l4 -4" />
+                        </svg></div>
                     <h2 class="text-lg sm:text-2xl font-bold mb-1 sm:mb-2" id="result-title">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-xs sm:text-sm mb-4 sm:mb-6">Your MP3 is ready to download.</p>
 
@@ -181,8 +257,18 @@
                         <div class="flex flex-wrap gap-2 justify-center" id="result-sheets"></div>
                     </div>
 
-                    <div class="max-w-sm mx-auto p-3 sm:p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-left">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-lg sm:text-2xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-headphones" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M4 15v-3a8 8 0 0 1 16 0v3" /></svg></div>
+                    <div
+                        class="max-w-sm mx-auto p-3 sm:p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-left">
+                        <div
+                            class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-lg sm:text-2xl shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-headphones"
+                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                style="vertical-align:-0.125em">
+                                <path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
+                                <path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
+                                <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
+                            </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-xs sm:text-sm truncate" id="output-name">audio.mp3</p>
                             <p class="text-fn-text3 text-xs sm:text-sm mt-0.5" id="output-size">MP3 Audio</p>
@@ -195,20 +281,33 @@
                     <a id="download-link" href="#" download="audio.mp3"
                         class="inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-2.5 sm:py-3.5 text-white font-bold text-sm sm:text-base rounded-xl transition-all hover:-translate-y-0.5 mb-3 sm:mb-4"
                         style="background: oklch(67% 0.18 162);">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
                         Download MP3
                     </a>
 
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-3.5 sm:px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs sm:text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="1 4 1 10 7 10" />
+                                <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                            </svg>
                             Convert another
                         </button>
                     </div>
 
                     <p class="mt-4 sm:mt-6 text-fn-text3 text-xs sm:text-sm flex items-center justify-center gap-1.5">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green shrink-0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-fn-green shrink-0">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
                         Your link and file are encrypted and permanently deleted within 1 hour.
                     </p>
                 </div>
@@ -222,19 +321,33 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6">
-        <h2 class="text-lg sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-lg sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">Frequently Asked Questions
+        </h2>
         <div class="space-y-2.5 sm:space-y-3">
             @foreach([
-                ['What links are supported?', 'Standard watch links (youtube.com/watch?v=…), short links (youtu.be/…), and Shorts links (youtube.com/shorts/…) all work — anywhere a single video can be identified from the URL.'],
-                ['What bitrate should I pick?', '192 kbps is the default and a good balance of quality and file size. Use 320 kbps for music or anything you want the highest fidelity on, or 128 kbps if you just need small files for speech or podcasts.'],
-                ['What does loudness normalization do?', 'It evens out the perceived volume of the track to a consistent target level, useful when the source audio is unusually quiet, loud, or inconsistent across sections.'],
-                ['Is it legal to convert a YouTube video to MP3?', 'Only if you own the content, it\'s royalty-free or Creative-Commons licensed, or you have explicit permission from the rights holder. Downloading and redistributing audio you don\'t have rights to typically violates YouTube\'s Terms of Service and copyright law — you\'re responsible for confirming the source is usable this way.'],
-                ['Is my link and file private?', 'All requests use AES-256 encryption in transit and any temporary files are permanently deleted within 1 hour. We never read, share, or store your content.'],
+            ['What links are supported?', 'Standard watch links (youtube.com/watch?v=…), short links (youtu.be/…), and
+            Shorts links (youtube.com/shorts/…) all work — anywhere a single video can be identified from the URL.'],
+            ['What bitrate should I pick?', '192 kbps is the default and a good balance of quality and file size. Use
+            320 kbps for music or anything you want the highest fidelity on, or 128 kbps if you just need small files
+            for speech or podcasts.'],
+            ['What does loudness normalization do?', 'It evens out the perceived volume of the track to a consistent
+            target level, useful when the source audio is unusually quiet, loud, or inconsistent across sections.'],
+            ['Is it legal to convert a YouTube video to MP3?', 'Only if you own the content, it\'s royalty-free or
+            Creative-Commons licensed, or you have explicit permission from the rights holder. Downloading and
+            redistributing audio you don\'t have rights to typically violates YouTube\'s Terms of Service and copyright
+            law — you\'re responsible for confirming the source is usable this way.'],
+            ['Is my link and file private?', 'All requests use AES-256 encryption in transit and any temporary files are
+            permanently deleted within 1 hour. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
-                <button type="button" class="faq-btn w-full flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
                     <span class="font-semibold text-xs sm:text-sm pr-3">{{ $q }}</span>
-                    <svg class="faq-icon w-3.5 h-3.5 sm:w-4 sm:h-4 text-fn-text3 shrink-0 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg class="faq-icon w-3.5 h-3.5 sm:w-4 sm:h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
                 </button>
                 <div class="faq-body hidden px-3.5 sm:px-5 pb-3 sm:pb-4">
                     <p class="text-fn-text2 text-xs sm:text-sm leading-relaxed">{{ $a }}</p>
@@ -259,22 +372,66 @@
         font-size: 11px;
         font-weight: 600;
     }
-    .sheet-chip .sheet-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-    .sheet-chip .sheet-count { font-family: monospace; font-size: 10px; color: var(--fn-text3); margin-left: auto; padding-left: 4px; }
 
-    .sheet-title    .sheet-dot { background: oklch(62% 0.20 250); }
-    .sheet-title                 { color: oklch(62% 0.20 250); border-color: oklch(62% 0.20 250 / 30%); background: oklch(62% 0.20 250 / 6%); }
-    .sheet-duration .sheet-dot { background: oklch(60% 0.22 295); }
-    .sheet-duration               { color: oklch(60% 0.22 295); border-color: oklch(60% 0.22 295 / 30%); background: oklch(60% 0.22 295 / 6%); }
-    .sheet-bitrate  .sheet-dot { background: oklch(67% 0.18 162); }
-    .sheet-bitrate                { color: oklch(67% 0.18 162); border-color: oklch(67% 0.18 162 / 30%); background: oklch(67% 0.18 162 / 6%); }
-    .sheet-size     .sheet-dot { background: oklch(75% 0.18 75); }
-    .sheet-size                   { color: oklch(75% 0.18 75); border-color: oklch(75% 0.18 75 / 30%); background: oklch(75% 0.18 75 / 6%); }
+    .sheet-chip .sheet-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        flex-shrink: 0;
+    }
+
+    .sheet-chip .sheet-count {
+        font-family: monospace;
+        font-size: 10px;
+        color: var(--fn-text3);
+        margin-left: auto;
+        padding-left: 4px;
+    }
+
+    .sheet-title .sheet-dot {
+        background: oklch(62% 0.20 250);
+    }
+
+    .sheet-title {
+        color: oklch(62% 0.20 250);
+        border-color: oklch(62% 0.20 250 / 30%);
+        background: oklch(62% 0.20 250 / 6%);
+    }
+
+    .sheet-duration .sheet-dot {
+        background: oklch(60% 0.22 295);
+    }
+
+    .sheet-duration {
+        color: oklch(60% 0.22 295);
+        border-color: oklch(60% 0.22 295 / 30%);
+        background: oklch(60% 0.22 295 / 6%);
+    }
+
+    .sheet-bitrate .sheet-dot {
+        background: oklch(67% 0.18 162);
+    }
+
+    .sheet-bitrate {
+        color: oklch(67% 0.18 162);
+        border-color: oklch(67% 0.18 162 / 30%);
+        background: oklch(67% 0.18 162 / 6%);
+    }
+
+    .sheet-size .sheet-dot {
+        background: oklch(75% 0.18 75);
+    }
+
+    .sheet-size {
+        color: oklch(75% 0.18 75);
+        border-color: oklch(75% 0.18 75 / 30%);
+        background: oklch(75% 0.18 75 / 6%);
+    }
 </style>
 
 @push('footer')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
   const SAMPLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 

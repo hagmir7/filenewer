@@ -39,13 +39,17 @@
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                    <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                    <path d="M17 12h3" />
+                                    <path d="M21 8h-4v8" />
+                                </svg>
+                            </div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
                         <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
@@ -96,13 +100,16 @@
                     <div class="flex items-center gap-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6">
                         <div
                             class="w-10 h-10 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="cfg-file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="cfg-file-meta">—</p>
@@ -131,7 +138,13 @@
                                 ['90', '↻ 90°', 'Rotate right 90°'],
                                 ['180', '↻ 180°', 'Flip upside down'],
                                 ['270', '↺ 90°', 'Rotate left 90°'],
-                                ['0', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Reset', 'Reset all to 0°'],
+                                ['0', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
+                                    width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                    style="vertical-align:-0.125em">
+                                    <path d="M18 6l-12 12" />
+                                    <path d="M6 6l12 12" />
+                                </svg> Reset', 'Reset all to 0°'],
                                 ];
                                 @endphp
                                 @foreach($rotBtns as [$rval,$rlabel,$rtitle])
@@ -187,13 +200,16 @@
                     <div class="flex items-center justify-center gap-5 mb-8">
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg>
+                        </div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
@@ -204,10 +220,14 @@
                         </div>
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rotate">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-rotate">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5" />
+                            </svg>
+                        </div>
                     </div>
                     <h2 class="text-xl font-bold mb-2">Rotating pages…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
@@ -226,11 +246,14 @@
                 <div id="state-download" class="hidden text-center py-6">
                     <div
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 12l2 2l4 -4" />
+                        </svg>
+                    </div>
                     <h2 class="text-2xl font-bold mb-2">Rotation Applied!</h2>
                     <p class="text-fn-text2 text-sm mb-8">Your rotated PDF is ready.</p>
 
@@ -238,13 +261,16 @@
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">rotated.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
@@ -343,110 +369,110 @@
 <x-tools-section />
 
 @push('styles')
-    {{-- ══ STYLES ══ --}}
-    <style>
-        .global-rot-btn {
-            color: var(--fn-text2);
-            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-            background: var(--fn-surface);
-        }
+{{-- ══ STYLES ══ --}}
+<style>
+    .global-rot-btn {
+        color: var(--fn-text2);
+        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+        background: var(--fn-surface);
+    }
 
-        .global-rot-btn:hover {
-            border-color: oklch(49% 0.24 264/30%);
-            color: var(--fn-blue-l);
-            background: oklch(49% 0.24 264/6%);
-        }
+    .global-rot-btn:hover {
+        border-color: oklch(49% 0.24 264/30%);
+        color: var(--fn-blue-l);
+        background: oklch(49% 0.24 264/6%);
+    }
 
-        .page-card {
-            border: 2px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-            border-radius: 12px;
-            background: var(--fn-surface2);
-            cursor: pointer;
-            transition: border-color .2s, box-shadow .2s;
-            user-select: none;
-        }
+    .page-card {
+        border: 2px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+        border-radius: 12px;
+        background: var(--fn-surface2);
+        cursor: pointer;
+        transition: border-color .2s, box-shadow .2s;
+        user-select: none;
+    }
 
-        .page-card:hover {
-            border-color: oklch(49% 0.24 264/35%);
-        }
+    .page-card:hover {
+        border-color: oklch(49% 0.24 264/35%);
+    }
 
-        .page-card.rotated {
-            border-color: oklch(49% 0.24 264/50%);
-            background: oklch(49% 0.24 264/5%);
-        }
+    .page-card.rotated {
+        border-color: oklch(49% 0.24 264/50%);
+        background: oklch(49% 0.24 264/5%);
+    }
 
-        .page-thumb {
-            aspect-ratio: 210/297;
-            background: white;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
+    .page-thumb {
+        aspect-ratio: 210/297;
+        background: white;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+    }
 
-        .page-thumb-lines {
-            position: absolute;
-            inset: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            opacity: 0.15;
-        }
+    .page-thumb-lines {
+        position: absolute;
+        inset: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        opacity: 0.15;
+    }
 
-        .page-thumb-line {
-            height: 2px;
-            background: #374151;
-            border-radius: 1px;
-        }
+    .page-thumb-line {
+        height: 2px;
+        background: #374151;
+        border-radius: 1px;
+    }
 
-        .page-rot-badge {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 1px 6px;
-            border-radius: 6px;
-            transition: all .2s;
-        }
+    .page-rot-badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 6px;
+        transition: all .2s;
+    }
 
-        .page-rot-badge.is-zero {
-            background: oklch(var(--fn-surface2-l, 22%) 0 0/1);
-            color: var(--fn-text3);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-        }
+    .page-rot-badge.is-zero {
+        background: oklch(var(--fn-surface2-l, 22%) 0 0/1);
+        color: var(--fn-text3);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+    }
 
-        .page-rot-badge.not-zero {
-            background: oklch(49% 0.24 264/12%);
-            color: var(--fn-blue-l);
-            border: 1px solid oklch(49% 0.24 264/30%);
-        }
+    .page-rot-badge.not-zero {
+        background: oklch(49% 0.24 264/12%);
+        color: var(--fn-blue-l);
+        border: 1px solid oklch(49% 0.24 264/30%);
+    }
 
-        .page-ctrl-btn {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/12%);
-            background: var(--fn-surface);
-            color: var(--fn-text3);
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all .15s;
-            cursor: pointer;
-        }
+    .page-ctrl-btn {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/12%);
+        background: var(--fn-surface);
+        color: var(--fn-text3);
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .15s;
+        cursor: pointer;
+    }
 
-        .page-ctrl-btn:hover {
-            border-color: oklch(49% 0.24 264/30%);
-            color: var(--fn-blue-l);
-        }
-    </style>
+    .page-ctrl-btn:hover {
+        border-color: oklch(49% 0.24 264/30%);
+        color: var(--fn-blue-l);
+    }
+</style>
 @endpush
 
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
       // ── State ──
       let selectedFile  = null;
@@ -766,7 +792,7 @@
       });
 
     }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

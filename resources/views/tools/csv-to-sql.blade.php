@@ -67,12 +67,17 @@
                             <div class="flex items-center justify-center mb-5">
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                        <path
+                                            d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                        <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                                    </svg>
+                                </div>
                             </div>
                             <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
                             <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
@@ -86,7 +91,7 @@
                                 </svg>
                                 Choose CSV File
                             </div>
-                           <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -96,12 +101,16 @@
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
                                 class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                    <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                                </svg>
+                            </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
@@ -163,21 +172,32 @@
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
                                 <div class="grid grid-cols-3 gap-2">
                                     @foreach([
-                                    ['mysql', 'MySQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dolphin">
+                                    ['mysql', 'MySQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-dolphin">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M3 13c3 -1 5 -3 7 -6l1 -3c1 3 3 5 5 6c2 1 4 0 6 -2c0 5 -4 10 -10 10c-4 0 -7 -2 -9 -5" />
+                                        <path
+                                            d="M3 13c3 -1 5 -3 7 -6l1 -3c1 3 3 5 5 6c2 1 4 0 6 -2c0 5 -4 10 -10 10c-4 0 -7 -2 -9 -5" />
                                         <path d="M7 13h.01" />
-                                        </svg>'],
-                                    ['postgres', 'PostgreSQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
+                                    </svg>'],
+                                    ['postgres', 'PostgreSQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
+                                        <path
+                                            d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
                                         <path d="M8 10h.01" />
-                                        </svg>'],
-                                    ['sqlite', 'SQLite', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-database">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
-                                    <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-                                    <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                                    </svg>'],
+                                    ['sqlite', 'SQLite', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-database">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
+                                        <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                                        <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
                                     </svg>'],
                                     ] as [$val, $lbl, $icon])
                                     <button type="button"
@@ -211,13 +231,25 @@
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach([
-                                    ['file', 'Download .sql', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-  <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-  <path d="M14 4l0 4l-6 0l0 -4" />
-</svg>'],
-                                    ['text', 'Preview SQL', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>'],
+                                    ['file', 'Download .sql', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                                        <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                                        <path d="M14 4l0 4l-6 0l0 -4" />
+                                    </svg>'],
+                                    ['text', 'Preview SQL', '<svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-eye" width="1em" height="1em"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                        style="vertical-align:-0.125em">
+                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                        <path
+                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                    </svg>'],
                                     ] as [$val, $lbl, $icon])
                                     <button type="button"
                                         class="output-btn {{ $val === 'file' ? 'active' : '' }} flex items-center gap-2 py-2 px-3 rounded-xl border text-sm font-semibold transition-all"
@@ -276,12 +308,16 @@
                     <div class="flex items-center justify-center gap-5 mb-8">
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                            </svg>
+                        </div>
                         <div class="flex gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
@@ -292,7 +328,15 @@
                         </div>
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive"
+                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                style="vertical-align:-0.125em">
+                                <path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+                                <path d="M10 12l4 0" />
+                            </svg>
+                        </div>
                     </div>
 
                     <h2 class="text-xl font-bold mb-2">Generating your SQL…</h2>
@@ -342,11 +386,16 @@
                     <div class="text-center mb-6">
                         <div
                             class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                <path d="M9 12l2 2l4 -4" />
+                            </svg>
+                        </div>
                         <h2 class="text-2xl font-bold mb-2">SQL Generated!</h2>
                         <p class="text-fn-text2 text-sm" id="download-subtitle">Your SQL file is ready.</p>
                     </div>
@@ -383,7 +432,15 @@
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive"
+                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                style="vertical-align:-0.125em">
+                                <path d="M3 6a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+                                <path d="M10 12l4 0" />
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.sql</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">SQL File</p>
@@ -529,9 +586,9 @@
 </style>
 
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
       // ── Refs ──
       const tabFile     = document.getElementById('tab-file');
@@ -991,7 +1048,7 @@
       });
 
     }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

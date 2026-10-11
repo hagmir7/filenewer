@@ -19,13 +19,23 @@
                 @php
                 $hashTabs = [
                 ['generate', '#', 'Generate Hash'],
-                ['compare', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-scale" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M7 20l10 0" /><path d="M6 6l6 -1l6 1" /><path d="M12 3l0 17" /><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" /><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" /></svg>', 'Compare Hashes'],
-                ['checksum', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg>', 'File Checksum'],
+                ['compare', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-scale"
+                    width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
+                    <path d="M7 20l10 0" />
+                    <path d="M6 6l6 -1l6 1" />
+                    <path d="M12 3l0 17" />
+                    <path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+                    <path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+                </svg>', 'Compare Hashes'],
+                ['checksum', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                    <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                </svg>', 'File Checksum'],
                 ];
                 @endphp
                 @foreach($hashTabs as [$tval,$ticon,$tlabel])
@@ -279,11 +289,15 @@
                         {{-- Result --}}
                         <div id="cmp-result" class="hidden p-5 rounded-2xl border">
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="text-3xl" id="cmp-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></span>
+                                <span class="text-3xl" id="cmp-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                    </svg></span>
                                 <div>
                                     <p class="font-bold text-base" id="cmp-title">Hashes Match</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="cmp-message"></p>
@@ -317,12 +331,15 @@
                         {{-- Drop zone --}}
                         <div id="chk-drop-zone"
                             class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
-                            <div class="text-4xl mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></div>
+                            <div class="text-4xl mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                    <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                                </svg></div>
                             <h2 class="text-base font-bold mb-1">Drop a file to verify its checksum</h2>
                             <p class="text-fn-text3 text-sm mb-4">Any file type · Max 200MB</p>
                             <div
@@ -336,12 +353,16 @@
                             class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
                                 class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                    <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                                </svg>
+                            </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="chk-file-name">file.pdf</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="chk-file-meta">—</p>
@@ -412,11 +433,15 @@
                             </div>
                             {{-- Verify result --}}
                             <div id="chk-verify-result" class="hidden p-4 rounded-2xl border flex items-center gap-3">
-                                <span class="text-2xl" id="chk-verify-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></span>
+                                <span class="text-2xl" id="chk-verify-icon"><svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                    </svg></span>
                                 <div>
                                     <p class="font-bold text-sm" id="chk-verify-title">Checksum Verified</p>
                                     <p class="text-sm text-fn-text3 mt-0.5" id="chk-verify-sub"></p>
@@ -483,9 +508,21 @@
                         <td class="px-4 py-2.5 text-sm font-mono text-fn-text3">{{ $bits }}</td>
                         <td class="px-4 py-2.5">
                             @if($secure)
-                            <span class="text-sm font-bold text-fn-green"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg></span>
+                            <span class="text-sm font-bold text-fn-green"><svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-check" width="1em" height="1em"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                    style="vertical-align:-0.125em">
+                                    <path d="M5 12l5 5l10 -10" />
+                                </svg></span>
                             @else
-                            <span class="text-sm font-bold text-fn-red"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy</span>
+                            <span class="text-sm font-bold text-fn-red"><svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
+                                    <path d="M18 6l-12 12" />
+                                    <path d="M6 6l12 12" />
+                                </svg> Legacy</span>
                             @endif
                         </td>
                         <td class="px-4 py-2.5 text-sm text-fn-text3">{{ $use }}</td>

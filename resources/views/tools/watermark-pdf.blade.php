@@ -16,7 +16,8 @@
                 @php $wmSteps = [['1','Upload PDF'],['2','Watermarking'],['3','Download']]; @endphp
                 @foreach($wmSteps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
-                    <div class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">{{ $n }}</span>
                     </div>
                     <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
@@ -41,18 +42,25 @@
                             <div id="drop-zone"
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-8 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                 <div class="flex items-center justify-center mb-4">
-                                    <div class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                    <div
+                                        class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                            <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                            <path d="M17 12h3" />
+                                            <path d="M21 8h-4v8" />
+                                        </svg></div>
                                 </div>
                                 <h2 class="text-base font-bold mb-1.5">Drop your PDF here</h2>
                                 <p class="text-fn-text3 text-sm mb-4">or click to browse</p>
-                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <div
+                                    class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
@@ -60,24 +68,33 @@
                                     Choose PDF
                                 </div>
                                 <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
-                                <input type="file" id="file-input" accept=".pdf,application/pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                                <input type="file" id="file-input" accept=".pdf,application/pdf"
+                                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
 
                             {{-- File preview --}}
-                            <div id="file-preview" class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                            <div id="file-preview"
+                                class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                        <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                        <path d="M17 12h3" />
+                                        <path d="M21 8h-4v8" />
+                                    </svg></div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                                 </div>
-                                <button type="button" id="remove-file" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <button type="button" id="remove-file"
+                                    class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <line x1="18" y1="6" x2="6" y2="18" />
                                         <line x1="6" y1="6" x2="18" y2="18" />
                                     </svg>
@@ -91,18 +108,32 @@
                                     <button type="button" id="type-text"
                                         class="wm-type-btn active flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"
                                         data-type="text">
-                                        <span><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-typography" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 20l3 0" /><path d="M14 20l7 0" /><path d="M6.9 15l6.9 0" /><path d="M10.2 6.3l5.8 13.7" /><path d="M5 20l6 -16l2 0l7 16" /></svg></span> Text
+                                        <span><svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-typography" width="1em" height="1em"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                                style="vertical-align:-0.125em">
+                                                <path d="M4 20l3 0" />
+                                                <path d="M14 20l7 0" />
+                                                <path d="M6.9 15l6.9 0" />
+                                                <path d="M10.2 6.3l5.8 13.7" />
+                                                <path d="M5 20l6 -16l2 0l7 16" />
+                                            </svg></span> Text
                                     </button>
                                     <button type="button" id="type-image"
                                         class="wm-type-btn flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"
                                         data-type="image">
-                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M15 8h.01" />
-	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
-	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg></span> Image
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M15 8h.01" />
+                                                <path
+                                                    d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+                                                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+                                                <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+                                            </svg></span> Image
                                     </button>
                                 </div>
                             </div>
@@ -112,13 +143,17 @@
 
                                 {{-- Watermark text --}}
                                 <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                    <label for="opt-text" class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Text</label>
+                                    <label for="opt-text"
+                                        class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Text</label>
                                     <input type="text" id="opt-text" value="CONFIDENTIAL" maxlength="60"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40" />
                                     <div class="flex gap-2 mt-2 flex-wrap">
-                                        @php $presetTexts = ['CONFIDENTIAL','DRAFT','SAMPLE','TOP SECRET','COPY']; @endphp
+                                        @php $presetTexts = ['CONFIDENTIAL','DRAFT','SAMPLE','TOP SECRET','COPY'];
+                                        @endphp
                                         @foreach($presetTexts as $pt)
-                                        <button type="button" class="preset-text-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm rounded-lg font-mono transition-all">{{ $pt }}</button>
+                                        <button type="button"
+                                            class="preset-text-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm rounded-lg font-mono transition-all">{{
+                                            $pt }}</button>
                                         @endforeach
                                     </div>
                                 </div>
@@ -168,25 +203,35 @@
                             <div id="image-options" class="hidden space-y-3">
                                 <div id="img-drop-zone"
                                     class="border-2 border-dashed border-fn-text/15 rounded-xl p-6 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
-                                    <div class="text-2xl mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M15 8h.01" />
-	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
-	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg></div>
+                                    <div class="text-2xl mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M15 8h.01" />
+                                            <path
+                                                d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+                                            <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+                                            <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+                                        </svg></div>
                                     <p class="text-sm font-semibold mb-1">Drop watermark image</p>
                                     <p class="text-fn-text3 text-sm">PNG or JPG · transparent PNG recommended</p>
-                                    <input type="file" id="img-input" accept=".png,.jpg,.jpeg,image/png,image/jpeg" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                                    <input type="file" id="img-input" accept=".png,.jpg,.jpeg,image/png,image/jpeg"
+                                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
-                                <div id="img-preview-wrap" class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
-                                    <img id="img-preview-thumb" src="" alt="" class="w-10 h-10 rounded-lg object-contain bg-fn-surface border border-fn-text/8 shrink-0" />
+                                <div id="img-preview-wrap"
+                                    class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
+                                    <img id="img-preview-thumb" src="" alt=""
+                                        class="w-10 h-10 rounded-lg object-contain bg-fn-surface border border-fn-text/8 shrink-0" />
                                     <div class="flex-1 min-w-0">
                                         <p class="font-semibold text-sm truncate" id="img-name">logo.png</p>
                                         <p class="text-fn-text3 text-sm mt-0.5" id="img-meta">—</p>
                                     </div>
-                                    <button type="button" id="remove-img" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
-                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <button type="button" id="remove-img"
+                                        class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                            stroke-linejoin="round">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
                                         </svg>
@@ -207,23 +252,24 @@
                                     style="aspect-ratio:210/297; max-height:280px;">
                                     {{-- Fake page lines --}}
                                     <div class="absolute inset-0 p-6 flex flex-col gap-2 opacity-20">
-                                        @for($i = 0; $i < 12; $i++)
-                                            <div class="h-px bg-gray-300 rounded" style="width:{{ rand(60,95) }}%">
+                                        @for($i = 0; $i < 12; $i++) <div class="h-px bg-gray-300 rounded"
+                                            style="width:{{ rand(60,95) }}%">
                                     </div>
                                     @endfor
                                 </div>
                                 {{-- Watermark overlay --}}
                                 <div id="preview-watermark"
                                     class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                                    <span id="preview-text"
-                                        class="font-bold tracking-widest text-center leading-none"
+                                    <span id="preview-text" class="font-bold tracking-widest text-center leading-none"
                                         style="color:rgba(156,163,175,0.35); font-size:clamp(18px,7vw,42px); transform:rotate(-45deg); white-space:nowrap;">
                                         CONFIDENTIAL
                                     </span>
-                                    <img id="preview-img" src="" alt="" class="hidden max-w-1/2 max-h-1/2 object-contain" style="opacity:0.3;" />
+                                    <img id="preview-img" src="" alt=""
+                                        class="hidden max-w-1/2 max-h-1/2 object-contain" style="opacity:0.3;" />
                                 </div>
                             </div>
-                            <p class="text-fn-text3 text-sm mt-2 text-center">Approximate preview — actual output may vary</p>
+                            <p class="text-fn-text3 text-sm mt-2 text-center">Approximate preview — actual output may
+                                vary</p>
                         </div>
 
                         {{-- Position --}}
@@ -274,19 +320,23 @@
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                Pages <span class="font-normal text-fn-text3 ml-1">(optional — leave blank for all)</span>
+                                Pages <span class="font-normal text-fn-text3 ml-1">(optional — leave blank for
+                                    all)</span>
                             </label>
                             <input type="text" id="opt-pages" placeholder="e.g. 1,2,3 or 1-5"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-fn-text3 text-sm mt-1.5">Comma-separated page numbers · leave blank to watermark all pages</p>
+                            <p class="text-fn-text3 text-sm mt-1.5">Comma-separated page numbers · leave blank to
+                                watermark all pages</p>
                         </div>
 
                     </div>{{-- /right col --}}
                 </div>{{-- /grid --}}
 
                 {{-- Error banner --}}
-                <div id="upload-error" class="hidden mt-5 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round" stroke-linejoin="round">
+                <div id="upload-error"
+                    class="hidden mt-5 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        class="text-fn-red shrink-0" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -297,7 +347,8 @@
                 {{-- Action button --}}
                 <button id="action-btn" type="button" disabled
                     class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 2L2 7l10 5 10-5-10-5z" />
                         <path d="M2 17l10 5 10-5" />
                         <path d="M2 12l10 5 10-5" />
@@ -310,25 +361,36 @@
             {{-- ── STATE: Processing ── --}}
             <div id="state-converting" class="hidden text-center py-6">
                 <div class="flex items-center justify-center gap-5 mb-8">
-                    <div class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                            <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                            <path d="M17 12h3" />
+                            <path d="M21 8h-4v8" />
+                        </svg></div>
                     <div class="flex gap-1">
-                        <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:0s"></span>
-                        <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.15s"></span>
-                        <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.3s"></span>
+                        <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                            style="animation-delay:0s"></span>
+                        <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                            style="animation-delay:.15s"></span>
+                        <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                            style="animation-delay:.3s"></span>
                     </div>
-                    <div class="w-16 h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-3xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-badge-tm">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />
-	<path d="M6 9h4" />
-	<path d="M8 9v6" />
-	<path d="M13 15v-6l2 3l2 -3v6" />
-</svg></div>
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center text-3xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-badge-tm">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />
+                            <path d="M6 9h4" />
+                            <path d="M8 9v6" />
+                            <path d="M13 15v-6l2 3l2 -3v6" />
+                        </svg></div>
                 </div>
                 <h2 class="text-xl font-bold mb-2">Applying watermark…</h2>
                 <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
@@ -352,12 +414,15 @@
                     @endphp
                     @foreach($wmProcSteps as [$pid, $plabel])
                     <div class="flex items-center gap-3" id="{{ $pid }}">
-                        <div class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
-                            <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <div
+                            class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                            <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
                             <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                    stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                             </svg>
                         </div>
                         <span class="text-sm text-fn-text3">{{ $plabel }}</span>
@@ -368,22 +433,31 @@
 
             {{-- ── STATE: Download ── --}}
             <div id="state-download" class="hidden text-center py-6">
-                <div class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                <div
+                    class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                        <path d="M9 12l2 2l4 -4" />
+                    </svg></div>
                 <h2 class="text-2xl font-bold mb-2">Watermark Applied!</h2>
                 <p class="text-fn-text2 text-sm mb-8">Your watermarked PDF is ready.</p>
 
-                <div class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
-                    <div class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-badge-tm">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />
-	<path d="M6 9h4" />
-	<path d="M8 9v6" />
-	<path d="M13 15v-6l2 3l2 -3v6" />
-</svg></div>
+                <div
+                    class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-badge-tm">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />
+                            <path d="M6 9h4" />
+                            <path d="M8 9v6" />
+                            <path d="M13 15v-6l2 3l2 -3v6" />
+                        </svg></div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">watermarked.pdf</p>
                         <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
@@ -394,7 +468,8 @@
                 <a id="download-link" href="#" download="watermarked.pdf"
                     class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                     style="background: oklch(67% 0.18 162);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
@@ -405,19 +480,22 @@
                 <div class="flex items-center justify-center gap-3 flex-wrap">
                     <button type="button" onclick="resetConverter()"
                         class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="1 4 1 10 7 10" />
                             <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                         </svg>
                         Watermark another
                     </button>
-                    <a href="/tools" class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
+                    <a href="/tools"
+                        class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
                         All tools
                     </a>
                 </div>
 
                 <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
                     Your file is encrypted and permanently deleted within 1 hour.
@@ -437,18 +515,28 @@
         <div class="space-y-3">
             @php
             $wmFaqs = [
-            ['What types of watermark can I add?', 'You can add a text watermark (e.g. CONFIDENTIAL, DRAFT) with full control over colour, font size, opacity, angle, and position — or an image watermark using any PNG or JPG, which is especially useful for logo branding. Transparent-background PNGs work best for image watermarks.'],
-            ['Can I watermark only specific pages?', 'Yes — enter comma-separated page numbers in the Pages field (e.g. 1,2,3). Leave the field blank to apply the watermark to every page in the document.'],
-            ['What positions are available?', 'Nine positions are supported: center, top, bottom, top-left, top-right, bottom-left, bottom-right, left, and right. Use the 3×3 position grid to pick visually.'],
-            ['What opacity should I choose?', '0.3 is the default — balanced and visible without obscuring content. Use 0.1 for a very subtle watermark, 0.5 for medium visibility, or 0.8+ for a heavy stamp. 1.0 is fully opaque.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted within 1 hour. We never read, share or store your content.'],
+            ['What types of watermark can I add?', 'You can add a text watermark (e.g. CONFIDENTIAL, DRAFT) with full
+            control over colour, font size, opacity, angle, and position — or an image watermark using any PNG or JPG,
+            which is especially useful for logo branding. Transparent-background PNGs work best for image watermarks.'],
+            ['Can I watermark only specific pages?', 'Yes — enter comma-separated page numbers in the Pages field (e.g.
+            1,2,3). Leave the field blank to apply the watermark to every page in the document.'],
+            ['What positions are available?', 'Nine positions are supported: center, top, bottom, top-left, top-right,
+            bottom-left, bottom-right, left, and right. Use the 3×3 position grid to pick visually.'],
+            ['What opacity should I choose?', '0.3 is the default — balanced and visible without obscuring content. Use
+            0.1 for a very subtle watermark, 0.5 for medium visibility, or 0.8+ for a heavy stamp. 1.0 is fully
+            opaque.'],
+            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            within 1 hour. We never read, share or store your content.'],
             ];
             @endphp
             @foreach($wmFaqs as [$q,$a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
-                <button type="button" class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
                     <span class="font-semibold text-sm">{{ $q }}</span>
-                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </button>
@@ -468,53 +556,53 @@
 <x-tools-section />
 
 @push('styles')
-    {{-- ══ STYLES ══ --}}
-    <style>
-        .wm-type-btn {
-            color: var(--fn-text3);
-            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-            background: var(--fn-surface);
-        }
+{{-- ══ STYLES ══ --}}
+<style>
+    .wm-type-btn {
+        color: var(--fn-text3);
+        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+        background: var(--fn-surface);
+    }
 
-        .wm-type-btn.active {
-            color: var(--fn-blue-l);
-            border-color: oklch(49% 0.24 264/40%);
-            background: oklch(49% 0.24 264/8%);
-        }
+    .wm-type-btn.active {
+        color: var(--fn-blue-l);
+        border-color: oklch(49% 0.24 264/40%);
+        background: oklch(49% 0.24 264/8%);
+    }
 
-        .pos-btn {
-            color: var(--fn-text3);
-            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-            background: var(--fn-surface);
-        }
+    .pos-btn {
+        color: var(--fn-text3);
+        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+        background: var(--fn-surface);
+    }
 
-        .pos-btn.active {
-            color: var(--fn-blue-l);
-            border-color: oklch(49% 0.24 264/40%);
-            background: oklch(49% 0.24 264/8%);
-        }
+    .pos-btn.active {
+        color: var(--fn-blue-l);
+        border-color: oklch(49% 0.24 264/40%);
+        background: oklch(49% 0.24 264/8%);
+    }
 
-        .pos-btn:not(.active):hover {
-            border-color: oklch(49% 0.24 264/25%);
-            color: var(--fn-text);
-        }
+    .pos-btn:not(.active):hover {
+        border-color: oklch(49% 0.24 264/25%);
+        color: var(--fn-text);
+    }
 
-        .color-btn.active {
-            outline: 3px solid oklch(49% 0.24 264);
-            outline-offset: 2px;
-        }
+    .color-btn.active {
+        outline: 3px solid oklch(49% 0.24 264);
+        outline-offset: 2px;
+    }
 
-        /* Preview positioning */
-        #preview-watermark {
-            transition: all .2s ease;
-        }
-    </style>
+    /* Preview positioning */
+    #preview-watermark {
+        transition: all .2s ease;
+    }
+</style>
 @endpush
 
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
 
             // ── State ──
             let selectedFile = null;
@@ -1006,7 +1094,7 @@
             });
 
         }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

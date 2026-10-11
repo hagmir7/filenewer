@@ -42,16 +42,21 @@
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                    <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                    <path d="M17 12h3" />
+                                    <path d="M21 8h-4v8" />
+                                </svg>
+                            </div>
                         </div>
                         <h2 class="text-lg font-bold mb-2">Drop PDF files here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Drop 2 or more PDFs — or click to browse from your computer</p>
+                        <p class="text-fn-text3 text-sm mb-6">Drop 2 or more PDFs — or click to browse from your
+                            computer</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -76,12 +81,20 @@
                             <div class="flex gap-2">
                                 <button type="button" id="btn-add-more"
                                     class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
-                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                    </svg>
                                     Add more
                                 </button>
                                 <button type="button" id="btn-clear-all"
                                     class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
-                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6" />
+                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                    </svg>
                                     Clear all
                                 </button>
                             </div>
@@ -95,14 +108,19 @@
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2.5">
                             <p class="text-sm font-semibold text-fn-text2 mb-1">Merge Options</p>
                             @foreach([
-                                ['opt-bookmarks',   'Add bookmarks',    'One bookmark per source file',   true],
-                                ['opt-page-numbers','Add page numbers', 'Adds numbering at page bottom', false],
+                            ['opt-bookmarks', 'Add bookmarks', 'One bookmark per source file', true],
+                            ['opt-page-numbers','Add page numbers', 'Adds numbering at page bottom', false],
                             ] as [$tid, $tlabel, $tdesc, $tdefault])
                             <label class="flex items-start gap-2.5 cursor-pointer select-none">
                                 <div class="toggle-wrap relative w-8 h-4 mt-0.5">
-                                    <input type="checkbox" id="{{ $tid }}" {{ $tdefault ? 'checked' : '' }} class="sr-only peer" />
-                                    <div class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors"></div>
-                                    <div class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4"></div>
+                                    <input type="checkbox" id="{{ $tid }}" {{ $tdefault ? 'checked' : '' }}
+                                        class="sr-only peer" />
+                                    <div
+                                        class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
+                                    </div>
+                                    <div
+                                        class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
+                                    </div>
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</p>
@@ -132,8 +150,19 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                     <button type="button" id="toggle-password"
                                         class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
-                                        <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                                        <svg id="eye-hide" class="hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                        <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                        <svg id="eye-hide" class="hidden" width="15" height="15" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path
+                                                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                            <line x1="1" y1="1" x2="23" y2="23" />
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -158,7 +187,9 @@
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M8 6l4-4 4 4"/><path d="M12 2v14"/><rect x="4" y="16" width="16" height="6" rx="1"/>
+                            <path d="M8 6l4-4 4 4" />
+                            <path d="M12 2v14" />
+                            <rect x="4" y="16" width="16" height="6" rx="1" />
                         </svg>
                         Merge PDFs
                     </button>
@@ -168,28 +199,42 @@
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
-                        <div class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-3xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg></div>
                         <div class="flex gap-1">
-                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:0s"></span>
-                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.15s"></span>
-                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce" style="animation-delay:.3s"></span>
+                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:0s"></span>
+                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:.15s"></span>
+                            <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
+                                style="animation-delay:.3s"></span>
                         </div>
-                        <div class="w-16 h-16 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-3xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-books">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-  <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-  <path d="M5 8h4" />
-  <path d="M9 16h4" />
-  <path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041" />
-  <path d="M14 9l4 -1" />
-  <path d="M16 16l3.923 -.98" />
-</svg></div>
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-3xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                <path
+                                    d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                <path d="M5 8h4" />
+                                <path d="M9 16h4" />
+                                <path
+                                    d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041" />
+                                <path d="M14 9l4 -1" />
+                                <path d="M16 16l3.923 -.98" />
+                            </svg></div>
                     </div>
 
                     <h2 class="text-xl font-bold mb-2">Merging your PDFs…</h2>
@@ -207,15 +252,24 @@
 
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
-                            ['proc-1','Uploading PDF files'],
-                            ['proc-2','Reading pages & metadata'],
-                            ['proc-3','Merging into one document'],
-                            ['proc-4','Adding bookmarks & encryption'],
+                        ['proc-1','Uploading PDF files'],
+                        ['proc-2','Reading pages & metadata'],
+                        ['proc-3','Merging into one document'],
+                        ['proc-4','Adding bookmarks & encryption'],
                         ] as [$pid, $plabel])
                         <div class="flex items-center gap-3" id="{{ $pid }}">
-                            <div class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
-                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg>
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
                             </div>
                             <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
@@ -225,20 +279,24 @@
 
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
-                    <div class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></div>
+                    <div
+                        class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 12l2 2l4 -4" />
+                        </svg></div>
                     <h2 class="text-2xl font-bold mb-2">Merge Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your merged PDF is ready.</p>
 
                     {{-- Stats grid --}}
                     <div class="max-w-2xl mx-auto grid grid-cols-3 gap-2 mb-6">
                         @foreach([
-                            ['stat-files','Files merged'],
-                            ['stat-pages','Total pages'],
-                            ['stat-size','File size'],
+                        ['stat-files','Files merged'],
+                        ['stat-pages','Total pages'],
+                        ['stat-size','File size'],
                         ] as [$sid, $slabel])
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <p class="text-xs text-fn-text3 mb-1">{{ $slabel }}</p>
@@ -255,14 +313,19 @@
                         </div>
                     </div>
 
-                    <div class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
-                        <div class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                    <div
+                        class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-2xl shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">merged.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
@@ -273,20 +336,32 @@
                     <a id="download-link" href="#" download="merged.pdf"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
                         Download Merged PDF
                     </a>
 
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="1 4 1 10 7 10" />
+                                <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                            </svg>
                             Merge more PDFs
                         </button>
                     </div>
 
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
                         Your file is encrypted and permanently deleted within 1 hour.
                     </p>
                 </div>
@@ -303,11 +378,18 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-                ['How many PDFs can I merge at once?', 'You can merge between 2 and 50 PDF files at once. Each file can be up to 50MB on the free plan.'],
-                ['Can I reorder files before merging?', 'Yes — once your files are uploaded, drag and drop them in the list to set the exact order they should appear in the merged PDF. You can also remove individual files without starting over.'],
-                ['What are bookmarks?', 'Bookmarks are a navigation panel in the merged PDF — one bookmark per source file, named after the original filename. They let readers jump straight to the start of each section. Enabled by default.'],
-                ['Can I password-protect the merged PDF?', 'Yes — enter a password in the optional password field before merging. The output PDF will be encrypted and require that password to open.'],
-                ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted within 1 hour. We never read, share or store your content.'],
+            ['How many PDFs can I merge at once?', 'You can merge between 2 and 50 PDF files at once. Each file can be
+            up to 50MB on the free plan.'],
+            ['Can I reorder files before merging?', 'Yes — once your files are uploaded, drag and drop them in the list
+            to set the exact order they should appear in the merged PDF. You can also remove individual files without
+            starting over.'],
+            ['What are bookmarks?', 'Bookmarks are a navigation panel in the merged PDF — one bookmark per source file,
+            named after the original filename. They let readers jump straight to the start of each section. Enabled by
+            default.'],
+            ['Can I password-protect the merged PDF?', 'Yes — enter a password in the optional password field before
+            merging. The output PDF will be encrypted and require that password to open.'],
+            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            within 1 hour. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
@@ -348,21 +430,28 @@
         transition: border-color .15s, background .15s, box-shadow .15s;
         user-select: none;
     }
-    .file-item:hover { border-color: oklch(49% 0.24 264 / 25%); }
+
+    .file-item:hover {
+        border-color: oklch(49% 0.24 264 / 25%);
+    }
+
     .file-item.dragging {
         opacity: 0.5;
         cursor: grabbing;
     }
+
     .file-item.drag-over-target {
         border-color: oklch(49% 0.24 264 / 50%);
         background: oklch(49% 0.24 264 / 5%);
         box-shadow: 0 -2px 0 0 oklch(49% 0.24 264);
     }
+
     .file-item .drag-handle {
         color: var(--fn-text3);
         cursor: grab;
         padding: 2px;
     }
+
     .file-item .file-order {
         width: 22px;
         height: 22px;
@@ -376,6 +465,7 @@
         justify-content: center;
         flex-shrink: 0;
     }
+
     .file-item .file-icon {
         width: 36px;
         height: 36px;
@@ -389,12 +479,36 @@
         flex-shrink: 0;
         font-size: 18px;
     }
-    .file-item .file-info   { flex: 1; min-width: 0; }
-    .file-item .file-name   { font-size: 13px; font-weight: 600; color: var(--fn-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .file-item .file-meta   { font-size: 11px; color: var(--fn-text3); margin-top: 2px; }
-    .file-item .file-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+    .file-item .file-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .file-item .file-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--fn-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .file-item .file-meta {
+        font-size: 11px;
+        color: var(--fn-text3);
+        margin-top: 2px;
+    }
+
+    .file-item .file-actions {
+        display: flex;
+        gap: 4px;
+        flex-shrink: 0;
+    }
+
     .file-item .icon-btn {
-        width: 26px; height: 26px;
+        width: 26px;
+        height: 26px;
         border-radius: 6px;
         border: 1px solid oklch(var(--fn-text-l, 80%) 0 0 / 10%);
         background: var(--fn-surface);
@@ -405,9 +519,22 @@
         transition: all .15s;
         cursor: pointer;
     }
-    .file-item .icon-btn:hover { color: var(--fn-text); border-color: oklch(49% 0.24 264 / 30%); }
-    .file-item .icon-btn.danger:hover { color: var(--fn-red); border-color: oklch(62% 0.22 25 / 30%); background: oklch(62% 0.22 25 / 6%); }
-    .file-item .icon-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .file-item .icon-btn:hover {
+        color: var(--fn-text);
+        border-color: oklch(49% 0.24 264 / 30%);
+    }
+
+    .file-item .icon-btn.danger:hover {
+        color: var(--fn-red);
+        border-color: oklch(62% 0.22 25 / 30%);
+        background: oklch(62% 0.22 25 / 6%);
+    }
+
+    .file-item .icon-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
 
     /* Bookmarks table */
     #bookmarks-table th {
@@ -420,18 +547,22 @@
         white-space: nowrap;
         font-size: 11px;
     }
+
     #bookmarks-table td {
         padding: 5px 10px;
         color: var(--fn-text2);
         border-bottom: 1px solid oklch(var(--fn-text-l, 80%) 0 0 / 6%);
         font-size: 12px;
     }
-    #bookmarks-table tr:last-child td { border-bottom: none; }
+
+    #bookmarks-table tr:last-child td {
+        border-bottom: none;
+    }
 </style>
 
 @push('footer')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
   // ── Refs ──
   const dropZone    = document.getElementById('drop-zone');

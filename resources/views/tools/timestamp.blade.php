@@ -102,7 +102,13 @@
                                 </button>
                                 <button type="button" id="btn-clear-single"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
+                                        width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        aria-hidden="true" style="vertical-align:-0.125em">
+                                        <path d="M18 6l-12 12" />
+                                        <path d="M6 6l12 12" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -302,97 +308,97 @@
 <x-tools-section />
 
 @push('styles')
-    {{-- ══ STYLES ══ --}}
-    <style>
-        .tab-btn {
-            color: var(--fn-text3);
-        }
+{{-- ══ STYLES ══ --}}
+<style>
+    .tab-btn {
+        color: var(--fn-text3);
+    }
 
-        .tab-btn.active {
-            background: var(--fn-surface);
-            color: var(--fn-text);
-            box-shadow: 0 1px 6px oklch(0% 0 0/14%);
-        }
+    .tab-btn.active {
+        background: var(--fn-surface);
+        color: var(--fn-text);
+        box-shadow: 0 1px 6px oklch(0% 0 0/14%);
+    }
 
-        .format-card {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            padding: 10px 14px;
-            background: var(--fn-surface2);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: border-color .15s, background .15s;
-            position: relative;
-        }
+    .format-card {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 10px 14px;
+        background: var(--fn-surface2);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: border-color .15s, background .15s;
+        position: relative;
+    }
 
-        .format-card:hover {
-            border-color: oklch(49% 0.24 264/30%);
-            background: oklch(49% 0.24 264/4%);
-        }
+    .format-card:hover {
+        border-color: oklch(49% 0.24 264/30%);
+        background: oklch(49% 0.24 264/4%);
+    }
 
-        .format-card .card-label {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--fn-text3);
-        }
+    .format-card .card-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--fn-text3);
+    }
 
-        .format-card .card-value {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--fn-text);
-            font-family: monospace;
-            word-break: break-all;
-        }
+    .format-card .card-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--fn-text);
+        font-family: monospace;
+        word-break: break-all;
+    }
 
-        .format-card .card-copy {
-            position: absolute;
-            top: 8px;
-            right: 10px;
-            opacity: 0;
-            font-size: 10px;
-            color: var(--fn-blue-l);
-            font-weight: 600;
-            transition: opacity .15s;
-        }
+    .format-card .card-copy {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        opacity: 0;
+        font-size: 10px;
+        color: var(--fn-blue-l);
+        font-weight: 600;
+        transition: opacity .15s;
+    }
 
-        .format-card:hover .card-copy {
-            opacity: 1;
-        }
+    .format-card:hover .card-copy {
+        opacity: 1;
+    }
 
-        .format-card.copied {
-            border-color: oklch(67% 0.18 162/40%);
-            background: oklch(67% 0.18 162/6%);
-        }
+    .format-card.copied {
+        border-color: oklch(67% 0.18 162/40%);
+        background: oklch(67% 0.18 162/6%);
+    }
 
-        .batch-result-card {
-            padding: 10px 14px;
-            background: var(--fn-surface2);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-            border-radius: 10px;
-            transition: all .15s;
-        }
+    .batch-result-card {
+        padding: 10px 14px;
+        background: var(--fn-surface2);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+        border-radius: 10px;
+        transition: all .15s;
+    }
 
-        .batch-result-card.success {
-            border-left: 3px solid oklch(67% 0.18 162);
-        }
+    .batch-result-card.success {
+        border-left: 3px solid oklch(67% 0.18 162);
+    }
 
-        .batch-result-card.failed {
-            border-left: 3px solid oklch(62% 0.22 25);
-            background: oklch(62% 0.22 25/5%);
-        }
+    .batch-result-card.failed {
+        border-left: 3px solid oklch(62% 0.22 25);
+        background: oklch(62% 0.22 25/5%);
+    }
 
-        .example-btn:hover {
-            background: oklch(49% 0.24 264/8%);
-        }
-    </style>
+    .example-btn:hover {
+        background: oklch(49% 0.24 264/8%);
+    }
+</style>
 @endpush
 
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
       // ── Timezone list ──
       const TIMEZONES = [
@@ -748,7 +754,7 @@
       }
 
     }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

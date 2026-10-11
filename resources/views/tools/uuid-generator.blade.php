@@ -18,23 +18,29 @@
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $uuidTabs = [
-                ['generate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-</svg>', 'Generate'],
-                ['validate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg>', 'Validate'],
-                ['bulk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
-  <path d="M12 12l8 -4.5" />
-  <path d="M12 12l0 9" />
-  <path d="M12 12l-8 -4.5" />
-  <path d="M16 5.25l-8 4.5" />
-</svg>', 'Bulk Export'],
+                ['generate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+                </svg>', 'Generate'],
+                ['validate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                    <path d="M9 12l2 2l4 -4" />
+                </svg>', 'Validate'],
+                ['bulk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
+                    <path d="M12 12l8 -4.5" />
+                    <path d="M12 12l0 9" />
+                    <path d="M12 12l-8 -4.5" />
+                    <path d="M16 5.25l-8 4.5" />
+                </svg>', 'Bulk Export'],
                 ];
                 @endphp
                 @foreach($uuidTabs as [$tval,$ticon,$tlabel])
@@ -270,11 +276,15 @@
                         {{-- Result --}}
                         <div id="val-result" class="hidden p-5 rounded-2xl border space-y-4">
                             <div class="flex items-center gap-3">
-                                <span class="text-3xl" id="val-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-  <path d="M9 12l2 2l4 -4" />
-</svg></span>
+                                <span class="text-3xl" id="val-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                    </svg></span>
                                 <div>
                                     <p class="font-bold text-base" id="val-title">Valid UUID</p>
                                     <p class="text-fn-text3 text-sm mt-0.5 font-mono" id="val-uuid-display"></p>
@@ -445,7 +455,13 @@
                     <span class="text-base font-black text-fn-text">{{ $ver }}</span>
                     @if($sortable)
                     <span
-                        class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>
+                        class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold"><svg
+                            xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em"
+                            height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                            style="vertical-align:-0.125em">
+                            <path d="M5 12l5 5l10 -10" />
+                        </svg>
                         Sortable</span>
                     @else
                     <span
@@ -467,155 +483,155 @@
 <x-tools-section />
 
 @push('styles')
-    {{-- ══ STYLES ══ --}}
-    <style>
-        .tab-btn {
-            color: var(--fn-text3);
-        }
+{{-- ══ STYLES ══ --}}
+<style>
+    .tab-btn {
+        color: var(--fn-text3);
+    }
 
-        .tab-btn.active {
-            background: var(--fn-surface);
-            color: var(--fn-text);
-            box-shadow: 0 1px 6px oklch(0% 0 0/14%);
-        }
+    .tab-btn.active {
+        background: var(--fn-surface);
+        color: var(--fn-text);
+        box-shadow: 0 1px 6px oklch(0% 0 0/14%);
+    }
 
-        .ver-btn,
-        .bulk-ver-btn {
-            border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
-            background: var(--fn-surface);
-            color: var(--fn-text3);
-        }
+    .ver-btn,
+    .bulk-ver-btn {
+        border-color: oklch(var(--fn-text-l, 80%) 0 0/10%);
+        background: var(--fn-surface);
+        color: var(--fn-text3);
+    }
 
-        .ver-btn.active,
-        .bulk-ver-btn.active {
-            color: var(--fn-blue-l);
-            border-color: oklch(49% 0.24 264/40%);
-            background: oklch(49% 0.24 264/8%);
-        }
+    .ver-btn.active,
+    .bulk-ver-btn.active {
+        color: var(--fn-blue-l);
+        border-color: oklch(49% 0.24 264/40%);
+        background: oklch(49% 0.24 264/8%);
+    }
 
-        .ver-btn:not(.active):hover,
-        .bulk-ver-btn:not(.active):hover {
-            border-color: oklch(49% 0.24 264/25%);
-            color: var(--fn-text);
-        }
+    .ver-btn:not(.active):hover,
+    .bulk-ver-btn:not(.active):hover {
+        border-color: oklch(49% 0.24 264/25%);
+        color: var(--fn-text);
+    }
 
-        .uuid-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--fn-surface2);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-            border-radius: 10px;
-            transition: border-color .15s;
-            cursor: pointer;
-        }
+    .uuid-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: var(--fn-surface2);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+        border-radius: 10px;
+        transition: border-color .15s;
+        cursor: pointer;
+    }
 
-        .uuid-row:hover {
-            border-color: oklch(49% 0.24 264/30%);
-        }
+    .uuid-row:hover {
+        border-color: oklch(49% 0.24 264/30%);
+    }
 
-        .uuid-row .uuid-text {
-            font-family: monospace;
-            font-size: 13px;
-            color: var(--fn-text2);
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    .uuid-row .uuid-text {
+        font-family: monospace;
+        font-size: 13px;
+        color: var(--fn-text2);
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-        .uuid-row .uuid-num {
-            font-size: 10px;
-            color: var(--fn-text3);
-            width: 20px;
-            text-align: right;
-            flex-shrink: 0;
-        }
+    .uuid-row .uuid-num {
+        font-size: 10px;
+        color: var(--fn-text3);
+        width: 20px;
+        text-align: right;
+        flex-shrink: 0;
+    }
 
-        .uuid-row .uuid-copy {
-            font-size: 10px;
-            color: var(--fn-blue-l);
-            font-weight: 700;
-            opacity: 0;
-            transition: opacity .15s;
-            flex-shrink: 0;
-        }
+    .uuid-row .uuid-copy {
+        font-size: 10px;
+        color: var(--fn-blue-l);
+        font-weight: 700;
+        opacity: 0;
+        transition: opacity .15s;
+        flex-shrink: 0;
+    }
 
-        .uuid-row:hover .uuid-copy {
-            opacity: 1;
-        }
+    .uuid-row:hover .uuid-copy {
+        opacity: 1;
+    }
 
-        .uuid-row.copied {
-            border-color: oklch(67% 0.18 162/40%);
-            background: oklch(67% 0.18 162/6%);
-        }
+    .uuid-row.copied {
+        border-color: oklch(67% 0.18 162/40%);
+        background: oklch(67% 0.18 162/6%);
+    }
 
-        .val-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            background: var(--fn-surface2);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
-            color: var(--fn-text2);
-        }
+    .val-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--fn-surface2);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/10%);
+        color: var(--fn-text2);
+    }
 
-        .fmt-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 10px;
-            background: var(--fn-surface2);
-            border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: border-color .15s;
-        }
+    .fmt-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        background: var(--fn-surface2);
+        border: 1px solid oklch(var(--fn-text-l, 80%) 0 0/8%);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: border-color .15s;
+    }
 
-        .fmt-row:hover {
-            border-color: oklch(49% 0.24 264/30%);
-        }
+    .fmt-row:hover {
+        border-color: oklch(49% 0.24 264/30%);
+    }
 
-        .fmt-row-label {
-            font-size: 10px;
-            color: var(--fn-text3);
-            width: 80px;
-            flex-shrink: 0;
-        }
+    .fmt-row-label {
+        font-size: 10px;
+        color: var(--fn-text3);
+        width: 80px;
+        flex-shrink: 0;
+    }
 
-        .fmt-row-value {
-            font-size: 11px;
-            font-family: monospace;
-            color: var(--fn-text2);
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    .fmt-row-value {
+        font-size: 11px;
+        font-family: monospace;
+        color: var(--fn-text2);
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-        .fmt-row-copy {
-            font-size: 10px;
-            color: var(--fn-blue-l);
-            font-weight: 700;
-            opacity: 0;
-            flex-shrink: 0;
-            transition: opacity .15s;
-        }
+    .fmt-row-copy {
+        font-size: 10px;
+        color: var(--fn-blue-l);
+        font-weight: 700;
+        opacity: 0;
+        flex-shrink: 0;
+        transition: opacity .15s;
+    }
 
-        .fmt-row:hover .fmt-row-copy {
-            opacity: 1;
-        }
-    </style>
+    .fmt-row:hover .fmt-row-copy {
+        opacity: 1;
+    }
+</style>
 @endpush
 @push('footer')
-    {{-- ══ JAVASCRIPT ══ --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+{{-- ══ JAVASCRIPT ══ --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
       const API = 'https://api.filenewer.com/api/tools';
 
@@ -985,7 +1001,7 @@
       }
 
     }); // end DOMContentLoaded
-    </script>
+</script>
 @endpush
 
 @endsection

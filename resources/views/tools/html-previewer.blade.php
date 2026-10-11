@@ -292,14 +292,15 @@
         <p class="text-fn-text3 text-sm text-center mb-8">A full HTML workbench — right in your browser</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             @foreach([
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-            </svg>', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large documents.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            </svg>', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large
+            documents.'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-ruler-2">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M17 3l4 4l-14 14l-4 -4z" />
@@ -309,24 +310,29 @@
                 <path d="M7 16l-1.5 -1.5" />
             </svg>', 'Viewport switching', 'Test your layout at desktop, tablet (768px), and mobile (390px) widths
             instantly.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
-  <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-  <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-</svg>', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+                <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            </svg>', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
             both.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-	<path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-	<path d="M9.15 14.85l8.85 -10.85" />
-	<path d="M6 4l8.85 10.85" />
-</svg>', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                <path d="M9.15 14.85l8.85 -10.85" />
+                <path d="M6 4l8.85 10.85" />
+            </svg>', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
             click.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-123">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M3 10l2 -2v8" />
@@ -334,12 +340,14 @@
                 <path
                     d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
             </svg>', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-  <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-  <path d="M14 4l0 4l-6 0l0 -4" />
-</svg>', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
+            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M14 4l0 4l-6 0l0 -4" />
+            </svg>', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
             ] as [$icon, $title, $desc])
             <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <span class="text-xl shrink-0 mt-0.5">{!! $icon !!}</span>
