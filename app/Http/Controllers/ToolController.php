@@ -69,6 +69,9 @@ class ToolController extends Controller
         return view('tools.show', compact('tool', 'relatedTools', 'title', 'description', 'tags'));
     }
 
+
+
+
     public function pdfToWord()
     {
         $title = 'Convert PDF to Word Online Free';

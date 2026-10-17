@@ -88,7 +88,7 @@
 
         <!-- Bottom bar -->
         <div class="pt-7 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p class="text-fn-text3 text-sm md:text-sm">© 2025 Filenewer. All rights reserved.</p>
+            <p class="text-fn-text3 text-sm md:text-sm">© {{  now()->year  }} Filenewer. All rights reserved.</p>
             <ul class="flex items-center gap-5 list-none">
                 <li>
                     <a href="/pages/privacy-policy"
