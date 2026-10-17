@@ -334,7 +334,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted within 1 hour.
+                        Your file is encrypted and permanently deleted after processing.
                     </p>
 
                 </div>{{-- /state-result --}}
@@ -408,7 +408,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted within 1 hour.
+                        Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
 
@@ -439,7 +439,7 @@
             ['Can I download the extracted text?', 'Yes — choose "Download .txt file" in the Output options before
             extracting, or use the Download .txt button that appears alongside the inline preview.'],
             ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
-            within 1 hour. We never read, share or store your content.'],
+            after processing. We never read, share or store your content.'],
             ];
             @endphp
             @foreach($ocrFaqs as [$q,$a])

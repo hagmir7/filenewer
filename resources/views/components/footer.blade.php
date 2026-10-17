@@ -45,17 +45,17 @@
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="https://filenewer.com/pages/about-us"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About</a>
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About us</a>
                     </li>
                     <li>
-                        <a href="/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Blog</a>
+                        <a href="https://filenewer.com/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Blog</a>
                     </li>
                     <li>
-                        <a href="/contact"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact</a>
+                        <a href="https://filenewer.com/contact"
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact us</a>
                     </li>
                     <li>
-                        <a href="/sitemap.xml"
+                        <a href="https://filenewer.com/sitemap.xml"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Sitemap</a>
                     </li>
                 </ul>
@@ -66,19 +66,19 @@
                 <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Legal</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
-                        <a href="/pages/privacy-policy"
+                        <a href="https://filenewer.com/pages/privacy-policy"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Privacy Policy</a>
                     </li>
                     <li>
-                        <a href="/pages/terms-of-service"
+                        <a href="https://filenewer.com/pages/terms-of-service"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Terms of Service</a>
                     </li>
                     <li>
-                        <a href="/pages/gdpr-compliance-policy"
+                        <a href="https://filenewer.com/pages/gdpr-compliance-policy"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">GDPR</a>
                     </li>
                     <li>
-                        <a href="/pages/security-policy"
+                        <a href="https://filenewer.com/pages/security-policy"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Security</a>
                     </li>
                 </ul>
@@ -91,19 +91,19 @@
             <p class="text-fn-text3 text-sm md:text-sm">© {{  now()->year  }} Filenewer. All rights reserved.</p>
             <ul class="flex items-center gap-5 list-none">
                 <li>
-                    <a href="/pages/privacy-policy"
+                    <a href="https://filenewer.com/pages/privacy-policy"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Privacy</a>
                 </li>
                 <li>
-                    <a href="/pages/terms-of-service"
+                    <a href="https://filenewer.com/pages/terms-of-service"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Terms</a>
                 </li>
                 <li>
-                    <a href="/sitemap.xml"
+                    <a href="https://filenewer.com/sitemap.xml"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Sitemap</a>
                 </li>
                 <li>
-                    <a href="/contact"
+                    <a href="https://filenewer.com/contact"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Contact</a>
                 </li>
             </ul>

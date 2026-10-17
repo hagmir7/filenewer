@@ -339,7 +339,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your files are encrypted and permanently deleted within 1 hour.
+                        Your files are encrypted and permanently deleted after processing.
                     </p>
                 </div>
 
@@ -369,7 +369,7 @@
             ['Can I add a Table of Contents?', 'Yes, enable the Table of Contents option to insert an auto-generated TOC
             at the beginning of the merged document.'],
             ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
-            within 1 hour. We never read, share or store your content.'],
+            after processing. We never read, share or store your content.'],
             ];
             @endphp
 

@@ -55,10 +55,6 @@
                 <span><strong class="text-fn-text font-semibold">{{ $categories->count() }}</strong> categories</span>
             </div>
             <div class="flex items-center gap-2 text-fn-text3 text-sm">
-                <span class="w-2 h-2 rounded-full bg-fn-cyan"></span>
-                <span><strong class="text-fn-text font-semibold">2M+</strong> files processed</span>
-            </div>
-            <div class="flex items-center gap-2 text-fn-text3 text-sm">
                 <span class="w-2 h-2 rounded-full bg-fn-amber"></span>
                 <span><strong class="text-fn-text font-semibold">100%</strong> free to start</span>
             </div>
@@ -319,7 +315,7 @@
                         <div>
                             <h3 class="font-semibold text-sm mb-1">Automatic File Deletion</h3>
                             <p class="text-fn-text3 text-sm leading-relaxed">Uploaded files are permanently deleted
-                                from our servers within 1 hour of processing. No manual action needed.</p>
+                                from our servers after processing. No manual action needed.</p>
                         </div>
                     </div>
 
@@ -440,43 +436,6 @@
                             Share</span>
                         <span class="text-fn-red text-sm font-mono font-medium">BLOCKED</span>
                     </div>
-
-                    <div
-                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
-                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-globe">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M7 9a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                <path d="M5.75 15a8.015 8.015 0 1 0 9.5 0" />
-                                <path d="M11 17v4" />
-                                <path d="M7 21h8" />
-                            </svg> GDPR Compliance</span>
-                        <span
-                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">VERIFIED</span>
-                    </div>
-
-                    <div
-                        class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
-                        <span class="flex items-center gap-2.5 text-fn-text2 text-sm"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
-                                <path
-                                    d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
-                                <path
-                                    d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
-                                <path d="M4 20h14" />
-                            </svg> SOC 2 Audit Trail</span>
-                        <span
-                            class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">LOGGING</span>
-                    </div>
-
                 </div>
             </div>
 
@@ -497,19 +456,11 @@
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
             processing files smarter — right now</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Join thousands of freelancers, developers, and small businesses who rely on Filenewer's online file
+            Join developers, and small businesses who rely on Filenewer's online file
             tools every day. No credit card required.
         </p>
 
         <div class="flex flex-wrap justify-center gap-3">
-            <a href="/signup"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-                Start Free — No Sign-up Needed
-            </a>
             <a href="/tools"
                 class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
                 Browse All Tools

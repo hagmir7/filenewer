@@ -92,11 +92,7 @@
                 <p class="text-xl font-bold">50K+</p>
                 <p class="text-sm text-fn-text3">Active users</p>
             </div>
-            <div class="w-px h-8 bg-fn-text/10"></div>
-            <div>
-                <p class="text-xl font-bold">2M+</p>
-                <p class="text-sm text-fn-text3">Files processed</p>
-            </div>
+
             <div class="w-px h-8 bg-fn-text/10"></div>
             <div>
                 <p class="text-xl font-bold">50+</p>

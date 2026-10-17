@@ -360,7 +360,7 @@
                     Get file tips straight to your inbox
                 </h2>
                 <p class="text-fn-text2 text-sm leading-relaxed mb-7">
-                    Join 12,000+ readers. No spam, just practical guides on file tools, automation, and productivity
+                    No spam, just practical guides on file tools, automation, and productivity
                     — every two weeks.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">

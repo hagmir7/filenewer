@@ -315,7 +315,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted within 1 hour.
+                        Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
 
@@ -340,7 +340,7 @@
             ['Can I set a custom filename for the PDF?', 'Yes — enter your preferred filename in the Output Filename
             field before converting. If left blank, the PDF will use your original Word filename.'],
             ['Is my document safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
-            deleted within 1 hour. We never read, share or store your content.'],
+            deleted after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"

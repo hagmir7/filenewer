@@ -361,7 +361,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted within 1 hour.
+                        Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
 

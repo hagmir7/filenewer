@@ -9,7 +9,7 @@
         before you click Merge.'],
         ['Will my bookmarks and links be preserved?','Yes. Internal links and bookmarks are preserved from all source
         files. You can also add new per-file bookmarks automatically.'],
-        ['Is my data safe?', 'All uploads use AES-256 encryption in transit and are permanently deleted within 1 hour.
+        ['Is my data safe?', 'All uploads use AES-256 encryption in transit and are permanently deleted after processing.
         We never read, share, or store your content.'],
         ];
         @endphp

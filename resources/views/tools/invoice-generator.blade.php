@@ -534,18 +534,10 @@
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Save
             templates, track invoices, and automate your billing</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Join thousands of freelancers and small businesses who use Filenewer Pro to manage their invoicing workflow
+            Join and small businesses who use Filenewer Pro to manage their invoicing workflow
             end-to-end.
         </p>
         <div class="flex flex-wrap justify-center gap-3">
-            <a href="/signup"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-                Start Free — No Sign-up Needed
-            </a>
             <a href="/pricing"
                 class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
                 View Pro Plans

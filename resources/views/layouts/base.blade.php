@@ -11,21 +11,14 @@
     <meta property="og:title" content="{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}" />
     <meta property="og:description" content="{{ Str::limit($description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.', 169, '') }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/favicon/favicon.svg">
+    <meta property="og:image" content="/filenewer-thumbnail.png">
     <meta property="og:url" content="{{ request()->fullUrl() }}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta property="og:site_name" content="Filenewer" />
-    {{-- <meta property="og:image" content="https://www.filenewer.com/images/og-pdf-to-word.png" /> --}}
-    {{-- <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" /> --}}
-    {{-- <meta property="og:image:alt" content="Filenewer PDF to Word Converter – Convert PDF to DOCX online for free" /> --}}
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}" />
     <meta name="twitter:description" content="{{ Str::limit($description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.', 169, '') }}" />
-    {{-- <meta name="twitter:image" content="https://www.filenewer.com/images/og-pdf-to-word.png" /> --}}
-    {{-- <link rel="manifest" href="/site.webmanifest" /> --}}
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Preconnect for performance -->
     <meta name="google-adsense-account" content="ca-pub-5306320936731470">

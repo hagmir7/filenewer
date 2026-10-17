@@ -432,7 +432,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted within 1 hour.
+                        Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
 
@@ -537,7 +537,7 @@
             A 300-page PDF at 300 DPI can produce a very large file. Lower the DPI to 72–96 and reduce JPEG quality to
             60–70 for a much smaller output while still being readable on mobile screens.'],
             ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
-            within 1 hour. We never read, share, or store your content. Passwords are used only during conversion and
+            after processing. We never read, share, or store your content. Passwords are used only during conversion and
             are not retained.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

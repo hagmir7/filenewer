@@ -49,10 +49,10 @@
                 Sign In
             </a>
 
-            <a href="/signup"
+            {{-- <a href="/signup"
                 class="inline-flex items-center px-2 md:px-4 py-1.5 md:py-2 text-sm md:text-sm font-semibold text-white bg-fn-blue rounded-lg hover:bg-fn-blue-l btn-glow transition-all">
                 Start Free
-            </a>
+            </a> --}}
 
             @endif
         </div>
