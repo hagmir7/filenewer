@@ -671,7 +671,7 @@
             decrypt a PDF. It cannot bypass or crack passwords.'],
             ['What does the PDF Info tool show?', 'It returns the page count, file size, PDF version, encryption status,
             and all embedded metadata including title, author, subject, creator, and creation/modification dates.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

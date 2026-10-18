@@ -536,7 +536,7 @@
             ['Why is the EPUB file large?', 'EPUB file size is mainly determined by image resolution (DPI) and quality.
             A 300-page PDF at 300 DPI can produce a very large file. Lower the DPI to 72–96 and reduce JPEG quality to
             60–70 for a much smaller output while still being readable on mobile screens.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share, or store your content. Passwords are used only during conversion and
             are not retained.'],
             ] as [$q, $a])

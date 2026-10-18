@@ -348,7 +348,7 @@
             embedded text.'],
             ['Can I convert password-protected PDFs?', 'Absolutely. Just enter your PDF password in the optional
             password field before converting and we\'ll handle the rest.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ['What if my PDF has multiple tables?', 'Each table detected in your PDF is extracted to its own sheet
             within the Excel workbook, keeping everything neatly organised.'],

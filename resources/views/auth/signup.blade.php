@@ -36,7 +36,7 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold">50+ File Tools</p>
+                        <p class="text-sm font-semibold">60+File Tools</p>
                         <p class="text-sm text-fn-text3">PDF, CSV, images, documents &amp; more</p>
                     </div>
                 </div>

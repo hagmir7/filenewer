@@ -444,7 +444,7 @@
             files.'],
             ['Can I convert an encrypted PDF?', 'Yes — paste the password into the optional password field. The output
             PNGs themselves are not encrypted.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

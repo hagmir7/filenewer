@@ -565,7 +565,7 @@
             ['What is the JSON / metadata output?', 'Selecting "Metadata only" returns a JSON object listing every part
             that would be generated — including filename, sheet name, row count, column count, and estimated size in KB
             — without producing any files. Useful for previewing a split before downloading.'],
-            ['Is my Excel file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Is my Excel file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

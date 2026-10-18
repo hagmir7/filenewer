@@ -207,7 +207,7 @@
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">File Conversion Tools</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed mb-4">Transform any file format in seconds. Our
                     online file converter supports PDF, Word, Excel, CSV, images, and dozens more — with
-                    pixel-perfect output every time.</p>
+                    high-fidelity output for most documents..</p>
                 <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">PDF ·
                     DOCX · CSV · JPG · SVG</span>
             </div>
@@ -231,8 +231,6 @@
                 <p class="text-fn-text2 text-sm leading-relaxed mb-4">Generate professional invoices, contracts, and
                     reports automatically. Fill in your data and Filenewer produces a clean, print-ready PDF
                     instantly.</p>
-                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Invoices
-                    · Contracts · Reports</span>
             </div>
 
             <!-- Card 3 -->
@@ -250,9 +248,11 @@
                     </svg>
                 </div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Smart File Processing</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract
-                    content from files with intelligent automation. Handle bulk operations without writing a single
-                    line of code.</p>
+                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract text
+                    from your PDF,
+                    Word, Excel, and image files. Combine several files into one, or split a large file into parts, with
+                    no software to
+                    install.</p>
                 <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress
                     · Merge · Extract · OCR</span>
             </div>
@@ -291,7 +291,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-sm mb-1">AES-256 Encryption in Transit</h3>
+                            <h3 class="font-semibold text-sm mb-1">TLS 1.3 / HTTPS encryption in transit.</h3>
                             <p class="text-fn-text3 text-sm leading-relaxed">Every file you upload is encrypted over
                                 HTTPS using AES-256 — the same standard used by financial institutions worldwide.
                             </p>
@@ -456,10 +456,9 @@
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
             processing files smarter — right now</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Join developers, and small businesses who rely on Filenewer's online file
-            tools every day. No credit card required.
+            Convert, compress, merge, and generate files right in your browser.
+            Free to use, with no credit card required.
         </p>
-
         <div class="flex flex-wrap justify-center gap-3">
             <a href="/tools"
                 class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">

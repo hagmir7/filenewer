@@ -496,7 +496,7 @@
             ['What metadata fields are embedded?', 'The title, author, and language fields are written directly into the
             eBook metadata. This means the book title and author name appear correctly in your Kindle library instead of
             a generic filename.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share, or store your content. PDF passwords are used only during conversion
             and are not retained.'],
             ] as [$q, $a])

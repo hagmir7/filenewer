@@ -483,7 +483,7 @@
             ['What fonts are available?', 'You can choose from Calibri (default), Arial, Times New Roman, Georgia,
             Verdana, or Courier New. Font size is adjustable from 6pt to 72pt.'],
             ['What page sizes are supported?', 'A4 (default), Letter, Legal, and A3 page sizes are all supported.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

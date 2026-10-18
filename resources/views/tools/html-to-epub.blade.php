@@ -521,7 +521,7 @@
                                     src="path"> are embedded if accessible, and base64-encoded images (<img
                                     src="data:image/...;base64,...">) are embedded directly from the HTML. Embedded
                                 images in the EPUB work offline on any reader.'],
-                                ['Is my HTML safe and private?', 'All uploads use AES-256 encryption in transit and are
+                                ['Is my HTML safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are
                                 permanently deleted after processing. We never read, share, or store your content.'],
                                 ] as [$q, $a])
                                 <div class="border border-fn-text/8 rounded-xl overflow-hidden">

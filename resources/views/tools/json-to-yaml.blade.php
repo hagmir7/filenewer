@@ -487,7 +487,7 @@
             ['What does "Allow unicode" do?','When on (default), characters like emoji and non-Latin scripts (e.g.
             Arabic, Chinese) are kept as-is in the YAML — readable directly. When off, they get escaped to \\uXXXX
             sequences for ASCII-only output, useful for legacy systems that can\'t handle UTF-8.'],
-            ['Is my data safe and private?','All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my data safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

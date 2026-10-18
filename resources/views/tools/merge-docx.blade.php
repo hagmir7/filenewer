@@ -368,7 +368,7 @@
             the document number and {filename} for the original file name.'],
             ['Can I add a Table of Contents?', 'Yes, enable the Table of Contents option to insert an auto-generated TOC
             at the beginning of the merged document.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

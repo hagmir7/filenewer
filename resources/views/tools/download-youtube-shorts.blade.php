@@ -370,7 +370,7 @@
             audio merged) at your selected quality. Use a dedicated audio-extraction tool if you only need the sound.'],
             ['Is this legal to use?', 'Only download videos you own, that are licensed for reuse, or that you otherwise
             have the right to download. Respect YouTube\'s Terms of Service and copyright law in your jurisdiction.'],
-            ['Is my link and video private?', 'All requests use AES-256 encryption in transit and any temporary files
+            ['Is my link and video private?', 'All requests use TLS 1.3 / HTTPS encryption in transit. and any temporary files
             are permanently deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

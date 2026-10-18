@@ -17,4 +17,15 @@ class PageController extends Controller
 
         return view('page.show', compact('page', 'title'));
     }
+
+
+    public function index()
+    {
+        $pages = Page::all();
+
+        $title = "All Pages | Filenewer";
+        $description = "Browse all Filenewer pages: guides, policies and resources about our online file conversion and processing tools.";
+
+        return view('page.index', compact('pages', 'title', 'description'));
+    }
 }

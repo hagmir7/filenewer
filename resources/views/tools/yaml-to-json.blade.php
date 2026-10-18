@@ -395,7 +395,7 @@
             ['Should I escape non-ASCII characters?','By default, accents and emoji are kept as-is for readability.
             Enable "Escape non-ASCII" if you need pure 7-bit ASCII output (`café` → `caf\\u00e9`) for systems that
             don\'t handle UTF-8 cleanly.'],
-            ['Is my data safe and private?','All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my data safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

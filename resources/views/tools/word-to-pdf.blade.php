@@ -339,7 +339,7 @@
             footers, and page layouts into the PDF. Results are near-pixel-perfect for well-structured documents.'],
             ['Can I set a custom filename for the PDF?', 'Yes — enter your preferred filename in the Output Filename
             field before converting. If left blank, the PDF will use your original Word filename.'],
-            ['Is my document safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Is my document safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

@@ -444,7 +444,7 @@
             ['Can I upload a .tex file with custom packages?', 'Standard LaTeX packages (amsmath, graphicx, hyperref,
             booktabs, geometry, etc.) are pre-installed on the compile server. Custom or third-party packages not in the
             TeX Live distribution may not be available and could cause compilation to fail.'],
-            ['Is my LaTeX source safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Is my LaTeX source safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

@@ -408,7 +408,7 @@
             print-quality images, or 72 DPI for fast web previews with small file sizes.'],
             ['Can I convert a password-protected PDF?', 'Yes — enter your PDF password in the optional password field
             before converting.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

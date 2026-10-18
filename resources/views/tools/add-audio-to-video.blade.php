@@ -537,7 +537,7 @@
             ['Do I have to check durations first?', 'No — if you already know the durations match (or don\'t care),
             submit both sources directly and it processes in one step. The duration check only blocks you when a
             mismatch is actually detected.'],
-            ['Is my video and audio private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Is my video and audio private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

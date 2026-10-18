@@ -408,7 +408,7 @@
             in a single ZIP archive for easy download.'],
             ['Will formatting be preserved?', 'Yes, all styles, fonts, images, tables, headers, and footers from the
             original document are preserved in each split part.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

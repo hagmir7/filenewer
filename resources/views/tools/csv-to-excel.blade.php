@@ -506,7 +506,7 @@
             independently into the same workbook.'],
             ['Can I set a custom sheet name and filename?', 'Yes — both fields are optional. If left blank, the sheet
             defaults to Sheet1 and the filename to output.xlsx (or your uploaded filename with .xlsx).'],
-            ['Is my data safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q,$a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

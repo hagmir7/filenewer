@@ -39,7 +39,7 @@
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />
                     <path d="M3 7l9 6l9 -6" />
-                </svg> <a href="mailto:support@filenewer.com">Support@filenewer.com</a>
+                </svg> <a href="mailto:contact@filenewer.com">Contact@filenewer.com</a>
                 </div>
 
                 <div class="p-3.5 bg-fn-surface2 border border-fn-text/7 rounded-xl text-md flex gap-2 items-center">

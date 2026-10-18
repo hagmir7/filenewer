@@ -525,7 +525,7 @@
             ['What opacity should I choose?', '0.3 is the default — balanced and visible without obscuring content. Use
             0.1 for a very subtle watermark, 0.5 for medium visibility, or 0.8+ for a heavy stamp. 1.0 is fully
             opaque.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

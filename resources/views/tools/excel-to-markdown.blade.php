@@ -466,7 +466,7 @@
             ['What if my workbook has thousands of rows?','Use the "Max rows per sheet" setting to cap how many rows are
             included from each sheet (default 1000, max 10,000). Useful for huge data dumps where you only want a sample
             for documentation.'],
-            ['Is my file safe and private?','All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

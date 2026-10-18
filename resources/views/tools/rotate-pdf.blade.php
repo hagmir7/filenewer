@@ -339,7 +339,7 @@
             additions to the existing rotation.'],
             ['Can I rotate only specific pages?', 'Yes — simply leave pages you don\'t want to rotate at 0° (or their
             current rotation). Only pages where the rotation differs from the original will have rotation applied.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

@@ -544,7 +544,7 @@
             ['Can I ignore case or whitespace?','Yes — toggle Ignore case, Ignore whitespace, and Ignore blank lines to
             tune what counts as a real difference. Useful when comparing code that has formatting changes but the same
             logic.'],
-            ['Is my content safe and private?','All uploads use AES-256 encryption in transit and are permanently
+            ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

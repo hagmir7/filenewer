@@ -443,7 +443,7 @@
             and append them to the text output.'],
             ['What encoding should I choose?', 'UTF-8 (default) supports all languages including Arabic, Chinese, and
             accented characters. Use ASCII for basic English only, or Latin-1 for Western European languages.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

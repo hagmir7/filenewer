@@ -336,7 +336,7 @@
             200MB files and batch conversion.'],
             ['Will my formatting be preserved?', 'Yes — Filenewer uses a multi-pass layout engine that detects columns,
             tables, fonts, images, headers and footers. Accuracy is near-perfect for digital PDFs.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ['Can I convert scanned (image-based) PDFs?', 'Yes — enable the OCR option before converting. Supports 50+
             languages. Best results at 300 DPI or higher.'],

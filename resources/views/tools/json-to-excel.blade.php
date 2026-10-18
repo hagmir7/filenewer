@@ -481,7 +481,7 @@
             For multi-sheet mode, the keys of your JSON object become the sheet names automatically.'],
             ['Can I upload a .json file instead of pasting?', 'Yes — switch to the Upload File tab, drop or browse your
             .json file, and optionally set a sheet name and output filename.'],
-            ['Is my data safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

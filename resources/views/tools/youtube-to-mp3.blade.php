@@ -336,7 +336,7 @@
             Creative-Commons licensed, or you have explicit permission from the rights holder. Downloading and
             redistributing audio you don\'t have rights to typically violates YouTube\'s Terms of Service and copyright
             law — you\'re responsible for confirming the source is usable this way.'],
-            ['Is my link and file private?', 'All requests use AES-256 encryption in transit and any temporary files are
+            ['Is my link and file private?', 'All requests use TLS 1.3 / HTTPS encryption in transit. and any temporary files are
             permanently deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

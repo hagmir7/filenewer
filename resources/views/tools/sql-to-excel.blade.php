@@ -424,7 +424,7 @@
             ['What\'s in the Schema sheet?', 'For each CREATE TABLE statement found, the Schema sheet lists every column
             with its declared SQL type (TEXT, INTEGER, etc.) and any constraints (PRIMARY KEY, NOT NULL, AUTOINCREMENT,
             FOREIGN KEY, defaults). Useful for documenting database structures.'],
-            ['Is my SQL safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my SQL safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

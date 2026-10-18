@@ -447,7 +447,7 @@
                     ['Can I paste Markdown instead of uploading a file?','Yes — use the "Write / Paste" tab to paste or
                     type Markdown directly. A live preview shows how it will look, then the final .docx closely matches
                     that preview.'],
-                    ['Is my content safe and private?','All uploads use AES-256 encryption in transit and are
+                    ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are
                     permanently deleted after processing. We never read, share or store your content.'],
                     ] as [$q, $a])
                     <div class="border border-fn-text/8 rounded-xl overflow-hidden">

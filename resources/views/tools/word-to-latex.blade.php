@@ -386,7 +386,7 @@
             ['What font sizes and paper sizes are supported?', 'Font sizes 10pt, 11pt, and 12pt are available. Paper
             sizes include A4 (default), Letter, Legal, and A3. These are passed directly to the \documentclass
             options.'],
-            ['Is my Word document safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Is my Word document safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

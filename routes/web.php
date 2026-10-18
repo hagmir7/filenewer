@@ -79,4 +79,6 @@ Route::get('blog', [BlogController::class, 'index']);
 Route::get('blog/{blog:slug}', [BlogController::class, 'show']);
 
 // Pages
+Route::get('pages', [PageController::class, 'index']);
 Route::get('pages/{slug}', [PageController::class, 'show']);
+

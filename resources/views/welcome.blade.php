@@ -118,7 +118,7 @@
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">File Conversion Tools</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed mb-4">Transform any file format in seconds. Our
                     online file converter supports PDF, Word, Excel, CSV, images, and dozens more — with
-                    pixel-perfect output every time.</p>
+                    high-fidelity output for most documents..</p>
                 <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">PDF ·
                     DOCX · CSV · JPG · SVG</span>
             </div>
@@ -142,8 +142,7 @@
                 <p class="text-fn-text2 text-sm leading-relaxed mb-4">Generate professional invoices, contracts, and
                     reports automatically. Fill in your data and Filenewer produces a clean, print-ready PDF
                     instantly.</p>
-                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Invoices
-                    · Contracts · Reports</span>
+
             </div>
 
             <!-- Card 3 -->
@@ -161,11 +160,10 @@
                     </svg>
                 </div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Smart File Processing</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract
-                    content from files with intelligent automation. Handle bulk operations without writing a single
-                    line of code.</p>
-                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress
-                    · Merge · Extract · OCR</span>
+                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract text from your PDF,
+                    Word, Excel, and image files. Combine several files into one, or split a large file into parts, with no software to
+                    install.</p>
+                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress · Merge · Extract · OCR</span>
             </div>
 
         </div>
@@ -317,7 +315,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-sm mb-1">AES-256 Encryption in Transit</h3>
+                            <h3 class="font-semibold text-sm mb-1">TLS 1.3 / HTTPS encryption in transit.</h3>
                             <p class="text-fn-text3 text-sm leading-relaxed">Every file you upload is encrypted over
                                 HTTPS using AES-256 — the same standard used by financial institutions worldwide.
                             </p>

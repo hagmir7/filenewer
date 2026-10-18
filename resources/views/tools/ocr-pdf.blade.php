@@ -438,7 +438,7 @@
             1,3,5). Leave blank to extract all pages.'],
             ['Can I download the extracted text?', 'Yes — choose "Download .txt file" in the Output options before
             extracting, or use the Download .txt button that appears alongside the inline preview.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

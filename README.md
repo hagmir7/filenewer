@@ -26,7 +26,7 @@
 
 ## Overview
 
-Filenewer is a modern SaaS platform offering 50+ free online file tools — PDF converters, image processors, CSV utilities, document generators, and more. The frontend is built with **Laravel 12 Blade**, **Tailwind CSS v4**, and **Vite**, following a clean dark-mode-first design system.
+Filenewer is a modern SaaS platform offering 60+free online file tools — PDF converters, image processors, CSV utilities, document generators, and more. The frontend is built with **Laravel 12 Blade**, **Tailwind CSS v4**, and **Vite**, following a clean dark-mode-first design system.
 
 ---
 

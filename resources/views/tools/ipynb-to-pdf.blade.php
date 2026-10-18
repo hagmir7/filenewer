@@ -538,7 +538,7 @@
             ['What happens with error outputs?', 'Error tracebacks produced during notebook execution are included in
             the PDF when "Cell outputs" is enabled. They are styled distinctly (red border) so they stand out. Disable
             "Cell outputs" to omit them.'],
-            ['Is my notebook safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Is my notebook safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

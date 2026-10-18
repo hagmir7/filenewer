@@ -498,7 +498,7 @@
             ['Can I reorder the files before merging?', 'Yes — after selecting files you can drag them into your
             preferred order using the handle on the left of each file row. The files are merged in the order they are
             listed, which affects row order in stack mode and tab order in separate sheets mode.'],
-            ['Are my files safe and private?', 'All uploads use AES-256 encryption in transit and are permanently
+            ['Are my files safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

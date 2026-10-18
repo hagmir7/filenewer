@@ -408,7 +408,7 @@
             can turn it off if you only want the content sheets.'],
             ['Can I paste Markdown instead of uploading a file?','Yes — use the "Write / Paste" tab to paste or type
             Markdown directly. Your Excel file is generated with the same structure either way.'],
-            ['Is my content safe and private?','All uploads use AES-256 encryption in transit and are permanently
+            ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

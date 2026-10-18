@@ -480,7 +480,7 @@
             splitting. The split output files will be plain (unencrypted).'],
             ['What if I specify a page number that doesn\'t exist?', 'The API will return an error if any page or range
             is out of bounds. Check your PDF\'s total page count first if you\'re unsure.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">

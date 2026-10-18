@@ -410,7 +410,7 @@
             settings.'],
             ['Can I compress a password-protected PDF?', 'Yes — enter the PDF password in the optional password field
             before compressing.'],
-            ['Is my PDF safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp

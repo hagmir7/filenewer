@@ -410,7 +410,7 @@
             ['What does JPG quality control?', 'Higher quality (90-100) produces sharper images with larger file sizes.
             Lower quality (60-75) gives smaller files with slight compression artifacts. The default of 85 is a good
             balance.'],
-            ['Is my file safe and private?', 'All uploads use AES-256 encryption in transit and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
