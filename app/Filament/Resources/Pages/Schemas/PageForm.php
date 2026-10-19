@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
-use Filament\Forms\Components\TextInput;
+use Filament\Actions\Action;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -27,8 +28,7 @@ class PageForm
                                     ->required()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(
-                                        fn($state, callable $set) =>
-                                        $set('slug', Str::slug($state))
+                                        fn($state, callable $set) => $set('slug', Str::slug($state))
                                     )
                                     ->maxLength(255),
                                 RichEditor::make('content')
@@ -42,6 +42,7 @@ class PageForm
                                 TextInput::make('slug')
                                     ->label('URL Slug')
                                     ->readOnly()
+                                    ->dehydrated()
                                     ->prefix('https://filenewer.com/pages/')
                                     ->suffixAction(
                                         Action::make('copy')
@@ -50,7 +51,7 @@ class PageForm
                                             ->action(function ($livewire, $state) {
                                                 $livewire->js(
                                                     'window.navigator.clipboard.writeText("https://filenewer.com/pages/' . $state . '");
-                                                            $tooltip("Copied!", { timeout: 1500 });'
+                                                    $tooltip("Copied!", { timeout: 1500 });'
                                                 );
                                             })
                                     ),
@@ -58,10 +59,11 @@ class PageForm
                                     ->label('Published')
                                     ->default(true)
                                     ->helperText('Make page visible'),
-                            ])->columnSpan(1),
+                            ])
+                            ->columnSpan(1),
 
-                    ])->columnSpanFull()
-
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 }
