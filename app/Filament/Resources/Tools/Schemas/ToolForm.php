@@ -85,7 +85,7 @@ class ToolForm
                                             ->action(function ($livewire, $state) {
                                                 $livewire->js(
                                                     'window.navigator.clipboard.writeText("https://filenewer.com/tools/' . $state . '");
-                     $tooltip("Copied!", { timeout: 1500 });'
+                                                    $tooltip("Copied!", { timeout: 1500 });'
                                                 );
                                             })
                                     ),

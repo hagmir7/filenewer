@@ -1,7 +1,4 @@
 @extends('layouts.base')
-
-
-
 @section('content')
 <!-- ══ ARTICLE HEADER ══ -->
 <header class="pt-14 pb-0">
@@ -23,17 +20,6 @@
         </nav>
 
         <div class="max-w-3xl">
-            <!-- Category + meta -->
-            {{-- <div class="flex items-center gap-3 mb-5 flex-wrap">
-                <a href="/blog?cat=pdf-tools"
-                    class="px-3 py-1 bg-fn-blue/10 border border-fn-blue/25 rounded-full text-fn-blue-l text-sm font-semibold hover:bg-fn-blue/15 transition-colors">PDF
-                    Tools</a>
-                <span class="text-fn-text3 text-sm">·</span>
-                <span class="text-fn-text3 text-sm">8 min read</span>
-                <span class="text-fn-text3 text-sm">·</span>
-                <span class="text-fn-text3 text-sm">{{ $page->created_at }}</span>
-            </div> --}}
-
             <!-- Title -->
             <h1 class="font-serif text-3xl sm:text-4xl lg:text-[2.8rem] font-normal tracking-tight leading-[1.15] mb-5">
                 {{ $page->title }}
@@ -46,7 +32,6 @@
 <!-- ══ CONTENT AREA ══ -->
 <div class="max-w-6xl mx-auto px-6 pb-20">
     <div class="flex gap-12 relative">
-
         <!-- ── MAIN ARTICLE ── -->
         <article class="flex-1 min-w-0 max-w-3xl" id="article-content">
             <div class="prose prose-lg max-w-4xl mx-auto
@@ -63,10 +48,6 @@
                 prose-li:marker:text-blue-400
                 prose-img:rounded-xl
                 dark:prose-invert"> {!! $page->content !!}</div>
-
-
-
-
             <!-- CTA Banner -->
             <div
                 class="mt-10 p-8 bg-fn-surface border border-fn-blue/20 rounded-2xl text-center relative overflow-hidden">
@@ -94,21 +75,19 @@
         <!-- ── SIDEBAR ── -->
         <aside class="hidden xl:flex flex-col gap-6 w-64 shrink-0">
             <div class="sticky top-24 flex flex-col gap-6">
-
-
-
                 <!-- Related tool -->
                 <div class="bg-fn-blue/8 border border-fn-blue/20 rounded-2xl p-5">
                     <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-9 h-9 rounded-xl bg-fn-red/15 flex items-center justify-center text-lg shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-	<path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-	<path d="M17 12h3" />
-	<path d="M21 8h-4v8" />
-</svg></div>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
+                            </svg>
+                        </div>
                         <p class="font-semibold text-sm">PDF to Word Converter</p>
                     </div>
                     <p class="text-fn-text3 text-sm leading-relaxed mb-4">Convert any PDF to editable Word. Preserves
@@ -118,15 +97,10 @@
                         Try for Free →
                     </a>
                 </div>
-
-
-
             </div>
         </aside>
 
     </div>
 </div>
-
 <x-tools-section />
-
 @endsection

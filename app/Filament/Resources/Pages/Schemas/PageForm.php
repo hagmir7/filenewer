@@ -31,10 +31,6 @@ class PageForm
                                         $set('slug', Str::slug($state))
                                     )
                                     ->maxLength(255),
-
-
-
-
                                 RichEditor::make('content')
                                     ->label('Content')
                                     ->required(),
@@ -44,12 +40,20 @@ class PageForm
                         Section::make('Settings')
                             ->schema([
                                 TextInput::make('slug')
-                                    ->label('URL')
+                                    ->label('URL Slug')
                                     ->readOnly()
-                                    ->copyable()
-                                    ->afterStateHydrated(function ($component, $state) {
-                                        $component->state('https://filenewer.com/pages/' . $state);
-                                    }),
+                                    ->prefix('https://filenewer.com/pages/')
+                                    ->suffixAction(
+                                        Action::make('copy')
+                                            ->icon('heroicon-s-clipboard-document-check')
+                                            ->tooltip('Copy URL')
+                                            ->action(function ($livewire, $state) {
+                                                $livewire->js(
+                                                    'window.navigator.clipboard.writeText("https://filenewer.com/pages/' . $state . '");
+                                                            $tooltip("Copied!", { timeout: 1500 });'
+                                                );
+                                            })
+                                    ),
                                 Toggle::make('is_published')
                                     ->label('Published')
                                     ->default(true)
@@ -57,9 +61,6 @@ class PageForm
                             ])->columnSpan(1),
 
                     ])->columnSpanFull()
-
-
-
 
             ]);
     }
