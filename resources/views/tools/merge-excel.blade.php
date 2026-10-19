@@ -66,7 +66,7 @@
                             </svg>
                             Choose Excel Files
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 50MB per file · up to 20 files</p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 200MB per file · up to 20 files</p>
                         <input type="file" id="file-input"
                             accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -484,7 +484,7 @@
         <div class="space-y-3">
             @foreach([
             ['How many files can I merge at once?', 'You can merge up to 20 Excel files in a single request, with a
-            maximum of 50MB per file. There is no hard limit on total rows — the output workbook will contain all data
+            maximum of 200MB per file. There is no hard limit on total rows — the output workbook will contain all data
             from all files.'],
             ['What happens when sheets have different column names in Stack mode?', 'In stack mode, columns are aligned
             by name. If a file has extra columns not present in other files, those columns are included with blank
@@ -700,7 +700,7 @@
     hideError();
     const valid = newFiles.filter(f => f.name.match(/\.(xlsx|xls)$/i));
     const tooBig = valid.filter(f => f.size > 50 * 1024 * 1024);
-    if (tooBig.length) { showError(`${tooBig.map(f => f.name).join(', ')} exceed${tooBig.length === 1 ? 's' : ''} the 50MB limit.`); }
+    if (tooBig.length) { showError(`${tooBig.map(f => f.name).join(', ')} exceed${tooBig.length === 1 ? 's' : ''} the 200MB limit.`); }
 
     const ok = valid.filter(f => f.size <= 50 * 1024 * 1024);
     // Deduplicate by name+size

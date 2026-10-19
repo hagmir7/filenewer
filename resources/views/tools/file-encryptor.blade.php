@@ -1104,7 +1104,7 @@
       onRemove();
     });
     function handle(file) {
-      if (file.size > 50*1024*1024) { alert('File exceeds 50MB limit.'); return; }
+      if (file.size > 50*1024*1024) { alert('File exceeds 200MB limit.'); return; }
       onFile(file);
       document.getElementById(nameId).textContent = file.name;
       document.getElementById(metaId).textContent = formatBytes(file.size) + ' · ' + (file.type || file.name.split('.').pop().toUpperCase());

@@ -378,7 +378,7 @@
         <div class="space-y-3">
             @foreach([
             ['Is this really free?',
-            'Files up to 50MB are completely free with no account needed. Pro plans unlock 200MB files and batch
+            'Files up to 200MB are completely free with no account needed. Pro plans unlock 200MB files and batch
             conversion.'],
             ['What output formats are available?',
             'Array of objects (most common), keyed object by first column, array of arrays (raw rows), and columnar
@@ -474,7 +474,7 @@
             }
 
             if (file.size > 50 * 1024 * 1024) {
-                showError('File exceeds the 50MB free limit.');
+                showError('File exceeds the 200MB free limit.');
                 return;
             }
 

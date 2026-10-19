@@ -15,7 +15,6 @@ class SitemapController extends Controller
     {
         $sitemap = Sitemap::create()
             ->add(Url::create('/')->setPriority(1.0))
-            ->add(Url::create('/about'))
             ->add(Url::create('/tools'))
             ->add(Url::create('/blog'))
             ->add(Url::create('/contact'));

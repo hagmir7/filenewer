@@ -415,7 +415,7 @@
             This is useful for consistent diffing, version control, or simply making large JSON objects easier to
             scan.'],
             ['Can I format a large JSON file?', 'Yes — switch to the Upload File tab and upload your .json file
-            directly. Files up to 50MB are supported for free. For files over 50MB, upgrade to Pro.'],
+            directly. Files up to 200MB are supported for free. For files over 200MB, upgrade to Pro.'],
             ['What stats does the formatter show?', 'After formatting you can see the JSON type (object, array, other),
             maximum nesting depth, total key count, top-level item count, and the original vs formatted file size in
             KB.'],
@@ -658,7 +658,7 @@
           showGeneralError('Please select a valid JSON file.');
           return;
         }
-        if (file.size > 50 * 1024 * 1024) { showGeneralError('File exceeds the 50MB free limit.'); return; }
+        if (file.size > 50 * 1024 * 1024) { showGeneralError('File exceeds the 200MB free limit.'); return; }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
         document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';

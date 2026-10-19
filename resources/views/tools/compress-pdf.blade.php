@@ -520,7 +520,7 @@
           showError('Please select a valid PDF file.');
           return;
         }
-        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 50MB free limit.'); return; }
+        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 200MB free limit.'); return; }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
         document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';

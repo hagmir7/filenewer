@@ -125,7 +125,7 @@
                                 </svg>
                                 Choose YAML File
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 50MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
                             <input type="file" id="file-input"
                                 accept=".yaml,.yml,application/x-yaml,text/yaml,text/x-yaml,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -574,7 +574,7 @@ age: 35`;
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
+      showError('File exceeds the 200MB free limit.');
       return;
     }
     selectedFile = file;

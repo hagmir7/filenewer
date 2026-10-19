@@ -396,7 +396,7 @@
         <div class="space-y-3">
             @php
             $faqs = [
-            ['Is this really free?', 'Files up to 50MB are completely free with no account needed. Pro plans unlock
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
             200MB files and batch processing.'],
             ['What split modes are available?', 'Four modes: split by page breaks, by heading level (H1-H6), by
             paragraph count (every N paragraphs), or by specific page ranges.'],
@@ -572,7 +572,7 @@
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 50MB free limit.');
+          showError('File exceeds the 200MB free limit.');
           return;
         }
         selectedFile = file;

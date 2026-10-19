@@ -828,7 +828,7 @@
   function handleFile(slot, file) {
     hideError();
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
+      showError('File exceeds the 200MB free limit.');
       return;
     }
     files[slot] = file;

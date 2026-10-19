@@ -60,7 +60,7 @@
                             </svg>
                             Choose PDF Files
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 20 files · 50MB each free · <a href=""
+                        <p class="text-fn-text3 text-sm mt-5">Max 20 files · 200MB each free · <a href=""
                                 class="text-fn-blue-l hover:underline">More on Pro</a></p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf" multiple
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -397,7 +397,7 @@
                     continue;
                 }
                 if (f.size > 50 * 1024 * 1024) {
-                    showError(`"${f.name}" exceeds the 50MB limit.`);
+                    showError(`"${f.name}" exceeds the 200MB limit.`);
                     continue;
                 }
                 if (files.length >= 20) {

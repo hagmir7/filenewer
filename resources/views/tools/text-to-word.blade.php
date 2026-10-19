@@ -472,7 +472,7 @@
         <div class="space-y-3">
             @php
             $faqs = [
-            ['Is this really free?', 'Files up to 50MB are completely free with no account needed. Pro plans unlock
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
             200MB files and batch conversion.'],
             ['Will my headings be detected automatically?', 'Yes, the converter auto-detects Markdown-style headings (#,
             ##), underline-style headings (=== and ---), and ALL CAPS lines as headings in your Word document.'],
@@ -638,7 +638,7 @@
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 50MB free limit.');
+          showError('File exceeds the 200MB free limit.');
           return;
         }
         selectedFile = file;

@@ -67,7 +67,7 @@
                             </svg>
                             Choose PDF Files
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Up to 50 files · 50MB each free</p>
+                        <p class="text-fn-text3 text-sm mt-5">Up to 50 files · 200MB each free</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf" multiple
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -379,7 +379,7 @@
         <div class="space-y-3">
             @foreach([
             ['How many PDFs can I merge at once?', 'You can merge between 2 and 50 PDF files at once. Each file can be
-            up to 50MB on the free plan.'],
+            up to 200MB on the free plan.'],
             ['Can I reorder files before merging?', 'Yes — once your files are uploaded, drag and drop them in the list
             to set the exact order they should appear in the merged PDF. You can also remove individual files without
             starting over.'],
@@ -574,7 +574,7 @@
   const filesList   = document.getElementById('files-list');
 
   const MAX_FILES = 50;
-  const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+  const MAX_FILE_SIZE = 50 * 1024 * 1024; // 200MB
 
   let selectedFiles = [];
   let blobUrl       = null;
@@ -614,7 +614,7 @@
         return;
       }
       if (f.size > MAX_FILE_SIZE) {
-        showError(`"${f.name}" exceeds the 50MB limit.`);
+        showError(`"${f.name}" exceeds the 200MB limit.`);
         return;
       }
     }

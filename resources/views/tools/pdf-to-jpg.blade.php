@@ -400,7 +400,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['Is this really free?', 'Files up to 50MB are completely free with no account needed. Pro plans unlock
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
             200MB files and batch conversion.'],
             ['How many pages can I convert?', 'All pages in your PDF are converted and bundled into a single ZIP
             archive. Choose "Single page" mode if you only need one specific page as a JPG.'],
@@ -561,7 +561,7 @@
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 50MB free limit.');
+          showError('File exceeds the 200MB free limit.');
           return;
         }
         selectedFile = file;

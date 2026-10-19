@@ -356,7 +356,7 @@
         <div class="space-y-3">
             @php
             $faqs = [
-            ['Is this really free?', 'Files up to 50MB total are completely free with no account needed. Pro plans
+            ['Is this really free?', 'Files up to 200MB total are completely free with no account needed. Pro plans
             unlock 200MB and batch processing.'],
             ['How many files can I merge?', 'You can merge between 2 and 20 .docx files at once. Simply drag and drop or
             click to browse.'],

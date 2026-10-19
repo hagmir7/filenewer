@@ -94,7 +94,7 @@
                                 </svg>
                                 Choose CSV File
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 50MB free · supports .csv and .tsv</p>
+                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free · supports .csv and .tsv</p>
                             <input type="file" id="file-input"
                                 accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -807,7 +807,7 @@
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 50MB free limit.');
+      showError('File exceeds the 200MB free limit.');
       return;
     }
     selectedFile = file;

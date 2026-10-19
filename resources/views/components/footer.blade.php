@@ -44,7 +44,7 @@
                 <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Company</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
-                        <a href="https://filenewer.com/pages/about"
+                        <a href="https://filenewer.com/pages/about-us"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About us</a>
                     </li>
                     <li>
