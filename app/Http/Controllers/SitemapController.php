@@ -15,9 +15,9 @@ class SitemapController extends Controller
     {
         $sitemap = Sitemap::create()
             ->add(Url::create('/')->setPriority(1.0))
-            ->add(Url::create('/about'))
+            ->add(Url::create('/about-us'))
             ->add(Url::create('/tools'))
-            ->add(Url::create('/blogs'))
+            ->add(Url::create('/blog'))
             ->add(Url::create('/contact'));
 
         Page::where('is_published', 1)->each(function ($page) use ($sitemap) {

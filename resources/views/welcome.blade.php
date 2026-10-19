@@ -480,7 +480,7 @@
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
             processing files smarter — right now</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Join, developers, and small businesses who rely on Filenewer's online file
+            Join small businesses who rely on Filenewer's online file
             tools every day. No credit card required.
         </p>
 

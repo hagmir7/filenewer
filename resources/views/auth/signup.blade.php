@@ -20,7 +20,7 @@
                     <span class="text-fn-text3">starts here.</span>
                 </h1>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
-                    Convert, compress, generate, and process your files in seconds. Free to start, no credit card
+                    Convert, compress, generate, and process your files in seconds, no credit card
                     needed.
                 </p>
             </div>

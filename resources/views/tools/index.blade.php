@@ -56,7 +56,7 @@
             </div>
             <div class="flex items-center gap-2 text-fn-text3 text-sm">
                 <span class="w-2 h-2 rounded-full bg-fn-amber"></span>
-                <span><strong class="text-fn-text font-semibold">100%</strong> free to start</span>
+                <span><strong class="text-fn-text font-semibold">100%</strong> free tools</span>
             </div>
         </div>
 
