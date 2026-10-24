@@ -3,8 +3,6 @@
 
 @section('content')
 
-
-
 <!-- ══ HERO ══ -->
 <section class="relative pt-20 pb-14 overflow-hidden hero-glow">
     <div class="absolute inset-0 grid-lines pointer-events-none"></div>
@@ -34,7 +32,10 @@
 
 {{-- ══ FEATURED POST (first blog from paginator if on page 1) ══ --}}
 @if ($blogs->currentPage() === 1 && $blogs->isNotEmpty())
-@php $featured = $blogs->first(); @endphp
+@php
+$featured = $blogs->first();
+$featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($featured->content ?? '')) / 200)));
+@endphp
 
 <section class="pb-6">
     <div class="max-w-6xl mx-auto px-6">
@@ -57,7 +58,9 @@
                     <div class="relative z-10 text-center px-8">
                         <div
                             class="w-20 h-20 rounded-2xl bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-4xl mx-auto mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
                                 <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
@@ -83,7 +86,7 @@
                             </span>
                             @if ($featured->content)
                             <span class="text-fn-text3 text-sm">
-                                {{ ceil(str_word_count(strip_tags($featured->content)) / 200) }} min read
+                                {{ $featuredReadTime }} min read
                             </span>
                             @endif
                         </div>
@@ -167,7 +170,7 @@
             $dotColor = $dotColors[$i % count($dotColors)];
             $initials = strtoupper(substr($blog->user->name ?? 'A', 0, 2));
             $readTime = $blog->content
-            ? ceil(str_word_count(strip_tags($blog->content)) / 200)
+            ? min(20, max(1, (int) ceil(str_word_count(strip_tags($blog->content)) / 200)))
             : null;
             @endphp
 
@@ -186,15 +189,20 @@
                     </div>
                     <span class="text-4xl relative z-10">
                         @switch($catKey)
-                        @case('tutorial') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-excel">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-                        <path d="M10 12l4 5" />
-                        <path d="M10 17l4 -5" />
+                        @case('tutorial') <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-file-excel">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                            <path d="M10 12l4 5" />
+                            <path d="M10 17l4 -5" />
                         </svg> @break
                         @case('tips')
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M15 8h.01" />
                             <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
@@ -202,16 +210,21 @@
                             <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
                         </svg> @break
                         @case('automation')
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-invoice">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-file-invoice">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                            <path d="M19 12v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-14a2 2 0 0 1 2 -2h7l5 5v4" />
+                            <path
+                                d="M19 12v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-14a2 2 0 0 1 2 -2h7l5 5v4" />
                             <path d="M9 7h1" />
                             <path d="M9 11h6" />
                             <path d="M9 15h6" />
                         </svg> @break
                         @case('security')
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-check">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-lock-check">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v.5" />
                             <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
@@ -219,13 +232,25 @@
                             <path d="M15 19l2 2l4 -4" />
                         </svg> @break
                         @case('developer')
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
                         </svg> @break
-                        @case('updates') <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rocket" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" /><path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" /><path d="M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg> @break
+                        @case('updates') <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-rocket" width="1em" height="1em" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
+                            <path
+                                d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
+                            <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
+                            <path d="M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                        </svg> @break
                         @default
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                             <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />

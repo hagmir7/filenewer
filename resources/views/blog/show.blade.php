@@ -1,6 +1,9 @@
 @extends('layouts.base')
 
 @section('content')
+@php
+$readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
+@endphp
 <!-- ══ ARTICLE HEADER ══ -->
 <header class="pt-14 pb-0">
     <div class="max-w-6xl mx-auto px-6">
@@ -30,7 +33,7 @@
                 </a>
                 <span class="text-fn-text3 text-sm">·</span>
                 @endif
-                <span class="text-fn-text3 text-sm">{{ $blog->read_time ?? '5' }} min read</span>
+                <span class="text-fn-text3 text-sm">{{ $readMinutes }} min read</span>
                 @if($blog->published_at)
                 <span class="text-fn-text3 text-sm">·</span>
                 <span class="text-fn-text3 text-sm">{{ \Carbon\Carbon::parse($blog->published_at)->format('F j, Y')
@@ -124,19 +127,22 @@
                         style="background-image: radial-gradient(oklch(56% 0.23 264 / 25%) 1px, transparent 1px); background-size: 28px 28px;">
                     </div>
                     <div class="relative z-10 text-center">
-                        <div class="text-7xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></div>
+                        <div class="text-7xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                                <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                            </svg></div>
                         <p class="text-fn-text3 text-sm font-mono">{{ $blog->category ?? 'Article' }}</p>
                     </div>
                 </div>
                 @endif
             </div>
 
-        <div class="prose prose-lg max-w-4xl mx-auto
+            <div class="prose prose-lg max-w-4xl mx-auto
                         prose-p:text-gray-300 prose-p:leading-8 prose-hr:m-0
                         prose-headings:font-semibold prose-headings:tracking-tight
                         prose-h2:text-white prose-h2:mt-16 prose-h2:mb-6 prose-h2:border-b prose-h2:border-gray-800 prose-h2:pb-3
@@ -233,7 +239,7 @@
                         </div>
                     </div>
                     <p class="text-sm text-fn-text3 mt-2" id="reading-time-left">
-                        ~{{ $blog->read_time ?? '5' }} min remaining
+                        ~{{ $readMinutes }} min remaining
                     </p>
                 </div>
 
@@ -244,7 +250,17 @@
                     <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-9 h-9 rounded-xl bg-fn-blue/15 flex items-center justify-center text-lg shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tools" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4" /><path d="M14.5 5.5l4 4" /><path d="M12 8l-5 -5l-4 4l5 5" /><path d="M7 8l-1.5 1.5" /><path d="M16 12l5 5l-4 4l-5 -5" /><path d="M16 17l-1.5 1.5" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tools"
+                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                style="vertical-align:-0.125em">
+                                <path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4" />
+                                <path d="M14.5 5.5l4 4" />
+                                <path d="M12 8l-5 -5l-4 4l5 5" />
+                                <path d="M7 8l-1.5 1.5" />
+                                <path d="M16 12l5 5l-4 4l-5 -5" />
+                                <path d="M16 17l-1.5 1.5" />
+                            </svg>
                         </div>
                         <p class="font-semibold text-sm">{{ $tool->name }}</p>
                     </div>
@@ -273,6 +289,9 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
             @foreach($recommended as $post)
+            @php
+            $postReadMinutes = min(20, max(1, (int) ($post->read_time ?: 5)));
+            @endphp
             <a href="/blog/{{ $post->slug }}"
                 class="related-card group flex flex-col bg-fn-bg border border-fn-text/7 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-fn-blue/20 cursor-pointer">
 
@@ -284,12 +303,15 @@
                 @else
                 <div class="h-36 flex items-center justify-center"
                     style="background: linear-gradient(135deg, oklch(20% 0.04 210), oklch(24% 0.07 200));">
-                    <span class="text-4xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg></span>
+                    <span class="text-4xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+                            <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                        </svg></span>
                 </div>
                 @endif
 
@@ -305,7 +327,7 @@
                     <p class="text-fn-text3 text-sm leading-relaxed mb-3 line-clamp-2">{{ $post->excerpt }}</p>
                     @endif
                     <p class="text-fn-text3 text-sm mt-auto">
-                        @if($post->read_time){{ $post->read_time }} min read · @endif
+                        @if($post->read_time){{ $postReadMinutes }} min read · @endif
                         @if($post->published_at){{ \Carbon\Carbon::parse($post->published_at)->format('M j') }}@endif
                     </p>
                 </div>
@@ -364,7 +386,7 @@
         const sidebarProgress = document.getElementById('sidebar-progress');
         const progressPct     = document.getElementById('progress-pct');
         const readingLeft     = document.getElementById('reading-time-left');
-        const totalMinutes    = {{ $blog->read_time ?? 5 }};
+        const totalMinutes    = {{ $readMinutes }};
 
         window.addEventListener('scroll', () => {
             const article       = document.getElementById('article-content');
