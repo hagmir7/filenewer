@@ -153,7 +153,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                             prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-gray-800/50
                             prose-blockquote:rounded-r-lg prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:my-8
                             prose-blockquote:text-gray-200 prose-blockquote:italic prose-blockquote:font-medium
-                            prose-ul:text-gray-300 prose-ol:text-gray-300
+                            prose-ul:text-gray-300 prose-ol:text-gray-300 prose-hr:p-0 prose-hr:m-0
                             prose-li:mb-2 prose-li:leading-relaxed
                             prose-code:bg-gray-800 prose-code:text-blue-300 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
                             prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-lg
