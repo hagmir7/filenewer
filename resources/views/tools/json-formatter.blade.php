@@ -415,7 +415,7 @@
             This is useful for consistent diffing, version control, or simply making large JSON objects easier to
             scan.'],
             ['Can I format a large JSON file?', 'Yes — switch to the Upload File tab and upload your .json file
-            directly. Files up to 200MB are supported for free. For files over 200MB, upgrade to Pro.'],
+            directly. Files up to 200MB are supported for free.'],
             ['What stats does the formatter show?', 'After formatting you can see the JSON type (object, array, other),
             maximum nesting depth, total key count, top-level item count, and the original vs formatted file size in
             KB.'],

@@ -138,7 +138,7 @@ Quickly validate multiple pages have no JavaScript errors:
 
 <code-snippet name="Pest Smoke Testing Example" lang="php">
 
-$pages = visit(['/', '/about', '/contact']);
+$pages = visit(['/', '/about-us', '/contact']);
 
 $pages->assertNoJavascriptErrors()->assertNoConsoleLogs();
 

@@ -472,8 +472,7 @@
         <div class="space-y-3">
             @php
             $faqs = [
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['Will my headings be detected automatically?', 'Yes, the converter auto-detects Markdown-style headings (#,
             ##), underline-style headings (=== and ---), and ALL CAPS lines as headings in your Word document.'],
             ['Does it detect bullet and numbered lists?', 'Yes, lines starting with -, *, +, or numbered patterns like

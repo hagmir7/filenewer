@@ -378,8 +378,7 @@
         <div class="space-y-3">
             @foreach([
             ['Is this really free?',
-            'Files up to 200MB are completely free with no account needed. Pro plans unlock 200MB files and batch
-            conversion.'],
+            'Files up to 200MB are completely free with no account needed.'],
             ['What output formats are available?',
             'Array of objects (most common), keyed object by first column, array of arrays (raw rows), and columnar
             object (one key per column with an array of values).'],

@@ -396,8 +396,7 @@
         <div class="space-y-3">
             @php
             $faqs = [
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch processing.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['What split modes are available?', 'Four modes: split by page breaks, by heading level (H1-H6), by
             paragraph count (every N paragraphs), or by specific page ranges.'],
             ['How does split by heading work?', 'The tool finds every heading of your chosen level (e.g. Heading 1 for

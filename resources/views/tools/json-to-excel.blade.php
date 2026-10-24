@@ -470,8 +470,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['What JSON structure is supported?', 'For a single sheet, paste an array of objects: [{...}, {...}]. For
             multi-sheet workbooks, paste an object where each key is a sheet name and each value is an array of objects:
             {"Sheet1": [{...}], "Sheet2": [{...}]}.'],

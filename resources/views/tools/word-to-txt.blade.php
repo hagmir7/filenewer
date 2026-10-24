@@ -431,8 +431,7 @@
         <div class="space-y-3">
             @php
             $faqs = [
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['Does it support both .docx and .doc?', 'Yes, both modern .docx (Word 2007+) and legacy .doc (Word 97-2003)
             formats are fully supported.'],
             ['What are heading markers?', 'Heading markers add underline characters below headings so they stand out in

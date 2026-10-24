@@ -332,8 +332,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['Will my formatting be preserved?', 'Yes — Filenewer uses a multi-pass layout engine that detects columns,
             tables, fonts, images, headers and footers. Accuracy is near-perfect for digital PDFs.'],
             ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted

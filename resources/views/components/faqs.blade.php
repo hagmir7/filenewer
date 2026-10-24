@@ -3,8 +3,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         @php
         $faqs = [
-        ['Is this really free?', 'Merging up to 20 PDFs (200MB each) is completely free with no account needed. Pro plans
-        unlock larger files and batch operations.'],
+        ['Is this really free?', 'Merging up to 20 PDFs (200MB each) is completely free with no account needed'],
         ['Can I change the order of my PDFs?', 'Yes — drag and drop the rows in the file list to set the exact order
         before you click Merge.'],
         ['Will my bookmarks and links be preserved?','Yes. Internal links and bookmarks are preserved from all source

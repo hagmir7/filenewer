@@ -60,6 +60,12 @@
                             <input id="inv-logo" type="url" placeholder="https://yoursite.com/logo.png"
                                 class="fn-input" />
                         </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-fn-text3 text-sm font-medium">Or Upload Logo <span
+                                    class="text-fn-text3/50">(optional · stays on your device)</span></label>
+                            <input id="inv-logo-file" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                                class="fn-input cursor-pointer" />
+                        </div>
                     </div>
                 </div>
 
@@ -248,8 +254,8 @@
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
             <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">From blank to sent in
                 minutes</h2>
-            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No design skills, no accounting software.
-                Just fill in the form and you're done.</p>
+            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No design skills, no accounting software,
+                no account. Just fill in the form and you're done.</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
@@ -268,7 +274,7 @@
                 </div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Fill In Your Details</h3>
                 <p class="text-fn-text2 text-sm leading-relaxed">Enter your business info, client details, invoice
-                    number, and due date. Add your logo URL for branded output.</p>
+                    number, and due date. Add a logo by URL or upload one straight from your device.</p>
             </div>
 
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
@@ -320,7 +326,7 @@
             <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything a freelancer
                 or small business needs</h2>
             <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">No subscriptions. No exports locked behind
-                paywalls. Just the tool.</p>
+                paywalls. Every feature on this page is free for everyone.</p>
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -352,8 +358,8 @@
                         <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
                     </svg></div>
                 <h3 class="font-semibold text-base mb-2">Custom Branding</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Set your brand color and add a logo URL. Your invoice
-                    header will match your company's visual identity perfectly.</p>
+                <p class="text-fn-text3 text-sm leading-relaxed">Set your brand color and add a logo — paste a URL or
+                    upload a file. Your invoice header will match your company's visual identity.</p>
             </div>
 
             <div
@@ -418,8 +424,8 @@
                         <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
                     </svg></div>
                 <h3 class="font-semibold text-base mb-2">100% Private</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Invoice data never leaves your browser. The PDF is
-                    generated client-side — no server, no storage, no data exposure.</p>
+                <p class="text-fn-text3 text-sm leading-relaxed">Invoice data never leaves your browser. Uploaded logos
+                    and the generated PDF are processed client-side — no server, no storage, no data exposure.</p>
             </div>
 
         </div>
@@ -447,9 +453,9 @@
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Yes, completely. No watermarks, no sign-up,
-                    no credit card. The core invoice generator is permanently free. A Pro plan is available for saved
-                    templates and invoice history.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Yes — 100% free. No watermarks, no sign-up,
+                    no credit card, no usage limits, and no locked features. Everything on this page is available to
+                    everyone, forever.</p>
             </details>
 
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
@@ -479,8 +485,8 @@
                     </svg>
                 </summary>
                 <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">No. All invoice generation happens entirely
-                    in your browser. Your client names, amounts, and business details never touch our servers. The PDF
-                    is created and downloaded locally.</p>
+                    in your browser. Your client names, amounts, uploaded logos, and business details never touch our
+                    servers. The PDF is created and downloaded locally.</p>
             </details>
 
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
@@ -493,24 +499,24 @@
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Yes. Enter a publicly accessible image URL in
-                    the Logo URL field and it will appear in the top-left of your invoice. PNG and JPG formats work
-                    best. For file uploads (no public URL needed), upgrade to Pro.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Yes, two ways. Paste a publicly accessible
+                    image URL into the Logo URL field, or upload an image file directly from your device — the file is
+                    read locally in your browser and never uploaded anywhere. PNG, JPG, WEBP, and SVG all work.</p>
             </details>
 
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    How do I add multiple tax rates?
+                    How are taxes applied?
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">The free tool supports a single tax rate
-                    applied to the subtotal. For line-item-level tax rates or multiple tax types (e.g., GST + PST), this
-                    is available as a Pro feature.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">A single tax / VAT rate is applied to the
+                    subtotal after any discount, then shipping is added to reach the total due. Enter any percentage
+                    you need — the calculation updates live in the preview and in the exported PDF.</p>
             </details>
 
         </div>
@@ -530,25 +536,19 @@
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Upgrade for More</p>
-        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Save
-            templates, track invoices, and automate your billing</h2>
+        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Always Free</p>
+        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Every feature
+            is free — no account, no watermark, no limits</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Join and small businesses who use Filenewer Pro to manage their invoicing workflow
-            end-to-end.
+            Create as many professional invoices as you need. Nothing is locked behind a paywall, and nothing ever
+            leaves your browser.
         </p>
-        <div class="flex flex-wrap justify-center gap-3">
-            <a href="/pricing"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
-                View Pro Plans
-            </a>
-        </div>
         <p class="text-fn-text3 text-sm mt-5"><svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> Free forever &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
+            </svg> 100% free forever &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
@@ -591,6 +591,18 @@
         background: #1f2937;
         color: #d1d5db;
     }
+
+    input[type="file"].fn-input::file-selector-button {
+        background: rgba(37, 99, 235, 0.15);
+        border: 1px solid rgba(37, 99, 235, 0.3);
+        color: #93b4ff;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.25rem 0.6rem;
+        border-radius: 0.375rem;
+        margin-right: 0.6rem;
+        cursor: pointer;
+    }
 </style>
 @endpush
 
@@ -618,10 +630,14 @@
     // ── State ─────────────────────────────────────────────────
     let lineItems = [];
     let lineCounter = 0;
+    let logoDataUrl = '';   // locally uploaded logo (base64 data URL)
 
     // ── DOM helpers ───────────────────────────────────────────
     const $  = (id) => document.getElementById(id);
     const gv = (id) => $(id) ? $(id).value.trim() : '';
+
+    // Logo can come from an upload (preferred) or a URL
+    const getLogo = () => logoDataUrl || gv('inv-logo');
 
     // ── Set today / +30 days as defaults ─────────────────────
     const pad = (n) => String(n).padStart(2,'0');
@@ -700,9 +716,8 @@
     // ── Preview renderer ──────────────────────────────────────
     function renderPreview() {
         const t    = computeTotals();
-        const c    = getCurrency();
         const col  = gv('inv-color') || '#2563eb';
-        const logo = gv('inv-logo');
+        const logo = getLogo();
         const num  = gv('inv-number') || 'INV-0001';
 
         // Update filename
@@ -854,28 +869,39 @@
 
         let y = 50;
 
-        // From name
-        doc.setFontSize(18); doc.setFont('helvetica','bold');
-        doc.setTextColor(17,24,39);
-        doc.text(gv('from-name') || 'Your Business', 50, y);
-
-        // INVOICE label
-        doc.setFontSize(24); doc.setTextColor(cr,cg,cb);
+        // ── Right-hand header block (independent of left column height) ──
+        doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(cr,cg,cb);
         doc.text('INVOICE', W - 50, y, { align: 'right' });
-        y += 18;
 
-        // From sub-lines
         doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(107,114,128);
-        const fromLines = [gv('from-email'),gv('from-address'),[gv('from-city'),gv('from-zip')].filter(Boolean).join(', '),gv('from-country'),gv('from-tax-id')].filter(Boolean);
-        fromLines.forEach(l => { doc.text(l, 50, y); y += 13; });
-
-        // Invoice meta (right)
-        doc.setFontSize(9); doc.setTextColor(107,114,128);
         let ym = 68;
         doc.text(`#${num}`, W - 50, ym, { align: 'right' }); ym += 13;
         doc.text(`Issued: ${formatDate(gv('inv-date'))}`, W - 50, ym, { align: 'right' }); ym += 13;
         doc.text(`Due: ${formatDate(gv('inv-due'))}`, W - 50, ym, { align: 'right' }); ym += 13;
         doc.text(`Terms: ${gv('inv-terms')}`, W - 50, ym, { align: 'right' });
+
+        // ── Left-hand header block: optional logo + business name ──
+        const logo = getLogo();
+        if (logo) {
+            try {
+                const props = doc.getImageProperties(logo);
+                const ratio = Math.min(120 / props.width, 46 / props.height, 1);
+                const w = props.width * ratio;
+                const h = props.height * ratio;
+                doc.addImage(logo, props.fileType, 50, y - 14, w, h);
+                y += h + 4;
+            } catch (err) {
+                // Unsupported or cross-origin image — skip silently, invoice still works
+            }
+        }
+
+        doc.setFontSize(18); doc.setFont('helvetica','bold'); doc.setTextColor(17,24,39);
+        doc.text(gv('from-name') || 'Your Business', 50, y);
+        y += 18;
+
+        doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(107,114,128);
+        const fromLines = [gv('from-email'),gv('from-address'),[gv('from-city'),gv('from-zip')].filter(Boolean).join(', '),gv('from-country'),gv('from-tax-id')].filter(Boolean);
+        fromLines.forEach(l => { doc.text(l, 50, y); y += 13; });
 
         y = Math.max(y, ym) + 16;
 
@@ -969,6 +995,16 @@
     $('download-btn').addEventListener('click', downloadPDF);
     $('preview-btn').addEventListener('click', () => {
         $('invoice-preview').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Logo upload — read locally, never uploaded
+    $('inv-logo-file').addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) { logoDataUrl = ''; updateTotals(); return; }
+        if (!file.type.startsWith('image/')) { logoDataUrl = ''; updateTotals(); return; }
+        const reader = new FileReader();
+        reader.onload = () => { logoDataUrl = reader.result; updateTotals(); };
+        reader.readAsDataURL(file);
     });
 
     // Line item events (delegated)

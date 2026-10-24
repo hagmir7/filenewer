@@ -500,8 +500,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['Which SQL dialects are supported?', 'MySQL, PostgreSQL, and SQLite are all supported. Each dialect uses
             the correct syntax for CREATE TABLE and INSERT statements, including appropriate data types and quoting
             conventions.'],

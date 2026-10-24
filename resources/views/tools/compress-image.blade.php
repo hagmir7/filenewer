@@ -433,7 +433,7 @@
                 </summary>
                 <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">The free tool supports up to 20 images per
                     session. For unlimited bulk processing, automated pipelines, or API access for integrating
-                    compression into your workflow, upgrade to a Pro account.</p>
+                    compression into your workflow, .</p>
             </details>
 
         </div>
@@ -456,16 +456,7 @@
         <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get More</p>
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Need unlimited
             bulk compression or API access?</h2>
-        <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Upgrade to Pro for unlimited images per batch, automated compression pipelines, and a REST API for your own
-            applications.
-        </p>
-        <div class="flex flex-wrap justify-center gap-3">
-            <a href="/pricing"
-                class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
-                View Pro Plans
-            </a>
-        </div>
+
         <p class="text-fn-text3 text-sm mt-5"><svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"

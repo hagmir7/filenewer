@@ -67,7 +67,7 @@
                             </svg>
                             Choose PDF Files
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Up to 50 files · 200MB each free</p>
+                        <p class="text-fn-text3 text-sm mt-5">Up to 50 files · 200MB limit</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf" multiple
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>

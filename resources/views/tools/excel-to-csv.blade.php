@@ -372,8 +372,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['Does it support both .xlsx and .xls?', 'Yes — both modern .xlsx (Excel 2007+) and legacy .xls (Excel
             97-2003) formats are fully supported.'],
             ['Can I convert a specific sheet only?', 'Yes — enter a sheet name (e.g. Sales) or a zero-based index (e.g.

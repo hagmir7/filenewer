@@ -331,8 +331,7 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['Is this really free?', 'Files up to 200MB are completely free with no account needed. Pro plans unlock
-            200MB files and batch conversion.'],
+            ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
             ['Does it support both .doc and .docx?', 'Yes — both legacy .doc (Word 97–2003) and modern .docx (Word
             2016+) formats are fully supported. Just upload and convert.'],
             ['Will my formatting be preserved?', 'Filenewer faithfully renders fonts, headings, tables, images, headers,
