@@ -142,21 +142,28 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 @endif
             </div>
 
-            <div class="prose prose-lg max-w-4xl mx-auto
-                        prose-p:text-gray-300 prose-p:leading-8 prose-hr:m-0
-                        prose-headings:font-semibold prose-headings:tracking-tight
-                        prose-h2:text-white prose-h2:mt-16 prose-h2:mb-6 prose-h2:border-b prose-h2:border-gray-800 prose-h2:pb-3
-                        prose-h3:text-gray-100 prose-h3:mt-10 prose-h3:mb-4
-                        prose-h4:text-gray-200 prose-h4:mt-8 prose-h4:mb-3
-                        prose-strong:text-white
-                        prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-                        prose-blockquote:border-l-blue-500 prose-blockquote:text-gray-300 prose-blockquote:bg-gray-900/40 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
-                        prose-code:text-blue-300 prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-1 prose-code:rounded
-                        prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-xl prose-pre:p-6
-                        prose-ol:text-gray-300 prose-ul:text-gray-300
-                        prose-li:marker:text-blue-400
-                        prose-img:rounded-xl
-                        dark:prose-invert">
+            <div class="prose prose-lg prose-invert prose-headings:font-bold prose-headings:tracking-tight
+                            prose-h1:text-4xl prose-h1:mb-6 prose-h1:text-white
+                            prose-h2:text-2xl prose-h2:mt-6 prose-h2:mb-4 prose-h2:text-gray-100 prose-h2:border-b prose-h2:border-gray-700 prose-h2:pb-2
+                            prose-h3:text-xl prose-h3:mt-4 prose-h3:mb-3 prose-h3:text-gray-200
+                            prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+                            prose-a:text-blue-400 prose-a:no-underline prose-a:font-medium hover:prose-a:text-blue-300 prose-a:transition-colors
+                            prose-strong:text-gray-100 prose-strong:font-semibold
+                            prose-em:text-gray-200 prose-em:italic
+                            prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-gray-800/50
+                            prose-blockquote:rounded-r-lg prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:my-8
+                            prose-blockquote:text-gray-200 prose-blockquote:italic prose-blockquote:font-medium
+                            prose-ul:text-gray-300 prose-ol:text-gray-300
+                            prose-li:mb-2 prose-li:leading-relaxed
+                            prose-code:bg-gray-800 prose-code:text-blue-300 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+                            prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-lg
+                            prose-img:rounded-xl prose-img:shadow-lg prose-img:my-8
+                            prose-hr:border-gray-700 prose-hr:my-12
+                            prose-table:text-sm prose-table:w-full prose-table:my-8
+                            prose-thead:border-b prose-thead:border-gray-700
+                            prose-th:text-gray-100 prose-th:font-semibold prose-th:px-4 prose-th:py-2 prose-th:text-left
+                            prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-gray-800 prose-td:text-gray-300
+                            max-w-none">
 
                 {!! $blog->content !!}
             </div>
