@@ -4,7 +4,8 @@
             <!-- Brand -->
             <div class="lg:col-span-1">
                 <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-tight text-fn-text mb-3">
-                    <img src="/filenewer-logo.svg" alt="Filenewer" width="100" height="50" class="h-[40px] w-auto md:h-[47px]">
+                    <img src="/filenewer-logo.svg" alt="Filenewer" width="100" height="50"
+                        class="h-[40px] w-auto md:h-[47px]">
                 </a>
                 <p class="text-fn-text3 text-sm leading-relaxed max-w-[220px]">Smarter File Processing. Convert,
                     generate, and manage your business files fast, free, and securely.</p>
@@ -35,7 +36,6 @@
                             Document Generators
                         </a>
                     </li>
-
                 </ul>
             </div>
 
@@ -44,18 +44,18 @@
                 <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Company</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
-                        <a href="https://filenewer.com/pages/about-us"
+                        <a href="/pages/about-us"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About us</a>
                     </li>
                     <li>
-                        <a href="https://filenewer.com/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Blog</a>
+                        <a href="/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Blog</a>
                     </li>
                     <li>
-                        <a href="https://filenewer.com/contact"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact us</a>
+                        <a href="/contact" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact
+                            us</a>
                     </li>
                     <li>
-                        <a href="https://filenewer.com/sitemap.xml"
+                        <a href="/sitemap.xml"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Sitemap</a>
                     </li>
                 </ul>
@@ -66,44 +66,43 @@
                 <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Legal</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
-                        <a href="https://filenewer.com/pages/privacy-policy"
+                        <a href="/pages/privacy-policy"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Privacy Policy</a>
                     </li>
                     <li>
-                        <a href="https://filenewer.com/pages/terms-of-service"
+                        <a href="/pages/terms-of-service"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Terms of Service</a>
                     </li>
                     <li>
-                        <a href="https://filenewer.com/pages/gdpr-compliance-policy"
+                        <a href="/pages/gdpr-compliance-policy"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">GDPR</a>
                     </li>
                     <li>
-                        <a href="https://filenewer.com/pages/security-policy"
+                        <a href="/pages/security-policy"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Security</a>
                     </li>
                 </ul>
             </div>
-
         </div>
 
         <!-- Bottom bar -->
         <div class="pt-7 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p class="text-fn-text3 text-sm md:text-sm">© {{  now()->year  }} Filenewer. All rights reserved.</p>
+            <p class="text-fn-text3 text-sm md:text-sm">© {{ now()->year }} Filenewer. All rights reserved.</p>
             <ul class="flex items-center gap-5 list-none">
                 <li>
-                    <a href="https://filenewer.com/pages/privacy-policy"
+                    <a href="/pages/privacy-policy"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Privacy</a>
                 </li>
                 <li>
-                    <a href="https://filenewer.com/pages/terms-of-service"
+                    <a href="/pages/terms-of-service"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Terms</a>
                 </li>
                 <li>
-                    <a href="https://filenewer.com/sitemap.xml"
+                    <a href="/sitemap.xml"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Sitemap</a>
                 </li>
                 <li>
-                    <a href="https://filenewer.com/contact"
+                    <a href="/contact"
                         class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Contact</a>
                 </li>
             </ul>

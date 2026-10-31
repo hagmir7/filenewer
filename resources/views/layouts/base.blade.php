@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="scroll-smooth">
+
 <head>
+    @php
+    $baseUrl = rtrim(config('app.url'), '/');
+    $canonical = $baseUrl . request()->getPathInfo();
+    $pageTitle = $title ?? 'Filenewer – Online File Tools & Converters';
+    $pageDescription = Str::limit($description ?? 'Filenewer is your all-in-one platform for online file tools: convert,
+    generate, compress, and process business documents fast and securely. No install needed.', 169, '');
+    @endphp
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- SEO Meta -->
-    <title>{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}</title>
-    <meta name="description" content="{{ Str::limit($description ?? 'Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed.', 169, '') }}" />
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}" />
     <meta name="keywords" content="{{ $tags ?? 'online file tools, file converter online, business document generator, PDF tools online, secure file processing, free file tools' }}" />
-    <link rel="canonical" href="{{ request()->fullUrl() }}" />
-    <meta property="og:title" content="{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}" />
-    <meta property="og:description" content="{{ Str::limit($description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.', 169, '') }}" />
+    <link rel="canonical" href="{{ $canonical }}" />
+    <meta property="og:title" content="{{ $pageTitle }}" />
+    <meta property="og:description" content="{{ $pageDescription }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/filenewer-thumbnail.png">
-    <meta property="og:url" content="{{ request()->fullUrl() }}" />
+    <meta property="og:image" content="{{ $baseUrl }}/filenewer-thumbnail.png">
+    <meta property="og:url" content="{{ $canonical }}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta property="og:site_name" content="Filenewer" />
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ $title ?? 'Filenewer – Online File Tools &amp; Converters' }}" />
-    <meta name="twitter:description" content="{{ Str::limit($description ?? 'Convert, generate, compress, and process files in seconds. Fast, secure, and free online file tools for everyone.', 169, '') }}" />
+    <meta name="twitter:title" content="{{ $pageTitle }}" />
+    <meta name="twitter:description" content="{{ $pageDescription }}" />
+    <meta name="twitter:image" content="{{ $baseUrl }}/filenewer-thumbnail.png" />
+
+    @if (request()->is('/'))
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $baseUrl . '/#website',
+                    'url' => $baseUrl . '/',
+                    'name' => 'Filenewer',
+                    'alternateName' => ['Filenewer.com'],
+                ],
+                [
+                    '@type' => 'Organization',
+                    '@id' => $baseUrl . '/#organization',
+                    'name' => 'Filenewer',
+                    'url' => $baseUrl . '/',
+                    'logo' => $baseUrl . '/filenewer-logo.svg',
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
+    @endif
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Preconnect for performance -->
     <meta name="google-adsense-account" content="ca-pub-5306320936731470">
@@ -32,15 +66,19 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Filenewer" />
     <meta name="theme-color" content="#0f1117" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
     @stack('scripts')
     @stack('styles')
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="MVOHoGZmMjs1xCZHU4fAjg" async></script>
 </head>
+
 <body class="font-sans bg-fn-bg text-fn-text antialiased overflow-x-hidden">
     <x-nav />
     <main>@yield('content')</main>
     <x-footer />
     @stack('footer')
 </body>
+
 </html>

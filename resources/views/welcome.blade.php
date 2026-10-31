@@ -18,13 +18,13 @@
         <!-- H1 -->
         <h1
             class="animate-fade-up opacity-0 delay-1 text-4xl sm:text-5xl lg:text-[4rem] font-bold tracking-[-0.035em] leading-[1.1] max-w-3xl mx-auto mb-5">
-            The Fastest <span class="text-gradient">Online File Tools</span><br />for Modern Work
+            Filenewer: The Fastest <span class="text-gradient">Online File Tools</span><br />for Modern Work
         </h1>
 
         <!-- Sub -->
         <p class="animate-fade-up opacity-0 delay-2 text-fn-text2 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Convert, generate, compress, and process your business documents in seconds — all in one place. No
-            software to install, no hassle.
+            Filenewer is a free online toolkit to convert, compress, merge, split and edit PDF, Word, Excel, CSV and
+            image files, plus invoice and contract generators. No sign-up, no software to install.
         </p>
 
         <!-- CTAs -->
@@ -49,7 +49,6 @@
                     <polyline points="12 5 19 12 12 19" />
                 </svg>
             </a>
-
 
         </div>
 
@@ -87,7 +86,6 @@
 
     </div>
 </section>
-
 <!-- ══════════════════════ FEATURES ══════════════════════ -->
 <section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
     <div class="max-w-6xl mx-auto px-6">
