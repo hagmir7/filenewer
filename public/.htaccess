@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Redirect the duplicate domain (with or without www) to the main domain
+    RewriteCond %{HTTP_HOST} ^(www\.)?filenewr\.com$ [NC]
+    RewriteRule ^ https://filenewer.com%{REQUEST_URI} [L,R=301]
+
     # Force HTTPS (domain-agnostic)
     RewriteCond %{HTTPS} off
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
