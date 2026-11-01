@@ -101,23 +101,34 @@
                         class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0 gap-2">
                         {{-- Viewport switcher --}}
                         <div class="flex items-center gap-1 p-0.5 bg-fn-surface border border-fn-text/8 rounded-lg">
-                            @foreach([
-                            ['vp-desktop', 'desktop', 'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0
-                            0-1-1zM11 20h2m-4 1h8', 'Desktop'],
-                            ['vp-tablet', 'tablet', 'M12 17h.01M7 21h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2
-                            2v14a2 2 0 0 0 2 2z', 'Tablet'],
-                            ['vp-mobile', 'mobile', 'M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2
-                            2v14a2 2 0 0 0 2 2z', 'Mobile'],
-                            ] as [$id, $val, $path, $label])
-                            <button type="button" id="{{ $id }}" data-vp="{{ $val }}" title="{{ $label }}"
-                                aria-pressed="{{ $val === 'desktop' ? 'true' : 'false' }}"
-                                class="vp-btn {{ $val === 'desktop' ? 'active' : '' }} p-1.5 rounded-md transition-all">
+
+                            <button type="button" id="vp-desktop" data-vp="desktop" title="Desktop" aria-pressed="true"
+                                class="vp-btn active p-1.5 rounded-md transition-all">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="{{ $path }}" />
+                                    <path d="M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0
+                            0-1-1zM11 20h2m-4 1h8" />
                                 </svg>
                             </button>
-                            @endforeach
+
+                            <button type="button" id="vp-tablet" data-vp="tablet" title="Tablet" aria-pressed="false"
+                                class="vp-btn  p-1.5 rounded-md transition-all">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 17h.01M7 21h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2
+                            2v14a2 2 0 0 0 2 2z" />
+                                </svg>
+                            </button>
+
+                            <button type="button" id="vp-mobile" data-vp="mobile" title="Mobile" aria-pressed="false"
+                                class="vp-btn  p-1.5 rounded-md transition-all">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2
+                            2v14a2 2 0 0 0 2 2z" />
+                                </svg>
+                            </button>
+
                         </div>
                         {{-- URL bar (fake) --}}
                         <div
@@ -230,18 +241,32 @@
                 {{-- Quick-insert snippets --}}
                 <div class="flex items-center gap-1.5 flex-wrap">
                     <span class="text-xs text-fn-text3 font-semibold mr-1 hidden sm:inline">Insert:</span>
-                    @foreach([
-                    ['snippet-table', 'Table'],
-                    ['snippet-form', 'Form'],
-                    ['snippet-card', 'Card'],
-                    ['snippet-nav', 'Navbar'],
-                    ['snippet-hero', 'Hero'],
-                    ] as [$sid, $slabel])
-                    <button type="button" id="{{ $sid }}"
+
+                    <button type="button" id="snippet-table"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
-                        {{ $slabel }}
+                        Table
                     </button>
-                    @endforeach
+
+                    <button type="button" id="snippet-form"
+                        class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
+                        Form
+                    </button>
+
+                    <button type="button" id="snippet-card"
+                        class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
+                        Card
+                    </button>
+
+                    <button type="button" id="snippet-nav"
+                        class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
+                        Navbar
+                    </button>
+
+                    <button type="button" id="snippet-hero"
+                        class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
+                        Hero
+                    </button>
+
                 </div>
                 {{-- Auto-preview toggle --}}
                 <label class="flex items-center gap-2 cursor-pointer select-none">
@@ -266,72 +291,111 @@
         <h2 class="text-lg font-bold mb-1 text-center">What You Can Do</h2>
         <p class="text-fn-text3 text-sm text-center mb-8">A full HTML workbench — right in your browser</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            @foreach([
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-            </svg>', 'Live preview', 'The iframe updates as you type — no button needed. Toggle off for large
-            documents.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-ruler-2">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M17 3l4 4l-14 14l-4 -4z" />
-                <path d="M16 7l-1.5 -1.5" />
-                <path d="M13 10l-1.5 -1.5" />
-                <path d="M10 13l-1.5 -1.5" />
-                <path d="M7 16l-1.5 -1.5" />
-            </svg>', 'Viewport switching', 'Test your layout at desktop, tablet (768px), and mobile (390px) widths
-            instantly.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path
-                    d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
-                <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-            </svg>', 'Dark/Light canvas', 'Toggle the preview background between white and dark to test your design on
-            both.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                <path d="M9.15 14.85l8.85 -10.85" />
-                <path d="M6 4l8.85 10.85" />
-            </svg>', 'Quick snippets', 'Insert common patterns — tables, forms, cards, navbars, heroes — with one
-            click.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-123">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M3 10l2 -2v8" />
-                <path d="M9 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
-                <path
-                    d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
-            </svg>', 'Line numbers', 'Always-visible line count so you can navigate large documents without guessing.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-                <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                <path d="M14 4l0 4l-6 0l0 -4" />
-            </svg>', 'Download & open', 'Export your HTML as a .html file or open the preview in a new browser tab.'],
-            ] as [$icon, $title, $desc])
+
             <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
-                <span class="text-xl shrink-0 mt-0.5">{!! $icon !!}</span>
+                <span class="text-xl shrink-0 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
+                    </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">{{ $title }}</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                    <p class="font-bold text-sm mb-0.5">Live preview</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">The iframe updates as you type — no button needed.
+                        Toggle off for large
+                        documents.</p>
                 </div>
             </div>
-            @endforeach
+
+            <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
+                <span class="text-xl shrink-0 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-ruler-2">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M17 3l4 4l-14 14l-4 -4z" />
+                        <path d="M16 7l-1.5 -1.5" />
+                        <path d="M13 10l-1.5 -1.5" />
+                        <path d="M10 13l-1.5 -1.5" />
+                        <path d="M7 16l-1.5 -1.5" />
+                    </svg></span>
+                <div>
+                    <p class="font-bold text-sm mb-0.5">Viewport switching</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">Test your layout at desktop, tablet (768px), and
+                        mobile (390px) widths
+                        instantly.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
+                <span class="text-xl shrink-0 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25" />
+                        <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                        <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                        <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                    </svg></span>
+                <div>
+                    <p class="font-bold text-sm mb-0.5">Dark/Light canvas</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">Toggle the preview background between white and
+                        dark to test your design on
+                        both.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
+                <span class="text-xl shrink-0 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                        <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                        <path d="M9.15 14.85l8.85 -10.85" />
+                        <path d="M6 4l8.85 10.85" />
+                    </svg></span>
+                <div>
+                    <p class="font-bold text-sm mb-0.5">Quick snippets</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">Insert common patterns — tables, forms, cards,
+                        navbars, heroes — with one
+                        click.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
+                <span class="text-xl shrink-0 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-123">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M3 10l2 -2v8" />
+                        <path d="M9 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
+                        <path
+                            d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
+                    </svg></span>
+                <div>
+                    <p class="font-bold text-sm mb-0.5">Line numbers</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">Always-visible line count so you can navigate large
+                        documents without guessing.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
+                <span class="text-xl shrink-0 mt-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-floppy">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                        <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M14 4l0 4l-6 0l0 -4" />
+                    </svg></span>
+                <div>
+                    <p class="font-bold text-sm mb-0.5">Download &amp; open</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">Export your HTML as a .html file or open the
+                        preview in a new browser tab.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -341,30 +405,11 @@
         <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 text-center">Frequently Asked Questions
         </h2>
         <div class="space-y-2 sm:space-y-3">
-            @foreach([
-            ['Is the preview safe — can scripts run?', 'Yes — the preview iframe runs with the sandbox attribute set to
-            allow-scripts and allow-same-origin. This means JavaScript in your HTML will execute so you can test
-            interactive components, but access to cookies, localStorage, and parent-frame resources is restricted.'],
-            ['Does the content get sent anywhere?', 'No. Everything runs entirely in your browser. Your HTML is never
-            sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab discards it
-            completely.'],
-            ['What is the dark/light canvas toggle?', 'It switches the preview iframe\\'s background color between white
-            (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode backgrounds without
-            adding any CSS to your HTML.'],
-            ['Can I test responsive layouts?', 'Yes — the viewport switcher constrains the preview iframe to desktop
-            (full width), tablet (768px), or mobile (390px). You can see exactly how your layout reflows at each
-            breakpoint.'],
-            ['What do the quick-insert snippets add?', 'Each snippet injects a self-contained HTML block at the cursor
-            position (or end of document): Table adds a styled data table, Form adds a labelled input form, Card adds a
-            content card, Navbar adds a navigation bar, and Hero adds a full-width hero section.'],
-            ['Can I open the result in a new tab?', 'Yes — click the open-in-new-tab button in the preview toolbar. This
-            writes the current HTML into a new blank window using document.write, so your full page — including scripts
-            and styles — renders in a standalone browser tab.'],
-            ] as [$q, $a])
+
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">{{ $q }}</span>
+                    <span class="font-semibold text-sm pr-3">Is the preview safe — can scripts run?</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -372,10 +417,110 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — the preview iframe runs with the sandbox
+                        attribute set to
+                        allow-scripts and allow-same-origin. This means JavaScript in your HTML will execute so you can
+                        test
+                        interactive components, but access to cookies, localStorage, and parent-frame resources is
+                        restricted.</p>
                 </div>
             </div>
-            @endforeach
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm pr-3">Does the content get sent anywhere?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-4 sm:px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">No. Everything runs entirely in your browser. Your
+                        HTML is never
+                        sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab
+                        discards it
+                        completely.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm pr-3">What is the dark/light canvas toggle?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-4 sm:px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">It switches the preview iframe background color
+                        between white
+                        (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode
+                        backgrounds without
+                        adding any CSS to your HTML.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm pr-3">Can I test responsive layouts?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-4 sm:px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — the viewport switcher constrains the preview
+                        iframe to desktop
+                        (full width), tablet (768px), or mobile (390px). You can see exactly how your layout reflows at
+                        each
+                        breakpoint.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm pr-3">What do the quick-insert snippets add?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-4 sm:px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Each snippet injects a self-contained HTML block at
+                        the cursor
+                        position (or end of document): Table adds a styled data table, Form adds a labelled input form,
+                        Card adds a
+                        content card, Navbar adds a navigation bar, and Hero adds a full-width hero section.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm pr-3">Can I open the result in a new tab?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-4 sm:px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — click the open-in-new-tab button in the
+                        preview toolbar. This
+                        writes the current HTML into a new blank window using document.write, so your full page —
+                        including scripts
+                        and styles — renders in a standalone browser tab.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
