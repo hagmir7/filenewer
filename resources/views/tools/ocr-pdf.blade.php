@@ -1,21 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="ocr-pdf-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @php $ocrSteps = [['1','Upload PDF'],['2','Extracting'],['3','Result']]; @endphp
                 @foreach($ocrSteps as [$n,$label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
@@ -30,15 +25,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
@@ -70,7 +62,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -99,10 +90,8 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 grid sm:grid-cols-3 gap-3">
-
                         {{-- DPI --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -115,7 +104,6 @@
                                 <span>72 Fast</span><span>300</span><span>600 Best</span>
                             </div>
                         </div>
-
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -125,7 +113,6 @@
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             <p class="text-fn-text3 text-sm mt-1.5">Leave blank to extract all pages</p>
                         </div>
-
                         {{-- Output --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
@@ -141,9 +128,7 @@
                                 @endforeach
                             </div>
                         </div>
-
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 flex items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -156,7 +141,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Extract button --}}
                     <button id="extract-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -170,9 +154,7 @@
                         </svg>
                         Extract Text
                     </button>
-
                 </div>{{-- /state-upload --}}
-
                 {{-- ── STATE: Extracting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -245,10 +227,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Result ── --}}
                 <div id="state-result" class="hidden">
-
                     {{-- Stats bar --}}
                     <div class="flex flex-wrap gap-2 mb-5" id="ocr-stats-bar">
                         @php
@@ -269,7 +249,6 @@
                         {{-- Method badges --}}
                         <div id="method-badges" class="flex gap-1.5 flex-wrap"></div>
                     </div>
-
                     {{-- Page tabs + text area --}}
                     <div id="preview-section">
                         <div class="flex items-center justify-between mb-3">
@@ -296,10 +275,8 @@
                                 </a>
                             </div>
                         </div>
-
                         <textarea id="ocr-output" rows="18" readonly spellcheck="false"
                             class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-5 py-4 focus:outline-none resize-none leading-relaxed cursor-default"></textarea>
-
                         {{-- Empty page notice --}}
                         <div id="empty-page-notice" class="hidden mt-2 flex items-center gap-2 text-sm text-fn-text3">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -311,7 +288,6 @@
                             No text detected on this page — it may be blank or contain only images.
                         </div>
                     </div>
-
                     {{-- Actions --}}
                     <div class="mt-6 flex items-center justify-between flex-wrap gap-3">
                         <button type="button" onclick="resetConverter()"
@@ -328,7 +304,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-5 text-fn-text3 text-sm flex items-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -336,9 +311,7 @@
                         </svg>
                         Your file is encrypted and permanently deleted after processing.
                     </p>
-
                 </div>{{-- /state-result --}}
-
                 {{-- Download-only result (output=file) --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -353,7 +326,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Text Extracted!</h2>
                     <p class="text-fn-text2 text-sm mb-8" id="dl-subtitle">Your text file is ready.</p>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -374,7 +346,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="extracted.txt"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -386,7 +357,6 @@
                         </svg>
                         Download .txt File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -402,7 +372,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -411,13 +380,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -438,7 +404,8 @@
             1,3,5). Leave blank to extract all pages.'],
             ['Can I download the extracted text?', 'Yes — choose "Download .txt file" in the Output options before
             extracting, or use the Download .txt button that appears alongside the inline preview.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
@@ -461,12 +428,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 @push('styles')
 <style>
@@ -516,18 +480,137 @@
         border-color: oklch(75% 0.15 55/30%);
         color: oklch(65% 0.15 55);
     }
+
+    #ocr-pdf-tool .page-tab.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        border-color: #2563eb;
+        color: white;
+    }
+
+    #ocr-pdf-tool label:has(input[name="ocr-output"]:checked) {
+        background: #2563eb;
+        border-radius: 8px;
+        color: white;
+    }
+
+    #ocr-pdf-tool label:has(input[name="ocr-output"]) {
+        padding: 8px 10px;
+    }
+
+    #ocr-pdf-tool label:has(input[name="ocr-output"]:checked) span {
+        color: white;
+    }
+
+    #ocr-pdf-tool input[type=radio] {
+        accent-color: #2563eb;
+        flex-shrink: 0;
+    }
+
+    #ocr-pdf-tool button:focus-visible,
+    #ocr-pdf-tool a:focus-visible,
+    #ocr-pdf-tool label:has(input:focus-visible),
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #ocr-pdf-tool .grid>*,
+    #ocr-pdf-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #ocr-pdf-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #file-meta,
+    #output-name,
+    #error-text {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #page-tabs {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #ocr-output {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    @media(max-width:639px) {
+
+        #ocr-pdf-tool button,
+        #ocr-pdf-tool a {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #ocr-pdf-tool .page-tab {
+            min-height: 30px;
+            font-size: 11px;
+            padding: 5px 8px;
+        }
+
+        #ocr-pdf-tool input[type=text],
+        #ocr-output {
+            font-size: 16px;
+            max-width: 100%;
+        }
+
+        #ocr-output {
+            height: 45svh;
+            min-height: 260px;
+            max-height: 480px;
+        }
+
+        #ocr-pdf-tool .step-label {
+            font-size: 11px;
+        }
+
+        #ocr-pdf-tool .step-item {
+            gap: 4px;
+        }
+
+        #ocr-pdf-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #ocr-pdf-tool .step-item+div {
+            width: 12px;
+            margin: 0 4px;
+        }
+
+        #file-preview {
+            gap: 8px;
+            padding: 12px;
+        }
+
+        #remove-file {
+            min-width: 32px;
+            width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+    }
 </style>
 @endpush
-
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       let selectedFile = null;
       let blobUrl      = null;
       let ocrPages     = []; // array of page objects from API
-
       // ── DPI slider ──
       const dpiHints = [[72,100,'Fast'],[101,199,'Draft'],[200,250,'Good'],[251,350,'Recommended'],[351,450,'High'],[451,600,'Maximum']];
       document.getElementById('opt-dpi').addEventListener('input', e => {
@@ -536,12 +619,10 @@
         const hint = dpiHints.find(([lo,hi]) => v >= lo && v <= hi);
         document.getElementById('dpi-hint').textContent = hint ? `(${hint[2]})` : '';
       });
-
       // ── Drop zone ──
       const dropZone   = document.getElementById('drop-zone');
       const fileInput  = document.getElementById('file-input');
       const filePreview = document.getElementById('file-preview');
-
       ['dragenter','dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
       });
@@ -560,7 +641,6 @@
         document.getElementById('extract-btn').disabled = true;
         hideError();
       });
-
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
@@ -576,30 +656,23 @@
         dropZone.classList.add('has-file');
         document.getElementById('extract-btn').disabled = false;
       }
-
       // ── Extract ──
       document.getElementById('extract-btn').addEventListener('click', startExtraction);
-
       async function startExtraction() {
         if (!selectedFile) return;
         hideError();
-
         const outputMode = document.querySelector('input[name="ocr-output"]:checked').value;
         const dpi        = document.getElementById('opt-dpi').value;
         const pages      = document.getElementById('opt-pages').value.trim();
-
         showState('converting');
         updateStepIndicator(2);
-
         const fd = new FormData();
         fd.append('file',   selectedFile);
         fd.append('output', outputMode);
         fd.append('dpi',    dpi);
         if (pages) fd.append('pages', pages);
-
         setProcessStep('proc-1','active');
         animateProgress(0, 20, 700, 'Uploading & reading PDF…');
-
         const t2 = setTimeout(() => {
           setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
           animateProgress(20, 50, 1000, 'Detecting text vs scanned pages…');
@@ -612,50 +685,40 @@
           setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
           animateProgress(78, 90, 700, 'Assembling full text output…');
         }, 3300);
-
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/ocr-pdf', {
             method: 'POST',
             body:   fd,
           });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!res.ok) {
             const d = await res.json().catch(() => ({}));
             throw new Error(d.error || 'OCR failed. Please try again.');
           }
-
           setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
           animateProgress(90, 100, 300, 'Done!');
-
           if (outputMode === 'file') {
             // Binary .txt download
             const blob     = await res.blob();
             const fileName = selectedFile.name.replace(/\.pdf$/i, '_extracted.txt');
             if (blobUrl) URL.revokeObjectURL(blobUrl);
             blobUrl = URL.createObjectURL(blob);
-
             document.getElementById('download-link').href     = blobUrl;
             document.getElementById('download-link').download = fileName;
             document.getElementById('output-name').textContent = fileName;
             document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Text File';
             document.getElementById('dl-subtitle').textContent =
               `Text extracted from ${selectedFile.name}`;
-
             setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
           } else {
             // JSON response — show inline preview
             const data = await res.json();
             ocrPages = data.pages ?? [];
-
             // Stats
             document.getElementById('stat-pages').textContent = data.total_pages ?? ocrPages.length;
             document.getElementById('stat-words').textContent = (data.word_count ?? 0).toLocaleString();
             document.getElementById('stat-chars').textContent = (data.char_count ?? 0).toLocaleString();
             document.getElementById('stat-dpi').textContent   = (data.dpi ?? dpi) + ' DPI';
-
             // Method badges
             const hasDigital = ocrPages.some(p => p.method === 'digital');
             const hasImage   = ocrPages.some(p => p.method === 'image');
@@ -663,7 +726,6 @@
             badgesEl.innerHTML = '';
             if (hasDigital) badgesEl.innerHTML += `<span class="method-badge digital"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Digital</span>`;
             if (hasImage)   badgesEl.innerHTML += `<span class="method-badge image"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg> Image OCR</span>`;
-
             // Build page tabs
             const tabsEl = document.getElementById('page-tabs');
             tabsEl.innerHTML = '';
@@ -674,7 +736,6 @@
             allTab.textContent = 'All pages';
             allTab.addEventListener('click', () => showPageText(-1, data.full_text, allTab));
             tabsEl.appendChild(allTab);
-
             ocrPages.forEach((page, idx) => {
               const tab = document.createElement('button');
               tab.type = 'button';
@@ -684,12 +745,10 @@
               tab.addEventListener('click', () => showPageText(idx, page.text, tab));
               tabsEl.appendChild(tab);
             });
-
             // Show full text initially
             const outputTA = document.getElementById('ocr-output');
             outputTA.value = data.full_text ?? '';
             document.getElementById('empty-page-notice').classList.add('hidden');
-
             // Wire download btn
             const txtBlob = new Blob([data.full_text ?? ''], { type: 'text/plain;charset=utf-8;' });
             if (blobUrl) URL.revokeObjectURL(blobUrl);
@@ -697,10 +756,8 @@
             const dlBtn   = document.getElementById('btn-download-txt');
             dlBtn.href     = blobUrl;
             dlBtn.download = selectedFile.name.replace(/\.pdf$/i, '_extracted.txt');
-
             setTimeout(() => { showState('result'); updateStepIndicator(3); }, 500);
           }
-
         } catch(err) {
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           showState('upload');
@@ -708,14 +765,12 @@
           showError(err.message || 'Something went wrong. Please try again.');
         }
       }
-
       function showPageText(idx, text, clickedTab) {
         document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
         clickedTab.classList.add('active');
         document.getElementById('ocr-output').value = text ?? '';
         const isEmpty = !text || text.trim() === '';
         document.getElementById('empty-page-notice').classList.toggle('hidden', !isEmpty || idx === -1);
-
         // Update download blob to current page text if single page
         if (idx >= 0 && blobUrl) {
           URL.revokeObjectURL(blobUrl);
@@ -723,7 +778,6 @@
           document.getElementById('btn-download-txt').href = blobUrl;
         }
       }
-
       // ── Copy ──
       document.getElementById('btn-copy-text').addEventListener('click', async () => {
         try {
@@ -733,14 +787,12 @@
           setTimeout(() => { label.textContent = 'Copy'; }, 2000);
         } catch(_) {}
       });
-
       // ── Helpers ──
       function showState(state) {
         ['upload','converting','result','download'].forEach(s => {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
       }
-
       function updateStepIndicator(active) {
         [1,2,3].forEach(n => {
           const el = document.getElementById('step-' + n);
@@ -749,7 +801,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -769,7 +820,6 @@
           dot.style.background  = 'oklch(67% 0.18 162/15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         const start = performance.now();
@@ -782,7 +832,6 @@
         }
         requestAnimationFrame(step);
       }
-
       function showError(msg) {
         document.getElementById('error-text').textContent = msg;
         const el = document.getElementById('upload-error');
@@ -797,7 +846,6 @@
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         selectedFile    = null;
@@ -821,7 +869,6 @@
         animateProgress(0, 0, 0, 'Starting…');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -833,9 +880,7 @@
           if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

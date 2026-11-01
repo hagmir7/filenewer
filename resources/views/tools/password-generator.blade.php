@@ -1,19 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="password-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── Mode tabs ── --}}
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
@@ -46,16 +40,12 @@
                 </button>
                 @endforeach
             </div>
-
-            <div class="p-6 lg:p-8">
-
+            <div class="p-4 sm:p-6 lg:p-8">
                 {{-- ══ GENERATE TAB ══ --}}
                 <div id="panel-generate" class="tab-panel">
                     <div class="grid lg:grid-cols-3 gap-6">
-
                         {{-- ── LEFT: Options ── --}}
                         <div class="space-y-4">
-
                             {{-- Length --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -69,7 +59,6 @@
                                 <input type="number" id="pw-length-num" min="4" max="256" value="16"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
-
                             {{-- Count --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -81,7 +70,6 @@
                                     <span>1</span><span>5</span><span>10</span><span>20</span>
                                 </div>
                             </div>
-
                             {{-- Character sets --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Characters</label>
@@ -114,14 +102,13 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             {{-- Exclusion options --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1">Exclusions</label>
                                 @php
                                 $exclusions = [
                                 ['pw-exclude-similar', 'Exclude similar', '0 O 1 l I'],
-                                ['pw-exclude-ambiguous', 'Exclude ambiguous', '{ } / \\ ; :'],
+                                ['pw-exclude-ambiguous', 'Exclude ambiguous', '{ } / \\\ ; :'],
                                 ['pw-no-repeat', 'No repeating chars', ''],
                                 ];
                                 @endphp
@@ -150,7 +137,6 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
-
                             {{-- Prefix / Suffix / Custom --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1">Advanced</label>
@@ -173,7 +159,6 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
-
                             <button type="button" id="gen-btn"
                                 class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -182,12 +167,9 @@
                                 </svg>
                                 Generate
                             </button>
-
                         </div>{{-- /left --}}
-
                         {{-- ── RIGHT: Output ── --}}
                         <div class="lg:col-span-2 space-y-4">
-
                             {{-- Entropy / strength badge --}}
                             <div id="gen-meta-bar"
                                 class="hidden flex flex-wrap items-center gap-2 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -227,7 +209,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             {{-- Password rows --}}
                             <div id="pw-list" class="space-y-2 min-h-24">
                                 <div id="pw-empty"
@@ -240,7 +221,6 @@
                                     <span class="text-sm">Configure options and click Generate</span>
                                 </div>
                             </div>
-
                             {{-- Crack time (shown after generate) --}}
                             <div id="crack-time-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -257,7 +237,6 @@
                                     </svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="crack-time-grid"></div>
                             </div>
-
                             <div id="gen-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -268,17 +247,13 @@
                                 <span id="gen-error-text"></span>
                             </div>
                         </div>
-
                     </div>
                 </div>{{-- /panel-generate --}}
-
                 {{-- ══ PASSPHRASE TAB ══ --}}
                 <div id="panel-passphrase" class="tab-panel hidden">
                     <div class="grid lg:grid-cols-3 gap-6">
-
                         {{-- Options --}}
                         <div class="space-y-4">
-
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Words — <span id="pp-words-val" class="text-fn-blue-l">4</span>
@@ -289,7 +264,6 @@
                                     <span>2</span><span>4</span><span>7</span><span>10</span>
                                 </div>
                             </div>
-
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Count — <span id="pp-count-val" class="text-fn-blue-l">3</span>
@@ -297,7 +271,6 @@
                                 <input type="range" id="pp-count" min="1" max="10" value="3" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
                             </div>
-
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="pp-separator"
                                     class="text-sm font-semibold text-fn-text2 block mb-2">Separator</label>
@@ -312,7 +285,6 @@
                                 <input type="text" id="pp-separator" value="-" placeholder="Custom separator"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
-
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1">Options</label>
                                 <label class="flex items-center gap-2 cursor-pointer select-none">
@@ -340,7 +312,6 @@
                                     <span class="text-sm font-semibold text-fn-text2">Include a digit</span>
                                 </label>
                             </div>
-
                             <button type="button" id="pp-gen-btn"
                                 class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -350,10 +321,8 @@
                                 Generate Passphrases
                             </button>
                         </div>
-
                         {{-- Output --}}
                         <div class="lg:col-span-2 space-y-4">
-
                             <div id="pp-meta-bar"
                                 class="hidden flex flex-wrap items-center gap-2 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center gap-1.5">
@@ -388,7 +357,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             <div id="pp-list" class="space-y-2 min-h-24">
                                 <div id="pp-empty"
                                     class="flex flex-col items-center justify-center h-48 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
@@ -399,7 +367,6 @@
                                     <span class="text-sm">Configure options and generate passphrases</span>
                                 </div>
                             </div>
-
                             <div id="pp-crack-card"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <p class="text-sm font-semibold text-fn-text2 mb-3"><svg
@@ -415,7 +382,6 @@
                                     </svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="pp-crack-grid"></div>
                             </div>
-
                             <div id="pp-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -425,14 +391,11 @@
                                 <span id="pp-error-text"></span>
                             </div>
                         </div>
-
                     </div>
                 </div>{{-- /panel-passphrase --}}
-
                 {{-- ══ STRENGTH TAB ══ --}}
                 <div id="panel-strength" class="tab-panel hidden">
                     <div class="max-w-2xl space-y-4">
-
                         {{-- Input --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
@@ -457,7 +420,6 @@
                             </div>
                             <input type="password" id="str-input" placeholder="Type or paste a password to analyse…"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-base font-mono rounded-xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 placeholder:font-sans placeholder:text-sm" />
-
                             {{-- Live strength bar --}}
                             <div class="h-2 bg-fn-surface2 border border-fn-text/8 rounded-full overflow-hidden">
                                 <div id="str-bar" class="h-full rounded-full transition-all duration-500"
@@ -468,10 +430,8 @@
                                 <span id="str-live-entropy" class="font-mono text-fn-text3"></span>
                             </div>
                         </div>
-
                         {{-- Full result (after API call) --}}
                         <div id="str-result" class="hidden space-y-4">
-
                             {{-- Main score card --}}
                             <div class="p-5 rounded-2xl border" id="str-score-card">
                                 <div class="flex items-center gap-4 mb-4">
@@ -492,11 +452,9 @@
                                         <p class="text-sm text-fn-text3 mt-0.5" id="str-entropy-label"></p>
                                     </div>
                                 </div>
-
                                 {{-- Character type pills --}}
                                 <div class="flex flex-wrap gap-1.5" id="str-char-pills"></div>
                             </div>
-
                             {{-- Crack time --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <p class="text-sm font-semibold text-fn-text2 mb-3"><svg
@@ -512,7 +470,6 @@
                                     </svg> Estimated Crack Time</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="str-crack-grid"></div>
                             </div>
-
                             {{-- Issues & suggestions --}}
                             <div id="str-issues-wrap"
                                 class="hidden p-4 bg-fn-amber/6 border border-fn-amber/20 rounded-xl space-y-2">
@@ -528,9 +485,7 @@
                                     </svg> Issues & Suggestions</p>
                                 <ul id="str-issues-list" class="space-y-1"></ul>
                             </div>
-
                         </div>
-
                         <div id="str-error"
                             class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -539,16 +494,12 @@
                             </svg>
                             <span id="str-error-text"></span>
                         </div>
-
                     </div>
                 </div>{{-- /panel-strength --}}
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ STRENGTH GUIDE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-5xl mx-auto px-6">
@@ -573,12 +524,9 @@
     </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 @push('styles')
 {{-- ══ STYLES ══ --}}
 <style>
@@ -670,16 +618,112 @@
         font-weight: 700;
         color: var(--fn-text2);
     }
+
+    #password-tool .tab-btn.active,
+    #password-tool .sep-preset-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: white;
+        border-color: #2563eb;
+    }
+
+    #password-tool input:checked~.toggle-track {
+        background: #2563eb;
+    }
+
+    #password-tool input:focus-visible~.toggle-track,
+    #password-tool button:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #password-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #password-tool .grid>*,
+    #password-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #password-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #password-tool .pw-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        min-width: 0;
+        text-overflow: clip;
+    }
+
+    #password-tool .crack-value,
+    #password-tool [id$="error-text"] {
+        overflow-wrap: anywhere;
+        min-width: 0;
+    }
+
+    #password-tool input {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #password-tool>div>div>div:first-child {
+        flex-wrap: wrap;
+    }
+
+    @media(max-width:639px) {
+        #password-tool button {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            gap: 6px;
+        }
+
+        #password-tool .tab-btn {
+            flex: 1 1 auto;
+            justify-content: center;
+            padding: 6px 8px;
+        }
+
+        #password-tool .sep-preset-btn {
+            min-height: 30px;
+            font-size: 11px;
+            padding: 5px 8px;
+        }
+
+        #password-tool input[type=text],
+        #password-tool input[type=number],
+        #password-tool input[type=password] {
+            font-size: 16px;
+        }
+
+        #password-tool .pw-row {
+            padding: 10px;
+            gap: 8px;
+        }
+
+        #password-tool .pw-text {
+            font-size: 13px;
+        }
+
+        #password-tool .crack-scenario {
+            width: 90px;
+        }
+    }
+
+    @media(hover:none) {
+        #password-tool .pw-copy {
+            opacity: 1;
+        }
+    }
 </style>
 @endpush
-
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       const API = 'https://api.filenewer.com/api/tools';
-
       const strengthConfig = {
         very_weak:   { label: 'Very Weak',   color: 'oklch(62% 0.22 25)',  bg: 'oklch(62% 0.22 25/12%)', border: 'oklch(62% 0.22 25/30%)', pct: 10 },
         weak:        { label: 'Weak',        color: 'oklch(75% 0.15 55)',  bg: 'oklch(75% 0.15 55/12%)', border: 'oklch(75% 0.15 55/30%)', pct: 30 },
@@ -687,7 +731,6 @@
         strong:      { label: 'Strong',      color: 'oklch(67% 0.18 162)', bg: 'oklch(67% 0.18 162/12%)', border: 'oklch(67% 0.18 162/30%)', pct: 80 },
         very_strong: { label: 'Very Strong', color: 'oklch(49% 0.24 264)', bg: 'oklch(49% 0.24 264/12%)', border: 'oklch(49% 0.24 264/30%)', pct: 100 },
       };
-
       // ── Tab switching ──
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -697,9 +740,7 @@
           document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
         });
       });
-
       // ══ GENERATE ══
-
       // Sync length slider ↔ number input
       const pwLenRange = document.getElementById('pw-length');
       const pwLenNum   = document.getElementById('pw-length-num');
@@ -709,19 +750,15 @@
         pwLenNum.value = v; pwLenRange.value = Math.min(v, 128);
         document.getElementById('pw-len-val').textContent = v;
       });
-
       // Sync count slider
       document.getElementById('pw-count').addEventListener('input', e => {
         document.getElementById('pw-count-val').textContent = e.target.value;
       });
-
       document.getElementById('gen-btn').addEventListener('click', doGenerate);
       document.getElementById('gen-regen').addEventListener('click', doGenerate);
-
       async function doGenerate() {
         hideEl('gen-error');
         setLoading('gen-btn', 'Generating…');
-
         const payload = {
           length:            parseInt(pwLenNum.value) || 16,
           count:             parseInt(document.getElementById('pw-count').value) || 1,
@@ -737,7 +774,6 @@
           suffix:            document.getElementById('pw-suffix').value || '',
           custom_chars:      document.getElementById('pw-custom-chars').value || '',
         };
-
         try {
           const res  = await fetch(`${API}/password-generate`, {
             method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
@@ -752,12 +788,10 @@
           resetLoading('gen-btn', `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`);
         }
       }
-
       function renderPasswords(data) {
         const passwords = data.passwords ?? [];
         const strength  = data.strength  ?? 'moderate';
         const cfg       = strengthConfig[strength] ?? strengthConfig.moderate;
-
         // Meta bar
         document.getElementById('gen-strength-badge').textContent  = cfg.label;
         document.getElementById('gen-strength-badge').style.background = cfg.bg;
@@ -767,7 +801,6 @@
         document.getElementById('gen-pool').textContent    = data.pool_size ? data.pool_size + ' chars' : '—';
         showEl('gen-meta-bar', 'flex');
         showEl('gen-copy-all');
-
         // Password rows
         const list = document.getElementById('pw-list');
         list.innerHTML = '';
@@ -783,21 +816,18 @@
           });
           list.appendChild(row);
         });
-
         // Copy all
         document.getElementById('gen-copy-all').onclick = async () => {
           await navigator.clipboard.writeText(passwords.join('\n')).catch(() => {});
           document.getElementById('gen-copy-label').textContent = 'Copied!';
           setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
         };
-
         // Crack time
         if (data.crack_time) {
           renderCrackTime('crack-time-grid', data.crack_time);
           showEl('crack-time-card');
         }
       }
-
       // ══ PASSPHRASE ══
       document.getElementById('pp-words').addEventListener('input', e => {
         document.getElementById('pp-words-val').textContent = e.target.value;
@@ -805,7 +835,6 @@
       document.getElementById('pp-count').addEventListener('input', e => {
         document.getElementById('pp-count-val').textContent = e.target.value;
       });
-
       // Separator presets
       document.querySelectorAll('.sep-preset-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -817,10 +846,8 @@
       document.getElementById('pp-separator').addEventListener('input', () => {
         document.querySelectorAll('.sep-preset-btn').forEach(b => b.classList.remove('active'));
       });
-
       document.getElementById('pp-gen-btn').addEventListener('click', doPassphrase);
       document.getElementById('pp-regen').addEventListener('click', doPassphrase);
-
       async function doPassphrase() {
         hideEl('pp-error');
         setLoading('pp-gen-btn', 'Generating…');
@@ -845,12 +872,10 @@
           resetLoading('pp-gen-btn', `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate Passphrases`);
         }
       }
-
       function renderPassphrases(data) {
         const phrases = data.passphrases ?? [];
         const strength = data.strength ?? 'moderate';
         const cfg = strengthConfig[strength] ?? strengthConfig.moderate;
-
         document.getElementById('pp-strength-badge').textContent       = cfg.label;
         document.getElementById('pp-strength-badge').style.background  = cfg.bg;
         document.getElementById('pp-strength-badge').style.color       = cfg.color;
@@ -858,7 +883,6 @@
         document.getElementById('pp-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
         showEl('pp-meta-bar', 'flex');
         showEl('pp-copy-all');
-
         const list = document.getElementById('pp-list');
         list.innerHTML = '';
         phrases.forEach(ph => {
@@ -873,22 +897,18 @@
           });
           list.appendChild(row);
         });
-
         document.getElementById('pp-copy-all').onclick = async () => {
           await navigator.clipboard.writeText(phrases.join('\n')).catch(() => {});
           document.getElementById('pp-copy-label').textContent = 'Copied!';
           setTimeout(() => { document.getElementById('pp-copy-label').textContent = 'Copy all'; }, 2000);
         };
-
         if (data.crack_time) {
           renderCrackTime('pp-crack-grid', data.crack_time);
           showEl('pp-crack-card');
         }
       }
-
       // ══ STRENGTH ══
       const strInput = document.getElementById('str-input');
-
       // Show/hide toggle
       document.getElementById('str-toggle-vis').addEventListener('click', () => {
         const isPass = strInput.type === 'password';
@@ -897,7 +917,6 @@
         document.getElementById('str-eye-hide').classList.toggle('hidden', !isPass);
         document.getElementById('str-toggle-vis').querySelector('span:last-child')?.remove();
       });
-
       // Live bar (client-side estimate)
       let strDebounce = null;
       strInput.addEventListener('input', () => {
@@ -909,7 +928,6 @@
           hideEl('str-result');
         }
       });
-
       function updateLiveBar(pw) {
         let bits = 0;
         if (pw.length > 0) {
@@ -928,7 +946,6 @@
         document.getElementById('str-live-label').style.color = pw.length ? cfg.color : '';
         document.getElementById('str-live-entropy').textContent = pw.length ? bits.toFixed(1) + ' bits' : '';
       }
-
       async function doStrengthCheck() {
         const pw = strInput.value;
         if (!pw) return;
@@ -945,30 +962,25 @@
           showEl('str-error', 'flex');
         }
       }
-
       function renderStrength(data) {
         const strength = data.strength ?? 'moderate';
         const cfg      = strengthConfig[strength] ?? strengthConfig.moderate;
         const score    = data.score ?? cfg.pct;
-
         // Score card
         const card = document.getElementById('str-score-card');
         card.style.background = cfg.bg;
         card.style.border     = `1px solid ${cfg.border}`;
-
         document.getElementById('str-strength-label').textContent = cfg.label;
         document.getElementById('str-strength-label').style.color = cfg.color;
         document.getElementById('str-entropy-label').textContent  =
           `Entropy: ${(data.entropy ?? 0).toFixed(1)} bits  ·  Score: ${score}/100`;
         document.getElementById('str-score-num').textContent = score;
-
         // Animated circle
         const circle = document.getElementById('str-score-circle');
         circle.style.stroke = cfg.color;
         const circ = 2 * Math.PI * 15.9;
         circle.style.strokeDasharray  = circ;
         circle.style.strokeDashoffset = circ * (1 - score / 100);
-
         // Character pills
         const pills = document.getElementById('str-char-pills');
         pills.innerHTML = '';
@@ -984,15 +996,13 @@
           span.className = `text-sm font-semibold px-2.5 py-1 rounded-lg border ${ok
             ? 'bg-fn-green/10 border-fn-green/25 text-fn-green'
             : 'bg-fn-text/6 border-fn-text/10 text-fn-text3'}`;
-          span.innerHTML = `${ok ? '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>'} ${label}`;
+          span.innerHTML = `${ok ? `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>`} ${label}`;
           pills.appendChild(span);
         });
-
         // Crack time
         if (data.crack_time) {
           renderCrackTime('str-crack-grid', data.crack_time);
         }
-
         // Issues
         const allIssues = [...(data.issues ?? []), ...(data.suggestions ?? [])];
         if (allIssues.length > 0) {
@@ -1008,10 +1018,8 @@
         } else {
           hideEl('str-issues-wrap');
         }
-
         showEl('str-result');
       }
-
       // ── Shared crack time renderer ──
       const crackScenarios = [
         ['online_throttled',   'Online (throttled)'],
@@ -1020,7 +1028,6 @@
         ['offline_fast',       'Offline (GPU)'],
         ['massive_attack',     'Massive attack'],
       ];
-
       function renderCrackTime(gridId, crackTime) {
         const grid = document.getElementById(gridId);
         grid.innerHTML = '';
@@ -1032,7 +1039,6 @@
           grid.appendChild(div);
         });
       }
-
       // ── Helpers ──
       function showEl(id, display='block') {
         const el = document.getElementById(id); if(!el) return;
@@ -1053,9 +1059,7 @@
         btn.disabled = false; btn.innerHTML = html;
       }
       function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

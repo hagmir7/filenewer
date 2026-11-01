@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-epub-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload PDF'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center">
@@ -69,7 +60,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -94,20 +84,16 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
                             <p class="text-sm font-semibold text-fn-text2">eBook Settings</p>
                             <span class="text-xs text-fn-text3">Optional — metadata auto-read from PDF if blank</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-4">
-
                             {{-- Left column: metadata --}}
                             <div class="flex flex-col gap-3">
                                 <p class="text-xs font-bold text-fn-text3 uppercase tracking-wider">Metadata</p>
-
                                 <div>
                                     <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">Book
                                         title</label>
@@ -178,11 +164,9 @@
                                     </div>
                                 </div>
                             </div>
-
                             {{-- Right column: image & quality --}}
                             <div class="flex flex-col gap-3">
                                 <p class="text-xs font-bold text-fn-text3 uppercase tracking-wider">Image Quality</p>
-
                                 {{-- DPI preset cards --}}
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -209,7 +193,6 @@
                                     <p class="text-xs text-fn-text3 mt-1" id="dpi-desc">Default balanced — best for most
                                         eReaders</p>
                                 </div>
-
                                 {{-- Quality slider --}}
                                 <div>
                                     <label for="opt-quality" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -223,7 +206,6 @@
                                         <span>Better quality</span>
                                     </div>
                                 </div>
-
                                 {{-- Extract text toggle --}}
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Options</label>
@@ -245,7 +227,6 @@
                                         </div>
                                     </label>
                                 </div>
-
                                 {{-- Output filename --}}
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -255,11 +236,9 @@
                                     <input type="text" id="opt-filename" placeholder="book.epub"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -272,7 +251,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -283,7 +261,6 @@
                         Convert to EPUB
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -317,11 +294,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting PDF to EPUB…</h2>
                     <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Rendering pages, extracting text
                         &amp; packaging eBook</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -331,7 +306,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Reading PDF pages'],
@@ -358,7 +332,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -374,13 +347,11 @@
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your EPUB is ready — open it in Apple Books, Kobo, or any EPUB
                         reader.</p>
-
                     {{-- Result detail chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Conversion details</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -402,7 +373,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="book.epub"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -414,7 +384,6 @@
                         </svg>
                         Download EPUB File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -426,7 +395,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -435,13 +403,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ DPI GUIDE ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -467,8 +432,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ EPUB STRUCTURE ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -511,8 +474,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -536,7 +497,8 @@
             ['Why is the EPUB file large?', 'EPUB file size is mainly determined by image resolution (DPI) and quality.
             A 300-page PDF at 300 DPI can produce a very large file. Lower the DPI to 72–96 and reduce JPEG quality to
             60–70 for a much smaller output while still being readable on mobile screens.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share, or store your content. Passwords are used only during conversion and
             are not retained.'],
             ] as [$q, $a])
@@ -558,10 +520,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .dpi-card {
         border-color: var(--fn-text-10, oklch(0% 0 0 / 10%));
@@ -643,12 +603,125 @@
         border-color: oklch(62% 0.18 25 / 30%);
         background: oklch(62% 0.18 25 / 6%);
     }
-</style>
 
+    #pdf-epub-tool .dpi-card.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: #2563eb;
+    }
+
+    #pdf-epub-tool .dpi-card.active span {
+        color: #fff;
+    }
+
+    #pdf-epub-tool input:checked~.toggle-track {
+        background: #2563eb;
+    }
+
+    #pdf-epub-tool input:focus-visible~.toggle-track,
+    #pdf-epub-tool button:focus-visible,
+    #pdf-epub-tool a:focus-visible,
+    #pdf-epub-tool .dpi-card:has(input:focus-visible),
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #pdf-epub-tool .grid>*,
+    #pdf-epub-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #pdf-epub-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #file-meta,
+    #output-name,
+    #error-text,
+    #pdf-epub-tool .chip-item {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #pdf-epub-tool input,
+    #pdf-epub-tool select {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #pdf-epub-tool .chip-item {
+        max-width: 100%;
+    }
+
+    @media(max-width:639px) {
+
+        #pdf-epub-tool button,
+        #pdf-epub-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #pdf-epub-tool #toggle-password {
+            padding: 5px;
+            min-width: 32px;
+            min-height: 32px;
+        }
+
+        #pdf-epub-tool input[type=text],
+        #pdf-epub-tool input[type=password],
+        #pdf-epub-tool select {
+            font-size: 16px;
+        }
+
+        #pdf-epub-tool .dpi-card {
+            padding: 7px 4px;
+            gap: 4px;
+        }
+
+        #pdf-epub-tool .dpi-card span {
+            font-size: 11px;
+        }
+
+        #pdf-epub-tool .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-epub-tool .step-item {
+            gap: 4px;
+        }
+
+        #pdf-epub-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #pdf-epub-tool .step-item+div {
+            width: 12px;
+            margin: 0 4px;
+        }
+
+        #file-preview {
+            gap: 8px;
+            padding: 12px;
+        }
+
+        #remove-file {
+            width: 32px;
+            min-width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const DPI_DESCS = {
     '72':  'Low quality · very small file — quick preview only',
     '96':  'Medium quality · small file — ideal for mobile reading',
@@ -656,7 +729,6 @@
     '200': 'High quality · large file — great for desktop reading',
     '300': 'Best quality · very large file — suitable for print',
   };
-
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
   const convertBtn  = document.getElementById('convert-btn');
@@ -664,10 +736,8 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile = null;
   let blobUrl      = null;
-
   // ── DPI preset cards ──
   document.querySelectorAll('.dpi-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -678,12 +748,10 @@
       document.getElementById('dpi-desc').textContent  = DPI_DESCS[dpi] || '';
     });
   });
-
   // ── Quality slider ──
   document.getElementById('opt-quality').addEventListener('input', function () {
     document.getElementById('quality-val').textContent = this.value;
   });
-
   // ── Password toggle ──
   document.getElementById('toggle-password').addEventListener('click', () => {
     const inp  = document.getElementById('opt-password');
@@ -694,7 +762,6 @@
     show.classList.toggle('hidden', !isText);
     hide.classList.toggle('hidden', isText);
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -705,7 +772,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     if (!file.name.toLowerCase().endsWith('.pdf')) {
@@ -724,7 +790,6 @@
     dropZone.classList.add('has-file');
     convertBtn.disabled = false;
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -734,16 +799,13 @@
     convertBtn.disabled = true;
     hideError();
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const title       = document.getElementById('opt-title').value.trim();
     const author      = document.getElementById('opt-author').value.trim();
     const publisher   = document.getElementById('opt-publisher').value.trim();
@@ -754,7 +816,6 @@
     const quality     = document.getElementById('opt-quality').value;
     const extractText = document.getElementById('opt-extract-text').checked;
     const customFile  = document.getElementById('opt-filename').value.trim();
-
     let outName;
     if (customFile) {
       outName = customFile.toLowerCase().endsWith('.epub') ? customFile : customFile + '.epub';
@@ -763,11 +824,9 @@
     } else {
       outName = selectedFile.name.replace(/\.pdf$/i, '') + '.epub';
     }
-
     // Update converting subtitle with chosen settings
     document.getElementById('converting-subtitle').textContent =
       `Rendering pages at ${dpi} DPI · quality ${quality}% — packaging eBook`;
-
     const fd = new FormData();
     fd.append('file',          selectedFile);
     fd.append('image_dpi',     dpi);
@@ -779,10 +838,8 @@
     if (publisher)   fd.append('publisher',   publisher);
     if (description) fd.append('description', description);
     if (password)    fd.append('password',    password);
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 18, 500, 'Reading PDF pages…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(18, 52, 1000, `Rendering page images at ${dpi} DPI…`);
@@ -795,48 +852,37 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(78, 92, 600, 'Packaging EPUB archive…');
     }, 2600);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-epub', {
         method: 'POST',
         body:   fd,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please check your PDF and try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         if (res.status === 400 && !password) msg += ' If this PDF is password-protected, enter the password above.';
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       // Read response metadata headers
       const pages    = res.headers.get('X-Pages')    || null;
       const chapters = res.headers.get('X-Chapters') || null;
       const sizeMb   = res.headers.get('X-Size-MB')  || null;
       const resTitle = res.headers.get('X-Title')    || title  || null;
       const resAuthor= res.headers.get('X-Author')   || author || null;
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
         (sizeMb ? sizeMb + ' MB' : formatBytes(blob.size)) + ' · EPUB eBook';
-
       renderResultChips({ pages, chapters, dpi, quality, resTitle, resAuthor, language, password: !!password, extractText });
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -845,12 +891,10 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResultChips({ pages, chapters, dpi, quality, resTitle, resAuthor, language, password, extractText }) {
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-
     const chips = [];
     if (pages)      chips.push(['chip-pages', 'Pages',    pages + 'p']);
     if (chapters)   chips.push(['chip-pages', 'Chapters', chapters]);
@@ -861,7 +905,6 @@
     if (language)   chips.push(['chip-size', 'Language', language.toUpperCase()]);
     if (extractText) chips.push(['chip-size', 'Text', 'extracted']);
     if (password)   chips.push(['chip-lock', 'Password', 'used']);
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -871,7 +914,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -880,13 +922,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -895,7 +935,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -915,7 +954,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -928,7 +966,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -957,7 +994,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -967,13 +1003,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -984,9 +1018,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection
