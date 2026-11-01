@@ -10,7 +10,7 @@
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
             {{-- ── Mode tabs ── --}}
             <div class="tool-tabs flex flex-wrap items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
-                <button type="button" id="tab-single"
+                <button type="button" id="tab-single" aria-pressed="true"
                     class="tab-btn active flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -19,7 +19,7 @@
                     </svg>
                     Single Convert
                 </button>
-                <button type="button" id="tab-batch"
+                <button type="button" id="tab-batch" aria-pressed="false"
                     class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
@@ -602,10 +602,10 @@
     }
 
 
-    /* Clear selected and focused states for both conversion tabs. */
+    /* The selected tab stays highlighted after focus moves away. */
     #timestamp-tool .tab-btn.active,
-    #timestamp-tool .tab-btn:focus {
-        background: var(--fn-blue);
+    #timestamp-tool .tab-btn[aria-pressed="true"] {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
         color: #fff;
         box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
     }
@@ -734,6 +734,8 @@
       document.getElementById('tab-single').addEventListener('click', () => switchTab('single'));
       document.getElementById('tab-batch').addEventListener('click',  () => switchTab('batch'));
       function switchTab(tab) {
+        document.getElementById('tab-single').setAttribute('aria-pressed', String(tab === 'single'));
+        document.getElementById('tab-batch').setAttribute('aria-pressed', String(tab === 'batch'));
         document.getElementById('tab-single').classList.toggle('active', tab === 'single');
         document.getElementById('tab-batch').classList.toggle('active',  tab === 'batch');
         document.getElementById('panel-single').classList.toggle('hidden', tab !== 'single');
