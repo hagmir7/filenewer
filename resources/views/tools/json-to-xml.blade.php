@@ -5,13 +5,13 @@
 @section('content')
 <x-tool-hero :tool="$tool" />
 {{-- ══ CONVERTER CARD ══ --}}
-<section id="json-xml-tool" class="pb-10 sm:pb-16">
+<section id="json-yaml-tool" class="pb-10 sm:pb-16">
     <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
             {{-- Step indicator --}}
             <div
                 class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
-                @foreach([['1','Input JSON'],['2','Converting'],['3','Result']] as [$n, $label])
+                @foreach([['1','Input JSON'],['2','Converting'],['3','YAML']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
@@ -55,10 +55,16 @@
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-xs font-semibold text-fn-text2">JSON source</p>
                             <div class="flex flex-wrap gap-1">
-                                <button type="button" id="btn-sample-obj"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Object</button>
-                                <button type="button" id="btn-sample-arr"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Array</button>
+                                <button type="button" id="btn-sample"
+                                    class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="12" y1="8" x2="12" y2="12" />
+                                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                                    </svg>
+                                    Sample
+                                </button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -70,38 +76,44 @@
                                     Paste
                                 </button>
                                 <button type="button" id="btn-format"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue text-xs font-semibold rounded-lg transition-all">Format</button>
+                                    class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 7l4 4-4 4M11 11h10" />
+                                    </svg>
+                                    Format
+                                </button>
                                 <button type="button" id="btn-clear"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
                         <textarea id="json-textarea" rows="12" spellcheck="false"
-                            placeholder='Paste JSON object or array, e.g.&#10;&#10;{&#10;  "username": "booker12",&#10;  "department": "Sales",&#10;  "active": true,&#10;  "score": 98.5&#10;}'
+                            placeholder='Paste JSON here, e.g.&#10;&#10;{&#10;  "username": "booker12",&#10;  "identifier": 9012,&#10;  "department": "Sales",&#10;  "location": "Manchester"&#10;}&#10;&#10;or an array:&#10;&#10;[{...}, {...}]'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-                        <div class="flex items-center justify-between text-xs mt-1.5">
-                            <span id="json-status" class="text-fn-text3">Paste a JSON object or array</span>
-                            <span id="json-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
-                        </div>
+                        {{-- Live validation --}}
+                        <div id="json-status" class="hidden mt-2 flex items-center gap-2 text-xs font-semibold"></div>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div id="drop-zone"
-                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-yellow/40 hover:bg-fn-yellow/4 relative">
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="flex items-center justify-center mb-5">
-                                <div class="w-20 h-20 rounded-2xl flex items-center justify-center"
-                                    style="background: oklch(85% 0.18 95 / 12%); border: 1px solid oklch(85% 0.18 95 / 25%)">
-                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                                        style="color: oklch(75% 0.18 88)">
-                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                        <polyline points="14 2 14 8 20 8" />
-                                        <line x1="8" y1="13" x2="16" y2="13" />
-                                        <line x1="8" y1="17" x2="16" y2="17" />
+                                <div
+                                    class="w-20 h-20 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-4xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                        <path
+                                            d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
                                     </svg>
                                 </div>
                             </div>
                             <h2 class="text-lg font-bold mb-2">Drop your JSON file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">Supports .json files — or click to browse</p>
+                            <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -113,17 +125,22 @@
                                 Choose JSON File
                             </div>
                             <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
-                            <input type="file" id="file-input" accept=".json,application/json,text/plain"
+                            <input type="file" id="file-input" accept=".json,application/json"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                                style="background: oklch(85% 0.18 95 / 12%); border: 1px solid oklch(85% 0.18 95 / 25%)">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.8" style="color: oklch(75% 0.18 88)">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                    <polyline points="14 2 14 8 20 8" />
+                            <div
+                                class="w-12 h-12 rounded-xl bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-2xl shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                    <path
+                                        d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
@@ -140,93 +157,85 @@
                             </button>
                         </div>
                     </div>
-                    {{-- Detected structure preview --}}
-                    <div id="detected-content"
-                        class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
-                        <div class="flex items-center gap-2 mb-3">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
-                                class="text-fn-blue-l">
-                                <polyline points="16 18 22 12 16 6" />
-                                <polyline points="8 6 2 12 8 18" />
-                            </svg>
-                            <p class="text-sm font-semibold text-fn-text2">Detected in your JSON</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2" id="detected-chips"></div>
-                    </div>
                     {{-- Options --}}
-                    <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                        <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">XML Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
-                        </div>
-                        <div class="grid sm:grid-cols-2 gap-3">
-                            {{-- Left --}}
-                            <div class="flex flex-col gap-3">
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label for="opt-root"
-                                            class="text-xs font-semibold text-fn-text2 block mb-1.5">Root
-                                            element</label>
-                                        <input type="text" id="opt-root" value="root" placeholder="root"
-                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    </div>
-                                    <div>
-                                        <label for="opt-item"
-                                            class="text-xs font-semibold text-fn-text2 block mb-1.5">Item
-                                            element</label>
-                                        <input type="text" id="opt-item" value="item" placeholder="item"
-                                            class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="opt-indent" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Indent size — <span id="indent-val" class="text-fn-blue-l font-mono">2</span>
-                                        spaces
-                                    </label>
-                                    <input type="range" id="opt-indent" min="1" max="8" value="2"
-                                        class="w-full accent-fn-blue cursor-pointer" />
-                                </div>
-                                <div>
-                                    <label for="opt-output"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Output mode</label>
-                                    <select id="opt-output"
-                                        class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                        <option value="text" selected>Preview in browser</option>
-                                        <option value="file">Download .xml file</option>
-                                    </select>
-                                </div>
-                            </div>
-                            {{-- Right --}}
+                    <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
+                        {{-- Style + Indent + Sort + Unicode --}}
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            {{-- Style --}}
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Options</label>
-                                <div class="flex flex-col gap-1.5">
-                                    @foreach([
-                                    ['opt-declaration', 'XML declaration', 'Add &lt;?xml version="1.0"?&gt; header',
-                                    true],
-                                    ['opt-prettify', 'Pretty-print', 'Indent with spaces for readability', true],
-                                    ['opt-attributes', 'Attributes mode', 'Scalars as XML attributes instead', false],
-                                    ] as [$tid, $tlabel, $tdesc, $tdefault])
-                                    <label
-                                        class="flex items-center gap-2 cursor-pointer select-none px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg hover:border-fn-blue/25 transition-colors">
-                                        <div class="toggle-wrap relative w-8 h-4 shrink-0">
-                                            <input type="checkbox" id="{{ $tid }}" {{ $tdefault ? 'checked' : '' }}
-                                                class="sr-only peer" />
-                                            <div
-                                                class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
-                                            </div>
-                                            <div
-                                                class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
-                                            </div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</p>
-                                            <p class="text-xs text-fn-text3 leading-tight">{!! $tdesc !!}</p>
-                                        </div>
-                                    </label>
-                                    @endforeach
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output Style</label>
+                                <div class="flex flex-wrap gap-1">
+                                    <button type="button"
+                                        class="style-btn active flex-1 flex flex-col items-start gap-0.5 px-3 py-2 rounded-lg border text-left transition-all"
+                                        data-val="block">
+                                        <span class="text-xs font-bold">Block</span>
+                                        <span class="text-xs text-fn-text3 leading-tight">Indented &amp; readable</span>
+                                    </button>
+                                    <button type="button"
+                                        class="style-btn flex-1 flex flex-col items-start gap-0.5 px-3 py-2 rounded-lg border text-left transition-all"
+                                        data-val="flow">
+                                        <span class="text-xs font-bold">Flow</span>
+                                        <span class="text-xs text-fn-text3 leading-tight">Compact single line</span>
+                                    </button>
                                 </div>
                             </div>
+                            {{-- Indent --}}
+                            <div>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
+                                    Indent — <span class="text-fn-blue-l" id="indent-val">2</span> spaces
+                                </label>
+                                <input type="range" id="opt-indent" min="1" max="8" value="2" step="1"
+                                    class="w-full accent-fn-blue cursor-pointer" />
+                                <div class="flex justify-between text-fn-text3 text-xs mt-0.5">
+                                    <span>1</span><span>2</span><span>4</span><span>8</span>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- Toggles --}}
+                        <div class="pt-3 border-t border-fn-text/8 grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                            @foreach([
+                            ['opt-sort', '<svg xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-typography" width="1em" height="1em"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                style="vertical-align:-0.125em">
+                                <path d="M4 20l3 0" />
+                                <path d="M14 20l7 0" />
+                                <path d="M6.9 15l6.9 0" />
+                                <path d="M10.2 6.3l5.8 13.7" />
+                                <path d="M5 20l6 -16l2 0l7 16" />
+                            </svg>', 'Sort keys alphabetically', 'Reorder object keys A → Z', false],
+                            ['opt-unicode', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-globe">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M7 9a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                <path d="M5.75 15a8.015 8.015 0 1 0 9.5 0" />
+                                <path d="M11 17v4" />
+                                <path d="M7 21h8" />
+                            </svg>', 'Allow unicode', 'Keep emoji & non-ASCII as-is', true],
+                            ] as [$tid, $ticon, $tlabel, $tdesc, $tdefault])
+                            <label class="flex items-start gap-2.5 cursor-pointer select-none">
+                                <div class="toggle-wrap relative w-8 h-4 mt-0.5 shrink-0">
+                                    <input type="checkbox" id="{{ $tid }}" {{ $tdefault ? 'checked' : '' }}
+                                        class="sr-only peer" />
+                                    <div
+                                        class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
+                                    </div>
+                                    <div
+                                        class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
+                                        <span class="text-fn-text3">{!! $ticon !!}</span>
+                                        {{ $tlabel }}
+                                    </p>
+                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ $tdesc }}</p>
+                                </div>
+                            </label>
+                            @endforeach
                         </div>
                     </div>
                     {{-- Error banner --}}
@@ -241,6 +250,7 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
+                    {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -248,18 +258,23 @@
                             <polyline points="16 18 22 12 16 6" />
                             <polyline points="8 6 2 12 8 18" />
                         </svg>
-                        Convert to XML
+                        Convert to YAML
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
-                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center"
-                            style="background: oklch(85% 0.18 95 / 10%); border: 1px solid oklch(85% 0.18 95 / 20%)">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.8" style="color: oklch(75% 0.18 88)">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                                <polyline points="14 2 14 8 20 8" />
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-3xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                                <path
+                                    d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
                             </svg>
                         </div>
                         <div class="flex flex-wrap gap-1">
@@ -271,18 +286,12 @@
                                 style="animation-delay:.3s"></span>
                         </div>
                         <div
-                            class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                                class="text-fn-blue-l">
-                                <polyline points="16 18 22 12 16 6" />
-                                <polyline points="8 6 2 12 8 18" />
-                            </svg>
+                            class="w-16 h-16 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center">
+                            <span class="font-mono font-black text-xl text-fn-purple">Y</span>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting JSON to XML…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Mapping types, building element tree &amp; serializing output
-                    </p>
+                    <h2 class="text-xl font-bold mb-2">Converting to YAML…</h2>
+                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -294,10 +303,10 @@
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
-                        ['proc-1','Parsing JSON input'],
-                        ['proc-2','Mapping types &amp; structure'],
-                        ['proc-3','Building XML element tree'],
-                        ['proc-4','Serializing output'],
+                        ['proc-1','Reading JSON content'],
+                        ['proc-2','Validating structure'],
+                        ['proc-3','Applying YAML formatting'],
+                        ['proc-4','Generating output'],
                         ] as [$pid, $plabel])
                         <div class="flex items-center gap-3" id="{{ $pid }}">
                             <div
@@ -313,18 +322,18 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{!! $plabel !!}</span>
+                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
                         </div>
                         @endforeach
                     </div>
                 </div>
                 {{-- ── STATE: Result ── --}}
-                <div id="state-download" class="hidden py-4">
-                    <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-8 h-8 rounded-lg bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-base">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                <div id="state-download" class="hidden">
+                    {{-- Header row --}}
+                    <div class="flex flex-wrap items-center gap-3 mb-4">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-fn-green/25 bg-fn-green/8 text-fn-green text-sm font-bold">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
@@ -332,125 +341,97 @@
                                     <path
                                         d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                                     <path d="M9 12l2 2l4 -4" />
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-bold text-sm" id="result-title">Conversion complete</p>
-                                <p class="text-fn-text3 text-xs" id="result-meta">—</p>
-                            </div>
+                                </svg></span>
+                            <span>Conversion Complete</span>
                         </div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <button type="button" id="btn-copy-xml"
-                                class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        <div class="flex items-center gap-2 flex-wrap" id="stats-chips">
+                            @foreach([
+                            ['stat-type', 'Type'],
+                            ['stat-keys', 'Keys'],
+                            ['stat-depth', 'Depth'],
+                            ['stat-orig', 'JSON size'],
+                            ['stat-yaml', 'YAML size'],
+                            ] as [$sid, $slabel])
+                            <div
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
+                                <span class="text-fn-text3">{{ $slabel }}</span>
+                                <span class="font-bold text-fn-text" id="{{ $sid }}">—</span>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="ml-auto flex items-center gap-2">
+                            <button type="button" id="btn-copy"
+                                class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-label">Copy XML</span>
+                                <span id="copy-label">Copy</span>
                             </button>
-                            <a id="download-link" href="#" download="output.xml"
-                                class="hidden flex items-center gap-1.5 px-3 py-1.5 text-white text-xs font-semibold rounded-lg transition-all hover:-translate-y-px"
-                                style="background: oklch(67% 0.18 162);">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <a id="btn-download" href="#" download="output.yaml"
+                                class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download .xml
+                                Download .yaml
                             </a>
-                            <button type="button" onclick="resetConverter()"
-                                class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="1 4 1 10 7 10" />
-                                    <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
-                                </svg>
-                                Convert another
-                            </button>
                         </div>
                     </div>
-                    {{-- Result chips --}}
-                    <div id="result-chips-wrap" class="hidden mb-4 flex flex-wrap gap-2"></div>
-                    {{-- Split pane: JSON → XML --}}
-                    <div class="grid lg:grid-cols-2 gap-4">
-                        {{-- JSON pane --}}
-                        <div class="flex flex-col">
-                            <div class="flex items-center justify-between mb-1.5">
-                                <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
-                                    <span class="w-2 h-2 rounded-sm inline-block"
-                                        style="background: oklch(75% 0.18 88)"></span>
-                                    Input JSON
-                                </p>
-                                <button type="button" id="btn-copy-json"
-                                    class="text-xs text-fn-text3 hover:text-fn-text transition-colors font-semibold">Copy</button>
+                    {{-- YAML output --}}
+                    <div class="relative">
+                        <pre id="yaml-output"
+                            class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-5 text-xs font-mono leading-relaxed overflow-auto max-h-[500px] whitespace-pre-wrap break-words"></pre>
+                    </div>
+                    {{-- Side-by-side toggle --}}
+                    <div class="mt-3">
+                        <button type="button" id="btn-toggle-compare" aria-expanded="false" aria-controls="compare-wrap"
+                            class="flex items-center gap-2 text-sm font-semibold text-fn-text2 hover:text-fn-blue-l transition-colors">
+                            <svg id="cmp-chev" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"
+                                class="transition-transform">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                            Compare side by side
+                            <span class="text-xs text-fn-text3 font-normal">(JSON vs YAML)</span>
+                        </button>
+                        <div id="compare-wrap" class="hidden mt-3 grid md:grid-cols-2 gap-3">
+                            <div>
+                                <p class="text-xs font-semibold text-fn-text3 mb-1">JSON input</p>
+                                <pre id="cmp-json"
+                                    class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-4 text-xs font-mono leading-relaxed overflow-auto max-h-[360px] whitespace-pre-wrap break-words text-fn-text2"></pre>
                             </div>
-                            <pre id="json-preview"
-                                class="flex-1 bg-fn-surface2 border border-fn-text/10 rounded-xl px-4 py-3 text-xs font-mono text-fn-text2 overflow-auto max-h-96 leading-relaxed whitespace-pre-wrap break-all"></pre>
-                        </div>
-                        {{-- XML pane --}}
-                        <div class="flex flex-col">
-                            <div class="flex items-center justify-between mb-1.5">
-                                <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
-                                    <span class="w-2 h-2 rounded-sm inline-block bg-fn-blue-l"></span>
-                                    Output XML
-                                </p>
-                                <span class="text-xs text-fn-text3" id="xml-size-label">—</span>
+                            <div>
+                                <p class="text-xs font-semibold text-fn-text3 mb-1">YAML output</p>
+                                <pre id="cmp-yaml"
+                                    class="bg-fn-surface2 border border-fn-purple/20 rounded-xl p-4 text-xs font-mono leading-relaxed overflow-auto max-h-[360px] whitespace-pre-wrap break-words text-fn-text2"></pre>
                             </div>
-                            <pre id="xml-preview"
-                                class="flex-1 bg-fn-surface2 border border-fn-blue/15 rounded-xl px-4 py-3 text-xs font-mono text-fn-text2 overflow-auto max-h-96 leading-relaxed whitespace-pre-wrap break-all"></pre>
                         </div>
                     </div>
-                    <p class="mt-5 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
+                    <div class="mt-5 flex items-center justify-center gap-3 flex-wrap">
+                        <button type="button" onclick="resetConverter()"
+                            class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="1 4 1 10 7 10" />
+                                <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
+                            </svg>
+                            Convert another
+                        </button>
+                    </div>
+                    <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your data is encrypted in transit and never stored or shared.
+                        Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-{{-- ══ TYPE MAPPING ══ --}}
-<section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
-    <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">JSON → XML Type Mapping</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">Each JSON type is preserved with optional type annotations in
-            the XML</p>
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm border-collapse">
-                <thead>
-                    <tr class="border-b border-fn-text/10">
-                        <th class="text-left py-2.5 px-3 text-xs font-bold text-fn-text2">JSON Type</th>
-                        <th class="text-left py-2.5 px-3 text-xs font-bold text-fn-text2">XML Output</th>
-                        <th class="text-left py-2.5 px-3 text-xs font-bold text-fn-text2">Attributes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach([
-                    ['string', '<tag>value</tag>', 'none'],
-                    ['integer', '<tag type="integer">42</tag>', 'type="integer"'],
-                    ['float', '<tag type="float">3.14</tag>', 'type="float"'],
-                    ['boolean', '<tag type="boolean">true</tag>', 'type="boolean"'],
-                    ['null', '
-                    <tag nil="true" />', 'nil="true"'],
-                    ['object', '<tag>…nested elements…</tag>', 'nested structure'],
-                    ['array', '<tag type="array" count="N">…</tag>', 'type &amp; count attrs'],
-                    ] as [$type, $xml, $attrs])
-                    <tr class="border-b border-fn-text/7 hover:bg-fn-surface transition-colors">
-                        <td class="py-2.5 px-3"><code
-                                class="text-xs font-mono text-fn-blue-l bg-fn-blue/6 px-1.5 py-0.5 rounded">{{ $type }}</code>
-                        </td>
-                        <td class="py-2.5 px-3"><code class="text-xs font-mono text-fn-text2">{{ $xml }}</code></td>
-                        <td class="py-2.5 px-3 text-xs text-fn-text3">{{ $attrs }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+            </div>{{-- /card body --}}
+        </div>{{-- /card --}}
     </div>
 </section>
 {{-- ══ FAQ ══ --}}
@@ -459,48 +440,45 @@
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['What are root_element and item_element?', 'root_element is the outer tag that wraps the entire XML
-            document (default: <root>). item_element is the tag name used for each item in a JSON array (default: <item>
-                    ). For example, converting a users array with root_element="users" and item_element="user" produces
-                    <users>
-                        <user>…</user>
-                    </users>.'],
-                    ['What is attributes mode?', 'In the default mode, scalar values (strings, numbers, booleans) become
-                    XML child elements. In attributes mode, those scalars are written as XML attributes on the root or
-                    parent element instead — e.g. <root username="booker12" score="98.5">. Arrays and nested objects
-                        still use child elements.'],
-                        ['How are JSON types preserved in XML?', 'XML has no native type system, so types are recorded
-                        as attributes: integers get type="integer", floats get type="float", booleans get
-                        type="boolean", null becomes nil="true", and arrays get type="array" plus a count attribute.
-                        Strings carry no type attribute.'],
-                        ['Can I preview the XML without downloading?', 'Yes — select "Preview in browser" as the output
-                        mode. The result appears in a side-by-side view with your original JSON on the left and the
-                        converted XML on the right. You can copy either with one click, then download the .xml file if
-                        needed.'],
-                        ['Is my JSON data safe?', 'All data sent to the API uses TLS encryption in transit and is never
-                        stored or logged. For the paste/text mode, nothing leaves your browser until you click
-                        Convert.'],
-                        ] as [$q, $a])
-                        <div class="border border-fn-text/8 rounded-xl overflow-hidden">
-                            <button type="button"
-                                class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                                <span class="font-semibold text-sm">{{ $q }}</span>
-                                <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="6 9 12 15 18 9" />
-                                </svg>
-                            </button>
-                            <div class="faq-body hidden px-5 pb-4">
-                                <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
-                            </div>
-                        </div>
-                        @endforeach
+            ['What is YAML used for?','YAML is a human-readable data format used heavily in DevOps and infrastructure
+            tooling — Kubernetes manifests, Docker Compose files, GitHub Actions workflows, Ansible playbooks,
+            application configs, and OpenAPI specs all use YAML. Its indented structure is much easier to read than JSON
+            for nested config.'],
+            ['Block style vs flow style — which one?','Block (default) is what almost everyone wants — multi-line
+            indented YAML where each key sits on its own line. Flow style produces compact single-line output that looks
+            similar to JSON, useful only when you need a one-liner.'],
+            ['Should I sort keys?','Sorting keys alphabetically can make diffs cleaner in version control and improve
+            consistency across files. Leave it off if your JSON keys are already in a meaningful order (like API
+            responses where order matters).'],
+            ['What does "Allow unicode" do?','When on (default), characters like emoji and non-Latin scripts (e.g.
+            Arabic, Chinese) are kept as-is in the YAML — readable directly. When off, they get escaped to \uXXXX
+            sequences for ASCII-only output, useful for legacy systems that cannot handle UTF-8.'],
+            ['Is my data safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
+            after processing. We never read, share or store your content.'],
+            ] as [$q, $a])
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>
 <x-tools-content :tool="$tool" />
+{{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
+{{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
         color: var(--fn-text3);
@@ -512,81 +490,71 @@
         box-shadow: 0 1px 4px oklch(0% 0 0 / 12%);
     }
 
-    .chip-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 10px;
-        border-radius: 8px;
-        border: 1px solid transparent;
-        font-size: 11px;
+    .style-btn {
+        border-color: oklch(var(--fn-text-l, 80%) 0 0 / 10%);
+        background: var(--fn-surface);
+        color: var(--fn-text2);
+    }
+
+    .style-btn.active {
+        border-color: oklch(49% 0.24 264 / 50%);
+        background: oklch(49% 0.24 264 / 7%);
+        color: var(--fn-text);
+    }
+
+    .style-btn:not(.active):hover {
+        border-color: oklch(49% 0.24 264 / 25%);
+        color: var(--fn-text);
+    }
+
+    #opt-indent {
+        height: 4px;
+        background: oklch(var(--fn-text-l, 80%) 0 0 / 12%);
+        border-radius: 999px;
+        outline: none;
+    }
+
+    /* YAML syntax highlight — subtle */
+    #yaml-output,
+    #cmp-yaml {
+        color: var(--fn-text);
+    }
+
+    .yh-key {
+        color: oklch(49% 0.24 264);
         font-weight: 600;
     }
 
-    .chip-item .chip-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 2px;
-        flex-shrink: 0;
-    }
-
-    .chip-type .chip-dot {
-        background: oklch(75% 0.18 88);
-    }
-
-    .chip-type {
-        color: oklch(65% 0.18 88);
-        border-color: oklch(75% 0.18 88 / 30%);
-        background: oklch(75% 0.18 88 / 6%);
-    }
-
-    .chip-keys .chip-dot {
-        background: oklch(62% 0.20 250);
-    }
-
-    .chip-keys {
-        color: oklch(62% 0.20 250);
-        border-color: oklch(62% 0.20 250 / 30%);
-        background: oklch(62% 0.20 250 / 6%);
-    }
-
-    .chip-depth .chip-dot {
-        background: oklch(60% 0.22 295);
-    }
-
-    .chip-depth {
-        color: oklch(60% 0.22 295);
-        border-color: oklch(60% 0.22 295 / 30%);
-        background: oklch(60% 0.22 295 / 6%);
-    }
-
-    .chip-size .chip-dot {
-        background: oklch(67% 0.18 162);
-    }
-
-    .chip-size {
+    .yh-str {
         color: oklch(67% 0.18 162);
-        border-color: oklch(67% 0.18 162 / 30%);
-        background: oklch(67% 0.18 162 / 6%);
     }
 
-    .chip-mode .chip-dot {
-        background: oklch(72% 0.18 55);
+    .yh-num {
+        color: oklch(70% 0.20 70);
     }
 
-    .chip-mode {
-        color: oklch(72% 0.18 55);
-        border-color: oklch(72% 0.18 55 / 30%);
-        background: oklch(72% 0.18 55 / 6%);
+    .yh-bool {
+        color: oklch(62% 0.22 25);
+        font-weight: 600;
     }
 
-    #json-xml-tool .tab-btn.active {
+    .yh-null {
+        color: var(--fn-text3);
+        font-style: italic;
+    }
+
+    .yh-mark {
+        color: var(--fn-text3);
+    }
+
+    #json-yaml-tool .tab-btn.active,
+    #json-yaml-tool .style-btn.active {
         background: var(--color-fn-blue, var(--fn-blue, #2563eb));
         color: #fff;
     }
 
-    #json-xml-tool button:focus-visible,
-    #json-xml-tool a:focus-visible {
+    #json-yaml-tool button:focus-visible,
+    #json-yaml-tool a:focus-visible {
         outline: 2px solid #2563eb;
         outline-offset: 3px;
     }
@@ -596,12 +564,12 @@
         outline-offset: 3px;
     }
 
-    #json-xml-tool .grid>*,
-    #json-xml-tool .flex-1 {
+    #json-yaml-tool .grid>*,
+    #json-yaml-tool .flex-1 {
         min-width: 0;
     }
 
-    #json-xml-tool .justify-between {
+    #json-yaml-tool .justify-between {
         flex-wrap: wrap;
         gap: 8px;
     }
@@ -617,32 +585,43 @@
         white-space: normal;
     }
 
-    #json-xml-tool input,
-    #json-xml-tool textarea {
+    #json-yaml-tool input,
+    #json-yaml-tool textarea {
         max-width: 100%;
         box-sizing: border-box;
     }
 
-    #json-xml-tool input:checked~.toggle-track {
+    #json-yaml-tool input:checked~.toggle-track {
         background: var(--color-fn-blue, var(--fn-blue, #2563eb));
     }
 
-    #json-xml-tool input:focus-visible~.toggle-track {
+    #json-yaml-tool input:focus-visible~.toggle-track {
         outline: 2px solid #2563eb;
         outline-offset: 3px;
     }
 
-    #json-xml-tool .toggle-wrap {
+    #json-yaml-tool .style-btn.active span {
+        color: #fff;
+    }
+
+    #json-yaml-tool #btn-toggle-compare[aria-expanded="true"] {
+        background: #2563eb;
+        color: #fff;
+        border-radius: 8px;
+    }
+
+    #json-yaml-tool .toggle-wrap {
         flex-shrink: 0;
     }
 
-    #json-xml-tool .chip-item {
+    #json-yaml-tool .chip-item {
         max-width: 100%;
         overflow-wrap: anywhere;
     }
 
-    #json-preview,
-    #xml-preview {
+    #yaml-output,
+    #cmp-json,
+    #cmp-yaml {
         min-width: 0;
         max-width: 100%;
         overflow-wrap: anywhere;
@@ -650,43 +629,43 @@
 
     @media (max-width: 639px) {
 
-        #json-xml-tool button,
-        #json-xml-tool a.inline-flex,
-        #json-xml-tool #download-link {
+        #json-yaml-tool button,
+        #json-yaml-tool a.inline-flex,
+        #json-yaml-tool #btn-download {
             min-height: 34px;
             font-size: 12px;
             padding: 6px 10px;
             gap: 6px;
         }
 
-        #json-xml-tool .tab-btn {
+        #json-yaml-tool .tab-btn {
             flex: 1 1 0;
             justify-content: center;
         }
 
-        #json-xml-tool .step-item {
+        #json-yaml-tool .step-item {
             gap: 4px;
             min-width: 0;
         }
 
-        #json-xml-tool .step-label {
+        #json-yaml-tool .step-label {
             font-size: 11px;
         }
 
-        #json-xml-tool .step-dot {
+        #json-yaml-tool .step-dot {
             flex-shrink: 0;
             width: 22px;
             height: 22px;
         }
 
-        #json-xml-tool .step-item+div {
+        #json-yaml-tool .step-item+div {
             width: 12px;
             margin-left: 4px;
             margin-right: 4px;
         }
 
-        #json-xml-tool input:not([type=file]),
-        #json-xml-tool textarea {
+        #json-yaml-tool input:not([type=file]),
+        #json-yaml-tool textarea {
             font-size: 16px;
         }
 
@@ -710,25 +689,27 @@
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-  const SAMPLE_OBJ = JSON.stringify({
-    username:   'booker12',
-    identifier: 9012,
-    first_name: 'Rachel',
-    last_name:  'Booker',
-    department: 'Sales',
-    active:     true,
-    score:      98.5,
-    tags:       ['vip', 'new'],
-    address: {
-      city:    'Manchester',
-      country: 'UK'
+  const SAMPLE_JSON = JSON.stringify({
+    user: {
+      username: "booker12",
+      identifier: 9012,
+      first_name: "Rachel",
+      last_name: "Booker",
+      department: "Sales",
+      location: "Manchester",
+      active: true,
+      manager: null
+    },
+    permissions: ["read", "write", "delete"],
+    config: {
+      theme: "dark",
+      notifications: {
+        email: true,
+        push: false
+      }
     }
   }, null, 2);
-  const SAMPLE_ARR = JSON.stringify([
-    { username: 'booker12',  department: 'Sales',       active: true  },
-    { username: 'grey07',    department: 'Depot',       active: true  },
-    { username: 'johnson81', department: 'Engineering', active: false },
-  ], null, 2);
+  // ── Refs ──
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
   const panelText   = document.getElementById('panel-text');
@@ -741,12 +722,13 @@
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const jsonTA      = document.getElementById('json-textarea');
-  let selectedFile = null;
-  let blobUrl      = null;
-  let activeTab    = 'text';
-  let detectTimer  = null;
-  let lastXml      = '';
-  let lastJson     = '';
+  const jsonStatus  = document.getElementById('json-status');
+  let selectedFile  = null;
+  let blobUrl       = null;
+  let activeTab     = 'text';
+  let activeStyle   = 'block';
+  let jsonValid     = false;
+  let validateTimer = null;
   // ── Tabs ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
@@ -760,66 +742,74 @@
     panelFile.classList.toggle('hidden', tab !== 'file');
     hideError();
     refreshConvertBtn();
-    refreshDetection();
   }
-  // ── Samples / Paste / Format / Clear ──
-  document.getElementById('btn-sample-obj').addEventListener('click', () => {
-    jsonTA.value = SAMPLE_OBJ;
-    jsonTA.dispatchEvent(new Event('input'));
+  // ── Style buttons ──
+  document.querySelectorAll('.style-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeStyle = btn.dataset.val;
+    });
   });
-  document.getElementById('btn-sample-arr').addEventListener('click', () => {
-    jsonTA.value = SAMPLE_ARR;
+  // ── Indent slider ──
+  const indentSlider = document.getElementById('opt-indent');
+  indentSlider.addEventListener('input', () => {
+    document.getElementById('indent-val').textContent = indentSlider.value;
+  });
+  // ── Sample / Paste / Format / Clear ──
+  document.getElementById('btn-sample').addEventListener('click', () => {
+    jsonTA.value = SAMPLE_JSON;
     jsonTA.dispatchEvent(new Event('input'));
-    // Suggest sensible element names for array
-    document.getElementById('opt-root').value = 'users';
-    document.getElementById('opt-item').value = 'user';
   });
   document.getElementById('btn-paste').addEventListener('click', async () => {
     try { jsonTA.value = await navigator.clipboard.readText(); jsonTA.dispatchEvent(new Event('input')); } catch(_) {}
   });
   document.getElementById('btn-format').addEventListener('click', () => {
     try {
-      jsonTA.value = JSON.stringify(JSON.parse(jsonTA.value), null, 2);
+      const parsed = JSON.parse(jsonTA.value);
+      jsonTA.value = JSON.stringify(parsed, null, 2);
       jsonTA.dispatchEvent(new Event('input'));
-    } catch(_) { showError('Invalid JSON — cannot format.'); }
+    } catch(_) {
+      // Just leave the user's text as-is if it can't be parsed
+    }
   });
   document.getElementById('btn-clear').addEventListener('click', () => {
     jsonTA.value = '';
     jsonTA.dispatchEvent(new Event('input'));
   });
-  // ── Indent slider ──
-  document.getElementById('opt-indent').addEventListener('input', function () {
-    document.getElementById('indent-val').textContent = this.value;
-  });
-  // ── Textarea input ──
+  // ── JSON live validation ──
   jsonTA.addEventListener('input', () => {
-    const v     = jsonTA.value;
-    const lines = v ? v.split('\n').length : 0;
-    document.getElementById('json-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
-    const status = document.getElementById('json-status');
-    if (!v.trim()) {
-      status.innerHTML = '<span class="text-fn-text3">Paste a JSON object or array</span>';
-    } else {
-      try {
-        const parsed = JSON.parse(v);
-        const stats  = analyzeJson(parsed);
-        const parts  = [`${stats.type}`];
-        if (stats.keyCount !== null)  parts.push(`${stats.keyCount} keys`);
-        if (stats.itemCount !== null) parts.push(`${stats.itemCount} items`);
-        if (stats.depth > 1) parts.push(`depth ${stats.depth}`);
-        status.innerHTML = `<span class="text-fn-green flex items-center gap-1.5">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Valid JSON · ${parts.join(' · ')}
-        </span>`;
-        hideError();
-      } catch(e) {
-        status.innerHTML = '<span class="text-fn-red">Invalid JSON — ' + escHtml(e.message.substring(0, 60)) + '</span>';
-      }
-    }
-    refreshConvertBtn();
-    clearTimeout(detectTimer);
-    detectTimer = setTimeout(refreshDetection, 300);
+    clearTimeout(validateTimer);
+    validateTimer = setTimeout(validateJson, 250);
   });
+  function validateJson() {
+    const raw = jsonTA.value.trim();
+    if (!raw) {
+      jsonStatus.classList.add('hidden');
+      jsonValid = false;
+      refreshConvertBtn();
+      return;
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      const isObj  = typeof parsed === 'object' && parsed !== null;
+      const isArr  = Array.isArray(parsed);
+      const kind   = isArr ? 'array' : (isObj ? 'object' : typeof parsed);
+      const count  = isArr ? parsed.length : (isObj ? Object.keys(parsed).length : 0);
+      jsonValid    = true;
+      jsonStatus.innerHTML = `
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="text-fn-green">Valid JSON · ${kind}${count ? ' · ' + count + (isArr ? ' items' : ' keys') : ''}</span>`;
+    } catch (e) {
+      jsonValid = false;
+      jsonStatus.innerHTML = `
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
+        <span class="text-fn-red">${escapeHtml(e.message)}</span>`;
+    }
+    jsonStatus.classList.remove('hidden');
+    jsonStatus.classList.add('flex');
+    refreshConvertBtn();
+  }
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -830,11 +820,10 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-  async function handleFile(file) {
+  function handleFile(file) {
     hideError();
-    const name = file.name.toLowerCase();
-    if (!name.match(/\.(json|txt)$/)) {
-      showError('Please select a valid JSON file (.json).');
+    if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
+      showError('Please select a valid JSON file.');
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
@@ -847,13 +836,6 @@
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
-    if (file.size < 2 * 1024 * 1024) {
-      try {
-        const text   = await file.text();
-        const parsed = JSON.parse(text);
-        detectFromParsed(parsed);
-      } catch(_) {}
-    }
     refreshConvertBtn();
   }
   function resetFile() {
@@ -862,71 +844,15 @@
     filePreview.classList.add('hidden');
     filePreview.classList.remove('flex');
     dropZone.classList.remove('has-file');
-    document.getElementById('detected-content').classList.add('hidden');
     refreshConvertBtn();
     hideError();
   }
   function refreshConvertBtn() {
     if (activeTab === 'text') {
-      try { JSON.parse(jsonTA.value); convertBtn.disabled = false; }
-      catch(_) { convertBtn.disabled = true; }
+      convertBtn.disabled = !jsonValid;
     } else {
       convertBtn.disabled = !selectedFile;
     }
-  }
-  // ── Detection ──
-  function refreshDetection() {
-    if (activeTab !== 'text') return;
-    const v = jsonTA.value.trim();
-    if (!v) { document.getElementById('detected-content').classList.add('hidden'); return; }
-    try {
-      detectFromParsed(JSON.parse(v));
-    } catch(_) {
-      document.getElementById('detected-content').classList.add('hidden');
-    }
-  }
-  function detectFromParsed(parsed) {
-    const stats = analyzeJson(parsed);
-    const wrap  = document.getElementById('detected-content');
-    const list  = document.getElementById('detected-chips');
-    list.innerHTML = '';
-    const chips = [['chip-type', 'Type', stats.type]];
-    if (stats.keyCount !== null)  chips.push(['chip-keys',  'Keys',  stats.keyCount + '']);
-    if (stats.itemCount !== null) chips.push(['chip-keys',  'Items', stats.itemCount + '']);
-    if (stats.depth > 0)          chips.push(['chip-depth', 'Depth', stats.depth + '']);
-    if (stats.hasArrays)          chips.push(['chip-mode',  'Arrays', 'detected']);
-    if (stats.hasNulls)           chips.push(['chip-mode',  'Nulls', 'detected']);
-    chips.forEach(([cls, label, val]) => {
-      const chip = document.createElement('div');
-      chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
-      chip.querySelector('.chip-label').textContent = label;
-      list.appendChild(chip);
-    });
-    wrap.classList.remove('hidden');
-  }
-  function analyzeJson(v, depth) {
-    depth = depth || 1;
-    if (Array.isArray(v)) {
-      return { type: 'array', keyCount: null, itemCount: v.length, depth, hasArrays: true, hasNulls: v.some(i => i === null) };
-    }
-    if (v !== null && typeof v === 'object') {
-      const keys = Object.keys(v);
-      let maxDepth = depth;
-      let hasArrays = false, hasNulls = false;
-      keys.forEach(k => {
-        if (Array.isArray(v[k])) hasArrays = true;
-        if (v[k] === null) hasNulls = true;
-        if (typeof v[k] === 'object' && v[k] !== null) {
-          const child = analyzeJson(v[k], depth + 1);
-          if (child.depth > maxDepth) maxDepth = child.depth;
-          if (child.hasArrays) hasArrays = true;
-          if (child.hasNulls) hasNulls = true;
-        }
-      });
-      return { type: 'object', keyCount: keys.length, itemCount: null, depth: maxDepth, hasArrays, hasNulls };
-    }
-    return { type: typeof v, keyCount: null, itemCount: null, depth, hasArrays: false, hasNulls: false };
   }
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
@@ -935,111 +861,62 @@
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-    const rootEl    = document.getElementById('opt-root').value.trim()  || 'root';
-    const itemEl    = document.getElementById('opt-item').value.trim()   || 'item';
-    const indent    = parseInt(document.getElementById('opt-indent').value);
-    const outputMode = document.getElementById('opt-output').value;
-    const inclDecl  = document.getElementById('opt-declaration').checked;
-    const prettify  = document.getElementById('opt-prettify').checked;
-    const attrMode  = document.getElementById('opt-attributes').checked;
+    const indent       = parseInt(indentSlider.value) || 2;
+    const sortKeys     = document.getElementById('opt-sort').checked;
+    const allowUnicode = document.getElementById('opt-unicode').checked;
+    const defaultFlow  = activeStyle === 'flow';
+    let endpoint, fetchBody, fetchHeaders = {}, jsonForCompare = '';
+    if (activeTab === 'file') {
+      endpoint = 'https://api.filenewer.com/api/tools/json-file-to-yaml';
+      const fd = new FormData();
+      fd.append('file',          selectedFile);
+      fd.append('indent',        indent);
+      fd.append('sort_keys',     sortKeys);
+      fd.append('allow_unicode', allowUnicode);
+      fd.append('default_flow',  defaultFlow);
+      fd.append('output',        'text');
+      fetchBody = fd;
+      try { jsonForCompare = await selectedFile.text(); } catch(_) {}
+    } else {
+      endpoint = 'https://api.filenewer.com/api/tools/json-text-to-yaml';
+      jsonForCompare = jsonTA.value;
+      const payload = {
+        json:          JSON.parse(jsonTA.value),
+        indent:        indent,
+        sort_keys:     sortKeys,
+        allow_unicode: allowUnicode,
+        default_flow:  defaultFlow,
+        output:        'text',
+      };
+      fetchBody    = JSON.stringify(payload);
+      fetchHeaders = { 'Content-Type': 'application/json' };
+    }
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 22, 400, 'Parsing JSON input…');
+    animateProgress(0, 25, 400, 'Reading JSON content…');
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(22, 52, 600, 'Mapping types & structure…');
+      animateProgress(25, 55, 500, 'Validating structure…');
     }, 500);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(52, 78, 600, 'Building XML element tree…');
-    }, 1200);
+      animateProgress(55, 80, 500, 'Applying YAML formatting…');
+    }, 1100);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 400, 'Serializing output…');
-    }, 1900);
+      animateProgress(80, 92, 400, 'Generating output…');
+    }, 1700);
     try {
-      let res, endpoint, fetchOpts;
-      if (activeTab === 'text') {
-        endpoint  = 'https://api.filenewer.com/api/tools/json-text-to-xml';
-        const payload = {
-          json:                JSON.parse(jsonTA.value),
-          root_element:        rootEl,
-          item_element:        itemEl,
-          indent,
-          include_declaration: inclDecl,
-          prettify,
-          attributes_mode:     attrMode,
-          output:              outputMode,
-        };
-        fetchOpts = {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload),
-        };
-        lastJson = jsonTA.value;
-      } else {
-        endpoint = 'https://api.filenewer.com/api/tools/json-file-to-xml';
-        const fd = new FormData();
-        fd.append('file',                selectedFile);
-        fd.append('root_element',        rootEl);
-        fd.append('item_element',        itemEl);
-        fd.append('indent',              indent);
-        fd.append('include_declaration', inclDecl);
-        fd.append('prettify',            prettify);
-        fd.append('attributes_mode',     attrMode);
-        fd.append('output',              outputMode);
-        fetchOpts = { method: 'POST', body: fd };
-        lastJson = '';
-      }
-      const res2 = await fetch(endpoint, fetchOpts);
+      const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      if (!res2.ok) {
-        let msg = 'Conversion failed. Please check your JSON and try again.';
-        try { const d = await res2.json(); if (d.error) msg = d.error; } catch(_) {}
+      if (!res.ok) {
+        let msg = 'Conversion failed. Please try again.';
+        try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
+      const data = await res.json();
+      renderResult(data, jsonForCompare);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
-      if (outputMode === 'file') {
-        // File download
-        const blob = await res2.blob();
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = URL.createObjectURL(blob);
-        const outName = activeTab === 'file'
-          ? selectedFile.name.replace(/\.json$/i, '') + '.xml'
-          : 'output.xml';
-        const dlLink = document.getElementById('download-link');
-        dlLink.href     = blobUrl;
-        dlLink.download = outName;
-        dlLink.classList.remove('hidden');
-        dlLink.classList.add('flex');
-        // Try to read blob for preview
-        const reader = new FileReader();
-        reader.onload = e => {
-          lastXml = e.target.result;
-          showResultState(lastJson, lastXml, { outputMode, rootEl, itemEl, attrMode, inclDecl, sizKb: (blob.size / 1024).toFixed(1) });
-        };
-        reader.readAsText(blob);
-      } else {
-        // JSON response with xml field
-        const data = await res2.json();
-        lastXml = data.xml || '';
-        const dlLink = document.getElementById('download-link');
-        dlLink.classList.add('hidden');
-        dlLink.classList.remove('flex');
-        showResultState(lastJson, lastXml, {
-          outputMode,
-          rootEl,
-          itemEl,
-          attrMode,
-          inclDecl,
-          type:      data.type,
-          keyCount:  data.key_count,
-          itemCount: data.item_count,
-          depth:     data.depth,
-          sizeOrigKb: data.size_original_kb,
-          sizeXmlKb:  data.size_xml_kb,
-        });
-      }
+      animateProgress(92, 100, 250, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
@@ -1049,72 +926,99 @@
       updateStepIndicator(1);
     }
   }
-  function showResultState(jsonStr, xmlStr, meta) {
-    // JSON pane
-    const jsonPre = document.getElementById('json-preview');
+  function renderResult(data, originalJson) {
+    const yaml = data.yaml ?? '';
+    document.getElementById('stat-type').textContent  = data.type ?? '—';
+    document.getElementById('stat-keys').textContent  = (data.key_count ?? data.item_count ?? 0).toLocaleString();
+    document.getElementById('stat-depth').textContent = data.depth ?? '—';
+    document.getElementById('stat-orig').textContent  = formatSizeKb(data.size_original_kb);
+    document.getElementById('stat-yaml').textContent  = formatSizeKb(data.size_yaml_kb);
+    // Render YAML with subtle highlighting
+    document.getElementById('yaml-output').innerHTML = highlightYaml(yaml);
+    // Compare panel content
+    const cmpJson = document.getElementById('cmp-json');
+    const cmpYaml = document.getElementById('cmp-yaml');
     try {
-      jsonPre.textContent = jsonStr
-        ? JSON.stringify(JSON.parse(jsonStr), null, 2)
-        : '(file upload — content not echoed)';
-    } catch(_) {
-      jsonPre.textContent = jsonStr || '(file upload)';
+      cmpJson.textContent = JSON.stringify(JSON.parse(originalJson), null, 2);
+    } catch (_) {
+      cmpJson.textContent = originalJson || '';
     }
-    // XML pane
-    document.getElementById('xml-preview').textContent = xmlStr;
-    // Size label
-    const xmlBytes = new TextEncoder().encode(xmlStr).length;
-    document.getElementById('xml-size-label').textContent = formatBytes(xmlBytes);
-    // Meta line
-    const parts = [];
-    if (meta.type)      parts.push(meta.type);
-    if (meta.keyCount)  parts.push(meta.keyCount + ' keys');
-    if (meta.itemCount) parts.push(meta.itemCount + ' items');
-    if (meta.depth)     parts.push('depth ' + meta.depth);
-    document.getElementById('result-meta').textContent = parts.join(' · ') || '—';
-    // Title
-    document.getElementById('result-title').textContent = meta.attrMode
-      ? 'Converted with attributes mode'
-      : 'Conversion complete';
-    // Result chips
-    renderResultChips(meta);
+    cmpYaml.innerHTML = highlightYaml(yaml);
+    // Download
+    if (blobUrl) URL.revokeObjectURL(blobUrl);
+    blobUrl = URL.createObjectURL(new Blob([yaml], { type: 'text/yaml;charset=utf-8;' }));
+    const outName = (selectedFile?.name || 'output').replace(/\.json$/i, '') + '.yaml';
+    const dl = document.getElementById('btn-download');
+    dl.href = blobUrl;
+    dl.download = outName;
+    // Copy
+    document.getElementById('btn-copy').onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(yaml);
+        document.getElementById('copy-label').textContent = 'Copied!';
+        setTimeout(() => { document.getElementById('copy-label').textContent = 'Copy'; }, 2000);
+      } catch(_) {}
+    };
   }
-  function renderResultChips(meta) {
-    const wrap = document.getElementById('result-chips-wrap');
-    wrap.innerHTML = '';
-    const chips = [
-      ['chip-type', 'Root', '<' + (meta.rootEl || 'root') + '>'],
-      ['chip-keys', 'Item', '<' + (meta.itemEl || 'item') + '>'],
-    ];
-    if (meta.attrMode)  chips.push(['chip-mode', 'Mode', 'attributes']);
-    if (meta.inclDecl)  chips.push(['chip-size', 'Declaration', '<?xml?>']);
-    if (meta.sizeXmlKb) chips.push(['chip-size', 'XML size', meta.sizeXmlKb + ' KB']);
-    chips.forEach(([cls, label, val]) => {
-      const chip = document.createElement('div');
-      chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${escHtml(val)}</span>`;
-      chip.querySelector('.chip-label').textContent = label;
-      wrap.appendChild(chip);
-    });
-    wrap.classList.remove('hidden');
+  // ── Compare toggle ──
+  document.getElementById('btn-toggle-compare').addEventListener('click', () => {
+    const wrap = document.getElementById('compare-wrap');
+    const chev = document.getElementById('cmp-chev');
+    const isOpen = !wrap.classList.contains('hidden');
+    document.getElementById('btn-toggle-compare').setAttribute('aria-expanded', String(!isOpen));
+    if (isOpen) {
+      wrap.classList.add('hidden');
+      chev.style.transform = '';
+    } else {
+      wrap.classList.remove('hidden');
+      chev.style.transform = 'rotate(180deg)';
+    }
+  });
+  // ── Lightweight YAML highlighter ──
+  function highlightYaml(yaml) {
+    if (!yaml) return '';
+    const lines = yaml.split('\n');
+    return lines.map(line => {
+      // Escape HTML first
+      let s = escapeHtml(line);
+      // List item prefix: -  at start (with optional indent)
+      s = s.replace(/^(\s*)(- )/, '$1<span class="yh-mark">- </span>');
+      // Key: value pattern (handle the key + colon)
+      s = s.replace(/^(\s*)([^:#\s][^:]*?):(\s*)(.*)$/, (m, indent, key, sp, val) => {
+        let highlightedVal = highlightYamlValue(val);
+        return `${indent}<span class="yh-key">${key}</span>:${sp}${highlightedVal}`;
+      });
+      // Pure list-item value (- value) without a key
+      if (s.includes('<span class="yh-mark">- </span>') && !s.includes('<span class="yh-key">')) {
+        s = s.replace(/(<span class="yh-mark">- <\/span>)(.+)$/, (m, dash, val) => {
+          return dash + highlightYamlValue(val);
+        });
+      }
+      return s;
+    }).join('\n');
   }
-  // ── Copy buttons ──
-  document.getElementById('btn-copy-xml').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(lastXml);
-      const label = document.getElementById('copy-label');
-      label.textContent = 'Copied!';
-      setTimeout(() => { label.textContent = 'Copy XML'; }, 2000);
-    } catch(_) {}
-  });
-  document.getElementById('btn-copy-json').addEventListener('click', async () => {
-    try {
-      const text = document.getElementById('json-preview').textContent;
-      await navigator.clipboard.writeText(text);
-      const btn = document.getElementById('btn-copy-json');
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
-    } catch(_) {}
-  });
+  function highlightYamlValue(val) {
+    if (!val) return val;
+    const trimmed = val.trim();
+    if (!trimmed) return val;
+    // Booleans
+    if (/^(true|false|True|False|TRUE|FALSE|yes|no|Yes|No)$/.test(trimmed)) {
+      return `<span class="yh-bool">${val}</span>`;
+    }
+    // null
+    if (/^(null|Null|NULL|~|)$/.test(trimmed)) {
+      return `<span class="yh-null">${val}</span>`;
+    }
+    // Numbers
+    if (/^-?\d+(\.\d+)?$/.test(trimmed)) {
+      return `<span class="yh-num">${val}</span>`;
+    }
+    // Strings (quoted or unquoted text)
+    return `<span class="yh-str">${val}</span>`;
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -1142,8 +1046,10 @@
     const dot   = el.querySelector('.step-dot');
     const check = el.querySelector('.check-icon');
     const spin  = el.querySelector('.spin-icon');
-    check.classList.add('hidden'); spin.classList.add('hidden');
-    dot.style.borderColor = ''; dot.style.background = '';
+    check.classList.add('hidden');
+    spin.classList.add('hidden');
+    dot.style.borderColor = '';
+    dot.style.background  = '';
     if (state === 'active') {
       spin.classList.remove('hidden');
       dot.style.borderColor = 'oklch(49% 0.24 264)';
@@ -1167,27 +1073,19 @@
     }
     requestAnimationFrame(step);
   }
-  function escHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
     jsonTA.value = '';
-    jsonTA.dispatchEvent(new Event('input'));
-    document.getElementById('opt-root').value        = 'root';
-    document.getElementById('opt-item').value        = 'item';
-    document.getElementById('opt-indent').value      = '2';
+    jsonStatus.classList.add('hidden');
+    jsonValid = false;
+    indentSlider.value = 2;
     document.getElementById('indent-val').textContent = '2';
-    document.getElementById('opt-output').value      = 'text';
-    document.getElementById('opt-declaration').checked = true;
-    document.getElementById('opt-prettify').checked    = true;
-    document.getElementById('opt-attributes').checked  = false;
-    document.getElementById('detected-content').classList.add('hidden');
-    document.getElementById('result-chips-wrap').classList.add('hidden');
-    document.getElementById('download-link').classList.add('hidden');
-    document.getElementById('download-link').classList.remove('flex');
-    lastXml = ''; lastJson = '';
+    document.getElementById('opt-sort').checked = false;
+    document.getElementById('opt-unicode').checked = true;
+    document.querySelectorAll('.style-btn').forEach(b => b.classList.toggle('active', b.dataset.val === 'block'));
+    activeStyle = 'block';
+    document.getElementById('compare-wrap').classList.add('hidden');
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
@@ -1204,10 +1102,17 @@
     uploadError.classList.remove('flex');
   }
   function formatBytes(bytes) {
-    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
+  function formatSizeKb(kb) {
+    if (kb === null || kb === undefined) return '—';
+    if (kb >= 1024) return (kb / 1024).toFixed(2) + ' MB';
+    if (kb < 1) return (kb * 1024).toFixed(0) + ' B';
+    return kb.toFixed(2) + ' KB';
+  }
+  // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1215,10 +1120,13 @@
       const isOpen = !body.classList.contains('hidden');
       document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
       document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-      if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
+      if (!isOpen) {
+        body.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
     });
   });
-});
+}); // end DOMContentLoaded
 </script>
 @endpush
 @endsection

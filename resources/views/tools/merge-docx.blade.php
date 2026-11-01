@@ -1,19 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="merge-docx-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
             @php
             $steps = [
@@ -22,7 +16,8 @@
             ['3', 'Download'],
             ];
             @endphp
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach($steps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -36,15 +31,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
@@ -77,7 +69,6 @@
                             accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File list --}}
                     <div id="file-list-wrap" class="hidden mt-5">
                         <div class="flex items-center justify-between mb-2">
@@ -105,13 +96,10 @@
                             accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="hidden" />
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-6 space-y-3">
-
                         {{-- Row 1: Page Break + Table of Contents --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Page Break --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Page Break Between
@@ -124,7 +112,6 @@
                                 <p class="text-fn-text3 text-sm mt-1.5">Insert a page break before each merged document.
                                 </p>
                             </div>
-
                             {{-- Table of Contents --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Add Table of
@@ -138,10 +125,8 @@
                                     document.</p>
                             </div>
                         </div>
-
                         {{-- Row 2: Separator Text + Output Filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Separator Text --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-separator" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -154,7 +139,6 @@
                                 <p class="text-fn-text3 text-sm mt-1.5">Use {n} for doc number, {filename} for the file
                                     name.</p>
                             </div>
-
                             {{-- Output Filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -167,7 +151,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -180,7 +163,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Merge button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -190,9 +172,7 @@
                         </svg>
                         Merge Documents
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -228,10 +208,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Merging your documents&hellip;</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 30 seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -241,7 +219,6 @@
                         <span id="progress-label">Starting&hellip;</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     @php
                     $procSteps = [
                     ['proc-1', 'Uploading documents'],
@@ -252,7 +229,7 @@
                     @endphp
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach($procSteps as [$pid, $plabel])
-                        <div class="flex items-center gap-3" id="{{ $pid }}">
+                        <div class="flex flex-wrap items-center gap-3" id="{{ $pid }}">
                             <div
                                 class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
                                 <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
@@ -271,7 +248,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -286,7 +262,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Merge Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your merged document is ready.</p>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0"
@@ -305,7 +280,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="merged.docx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -317,7 +291,6 @@
                         </svg>
                         <span id="download-btn-label">Download DOCX</span>
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -333,7 +306,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -342,13 +314,10 @@
                         Your files are encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -367,11 +336,11 @@
             the document number and {filename} for the original file name.'],
             ['Can I add a Table of Contents?', 'Yes, enable the Table of Contents option to insert an auto-generated TOC
             at the beginning of the merged document.'],
-            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
-
             @foreach($faqs as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
@@ -391,12 +360,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .file-row {
@@ -443,12 +409,157 @@
         justify-content: center;
         flex-shrink: 0;
     }
-</style>
 
+    #merge-docx-tool .tab-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #merge-docx-tool button:focus-visible,
+    #merge-docx-tool a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #merge-docx-tool .grid>*,
+    #merge-docx-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #merge-docx-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #output-name,
+    #file-meta,
+    #error-text,
+    #json-status {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #merge-docx-tool input,
+    #merge-docx-tool textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #merge-docx-tool input[type=checkbox] {
+        accent-color: #2563eb;
+        flex-shrink: 0;
+    }
+
+    #merge-docx-tool .toggle-label {
+        width: fit-content;
+        padding: 6px 10px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+    }
+
+    #merge-docx-tool .toggle-label:has(input:checked) {
+        background: #2563eb;
+        color: #fff;
+    }
+
+    #merge-docx-tool .toggle-label:has(input:checked) span {
+        color: #fff;
+    }
+
+    #merge-docx-tool .toggle-label:has(input:focus-visible) {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #merge-docx-tool .file-row p {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #merge-docx-tool .file-row .grip {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 639px) {
+
+        #merge-docx-tool button,
+        #merge-docx-tool a.inline-flex,
+        #merge-docx-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #merge-docx-tool .tab-btn {
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        #merge-docx-tool .step-item {
+            gap: 4px;
+            min-width: 0;
+        }
+
+        #merge-docx-tool .step-label {
+            font-size: 11px;
+        }
+
+        #merge-docx-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #merge-docx-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        #merge-docx-tool input:not([type=file]),
+        #merge-docx-tool textarea {
+            font-size: 16px;
+        }
+
+        #json-textarea {
+            min-height: 250px;
+        }
+
+        #merge-docx-tool .file-row {
+            padding: 10px;
+            gap: 7px;
+        }
+
+        #merge-docx-tool .remove-row {
+            min-width: 30px;
+            width: 30px;
+            height: 30px;
+            padding: 6px;
+        }
+
+        #file-preview {
+            padding: 12px;
+            gap: 8px;
+        }
+
+        #remove-file {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       var dropZone     = document.getElementById('drop-zone');
       var fileInput    = document.getElementById('file-input');
       var fileInputEx  = document.getElementById('file-input-extra');
@@ -460,10 +571,8 @@
       var clearAllBtn  = document.getElementById('clear-all-btn');
       var uploadError  = document.getElementById('upload-error');
       var errorText    = document.getElementById('error-text');
-
       var selectedFiles = []; // Array of File objects in merge order
       var blobUrl       = null;
-
       // ── File handling ──
       ['dragenter', 'dragover'].forEach(function (evt) {
         dropZone.addEventListener(evt, function (e) { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -476,7 +585,6 @@
       fileInputEx.addEventListener('change', function (e) { addFiles(e.target.files); e.target.value = ''; });
       addMoreBtn.addEventListener('click', function () { fileInputEx.click(); });
       clearAllBtn.addEventListener('click', function () { selectedFiles = []; renderFileList(); });
-
       function addFiles(fileList) {
         hideError();
         for (var i = 0; i < fileList.length; i++) {
@@ -494,22 +602,18 @@
         }
         renderFileList();
       }
-
       function renderFileList() {
         fileListEl.innerHTML = '';
         fileCountEl.textContent = selectedFiles.length;
-
         if (selectedFiles.length === 0) {
           fileListWrap.classList.add('hidden');
           dropZone.classList.remove('has-file');
           convertBtn.disabled = true;
           return;
         }
-
         fileListWrap.classList.remove('hidden');
         dropZone.classList.add('has-file');
         convertBtn.disabled = selectedFiles.length < 2;
-
         selectedFiles.forEach(function (file, idx) {
           var row = document.createElement('div');
           row.className = 'file-row';
@@ -520,14 +624,12 @@
             '<span class="file-num">' + (idx + 1) + '</span>' +
             '<div class="flex-1 min-w-0"><p class="font-semibold text-sm truncate">' + escHtml(file.name) + '</p>' +
             '<p class="text-fn-text3 text-xs">' + formatBytes(file.size) + '</p></div>' +
-            '<button type="button" class="remove-row shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">' +
-            '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
-
+            '<button type="button" aria-label="Remove document" class="remove-row shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">' +
+            `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
           row.querySelector('.remove-row').addEventListener('click', function () {
             selectedFiles.splice(idx, 1);
             renderFileList();
           });
-
           // Drag reorder
           row.addEventListener('dragstart', function (e) {
             e.dataTransfer.effectAllowed = 'move';
@@ -548,24 +650,19 @@
             selectedFiles.splice(toIdx, 0, moved);
             renderFileList();
           });
-
           fileListEl.appendChild(row);
         });
       }
-
       // ── Convert ──
       convertBtn.addEventListener('click', startConversion);
-
       async function startConversion() {
         if (selectedFiles.length < 2) {
           showError('Please select at least 2 .docx files to merge.');
           return;
         }
-
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         var pageBreak      = document.getElementById('opt-page-break').checked;
         var addToc          = document.getElementById('opt-toc').checked;
         var separatorText   = document.getElementById('opt-separator').value.trim();
@@ -573,7 +670,6 @@
         var outputFilename  = customFilename
           ? (customFilename.indexOf('.') !== -1 ? customFilename : customFilename + '.docx')
           : 'merged.docx';
-
         var formData = new FormData();
         selectedFiles.forEach(function (file) {
           formData.append('files[]', file);
@@ -583,64 +679,50 @@
         formData.append('preserve_styles', 'true');
         formData.append('output_filename', outputFilename);
         if (separatorText) formData.append('separator_text', separatorText);
-
         // Animate
         setProcessStep('proc-1', 'active');
         animateProgress(0, 20, 800, 'Uploading documents\u2026');
-
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
           animateProgress(20, 50, 1200, 'Reading & parsing each file\u2026');
         }, 900);
-
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
           animateProgress(50, 78, 1500, 'Merging content & styles\u2026');
         }, 2300);
-
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
           animateProgress(78, 90, 700, 'Packaging final document\u2026');
         }, 4000);
-
         try {
           var res = await fetch('https://api.filenewer.com/api/tools/merge-docx', {
             method: 'POST',
             body:   formData
           });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!res.ok) {
             var errMsg = 'Merge failed. Please try again.';
             try { var d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
-
           var blob = await res.blob();
-
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
-
           var link    = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = outputFilename;
-
           var mergedCount = res.headers.get('X-Files-Merged') || selectedFiles.length;
           document.getElementById('output-name').textContent        = outputFilename;
           document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 ' + mergedCount + ' files merged';
           document.getElementById('download-btn-label').textContent = 'Download DOCX';
           document.getElementById('download-subtitle').textContent  = mergedCount + ' documents merged successfully.';
-
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
           animateProgress(90, 100, 300, 'Done!');
-
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -649,21 +731,18 @@
           updateStepIndicator(1);
         }
       }
-
       // ── Helpers ──
       function showState(state) {
         ['upload', 'converting', 'download'].forEach(function (s) {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
         if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-
         var card = document.querySelector('.bg-fn-surface.border.rounded-2xl');
         if (card) {
           var offset = card.getBoundingClientRect().top + window.pageYOffset - 20;
           window.scrollTo({ top: offset, behavior: 'smooth' });
         }
       }
-
       function updateStepIndicator(active) {
         [1, 2, 3].forEach(function (n) {
           var el = document.getElementById('step-' + n);
@@ -672,7 +751,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         var el = document.getElementById(id);
         if (!el) return;
@@ -694,7 +772,6 @@
           dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         var start = performance.now();
@@ -707,7 +784,6 @@
         }
         requestAnimationFrame(step);
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         selectedFiles = [];
@@ -721,7 +797,6 @@
         animateProgress(0, 0, 0, 'Starting\u2026');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
-
       function showError(msg) {
         errorText.textContent = msg;
         uploadError.classList.remove('hidden');
@@ -731,19 +806,16 @@
         uploadError.classList.add('hidden');
         uploadError.classList.remove('flex');
       }
-
       function formatBytes(bytes) {
         if (bytes < 1024)    return bytes + ' B';
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       function escHtml(str) {
         var d = document.createElement('div');
         d.textContent = str;
         return d.innerHTML;
       }
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -758,9 +830,7 @@
           }
         });
       });
-
     });
 </script>
 @endpush
-
 @endsection
