@@ -11,18 +11,38 @@
             {{-- Step indicator --}}
             <div
                 class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
-                @foreach([['1','Input JSON'],['2','Converting'],['3','YAML']] as [$n, $label])
-                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
+
+                <div class="step-item active flex items-center gap-2" id="step-1">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Input JSON</span>
                 </div>
-                @if($n !== '3')
+
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
-                @endif
-                @endforeach
+
+
+                <div class="step-item  flex items-center gap-2" id="step-2">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">2</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Converting</span>
+                </div>
+
+                <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
+
+
+                <div class="step-item  flex items-center gap-2" id="step-3">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">3</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">YAML</span>
+                </div>
+
+
             </div>
             <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
@@ -193,33 +213,10 @@
                         </div>
                         {{-- Toggles --}}
                         <div class="pt-3 border-t border-fn-text/8 grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
-                            @foreach([
-                            ['opt-sort', '<svg xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-typography" width="1em" height="1em"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                                style="vertical-align:-0.125em">
-                                <path d="M4 20l3 0" />
-                                <path d="M14 20l7 0" />
-                                <path d="M6.9 15l6.9 0" />
-                                <path d="M10.2 6.3l5.8 13.7" />
-                                <path d="M5 20l6 -16l2 0l7 16" />
-                            </svg>', 'Sort keys alphabetically', 'Reorder object keys A → Z', false],
-                            ['opt-unicode', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-globe">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M7 9a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                <path d="M5.75 15a8.015 8.015 0 1 0 9.5 0" />
-                                <path d="M11 17v4" />
-                                <path d="M7 21h8" />
-                            </svg>', 'Allow unicode', 'Keep emoji & non-ASCII as-is', true],
-                            ] as [$tid, $ticon, $tlabel, $tdesc, $tdefault])
+
                             <label class="flex items-start gap-2.5 cursor-pointer select-none">
                                 <div class="toggle-wrap relative w-8 h-4 mt-0.5 shrink-0">
-                                    <input type="checkbox" id="{{ $tid }}" {{ $tdefault ? 'checked' : '' }}
-                                        class="sr-only peer" />
+                                    <input type="checkbox" id="opt-sort" class="sr-only peer" />
                                     <div
                                         class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
                                     </div>
@@ -229,13 +226,52 @@
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
-                                        <span class="text-fn-text3">{!! $ticon !!}</span>
-                                        {{ $tlabel }}
+                                        <span class="text-fn-text3"><svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-typography" width="1em" height="1em"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                                                style="vertical-align:-0.125em">
+                                                <path d="M4 20l3 0" />
+                                                <path d="M14 20l7 0" />
+                                                <path d="M6.9 15l6.9 0" />
+                                                <path d="M10.2 6.3l5.8 13.7" />
+                                                <path d="M5 20l6 -16l2 0l7 16" />
+                                            </svg></span>
+                                        Sort keys alphabetically
                                     </p>
-                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ $tdesc }}</p>
+                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">Reorder object keys A → Z</p>
                                 </div>
                             </label>
-                            @endforeach
+
+                            <label class="flex items-start gap-2.5 cursor-pointer select-none">
+                                <div class="toggle-wrap relative w-8 h-4 mt-0.5 shrink-0">
+                                    <input type="checkbox" id="opt-unicode" checked class="sr-only peer" />
+                                    <div
+                                        class="toggle-track w-8 h-4 rounded-full bg-fn-text/15 peer-checked:bg-fn-blue transition-colors">
+                                    </div>
+                                    <div
+                                        class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
+                                        <span class="text-fn-text3"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-globe">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M7 9a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                                <path d="M5.75 15a8.015 8.015 0 1 0 9.5 0" />
+                                                <path d="M11 17v4" />
+                                                <path d="M7 21h8" />
+                                            </svg></span>
+                                        Allow unicode
+                                    </p>
+                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">Keep emoji &amp; non-ASCII
+                                        as-is</p>
+                                </div>
+                            </label>
+
                         </div>
                     </div>
                     {{-- Error banner --}}
@@ -302,13 +338,8 @@
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
-                        @foreach([
-                        ['proc-1','Reading JSON content'],
-                        ['proc-2','Validating structure'],
-                        ['proc-3','Applying YAML formatting'],
-                        ['proc-4','Generating output'],
-                        ] as [$pid, $plabel])
-                        <div class="flex items-center gap-3" id="{{ $pid }}">
+
+                        <div class="flex items-center gap-3" id="proc-1">
                             <div
                                 class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
                                 <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
@@ -322,9 +353,60 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">Reading JSON content</span>
                         </div>
-                        @endforeach
+
+                        <div class="flex items-center gap-3" id="proc-2">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Validating structure</span>
+                        </div>
+
+                        <div class="flex items-center gap-3" id="proc-3">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Applying YAML formatting</span>
+                        </div>
+
+                        <div class="flex items-center gap-3" id="proc-4">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Generating output</span>
+                        </div>
+
                     </div>
                 </div>
                 {{-- ── STATE: Result ── --}}
@@ -345,19 +427,37 @@
                             <span>Conversion Complete</span>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap" id="stats-chips">
-                            @foreach([
-                            ['stat-type', 'Type'],
-                            ['stat-keys', 'Keys'],
-                            ['stat-depth', 'Depth'],
-                            ['stat-orig', 'JSON size'],
-                            ['stat-yaml', 'YAML size'],
-                            ] as [$sid, $slabel])
+
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">{{ $slabel }}</span>
-                                <span class="font-bold text-fn-text" id="{{ $sid }}">—</span>
+                                <span class="text-fn-text3">Type</span>
+                                <span class="font-bold text-fn-text" id="stat-type">—</span>
                             </div>
-                            @endforeach
+
+                            <div
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
+                                <span class="text-fn-text3">Keys</span>
+                                <span class="font-bold text-fn-text" id="stat-keys">—</span>
+                            </div>
+
+                            <div
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
+                                <span class="text-fn-text3">Depth</span>
+                                <span class="font-bold text-fn-text" id="stat-depth">—</span>
+                            </div>
+
+                            <div
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
+                                <span class="text-fn-text3">JSON size</span>
+                                <span class="font-bold text-fn-text" id="stat-orig">—</span>
+                            </div>
+
+                            <div
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
+                                <span class="text-fn-text3">YAML size</span>
+                                <span class="font-bold text-fn-text" id="stat-yaml">—</span>
+                            </div>
+
                         </div>
                         <div class="ml-auto flex items-center gap-2">
                             <button type="button" id="btn-copy"
@@ -439,28 +539,11 @@
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
-            @foreach([
-            ['What is YAML used for?','YAML is a human-readable data format used heavily in DevOps and infrastructure
-            tooling — Kubernetes manifests, Docker Compose files, GitHub Actions workflows, Ansible playbooks,
-            application configs, and OpenAPI specs all use YAML. Its indented structure is much easier to read than JSON
-            for nested config.'],
-            ['Block style vs flow style — which one?','Block (default) is what almost everyone wants — multi-line
-            indented YAML where each key sits on its own line. Flow style produces compact single-line output that looks
-            similar to JSON, useful only when you need a one-liner.'],
-            ['Should I sort keys?','Sorting keys alphabetically can make diffs cleaner in version control and improve
-            consistency across files. Leave it off if your JSON keys are already in a meaningful order (like API
-            responses where order matters).'],
-            ['What does "Allow unicode" do?','When on (default), characters like emoji and non-Latin scripts (e.g.
-            Arabic, Chinese) are kept as-is in the YAML — readable directly. When off, they get escaped to \\\uXXXX
-            sequences for ASCII-only output, useful for legacy systems that can\\'t handle UTF-8.'],
-            ['Is my data safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
-            deleted
-            after processing. We never read, share or store your content.'],
-            ] as [$q, $a])
+
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">What is YAML used for?</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -468,10 +551,82 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">YAML is a human-readable data format used heavily
+                        in DevOps and infrastructure tooling — Kubernetes manifests, Docker Compose files, GitHub
+                        Actions workflows, Ansible playbooks, application configs, and OpenAPI specs all use YAML. Its
+                        indented structure is much easier to read than JSON for nested config.</p>
                 </div>
             </div>
-            @endforeach
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Block style vs flow style — which one?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Block (default) is what almost everyone wants —
+                        multi-line indented YAML where each key sits on its own line. Flow style produces compact
+                        single-line output that looks similar to JSON, useful only when you need a one-liner.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Should I sort keys?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Sorting keys alphabetically can make diffs cleaner
+                        in version control and improve consistency across files. Leave it off if your JSON keys are
+                        already in a meaningful order (like API responses where order matters).</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">What does &quot;Allow unicode&quot; do?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">When on (default), characters like emoji and
+                        non-Latin scripts (e.g. Arabic, Chinese) are kept as-is in the YAML — readable directly. When
+                        off, they get escaped to \uXXXX sequences for ASCII-only output, useful for legacy systems that
+                        cannot handle UTF-8.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Is my data safe and private?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
+                        transit. and are permanently deleted after processing. We never read, share or store your
+                        content.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
