@@ -1,21 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="csv-sql-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="sql-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input CSV'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -29,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- ── Mode tabs ── --}}
                     <div
-                        class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
+                        class="sql-tabs flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
                         <button type="button" id="tab-file"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -58,10 +50,8 @@
                             Paste CSV
                         </button>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file">
-
                         <div id="drop-zone"
                             class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="flex items-center justify-center mb-5">
@@ -95,7 +85,6 @@
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         {{-- File preview --}}
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -115,7 +104,7 @@
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
                             </div>
-                            <button type="button" id="remove-file"
+                            <button type="button" id="remove-file" aria-label="Remove CSV file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -124,16 +113,14 @@
                                 </svg>
                             </button>
                         </div>
-
                     </div>{{-- /panel-file --}}
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text" class="hidden">
                         <div class="relative">
                             <textarea id="csv-textarea" rows="11" spellcheck="false"
                                 placeholder="Paste your CSV here, e.g.&#10;Username;Identifier;First name;Department&#10;booker12;9012;Rachel;Sales&#10;grey07;2070;Laura;Depot"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
-                            <div class="absolute top-3 right-3 flex gap-2">
+                            <div class="csv-text-actions absolute top-3 right-3 flex gap-2">
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -160,13 +147,10 @@
                         </div>
                         <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold"></div>
                     </div>{{-- /panel-text --}}
-
                     {{-- ══ SHARED OPTIONS ══ --}}
                     <div class="mt-5 space-y-3">
-
                         {{-- Row 1: Dialect + Table name --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- SQL Dialect --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
@@ -209,7 +193,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             {{-- Table name --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-table" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -222,10 +205,8 @@
                                             id="table-preview">my_table</span> …</span></p>
                             </div>
                         </div>
-
                         {{-- Row 2: Output mode + Filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
@@ -262,7 +243,6 @@
                                 <p class="text-fn-text3 text-sm mt-2" id="output-hint">Returns a downloadable .sql file.
                                 </p>
                             </div>
-
                             {{-- Filename (only relevant for file output) --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="filename-wrap">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -275,9 +255,7 @@
                                 </p>
                             </div>
                         </div>
-
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -290,7 +268,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -300,9 +277,7 @@
                         </svg>
                         <span id="convert-btn-label">Generate SQL</span>
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -338,10 +313,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Generating your SQL…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -351,7 +324,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Parsing CSV rows & headers'],
@@ -378,10 +350,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download / Preview ── --}}
                 <div id="state-download" class="hidden py-6">
-
                     {{-- Success header --}}
                     <div class="text-center mb-6">
                         <div
@@ -399,7 +369,6 @@
                         <h2 class="text-2xl font-bold mb-2">SQL Generated!</h2>
                         <p class="text-fn-text2 text-sm" id="download-subtitle">Your SQL file is ready.</p>
                     </div>
-
                     {{-- SQL preview (text output mode) --}}
                     <div id="sql-preview-wrap" class="hidden max-w-3xl mx-auto mb-6">
                         <div class="flex items-center justify-between mb-2">
@@ -426,7 +395,6 @@
                                 class="p-5 text-sm font-mono text-fn-text2 overflow-auto max-h-72 leading-relaxed whitespace-pre-wrap break-all"></pre>
                         </div>
                     </div>
-
                     {{-- File download card --}}
                     <div id="file-download-wrap"
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
@@ -447,7 +415,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <div class="text-center">
                         <a id="download-link" href="#" download="output.sql"
                             class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
@@ -460,7 +427,6 @@
                             </svg>
                             <span id="download-btn-label">Download SQL</span>
                         </a>
-
                         <div class="flex items-center justify-center gap-3 flex-wrap mt-1">
                             <button type="button" onclick="resetConverter()"
                                 class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -476,7 +442,6 @@
                                 All tools
                             </a>
                         </div>
-
                         <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -485,18 +450,14 @@
                             Your file is encrypted and permanently deleted after processing.
                         </p>
                     </div>
-
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -510,7 +471,8 @@
             generated SQL will be displayed inline so you can inspect and copy it before downloading.'],
             ['Does it handle different CSV separators?', 'Yes — comma, semicolon, tab, and pipe separators are all
             auto-detected from your CSV.'],
-            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -531,12 +493,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -582,13 +541,201 @@
         border-color: oklch(49% 0.24 264 / 25%);
         color: var(--fn-text);
     }
-</style>
 
+    /* Responsive CSV input and SQL options. */
+    #csv-sql-tool * {
+        box-sizing: border-box;
+    }
+
+    #csv-sql-tool .grid>*,
+    #csv-sql-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #csv-sql-tool .tab-btn.active,
+    #csv-sql-tool .dialect-btn.active,
+    #csv-sql-tool .output-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #csv-sql-tool button,
+    #csv-sql-tool a {
+        touch-action: manipulation;
+    }
+
+    #csv-sql-tool button:focus-visible,
+    #csv-sql-tool a:focus-visible,
+    #csv-sql-tool input:focus-visible,
+    #csv-sql-tool textarea:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-sql-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-sql-tool #file-name,
+    #csv-sql-tool #output-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #csv-sql-tool #file-meta,
+    #csv-sql-tool #output-size,
+    #csv-sql-tool #error-text,
+    #csv-sql-tool #csv-status {
+        overflow-wrap: anywhere;
+    }
+
+    #csv-sql-tool textarea {
+        max-width: 100%;
+        min-width: 0;
+        resize: vertical;
+    }
+
+    #csv-sql-tool #sql-preview-code {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    #csv-sql-tool svg {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 767px) {
+        #csv-sql-tool .sql-steps {
+            padding: 16px 8px;
+        }
+
+        #csv-sql-tool .sql-steps .step-item {
+            gap: 4px;
+        }
+
+        #csv-sql-tool .sql-steps .step-label {
+            font-size: 11px;
+        }
+
+        #csv-sql-tool .sql-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #csv-sql-tool button,
+        #csv-sql-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #csv-sql-tool .sql-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 100%;
+        }
+
+        #csv-sql-tool .tab-btn {
+            justify-content: center;
+            padding: 7px 6px;
+        }
+
+        #csv-sql-tool .dialect-btn {
+            padding: 8px 4px;
+            font-size: 11px;
+        }
+
+        #csv-sql-tool .dialect-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        #csv-sql-tool .output-btn {
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+
+        #csv-sql-tool #drop-zone {
+            padding: 28px 12px;
+        }
+
+        #csv-sql-tool #drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #csv-sql-tool #drop-zone p {
+            font-size: 12px;
+        }
+
+        #csv-sql-tool #drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #csv-sql-tool #file-preview {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #csv-sql-tool #remove-file {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #csv-sql-tool input[type="text"],
+        #csv-sql-tool textarea {
+            font-size: 16px;
+        }
+
+        #csv-sql-tool #csv-textarea {
+            height: 240px;
+            min-height: 160px;
+            padding: 12px;
+        }
+
+        #csv-sql-tool .csv-text-actions {
+            position: static;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        #csv-sql-tool #download-link {
+            max-width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+        }
+
+        #csv-sql-tool #sql-preview-wrap .flex {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        #csv-sql-tool #sql-preview-meta {
+            overflow-wrap: anywhere;
+        }
+
+        #csv-sql-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       // ── Refs ──
       const tabFile     = document.getElementById('tab-file');
       const tabText     = document.getElementById('tab-text');
@@ -607,7 +754,6 @@
       const tablePreview = document.getElementById('table-preview');
       const outputHint  = document.getElementById('output-hint');
       const filenameWrap = document.getElementById('filename-wrap');
-
       let selectedFile = null;
       let blobUrl      = null;
       let activeTab    = 'file';
@@ -615,11 +761,9 @@
       let activeOutput  = 'file';
       let csvValid      = false;
       let fullSqlText   = ''; // stored for copy button
-
       // ── Tab switching ──
       tabFile.addEventListener('click', () => switchTab('file'));
       tabText.addEventListener('click', () => switchTab('text'));
-
       function switchTab(tab) {
         activeTab = tab;
         tabFile.classList.toggle('active', tab === 'file');
@@ -629,12 +773,10 @@
         hideError();
         refreshConvertBtn();
       }
-
       // ── Table name live preview ──
       tableInput.addEventListener('input', () => {
         tablePreview.textContent = tableInput.value.trim() || 'my_table';
       });
-
       // ── Dialect buttons ──
       document.querySelectorAll('.dialect-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -643,7 +785,6 @@
           activeDialect = btn.dataset.dialect;
         });
       });
-
       // ── Output mode buttons ──
       document.querySelectorAll('.output-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -659,7 +800,6 @@
           document.getElementById('convert-btn-label').textContent = isFile ? 'Generate SQL' : 'Preview SQL';
         });
       });
-
       // ── Drag & drop ──
       ['dragenter', 'dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -670,7 +810,6 @@
       dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
       fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
       removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
       function handleFile(file) {
         hideError();
         const ext = file.name.toLowerCase();
@@ -692,7 +831,6 @@
         dropZone.classList.add('has-file');
         refreshConvertBtn();
       }
-
       function resetFile() {
         selectedFile    = null;
         fileInput.value = '';
@@ -702,14 +840,12 @@
         refreshConvertBtn();
         hideError();
       }
-
       // ── CSV text validation ──
       let validateTimer = null;
       csvTA.addEventListener('input', () => {
         clearTimeout(validateTimer);
         validateTimer = setTimeout(validateCsv, 300);
       });
-
       function validateCsv() {
         const raw = csvTA.value.trim();
         if (!raw) {
@@ -731,14 +867,12 @@
         csvStatus.classList.add('flex');
         refreshConvertBtn();
       }
-
       function okStatus(msg) {
         return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
       }
       function errStatus(msg) {
         return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
       }
-
       // Paste & clear
       document.getElementById('btn-paste').addEventListener('click', async () => {
         try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
@@ -746,28 +880,22 @@
       document.getElementById('btn-clear').addEventListener('click', () => {
         csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
       });
-
       function refreshConvertBtn() {
         convertBtn.disabled = activeTab === 'file' ? !selectedFile : !csvValid;
       }
-
       // ── Convert ──
       convertBtn.addEventListener('click', startConversion);
-
       async function startConversion() {
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         const isFile     = activeTab === 'file';
         const tableName  = tableInput.value.trim() || 'my_table';
         const customFile = document.getElementById('opt-filename').value.trim();
         const outputFilename = customFile
           ? (customFile.toLowerCase().endsWith('.sql') ? customFile : customFile + '.sql')
           : tableName + '.sql';
-
         let endpoint, fetchBody, fetchHeaders = {};
-
         if (isFile) {
           // multipart/form-data → /api/tools/csv-file-to-sql
           endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-sql';
@@ -791,88 +919,61 @@
           fetchBody    = JSON.stringify(payload);
           fetchHeaders = { 'Content-Type': 'application/json' };
         }
-
         // Animate
         setProcessStep('proc-1', 'active');
         animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
-
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
           animateProgress(22, 50, 800, 'Inferring column types…');
         }, 700);
-
         const t3 = setTimeout(() => {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
           animateProgress(50, 76, 800, 'Building INSERT statements…');
         }, 1600);
-
         const t4 = setTimeout(() => {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
           animateProgress(76, 90, 600, 'Generating output…');
         }, 2600);
-
         try {
           const res = await fetch(endpoint, {
             method:  'POST',
             headers: fetchHeaders,
             body:    fetchBody,
           });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!res.ok) {
             let errMsg = 'Conversion failed. Please try again.';
             try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
-
-          const dialectLabels = { mysql: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dolphin">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M3 13c3 -1 5 -3 7 -6l1 -3c1 3 3 5 5 6c2 1 4 0 6 -2c0 5 -4 10 -10 10c-4 0 -7 -2 -9 -5" />
-  <path d="M7 13h.01" />
-</svg> MySQL', postgres: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
-  <path d="M8 10h.01" />
-</svg> PostgreSQL', sqlite: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-database">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
-  <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
-  <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
-</svg> SQLite' };
+          const dialectLabels = { mysql: 'MySQL', postgres: 'PostgreSQL', sqlite: 'SQLite' };
           const dialectColors = {
             mysql:    { bg: 'oklch(62% 0.18 200 / 12%)', border: 'oklch(62% 0.18 200 / 35%)', color: 'oklch(62% 0.18 200)' },
             postgres: { bg: 'oklch(55% 0.20 260 / 12%)', border: 'oklch(55% 0.20 260 / 35%)', color: 'oklch(55% 0.20 260)' },
             sqlite:   { bg: 'oklch(65% 0.15 55  / 12%)', border: 'oklch(65% 0.15 55  / 35%)', color: 'oklch(65% 0.15 55)'  },
           };
-
           if (activeOutput === 'text') {
             // Response is JSON { sql: "...", table: "...", dialect: "..." }
             const data    = await res.json();
             const sqlText = data.sql ?? '';
             fullSqlText   = sqlText;
-
             const blob    = new Blob([sqlText], { type: 'text/plain;charset=utf-8;' });
             if (blobUrl) URL.revokeObjectURL(blobUrl);
             blobUrl = URL.createObjectURL(blob);
-
             const link    = document.getElementById('download-link');
             link.href     = blobUrl;
             link.download = outputFilename;
-
             // Populate preview
             const previewCode = document.getElementById('sql-preview-code');
             const PREVIEW_LIMIT = 8000;
             previewCode.textContent = sqlText.length > PREVIEW_LIMIT
               ? sqlText.slice(0, PREVIEW_LIMIT) + '\n\n-- … truncated for preview, full file in download …'
               : sqlText;
-
             const lines = sqlText.split('\n').length;
             document.getElementById('sql-preview-meta').textContent = `${lines} lines · ${formatBytes(blob.size)}`;
-
             // Dialect badge
             const badge = document.getElementById('dialect-badge');
             const dc    = dialectColors[activeDialect];
@@ -880,39 +981,30 @@
             badge.style.background   = dc.bg;
             badge.style.borderColor  = dc.border;
             badge.style.color        = dc.color;
-
             document.getElementById('sql-preview-wrap').classList.remove('hidden');
             document.getElementById('download-subtitle').textContent = 'SQL preview ready — copy or download the file.';
-
           } else {
             // Response is binary .sql file
             const blob = await res.blob();
             if (blobUrl) URL.revokeObjectURL(blobUrl);
             blobUrl = URL.createObjectURL(blob);
-
             const link    = document.getElementById('download-link');
             link.href     = blobUrl;
             link.download = outputFilename;
-
             // Also read for copy support
             fullSqlText = await blob.text();
-
             document.getElementById('sql-preview-wrap').classList.add('hidden');
             document.getElementById('download-subtitle').textContent = 'Your SQL file is ready.';
             document.getElementById('output-name').textContent = outputFilename;
             document.getElementById('output-size').textContent = formatBytes(blob.size) + ` · ${dialectLabels[activeDialect]} SQL`;
           }
-
           document.getElementById('output-name').textContent       = outputFilename;
           document.getElementById('output-size').textContent       = formatBytes(new Blob([fullSqlText]).size) + ` · ${dialectLabels[activeDialect]} SQL`;
           document.getElementById('download-btn-label').textContent = 'Download SQL';
-
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
           animateProgress(90, 100, 300, 'Done!');
-
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -921,7 +1013,6 @@
           updateStepIndicator(1);
         }
       }
-
       // ── Copy SQL button ──
       document.getElementById('btn-copy-sql').addEventListener('click', async () => {
         if (!fullSqlText) return;
@@ -932,7 +1023,6 @@
           setTimeout(() => { label.textContent = 'Copy'; }, 2000);
         } catch (_) {}
       });
-
       // ── Helpers ──
       function showState(state) {
         ['upload', 'converting', 'download'].forEach(s => {
@@ -940,7 +1030,6 @@
         });
         if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
       }
-
       function updateStepIndicator(active) {
         [1, 2, 3].forEach(n => {
           const el = document.getElementById('step-' + n);
@@ -949,7 +1038,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -971,7 +1059,6 @@
           dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         const start = performance.now();
@@ -984,7 +1071,6 @@
         }
         requestAnimationFrame(step);
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         resetFile();
@@ -1014,7 +1100,6 @@
         animateProgress(0, 0, 0, 'Starting…');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
-
       function showError(msg) {
         errorText.textContent = msg;
         uploadError.classList.remove('hidden');
@@ -1024,13 +1109,11 @@
         uploadError.classList.add('hidden');
         uploadError.classList.remove('flex');
       }
-
       function formatBytes(bytes) {
         if (bytes < 1024)    return bytes + ' B';
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1045,9 +1128,7 @@
           }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ DOWNLOADER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="youtube-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="download-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Enter URL'],['2','Downloading'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- ══ URL PANEL ══ --}}
                     <div id="panel-url">
-                        <div class="flex items-center justify-between mb-2">
+                        <div class="url-toolbar flex flex-wrap items-center justify-between gap-2 mb-2">
                             <p class="text-xs font-semibold text-fn-text2">YouTube URL</p>
                             <div class="flex gap-1">
                                 <button type="button" id="btn-sample"
@@ -57,7 +48,6 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <div class="relative">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
@@ -65,12 +55,12 @@
                                 <rect x="2" y="2" width="20" height="20" rx="4" />
                                 <polygon points="9.5 8 16 12 9.5 16 9.5 8" fill="currentColor" stroke="none" />
                             </svg>
-                            <input type="url" id="url-input" spellcheck="false" autocomplete="off"
+                            <input type="url" id="url-input" aria-label="YouTube video URL" spellcheck="false"
+                                autocomplete="off"
                                 placeholder="https://www.youtube.com/watch?v=… or youtu.be/… or /shorts/…"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm rounded-xl pl-11 pr-4 py-3.5 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                         </div>
-
-                        <div class="flex items-center justify-between text-xs mt-1.5">
+                        <div class="url-status-row flex flex-wrap items-center justify-between gap-2 text-xs mt-1.5">
                             <span id="url-status" class="text-fn-text3">Paste a YouTube video, Shorts, or youtu.be
                                 link</span>
                             <button type="button" id="btn-check" disabled
@@ -84,7 +74,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Video preview (after check) --}}
                     <div id="video-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -101,7 +90,7 @@
                             <p class="font-semibold text-sm truncate" id="preview-title">Video title</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="preview-meta">—</p>
                         </div>
-                        <button type="button" id="remove-preview"
+                        <button type="button" id="remove-preview" aria-label="Remove video preview"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -110,7 +99,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Detected qualities preview --}}
                     <div id="detected-content"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -125,14 +113,12 @@
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2" id="detected-qualities"></div>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
                             <p class="text-sm font-semibold text-fn-text2">Download Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div>
                                 <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -142,7 +128,6 @@
                                 <input type="text" id="opt-filename" placeholder="video.mp4"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
-
                             <div>
                                 <label for="opt-max-height" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                     Cap resolution
@@ -161,7 +146,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -174,7 +158,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -186,7 +169,6 @@
                         Download Video
                     </button>
                 </div>
-
                 {{-- ── STATE: Downloading ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -224,11 +206,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Downloading video…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Resolving stream, fetching qualities, and merging audio/video
                     </p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -238,7 +218,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Resolving video URL'],
@@ -265,7 +244,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -280,13 +258,11 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Download Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your video is ready to save.</p>
-
                     {{-- Quality used --}}
                     <div id="result-sheets-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Download details</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-sheets"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -312,7 +288,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="video.mp4"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -324,7 +299,6 @@
                         </svg>
                         Download Video File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -336,7 +310,6 @@
                             Download another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -345,16 +318,13 @@
                         Your link and file are encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -369,8 +339,9 @@
             ['Can I download audio only?', 'Not from this tool — this converts and downloads the full video (video +
             audio merged) at your selected quality. Use a dedicated audio-extraction tool if you only need the sound.'],
             ['Is this legal to use?', 'Only download videos you own, that are licensed for reuse, or that you otherwise
-            have the right to download. Respect YouTube\'s Terms of Service and copyright law in your jurisdiction.'],
-            ['Is my link and video private?', 'All requests use TLS 1.3 / HTTPS encryption in transit. and any temporary files
+            have the right to download. Respect YouTube\\'s Terms of Service and copyright law in your jurisdiction.'],
+            ['Is my link and video private?', 'All requests use TLS 1.3 / HTTPS encryption in transit. and any temporary
+            files
             are permanently deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -391,10 +362,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .tab-btn {
         color: var(--fn-text3);
@@ -482,26 +451,183 @@
         border-color: oklch(62% 0.20 250 / 30%);
         background: oklch(62% 0.20 250 / 6%);
     }
-</style>
 
+    /* Responsive URL controls and video details. */
+    #youtube-tool * {
+        box-sizing: border-box;
+    }
+
+    #youtube-tool .grid>*,
+    #youtube-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #youtube-tool button,
+    #youtube-tool a {
+        touch-action: manipulation;
+    }
+
+    #youtube-tool button:focus-visible,
+    #youtube-tool a:focus-visible,
+    #youtube-tool input:focus-visible,
+    #youtube-tool select:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #youtube-tool select:focus {
+        border-color: #2563eb;
+    }
+
+    #youtube-tool .tab-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #youtube-tool #preview-title,
+    #youtube-tool #output-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #youtube-tool #preview-meta,
+    #youtube-tool #output-size,
+    #youtube-tool #url-status,
+    #youtube-tool #error-text {
+        overflow-wrap: anywhere;
+    }
+
+    #youtube-tool .sheet-chip {
+        min-width: 0;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+
+    #youtube-tool .sheet-label {
+        overflow-wrap: anywhere;
+    }
+
+    #youtube-tool input,
+    #youtube-tool select {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #youtube-tool svg {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 767px) {
+        #youtube-tool .download-steps {
+            padding: 16px 8px;
+        }
+
+        #youtube-tool .download-steps .step-item {
+            gap: 4px;
+        }
+
+        #youtube-tool .download-steps .step-label {
+            font-size: 11px;
+        }
+
+        #youtube-tool .download-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #youtube-tool button,
+        #youtube-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #youtube-tool .url-toolbar>.flex {
+            flex-wrap: wrap;
+        }
+
+        #youtube-tool .url-status-row {
+            align-items: flex-start;
+        }
+
+        #youtube-tool #btn-check {
+            justify-content: center;
+        }
+
+        #youtube-tool input,
+        #youtube-tool select {
+            font-size: 16px;
+            min-height: 40px;
+        }
+
+        #youtube-tool #url-input {
+            padding-block: 12px;
+        }
+
+        #youtube-tool #video-preview {
+            flex-wrap: wrap;
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #youtube-tool #video-preview>.w-28 {
+            width: 80px;
+            height: 48px;
+        }
+
+        #youtube-tool #remove-preview {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #youtube-tool #preview-meta {
+            font-size: 12px;
+        }
+
+        #youtube-tool #detected-content {
+            padding: 12px;
+        }
+
+        #youtube-tool #detected-qualities {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        #youtube-tool #download-link {
+            max-width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+        }
+
+        #youtube-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        #youtube-tool #result-sheets {
+            flex-wrap: wrap;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const SAMPLE_URL = 'https://www.youtube.com/shorts/dQw4w9WgXcQ';
-
   const urlInput    = document.getElementById('url-input');
   const btnCheck    = document.getElementById('btn-check');
   const convertBtn  = document.getElementById('convert-btn');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const videoPreview = document.getElementById('video-preview');
-
   let blobUrl      = null;
   let lastInfo     = null; // cached info response from the check endpoint
-
-  const URL_RE = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/)|youtu\.be\/)[\w-]{6,}/i;
-
+  const URL_RE = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\\?v=|shorts\/)|youtu\.be\/)[\w-]{6,}/i;
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     urlInput.value = SAMPLE_URL;
@@ -516,13 +642,11 @@
     resetPreview();
   });
   document.getElementById('remove-preview').addEventListener('click', resetPreview);
-
   // ── URL input ──
   urlInput.addEventListener('input', () => {
     const v = urlInput.value.trim();
     const status = document.getElementById('url-status');
     const valid = URL_RE.test(v);
-
     if (!v) {
       status.innerHTML = '<span class="text-fn-text3">Paste a YouTube video, Shorts, or youtu.be link</span>';
     } else if (valid) {
@@ -533,10 +657,8 @@
     } else {
       status.innerHTML = '<span class="text-fn-amber">Doesn\'t look like a YouTube URL — the server will still try</span>';
     }
-
     btnCheck.disabled = !v;
     convertBtn.disabled = !v;
-
     // Invalidate stale check results if the URL changes
     if (lastInfo && lastInfo.url !== v) {
       lastInfo = null;
@@ -545,44 +667,36 @@
     }
     hideError();
   });
-
   function resetPreview() {
     videoPreview.classList.add('hidden');
     videoPreview.classList.remove('flex');
     document.getElementById('preview-thumb').classList.add('hidden');
     document.getElementById('preview-thumb-fallback').classList.remove('hidden');
   }
-
   // ── Check available qualities ──
   btnCheck.addEventListener('click', checkQualities);
-
   async function checkQualities() {
     const url = urlInput.value.trim();
     if (!url) return;
     hideError();
-
     btnCheck.disabled = true;
     const originalHTML = btnCheck.innerHTML;
     btnCheck.innerHTML = `<svg class="spin" width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Checking…`;
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/youtube-info', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url }),
       });
-
       if (!res.ok) {
         let msg = 'Could not fetch info for this link. Please check the URL.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const data = await res.json();
       lastInfo = { url, data };
       renderPreview(data);
       renderQualities(data);
-
     } catch (err) {
       console.error(err);
       showError(err.message || 'Something went wrong while checking qualities.');
@@ -591,14 +705,12 @@
       btnCheck.innerHTML = originalHTML;
     }
   }
-
   function renderPreview(data) {
     document.getElementById('preview-title').textContent = data.title || 'Video';
     const bits = [];
     if (data.duration)  bits.push(formatDuration(data.duration));
     if (data.uploader)  bits.push(data.uploader);
     document.getElementById('preview-meta').textContent = bits.length ? bits.join(' · ') : '—';
-
     const thumb = document.getElementById('preview-thumb');
     const fallback = document.getElementById('preview-thumb-fallback');
     if (data.thumbnail) {
@@ -609,22 +721,18 @@
       thumb.classList.add('hidden');
       fallback.classList.remove('hidden');
     }
-
     videoPreview.classList.remove('hidden');
     videoPreview.classList.add('flex');
   }
-
   function renderQualities(data) {
     const wrap = document.getElementById('detected-content');
     const list = document.getElementById('detected-qualities');
     list.innerHTML = '';
-
     const formats = Array.isArray(data.formats) ? data.formats : [];
     if (formats.length === 0) {
       wrap.classList.add('hidden');
       return;
     }
-
     formats.forEach(f => {
       const label = f.height ? f.height + 'p' : (f.label || 'Audio');
       const variant = f.height ? 'quality' : 'audio';
@@ -640,10 +748,8 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Download ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     const url = urlInput.value.trim();
     if (!url) return;
@@ -651,23 +757,18 @@
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const customFilename = document.getElementById('opt-filename').value.trim();
     const maxHeight      = document.getElementById('opt-max-height').value;
-
     let outName;
     if (customFilename) {
       outName = customFilename.toLowerCase().endsWith('.mp4') ? customFilename : customFilename + '.mp4';
     } else {
       outName = 'video.mp4';
     }
-
     const payload = { url };
     if (maxHeight) payload.max_height = parseInt(maxHeight, 10);
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 500, 'Resolving video URL…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 45, 700, 'Selecting best quality…');
@@ -680,7 +781,6 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(85, 92, 500, 'Finalizing file…');
     }, 2800);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/youtube-download', {
         method: 'POST',
@@ -688,31 +788,23 @@
         body: JSON.stringify(payload),
       });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Download failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · MP4 Video';
-
       renderResultDetails(maxHeight);
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -721,18 +813,15 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResultDetails(maxHeight) {
     const wrap = document.getElementById('result-sheets-wrap');
     const list = document.getElementById('result-sheets');
     list.innerHTML = '';
-
     const chips = [];
     chips.push(['quality', maxHeight ? 'Capped at ' + maxHeight + 'p' : 'Highest quality', '—']);
     if (lastInfo && lastInfo.data && lastInfo.data.title) {
       chips.push(['audio', 'Video + Audio', 'merged']);
     }
-
     chips.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
@@ -745,7 +834,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -754,13 +842,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -769,7 +855,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -789,7 +874,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -802,7 +886,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     urlInput.value = '';
@@ -818,7 +901,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -828,20 +910,17 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   function formatDuration(seconds) {
     seconds = Math.round(seconds);
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return m + ':' + String(s).padStart(2, '0');
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body = btn.nextElementSibling;
@@ -852,9 +931,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

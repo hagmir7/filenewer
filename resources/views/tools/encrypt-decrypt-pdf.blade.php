@@ -10,12 +10,12 @@
 
 
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-security-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
 
             {{-- ── Mode tabs ── --}}
-            <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
+            <div class="security-tabs flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $modes = [
                 ['encrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -46,14 +46,14 @@
                 @foreach($modes as [$mval, $micon, $mlabel])
                 <button type="button"
                     class="mode-tab {{ $mval === 'encrypt' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
-                    data-mode="{{ $mval }}">
+                    data-mode="{{ $mval }}" aria-pressed="{{ $mval === 'encrypt' ? 'true' : 'false' }}">
                     <span>{!! $micon !!}</span>
                     <span>{{ $mlabel }}</span>
                 </button>
                 @endforeach
             </div>
 
-            <div class="p-8 lg:p-10">
+            <div class="p-3 sm:p-6 lg:p-10">
 
                 {{-- ── STATE: Input ── --}}
                 <div id="state-upload">
@@ -62,7 +62,7 @@
                     <div id="panel-encrypt">
 
                         {{-- Step indicator --}}
-                        <div class="flex items-center justify-center gap-0 mb-8">
+                        <div class="security-steps flex items-center justify-center gap-0 mb-8">
                             @php $encSteps = [['1','Upload PDF'],['2','Encrypting'],['3','Download']]; @endphp
                             @foreach($encSteps as [$n, $label])
                             <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2"
@@ -156,7 +156,7 @@
                                 <div class="relative">
                                     <input type="password" id="enc-user-password" placeholder="e.g. mypassword123"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    <button type="button"
+                                    <button type="button" aria-label="Toggle password visibility"
                                         class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                         data-target="enc-user-password">
                                         <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none"
@@ -193,7 +193,7 @@
                             <div class="relative">
                                 <input type="password" id="enc-owner-password" placeholder="e.g. admin456"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button"
+                                <button type="button" aria-label="Toggle password visibility"
                                     class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                     data-target="enc-owner-password">
                                     <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -253,7 +253,7 @@
                 {{-- ══ DECRYPT PANEL ══ --}}
                 <div id="panel-decrypt" class="hidden">
 
-                    <div class="flex items-center justify-center gap-0 mb-8">
+                    <div class="security-steps flex items-center justify-center gap-0 mb-8">
                         @php $decSteps = [['1','Upload PDF'],['2','Decrypting'],['3','Download']]; @endphp
                         @foreach($decSteps as [$n, $label])
                         <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2"
@@ -341,7 +341,7 @@
                         <div class="relative">
                             <input type="password" id="dec-password" placeholder="Enter PDF password"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button"
+                            <button type="button" aria-label="Toggle password visibility"
                                 class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                 data-target="dec-password">
                                 <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -436,7 +436,7 @@
                         <div class="relative">
                             <input type="password" id="info-password" placeholder="Leave blank if not protected"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button"
+                            <button type="button" aria-label="Toggle password visibility"
                                 class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                 data-target="info-password">
                                 <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -656,7 +656,7 @@
 
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @php
@@ -671,7 +671,8 @@
             decrypt a PDF. It cannot bypass or crack passwords.'],
             ['What does the PDF Info tool show?', 'It returns the page count, file size, PDF version, encryption status,
             and all embedded metadata including title, author, subject, creator, and creation/modification dates.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
@@ -739,6 +740,210 @@
         color: var(--fn-text2);
         word-break: break-all;
     }
+
+    /* Scoped responsive PDF security controls. */
+    #pdf-security-tool * {
+        box-sizing: border-box;
+    }
+
+    #pdf-security-tool .grid>*,
+    #pdf-security-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #pdf-security-tool .security-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #pdf-security-tool .mode-tab {
+        justify-content: center;
+    }
+
+    #pdf-security-tool .mode-tab.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #pdf-security-tool button,
+    #pdf-security-tool a {
+        touch-action: manipulation;
+    }
+
+    #pdf-security-tool button:focus-visible,
+    #pdf-security-tool a:focus-visible,
+    #pdf-security-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #pdf-security-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #pdf-security-tool .toggle-pw {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        right: 4px;
+        padding: 4px;
+    }
+
+    #pdf-security-tool input[type="password"],
+    #pdf-security-tool input[type="text"] {
+        min-width: 0;
+        min-height: 42px;
+        padding-right: 42px;
+    }
+
+    #pdf-security-tool [id$="file-name"],
+    #pdf-security-tool #output-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #pdf-security-tool [id$="file-meta"],
+    #pdf-security-tool #output-size,
+    #pdf-security-tool #result-subtitle,
+    #pdf-security-tool #error-text,
+    #pdf-security-tool .info-row-value {
+        overflow-wrap: anywhere;
+    }
+
+    #pdf-security-tool svg {
+        flex-shrink: 0;
+    }
+
+    #pdf-security-tool .perm-label>div {
+        min-width: 0;
+    }
+
+    #pdf-security-tool .perm-checkbox {
+        accent-color: #2563eb;
+    }
+
+    @media (max-width: 767px) {
+        #pdf-security-tool .security-steps {
+            gap: 0;
+        }
+
+        #pdf-security-tool .security-steps .step-item {
+            gap: 4px;
+        }
+
+        #pdf-security-tool .security-steps .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-security-tool .security-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #pdf-security-tool button,
+        #pdf-security-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #pdf-security-tool .mode-tab {
+            flex-direction: column;
+            padding: 8px 3px;
+            gap: 4px;
+            font-size: 11px;
+        }
+
+        #pdf-security-tool .mode-tab svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        #pdf-security-tool .drop-zone {
+            padding: 28px 12px;
+        }
+
+        #pdf-security-tool .drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #pdf-security-tool .drop-zone p {
+            font-size: 12px;
+        }
+
+        #pdf-security-tool .drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #pdf-security-tool [id$="file-preview"] {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #pdf-security-tool [id$="remove-file"] {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #pdf-security-tool input[type="password"],
+        #pdf-security-tool input[type="text"] {
+            font-size: 16px;
+        }
+
+        #pdf-security-tool .toggle-pw {
+            min-height: 32px;
+            padding: 4px;
+        }
+
+        #pdf-security-tool .perm-label {
+            padding: 10px;
+            gap: 8px;
+        }
+
+        #pdf-security-tool .perm-label p {
+            font-size: 12px;
+        }
+
+        #pdf-security-tool .info-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            padding: 10px 12px;
+        }
+
+        #pdf-security-tool .info-row-label {
+            width: auto;
+            min-width: 0;
+        }
+
+        #pdf-security-tool .info-row-value {
+            text-align: left;
+            width: 100%;
+        }
+
+        #pdf-security-tool #download-link {
+            max-width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+        }
+
+        #pdf-security-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+    }
 </style>
 
 @push('footer')
@@ -757,8 +962,9 @@
       document.querySelectorAll('.mode-tab').forEach(tab => {
         tab.addEventListener('click', () => {
           activeMode = tab.dataset.mode;
-          document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.mode-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false'); });
           tab.classList.add('active');
+          tab.setAttribute('aria-pressed', 'true');
           ['encrypt','decrypt','info'].forEach(m => {
             document.getElementById('panel-' + m).classList.toggle('hidden', m !== activeMode);
           });
@@ -903,12 +1109,12 @@
       // ── Encrypt ──
       async function doEncrypt() {
         document.getElementById('conv-title').textContent     = 'Encrypting your PDF…';
-        document.getElementById('conv-output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+        document.getElementById('conv-output-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>';
+</svg>`;
         updateProcLabels(['Uploading & validating PDF','Applying passwords & permissions','Generating protected PDF']);
 
         setProcessStep('proc-1', 'active');
@@ -939,12 +1145,12 @@
           if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Encryption failed.'); }
           const blob      = await res.blob();
           const fileName  = encFile.name.replace(/\.pdf$/i, '_encrypted.pdf');
-          finishDownload(blob, fileName, '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+          finishDownload(blob, fileName, `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>', 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
+</svg>`, 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
           setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
           animateProgress(90, 100, 300, 'Done!');
           setTimeout(() => { showState('download'); updateStepIndicator('encrypt', 3); }, 500);
@@ -959,12 +1165,12 @@
       // ── Decrypt ──
       async function doDecrypt() {
         document.getElementById('conv-title').textContent      = 'Decrypting your PDF…';
-        document.getElementById('conv-output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+        document.getElementById('conv-output-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
   <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
   <path d="M8 11v-5a4 4 0 0 1 8 0" />
-</svg>';
+</svg>`;
         updateProcLabels(['Uploading & validating PDF','Verifying password','Removing encryption']);
 
         setProcessStep('proc-1','active');
@@ -989,12 +1195,12 @@
           if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Decryption failed. Check your password.'); }
           const blob     = await res.blob();
           const fileName = decFile.name.replace(/\.pdf$/i, '_decrypted.pdf');
-          finishDownload(blob, fileName, '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+          finishDownload(blob, fileName, `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
   <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
   <path d="M8 11v-5a4 4 0 0 1 8 0" />
-</svg>', 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
+</svg>`, 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
           setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
           animateProgress(90, 100, 300, 'Done!');
           setTimeout(() => { showState('download'); updateStepIndicator('decrypt', 3); }, 500);
@@ -1035,16 +1241,16 @@
         const banner      = document.getElementById('info-enc-banner');
         banner.className  = 'px-5 py-3 flex items-center gap-3 border-b border-fn-text/7 ' +
           (isEncrypted ? 'bg-fn-amber/8' : 'bg-fn-green/8');
-        document.getElementById('info-enc-icon').textContent  = isEncrypted ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+        document.getElementById('info-enc-icon').innerHTML  = isEncrypted ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>';
+</svg>`;
         document.getElementById('info-enc-label').textContent = isEncrypted ? 'Encrypted PDF' : 'Not Encrypted';
         document.getElementById('info-enc-sub').textContent   = isEncrypted
           ? 'This PDF is password protected'
@@ -1077,11 +1283,11 @@
         document.getElementById('download-link').classList.add('hidden');
         document.getElementById('result-title').textContent    = 'PDF Info';
         document.getElementById('result-subtitle').textContent = infoFile.name;
-        document.getElementById('result-icon').textContent     = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+        document.getElementById('result-icon').innerHTML     = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
   <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-</svg>';
+</svg>`;
         showState('download');
       }
 
@@ -1103,12 +1309,12 @@
         link.classList.remove('hidden');
         document.getElementById('output-name').textContent  = fileName;
         document.getElementById('output-size').textContent  = formatBytes(blob.size) + ' · PDF Document';
-        document.getElementById('dl-icon').textContent      = icon;
-        document.getElementById('result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+        document.getElementById('dl-icon').innerHTML      = icon;
+        document.getElementById('result-icon').innerHTML  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>';
+</svg>`;
         document.getElementById('result-title').textContent   = title;
         document.getElementById('result-subtitle').textContent = subtitle;
         document.getElementById('dl-btn-label').textContent  = btnLabel;

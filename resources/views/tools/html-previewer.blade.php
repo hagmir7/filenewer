@@ -1,28 +1,18 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ PREVIEWER CARD ══ --}}
 <section class="pb-10 sm:pb-16">
     <div class="max-w-7xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── EDITOR + PREVIEW SPLIT ── --}}
-            <div class="flex flex-col lg:flex-row" id="split-row"
-                style="height: calc(100vh - 220px); min-height: 500px; max-height: 900px;">
-
+            <div class="flex flex-col lg:flex-row" id="split-row">
                 {{-- ══ LEFT: Editor pane ══ --}}
                 <div class="flex flex-col lg:w-1/2 border-b lg:border-b-0 lg:border-r border-fn-text/8 h-full overflow-hidden"
                     id="editor-pane">
-
                     {{-- Editor toolbar --}}
                     <div
                         class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0">
@@ -72,7 +62,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Code textarea with line numbers overlay --}}
                     <div class="flex flex-1 overflow-hidden min-h-0" id="editor-wrap">
                         {{-- Line numbers --}}
@@ -87,7 +76,6 @@
                             class="flex-1 resize-none bg-fn-surface text-fn-text text-xs sm:text-sm font-mono leading-relaxed px-4 py-3 focus:outline-none placeholder:text-fn-text3/30 overflow-auto w-full"
                             style="tab-size: 2; -moz-tab-size: 2; line-height: 1.65;"></textarea>
                     </div>
-
                     {{-- Editor status bar --}}
                     <div
                         class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
@@ -106,14 +94,11 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- ══ RIGHT: Preview pane ══ --}}
                 <div class="flex flex-col lg:w-1/2 h-full overflow-hidden" id="preview-pane">
-
                     {{-- Preview toolbar --}}
                     <div
                         class="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-fn-surface2 border-b border-fn-text/8 shrink-0 gap-2">
-
                         {{-- Viewport switcher --}}
                         <div class="flex items-center gap-1 p-0.5 bg-fn-surface border border-fn-text/8 rounded-lg">
                             @foreach([
@@ -125,6 +110,7 @@
                             2v14a2 2 0 0 0 2 2z', 'Mobile'],
                             ] as [$id, $val, $path, $label])
                             <button type="button" id="{{ $id }}" data-vp="{{ $val }}" title="{{ $label }}"
+                                aria-pressed="{{ $val === 'desktop' ? 'true' : 'false' }}"
                                 class="vp-btn {{ $val === 'desktop' ? 'active' : '' }} p-1.5 rounded-md transition-all">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -133,7 +119,6 @@
                             </button>
                             @endforeach
                         </div>
-
                         {{-- URL bar (fake) --}}
                         <div
                             class="flex-1 mx-2 hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface border border-fn-text/10 rounded-lg min-w-0">
@@ -143,7 +128,6 @@
                             </svg>
                             <span class="text-xs text-fn-text3 font-mono truncate">preview://local</span>
                         </div>
-
                         {{-- Right actions --}}
                         <div class="flex items-center gap-1 shrink-0">
                             <button type="button" id="btn-refresh" title="Refresh preview"
@@ -204,7 +188,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Preview iframe wrapper --}}
                     <div class="flex-1 relative overflow-hidden bg-fn-surface" id="preview-outer"
                         style="background: repeating-linear-gradient(45deg, oklch(0% 0 0 / 2%) 0, oklch(0% 0 0 / 2%) 1px, transparent 0, transparent 50%) 0 0 / 12px 12px;">
@@ -216,7 +199,6 @@
                                 class="w-full h-full border-0 transition-all duration-300 bg-white"
                                 style="min-height: 100%;" title="HTML Preview"></iframe>
                         </div>
-
                         {{-- Empty state --}}
                         <div id="empty-state"
                             class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 pointer-events-none">
@@ -234,7 +216,6 @@
                                 instantly</p>
                         </div>
                     </div>
-
                     {{-- Preview status bar --}}
                     <div
                         class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
@@ -243,11 +224,9 @@
                     </div>
                 </div>
             </div>
-
             {{-- ── BOTTOM TOOLBAR ── --}}
             <div
                 class="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3 bg-fn-surface2 border-t border-fn-text/8">
-
                 {{-- Quick-insert snippets --}}
                 <div class="flex items-center gap-1.5 flex-wrap">
                     <span class="text-xs text-fn-text3 font-semibold mr-1 hidden sm:inline">Insert:</span>
@@ -264,7 +243,6 @@
                     </button>
                     @endforeach
                 </div>
-
                 {{-- Auto-preview toggle --}}
                 <label class="flex items-center gap-2 cursor-pointer select-none">
                     <div class="toggle-wrap relative w-8 h-4 shrink-0">
@@ -279,12 +257,9 @@
                     <span class="text-xs font-semibold text-fn-text3">Live preview</span>
                 </label>
             </div>
-
         </div>
     </div>
 </section>
-
-
 {{-- ══ FEATURES ══ --}}
 <section class="py-10 sm:py-14 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
@@ -360,8 +335,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -375,7 +348,7 @@
             ['Does the content get sent anywhere?', 'No. Everything runs entirely in your browser. Your HTML is never
             sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab discards it
             completely.'],
-            ['What is the dark/light canvas toggle?', 'It switches the preview iframe\'s background color between white
+            ['What is the dark/light canvas toggle?', 'It switches the preview iframe\\'s background color between white
             (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode backgrounds without
             adding any CSS to your HTML.'],
             ['Can I test responsive layouts?', 'Yes — the viewport switcher constrains the preview iframe to desktop
@@ -406,10 +379,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     /* ── Editor ── */
     #html-editor {
@@ -524,22 +495,130 @@
         border-color: oklch(67% 0.18 162);
         background: oklch(67% 0.18 162 / 12%);
     }
-</style>
 
+    #split-row {
+        height: clamp(500px, calc(100vh - 220px), 900px);
+    }
+
+    #editor-pane,
+    #preview-pane {
+        min-width: 0;
+        min-height: 0;
+    }
+
+    #editor-pane>div:first-child,
+    #preview-pane>div:first-child {
+        flex-wrap: wrap;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    #editor-pane>div:first-child>div,
+    #preview-pane>div:first-child>div {
+        min-width: 0;
+        flex-wrap: wrap;
+    }
+
+    #preview-frame {
+        width: 100%;
+        height: 100%;
+        flex-shrink: 0;
+    }
+
+    .vp-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    .toolbar-btn,
+    .vp-btn {
+        min-height: 34px;
+        min-width: 34px;
+    }
+
+    .toolbar-btn:focus-visible,
+    .vp-btn:focus-visible,
+    .snippet-btn:focus-visible {
+        outline: 2px solid var(--color-fn-blue, var(--fn-blue, #2563eb));
+        outline-offset: 2px;
+    }
+
+    #auto-preview:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #auto-preview:focus-visible~.toggle-track {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #editor-status,
+    #preview-status,
+    #editor-meta {
+        overflow-wrap: anywhere;
+        min-width: 0;
+    }
+
+    @media (max-width: 1023px) {
+        #split-row {
+            height: auto;
+            max-height: none;
+        }
+
+        #editor-pane {
+            height: clamp(340px, 55svh, 500px);
+        }
+
+        #preview-pane {
+            height: clamp(380px, 60svh, 600px);
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #html-editor,
+        #line-numbers {
+            font-size: 16px;
+        }
+
+        .toolbar-btn {
+            font-size: 12px;
+            padding: 6px 8px;
+        }
+
+        .vp-btn {
+            padding: 6px;
+        }
+
+        .snippet-btn {
+            font-size: 11px;
+            min-height: 30px;
+            padding: 5px 9px;
+        }
+
+        #editor-pane>div:last-child,
+        #preview-pane>div:last-child {
+            flex-wrap: wrap;
+            gap: 4px 8px;
+        }
+
+        #preview-frame-wrap {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const editor     = document.getElementById('html-editor');
   const frame      = document.getElementById('preview-frame');
   const lineNums   = document.getElementById('line-numbers');
   const emptyState = document.getElementById('empty-state');
-
   let previewTheme = 'light'; // 'light' | 'dark'
   let autoPreview  = true;
   let previewTimer = null;
   let lastHtml     = '';
-
   // ── Sample HTML ──
   const SAMPLE_HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -550,14 +629,12 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, sans-serif; color: #1a1a1a; background: #f9fafb; }
-
     /* Navbar */
     nav { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
     nav .brand { font-weight: 700; font-size: 1.1rem; color: #2563eb; }
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav ul a { text-decoration: none; color: #374151; font-size: .9rem; font-weight: 500; }
     nav ul a:hover { color: #2563eb; }
-
     /* Hero */
     .hero { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); color: #fff; padding: 4rem 1.5rem; text-align: center; }
     .hero h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; margin-bottom: .75rem; }
@@ -566,14 +643,12 @@
     .btn-white { background: #fff; color: #2563eb; }
     .btn-outline { border: 2px solid rgba(255,255,255,.5); color: #fff; margin-left: .5rem; }
     .btn:hover { opacity: .88; }
-
     /* Cards */
     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; padding: 2rem 1.5rem; max-width: 900px; margin: 0 auto; }
     .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 1.25rem; }
     .card-icon { font-size: 1.8rem; margin-bottom: .6rem; }
     .card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .35rem; }
     .card p { font-size: .85rem; color: #6b7280; line-height: 1.5; }
-
     /* Table */
     .table-section { padding: 0 1.5rem 2.5rem; max-width: 900px; margin: 0 auto; }
     .table-section h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: .75rem; }
@@ -588,7 +663,6 @@
   </style>
 </head>
 <body>
-
   <nav>
     <span class="brand"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -600,14 +674,12 @@
       <li><a href="#">Docs</a></li>
     </ul>
   </nav>
-
   <section class="hero">
     <h1>Build Something Great</h1>
     <p>Paste any HTML and see it rendered live. Test layouts, components, and styles instantly.</p>
     <a href="#" class="btn btn-white">Get Started</a>
     <a href="#" class="btn btn-outline">Learn More</a>
   </section>
-
   <div class="cards">
     <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rocket" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" /><path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" /><path d="M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg></div><h3>Fast</h3><p>Instant live preview as you type — no build step needed.</p></div>
     <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
@@ -617,13 +689,12 @@
   <path d="M12 17v.01" />
 </svg></div><h3>Responsive</h3><p>Switch between desktop, tablet and mobile viewports.</p></div>
     <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
-	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
-	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+    <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
 </svg></div><h3>Private</h3><p>Nothing is sent to any server. Runs entirely in your browser.</p></div>
   </div>
-
   <section class="table-section">
     <h2>Recent Activity</h2>
     <table>
@@ -638,10 +709,8 @@
       </tbody>
     </table>
   </section>
-
 </body>
 </html>`;
-
   // ── Snippets ──
   const SNIPPETS = {
     'snippet-table': `
@@ -658,7 +727,6 @@
     <tr><td style="padding:.6rem .85rem;border-bottom:1px solid #f3f4f6;">Row 2</td><td style="padding:.6rem .85rem;border-bottom:1px solid #f3f4f6;">200</td><td style="padding:.6rem .85rem;border-bottom:1px solid #f3f4f6;">Inactive</td></tr>
   </tbody>
 </table>`,
-
     'snippet-form': `
 <form style="max-width:400px;display:flex;flex-direction:column;gap:.75rem;font-family:system-ui,sans-serif;font-size:.9rem;">
   <div>
@@ -675,7 +743,6 @@
   </div>
   <button type="button" style="padding:.6rem 1.25rem;background:#2563eb;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">Submit</button>
 </form>`,
-
     'snippet-card': `
 <div style="max-width:320px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;font-family:system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.06);">
   <div style="height:140px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:3rem;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-palette">
@@ -691,7 +758,6 @@
     <a href="#" style="display:inline-block;padding:.45rem 1rem;background:#2563eb;color:#fff;border-radius:6px;font-size:.8rem;font-weight:600;text-decoration:none;">Action</a>
   </div>
 </div>`,
-
     'snippet-nav': `
 <nav style="background:#fff;border-bottom:1px solid #e5e7eb;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;font-family:system-ui,sans-serif;">
   <span style="font-weight:700;font-size:1.05rem;color:#2563eb;">Brand</span>
@@ -702,7 +768,6 @@
   </ul>
   <button style="padding:.45rem 1rem;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;">Sign in</button>
 </nav>`,
-
     'snippet-hero': `
 <section style="background:linear-gradient(135deg,#1e3a8a 0%,#7c3aed 100%);color:#fff;padding:5rem 1.5rem;text-align:center;font-family:system-ui,sans-serif;">
   <p style="font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:.75rem;">Introducing v2.0</p>
@@ -714,12 +779,10 @@
   </div>
 </section>`,
   };
-
   // ── Init ──
   editor.addEventListener('input', onEditorInput);
   editor.addEventListener('scroll', syncScroll);
   editor.addEventListener('keydown', onKeyDown);
-
   function onEditorInput() {
     updateLineNumbers();
     updateMeta();
@@ -728,7 +791,6 @@
       previewTimer = setTimeout(renderPreview, 300);
     }
   }
-
   function onKeyDown(e) {
     // Tab → 2 spaces
     if (e.key === 'Tab') {
@@ -740,11 +802,9 @@
       onEditorInput();
     }
   }
-
   function syncScroll() {
     lineNums.scrollTop = editor.scrollTop;
   }
-
   function updateLineNumbers() {
     const lines = (editor.value.match(/\n/g) || []).length + 1;
     const current = lineNums.children.length;
@@ -760,7 +820,6 @@
       while (lineNums.children.length > lines) lineNums.removeChild(lineNums.lastChild);
     }
   }
-
   function updateMeta() {
     const v     = editor.value;
     const lines = v ? v.split('\n').length : 0;
@@ -770,7 +829,6 @@
     emptyState.style.opacity = v.trim() ? '0' : '1';
     emptyState.style.pointerEvents = v.trim() ? 'none' : 'auto';
   }
-
   // ── Render preview ──
   function renderPreview() {
     const html = editor.value;
@@ -780,34 +838,28 @@
       document.getElementById('preview-size').textContent = '';
       return;
     }
-
     // Inject dark background if needed
     const doc = previewTheme === 'dark'
       ? html.replace(/<body/i, '<body style="background:#111827;color:#f9fafb;"')
       : html;
-
     lastHtml = html;
     frame.srcdoc = doc;
-
     const bytes = new TextEncoder().encode(html).length;
     document.getElementById('preview-status').textContent = 'Rendered';
     document.getElementById('preview-size').textContent = formatBytes(bytes);
   }
-
   // ── Toolbar buttons ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     editor.value = SAMPLE_HTML;
     onEditorInput();
     renderPreview();
   });
-
   document.getElementById('btn-paste-editor').addEventListener('click', async () => {
     try {
       const text = await navigator.clipboard.readText();
       insertAtCursor(text);
     } catch(_) {}
   });
-
   document.getElementById('btn-format').addEventListener('click', () => {
     try {
       const formatted = formatHtml(editor.value);
@@ -817,7 +869,6 @@
       document.getElementById('editor-status').textContent = 'Could not format';
     }
   });
-
   document.getElementById('btn-clear-editor').addEventListener('click', () => {
     editor.value = '';
     onEditorInput();
@@ -825,22 +876,18 @@
     document.getElementById('preview-status').textContent = 'Waiting for input…';
     document.getElementById('preview-size').textContent = '';
   });
-
   document.getElementById('btn-refresh').addEventListener('click', renderPreview);
-
   document.getElementById('btn-theme-toggle').addEventListener('click', () => {
     previewTheme = previewTheme === 'light' ? 'dark' : 'light';
     document.getElementById('icon-dark').classList.toggle('hidden', previewTheme === 'dark');
     document.getElementById('icon-light').classList.toggle('hidden', previewTheme === 'light');
     renderPreview();
   });
-
   document.getElementById('btn-open-new').addEventListener('click', () => {
     const html = editor.value || '<p>No HTML yet.</p>';
     const win  = window.open('', '_blank');
     if (win) { win.document.write(html); win.document.close(); }
   });
-
   document.getElementById('btn-download-html').addEventListener('click', () => {
     const html = editor.value;
     if (!html.trim()) return;
@@ -851,7 +898,6 @@
     a.click();
     URL.revokeObjectURL(a.href);
   });
-
   document.getElementById('btn-copy-html').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(editor.value);
@@ -860,17 +906,15 @@
       setTimeout(() => { btn.style.color = ''; }, 1500);
     } catch(_) {}
   });
-
   // ── Viewport switcher ──
   document.querySelectorAll('.vp-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.vp-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.vp-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
-
+      btn.setAttribute('aria-pressed', 'true');
       const vp = btn.dataset.vp;
       frame.className = 'border-0 transition-all duration-300 bg-white';
       const wrap = document.getElementById('preview-frame-wrap');
-
       if (vp === 'desktop') {
         frame.style.maxWidth = '';
         frame.style.borderRadius = '';
@@ -886,23 +930,19 @@
         frame.style.borderRadius = '16px';
         wrap.style.padding = '24px';
       }
-
       // Force re-render to keep content
       renderPreview();
     });
   });
-
   // ── Auto-preview toggle ──
   document.getElementById('auto-preview').addEventListener('change', function () {
     if (this.checked) renderPreview();
   });
-
   // ── Snippets ──
   Object.keys(SNIPPETS).forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', () => { insertAtCursor(SNIPPETS[id]); });
   });
-
   // ── Helpers ──
   function insertAtCursor(text) {
     const start = editor.selectionStart;
@@ -913,13 +953,11 @@
     onEditorInput();
     if (document.getElementById('auto-preview').checked) renderPreview();
   }
-
   function formatHtml(html) {
     // Basic pretty-printer: indent after opening tags, unindent before closing tags
     let indent = 0;
     const INDENT = '  ';
     const INLINE = /^(a|abbr|acronym|b|bdo|big|br|button|cite|code|dfn|em|i|img|input|kbd|label|map|object|output|q|s|samp|select|small|span|strong|sub|sup|textarea|time|tt|u|var)$/i;
-
     return html
       .replace(/>\s*</g, '>\n<')
       .split('\n')
@@ -931,7 +969,6 @@
         const tagMatch   = line.match(/^<([a-z][a-z0-9]*)/i);
         const tag        = tagMatch ? tagMatch[1] : null;
         const isInline   = tag && INLINE.test(tag);
-
         if (isClosing && !isInline) indent = Math.max(0, indent - 1);
         const result = INDENT.repeat(indent) + line;
         if (!isClosing && !isSelfClose && tag && !isInline) indent++;
@@ -939,13 +976,11 @@
       })
       .join('\n');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   // FAQ accordion
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -957,14 +992,11 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
   // Load sample on first visit
   editor.value = SAMPLE_HTML;
   onEditorInput();
   renderPreview();
-
 });
 </script>
 @endpush
-
 @endsection

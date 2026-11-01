@@ -1,23 +1,17 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="excel-markdown-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="markdown-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload Excel'],['2','Converting'],['3','Markdown']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -31,12 +25,9 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
                         class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
@@ -75,7 +66,6 @@
                             accept=".xlsx,.xlsm,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -99,7 +89,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">data.xlsx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove Excel file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -108,10 +98,8 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-
                         {{-- Toggles --}}
                         <div>
                             <p class="text-sm font-semibold text-fn-text2 mb-2">What to include</p>
@@ -168,7 +156,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         {{-- Column align + max rows + sheet --}}
                         <div class="pt-3 border-t border-fn-text/8 grid sm:grid-cols-3 gap-3">
                             <div>
@@ -204,7 +191,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             <div>
                                 <label for="opt-max-rows" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                     Max rows per sheet
@@ -214,7 +200,6 @@
                                     placeholder="1000"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
-
                             <div>
                                 <label for="opt-sheet" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                     Specific sheet
@@ -225,7 +210,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -238,7 +222,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -250,7 +233,6 @@
                         Convert to Markdown
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -283,10 +265,8 @@
                             <span class="font-mono font-black text-2xl text-fn-green">M↓</span>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting to Markdown…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -296,7 +276,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Uploading Excel file'],
@@ -323,10 +302,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Result ── --}}
                 <div id="state-download" class="hidden">
-
                     {{-- Success header --}}
                     <div class="flex flex-wrap items-center gap-3 mb-4">
                         <div
@@ -358,7 +335,7 @@
                             </div>
                             @endforeach
                         </div>
-                        <div class="ml-auto flex items-center gap-2">
+                        <div class="markdown-actions ml-auto flex flex-wrap items-center gap-2">
                             <button type="button" id="btn-copy"
                                 class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -380,13 +357,11 @@
                             </a>
                         </div>
                     </div>
-
                     {{-- Sheet chips (one per sheet in the file) --}}
                     <div id="sheets-row-wrap" class="hidden mb-3">
                         <p class="text-xs font-semibold text-fn-text2 mb-2">Sheets converted</p>
                         <div class="flex flex-wrap gap-2" id="sheets-row"></div>
                     </div>
-
                     {{-- View toggle --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-3 w-fit">
@@ -409,19 +384,16 @@
                             Source
                         </button>
                     </div>
-
                     {{-- Rendered preview --}}
                     <div id="preview-wrap"
                         class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-6 max-h-[500px] overflow-auto">
                         <div id="md-preview" class="md-body"></div>
                     </div>
-
                     {{-- Source view --}}
                     <div id="source-wrap" class="hidden">
                         <pre id="md-source"
                             class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-5 text-xs font-mono text-fn-text2 leading-relaxed overflow-auto max-h-[500px] whitespace-pre-wrap break-words"></pre>
                     </div>
-
                     <div class="mt-5 flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -433,7 +405,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -442,16 +413,13 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -466,7 +434,8 @@
             ['What if my workbook has thousands of rows?','Use the "Max rows per sheet" setting to cap how many rows are
             included from each sheet (default 1000, max 10,000). Useful for huge data dumps where you only want a sample
             for documentation.'],
-            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -487,12 +456,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .align-btn,
@@ -672,12 +638,204 @@
         border-top: 1px solid oklch(49% 0.24 264 / 35%);
         margin: 16px 0;
     }
-</style>
 
+    /* Responsive settings, view controls, and Markdown content. */
+    #excel-markdown-tool * {
+        box-sizing: border-box;
+    }
+
+    #excel-markdown-tool .grid>*,
+    #excel-markdown-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #excel-markdown-tool .align-btn.active,
+    #excel-markdown-tool .view-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #excel-markdown-tool button,
+    #excel-markdown-tool a[download] {
+        touch-action: manipulation;
+    }
+
+    #excel-markdown-tool button:focus-visible,
+    #excel-markdown-tool a:focus-visible,
+    #excel-markdown-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #excel-markdown-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #excel-markdown-tool .toggle-wrap input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #excel-markdown-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #excel-markdown-tool #file-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #excel-markdown-tool #file-meta,
+    #excel-markdown-tool #error-text,
+    #excel-markdown-tool .sheet-name {
+        overflow-wrap: anywhere;
+    }
+
+    #excel-markdown-tool .sheet-chip {
+        max-width: 100%;
+        min-width: 0;
+        flex-wrap: wrap;
+    }
+
+    #excel-markdown-tool svg {
+        flex-shrink: 0;
+    }
+
+    #excel-markdown-tool input {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #excel-markdown-tool #md-preview {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    #excel-markdown-tool .md-body table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        overscroll-behavior: contain;
+    }
+
+    #excel-markdown-tool .md-body pre {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    #excel-markdown-tool .md-body img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #excel-markdown-tool #md-source {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    @media (max-width: 767px) {
+        #excel-markdown-tool .markdown-steps {
+            padding: 16px 8px;
+        }
+
+        #excel-markdown-tool .markdown-steps .step-item {
+            gap: 4px;
+        }
+
+        #excel-markdown-tool .markdown-steps .step-label {
+            font-size: 11px;
+        }
+
+        #excel-markdown-tool .markdown-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #excel-markdown-tool button,
+        #excel-markdown-tool a[download] {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #excel-markdown-tool .align-btn,
+        #excel-markdown-tool .view-btn {
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+
+        #excel-markdown-tool #drop-zone {
+            padding: 28px 12px;
+        }
+
+        #excel-markdown-tool #drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #excel-markdown-tool #drop-zone p {
+            font-size: 12px;
+        }
+
+        #excel-markdown-tool #drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #excel-markdown-tool #file-preview {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #excel-markdown-tool #remove-file {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #excel-markdown-tool input[type="text"],
+        #excel-markdown-tool input[type="number"] {
+            font-size: 16px;
+            min-height: 40px;
+        }
+
+        #excel-markdown-tool .markdown-actions {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        #excel-markdown-tool #md-preview,
+        #excel-markdown-tool #md-source {
+            padding: 12px;
+        }
+
+        #excel-markdown-tool .md-body {
+            font-size: 12px;
+        }
+
+        #excel-markdown-tool .md-body td,
+        #excel-markdown-tool .md-body th {
+            padding: 5px 7px;
+        }
+
+        #excel-markdown-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   // ── Refs ──
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
@@ -686,12 +844,10 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile  = null;
   let blobUrl       = null;
   let activeAlign   = 'left';
   let markdownSource = '';
-
   // ── Alignment ──
   document.querySelectorAll('.align-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -700,7 +856,6 @@
       activeAlign = btn.dataset.val;
     });
   });
-
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -711,7 +866,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -732,7 +886,6 @@
     dropZone.classList.add('has-file');
     convertBtn.disabled = false;
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -742,17 +895,14 @@
     convertBtn.disabled = true;
     hideError();
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     if (!selectedFile) return;
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const fd = new FormData();
     fd.append('file',          selectedFile);
     fd.append('include_toc',   document.getElementById('opt-toc').checked);
@@ -760,14 +910,11 @@
     fd.append('column_align',  activeAlign);
     fd.append('max_rows',      document.getElementById('opt-max-rows').value || 1000);
     fd.append('output',        'json');
-
     const sheet = document.getElementById('opt-sheet').value.trim();
     if (sheet) fd.append('sheet_name', sheet);
-
     // Animate
     setProcessStep('proc-1', 'active');
     animateProgress(0, 25, 500, 'Uploading Excel file…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(25, 55, 700, 'Reading sheets & cells…');
@@ -780,30 +927,23 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(80, 92, 500, 'Generating Markdown…');
     }, 2200);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/excel-to-markdown', {
         method: 'POST',
         body: fd,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
-
       const data = await res.json();
       markdownSource = data.markdown ?? '';
-
       renderResult(data);
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -812,18 +952,15 @@
       updateStepIndicator(1);
     }
   }
-
   // ── Render result ──
   function renderResult(data) {
     const md     = data.markdown ?? '';
     const sheets = data.sheets ?? [];
-
     // Stats chips
     document.getElementById('stat-sheets').textContent = data.total_sheets ?? sheets.length;
     document.getElementById('stat-tables').textContent = data.total_tables ?? sheets.length;
     document.getElementById('stat-words').textContent  = (data.word_count ?? 0).toLocaleString();
     document.getElementById('stat-chars').textContent  = (data.char_count ?? 0).toLocaleString();
-
     // Sheet chips
     const sheetsRow = document.getElementById('sheets-row');
     sheetsRow.innerHTML = '';
@@ -842,7 +979,6 @@
     } else {
       document.getElementById('sheets-row-wrap').classList.add('hidden');
     }
-
     // Rendered preview (deferred)
     const previewEl = document.getElementById('md-preview');
     previewEl.innerHTML = '<p style="color:var(--fn-text3);text-align:center;padding:20px;">Rendering preview…</p>';
@@ -854,10 +990,8 @@
         previewEl.innerHTML = '<p style="color:var(--fn-red);text-align:center;padding:20px;">Preview could not render — use the Source view instead.</p>';
       }
     }, 50);
-
     // Source view
     document.getElementById('md-source').textContent = md;
-
     // Download link
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = URL.createObjectURL(new Blob([md], { type: 'text/markdown;charset=utf-8;' }));
@@ -865,7 +999,6 @@
     const dl = document.getElementById('btn-download');
     dl.href = blobUrl;
     dl.download = outName;
-
     // Copy button
     document.getElementById('btn-copy').onclick = async () => {
       try {
@@ -875,18 +1008,15 @@
       } catch(_) {}
     };
   }
-
   // ── View toggle ──
   document.getElementById('view-preview').addEventListener('click', () => setView('preview'));
   document.getElementById('view-source').addEventListener('click',  () => setView('source'));
-
   function setView(v) {
     document.getElementById('view-preview').classList.toggle('active', v === 'preview');
     document.getElementById('view-source').classList.toggle('active',  v === 'source');
     document.getElementById('preview-wrap').classList.toggle('hidden', v !== 'preview');
     document.getElementById('source-wrap').classList.toggle('hidden',  v !== 'source');
   }
-
   // ── Markdown → HTML (uses marked.js with safe fallback) ──
   function mdToHtml(md) {
     if (!md) return '<p style="color:var(--fn-text3);text-align:center;">No content</p>';
@@ -901,7 +1031,6 @@
     const esc = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     return '<pre style="white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.7;">' + esc + '</pre>';
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -910,13 +1039,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -925,7 +1052,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -947,7 +1073,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -960,7 +1085,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -980,7 +1104,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -990,13 +1113,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1011,9 +1132,7 @@
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

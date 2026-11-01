@@ -1,19 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="json-formatter-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── Mode tabs ── --}}
             <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 <button type="button" id="tab-text"
@@ -36,13 +30,10 @@
                     Upload File
                 </button>
             </div>
-
-            <div class="p-6 lg:p-8">
-
+            <div class="p-4 sm:p-6 lg:p-8">
                 {{-- ── OPTIONS BAR (shared) ── --}}
                 <div
                     class="flex flex-wrap items-center gap-3 mb-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-
                     {{-- Indent --}}
                     <div class="flex items-center gap-2">
                         <span class="text-sm font-semibold text-fn-text2 shrink-0">Indent</span>
@@ -55,9 +46,7 @@
                             @endforeach
                         </div>
                     </div>
-
                     <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
-
                     {{-- Toggles --}}
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
                         <div class="toggle-wrap relative w-8 h-4">
@@ -71,7 +60,6 @@
                         </div>
                         <span class="text-sm font-semibold text-fn-text2">Sort Keys</span>
                     </label>
-
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
                         <div class="toggle-wrap relative w-8 h-4">
                             <input type="checkbox" id="opt-minify" class="sr-only peer" />
@@ -84,7 +72,6 @@
                         </div>
                         <span class="text-sm font-semibold text-fn-text2">Minify</span>
                     </label>
-
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
                         <div class="toggle-wrap relative w-8 h-4">
                             <input type="checkbox" id="opt-ascii" class="sr-only peer" />
@@ -97,9 +84,7 @@
                         </div>
                         <span class="text-sm font-semibold text-fn-text2">Escape ASCII</span>
                     </label>
-
                     <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
-
                     {{-- Output mode --}}
                     <div class="flex items-center gap-2">
                         <span class="text-sm font-semibold text-fn-text2 shrink-0">Output</span>
@@ -112,7 +97,6 @@
                             @endforeach
                         </div>
                     </div>
-
                     {{-- Format button (compact, right-aligned) --}}
                     <button type="button" id="format-btn" disabled
                         class="ml-auto flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-bold rounded-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l">
@@ -123,11 +107,9 @@
                         Format
                     </button>
                 </div>
-
                 {{-- ══ TEXT TAB ══ --}}
                 <div id="panel-text">
                     <div class="grid lg:grid-cols-2 gap-4">
-
                         {{-- Input --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
@@ -177,7 +159,6 @@
                                 <span id="text-error-msg"></span>
                             </div>
                         </div>
-
                         {{-- Output --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
@@ -229,16 +210,13 @@
                                 @endforeach
                             </div>
                         </div>
-
                     </div>
                 </div>{{-- /panel-text --}}
-
                 {{-- ══ FILE TAB ══ --}}
                 <div id="panel-file" class="hidden">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative mb-4">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative mb-4">
                         <div class="flex items-center justify-center mb-4">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-4xl">
@@ -270,7 +248,6 @@
                         <input type="file" id="file-input" accept=".json,application/json"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4 mb-4">
@@ -300,7 +277,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- File result (shown after formatting) --}}
                     <div id="file-result" class="hidden">
                         <div class="grid lg:grid-cols-2 gap-4">
@@ -361,7 +337,6 @@
                                 </button>
                             </div>
                         </div>
-
                         {{-- Invalid JSON error for file mode --}}
                         <div id="file-error-banner"
                             class="hidden mt-4 flex items-start gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-red">
@@ -377,9 +352,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>{{-- /panel-file --}}
-
                 {{-- General error --}}
                 <div id="general-error"
                     class="hidden mt-4 flex items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -391,13 +364,10 @@
                     </svg>
                     <span id="general-error-text"></span>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -440,12 +410,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -515,13 +482,126 @@
         font-weight: 600;
         color: var(--fn-text2);
     }
-</style>
 
+    #json-formatter-tool .tab-btn.active,
+    #json-formatter-tool .indent-btn.active,
+    #json-formatter-tool .output-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #json-formatter-tool input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #json-formatter-tool input:focus-visible~.toggle-track {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #json-formatter-tool button:focus-visible,
+    #json-formatter-tool a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #json-formatter-tool .grid>*,
+    #json-formatter-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #json-formatter-tool .justify-between,
+    #output-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #json-formatter-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #file-name,
+    #file-output-name,
+    #file-meta,
+    #text-error-msg,
+    #file-error-msg,
+    #general-error-text,
+    #json-formatter-tool .stat-row-value {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #json-input,
+    #json-output {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 639px) {
+
+        #json-formatter-tool button,
+        #json-formatter-tool a {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #json-formatter-tool .tab-btn {
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        #json-formatter-tool .indent-btn,
+        #json-formatter-tool .output-btn {
+            min-height: 30px;
+            font-size: 11px;
+            padding: 5px 8px;
+        }
+
+        #json-formatter-tool .toggle-label {
+            font-size: 12px;
+        }
+
+        #json-formatter-tool textarea {
+            font-size: 16px;
+            min-height: 260px;
+            height: 45svh;
+            max-height: 460px;
+        }
+
+        #file-preview {
+            padding: 12px;
+            gap: 8px;
+        }
+
+        #remove-file {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+
+        #json-formatter-tool .stat-row-label {
+            width: 80px;
+        }
+
+        #json-formatter-tool .stat-row {
+            align-items: flex-start;
+        }
+    }
+</style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       // ── State ──
       let activeTab    = 'text';
       let activeIndent = 4;
@@ -529,11 +609,9 @@
       let selectedFile = null;
       let fileBlobUrl  = null;
       let textBlobUrl  = null;
-
       // ── Tab switching ──
       document.getElementById('tab-text').addEventListener('click', () => switchTab('text'));
       document.getElementById('tab-file').addEventListener('click', () => switchTab('file'));
-
       function switchTab(tab) {
         activeTab = tab;
         document.getElementById('tab-text').classList.toggle('active', tab === 'text');
@@ -543,7 +621,6 @@
         hideGeneralError();
         refreshFormatBtn();
       }
-
       // ── Indent buttons ──
       document.querySelectorAll('.indent-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -552,7 +629,6 @@
           activeIndent = parseInt(btn.dataset.indent);
         });
       });
-
       // ── Output buttons ──
       document.querySelectorAll('.output-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -561,31 +637,27 @@
           activeOutput = btn.dataset.output;
         });
       });
-
       // ── Minify toggle: disable indent when active ──
       document.getElementById('opt-minify').addEventListener('change', e => {
         document.querySelectorAll('.indent-btn').forEach(b => {
           b.classList.toggle('muted', e.target.checked);
+          b.disabled = e.target.checked;
         });
       });
-
       // ── Text tab: live validation ──
       const jsonInput  = document.getElementById('json-input');
       const jsonOutput = document.getElementById('json-output');
-
       let validateTimer = null;
       jsonInput.addEventListener('input', () => {
         clearTimeout(validateTimer);
         validateTimer = setTimeout(liveValidate, 400);
         refreshFormatBtn();
       });
-
       function liveValidate() {
         const raw = jsonInput.value.trim();
         const statusEl = document.getElementById('text-input-status');
         const errBanner = document.getElementById('text-error-banner');
         const errGutter = document.getElementById('error-gutter');
-
         if (!raw) {
           jsonInput.className = jsonInput.className.replace(/\b(valid|invalid)\b/g, '').trim();
           statusEl.classList.add('hidden');
@@ -609,7 +681,6 @@
           errGutter.classList.remove('hidden');
         }
       }
-
       function refreshFormatBtn() {
         const btn = document.getElementById('format-btn');
         if (activeTab === 'text') {
@@ -618,7 +689,6 @@
           btn.disabled = !selectedFile;
         }
       }
-
       // Paste & clear
       document.getElementById('btn-paste').addEventListener('click', async () => {
         try { jsonInput.value = await navigator.clipboard.readText(); liveValidate(); refreshFormatBtn(); } catch(_) {}
@@ -636,12 +706,10 @@
         if (textBlobUrl) { URL.revokeObjectURL(textBlobUrl); textBlobUrl = null; }
         refreshFormatBtn();
       });
-
       // ── File tab ──
       const dropZone   = document.getElementById('drop-zone');
       const fileInput  = document.getElementById('file-input');
       const filePreview = document.getElementById('file-preview');
-
       ['dragenter','dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
       });
@@ -651,7 +719,6 @@
       dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
       fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
       document.getElementById('remove-file').addEventListener('click', () => resetFile());
-
       function handleFile(file) {
         hideGeneralError();
         if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
@@ -668,7 +735,6 @@
         document.getElementById('file-result').classList.add('hidden');
         refreshFormatBtn();
       }
-
       window.resetFile = function() {
         selectedFile    = null;
         fileInput.value = '';
@@ -679,20 +745,16 @@
         if (fileBlobUrl) { URL.revokeObjectURL(fileBlobUrl); fileBlobUrl = null; }
         refreshFormatBtn();
       };
-
       // ── Format button ──
       document.getElementById('format-btn').addEventListener('click', doFormat);
-
       async function doFormat() {
         hideGeneralError();
         const btn = document.getElementById('format-btn');
         btn.disabled = true;
         btn.innerHTML = `<svg class="spin w-3 h-3" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Formatting…`;
-
         const sortKeys   = document.getElementById('opt-sort').checked;
         const minify     = document.getElementById('opt-minify').checked;
         const ensureAscii = document.getElementById('opt-ascii').checked;
-
         try {
           if (activeTab === 'text') {
             await formatText(sortKeys, minify, ensureAscii);
@@ -707,13 +769,11 @@
           refreshFormatBtn();
         }
       }
-
       // ── Format text → /api/tools/format-json-text ──
       async function formatText(sortKeys, minify, ensureAscii) {
         let jsonValue;
         try { jsonValue = JSON.parse(jsonInput.value.trim()); }
         catch(e) { throw new Error('Cannot format — invalid JSON: ' + e.message); }
-
         const payload = {
           json:         jsonValue,
           indent:       minify ? 0 : activeIndent,
@@ -722,20 +782,16 @@
           ensure_ascii: ensureAscii,
           output:       activeOutput,
         };
-
         const res  = await fetch('https://api.filenewer.com/api/tools/format-json-text', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(payload),
         });
-
         if (!res.ok) {
           const d = await res.json().catch(() => ({}));
           throw new Error(d.error || 'Formatting failed.');
         }
-
         const data = await res.json();
-
         if (!data.is_valid) {
           document.getElementById('text-error-msg').textContent =
             data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
@@ -746,31 +802,25 @@
           document.getElementById('stats-bar').classList.add('hidden');
           return;
         }
-
         const formatted = data.formatted ?? '';
         jsonOutput.value = formatted;
-
         // Stats
         populateStats(data);
         document.getElementById('stats-bar').classList.remove('hidden');
-
         // Copy / Download buttons
         const copyBtn = document.getElementById('btn-copy');
         const dlBtn   = document.getElementById('btn-download');
-
         copyBtn.classList.remove('hidden');
         if (textBlobUrl) URL.revokeObjectURL(textBlobUrl);
         textBlobUrl       = URL.createObjectURL(new Blob([formatted], { type: 'application/json' }));
         dlBtn.href        = textBlobUrl;
         dlBtn.download    = 'formatted.json';
         dlBtn.classList.remove('hidden');
-
         // Hide error banners
         document.getElementById('text-error-banner').classList.add('hidden');
         document.getElementById('error-gutter').classList.add('hidden');
         jsonInput.classList.remove('invalid'); jsonInput.classList.add('valid');
       }
-
       // ── Format file → /api/tools/format-json-file ──
       async function formatFile(sortKeys, minify, ensureAscii) {
         const fd = new FormData();
@@ -780,33 +830,27 @@
         fd.append('minify',       minify     ? 'true' : 'false');
         fd.append('ensure_ascii', ensureAscii ? 'true' : 'false');
         fd.append('output',       'file'); // always get file back; we show stats from headers/blob
-
         const res = await fetch('https://api.filenewer.com/api/tools/format-json-file', {
           method: 'POST',
           body:   fd,
         });
-
         const fileResultEl  = document.getElementById('file-result');
         const fileErrBanner = document.getElementById('file-error-banner');
         const fileStatsRows = document.getElementById('file-stats-rows');
-
         fileResultEl.classList.remove('hidden');
-
         // Always read as text first — the API may return JSON even for output=file
         const rawText = await res.text();
-
         // Try to parse as JSON (API response with formatted field or error)
         let data = null;
         try { data = JSON.parse(rawText); } catch(_) { data = null; }
-
         if (data !== null) {
           // Got a JSON response — either { is_valid, formatted, ... } or { error }
           if (data.is_valid === false) {
-            document.getElementById('file-result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+            document.getElementById('file-result-icon').textContent  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>';
+</svg>`;
             document.getElementById('file-result-title').textContent = 'Invalid JSON';
             document.getElementById('file-error-msg').textContent    =
               data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
@@ -814,33 +858,27 @@
             fileStatsRows.innerHTML = '';
             return;
           }
-
           if (!res.ok) {
             throw new Error(data.error || 'Formatting failed.');
           }
-
           // Valid JSON response — use the `formatted` field as the file content
           const formatted = data.formatted ?? rawText;
           fileErrBanner.classList.add('hidden');
-          document.getElementById('file-result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('file-result-icon').textContent  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>';
+</svg>`;
           document.getElementById('file-result-title').textContent = 'Format Complete';
-
           const blob    = new Blob([formatted], { type: 'application/json' });
           const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
           if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
           fileBlobUrl = URL.createObjectURL(blob);
-
           const dlLink = document.getElementById('file-download-link');
           dlLink.href     = fileBlobUrl;
           dlLink.download = outName;
-
           document.getElementById('file-output-name').textContent = outName;
           document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
-
           // Populate stats from API response
           fileStatsRows.innerHTML = '';
           const apiStats = [
@@ -859,31 +897,25 @@
             div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
             fileStatsRows.appendChild(div);
           });
-
         } else {
           // Raw file response (binary/plain text) — treat as direct file download
           if (!res.ok) throw new Error('Formatting failed.');
-
           fileErrBanner.classList.add('hidden');
-          document.getElementById('file-result-icon').textContent  = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('file-result-icon').textContent  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>';
+</svg>`;
           document.getElementById('file-result-title').textContent = 'Format Complete';
-
           const blob    = new Blob([rawText], { type: 'application/json' });
           const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
           if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
           fileBlobUrl = URL.createObjectURL(blob);
-
           const dlLink = document.getElementById('file-download-link');
           dlLink.href     = fileBlobUrl;
           dlLink.download = outName;
-
           document.getElementById('file-output-name').textContent = outName;
           document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
-
           fileStatsRows.innerHTML = '';
           const knownStats = [
             ['Original size', formatBytes(selectedFile.size)],
@@ -899,7 +931,6 @@
           });
         }
       }
-
       // ── Populate stats bar (text mode) ──
       function populateStats(data) {
         document.getElementById('stat-type').textContent      = data.type       ?? '—';
@@ -909,7 +940,6 @@
         document.getElementById('stat-size-orig').textContent = data.size_original_kb  != null ? data.size_original_kb  + ' KB' : '—';
         document.getElementById('stat-size-fmt').textContent  = data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : '—';
       }
-
       // ── Copy button ──
       document.getElementById('btn-copy').addEventListener('click', async () => {
         try {
@@ -919,7 +949,6 @@
           setTimeout(() => { label.textContent = 'Copy'; }, 2000);
         } catch(_) {}
       });
-
       // ── Helpers ──
       function showGeneralError(msg) {
         document.getElementById('general-error-text').textContent = msg;
@@ -936,7 +965,6 @@
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -948,9 +976,7 @@
           if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="html-epub-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input HTML'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,16 +24,13 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Mode tabs --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
-                        <button type="button" id="tab-text"
+                        <button type="button" id="tab-text" aria-pressed="true"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +40,7 @@
                             </svg>
                             Paste HTML
                         </button>
-                        <button type="button" id="tab-file"
+                        <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,7 +50,6 @@
                             Upload .html
                         </button>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
@@ -81,22 +71,19 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <textarea id="html-textarea" rows="12" spellcheck="false"
                             placeholder='<html>&#10;<head><title>My Book</title></head>&#10;<body>&#10;  <h1>Introduction</h1>&#10;  <p>Welcome to my book.</p>&#10;  <h1>Chapter 1</h1>&#10;  <p>Chapter content here.</p>&#10;  <h2>Section 1.1</h2>&#10;  <p>More content...</p>&#10;</body>&#10;</html>'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-
                         <div class="flex items-center justify-between text-xs mt-1.5">
                             <span id="html-status" class="text-fn-text3">Paste HTML — h1 tags become chapter
                                 splits</span>
                             <span id="html-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
                         </div>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div id="drop-zone"
-                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="flex items-center justify-center mb-5">
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-orange/10 border border-fn-orange/20 flex items-center justify-center">
@@ -124,7 +111,6 @@
                             <input type="file" id="file-input" accept=".html,.htm,text/html"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
@@ -148,7 +134,6 @@
                                 </svg>
                             </button>
                         </div>
-
                         {{-- Cover image upload --}}
                         <div class="mt-4">
                             <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -192,7 +177,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Detected structure preview --}}
                     <div id="detected-content"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -207,16 +191,13 @@
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
-
                     {{-- Metadata options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
                             <p class="text-sm font-semibold text-fn-text2">eBook Metadata</p>
                             <span class="text-xs text-fn-text3">Optional — auto-extracted from HTML if omitted</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">Book
@@ -238,7 +219,6 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
-
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-description"
@@ -274,10 +254,8 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -290,7 +268,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -301,7 +278,6 @@
                         Convert to EPUB
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -335,10 +311,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting HTML to EPUB…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Splitting chapters, embedding assets &amp; packaging eBook</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -348,7 +322,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Reading HTML content'],
@@ -375,7 +348,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -391,13 +363,11 @@
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your EPUB is ready — open it in Apple Books, Kobo, or any EPUB
                         reader.</p>
-
                     {{-- Result chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">eBook details</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -419,7 +389,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="book.epub"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -431,7 +400,6 @@
                         </svg>
                         Download EPUB File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -443,7 +411,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -452,13 +419,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ SUPPORTED ELEMENTS ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -494,8 +458,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -507,7 +469,7 @@
                             content becomes a single chapter.'],
                             ['Can I add a cover image?', 'Yes — when using the file upload mode, you can attach a cover
                             image (.jpg or .png) alongside your HTML file. The cover is embedded as the first page of
-                            the EPUB and appears in your reader\'s library grid.'],
+                            the EPUB and appears in your reader\\'s library grid.'],
                             ['What metadata is auto-extracted from HTML?', 'If you leave the title, author, or
                             description fields blank, the converter reads them directly from your HTML — the <title> tag
                                 becomes the book title, and
@@ -521,7 +483,8 @@
                                     src="path"> are embedded if accessible, and base64-encoded images (<img
                                     src="data:image/...;base64,...">) are embedded directly from the HTML. Embedded
                                 images in the EPUB work offline on any reader.'],
-                                ['Is my HTML safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are
+                                ['Is my HTML safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit.
+                                and are
                                 permanently deleted after processing. We never read, share, or store your content.'],
                                 ] as [$q, $a])
                                 <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -542,10 +505,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .tab-btn {
         color: var(--fn-text3);
@@ -624,12 +585,117 @@
         border-color: oklch(72% 0.19 41 / 30%);
         background: oklch(72% 0.19 41 / 6%);
     }
-</style>
 
+    #html-epub-tool .tab-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #html-epub-tool button:focus-visible,
+    #html-epub-tool a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #html-epub-tool .flex-1,
+    #html-epub-tool .grid>* {
+        min-width: 0;
+    }
+
+    #html-epub-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #html-epub-tool input,
+    #html-epub-tool textarea,
+    #html-epub-tool select {
+        max-width: 100%;
+    }
+
+    #file-name,
+    #cover-name,
+    #result-filename,
+    #html-status,
+    #html-meta {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #remove-cover {
+        position: relative;
+        z-index: 10;
+    }
+
+    #html-epub-tool input[type=file]:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: -3px;
+    }
+
+    @media (max-width: 639px) {
+
+        #html-epub-tool button,
+        #html-epub-tool a.inline-flex {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #html-epub-tool .tab-btn {
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        #html-epub-tool .step-item {
+            gap: 4px;
+            min-width: 0;
+        }
+
+        #html-epub-tool .step-label {
+            font-size: 11px;
+        }
+
+        #html-epub-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #html-epub-tool .step-item+div {
+            width: 14px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        #html-epub-tool input:not([type=file]),
+        #html-epub-tool textarea,
+        #html-epub-tool select {
+            font-size: 16px;
+        }
+
+        #file-preview {
+            gap: 10px;
+            padding: 12px;
+        }
+
+        #remove-file,
+        #remove-cover {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+
+        #html-epub-tool .chip-item {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const SAMPLE_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -642,7 +708,6 @@
   <h1>Introduction</h1>
   <p>Welcome to <strong>The Great Adventure</strong> — a story about courage, discovery, and the human spirit.</p>
   <blockquote>The journey of a thousand miles begins with a single step.</blockquote>
-
   <h1>Chapter 1: The Departure</h1>
   <p>It was a crisp autumn morning when our hero first set foot on the path that would change everything.</p>
   <h2>Section 1.1: Packing the Bag</h2>
@@ -652,7 +717,6 @@
     <li>Journal — capture every moment</li>
     <li>Book — never travel without stories</li>
   </ul>
-
   <h1>Chapter 2: The Road</h1>
   <p>The first day was hardest. By nightfall she had covered twenty miles and found shelter in an old barn.</p>
   <h2>Section 2.1: A Stranger</h2>
@@ -662,12 +726,10 @@
     <tr><td>Bread</td><td>Half a loaf</td></tr>
     <tr><td>Water</td><td>One canteen</td></tr>
   </table>
-
   <h1>Epilogue</h1>
   <p>Years later, she would look back on that journey as the moment everything truly began.</p>
 </body>
 </html>`;
-
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
   const panelText   = document.getElementById('panel-text');
@@ -681,28 +743,26 @@
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const htmlTA      = document.getElementById('html-textarea');
-
   let selectedFile  = null;
   let selectedCover = null;
   let blobUrl       = null;
   let activeTab     = 'text';
   let detectTimer   = null;
-
   // ── Tabs ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
-
   function switchTab(tab) {
     activeTab = tab;
     tabText.classList.toggle('active', tab === 'text');
+    tabText.setAttribute('aria-pressed', String(tab === 'text'));
     tabFile.classList.toggle('active', tab === 'file');
+    tabFile.setAttribute('aria-pressed', String(tab === 'file'));
     panelText.classList.toggle('hidden', tab !== 'text');
     panelFile.classList.toggle('hidden', tab !== 'file');
     hideError();
     refreshConvertBtn();
     refreshDetection();
   }
-
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     htmlTA.value = SAMPLE_HTML;
@@ -715,13 +775,11 @@
     htmlTA.value = '';
     htmlTA.dispatchEvent(new Event('input'));
   });
-
   // ── Textarea input ──
   htmlTA.addEventListener('input', () => {
     const v     = htmlTA.value;
     const lines = v ? v.split('\n').length : 0;
     document.getElementById('html-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
-
     const status = document.getElementById('html-status');
     if (!v.trim()) {
       status.innerHTML = '<span class="text-fn-text3">Paste HTML — h1 tags become chapter splits</span>';
@@ -740,12 +798,10 @@
         status.innerHTML = '<span class="text-fn-amber">No headings or paragraphs found — ensure this is valid HTML</span>';
       }
     }
-
     refreshConvertBtn();
     clearTimeout(detectTimer);
     detectTimer = setTimeout(refreshDetection, 250);
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -756,7 +812,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   async function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -774,7 +829,6 @@
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
-
     if (file.size < 5 * 1024 * 1024) {
       try {
         const text = await file.text();
@@ -782,10 +836,8 @@
         autoFillMeta(text);
       } catch(_) {}
     }
-
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -796,14 +848,12 @@
     refreshConvertBtn();
     hideError();
   }
-
   // ── Cover image ──
   coverInput.addEventListener('change', e => { if (e.target.files[0]) handleCover(e.target.files[0]); });
   document.getElementById('remove-cover').addEventListener('click', e => {
     e.stopPropagation(); e.preventDefault();
     resetCover();
   });
-
   function handleCover(file) {
     if (!file.type.match(/^image\/(jpeg|png)$/)) return;
     selectedCover = file;
@@ -815,7 +865,6 @@
     document.getElementById('cover-preview').classList.remove('hidden');
     document.getElementById('cover-preview').classList.add('flex');
   }
-
   function resetCover() {
     selectedCover = null;
     coverInput.value = '';
@@ -826,18 +875,15 @@
     document.getElementById('cover-preview').classList.add('hidden');
     document.getElementById('cover-preview').classList.remove('flex');
   }
-
   function refreshConvertBtn() {
     if (activeTab === 'text') convertBtn.disabled = !htmlTA.value.trim();
     else                      convertBtn.disabled = !selectedFile;
   }
-
   // ── Auto-fill meta from HTML ──
   function autoFillMeta(html) {
     const titleEl  = document.getElementById('opt-title');
     const authorEl = document.getElementById('opt-author');
     const descEl   = document.getElementById('opt-description');
-
     if (!titleEl.value) {
       const t = html.match(/<title[^>]*>(.*?)<\/title>/i);
       if (t) titleEl.value = t[1].trim();
@@ -853,7 +899,6 @@
       if (d) descEl.value = d[1].trim();
     }
   }
-
   // ── Detection preview ──
   function refreshDetection() {
     if (activeTab === 'text') {
@@ -863,24 +908,20 @@
       autoFillMeta(v);
     }
   }
-
   function detectFromText(html) {
     const stats = analyzeHtml(html);
     const wrap  = document.getElementById('detected-content');
     const list  = document.getElementById('detected-chips');
     list.innerHTML = '';
-
     const chips = [];
     if (stats.h1Count > 0)    chips.push(['chip-chapters', 'Chapters', stats.h1Count + '']);
     if (stats.h2Count > 0)    chips.push(['chip-chapters', 'Sections', stats.h2Count + '']);
     if (stats.imgCount > 0)   chips.push(['chip-images',   'Images',   stats.imgCount + '']);
     if (stats.tableCount > 0) chips.push(['chip-meta',     'Tables',   stats.tableCount + '']);
-    if (stats.hasCode)        chips.push(['chip-meta',     'Code blocks', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>']);
-    if (stats.hasStyle)       chips.push(['chip-lang',     'CSS styles', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>']);
+    if (stats.hasCode)        chips.push(['chip-meta',     'Code blocks', `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>`]);
+    if (stats.hasStyle)       chips.push(['chip-lang',     'CSS styles', `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>`]);
     if (stats.autoTitle)      chips.push(['chip-lang',     'Title',    stats.autoTitle]);
-
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -890,7 +931,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   function analyzeHtml(html) {
     const stripped = html.replace(/<!--[\s\S]*?-->/g, '');
     const h1Count    = (stripped.match(/<h1[\s>]/gi)  || []).length;
@@ -904,23 +944,19 @@
     const autoTitle  = titleM ? titleM[1].trim().substring(0, 24) : null;
     return { h1Count, h2Count, pCount, imgCount, tableCount, hasCode, hasStyle, autoTitle };
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const title       = document.getElementById('opt-title').value.trim();
     const author      = document.getElementById('opt-author').value.trim();
     const publisher   = document.getElementById('opt-publisher').value.trim();
     const description = document.getElementById('opt-description').value.trim();
     const language    = document.getElementById('opt-language').value;
     const customFile  = document.getElementById('opt-filename').value.trim();
-
     let outName;
     if (customFile) {
       outName = customFile.toLowerCase().endsWith('.epub') ? customFile : customFile + '.epub';
@@ -931,10 +967,8 @@
     } else {
       outName = 'book.epub';
     }
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 500, 'Reading HTML content…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 50, 800, 'Splitting chapters at <h1>…');
@@ -947,10 +981,8 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(78, 92, 600, 'Packaging EPUB archive…');
     }, 2400);
-
     try {
       let res;
-
       if (activeTab === 'text') {
         // JSON body for raw HTML
         const payload = { html: htmlTA.value };
@@ -959,7 +991,6 @@
         if (publisher)   payload.publisher   = publisher;
         if (description) payload.description = description;
         if (language)    payload.language    = language;
-
         res = await fetch('https://api.filenewer.com/api/tools/html-to-epub', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -975,45 +1006,34 @@
         if (description)   fd.append('description', description);
         if (language)      fd.append('language',    language);
         if (selectedCover) fd.append('cover_image', selectedCover);
-
         res = await fetch('https://api.filenewer.com/api/tools/html-to-epub', {
           method: 'POST',
           body:   fd,
         });
       }
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please check your HTML and try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       // Read response headers
       const chapters = res.headers.get('X-Chapters') || null;
       const images   = res.headers.get('X-Images')   || null;
       const resTitle = res.headers.get('X-Title')    || title  || null;
       const resAuthor= res.headers.get('X-Author')   || author || null;
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · EPUB eBook';
-
       renderResultChips({ chapters, images, resTitle, resAuthor, language, hasCover: !!selectedCover });
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -1022,12 +1042,10 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResultChips({ chapters, images, resTitle, resAuthor, language, hasCover }) {
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-
     const chips = [];
     if (chapters)   chips.push(['chip-chapters', 'Chapters', chapters]);
     if (images)     chips.push(['chip-images',   'Images',   images]);
@@ -1035,9 +1053,7 @@
     if (resAuthor)  chips.push(['chip-meta',     'Author',   resAuthor.substring(0, 20)]);
     if (language)   chips.push(['chip-lang',     'Language', language.toUpperCase()]);
     if (hasCover)   chips.push(['chip-cover',    'Cover',    'embedded']);
-
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -1047,7 +1063,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -1056,13 +1071,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -1071,7 +1084,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1091,7 +1103,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1104,7 +1115,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1125,7 +1135,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1135,13 +1144,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1152,9 +1159,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

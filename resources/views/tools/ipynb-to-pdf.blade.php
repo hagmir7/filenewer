@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="notebook-pdf-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload Notebook'],['2','Rendering'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-orange/40 hover:bg-fn-orange/4 relative transition-colors">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-orange/40 hover:bg-fn-orange/4 relative transition-colors">
                         <div class="flex items-center justify-center mb-5">
                             <div class="w-20 h-20 rounded-2xl flex items-center justify-center"
                                 style="background: oklch(72% 0.19 41 / 10%); border: 1px solid oklch(72% 0.19 41 / 25%)">
@@ -69,7 +60,6 @@
                         <input type="file" id="file-input" accept=".ipynb,application/json,text/plain"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -95,7 +85,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Detected notebook info --}}
                     <div id="detected-content"
                         class="hidden mt-4 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -111,19 +100,15 @@
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
                             <p class="text-sm font-semibold text-fn-text2">PDF Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-4">
-
                             {{-- Left: metadata + theme --}}
                             <div class="flex flex-col gap-3">
-
                                 <div>
                                     <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         Title
@@ -132,7 +117,6 @@
                                     <input type="text" id="opt-title" placeholder="Defaults to filename"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                                 <div>
                                     <label for="opt-author" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         Author
@@ -141,7 +125,6 @@
                                     <input type="text" id="opt-author" placeholder="e.g. Jane Smith"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         Output filename
@@ -150,7 +133,6 @@
                                     <input type="text" id="opt-filename" placeholder="notebook.pdf"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                                 {{-- Theme picker --}}
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Theme</label>
@@ -197,12 +179,9 @@
                                         </label>
                                     </div>
                                 </div>
-
                             </div>
-
                             {{-- Right: cell content toggles --}}
                             <div class="flex flex-col gap-3">
-
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Render mode</label>
                                     <div class="grid grid-cols-3 gap-1.5 mb-3">
@@ -222,7 +201,6 @@
                                     <p class="text-xs text-fn-text3 italic" id="mode-desc">Default — code + outputs +
                                         markdown</p>
                                 </div>
-
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Cell
                                         sections</label>
@@ -252,11 +230,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -269,7 +245,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -282,7 +257,6 @@
                         Convert to PDF
                     </button>
                 </div>
-
                 {{-- ── STATE: Rendering ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -313,11 +287,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Rendering Notebook to PDF…</h2>
                     <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Processing cells, rendering outputs
                         &amp; generating PDF</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -327,7 +299,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1', 'Parsing notebook structure'],
@@ -354,7 +325,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -369,13 +339,11 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Render Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your PDF is ready to open, share, or print.</p>
-
                     {{-- Result chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Notebook details</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -396,7 +364,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="notebook.pdf"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -408,7 +375,6 @@
                         </svg>
                         Download PDF
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -420,7 +386,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -429,13 +394,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ RENDER MODES ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -515,8 +477,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -538,7 +498,8 @@
             ['What happens with error outputs?', 'Error tracebacks produced during notebook execution are included in
             the PDF when "Cell outputs" is enabled. They are styled distinctly (red border) so they stand out. Disable
             "Cell outputs" to omit them.'],
-            ['Is my notebook safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            ['Is my notebook safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are
+            permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -559,10 +520,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .theme-card {
         border-color: oklch(0% 0 0 / 10%);
@@ -659,12 +618,146 @@
         border-color: oklch(72% 0.18 55 / 30%);
         background: oklch(72% 0.18 55 / 6%);
     }
-</style>
 
+    #notebook-pdf-tool .theme-card.active,
+    #notebook-pdf-tool .mode-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #notebook-pdf-tool .theme-card.active p,
+    #notebook-pdf-tool .mode-btn.active span {
+        color: #fff;
+    }
+
+    #notebook-pdf-tool .cell-toggle:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #notebook-pdf-tool .cell-toggle:focus-visible~.toggle-track {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #notebook-pdf-tool button:focus-visible,
+    #notebook-pdf-tool a:focus-visible,
+    #notebook-pdf-tool .theme-card:has(input:focus-visible) {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #notebook-pdf-tool .grid>*,
+    #notebook-pdf-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #notebook-pdf-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #output-name,
+    #file-meta,
+    #error-text {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #notebook-pdf-tool input,
+    #notebook-pdf-tool select {
+        max-width: 100%;
+    }
+
+    #notebook-pdf-tool .chip-item {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 639px) {
+
+        #notebook-pdf-tool button,
+        #notebook-pdf-tool a.inline-flex {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #notebook-pdf-tool .mode-btn {
+            font-size: 11px;
+            padding: 6px;
+        }
+
+        #notebook-pdf-tool .mode-btn span {
+            font-size: 11px;
+        }
+
+        #notebook-pdf-tool .theme-card {
+            padding: 8px;
+            gap: 6px;
+        }
+
+        #notebook-pdf-tool .theme-card p {
+            font-size: 11px;
+            overflow-wrap: anywhere;
+        }
+
+        #notebook-pdf-tool .step-item {
+            gap: 4px;
+            min-width: 0;
+        }
+
+        #notebook-pdf-tool .step-label {
+            font-size: 11px;
+        }
+
+        #notebook-pdf-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #notebook-pdf-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        #notebook-pdf-tool input:not([type=file]):not([type=radio]):not([type=checkbox]),
+        #notebook-pdf-tool select {
+            font-size: 16px;
+        }
+
+        #file-preview {
+            gap: 8px;
+            padding: 12px;
+            flex-wrap: wrap;
+        }
+
+        #nb-badge {
+            flex-basis: 100%;
+            align-items: flex-start;
+            order: 1;
+        }
+
+        #remove-file {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
   const convertBtn  = document.getElementById('convert-btn');
@@ -672,10 +765,8 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile = null;
   let blobUrl      = null;
-
   // ── Theme toggle ──
   document.querySelectorAll('input[name="theme"]').forEach(radio => {
     radio.addEventListener('change', () => {
@@ -683,20 +774,17 @@
       document.getElementById('theme-dark-wrap').classList.toggle('active', radio.value === 'dark' && radio.checked);
     });
   });
-
   // ── Render mode buttons ──
   const MODE_PRESETS = {
     'mode-full':   { input: true,  output: true,  markdown: true  },
     'mode-report': { input: false, output: true,  markdown: true  },
     'mode-code':   { input: true,  output: false, markdown: false },
   };
-
   document.querySelectorAll('.mode-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('mode-desc').textContent = btn.dataset.desc;
-
       const preset = MODE_PRESETS[btn.id];
       if (preset) {
         document.getElementById('opt-input').checked    = preset.input;
@@ -705,7 +793,6 @@
       }
     });
   });
-
   // ── Cell toggles sync back to "Custom" mode indicator ──
   document.querySelectorAll('.cell-toggle').forEach(toggle => {
     toggle.addEventListener('change', () => {
@@ -713,7 +800,6 @@
       const input    = document.getElementById('opt-input').checked;
       const output   = document.getElementById('opt-output').checked;
       const markdown = document.getElementById('opt-markdown').checked;
-
       let matched = false;
       Object.entries(MODE_PRESETS).forEach(([id, preset]) => {
         if (preset.input === input && preset.output === output && preset.markdown === markdown) {
@@ -729,7 +815,6 @@
       }
     });
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -740,7 +825,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   async function handleFile(file) {
     hideError();
     if (!file.name.toLowerCase().endsWith('.ipynb')) {
@@ -758,7 +842,6 @@
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
     convertBtn.disabled = false;
-
     // Try to peek inside the notebook JSON for cell counts
     if (file.size < 5 * 1024 * 1024) {
       try {
@@ -767,7 +850,6 @@
       } catch(_) {}
     }
   }
-
   function analyzeNotebook(nb) {
     const cells    = nb.cells || [];
     const codeCells = cells.filter(c => c.cell_type === 'code').length;
@@ -776,20 +858,16 @@
                    || nb.metadata?.kernelspec?.name
                    || null;
     const langVer   = nb.metadata?.language_info?.version || null;
-
     // Detected chips
     const wrap = document.getElementById('detected-content');
     const list = document.getElementById('detected-chips');
     list.innerHTML = '';
-
     const chips = [['chip-cells', 'Total cells', cells.length + '']];
     if (codeCells > 0) chips.push(['chip-cells',  'Code cells',     codeCells + '']);
     if (mdCells > 0)   chips.push(['chip-mode',   'Markdown cells', mdCells + '']);
     if (kernel)        chips.push(['chip-kernel',  'Kernel',         kernel]);
     if (langVer)       chips.push(['chip-kernel',  'Python',         langVer]);
-
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -798,13 +876,11 @@
       list.appendChild(chip);
     });
     wrap.classList.remove('hidden');
-
     // Auto-fill title from notebook metadata if blank
     const titleEl = document.getElementById('opt-title');
     if (!titleEl.value && nb.metadata?.title) titleEl.value = nb.metadata.title;
     if (!titleEl.value && nb.metadata?.name)  titleEl.value = nb.metadata.name;
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -815,16 +891,13 @@
     convertBtn.disabled = true;
     hideError();
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const title       = document.getElementById('opt-title').value.trim();
     const author      = document.getElementById('opt-author').value.trim();
     const customFile  = document.getElementById('opt-filename').value.trim();
@@ -832,7 +905,6 @@
     const inclInput   = document.getElementById('opt-input').checked;
     const inclOutput  = document.getElementById('opt-output').checked;
     const inclMd      = document.getElementById('opt-markdown').checked;
-
     let outName;
     if (customFile) {
       outName = customFile.toLowerCase().endsWith('.pdf') ? customFile : customFile + '.pdf';
@@ -841,12 +913,10 @@
     } else {
       outName = selectedFile.name.replace(/\.ipynb$/i, '') + '.pdf';
     }
-
     // Update subtitle with chosen settings
     const modeLabel = !inclInput ? 'report mode' : (!inclOutput && !inclMd) ? 'code only' : 'full mode';
     document.getElementById('converting-subtitle').textContent =
       `${theme === 'dark' ? 'Dark theme' : 'Light theme'} · ${modeLabel} — rendering cells to PDF`;
-
     const fd = new FormData();
     fd.append('file',            selectedFile);
     fd.append('theme',           theme);
@@ -855,10 +925,8 @@
     fd.append('include_markdown', inclMd);
     if (title)  fd.append('title',  title);
     if (author) fd.append('author', author);
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 500, 'Parsing notebook structure…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 52, 800, 'Rendering code cells…');
@@ -871,23 +939,18 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(78, 92, 600, 'Generating PDF document…');
     }, 2400);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/ipynb-to-pdf', {
         method: 'POST',
         body:   fd,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please check your notebook and try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       // Read response headers
       const totalCells = res.headers.get('X-Total-Cells') || null;
       const codeCells  = res.headers.get('X-Code-Cells')  || null;
@@ -895,24 +958,18 @@
       const sizeMb     = res.headers.get('X-Size-MB')     || null;
       const resTitle   = res.headers.get('X-Title')       || title  || null;
       const resAuthor  = res.headers.get('X-Author')      || author || null;
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
         (sizeMb ? sizeMb + ' MB' : formatBytes(blob.size)) + ' · PDF Document';
-
       renderResultChips({ totalCells, codeCells, mdCells, theme, resTitle, resAuthor, inclInput, inclOutput, inclMd });
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -921,27 +978,22 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResultChips({ totalCells, codeCells, mdCells, theme, resTitle, resAuthor, inclInput, inclOutput, inclMd }) {
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-
     const chips = [];
     if (totalCells) chips.push(['chip-cells', 'Cells',    totalCells]);
     if (codeCells)  chips.push(['chip-cells', 'Code',     codeCells + ' cells']);
     if (mdCells)    chips.push(['chip-mode',  'Markdown', mdCells + ' cells']);
     chips.push(['chip-theme', 'Theme', theme]);
-
     const parts = [];
     if (inclInput)   parts.push('input');
     if (inclOutput)  parts.push('output');
     if (inclMd)      parts.push('markdown');
     if (parts.length < 3) chips.push(['chip-mode', 'Rendered', parts.join(' + ') || 'none']);
-
     if (resTitle)   chips.push(['chip-size', 'Title',  resTitle.substring(0, 22)]);
     if (resAuthor)  chips.push(['chip-size', 'Author', resAuthor.substring(0, 22)]);
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -951,7 +1003,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -960,13 +1011,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -975,7 +1024,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -995,7 +1043,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1008,7 +1055,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1034,7 +1080,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1044,13 +1089,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1061,9 +1104,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

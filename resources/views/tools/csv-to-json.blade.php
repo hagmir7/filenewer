@@ -1,20 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="csv-json-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="json-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload CSV'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -28,12 +24,9 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
                         class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
@@ -68,10 +61,10 @@
                             Choose CSV File
                         </div>
                         <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
-                        <input type="file" id="file-input" accept=".csv,.tsv,text/csv,text/tab-separated-values"
+                        <input type="file" id="file-input" aria-label="Choose CSV or TSV file"
+                            accept=".csv,.tsv,text/csv,text/tab-separated-values"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview (shown after selection) --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -95,7 +88,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove CSV file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -104,11 +97,11 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-3 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Delimiter</label>
+                            <label for="opt-delimiter"
+                                class="text-sm font-semibold text-fn-text2 block mb-2">Delimiter</label>
                             <select id="opt-delimiter"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                 <option value="auto">Auto-detect</option>
@@ -119,7 +112,8 @@
                             </select>
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Format</label>
+                            <label for="opt-format" class="text-sm font-semibold text-fn-text2 block mb-2">Output
+                                Format</label>
                             <select id="opt-format"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
                                 <option value="array">Array of objects</option>
@@ -147,7 +141,6 @@
                             </label>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -160,7 +153,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -173,9 +165,7 @@
                         </svg>
                         Convert to JSON
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -207,10 +197,8 @@
                             class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
                             { }</div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting your file…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 10 seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -220,7 +208,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1', 'Uploading & parsing CSV'],
@@ -247,7 +234,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden py-6">
                     <div class="text-center mb-6">
@@ -270,7 +256,6 @@
                                 id="expiry-timer">60:00</span>
                         </p>
                     </div>
-
                     {{-- Stats row --}}
                     <div class="grid grid-cols-3 gap-3 max-w-sm mx-auto mb-6">
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
@@ -286,7 +271,6 @@
                             <p class="text-fn-text3 text-sm mt-0.5">Output size</p>
                         </div>
                     </div>
-
                     {{-- JSON preview --}}
                     <div class="mb-6 bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-hidden">
                         <div class="flex items-center justify-between px-4 py-2.5 border-b border-fn-text/7">
@@ -312,7 +296,6 @@
                         <pre id="json-preview"
                             class="json-preview p-4 text-fn-text2 overflow-x-auto max-h-64 overflow-y-auto"></pre>
                     </div>
-
                     {{-- File info + download --}}
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
@@ -325,7 +308,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <div class="flex flex-col items-center gap-3">
                         <a id="download-link" href="#"
                             class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5"
@@ -338,7 +320,6 @@
                             </svg>
                             Download JSON File
                         </a>
-
                         <div class="flex items-center gap-3 flex-wrap justify-center">
                             <button type="button" onclick="resetConverter()"
                                 class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -355,7 +336,6 @@
                             </a>
                         </div>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -364,16 +344,13 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -407,17 +384,179 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
+
+<style>
+    #csv-json-tool * {
+        box-sizing: border-box;
+    }
+
+    #csv-json-tool .grid>*,
+    #csv-json-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #csv-json-tool #file-name,
+    #csv-json-tool #output-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #csv-json-tool #file-meta,
+    #csv-json-tool #output-size,
+    #csv-json-tool #error-text {
+        overflow-wrap: anywhere;
+    }
+
+    #csv-json-tool select {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    #csv-json-tool input[type="checkbox"] {
+        accent-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        flex-shrink: 0;
+    }
+
+    #csv-json-tool button,
+    #csv-json-tool a {
+        touch-action: manipulation;
+    }
+
+    #csv-json-tool button:focus-visible,
+    #csv-json-tool a:focus-visible,
+    #csv-json-tool select:focus-visible,
+    #csv-json-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-json-tool select:focus {
+        border-color: #2563eb;
+        background: var(--color-fn-surface2, var(--fn-surface2, #e8efff));
+    }
+
+    #csv-json-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-json-tool svg {
+        flex-shrink: 0;
+    }
+
+    #csv-json-tool #json-preview {
+        max-width: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    @media (max-width: 767px) {
+        #csv-json-tool .json-steps {
+            padding: 16px 8px;
+        }
+
+        #csv-json-tool .json-steps .step-item {
+            gap: 4px;
+        }
+
+        #csv-json-tool .json-steps .step-label {
+            font-size: 11px;
+        }
+
+        #csv-json-tool .json-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #csv-json-tool button,
+        #csv-json-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #csv-json-tool #drop-zone {
+            padding: 28px 12px;
+        }
+
+        #csv-json-tool #drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #csv-json-tool #drop-zone p {
+            font-size: 12px;
+        }
+
+        #csv-json-tool #drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #csv-json-tool #file-preview {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #csv-json-tool #remove-file {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #csv-json-tool select {
+            font-size: 16px;
+            min-height: 38px;
+            padding: 8px;
+        }
+
+        #csv-json-tool #state-upload .grid>div {
+            padding: 12px;
+        }
+
+        #csv-json-tool label.cursor-pointer {
+            min-height: 30px;
+        }
+
+        #csv-json-tool #state-download .grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        #csv-json-tool #download-link {
+            max-width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+        }
+
+        #csv-json-tool #state-download>.flex {
+            flex-wrap: wrap;
+        }
+
+        #csv-json-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        #csv-json-tool #json-preview {
+            padding: 12px;
+            font-size: 11px;
+        }
+    }
+</style>
 
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
         // ── Element refs ──
         const dropZone    = document.getElementById('drop-zone');
         const fileInput   = document.getElementById('file-input');
@@ -426,10 +565,8 @@
         const removeFile  = document.getElementById('remove-file');
         const uploadError = document.getElementById('upload-error');
         const errorText   = document.getElementById('error-text');
-
         let selectedFile   = null;
         let expiryInterval = null;
-
         // ── Drag & drop ──
         ['dragenter','dragover'].forEach(evt => {
             dropZone.addEventListener(evt, e => {
@@ -437,57 +574,46 @@
                 dropZone.classList.add('drag-over');
             });
         });
-
         ['dragleave','dragend','drop'].forEach(evt => {
             dropZone.addEventListener(evt, e => {
                 e.preventDefault(); e.stopPropagation();
                 dropZone.classList.remove('drag-over');
             });
         });
-
         dropZone.addEventListener('drop', e => {
             const file = e.dataTransfer.files[0];
             if (file) handleFile(file);
         });
-
         fileInput.addEventListener('change', e => {
             if (e.target.files[0]) handleFile(e.target.files[0]);
         });
-
         removeFile.addEventListener('click', e => {
             e.stopPropagation();
             resetFile();
         });
-
         // ── Handle selected file ──
         function handleFile(file) {
             hideError();
-
             const validTypes = ['text/csv','text/tab-separated-values','application/csv','application/vnd.ms-excel'];
             const validExts  = ['.csv','.tsv'];
             const ext        = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-
             if (!validTypes.includes(file.type) && !validExts.includes(ext)) {
                 showError('Please select a valid CSV or TSV file.');
                 return;
             }
-
             if (file.size > 50 * 1024 * 1024) {
                 showError('File exceeds the 200MB free limit.');
                 return;
             }
-
             selectedFile = file;
             document.getElementById('file-name').textContent = file.name;
             document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + (ext === '.tsv' ? 'TSV' : 'CSV') + ' File';
             document.getElementById('output-name').textContent = file.name.replace(/\.(csv|tsv)$/i, '.json');
-
             filePreview.classList.remove('hidden');
             filePreview.classList.add('flex');
             dropZone.classList.add('has-file');
             convertBtn.disabled = false;
         }
-
         function resetFile() {
             selectedFile    = null;
             fileInput.value = '';
@@ -497,17 +623,13 @@
             convertBtn.disabled = true;
             hideError();
         }
-
         // ── Convert button ──
         convertBtn.addEventListener('click', startConversion);
-
         async function startConversion() {
             if (!selectedFile) return;
-
             hideError();
             showState('converting');
             updateStepIndicator(2);
-
             const formData = new FormData();
             formData.append('csv',          selectedFile);
             formData.append('delimiter',    document.getElementById('opt-delimiter').value);
@@ -516,61 +638,48 @@
             formData.append('has_header',   document.getElementById('opt-header').checked  ? '1' : '0');
             formData.append('pretty_print', document.getElementById('opt-pretty').checked  ? '1' : '0');
             formData.append('_token',       '{{ csrf_token() }}');
-
             setProcessStep('proc-1', 'active');
             animateProgress(0, 20, 800, 'Uploading file…');
-
             const t2 = setTimeout(() => {
                 setProcessStep('proc-1', 'done');
                 setProcessStep('proc-2', 'active');
                 animateProgress(20, 50, 1000, 'Detecting headers & delimiter…');
             }, 1000);
-
             const t3 = setTimeout(() => {
                 setProcessStep('proc-2', 'done');
                 setProcessStep('proc-3', 'active');
                 animateProgress(50, 75, 1200, 'Inferring data types…');
             }, 2200);
-
             const t4 = setTimeout(() => {
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'active');
                 animateProgress(75, 90, 1000, 'Generating JSON…');
             }, 3600);
-
             try {
                 const res  = await fetch('', {
                     method: 'POST',
                     body:   formData,
                 });
-
                 clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
                 const data = await res.json();
-
                 if (!res.ok || !data.success) {
                     throw new Error(data.message || 'Conversion failed. Please try again.');
                 }
-
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'done');
                 animateProgress(90, 100, 400, 'Done!');
-
                 setTimeout(() => {
                     document.getElementById('download-link').href       = data.download_url;
                     document.getElementById('output-size').textContent  = formatBytes(data.file_size) + ' · JSON File';
                     document.getElementById('stat-rows').textContent    = data.row_count.toLocaleString();
                     document.getElementById('stat-cols').textContent    = data.col_count.toLocaleString();
                     document.getElementById('stat-size').textContent    = formatBytes(data.file_size);
-
                     // Syntax-highlighted preview
                     document.getElementById('json-preview').innerHTML = syntaxHighlight(data.preview_json);
-
                     showState('download');
                     updateStepIndicator(3);
                     startExpiryTimer(3600);
                 }, 500);
-
             } catch (err) {
                 clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
                 showError(err.message || 'Something went wrong. Please try again.');
@@ -578,7 +687,6 @@
                 updateStepIndicator(1);
             }
         }
-
         // ── Copy button ──
         document.getElementById('copy-btn').addEventListener('click', function () {
             const text = document.getElementById('json-preview').textContent;
@@ -601,7 +709,6 @@
                 }, 2000);
             });
         });
-
         // ── Syntax highlighter ──
         function syntaxHighlight(json) {
             if (typeof json !== 'string') json = JSON.stringify(json, null, 2);
@@ -609,7 +716,7 @@
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
-                .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                .replace(/("(\\\u[a-zA-Z0-9]{4}|\\\\[^u]|[^\\\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\\-]?\d+)?)/g, function (match) {
                     let cls = 'num';
                     if (/^"/.test(match)) {
                         cls = /:$/.test(match) ? 'key' : 'str';
@@ -621,7 +728,6 @@
                     return '<span class="' + cls + '">' + match + '</span>';
                 });
         }
-
         // ── State switcher ──
         function showState(state) {
             ['upload','converting','download'].forEach(s => {
@@ -631,7 +737,6 @@
                 document.getElementById('state-download').classList.add('bounce-in');
             }
         }
-
         // ── Step indicator ──
         function updateStepIndicator(active) {
             [1,2,3].forEach(n => {
@@ -641,7 +746,6 @@
                 if (n === active) el.classList.add('active');
             });
         }
-
         // ── Processing steps ──
         function setProcessStep(id, state) {
             const el = document.getElementById(id);
@@ -649,12 +753,10 @@
             const dot   = el.querySelector('.step-dot');
             const check = el.querySelector('.check-icon');
             const spin  = el.querySelector('.spin-icon');
-
             check.classList.add('hidden');
             spin.classList.add('hidden');
             dot.style.borderColor = '';
             dot.style.background  = '';
-
             if (state === 'active') {
                 spin.classList.remove('hidden');
                 dot.style.borderColor = 'oklch(49% 0.24 264)';
@@ -666,7 +768,6 @@
                 dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
             }
         }
-
         // ── Progress bar ──
         function animateProgress(from, to, duration, label) {
             document.getElementById('progress-label').textContent = label;
@@ -680,7 +781,6 @@
             }
             requestAnimationFrame(step);
         }
-
         // ── Expiry countdown ──
         function startExpiryTimer(seconds) {
             clearInterval(expiryInterval);
@@ -694,7 +794,6 @@
                 if (rem <= 0) clearInterval(expiryInterval);
             }, 1000);
         }
-
         // ── Reset ──
         window.resetConverter = function () {
             resetFile();
@@ -704,7 +803,6 @@
             animateProgress(0, 0, 0, 'Starting…');
             ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
         };
-
         // ── Error helpers ──
         function showError(msg) {
             errorText.textContent = msg;
@@ -715,33 +813,27 @@
             uploadError.classList.add('hidden');
             uploadError.classList.remove('flex');
         }
-
         // ── Format bytes ──
         function formatBytes(bytes) {
             if (bytes < 1024)    return bytes + ' B';
             if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
             return (bytes / 1048576).toFixed(1) + ' MB';
         }
-
         // ── FAQ accordion ──
         document.querySelectorAll('.faq-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const body   = btn.nextElementSibling;
                 const icon   = btn.querySelector('.faq-icon');
                 const isOpen = !body.classList.contains('hidden');
-
                 document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
                 document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-
                 if (!isOpen) {
                     body.classList.remove('hidden');
                     icon.style.transform = 'rotate(180deg)';
                 }
             });
         });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

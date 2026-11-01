@@ -2,23 +2,17 @@
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
 <!-- ══════════════════════ TOOL ══════════════════════ -->
-<section id="tool" class="py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">
-    <div class="max-w-7xl mx-auto px-6">
+<section id="tool" class="py-8 sm:py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6">
         <h2 id="tool-heading" class="sr-only">Invoice PDF Generator Tool</h2>
-
-        <div class="grid xl:grid-cols-[1fr_480px] gap-8 items-start">
-
+        <div class="grid xl:grid-cols-[1fr_480px] gap-5 lg:gap-8 items-start">
             <!-- ── LEFT: Form ── -->
             <div class="flex flex-col gap-6">
-
                 <!-- ─ Header Row: Invoice Meta ─ -->
-                <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
+                <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
                     <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Invoice Details</h3>
                     <div class="grid sm:grid-cols-3 gap-4">
                         <div class="flex flex-col gap-1.5">
@@ -68,11 +62,9 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- ─ From / To ─ -->
                 <div class="grid sm:grid-cols-2 gap-6">
-
-                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
+                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
                         <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">From (Your
                             Business)</h3>
                         <div class="flex flex-col gap-3">
@@ -87,8 +79,7 @@
                             <input id="from-tax-id" type="text" placeholder="Tax ID / VAT No." class="fn-input" />
                         </div>
                     </div>
-
-                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
+                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
                         <h3 class="text-sm font-semibold text-fn-cyan uppercase tracking-widest mb-5">Bill To (Client)
                         </h3>
                         <div class="flex flex-col gap-3">
@@ -103,24 +94,19 @@
                             <input id="to-tax-id" type="text" placeholder="Tax ID / VAT No." class="fn-input" />
                         </div>
                     </div>
-
                 </div>
-
                 <!-- ─ Line Items ─ -->
-                <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
+                <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
                     <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Line Items</h3>
-
                     <!-- Table header -->
-                    <div class="hidden sm:grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 mb-2 px-1">
+                    <div class="hidden md:grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 mb-2 px-1">
                         <span class="text-fn-text3 text-sm font-medium">Description</span>
                         <span class="text-fn-text3 text-sm font-medium text-center">Qty</span>
                         <span class="text-fn-text3 text-sm font-medium text-right">Unit Price</span>
                         <span class="text-fn-text3 text-sm font-medium text-right">Total</span>
                         <span></span>
                     </div>
-
                     <div id="line-items" class="flex flex-col gap-2"></div>
-
                     <button id="add-line-btn"
                         class="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-dashed border-white/[0.12] rounded-xl text-fn-text3 text-sm font-medium hover:border-fn-blue/40 hover:text-fn-blue-l transition-all">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -131,11 +117,9 @@
                         Add Line Item
                     </button>
                 </div>
-
                 <!-- ─ Totals & Settings ─ -->
                 <div class="grid sm:grid-cols-2 gap-6">
-
-                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
+                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
                         <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Tax &amp;
                             Discount</h3>
                         <div class="flex flex-col gap-3">
@@ -155,8 +139,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-7">
+                    <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
                         <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Payment &amp;
                             Notes</h3>
                         <div class="flex flex-col gap-3">
@@ -179,12 +162,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
                 <!-- ─ Download Bar ─ -->
                 <div
-                    class="flex flex-wrap items-center justify-between gap-4 bg-fn-bg border border-white/[0.07] rounded-2xl px-7 py-5">
+                    class="flex flex-wrap items-center justify-between gap-4 bg-fn-bg border border-white/[0.07] rounded-2xl px-4 sm:px-7 py-4 sm:py-5">
                     <div class="flex items-center gap-4">
                         <div id="total-display" class="text-2xl font-bold text-fn-text tracking-tight">$0.00</div>
                         <span class="text-fn-text3 text-sm">Total Amount Due</span>
@@ -211,9 +192,7 @@
                         </button>
                     </div>
                 </div>
-
             </div>
-
             <!-- ── RIGHT: Live Preview ── -->
             <div class="xl:sticky xl:top-6">
                 <div class="flex items-center justify-between mb-3">
@@ -230,26 +209,25 @@
                             id="preview-filename">invoice-INV-0001.pdf</span>
                     </div>
                     <!-- Scaled A4 preview -->
-                    <div class="p-4 bg-fn-surface2 overflow-auto max-h-[780px]">
-                        <div id="invoice-preview-wrap" class="origin-top-left"
-                            style="transform: scale(0.62); width: 161.3%; transform-origin: top left;">
-                            <div id="invoice-preview" class="bg-white shadow-xl"
-                                style="width:794px; min-height:1123px; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; color:#1a1a2e;">
-                                <!-- Rendered by JS -->
+                    <div class="p-3 sm:p-4 bg-fn-surface2 overflow-auto max-h-[780px]">
+                        <div id="invoice-preview-viewport" style="position:relative; overflow:hidden; width:100%;">
+                            <div id="invoice-preview-wrap" class="origin-top-left"
+                                style="width:794px; transform-origin: top left;">
+                                <div id="invoice-preview" class="bg-white shadow-xl"
+                                    style="width:794px; min-height:1123px; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; color:#1a1a2e;">
+                                    <!-- Rendered by JS -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
 <section id="how" class="py-24 bg-fn-bg" aria-labelledby="how-heading">
     <div class="max-w-6xl mx-auto px-6">
-
         <div class="text-center mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
             <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">From blank to sent in
@@ -257,9 +235,7 @@
             <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No design skills, no accounting software,
                 no account. Just fill in the form and you're done.</p>
         </div>
-
         <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
-
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">01</div>
                 <div
@@ -276,7 +252,6 @@
                 <p class="text-fn-text2 text-sm leading-relaxed">Enter your business info, client details, invoice
                     number, and due date. Add a logo by URL or upload one straight from your device.</p>
             </div>
-
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
                 <div
@@ -293,7 +268,6 @@
                 <p class="text-fn-text2 text-sm leading-relaxed">List your services or products with quantities and unit
                     prices. Apply discounts, tax, and shipping — totals calculate live.</p>
             </div>
-
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">03</div>
                 <div
@@ -312,15 +286,12 @@
                 <p class="text-fn-text2 text-sm leading-relaxed">Click Download PDF to get a clean, professional invoice
                     file. Attach it directly to your email and get paid faster.</p>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ FEATURES ══════════════════════ -->
 <section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
     <div class="max-w-6xl mx-auto px-6">
-
         <div class="mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">What's Included</p>
             <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything a freelancer
@@ -328,9 +299,7 @@
             <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">No subscriptions. No exports locked behind
                 paywalls. Every feature on this page is free for everyone.</p>
         </div>
-
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -344,7 +313,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">See your invoice update in real-time as you type. What
                     you see in the preview is exactly what gets exported to PDF.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -361,7 +329,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Set your brand color and add a logo — paste a URL or
                     upload a file. Your invoice header will match your company's visual identity.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -377,7 +344,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Invoice in USD, EUR, GBP, CAD, AUD, JPY, MAD, or AED.
                     Currency symbol is applied throughout the document automatically.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -397,7 +363,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Subtotal, discount, tax/VAT, shipping, and grand total
                     are all computed automatically as you add or update items.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -412,7 +377,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Add payment instructions, bank account details, or a
                     thank-you note. Fully supports NET 7, NET 30, and custom terms.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -427,22 +391,17 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Invoice data never leaves your browser. Uploaded logos
                     and the generated PDF are processed client-side — no server, no storage, no data exposure.</p>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ FAQ ══════════════════════ -->
 <section id="faq" class="py-24 bg-fn-bg" aria-labelledby="faq-heading">
     <div class="max-w-3xl mx-auto px-6">
-
         <div class="text-center mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">FAQ</p>
             <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
         </div>
-
         <div class="flex flex-col gap-3">
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -457,7 +416,6 @@
                     no credit card, no usage limits, and no locked features. Everything on this page is available to
                     everyone, forever.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -473,7 +431,6 @@
                     However, tax law varies by country; consult an accountant for jurisdiction-specific compliance
                     requirements.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -488,7 +445,6 @@
                     in your browser. Your client names, amounts, uploaded logos, and business details never touch our
                     servers. The PDF is created and downloaded locally.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -503,7 +459,6 @@
                     image URL into the Logo URL field, or upload an image file directly from your device — the file is
                     read locally in your browser and never uploaded anywhere. PNG, JPG, WEBP, and SVG all work.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -518,17 +473,12 @@
                     subtotal after any discount, then shipping is added to reach the total due. Enter any percentage
                     you need — the calculation updates live in the preview and in the exported PDF.</p>
             </details>
-
         </div>
     </div>
 </section>
-
-
 <x-tools-content :tool="$tool" />
-
 <!-- ══════════════════════ RELATED TOOLS ══════════════════════ -->
 <x-tools-section />
-
 <!-- ══════════════════════ CTA ══════════════════════ -->
 <section id="cta" class="py-24 bg-fn-surface border-y border-white/[0.07] text-center relative overflow-hidden"
     aria-labelledby="cta-heading">
@@ -562,7 +512,6 @@
             needed</p>
     </div>
 </section>
-
 <!-- ══════════════════════ STYLES ══════════════════════ -->
 @push('styles')
 <style>
@@ -603,18 +552,122 @@
         margin-right: 0.6rem;
         cursor: pointer;
     }
+
+    #tool .grid>*,
+    #tool .flex>* {
+        min-width: 0;
+    }
+
+    #tool button:focus-visible,
+    #tool .fn-input:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #tool button:active {
+        background-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: white;
+    }
+
+    #preview-filename,
+    #total-display,
+    #tool .line-total {
+        overflow-wrap: anywhere;
+    }
+
+    #preview-filename {
+        text-align: right;
+    }
+
+    #tool .fn-input {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    @media (max-width: 767px) {
+        #tool .invoice-line {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 32px;
+            gap: 8px;
+            padding: 12px;
+            border: 1px solid rgba(128, 128, 128, .2);
+            border-radius: 12px;
+        }
+
+        #tool .invoice-line [data-field="desc"] {
+            grid-column: 1 / -1;
+        }
+
+        #tool .invoice-line .line-total {
+            grid-column: 1 / 3;
+            text-align: left;
+        }
+
+        #tool .invoice-line .line-total::before {
+            content: "Total: ";
+            font-family: sans-serif;
+        }
+
+        #line-items+button {
+            margin-top: 12px;
+        }
+    }
+
+    @media (min-width: 640px) and (max-width: 767px) {
+        #line-items+button {
+            margin-top: 12px;
+        }
+
+        #line-items {
+            margin-top: 8px;
+        }
+    }
+
+    @media (max-width: 639px) {
+        #tool button {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #tool .remove-line {
+            width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+
+        #tool .fn-input {
+            font-size: 16px;
+        }
+
+        #tool .justify-between,
+        #tool .flex.items-center.gap-4 {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        #tool #total-display {
+            font-size: 22px;
+        }
+
+        #tool #preview-filename {
+            font-size: 11px;
+        }
+
+        #tool input[type=file]::file-selector-button {
+            font-size: 11px;
+            padding: 5px 8px;
+        }
+    }
 </style>
 @endpush
-
 <!-- ══════════════════════ SCRIPT ══════════════════════ -->
 @push('footer')
-{{-- jsPDF for client-side PDF generation --}}
+*{{-- jsPDF for client-side PDF generation --}}*
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-
 <script>
     (function () {
-
     // ── Currency map ──────────────────────────────────────────
     const CURRENCIES = {
         USD: { sym: '$',    code: 'USD' },
@@ -626,19 +679,15 @@
         MAD: { sym: 'د.م.', code: 'MAD' },
         AED: { sym: 'د.إ',  code: 'AED' },
     };
-
     // ── State ─────────────────────────────────────────────────
     let lineItems = [];
     let lineCounter = 0;
     let logoDataUrl = '';   // locally uploaded logo (base64 data URL)
-
     // ── DOM helpers ───────────────────────────────────────────
     const $  = (id) => document.getElementById(id);
     const gv = (id) => $(id) ? $(id).value.trim() : '';
-
     // Logo can come from an upload (preferred) or a URL
     const getLogo = () => logoDataUrl || gv('inv-logo');
-
     // ── Set today / +30 days as defaults ─────────────────────
     const pad = (n) => String(n).padStart(2,'0');
     const today = new Date();
@@ -646,32 +695,30 @@
     const fmt   = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
     $('inv-date').value = fmt(today);
     $('inv-due').value  = fmt(due);
-
     // ── Line item ─────────────────────────────────────────────
     function addLine(desc='', qty=1, price=0) {
         const id = ++lineCounter;
         lineItems.push({ id, desc, qty, price });
         renderLines();
     }
-
     function renderLines() {
         const container = $('line-items');
         container.innerHTML = '';
         lineItems.forEach((item) => {
             const row = document.createElement('div');
-            row.className = 'grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 items-center';
+            row.className = 'invoice-line grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 items-center';
             row.dataset.id = item.id;
             row.innerHTML = `
                 <input type="text" value="${escAttr(item.desc)}" placeholder="Service or product description"
-                    class="fn-input" data-field="desc" data-id="${item.id}" />
+                    class="fn-input" aria-label="Description" data-field="desc" data-id="${item.id}" />
                 <input type="number" value="${item.qty}" min="0" step="0.01"
-                    class="fn-input text-center" data-field="qty" data-id="${item.id}" />
+                    class="fn-input text-center" aria-label="Quantity" data-field="qty" data-id="${item.id}" />
                 <input type="number" value="${item.price}" min="0" step="0.01"
-                    class="fn-input text-right" data-field="price" data-id="${item.id}" />
+                    class="fn-input text-right" aria-label="Unit price" data-field="price" data-id="${item.id}" />
                 <div class="text-fn-text2 text-sm font-mono text-right py-2 px-1 line-total" data-id="${item.id}">
                     ${fmtMoney(item.qty * item.price)}
                 </div>
-                <button class="remove-line w-8 h-8 flex items-center justify-center rounded-lg text-fn-text3 hover:text-fn-red hover:bg-fn-red/10 transition-all" data-id="${item.id}">
+                <button type="button" aria-label="Remove line item" class="remove-line w-8 h-8 flex items-center justify-center rounded-lg text-fn-text3 hover:text-fn-red hover:bg-fn-red/10 transition-all" data-id="${item.id}">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             `;
@@ -679,21 +726,17 @@
         });
         updateTotals();
     }
-
     function escAttr(s) {
         return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
-
     // ── Currency / formatting ─────────────────────────────────
     function getCurrency() { return CURRENCIES[gv('inv-currency')] || CURRENCIES.USD; }
-
     function fmtMoney(n) {
         const c = getCurrency();
         const num = parseFloat(n) || 0;
         const dec = c.code === 'JPY' ? 0 : 2;
         return c.sym + num.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-
     // ── Totals ────────────────────────────────────────────────
     function computeTotals() {
         const subtotal  = lineItems.reduce((s, i) => s + (parseFloat(i.qty)||0) * (parseFloat(i.price)||0), 0);
@@ -706,37 +749,31 @@
         const total     = afterDisc + tax + shipping;
         return { subtotal, discount, discPct, afterDisc, tax, taxPct, shipping, total };
     }
-
     function updateTotals() {
         const t = computeTotals();
         $('total-display').textContent = fmtMoney(t.total);
         renderPreview();
     }
-
     // ── Preview renderer ──────────────────────────────────────
     function renderPreview() {
         const t    = computeTotals();
         const col  = gv('inv-color') || '#2563eb';
         const logo = getLogo();
         const num  = gv('inv-number') || 'INV-0001';
-
         // Update filename
         $('preview-filename').textContent = `invoice-${num}.pdf`;
-
         const fromLines = [
             gv('from-name'), gv('from-email'),
             gv('from-address'),
             [gv('from-city'), gv('from-zip')].filter(Boolean).join(', '),
             gv('from-country'), gv('from-tax-id')
         ].filter(Boolean);
-
         const toLines = [
             gv('to-name'), gv('to-email'),
             gv('to-address'),
             [gv('to-city'), gv('to-zip')].filter(Boolean).join(', '),
             gv('to-country'), gv('to-tax-id')
         ].filter(Boolean);
-
         const itemRows = lineItems.map(i => {
             const qty   = parseFloat(i.qty)   || 0;
             const price = parseFloat(i.price) || 0;
@@ -748,7 +785,6 @@
                 <td style="padding:10px 12px;font-size:12px;color:#374151;text-align:right;font-weight:600;">${fmtMoney(qty * price)}</td>
             </tr>`;
         }).join('');
-
         const summaryRows = [
             ['Subtotal', fmtMoney(t.subtotal)],
             ...(t.discPct  ? [`Discount (${t.discPct}%)`, `−${fmtMoney(t.discount)}`] : []),
@@ -760,13 +796,10 @@
                 <td style="padding:5px 12px;font-size:12px;color:#374151;text-align:right;">${val}</td>
             </tr>
         `).join('');
-
         const notes = gv('inv-notes');
         const terms = gv('inv-terms');
-
         $('invoice-preview').innerHTML = `
         <div style="padding:48px 52px;">
-
             <!-- Header -->
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;">
                 <div>
@@ -782,10 +815,8 @@
                     <div style="font-size:11px;color:#9ca3af;margin-top:3px;">Terms: <span style="color:#374151;">${escHtml(terms)}</span></div>
                 </div>
             </div>
-
             <!-- Accent rule -->
             <div style="height:3px;background:${col};border-radius:2px;margin-bottom:32px;"></div>
-
             <!-- Bill To -->
             <div style="display:flex;gap:48px;margin-bottom:36px;">
                 <div style="flex:1;">
@@ -793,7 +824,6 @@
                     ${toLines.map((l,i) => `<div style="font-size:${i===0?'13':'11'}px;font-weight:${i===0?'600':'400'};color:${i===0?'#111827':'#6b7280'};margin-bottom:3px;">${escHtml(l)}</div>`).join('') || '<div style="font-size:11px;color:#9ca3af;">—</div>'}
                 </div>
             </div>
-
             <!-- Items table -->
             <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
                 <thead>
@@ -808,7 +838,6 @@
                     ${itemRows || `<tr><td colspan="4" style="padding:16px 12px;font-size:12px;color:#9ca3af;text-align:center;">No items added yet</td></tr>`}
                 </tbody>
             </table>
-
             <!-- Totals -->
             <div style="display:flex;justify-content:flex-end;margin-bottom:36px;">
                 <table style="min-width:260px;">
@@ -821,34 +850,28 @@
                     </tfoot>
                 </table>
             </div>
-
             <!-- Notes -->
             ${notes ? `
             <div style="border-top:1px solid #f3f4f6;padding-top:24px;margin-bottom:8px;">
                 <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af;margin-bottom:8px;">Notes &amp; Payment Details</div>
                 <div style="font-size:11px;color:#6b7280;white-space:pre-line;line-height:1.6;">${escHtml(notes)}</div>
             </div>` : ''}
-
             <!-- Footer -->
             <div style="margin-top:40px;padding-top:20px;border-top:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;">
                 <div style="font-size:10px;color:#d1d5db;">Generated with Filenewer · filenewer.com</div>
                 <div style="font-size:10px;color:#d1d5db;">${escHtml(num)} · ${formatDate(gv('inv-date'))}</div>
             </div>
-
         </div>`;
     }
-
     function escHtml(s) {
         return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
-
     function formatDate(str) {
         if (!str) return '—';
         const [y,m,d] = str.split('-');
         const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         return `${months[parseInt(m,10)-1]} ${parseInt(d,10)}, ${y}`;
     }
-
     // ── PDF download via jsPDF ────────────────────────────────
     function downloadPDF() {
         const { jsPDF } = window.jspdf;
@@ -857,7 +880,6 @@
         const num   = gv('inv-number') || 'INV-0001';
         const t     = computeTotals();
         const W     = doc.internal.pageSize.getWidth();
-
         // Helper to parse hex
         const hexToRgb = (hex) => {
             const r = parseInt(hex.slice(1,3),16);
@@ -866,20 +888,16 @@
             return [r,g,b];
         };
         const [cr,cg,cb] = hexToRgb(col);
-
         let y = 50;
-
         // ── Right-hand header block (independent of left column height) ──
         doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(cr,cg,cb);
         doc.text('INVOICE', W - 50, y, { align: 'right' });
-
         doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(107,114,128);
         let ym = 68;
         doc.text(`#${num}`, W - 50, ym, { align: 'right' }); ym += 13;
         doc.text(`Issued: ${formatDate(gv('inv-date'))}`, W - 50, ym, { align: 'right' }); ym += 13;
         doc.text(`Due: ${formatDate(gv('inv-due'))}`, W - 50, ym, { align: 'right' }); ym += 13;
         doc.text(`Terms: ${gv('inv-terms')}`, W - 50, ym, { align: 'right' });
-
         // ── Left-hand header block: optional logo + business name ──
         const logo = getLogo();
         if (logo) {
@@ -894,22 +912,17 @@
                 // Unsupported or cross-origin image — skip silently, invoice still works
             }
         }
-
         doc.setFontSize(18); doc.setFont('helvetica','bold'); doc.setTextColor(17,24,39);
         doc.text(gv('from-name') || 'Your Business', 50, y);
         y += 18;
-
         doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(107,114,128);
         const fromLines = [gv('from-email'),gv('from-address'),[gv('from-city'),gv('from-zip')].filter(Boolean).join(', '),gv('from-country'),gv('from-tax-id')].filter(Boolean);
         fromLines.forEach(l => { doc.text(l, 50, y); y += 13; });
-
         y = Math.max(y, ym) + 16;
-
         // Accent rule
         doc.setFillColor(cr,cg,cb);
         doc.roundedRect(50, y, W - 100, 3, 1, 1, 'F');
         y += 20;
-
         // Bill To
         doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(156,163,175);
         doc.text('BILL TO', 50, y); y += 12;
@@ -921,14 +934,12 @@
             doc.text(l, 50, y); y += (i===0?15:12);
         });
         y += 16;
-
         // Items table
         const tableData = lineItems.map(i => {
             const qty   = parseFloat(i.qty)   || 0;
             const price = parseFloat(i.price) || 0;
             return [i.desc || '—', String(qty), fmtMoney(price), fmtMoney(qty * price)];
         });
-
         doc.autoTable({
             startY: y,
             head: [['Description','Qty','Unit Price','Total']],
@@ -939,9 +950,7 @@
             columnStyles: { 1: { halign: 'center' }, 2: { halign: 'right' }, 3: { halign: 'right', fontStyle: 'bold' } },
             alternateRowStyles: { fillColor: [249,250,251] },
         });
-
         y = doc.lastAutoTable.finalY + 20;
-
         // Totals block
         const summaryLines = [
             ['Subtotal', fmtMoney(t.subtotal)],
@@ -964,7 +973,6 @@
         doc.text('Total Due', W - 200, y + 9);
         doc.text(fmtMoney(t.total), valX, y + 9, { align: 'right' });
         y += 36;
-
         // Notes
         const notes = gv('inv-notes');
         if (notes) {
@@ -976,27 +984,22 @@
             const noteLines = doc.splitTextToSize(notes, W - 100);
             doc.text(noteLines, 50, y); y += noteLines.length * 12 + 8;
         }
-
         // Footer
         const pageH = doc.internal.pageSize.getHeight();
         doc.setDrawColor(243,244,246); doc.line(50, pageH - 40, W - 50, pageH - 40);
         doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(209,213,219);
         doc.text('Generated with Filenewer · filenewer.com', 50, pageH - 26);
         doc.text(`${num} · ${formatDate(gv('inv-date'))}`, W - 50, pageH - 26, { align: 'right' });
-
         doc.save(`invoice-${num}.pdf`);
     }
-
     // ── Event wiring ──────────────────────────────────────────
     // Add default line item
     addLine('Professional Services', 1, 0);
-
     $('add-line-btn').addEventListener('click', () => addLine());
     $('download-btn').addEventListener('click', downloadPDF);
     $('preview-btn').addEventListener('click', () => {
         $('invoice-preview').scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
-
     // Logo upload — read locally, never uploaded
     $('inv-logo-file').addEventListener('change', (e) => {
         const file = e.target.files && e.target.files[0];
@@ -1006,7 +1009,6 @@
         reader.onload = () => { logoDataUrl = reader.result; updateTotals(); };
         reader.readAsDataURL(file);
     });
-
     // Line item events (delegated)
     $('line-items').addEventListener('input', (e) => {
         const id    = parseInt(e.target.dataset.id);
@@ -1022,7 +1024,6 @@
         if (totEl) totEl.textContent = fmtMoney(qty * price);
         updateTotals();
     });
-
     $('line-items').addEventListener('click', (e) => {
         const btn = e.target.closest('.remove-line');
         if (!btn) return;
@@ -1031,7 +1032,6 @@
         renderLines();
         updateTotals();
     });
-
     // All form inputs trigger re-render
     const formIds = [
         'inv-number','inv-date','inv-due','inv-currency','inv-color','inv-logo',
@@ -1044,17 +1044,27 @@
         if (el) el.addEventListener('input', updateTotals);
         if (el && (el.tagName === 'SELECT')) el.addEventListener('change', updateTotals);
     });
-
     $('inv-color').addEventListener('input', (e) => {
         $('inv-color-hex').textContent = e.target.value;
         updateTotals();
     });
-
     // Initial render
     renderPreview();
+
+    const previewViewport = $('invoice-preview-viewport');
+    const previewWrap = $('invoice-preview-wrap');
+    const previewPage = $('invoice-preview');
+    function fitInvoicePreview() {
+        const scale = Math.min(1, previewViewport.clientWidth / 794);
+        previewWrap.style.transform = `scale(${scale})`;
+        previewViewport.style.height = `${Math.ceil(previewPage.scrollHeight * scale)}px`;
+    }
+    const previewObserver = new ResizeObserver(fitInvoicePreview);
+    previewObserver.observe(previewViewport);
+    previewObserver.observe(previewPage);
+    fitInvoicePreview();
 
 })();
 </script>
 @endpush
-
 @endsection

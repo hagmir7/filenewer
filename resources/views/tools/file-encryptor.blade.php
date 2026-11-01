@@ -11,12 +11,12 @@
 
 
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="file-security-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
 
             {{-- ── Mode tabs ── --}}
-            <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
+            <div class="security-tabs flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $fsTabs = [
                 ['encrypt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -41,14 +41,14 @@
                 @foreach($fsTabs as [$tval,$ticon,$tlabel])
                 <button type="button"
                     class="tab-btn {{ $tval === 'encrypt' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
-                    data-tab="{{ $tval }}">
+                    data-tab="{{ $tval }}" aria-pressed="{{ $tval === 'encrypt' ? 'true' : 'false' }}">
                     <span class="{{ $tval === 'hash' ? 'font-black text-base' : '' }}">{!! $ticon !!}</span>
                     <span>{{ $tlabel }}</span>
                 </button>
                 @endforeach
             </div>
 
-            <div class="p-8 lg:p-10">
+            <div class="p-3 sm:p-6 lg:p-10">
 
                 {{-- ══ ENCRYPT TAB ══ --}}
                 <div id="panel-encrypt" class="tab-panel">
@@ -145,7 +145,7 @@
                                 <div class="relative mb-2">
                                     <input type="password" id="enc-password" placeholder="Enter a strong password"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    <button type="button"
+                                    <button type="button" aria-label="Toggle password visibility"
                                         class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text"
                                         data-target="enc-password">
                                         <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none"
@@ -390,7 +390,7 @@
                                 <input type="password" id="dec-password"
                                     placeholder="Enter the password used to encrypt"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button"
+                                <button type="button" aria-label="Toggle password visibility"
                                     class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text"
                                     data-target="dec-password">
                                     <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -675,7 +675,7 @@
 
 {{-- ══ ALGORITHM REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Hash Algorithms Reference</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @php
@@ -816,6 +816,196 @@
     .hash-row:hover .hash-copy {
         opacity: 1;
     }
+
+    /* Responsive encryption and hash controls. */
+    #file-security-tool * {
+        box-sizing: border-box;
+    }
+
+    #file-security-tool .grid>*,
+    #file-security-tool .flex-1,
+    #file-security-tool .tab-panel,
+    #file-security-tool .hash-row {
+        min-width: 0;
+    }
+
+    #file-security-tool .security-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #file-security-tool .tab-btn {
+        justify-content: center;
+    }
+
+    #file-security-tool .tab-btn.active,
+    #file-security-tool .hash-tab-btn.active,
+    #file-security-tool .algo-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #file-security-tool .algo-btn.active .algo-badge {
+        background: rgb(255 255 255 / 18%);
+        color: #fff;
+    }
+
+    #file-security-tool .algo-btn.active .text-fn-text3 {
+        color: #fff;
+    }
+
+    #file-security-tool button,
+    #file-security-tool a {
+        touch-action: manipulation;
+    }
+
+    #file-security-tool button:focus-visible,
+    #file-security-tool a:focus-visible,
+    #file-security-tool input:focus-visible,
+    #file-security-tool textarea:focus-visible,
+    #file-security-tool .hash-row:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #file-security-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #file-security-tool .toggle-pw {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        right: 4px;
+        padding: 4px;
+    }
+
+    #file-security-tool input[type="password"],
+    #file-security-tool input[type="text"] {
+        min-width: 0;
+        min-height: 42px;
+        padding-right: 42px;
+    }
+
+    #file-security-tool [id$="file-name"],
+    #file-security-tool [id$="out-name"] {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #file-security-tool [id$="file-meta"],
+    #file-security-tool [id$="out-meta"],
+    #file-security-tool [id$="error-text"],
+    #file-security-tool #enc-output-preview,
+    #file-security-tool #hash-meta {
+        overflow-wrap: anywhere;
+    }
+
+    #file-security-tool svg {
+        flex-shrink: 0;
+    }
+
+    #file-security-tool .hash-copy {
+        opacity: 1;
+    }
+
+    #file-security-tool .hash-value {
+        overflow-wrap: anywhere;
+    }
+
+    #file-security-tool textarea {
+        max-width: 100%;
+        min-width: 0;
+        resize: vertical;
+    }
+
+    @media (max-width: 639px) {
+
+        #file-security-tool button,
+        #file-security-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #file-security-tool .tab-btn {
+            flex-direction: column;
+            padding: 8px 3px;
+            font-size: 11px;
+        }
+
+        #file-security-tool .tab-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        #file-security-tool .drop-zone {
+            padding: 24px 12px;
+        }
+
+        #file-security-tool .drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #file-security-tool .drop-zone p {
+            font-size: 12px;
+        }
+
+        #file-security-tool .drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #file-security-tool input[type="password"],
+        #file-security-tool input[type="text"],
+        #file-security-tool textarea {
+            font-size: 16px;
+        }
+
+        #file-security-tool .toggle-pw {
+            min-height: 32px;
+            padding: 4px;
+        }
+
+        #file-security-tool .algo-btn {
+            padding: 8px;
+        }
+
+        #file-security-tool .algo-btn .text-sm {
+            font-size: 11px;
+        }
+
+        #file-security-tool .algo-btn .font-mono {
+            overflow-wrap: anywhere;
+        }
+
+        #file-security-tool [id$="-remove"] {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #file-security-tool .hash-row {
+            padding: 10px;
+        }
+
+        #file-security-tool .hash-tab-btn {
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+
+        #file-security-tool .grid.lg\:grid-cols-2 {
+            gap: 16px;
+        }
+    }
 </style>
 
 @push('footer')
@@ -828,8 +1018,9 @@
   // ── Tab switching ──
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
       document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
     });
@@ -895,6 +1086,7 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.algo-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       activeAlgo = btn.dataset.algo;
     });
   });
@@ -925,12 +1117,12 @@
     } catch(err) {
       document.getElementById('enc-error-text').textContent = err.message;
       showEl('enc-error', 'flex');
-    } finally { resetBtn(encBtn, '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+    } finally { resetBtn(encBtn, `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg> Encrypt File'); }
+</svg> Encrypt File`); }
   });
 
   // ══ DECRYPT ══
@@ -970,12 +1162,12 @@
     } catch(err) {
       document.getElementById('dec-error-text').textContent = err.message;
       showEl('dec-error', 'flex');
-    } finally { resetBtn(document.getElementById('dec-btn'), '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+    } finally { resetBtn(document.getElementById('dec-btn'), `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
   <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
   <path d="M8 11v-5a4 4 0 0 1 8 0" />
-</svg> Decrypt File'); }
+</svg> Decrypt File`); }
   });
 
   // ══ HASH ══
@@ -1068,6 +1260,12 @@
     Object.entries(hashes).forEach(([algo, hash]) => {
       const div = document.createElement('div');
       div.className = 'hash-row';
+      div.tabIndex = 0;
+      div.setAttribute('role', 'button');
+      div.setAttribute('aria-label', 'Copy ' + algo.toUpperCase() + ' hash');
+      div.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); div.click(); }
+      });
       div.innerHTML = `
         <div class="hash-label">${algo.toUpperCase()} <span class="hash-copy">Copy</span></div>
         <div class="hash-value">${escHtml(hash)}</div>`;

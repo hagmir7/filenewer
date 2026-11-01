@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ VIEWER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="csv-viewer-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="viewer-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input CSV'],['2','Loading'],['3','View & Filter']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- ── Mode tabs ── --}}
                     <div
-                        class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
+                        class="viewer-tabs flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
                         <button type="button" id="tab-file"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -59,7 +50,6 @@
                             Paste CSV
                         </button>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file">
                         <div id="drop-zone"
@@ -99,7 +89,6 @@
                                 accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         {{-- File preview --}}
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -123,7 +112,7 @@
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
-                            <button type="button" id="remove-file"
+                            <button type="button" id="remove-file" aria-label="Remove CSV file"
                                 class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -133,14 +122,13 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text" class="hidden">
                         <div class="relative">
                             <textarea id="csv-textarea" rows="10" spellcheck="false"
                                 placeholder='Paste your CSV content here, e.g.&#10;username,identifier,department,location&#10;booker12,9012,Sales,Manchester&#10;grey07,2070,Depot,London'
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
-                            <div class="absolute top-3 right-3 flex gap-2">
+                            <div class="csv-text-actions absolute top-3 right-3 flex gap-2">
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -163,12 +151,11 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Separator selector --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex flex-wrap items-center gap-3">
                             <span class="text-sm font-semibold text-fn-text2 shrink-0">Separator</span>
-                            <div class="flex gap-1">
+                            <div class="viewer-button-group flex flex-wrap gap-1">
                                 @foreach([['auto','Auto-detect',''],[',','Comma',','],[';','Semicolon',';'],['\t','Tab','tab'],['|','Pipe','|']]
                                 as [$sval, $slabel, $sdisp])
                                 <button type="button"
@@ -179,7 +166,6 @@
                             <span class="ml-auto text-xs text-fn-text3">Leave on Auto for most files</span>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -192,7 +178,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -204,7 +189,6 @@
                         View CSV Data
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -224,7 +208,7 @@
                                 <path d="M4 20h14" />
                             </svg>
                         </div>
-                        <div class="flex gap-1">
+                        <div class="viewer-button-group flex flex-wrap gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
@@ -280,10 +264,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Viewer ── --}}
                 <div id="state-download" class="hidden">
-
                     {{-- Top stats row --}}
                     <div class="flex flex-wrap items-center gap-2 mb-4">
                         @foreach([
@@ -309,11 +291,9 @@
                             New CSV
                         </button>
                     </div>
-
                     {{-- Filter & sort bar --}}
                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4">
-                        <div class="flex flex-wrap items-end gap-3">
-
+                        <div class="viewer-filters flex flex-wrap items-end gap-3">
                             {{-- Filter --}}
                             <div class="flex-1 min-w-[180px]">
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1">Filter column</label>
@@ -342,7 +322,6 @@
                                 <input type="text" id="opt-filter-val" placeholder="Search value…"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
-
                             {{-- Sort --}}
                             <div class="min-w-[150px]">
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1">Sort by</label>
@@ -353,7 +332,7 @@
                             </div>
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1">Order</label>
-                                <div class="flex gap-1">
+                                <div class="viewer-button-group flex flex-wrap gap-1">
                                     <button type="button"
                                         class="order-btn active px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all"
                                         data-order="asc">↑ Asc</button>
@@ -362,7 +341,6 @@
                                         data-order="desc">↓ Desc</button>
                                 </div>
                             </div>
-
                             {{-- Apply --}}
                             <div class="flex gap-2 ml-auto">
                                 <button type="button" id="btn-reset-filter"
@@ -377,24 +355,22 @@
                                 </button>
                             </div>
                         </div>
-
                         {{-- Column visibility --}}
                         <div class="mt-3 pt-3 border-t border-fn-text/8 flex items-center gap-2 flex-wrap">
                             <span class="text-xs font-semibold text-fn-text2 shrink-0">Columns:</span>
                             <div id="column-chips" class="flex flex-wrap gap-1 flex-1"></div>
-                            <div class="flex gap-1">
+                            <div class="viewer-button-group flex flex-wrap gap-1">
                                 <button type="button" id="btn-show-all-cols"
                                     class="text-xs text-fn-blue-l hover:underline font-semibold">Show all</button>
                             </div>
                         </div>
                     </div>
-
                     {{-- Data table --}}
                     <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-[500px]"
-                        id="table-wrap">
+                        id="table-wrap" tabindex="0" role="region"
+                        aria-label="CSV data table; scroll horizontally to view more columns">
                         <table id="data-table" class="w-full text-xs"></table>
                     </div>
-
                     {{-- Loading overlay --}}
                     <div id="table-loading"
                         class="hidden mt-2 flex items-center justify-center gap-2 text-fn-text3 text-xs">
@@ -404,7 +380,6 @@
                         </svg>
                         Updating…
                     </div>
-
                     {{-- Pagination + page size --}}
                     <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
                         <div class="flex items-center gap-2">
@@ -417,32 +392,31 @@
                             </select>
                         </div>
                         <div class="flex items-center gap-1" id="pagination-controls">
-                            <button type="button" id="btn-first" class="page-btn"><svg width="11" height="11"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                            <button type="button" id="btn-first" aria-label="First page" class="page-btn"><svg
+                                    width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="11 17 6 12 11 7" />
                                     <polyline points="18 17 13 12 18 7" />
                                 </svg></button>
-                            <button type="button" id="btn-prev" class="page-btn"><svg width="11" height="11"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                            <button type="button" id="btn-prev" aria-label="Previous page" class="page-btn"><svg
+                                    width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="15 18 9 12 15 6" />
                                 </svg></button>
                             <span class="px-3 text-xs font-mono text-fn-text2" id="page-indicator">1 / 1</span>
-                            <button type="button" id="btn-next" class="page-btn"><svg width="11" height="11"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            <button type="button" id="btn-next" aria-label="Next page" class="page-btn"><svg width="11"
+                                    height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6" />
                                 </svg></button>
-                            <button type="button" id="btn-last" class="page-btn"><svg width="11" height="11"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                            <button type="button" id="btn-last" aria-label="Last page" class="page-btn"><svg width="11"
+                                    height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="13 17 18 12 13 7" />
                                     <polyline points="6 17 11 12 6 7" />
                                 </svg></button>
                         </div>
                     </div>
-
                     {{-- Column stats --}}
                     <div class="mt-5">
                         <button type="button" id="btn-toggle-stats"
@@ -456,7 +430,6 @@
                         </button>
                         <div id="col-stats-wrap" class="hidden mt-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-2"></div>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -465,16 +438,13 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -487,7 +457,8 @@
             Not empty, and Is empty. Greater/Less than work on numeric columns; the rest work on text.'],
             ['Can I sort and filter at the same time?','Yes — filtering and sorting are combined in a single request.
             Set both, click Apply, and the result respects both rules with pagination.'],
-            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -508,12 +479,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -726,12 +694,237 @@
         font-weight: 600;
         text-align: right;
     }
-</style>
 
+    /* Responsive input, filtering, and table navigation. */
+    #csv-viewer-tool * {
+        box-sizing: border-box;
+    }
+
+    #csv-viewer-tool .grid>*,
+    #csv-viewer-tool .flex-1,
+    #csv-viewer-tool .viewer-filters>*,
+    #csv-viewer-tool .stat-card {
+        min-width: 0;
+    }
+
+    #csv-viewer-tool .tab-btn.active,
+    #csv-viewer-tool .sep-btn.active,
+    #csv-viewer-tool .order-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #csv-viewer-tool button,
+    #csv-viewer-tool a {
+        touch-action: manipulation;
+    }
+
+    #csv-viewer-tool button:focus-visible,
+    #csv-viewer-tool input:focus-visible,
+    #csv-viewer-tool textarea:focus-visible,
+    #csv-viewer-tool select:focus-visible,
+    #csv-viewer-tool #table-wrap:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-viewer-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-viewer-tool #file-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #csv-viewer-tool #file-meta,
+    #csv-viewer-tool #error-text,
+    #csv-viewer-tool .stat-name,
+    #csv-viewer-tool .stat-val {
+        overflow-wrap: anywhere;
+    }
+
+    #csv-viewer-tool textarea,
+    #csv-viewer-tool select {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    #csv-viewer-tool textarea {
+        resize: vertical;
+    }
+
+    #csv-viewer-tool svg {
+        flex-shrink: 0;
+    }
+
+    #csv-viewer-tool #table-wrap {
+        width: 100%;
+        max-width: 100%;
+        overflow: auto;
+        overscroll-behavior: contain;
+    }
+
+    #csv-viewer-tool #data-table {
+        min-width: 100%;
+        width: max-content;
+    }
+
+    #csv-viewer-tool .col-chip {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    @media (max-width: 767px) {
+        #csv-viewer-tool .viewer-steps {
+            padding: 16px 8px;
+        }
+
+        #csv-viewer-tool .viewer-steps .step-item {
+            gap: 4px;
+        }
+
+        #csv-viewer-tool .viewer-steps .step-label {
+            font-size: 11px;
+        }
+
+        #csv-viewer-tool .viewer-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+
+        #csv-viewer-tool .viewer-filters {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        #csv-viewer-tool .viewer-filters>.ml-auto {
+            margin-left: 0;
+            align-self: end;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #csv-viewer-tool button,
+        #csv-viewer-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #csv-viewer-tool .viewer-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 100%;
+        }
+
+        #csv-viewer-tool .tab-btn {
+            justify-content: center;
+            padding: 7px 6px;
+        }
+
+        #csv-viewer-tool .sep-btn,
+        #csv-viewer-tool .order-btn {
+            min-height: 30px;
+            padding: 5px 8px;
+            font-size: 11px;
+        }
+
+        #csv-viewer-tool #drop-zone {
+            padding: 28px 12px;
+        }
+
+        #csv-viewer-tool #drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #csv-viewer-tool #drop-zone p {
+            font-size: 12px;
+        }
+
+        #csv-viewer-tool #drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #csv-viewer-tool #file-preview {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #csv-viewer-tool #remove-file {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #csv-viewer-tool input[type="text"],
+        #csv-viewer-tool select,
+        #csv-viewer-tool textarea {
+            font-size: 16px;
+        }
+
+        #csv-viewer-tool select,
+        #csv-viewer-tool input[type="text"] {
+            min-height: 38px;
+        }
+
+        #csv-viewer-tool #csv-textarea {
+            height: 240px;
+            min-height: 160px;
+            padding: 12px;
+        }
+
+        #csv-viewer-tool .csv-text-actions {
+            position: static;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        #csv-viewer-tool .viewer-filters {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 10px;
+        }
+
+        #csv-viewer-tool #pagination-controls {
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #csv-viewer-tool .page-btn {
+            min-width: 30px;
+            padding: 6px;
+        }
+
+        #csv-viewer-tool #table-wrap {
+            max-height: 60vh;
+        }
+
+        #csv-viewer-tool #data-table td,
+        #csv-viewer-tool #data-table th {
+            padding: 8px;
+            font-size: 11px;
+        }
+
+        #csv-viewer-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   // ── Refs ──
   const tabFile     = document.getElementById('tab-file');
   const tabText     = document.getElementById('tab-text');
@@ -745,7 +938,6 @@
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const csvTA       = document.getElementById('csv-textarea');
-
   let selectedFile = null;
   let activeTab    = 'file';
   let activeSep    = 'auto';
@@ -754,11 +946,9 @@
   let lastResponse = null;
   let currentPage  = 1;
   let colStats     = {};
-
   // ── Tabs ──
   tabFile.addEventListener('click', () => switchTab('file'));
   tabText.addEventListener('click', () => switchTab('text'));
-
   function switchTab(tab) {
     activeTab = tab;
     tabFile.classList.toggle('active', tab === 'file');
@@ -768,7 +958,6 @@
     hideError();
     refreshConvertBtn();
   }
-
   // ── Separator ──
   document.querySelectorAll('.sep-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -777,7 +966,6 @@
       activeSep = btn.dataset.sep;
     });
   });
-
   // ── Order buttons ──
   document.querySelectorAll('.order-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -786,7 +974,6 @@
       activeOrder = btn.dataset.order;
     });
   });
-
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -797,7 +984,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -818,7 +1004,6 @@
     dropZone.classList.add('has-file');
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -828,7 +1013,6 @@
     refreshConvertBtn();
     hideError();
   }
-
   // ── Text area ──
   csvTA.addEventListener('input', refreshConvertBtn);
   document.getElementById('btn-paste').addEventListener('click', async () => {
@@ -838,7 +1022,6 @@
     csvTA.value = '';
     refreshConvertBtn();
   });
-
   function refreshConvertBtn() {
     if (activeTab === 'file') {
       convertBtn.disabled = !selectedFile;
@@ -846,18 +1029,14 @@
       convertBtn.disabled = !csvTA.value.trim();
     }
   }
-
   // ── Load CSV ──
   convertBtn.addEventListener('click', () => loadCsv(true));
-
   async function loadCsv(firstLoad = false) {
     hideError();
-
     if (firstLoad) {
       showState('converting');
       updateStepIndicator(2);
       scrollToCard();
-
       // Animate process steps
       setProcessStep('proc-1', 'active');
       animateProgress(0, 25, 400, 'Reading CSV content…');
@@ -876,10 +1055,8 @@
     } else {
       showTableLoading(true);
     }
-
     try {
       const pageSize = parseInt(document.getElementById('opt-page-size')?.value) || 100;
-
       let res;
       if (activeTab === 'file') {
         const fd = new FormData();
@@ -887,7 +1064,6 @@
         if (activeSep !== 'auto') fd.append('separator', activeSep);
         fd.append('page', currentPage);
         fd.append('page_size', pageSize);
-
         // Filter & sort (only when in viewer state)
         if (!firstLoad) {
           const fCol = document.getElementById('opt-filter-col').value;
@@ -909,7 +1085,6 @@
             if (visible.length > 0) fd.append('columns', visible.join(','));
           }
         }
-
         res = await fetch('https://api.filenewer.com/api/tools/csv-viewer-file', {
           method: 'POST', body: fd,
         });
@@ -920,7 +1095,6 @@
           page_size: pageSize,
         };
         if (activeSep !== 'auto') payload.separator = activeSep;
-
         if (!firstLoad) {
           const fCol = document.getElementById('opt-filter-col').value;
           const fVal = document.getElementById('opt-filter-val').value;
@@ -940,34 +1114,27 @@
             if (visible.length > 0) payload.columns = visible.join(',');
           }
         }
-
         res = await fetch('https://api.filenewer.com/api/tools/csv-viewer-text', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify(payload),
         });
       }
-
       if (firstLoad) {
         clearTimeout(window._ct2); clearTimeout(window._ct3); clearTimeout(window._ct4);
       }
-
       if (!res.ok) {
         let msg = 'Failed to load CSV. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const data = await res.json();
-
       // Preserve col_stats across requests (API doesn't always return them after filtering)
       if (data.col_stats && Object.keys(data.col_stats).length > 0) {
         colStats = data.col_stats;
       }
-
       lastResponse = data;
       renderViewer(data, firstLoad);
-
       if (firstLoad) {
         setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
         animateProgress(92, 100, 250, 'Done!');
@@ -975,7 +1142,6 @@
       } else {
         showTableLoading(false);
       }
-
     } catch (err) {
       console.error(err);
       if (firstLoad) {
@@ -989,21 +1155,18 @@
       }
     }
   }
-
   // ── Render viewer ──
   function renderViewer(data, firstLoad) {
     const columns     = data.columns ?? [];
     const rows        = data.rows ?? [];
     const total       = data.total_rows ?? 0;
     const filtered    = data.filtered_rows ?? total;
-
     // Stats row
     document.getElementById('stat-total-rows').textContent    = total.toLocaleString();
     document.getElementById('stat-filtered-rows').textContent = filtered.toLocaleString();
     document.getElementById('stat-columns').textContent       = (data.total_columns ?? columns.length);
     document.getElementById('stat-page-info').textContent     = (data.page ?? 1) + ' / ' + (data.total_pages ?? 1);
     document.getElementById('stat-separator').textContent     = data.separator ?? 'auto';
-
     // Filter / sort column options (only populate on first load)
     if (firstLoad) {
       const filterSel = document.getElementById('opt-filter-col');
@@ -1014,29 +1177,23 @@
         const o1 = document.createElement('option'); o1.value = col; o1.textContent = col; filterSel.appendChild(o1);
         const o2 = document.createElement('option'); o2.value = col; o2.textContent = col; sortSel.appendChild(o2);
       });
-
       // Column chips
       renderColumnChips(columns);
     }
-
     // Pagination
     document.getElementById('page-indicator').textContent = (data.page ?? 1) + ' / ' + (data.total_pages ?? 1);
     document.getElementById('btn-first').disabled = !data.has_prev;
     document.getElementById('btn-prev').disabled  = !data.has_prev;
     document.getElementById('btn-next').disabled  = !data.has_next;
     document.getElementById('btn-last').disabled  = !data.has_next;
-
     // Table
     renderTable(columns, rows, data.sort);
-
     // Column stats
     renderColStats();
   }
-
   function renderTable(columns, rows, sort) {
     const table = document.getElementById('data-table');
     table.innerHTML = '';
-
     // Header
     const thead = document.createElement('thead');
     const trh   = document.createElement('tr');
@@ -1045,13 +1202,11 @@
     rowHeader.style.cursor = 'default';
     rowHeader.innerHTML = '<span style="color:var(--fn-text3)">#</span>';
     trh.appendChild(rowHeader);
-
     columns.forEach(col => {
       const stat = colStats[col] ?? {};
       const type = stat.type ?? 'text';
       const isSorted = sort?.by === col;
       const arrow = isSorted ? (sort.order === 'asc' ? '↑' : '↓') : '';
-
       const th = document.createElement('th');
       th.dataset.col = col;
       th.innerHTML = `
@@ -1066,11 +1221,9 @@
     });
     thead.appendChild(trh);
     table.appendChild(thead);
-
     // Body
     const tbody = document.createElement('tbody');
     const rowOffset = ((lastResponse?.page ?? 1) - 1) * (lastResponse?.page_size ?? 100);
-
     if (rows.length === 0) {
       const tr = document.createElement('tr');
       const td = document.createElement('td');
@@ -1088,7 +1241,6 @@
         numTd.className = 'row-num';
         numTd.textContent = rowOffset + idx + 1;
         tr.appendChild(numTd);
-
         columns.forEach(col => {
           const td = document.createElement('td');
           const val = row[col] ?? '';
@@ -1102,7 +1254,6 @@
     }
     table.appendChild(tbody);
   }
-
   // ── Header click → sort ──
   function sortByColumn(col) {
     const sortSel = document.getElementById('opt-sort-col');
@@ -1119,7 +1270,6 @@
     currentPage = 1;
     loadCsv(false);
   }
-
   // ── Column chips ──
   function renderColumnChips(columns) {
     const wrap = document.getElementById('column-chips');
@@ -1139,7 +1289,6 @@
       wrap.appendChild(chip);
     });
   }
-
   document.getElementById('btn-show-all-cols').addEventListener('click', () => {
     hiddenCols.clear();
     if (lastResponse) {
@@ -1147,13 +1296,11 @@
       loadCsv(false);
     }
   });
-
   // ── Column stats card ──
   function renderColStats() {
     const wrap = document.getElementById('col-stats-wrap');
     wrap.innerHTML = '';
     if (!colStats || Object.keys(colStats).length === 0) return;
-
     Object.entries(colStats).forEach(([name, stat]) => {
       const card = document.createElement('div');
       card.className = 'stat-card';
@@ -1181,13 +1328,11 @@
       wrap.appendChild(card);
     });
   }
-
   function fmtNum(v) {
     if (v === null || v === undefined) return '—';
     if (Number.isInteger(v)) return v.toLocaleString();
     return Number(v).toLocaleString(undefined, { maximumFractionDigits: 2 });
   }
-
   // Stats collapse
   document.getElementById('btn-toggle-stats').addEventListener('click', () => {
     const wrap = document.getElementById('col-stats-wrap');
@@ -1201,7 +1346,6 @@
       chev.style.transform = 'rotate(180deg)';
     }
   });
-
   // ── Filter/sort actions ──
   document.getElementById('btn-apply').addEventListener('click', () => {
     currentPage = 1;
@@ -1219,7 +1363,6 @@
     currentPage = 1;
     loadCsv(false);
   });
-
   // ── Pagination ──
   document.getElementById('btn-first').addEventListener('click', () => { currentPage = 1; loadCsv(false); });
   document.getElementById('btn-prev').addEventListener('click',  () => { if (currentPage > 1) { currentPage--; loadCsv(false); } });
@@ -1233,17 +1376,14 @@
     currentPage = 1;
     loadCsv(false);
   });
-
   function showTableLoading(show) {
     document.getElementById('table-loading').classList.toggle('hidden', !show);
   }
-
   function showViewerError(msg) {
     // Lightweight inline error
     const table = document.getElementById('data-table');
     table.innerHTML = `<tbody><tr><td colspan="99" style="padding:20px;color:var(--fn-red);text-align:center;">${msg}</td></tr></tbody>`;
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -1252,13 +1392,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -1267,7 +1405,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1289,7 +1426,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1302,7 +1438,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     resetFile();
     csvTA.value = '';
@@ -1325,7 +1460,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1335,13 +1469,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1356,9 +1488,7 @@
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

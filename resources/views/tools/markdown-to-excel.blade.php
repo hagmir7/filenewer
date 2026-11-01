@@ -1,23 +1,17 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="markdown-excel-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input Markdown'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -31,16 +25,13 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Mode tabs --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
-                        <button type="button" id="tab-text"
+                        <button type="button" id="tab-text" aria-pressed="true"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -50,7 +41,7 @@
                             </svg>
                             Write / Paste
                         </button>
-                        <button type="button" id="tab-file"
+                        <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -60,12 +51,11 @@
                             Upload .md
                         </button>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-xs font-semibold text-fn-text2">Markdown source</p>
-                            <div class="flex gap-1">
+                            <div class="flex flex-wrap gap-1">
                                 <button type="button" id="btn-sample"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -90,7 +80,6 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <textarea id="md-textarea" rows="12" spellcheck="false"
                             placeholder='Paste Markdown with tables, lists, headings…&#10;&#10;# Sales Report&#10;&#10;| Product | Sales | Revenue |&#10;|---------|-------|--------|&#10;| Apple   | 100   | 500    |&#10;| Banana  | 200   | 400    |&#10;&#10;- Task item&#10;- [x] Done&#10;- [ ] Todo'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
@@ -100,11 +89,10 @@
                                 Code sheet</span>
                         </div>
                     </div>{{-- /panel-text --}}
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div id="drop-zone"
-                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="flex items-center justify-center mb-5">
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center">
@@ -127,7 +115,6 @@
                             <input type="file" id="file-input" accept=".md,.markdown,text/markdown,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
@@ -148,7 +135,6 @@
                             </button>
                         </div>
                     </div>{{-- /panel-file --}}
-
                     {{-- Content detection preview --}}
                     <div id="detected-content"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -165,14 +151,12 @@
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" id="detected-sheets"></div>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
                             <p class="text-sm font-semibold text-fn-text2">Output Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Output filename --}}
                             <div>
@@ -183,7 +167,6 @@
                                 <input type="text" id="opt-filename" placeholder="output.xlsx"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
-
                             {{-- Stats toggle --}}
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Summary sheet</label>
@@ -203,7 +186,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -216,7 +198,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -230,7 +211,6 @@
                         Convert to Excel
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -238,7 +218,7 @@
                             class="w-16 h-16 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center">
                             <span class="font-mono font-black text-2xl text-fn-green">M↓</span>
                         </div>
-                        <div class="flex gap-1">
+                        <div class="flex flex-wrap gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
@@ -263,10 +243,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting to Excel…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -276,7 +254,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Uploading Markdown content'],
@@ -303,7 +280,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -318,13 +294,11 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your Excel file is ready with multiple sheets.</p>
-
                     {{-- Sheets generated preview --}}
                     <div id="result-sheets-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Sheets generated</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-sheets"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -349,7 +323,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="output.xlsx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -361,7 +334,6 @@
                         </svg>
                         Download Excel File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -373,7 +345,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -382,13 +353,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -408,7 +376,8 @@
             can turn it off if you only want the content sheets.'],
             ['Can I paste Markdown instead of uploading a file?','Yes — use the "Write / Paste" tab to paste or type
             Markdown directly. Your Excel file is generated with the same structure either way.'],
-            ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are
+            permanently
             deleted after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -429,12 +398,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -535,52 +501,176 @@
         border-color: oklch(67% 0.18 162 / 30%);
         background: oklch(67% 0.18 162 / 6%);
     }
-</style>
 
+    #markdown-excel-tool .tab-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #markdown-excel-tool button:focus-visible,
+    #markdown-excel-tool a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #markdown-excel-tool .grid>*,
+    #markdown-excel-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #markdown-excel-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #output-name,
+    #file-meta,
+    #error-text,
+    #json-status,
+    #md-meta,
+    #result-meta {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #markdown-excel-tool input,
+    #markdown-excel-tool textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #markdown-excel-tool input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #markdown-excel-tool input:focus-visible~.toggle-track {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #markdown-excel-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #markdown-excel-tool .chip-item {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    #detected-sheets>*,
+    #result-sheets>* {
+        overflow-wrap: anywhere;
+    }
+
+    #markdown-excel-tool .sheet-chip {
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+
+    #json-preview,
+    #xml-preview {
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 639px) {
+
+        #markdown-excel-tool button,
+        #markdown-excel-tool a.inline-flex,
+        #markdown-excel-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #markdown-excel-tool .tab-btn {
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        #markdown-excel-tool .step-item {
+            gap: 4px;
+            min-width: 0;
+        }
+
+        #markdown-excel-tool .step-label {
+            font-size: 11px;
+        }
+
+        #markdown-excel-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #markdown-excel-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        #markdown-excel-tool input:not([type=file]),
+        #markdown-excel-tool textarea {
+            font-size: 16px;
+        }
+
+        #md-textarea {
+            min-height: 250px;
+        }
+
+        #file-preview {
+            padding: 12px;
+            gap: 8px;
+        }
+
+        #remove-file {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const SAMPLE_MD = `# Sales Report Q1
-
 ## Summary
 This quarter showed strong performance across all regions.
-
 ## Regional Breakdown
-
 | Region  | Revenue | Growth |
 |---------|---------|--------|
 | EMEA    | 1200000 | 18     |
 | APAC    | 850000  | 22     |
 | America | 2100000 | 12     |
-
 ## Product Performance
-
 | Product | Units Sold | Revenue |
 |---------|-----------|---------|
 | Apple   | 100       | 500     |
 | Banana  | 200       | 400     |
 | Cherry  | 150       | 750     |
-
 ## Action Items
-
 - [x] Close Q1 books
 - [x] Publish report to stakeholders
 - [ ] Schedule Q2 planning session
 - [ ] Update sales targets
-
 ## Notes
-
 - Strong growth in APAC region
 - Weather impacted European sales in Jan
 - New product launch scheduled for Q2
-
 \`\`\`python
 def calculate_growth(current, previous):
     return (current - previous) / previous * 100
 \`\`\`
 `;
-
   // ── Refs ──
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
@@ -594,27 +684,25 @@ def calculate_growth(current, previous):
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const mdTA        = document.getElementById('md-textarea');
-
   let selectedFile = null;
   let blobUrl      = null;
   let activeTab    = 'text';
   let detectTimer  = null;
-
   // ── Tabs ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
-
   function switchTab(tab) {
     activeTab = tab;
     tabText.classList.toggle('active', tab === 'text');
+        tabText.setAttribute('aria-pressed', String(tab === 'text'));
     tabFile.classList.toggle('active', tab === 'file');
+        tabFile.setAttribute('aria-pressed', String(tab === 'file'));
     panelText.classList.toggle('hidden', tab !== 'text');
     panelFile.classList.toggle('hidden', tab !== 'file');
     hideError();
     refreshConvertBtn();
     refreshDetection();
   }
-
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     mdTA.value = SAMPLE_MD;
@@ -627,7 +715,6 @@ def calculate_growth(current, previous):
     mdTA.value = '';
     mdTA.dispatchEvent(new Event('input'));
   });
-
   // ── Textarea input ──
   mdTA.addEventListener('input', () => {
     const v = mdTA.value;
@@ -638,7 +725,6 @@ def calculate_growth(current, previous):
     clearTimeout(detectTimer);
     detectTimer = setTimeout(refreshDetection, 300);
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -649,7 +735,6 @@ def calculate_growth(current, previous):
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   async function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -667,7 +752,6 @@ def calculate_growth(current, previous):
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
-
     // Read the file to allow detection preview
     try {
       const text = await file.text();
@@ -675,10 +759,8 @@ def calculate_growth(current, previous):
     } catch (_) {
       document.getElementById('detected-content').classList.add('hidden');
     }
-
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -689,7 +771,6 @@ def calculate_growth(current, previous):
     refreshConvertBtn();
     hideError();
   }
-
   function refreshConvertBtn() {
     if (activeTab === 'text') {
       convertBtn.disabled = !mdTA.value.trim();
@@ -697,7 +778,6 @@ def calculate_growth(current, previous):
       convertBtn.disabled = !selectedFile;
     }
   }
-
   // ── Client-side detection preview ──
   function refreshDetection() {
     if (activeTab === 'text') {
@@ -706,13 +786,11 @@ def calculate_growth(current, previous):
       detectFromText(v);
     }
   }
-
   function detectFromText(md, filename) {
     const stats = analyzeMarkdown(md);
     const wrap  = document.getElementById('detected-content');
     const list  = document.getElementById('detected-sheets');
     list.innerHTML = '';
-
     const sheets = [];
     if (document.getElementById('opt-stats').checked) {
       sheets.push(['summary',   'Summary',   '—']);
@@ -724,12 +802,10 @@ def calculate_growth(current, previous):
     if (stats.listItems > 0) sheets.push(['lists',   'Lists',   stats.listItems]);
     if (stats.codeBlocks > 0) sheets.push(['code',   'Code',    stats.codeBlocks]);
     if (stats.paragraphs > 0) sheets.push(['content','Content', stats.paragraphs]);
-
     if (sheets.length === 0) {
       wrap.classList.add('hidden');
       return;
     }
-
     sheets.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
@@ -742,7 +818,6 @@ def calculate_growth(current, previous):
     });
     wrap.classList.remove('hidden');
   }
-
   // Lightweight Markdown analyzer — no heavy parsing, just counting
   function analyzeMarkdown(md) {
     const lines = md.split('\n');
@@ -751,12 +826,10 @@ def calculate_growth(current, previous):
     let codeBlocks = 0;
     let listItems = 0;
     const tables = [];
-
     let inCode = false;
     let currentHeadingText = '';
     let paragraphBuf = '';
     let tableBuf = null; // { name, rows }
-
     function flushParagraph() {
       if (paragraphBuf.trim()) paragraphs++;
       paragraphBuf = '';
@@ -765,7 +838,6 @@ def calculate_growth(current, previous):
       if (tableBuf) tables.push(tableBuf);
       tableBuf = null;
     }
-
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       // Code fence
@@ -775,7 +847,6 @@ def calculate_growth(current, previous):
         continue;
       }
       if (inCode) continue;
-
       // Heading
       const hMatch = line.match(/^(#{1,6})\s+(.+)$/);
       if (hMatch) {
@@ -784,7 +855,6 @@ def calculate_growth(current, previous):
         currentHeadingText = hMatch[2].trim();
         continue;
       }
-
       // Table row
       if (line.match(/^\s*\|.*\|\s*$/)) {
         // Check for separator row (next line)
@@ -797,20 +867,17 @@ def calculate_growth(current, previous):
       } else if (tableBuf) {
         flushTable();
       }
-
-      // List items (- * + or 1.)
+      // List items (- \ + or 1.)*
       if (line.match(/^[\s]*[-*+]\s+/) || line.match(/^[\s]*\d+\.\s+/)) {
         flushParagraph();
         listItems++;
         continue;
       }
-
       // Empty line
       if (!line.trim()) {
         flushParagraph();
         continue;
       }
-
       // Setext heading (current line is text, next is === or ---)
       if (i + 1 < lines.length && lines[i + 1].match(/^(=+|-{3,})\s*$/)) {
         flushParagraph(); flushTable();
@@ -819,37 +886,29 @@ def calculate_growth(current, previous):
         i++; // skip underline
         continue;
       }
-
       // HR
       if (line.match(/^(-{3,}|\*{3,}|_{3,})\s*$/)) {
         flushParagraph();
         continue;
       }
-
       // Paragraph text
       paragraphBuf += line + ' ';
     }
     flushParagraph();
     flushTable();
-
     return { headings, paragraphs, codeBlocks, listItems, tables };
   }
-
   // Re-detect when stats toggle changes
   document.getElementById('opt-stats').addEventListener('change', refreshDetection);
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const customFilename = document.getElementById('opt-filename').value.trim();
     const includeStats   = document.getElementById('opt-stats').checked;
-
     // Default output filename
     let outName;
     if (customFilename) {
@@ -859,10 +918,8 @@ def calculate_growth(current, previous):
     } else {
       outName = 'output.xlsx';
     }
-
     let fetchBody, fetchHeaders = {};
     let mdForDetection = '';
-
     if (activeTab === 'file') {
       const fd = new FormData();
       fd.append('file',            selectedFile);
@@ -880,11 +937,9 @@ def calculate_growth(current, previous):
       fetchBody    = JSON.stringify(payload);
       fetchHeaders = { 'Content-Type': 'application/json' };
     }
-
     // Animate
     setProcessStep('proc-1', 'active');
     animateProgress(0, 25, 500, 'Uploading Markdown content…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(25, 55, 700, 'Extracting tables & headings…');
@@ -897,45 +952,35 @@ def calculate_growth(current, previous):
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(80, 92, 500, 'Generating Excel file…');
     }, 2200);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/markdown-to-excel', {
         method: 'POST',
         headers: fetchHeaders,
         body: fetchBody,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
-
       // Render sheets preview (client-side computed from the markdown)
       if (mdForDetection.trim()) {
         renderResultSheets(mdForDetection, includeStats);
       } else {
         document.getElementById('result-sheets-wrap').classList.add('hidden');
       }
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -944,13 +989,11 @@ def calculate_growth(current, previous):
       updateStepIndicator(1);
     }
   }
-
   function renderResultSheets(md, includeStats) {
     const stats = analyzeMarkdown(md);
     const wrap  = document.getElementById('result-sheets-wrap');
     const list  = document.getElementById('result-sheets');
     list.innerHTML = '';
-
     const sheets = [];
     if (includeStats) sheets.push(['summary', 'Summary', '—']);
     if (stats.headings > 0) sheets.push(['structure', 'Structure', stats.headings + ' headings']);
@@ -960,9 +1003,7 @@ def calculate_growth(current, previous):
     if (stats.listItems > 0)  sheets.push(['lists',   'Lists',   stats.listItems + ' items']);
     if (stats.codeBlocks > 0) sheets.push(['code',    'Code',    stats.codeBlocks + ' blocks']);
     if (stats.paragraphs > 0) sheets.push(['content', 'Content', stats.paragraphs + ' para']);
-
     if (sheets.length === 0) { wrap.classList.add('hidden'); return; }
-
     sheets.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
@@ -975,7 +1016,6 @@ def calculate_growth(current, previous):
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -984,13 +1024,11 @@ def calculate_growth(current, previous):
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -999,7 +1037,6 @@ def calculate_growth(current, previous):
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1021,7 +1058,6 @@ def calculate_growth(current, previous):
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1034,7 +1070,6 @@ def calculate_growth(current, previous):
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1050,7 +1085,6 @@ def calculate_growth(current, previous):
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1060,13 +1094,11 @@ def calculate_growth(current, previous):
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1081,9 +1113,7 @@ def calculate_growth(current, previous):
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

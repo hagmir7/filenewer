@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="latex-pdf-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input LaTeX'],['2','Compiling'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,16 +24,13 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Mode tabs --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
-                        <button type="button" id="tab-text"
+                        <button type="button" id="tab-text" aria-pressed="true"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +40,7 @@
                             </svg>
                             Paste LaTeX
                         </button>
-                        <button type="button" id="tab-file"
+                        <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,12 +50,11 @@
                             Upload .tex
                         </button>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-xs font-semibold text-fn-text2">LaTeX source</p>
-                            <div class="flex gap-1">
+                            <div class="flex flex-wrap gap-1">
                                 <button type="button" id="btn-sample"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Sample</button>
                                 <button type="button" id="btn-paste"
@@ -81,22 +71,19 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <textarea id="latex-textarea" rows="12" spellcheck="false"
                             placeholder='\documentclass[12pt,a4paper]{article}&#10;\usepackage[utf8]{inputenc}&#10;\begin{document}&#10;\title{My Document}&#10;\maketitle&#10;\section{Introduction}&#10;Hello, \textbf{world}!&#10;\end{document}'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-
                         <div class="flex items-center justify-between text-xs mt-1.5">
                             <span id="latex-status" class="text-fn-text3">Paste a complete LaTeX document starting with
                                 \documentclass</span>
                             <span id="latex-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
                         </div>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div id="drop-zone"
-                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-red/40 hover:bg-fn-red/4 relative">
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-red/40 hover:bg-fn-red/4 relative">
                             <div class="flex items-center justify-center mb-5">
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center">
@@ -127,7 +114,6 @@
                             <input type="file" id="file-input" accept=".tex,text/x-tex,application/x-tex,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
@@ -152,7 +138,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Detected structure preview --}}
                     <div id="detected-content"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -167,16 +152,13 @@
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
                             <p class="text-sm font-semibold text-fn-text2">Compiler Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Left --}}
                             <div class="flex flex-col gap-3">
                                 <div>
@@ -187,7 +169,6 @@
                                     <input type="text" id="opt-filename" placeholder="document.pdf"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                                 <div>
                                     <label for="opt-compiler"
                                         class="text-xs font-semibold text-fn-text2 block mb-1.5">LaTeX compiler</label>
@@ -198,7 +179,6 @@
                                         <option value="xelatex">XeLaTeX — system fonts support</option>
                                     </select>
                                 </div>
-
                                 <div>
                                     <label for="opt-passes"
                                         class="text-xs font-semibold text-fn-text2 block mb-1.5">Compile passes</label>
@@ -210,7 +190,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             {{-- Right --}}
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Options</label>
@@ -240,10 +219,8 @@
                                     @endforeach
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -256,7 +233,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -268,7 +244,6 @@
                         Compile to PDF
                     </button>
                 </div>
-
                 {{-- ── STATE: Compiling ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -280,7 +255,7 @@
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
                         </div>
-                        <div class="flex gap-1">
+                        <div class="flex flex-wrap gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
@@ -301,11 +276,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Compiling LaTeX to PDF…</h2>
                     <p class="text-fn-text3 text-sm mb-8" id="compiling-subtitle">Running pdfLaTeX — resolving
                         references &amp; cross-links</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -315,7 +288,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Reading LaTeX source'],
@@ -342,7 +314,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -357,13 +328,11 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Compilation Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your PDF is ready to download.</p>
-
                     {{-- Compilation info chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Compilation details</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -384,7 +353,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="document.pdf"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -396,7 +364,6 @@
                         </svg>
                         Download PDF
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -408,7 +375,6 @@
                             Compile another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -417,13 +383,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -444,7 +407,8 @@
             ['Can I upload a .tex file with custom packages?', 'Standard LaTeX packages (amsmath, graphicx, hyperref,
             booktabs, geometry, etc.) are pre-installed on the compile server. Custom or third-party packages not in the
             TeX Live distribution may not be available and could cause compilation to fail.'],
-            ['Is my LaTeX source safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            ['Is my LaTeX source safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are
+            permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -465,10 +429,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .tab-btn {
         color: var(--fn-text3);
@@ -537,57 +499,180 @@
         border-color: oklch(72% 0.18 55 / 30%);
         background: oklch(72% 0.18 55 / 6%);
     }
-</style>
 
+    #latex-pdf-tool .tab-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #latex-pdf-tool button:focus-visible,
+    #latex-pdf-tool a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #latex-pdf-tool .grid>*,
+    #latex-pdf-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #latex-pdf-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #output-name,
+    #file-meta,
+    #error-text,
+    #latex-status,
+    #latex-meta,
+    #result-meta {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #latex-pdf-tool input,
+    #latex-pdf-tool textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #latex-pdf-tool input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #latex-pdf-tool input:focus-visible~.toggle-track {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #latex-pdf-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #latex-pdf-tool .chip-item {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    #json-preview,
+    #xml-preview {
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 639px) {
+
+        #latex-pdf-tool button,
+        #latex-pdf-tool a.inline-flex {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #latex-pdf-tool .tab-btn {
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        #latex-pdf-tool .step-item {
+            gap: 4px;
+            min-width: 0;
+        }
+
+        #latex-pdf-tool .step-label {
+            font-size: 11px;
+        }
+
+        #latex-pdf-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #latex-pdf-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        #latex-pdf-tool input:not([type=file]),
+        #latex-pdf-tool textarea {
+            font-size: 16px;
+        }
+
+        #latex-textarea {
+            min-height: 250px;
+        }
+
+        #file-preview {
+            padding: 12px;
+            gap: 8px;
+        }
+
+        #remove-file {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
-  const SAMPLE_LATEX = `\\documentclass[12pt,a4paper]{article}
+  const SAMPLE_LATEX = String.raw`\documentclass[12pt,a4paper]{article}
 % ── Packages ─────────────────────────────
-\\usepackage[utf8]{inputenc}
-\\usepackage[T1]{fontenc}
-\\usepackage{lmodern}
-\\usepackage{amsmath}
-\\usepackage{graphicx}
-\\usepackage{hyperref}
-\\usepackage{booktabs}
-\\usepackage{geometry}
-\\geometry{a4paper, margin=1in}
-\\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
 % ── Document info ─────────────────────────
-\\title{Sample Document}
-\\author{Your Name}
-\\date{\\today}
+\title{Sample Document}
+\author{Your Name}
+\date{\today}
 % ── Begin document ─────────────────────────
-\\begin{document}
-\\maketitle
-\\tableofcontents
-\\section{Introduction}
-This is the \\textbf{introduction} with \\textit{italic} and \\underline{underline} text.
-\\subsection{Background}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Introduction}
+This is the \textbf{introduction} with \textit{italic} and \underline{underline} text.
+\subsection{Background}
 More detail here. Inline math: $E = mc^2$. Display math:
-\\[ \\int_0^\\infty e^{-x^2}\\,dx = \\frac{\\sqrt{\\pi}}{2} \\]
-\\section{Tables}
-\\begin{table}[h!]
-\\centering
-\\begin{tabular}{lll}
-\\toprule
-\\textbf{Name} & \\textbf{Age} & \\textbf{City} \\\\
-\\midrule
-Alice & 30 & London \\\\
-Bob   & 25 & Paris  \\\\
-\\bottomrule
-\\end{tabular}
-\\caption{Sample table}
-\\end{table}
-\\begin{itemize}
-  \\item First item
-  \\item Second item
-\\end{itemize}
-\\end{document}
+\[ \int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2} \]
+\section{Tables}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Name} & \textbf{Age} & \textbf{City} \\
+\midrule
+Alice & 30 & London \\
+Bob   & 25 & Paris  \\
+\bottomrule
+\end{tabular}
+\caption{Sample table}
+\end{table}
+\begin{itemize}
+  \item First item
+  \item Second item
+\end{itemize}
+\end{document}
 `;
-
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
   const panelText   = document.getElementById('panel-text');
@@ -600,27 +685,25 @@ Bob   & 25 & Paris  \\\\
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const latexTA     = document.getElementById('latex-textarea');
-
   let selectedFile = null;
   let blobUrl      = null;
   let activeTab    = 'text';
   let detectTimer  = null;
-
   // ── Tabs ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
-
   function switchTab(tab) {
     activeTab = tab;
     tabText.classList.toggle('active', tab === 'text');
+        tabText.setAttribute('aria-pressed', String(tab === 'text'));
     tabFile.classList.toggle('active', tab === 'file');
+        tabFile.setAttribute('aria-pressed', String(tab === 'file'));
     panelText.classList.toggle('hidden', tab !== 'text');
     panelFile.classList.toggle('hidden', tab !== 'file');
     hideError();
     refreshConvertBtn();
     refreshDetection();
   }
-
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     latexTA.value = SAMPLE_LATEX;
@@ -633,13 +716,11 @@ Bob   & 25 & Paris  \\\\
     latexTA.value = '';
     latexTA.dispatchEvent(new Event('input'));
   });
-
   // ── Textarea ──
   latexTA.addEventListener('input', () => {
     const v = latexTA.value;
     const lines = v ? v.split('\n').length : 0;
     document.getElementById('latex-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
-
     const status = document.getElementById('latex-status');
     if (!v.trim()) {
       status.innerHTML = '<span class="text-fn-text3">Paste a complete LaTeX document starting with \\documentclass</span>';
@@ -659,12 +740,10 @@ Bob   & 25 & Paris  \\\\
         status.innerHTML = '<span class="text-fn-amber">No \\documentclass found — ensure it\'s a complete document</span>';
       }
     }
-
     refreshConvertBtn();
     clearTimeout(detectTimer);
     detectTimer = setTimeout(refreshDetection, 250);
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -675,7 +754,6 @@ Bob   & 25 & Paris  \\\\
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   async function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -693,17 +771,14 @@ Bob   & 25 & Paris  \\\\
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
-
     if (file.size < 5 * 1024 * 1024) {
       try {
         const text = await file.text();
         detectFromText(text);
       } catch(_) {}
     }
-
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -714,12 +789,10 @@ Bob   & 25 & Paris  \\\\
     refreshConvertBtn();
     hideError();
   }
-
   function refreshConvertBtn() {
     if (activeTab === 'text') convertBtn.disabled = !latexTA.value.trim();
     else                      convertBtn.disabled = !selectedFile;
   }
-
   // ── Detection ──
   function refreshDetection() {
     if (activeTab === 'text') {
@@ -728,13 +801,11 @@ Bob   & 25 & Paris  \\\\
       detectFromText(v);
     }
   }
-
   function detectFromText(src) {
     const stats = analyzeLatex(src);
     const wrap  = document.getElementById('detected-content');
     const list  = document.getElementById('detected-chips');
     list.innerHTML = '';
-
     const chips = [];
     if (stats.documentClass) chips.push(['chip-compiler', '\\documentclass', stats.documentClass]);
     if (stats.sectionCount > 0) chips.push(['chip-passes', 'Sections', stats.sectionCount + '']);
@@ -743,9 +814,7 @@ Bob   & 25 & Paris  \\\\
     if (stats.hasTable) chips.push(['chip-detect', 'Tables', 'detected']);
     if (stats.hasToc)   chips.push(['chip-detect', 'TOC', 'detected']);
     if (stats.hasBib)   chips.push(['chip-detect', 'Bibliography', 'detected']);
-
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -755,63 +824,46 @@ Bob   & 25 & Paris  \\\\
     });
     wrap.classList.remove('hidden');
   }
-
   // Lightweight LaTeX analyzer
   function analyzeLatex(src) {
-    const cleaned = src.replace(/%[^\n]*/g, ''); // strip comments
-
-    const docClassMatch = cleaned.match(/\\documentclass(?:\[.*?\])?\{([\w]+)\}/);
-    const documentClass = docClassMatch ? docClassMatch[1] : null;
-
-    const sectionRe = /\\(?:chapter|section|subsection|subsubsection)\s*\{/g;
-    let sectionCount = 0;
-    while (sectionRe.exec(cleaned) !== null) sectionCount++;
-
-    const pkgRe = /\\usepackage(?:\[.*?\])?\{[\w,\s]+\}/g;
-    let packageCount = 0;
-    while (pkgRe.exec(cleaned) !== null) packageCount++;
-
+    const cleaned = src.replace(/%[^\n]*/g, '');
+    const match = cleaned.match(/\\documentclass(?:\[[^\]]*\])?\s*\{([^}]+)\}/);
+    const documentClass = match ? match[1] : null;
     return {
       documentClass,
-      hasDocumentClass:  !!documentClass,
-      hasBeginDocument:  /\\begin\s*\{document\}/.test(cleaned),
-      sectionCount,
-      packageCount,
-      hasMath:  /\$|\\\[|\\begin\s*\{(equation|align|math)/.test(cleaned),
-      hasTable: /\\begin\s*\{(tabular|table|longtable)/.test(cleaned),
-      hasToc:   /\\tableofcontents/.test(cleaned),
-      hasBib:   /\\bibliography|\\begin\s*\{thebibliography\}/.test(cleaned),
+      hasDocumentClass: !!documentClass,
+      hasBeginDocument: /\\begin\s*\{document\}/.test(cleaned),
+      sectionCount: (cleaned.match(/\\(?:chapter|section|subsection|subsubsection)\*?\s*\{/g) || []).length,
+      packageCount: (cleaned.match(/\\usepackage(?:\[[^\]]*\])?\s*\{[^}]+\}/g) || []).length,
+      hasMath: /\$|\\\[|\\begin\s*\{(?:equation|align|math)/.test(cleaned),
+      hasTable: /\\begin\s*\{(?:tabular|table|longtable)/.test(cleaned),
+      hasToc: /\\tableofcontents/.test(cleaned),
+      hasBib: /\\bibliography|\\begin\s*\{thebibliography\}/.test(cleaned),
     };
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const customFilename = document.getElementById('opt-filename').value.trim();
     const compiler       = document.getElementById('opt-compiler').value;
     const passes         = document.getElementById('opt-passes').value;
     const synctex        = document.getElementById('opt-synctex').checked;
     const draft          = document.getElementById('opt-draft').checked;
     const returnLog      = document.getElementById('opt-log').checked;
-
     // Update compiling subtitle
     const compilerLabel = { pdflatex: 'pdfLaTeX', lualatex: 'LuaLaTeX', xelatex: 'XeLaTeX' }[compiler] || compiler;
     document.getElementById('compiling-subtitle').textContent =
       `Running ${compilerLabel} — ${passes} pass${passes > 1 ? 'es' : ''}, resolving references`;
-
     // Update pass labels
     const passLabels = ['proc-2', 'proc-3'];
     if (passes >= 2) {
       const el = document.getElementById('proc-3');
       if (el) el.querySelector('.proc-label').textContent = 'Compiler pass 2 — cross-references';
     }
-
     let outName;
     if (customFilename) {
       outName = customFilename.toLowerCase().endsWith('.pdf') ? customFilename : customFilename + '.pdf';
@@ -820,10 +872,8 @@ Bob   & 25 & Paris  \\\\
     } else {
       outName = 'document.pdf';
     }
-
     let fetchBody;
     let latexSrc = '';
-
     if (activeTab === 'file') {
       const fd = new FormData();
       fd.append('file',     selectedFile);
@@ -852,10 +902,8 @@ Bob   & 25 & Paris  \\\\
       if (customFilename) fd.append('output_filename', outName);
       fetchBody = fd;
     }
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 18, 400, 'Reading LaTeX source…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(18, 45, 800, `Running ${compilerLabel} pass 1…`);
@@ -868,39 +916,29 @@ Bob   & 25 & Paris  \\\\
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(75, 92, 600, 'Generating PDF output…');
     }, 2400);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/latex-to-pdf', {
         method: 'POST',
         body:   fetchBody,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Compilation failed. Please check your LaTeX source.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
-
       renderResultChips(compiler, passes, synctex, draft, latexSrc);
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -909,12 +947,10 @@ Bob   & 25 & Paris  \\\\
       updateStepIndicator(1);
     }
   }
-
   function renderResultChips(compiler, passes, synctex, draft, src) {
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-
     const compilerLabel = { pdflatex: 'pdfLaTeX', lualatex: 'LuaLaTeX', xelatex: 'XeLaTeX' }[compiler] || compiler;
     const chips = [
       ['chip-compiler', 'Compiler', compilerLabel],
@@ -922,12 +958,10 @@ Bob   & 25 & Paris  \\\\
     ];
     if (synctex) chips.push(['chip-option', 'SyncTeX', 'enabled']);
     if (draft)   chips.push(['chip-option', 'Draft', 'mode']);
-
     if (src) {
       const stats = analyzeLatex(src);
       if (stats.documentClass) chips.push(['chip-detect', '\\documentclass', stats.documentClass]);
     }
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -937,7 +971,6 @@ Bob   & 25 & Paris  \\\\
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -946,13 +979,11 @@ Bob   & 25 & Paris  \\\\
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -961,7 +992,6 @@ Bob   & 25 & Paris  \\\\
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -981,7 +1011,6 @@ Bob   & 25 & Paris  \\\\
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -994,7 +1023,6 @@ Bob   & 25 & Paris  \\\\
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1014,7 +1042,6 @@ Bob   & 25 & Paris  \\\\
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1024,13 +1051,11 @@ Bob   & 25 & Paris  \\\\
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1041,9 +1066,7 @@ Bob   & 25 & Paris  \\\\
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

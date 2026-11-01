@@ -1,21 +1,15 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="hash-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── Mode tabs ── --}}
-            <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
+            <div class="hash-tabs flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $hashTabs = [
                 ['generate', '#', 'Generate Hash'],
@@ -47,16 +41,12 @@
                 </button>
                 @endforeach
             </div>
-
-            <div class="p-6 lg:p-8">
-
+            <div class="p-3 sm:p-5 lg:p-8">
                 {{-- ══ GENERATE TAB ══ --}}
                 <div id="panel-generate" class="tab-panel">
                     <div class="grid lg:grid-cols-3 gap-6">
-
                         {{-- ── LEFT: Options ── --}}
                         <div class="space-y-4">
-
                             {{-- Input mode --}}
                             <div class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <button type="button" id="gen-mode-text"
@@ -79,12 +69,11 @@
                                     File
                                 </button>
                             </div>
-
                             {{-- Text input --}}
                             <div id="gen-text-panel" class="space-y-2">
-                                <div class="flex items-center justify-between">
+                                <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between">
                                     <label class="text-sm font-semibold text-fn-text2">Input Text</label>
-                                    <div class="flex gap-2">
+                                    <div class="flex flex-wrap gap-2">
                                         <button type="button" id="gen-paste"
                                             class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">Paste</button>
                                         <button type="button" id="gen-clear"
@@ -94,12 +83,12 @@
                                 <textarea id="gen-text-input" rows="5" spellcheck="false"
                                     placeholder="Enter or paste text to hash…"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-                                <div class="flex items-center justify-between text-fn-text3 text-sm">
+                                <div
+                                    class="hash-toolbar flex flex-wrap gap-2 items-center justify-between text-fn-text3 text-sm">
                                     <span id="gen-char-count">0 characters</span>
                                     <span id="gen-byte-count">0 bytes</span>
                                 </div>
                             </div>
-
                             {{-- File input --}}
                             <div id="gen-file-panel" class="hidden space-y-2">
                                 <div id="gen-drop-zone"
@@ -134,12 +123,11 @@
                                     </button>
                                 </div>
                             </div>
-
                             {{-- Algorithms --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <div class="flex items-center justify-between mb-2">
+                                <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between mb-2">
                                     <label class="text-sm font-semibold text-fn-text2">Algorithms</label>
-                                    <div class="flex gap-2">
+                                    <div class="flex flex-wrap gap-2">
                                         <button type="button" id="algo-select-all"
                                             class="text-sm text-fn-blue-l hover:underline font-semibold">All</button>
                                         <button type="button" id="algo-select-none"
@@ -183,7 +171,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             {{-- HMAC + Output format --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                                 <div>
@@ -196,7 +183,7 @@
                                 <div>
                                     <label class="text-sm font-semibold text-fn-text2 block mb-1.5">Output
                                         Format</label>
-                                    <div class="flex gap-1.5">
+                                    <div class="flex flex-wrap gap-1.5">
                                         @php $outFmts =
                                         [['hex','hex'],['base64','base64'],['base64url','base64url'],['int','int']];
                                         @endphp
@@ -208,21 +195,18 @@
                                     </div>
                                 </div>
                             </div>
-
                             <button type="button" id="gen-btn"
                                 class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
                                 disabled>
                                 <span class="font-black text-base">#</span>
                                 Compute Hashes
                             </button>
-
                         </div>{{-- /left --}}
-
                         {{-- ── RIGHT: Results ── --}}
                         <div class="lg:col-span-2 space-y-3">
-                            <div class="flex items-center justify-between">
+                            <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between">
                                 <p class="text-sm font-semibold text-fn-text2" id="gen-result-label">Hash Results</p>
-                                <div class="flex gap-2">
+                                <div class="flex flex-wrap gap-2">
                                     <span id="gen-meta" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="gen-copy-all"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -236,7 +220,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             <div id="gen-results" class="space-y-2">
                                 <div id="gen-empty"
                                     class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
@@ -245,7 +228,6 @@
                                     <span class="text-sm">Enter text or upload a file, then click Compute</span>
                                 </div>
                             </div>
-
                             <div id="gen-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -256,14 +238,11 @@
                                 <span id="gen-error-text"></span>
                             </div>
                         </div>
-
                     </div>
                 </div>{{-- /panel-generate --}}
-
                 {{-- ══ COMPARE TAB ══ --}}
                 <div id="panel-compare" class="tab-panel hidden">
                     <div class="max-w-2xl space-y-4">
-
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="space-y-2">
                                 <label class="text-sm font-semibold text-fn-text2 block">Hash 1</label>
@@ -276,7 +255,6 @@
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             </div>
                         </div>
-
                         <button type="button" id="cmp-btn" disabled
                             class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -285,7 +263,6 @@
                             </svg>
                             Compare Hashes
                         </button>
-
                         {{-- Result --}}
                         <div id="cmp-result" class="hidden p-5 rounded-2xl border">
                             <div class="flex items-center gap-3 mb-3">
@@ -305,14 +282,12 @@
                             </div>
                             <div class="grid grid-cols-2 gap-2" id="cmp-stats"></div>
                         </div>
-
                         {{-- Live diff (character-by-character) --}}
                         <div id="cmp-diff" class="hidden">
                             <p class="text-sm font-semibold text-fn-text2 mb-2">Diff View</p>
                             <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl font-mono text-sm leading-relaxed break-all"
                                 id="cmp-diff-view"></div>
                         </div>
-
                         <div id="cmp-error"
                             class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -323,11 +298,9 @@
                         </div>
                     </div>
                 </div>{{-- /panel-compare --}}
-
                 {{-- ══ CHECKSUM TAB ══ --}}
                 <div id="panel-checksum" class="tab-panel hidden">
                     <div class="max-w-2xl space-y-4">
-
                         {{-- Drop zone --}}
                         <div id="chk-drop-zone"
                             class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
@@ -348,7 +321,6 @@
                             <input type="file" id="chk-file-input"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         <div id="chk-file-preview"
                             class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
@@ -376,7 +348,6 @@
                                 </svg>
                             </button>
                         </div>
-
                         {{-- Algorithm selector --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-2">Algorithm</label>
@@ -389,7 +360,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         {{-- Expected checksum (optional verify) --}}
                         <div>
                             <label for="chk-expected" class="text-sm font-semibold text-fn-text2 block mb-1.5">
@@ -399,7 +369,6 @@
                             <input type="text" id="chk-expected" placeholder="Paste expected hash to verify against…"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40" />
                         </div>
-
                         <button type="button" id="chk-btn" disabled
                             class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -409,11 +378,10 @@
                             </svg>
                             Compute Checksum
                         </button>
-
                         {{-- Result --}}
                         <div id="chk-result" class="hidden space-y-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <div class="flex items-center justify-between mb-2">
+                                <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between mb-2">
                                     <p class="text-sm font-semibold text-fn-text2" id="chk-algo-label">SHA-256</p>
                                     <button type="button" id="chk-copy-btn"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -448,7 +416,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div id="chk-error"
                             class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -457,19 +424,15 @@
                             </svg>
                             <span id="chk-error-text"></span>
                         </div>
-
                     </div>
                 </div>{{-- /panel-checksum --}}
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ ALGORITHM REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Algorithm Reference</h2>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
@@ -533,12 +496,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -657,13 +617,186 @@
         color: oklch(62% 0.22 25);
         border-radius: 2px;
     }
-</style>
 
+    /* Responsive hash controls and long result values. */
+    #hash-tool * {
+        box-sizing: border-box;
+    }
+
+    #hash-tool .grid>*,
+    #hash-tool .flex-1,
+    #hash-tool .tab-panel,
+    #hash-tool .hash-result-row {
+        min-width: 0;
+    }
+
+    #hash-tool .hash-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #hash-tool .tab-btn {
+        justify-content: center;
+    }
+
+    #hash-tool .tab-btn.active,
+    #hash-tool .gen-mode-btn.active,
+    #hash-tool .out-fmt-btn.active,
+    #hash-tool .chk-algo-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #hash-tool button,
+    #hash-tool a {
+        touch-action: manipulation;
+    }
+
+    #hash-tool button:focus-visible,
+    #hash-tool input:focus-visible,
+    #hash-tool textarea:focus-visible,
+    #hash-tool .hash-result-row:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #hash-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #hash-tool [id$="file-name"] {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #hash-tool [id$="file-meta"],
+    #hash-tool [id$="error-text"],
+    #hash-tool #gen-meta,
+    #hash-tool #chk-size-label {
+        overflow-wrap: anywhere;
+    }
+
+    #hash-tool input,
+    #hash-tool textarea {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #hash-tool textarea {
+        resize: vertical;
+    }
+
+    #hash-tool svg {
+        flex-shrink: 0;
+    }
+
+    #hash-tool .hr-header {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    #hash-tool .hr-copy {
+        opacity: 1;
+    }
+
+    #hash-tool .hr-value,
+    #hash-tool #chk-hash-display {
+        overflow-wrap: anywhere;
+        word-break: break-all;
+    }
+
+    #hash-tool #cmp-diff-view {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-all;
+    }
+
+    @media (max-width: 639px) {
+
+        #hash-tool button,
+        #hash-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #hash-tool .tab-btn {
+            flex-direction: column;
+            padding: 8px 3px;
+            font-size: 11px;
+        }
+
+        #hash-tool .tab-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        #hash-tool .out-fmt-btn,
+        #hash-tool .chk-algo-btn {
+            padding: 5px 8px;
+            min-height: 30px;
+            font-size: 11px;
+        }
+
+        #hash-tool .drop-zone {
+            padding: 24px 12px;
+        }
+
+        #hash-tool .drop-zone p {
+            font-size: 12px;
+        }
+
+        #hash-tool input[type="text"],
+        #hash-tool textarea {
+            font-size: 16px;
+        }
+
+        #hash-tool textarea {
+            min-height: 140px;
+            padding: 12px;
+        }
+
+        #hash-tool [id$="remove-file"],
+        #hash-tool #chk-remove {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #hash-tool .hash-result-row {
+            padding: 10px;
+        }
+
+        #hash-tool .hr-value {
+            font-size: 11px;
+        }
+
+        #hash-tool label:has(input[name="gen-algo"]) {
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 4px;
+        }
+
+        #hash-tool label:has(input[name="gen-algo"]) span {
+            font-size: 11px;
+        }
+
+        #hash-tool #cmp-result,
+        #hash-tool #chk-verify-result {
+            padding: 12px;
+        }
+    }
+</style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const API = 'https://api.filenewer.com/api/tools';
   let genMode    = 'text';
   let genFile    = null;
@@ -671,7 +804,6 @@
   let activeAlgo = 'sha256'; // checksum tab
   let activeFmt  = 'hex';
   let chkHash    = '';
-
   // ── Tab switching ──
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -681,11 +813,9 @@
       document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
     });
   });
-
   // ── Generate: mode toggle ──
   document.getElementById('gen-mode-text').addEventListener('click', () => switchGenMode('text'));
   document.getElementById('gen-mode-file').addEventListener('click', () => switchGenMode('file'));
-
   function switchGenMode(mode) {
     genMode = mode;
     document.getElementById('gen-mode-text').classList.toggle('active', mode === 'text');
@@ -694,7 +824,6 @@
     document.getElementById('gen-file-panel').classList.toggle('hidden', mode !== 'file');
     refreshGenBtn();
   }
-
   // ── Generate: text input ──
   const genTA = document.getElementById('gen-text-input');
   genTA.addEventListener('input', () => {
@@ -703,7 +832,6 @@
     document.getElementById('gen-byte-count').textContent = new Blob([val]).size.toLocaleString() + ' bytes';
     refreshGenBtn();
   });
-
   document.getElementById('gen-paste').addEventListener('click', async () => {
     try { genTA.value = await navigator.clipboard.readText(); genTA.dispatchEvent(new Event('input')); } catch(_) {}
   });
@@ -713,13 +841,11 @@
     document.getElementById('gen-results').innerHTML = genEmptyHTML();
     hideEl('gen-error'); hideEl('gen-meta'); hideEl('gen-copy-all');
   });
-
   // ── Generate: file drop ──
   setupDrop('gen-drop-zone', 'gen-file-input', 'gen-file-preview', 'gen-file-name', 'gen-file-meta', 'gen-remove-file',
     f => { genFile = f; refreshGenBtn(); },
     () => { genFile = null; refreshGenBtn(); }
   );
-
   // ── Algorithm selectors ──
   document.getElementById('algo-select-all').addEventListener('click', () => {
     document.querySelectorAll('input[name="gen-algo"]').forEach(cb => cb.checked = true);
@@ -734,13 +860,11 @@
     });
   });
   document.querySelectorAll('input[name="gen-algo"]').forEach(cb => cb.addEventListener('change', refreshGenBtn));
-
   function refreshGenBtn() {
     const hasInput = genMode === 'text' ? !!genTA.value.trim() : !!genFile;
     const hasAlgo  = [...document.querySelectorAll('input[name="gen-algo"]:checked')].length > 0;
     document.getElementById('gen-btn').disabled = !(hasInput && hasAlgo);
   }
-
   // ── Output format ──
   document.querySelectorAll('.out-fmt-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -749,19 +873,15 @@
       activeFmt = btn.dataset.fmt;
     });
   });
-
   // ── Generate: compute ──
   document.getElementById('gen-btn').addEventListener('click', doGenerate);
-
   async function doGenerate() {
     hideEl('gen-error');
     const btn = document.getElementById('gen-btn');
     btn.disabled = true;
     btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Computing…`;
-
     const selectedAlgos = [...document.querySelectorAll('input[name="gen-algo"]:checked')].map(cb => cb.value);
     const hmacKey       = document.getElementById('gen-hmac').value.trim();
-
     try {
       let res;
       if (genMode === 'text') {
@@ -794,7 +914,6 @@
       refreshGenBtn();
     }
   }
-
   function genEmptyHTML() {
     return `<div id="gen-empty" class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
       <span class="text-4xl font-black opacity-20">#</span>
@@ -802,28 +921,30 @@
       <span class="text-sm">Enter text or upload a file, then click Compute</span>
     </div>`;
   }
-
   function renderHashResults(data) {
     const hashes  = data.hashes ?? {};
     const container = document.getElementById('gen-results');
     container.innerHTML = '';
-
     const allLines = [];
-
     Object.entries(hashes).forEach(([algo, info]) => {
       if (info.error) return;
       const hash     = info.hash ?? '';
       const secure   = info.secure ?? true;
       const bits     = info.bits ?? 0;
       allLines.push(`${algo.toUpperCase()}: ${hash}`);
-
       const div = document.createElement('div');
       div.className = 'hash-result-row';
+      div.tabIndex = 0;
+      div.setAttribute('role', 'button');
+      div.setAttribute('aria-label', 'Copy ' + algo.toUpperCase() + ' hash');
+      div.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); div.click(); }
+      });
       div.innerHTML = `
         <div class="hr-header">
           <span class="hr-algo">${escHtml(algo.toUpperCase())}</span>
           <span class="hr-bits">${bits} bits</span>
-          <span class="hr-secure ${secure ? 'text-fn-green' : 'text-fn-red'}">${secure ? '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Secure' : '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy'}</span>
+          <span class="hr-secure ${secure ? 'text-fn-green' : 'text-fn-red'}">${secure ? `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Secure` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy`}</span>
           <span class="hr-copy">Copy</span>
         </div>
         <div class="hr-value">${escHtml(hash)}</div>`;
@@ -835,7 +956,6 @@
       });
       container.appendChild(div);
     });
-
     // Meta
     const meta = [
       data.input_type && `${data.input_type}`,
@@ -846,7 +966,6 @@
     ].filter(Boolean).join(' · ');
     document.getElementById('gen-meta').textContent = meta;
     showEl('gen-meta');
-
     showEl('gen-copy-all');
     document.getElementById('gen-copy-all').onclick = async () => {
       await navigator.clipboard.writeText(allLines.join('\n')).catch(() => {});
@@ -854,23 +973,19 @@
       setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
     };
   }
-
   // ══ COMPARE ══
   const cmpHash1 = document.getElementById('cmp-hash1');
   const cmpHash2 = document.getElementById('cmp-hash2');
   const cmpBtn   = document.getElementById('cmp-btn');
-
   [cmpHash1, cmpHash2].forEach(el => el.addEventListener('input', () => {
     cmpBtn.disabled = !(cmpHash1.value.trim() && cmpHash2.value.trim());
   }));
-
   cmpBtn.addEventListener('click', async () => {
     hideEl('cmp-error'); hideEl('cmp-result'); hideEl('cmp-diff');
     const h1 = cmpHash1.value.trim();
     const h2 = cmpHash2.value.trim();
     cmpBtn.disabled = true;
     cmpBtn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Comparing…`;
-
     try {
       const res  = await fetch(`${API}/hash-compare`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -878,24 +993,22 @@
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Comparison failed.');
-
       const match  = data.match ?? false;
       const result = document.getElementById('cmp-result');
       result.className = `p-5 rounded-2xl border ${match
         ? 'bg-fn-green/6 border-fn-green/20'
         : 'bg-fn-red/6 border-fn-red/20'}`;
-      document.getElementById('cmp-icon').textContent    = match ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+      document.getElementById('cmp-icon').innerHTML    = match ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>';
+</svg>`;
       document.getElementById('cmp-title').textContent   = match ? 'Hashes Match' : 'Hashes Do Not Match';
       document.getElementById('cmp-message').textContent = data.message ?? '';
-
       // Stats chips
       const stats = document.getElementById('cmp-stats');
       stats.innerHTML = '';
@@ -908,9 +1021,7 @@
         div.innerHTML = `<p class="text-sm text-fn-text3">${label}</p><p class="text-sm font-bold text-fn-text2 mt-0.5">${val}</p>`;
         stats.appendChild(div);
       });
-
       showEl('cmp-result');
-
       // Diff view (if lengths match)
       if (h1.length === h2.length && h1.length > 0) {
         let diffHtml = '';
@@ -921,7 +1032,6 @@
         document.getElementById('cmp-diff-view').innerHTML = diffHtml;
         showEl('cmp-diff');
       }
-
     } catch(err) {
       document.getElementById('cmp-error-text').textContent = err.message;
       showEl('cmp-error', 'flex');
@@ -930,13 +1040,11 @@
       cmpBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Compare Hashes`;
     }
   });
-
   // ══ CHECKSUM ══
   setupDrop('chk-drop-zone','chk-file-input','chk-file-preview','chk-file-name','chk-file-meta','chk-remove',
     f => { chkFile = f; document.getElementById('chk-btn').disabled = false; },
     () => { chkFile = null; document.getElementById('chk-btn').disabled = true; hideEl('chk-result'); }
   );
-
   document.querySelectorAll('.chk-algo-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.chk-algo-btn').forEach(b => b.classList.remove('active'));
@@ -944,35 +1052,29 @@
       activeAlgo = btn.dataset.algo;
     });
   });
-
   document.getElementById('chk-btn').addEventListener('click', async () => {
     hideEl('chk-error'); hideEl('chk-result');
     const btn = document.getElementById('chk-btn');
     btn.disabled = true;
     btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Computing…`;
-
     const fd = new FormData();
     fd.append('file',      chkFile);
     fd.append('algorithm', activeAlgo);
-
     try {
       const res  = await fetch(`${API}/file-checksum`, { method: 'POST', body: fd });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Checksum failed.');
-
       chkHash = data.checksum ?? '';
       document.getElementById('chk-algo-label').textContent   = (data.algorithm ?? activeAlgo).toUpperCase();
       document.getElementById('chk-hash-display').textContent = chkHash;
       document.getElementById('chk-size-label').textContent   =
         (data.filename ?? chkFile.name) + ' · ' + (data.size_kb ?? 0) + ' KB';
-
       // Copy button
       document.getElementById('chk-copy-btn').onclick = async () => {
         await navigator.clipboard.writeText(chkHash).catch(() => {});
         document.getElementById('chk-copy-label').textContent = 'Copied!';
         setTimeout(() => { document.getElementById('chk-copy-label').textContent = 'Copy'; }, 2000);
       };
-
       // Verify against expected
       const expected = document.getElementById('chk-expected').value.trim();
       const verifyEl = document.getElementById('chk-verify-result');
@@ -981,15 +1083,15 @@
         verifyEl.className = `p-4 rounded-2xl border flex items-center gap-3 ${matches
           ? 'bg-fn-green/6 border-fn-green/20'
           : 'bg-fn-red/6 border-fn-red/20'}`;
-        document.getElementById('chk-verify-icon').textContent  = matches ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+        document.getElementById('chk-verify-icon').innerHTML  = matches ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>';
+</svg>`;
         document.getElementById('chk-verify-title').textContent = matches ? 'Checksum Verified <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>' : 'Checksum Mismatch!';
         document.getElementById('chk-verify-sub').textContent   = matches
           ? 'The file matches the expected checksum.'
@@ -998,7 +1100,6 @@
       } else {
         hideEl('chk-verify-result');
       }
-
       showEl('chk-result');
     } catch(err) {
       document.getElementById('chk-error-text').textContent = err.message;
@@ -1009,7 +1110,6 @@
       if (chkFile) btn.disabled = false;
     }
   });
-
   // ── Generic drop zone ──
   function setupDrop(dzId, inputId, previewId, nameId, metaId, removeId, onFile, onRemove) {
     const dz      = document.getElementById(dzId);
@@ -1034,7 +1134,6 @@
       dz.classList.add('has-file');
     }
   }
-
   // ── Helpers ──
   function showEl(id, display='block') {
     const el = document.getElementById(id); if(!el) return;
@@ -1049,10 +1148,7 @@
     if (b<1024) return b+' B'; if (b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB';
   }
   function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
 }); // end DOMContentLoaded
 </script>
-
 @endpush
-
 @endsection

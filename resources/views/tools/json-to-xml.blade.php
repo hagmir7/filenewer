@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="json-xml-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input JSON'],['2','Converting'],['3','Result']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,16 +24,13 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Mode tabs --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
-                        <button type="button" id="tab-text"
+                        <button type="button" id="tab-text" aria-pressed="true"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +40,7 @@
                             </svg>
                             Paste JSON
                         </button>
-                        <button type="button" id="tab-file"
+                        <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,12 +50,11 @@
                             Upload .json
                         </button>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-xs font-semibold text-fn-text2">JSON source</p>
-                            <div class="flex gap-1">
+                            <div class="flex flex-wrap gap-1">
                                 <button type="button" id="btn-sample-obj"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Object</button>
                                 <button type="button" id="btn-sample-arr"
@@ -85,21 +75,18 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <textarea id="json-textarea" rows="12" spellcheck="false"
                             placeholder='Paste JSON object or array, e.g.&#10;&#10;{&#10;  "username": "booker12",&#10;  "department": "Sales",&#10;  "active": true,&#10;  "score": 98.5&#10;}'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-
                         <div class="flex items-center justify-between text-xs mt-1.5">
                             <span id="json-status" class="text-fn-text3">Paste a JSON object or array</span>
                             <span id="json-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
                         </div>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div id="drop-zone"
-                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-yellow/40 hover:bg-fn-yellow/4 relative">
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-yellow/40 hover:bg-fn-yellow/4 relative">
                             <div class="flex items-center justify-center mb-5">
                                 <div class="w-20 h-20 rounded-2xl flex items-center justify-center"
                                     style="background: oklch(85% 0.18 95 / 12%); border: 1px solid oklch(85% 0.18 95 / 25%)">
@@ -129,7 +116,6 @@
                             <input type="file" id="file-input" accept=".json,application/json,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
@@ -154,7 +140,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Detected structure preview --}}
                     <div id="detected-content"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -169,19 +154,15 @@
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
                             <p class="text-sm font-semibold text-fn-text2">XML Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Left --}}
                             <div class="flex flex-col gap-3">
-
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
                                         <label for="opt-root"
@@ -198,7 +179,6 @@
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                     </div>
                                 </div>
-
                                 <div>
                                     <label for="opt-indent" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         Indent size — <span id="indent-val" class="text-fn-blue-l font-mono">2</span>
@@ -207,7 +187,6 @@
                                     <input type="range" id="opt-indent" min="1" max="8" value="2"
                                         class="w-full accent-fn-blue cursor-pointer" />
                                 </div>
-
                                 <div>
                                     <label for="opt-output"
                                         class="text-xs font-semibold text-fn-text2 block mb-1.5">Output mode</label>
@@ -217,9 +196,7 @@
                                         <option value="file">Download .xml file</option>
                                     </select>
                                 </div>
-
                             </div>
-
                             {{-- Right --}}
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Options</label>
@@ -250,10 +227,8 @@
                                     @endforeach
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -266,7 +241,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -277,7 +251,6 @@
                         Convert to XML
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -289,7 +262,7 @@
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
                         </div>
-                        <div class="flex gap-1">
+                        <div class="flex flex-wrap gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
@@ -307,11 +280,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting JSON to XML…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Mapping types, building element tree &amp; serializing output
                     </p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -321,7 +292,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Parsing JSON input'],
@@ -348,7 +318,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Result ── --}}
                 <div id="state-download" class="hidden py-4">
                     <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
@@ -402,13 +371,10 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Result chips --}}
-                    <div id="result-chips-wrap" class="hidden mb-4 flex flex-wrap gap-2" id="result-chips-wrap"></div>
-
+                    <div id="result-chips-wrap" class="hidden mb-4 flex flex-wrap gap-2"></div>
                     {{-- Split pane: JSON → XML --}}
                     <div class="grid lg:grid-cols-2 gap-4">
-
                         {{-- JSON pane --}}
                         <div class="flex flex-col">
                             <div class="flex items-center justify-between mb-1.5">
@@ -423,7 +389,6 @@
                             <pre id="json-preview"
                                 class="flex-1 bg-fn-surface2 border border-fn-text/10 rounded-xl px-4 py-3 text-xs font-mono text-fn-text2 overflow-auto max-h-96 leading-relaxed whitespace-pre-wrap break-all"></pre>
                         </div>
-
                         {{-- XML pane --}}
                         <div class="flex flex-col">
                             <div class="flex items-center justify-between mb-1.5">
@@ -436,9 +401,7 @@
                             <pre id="xml-preview"
                                 class="flex-1 bg-fn-surface2 border border-fn-blue/15 rounded-xl px-4 py-3 text-xs font-mono text-fn-text2 overflow-auto max-h-96 leading-relaxed whitespace-pre-wrap break-all"></pre>
                         </div>
-
                     </div>
-
                     <p class="mt-5 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -447,13 +410,10 @@
                         Your data is encrypted in transit and never stored or shared.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ TYPE MAPPING ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -493,8 +453,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -541,10 +499,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .tab-btn {
         color: var(--fn-text3);
@@ -623,12 +579,137 @@
         border-color: oklch(72% 0.18 55 / 30%);
         background: oklch(72% 0.18 55 / 6%);
     }
-</style>
 
+    #json-xml-tool .tab-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+    }
+
+    #json-xml-tool button:focus-visible,
+    #json-xml-tool a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #json-xml-tool .grid>*,
+    #json-xml-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #json-xml-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #output-name,
+    #file-meta,
+    #error-text,
+    #json-status,
+    #json-meta,
+    #result-meta {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #json-xml-tool input,
+    #json-xml-tool textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #json-xml-tool input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #json-xml-tool input:focus-visible~.toggle-track {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #json-xml-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #json-xml-tool .chip-item {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    #json-preview,
+    #xml-preview {
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 639px) {
+
+        #json-xml-tool button,
+        #json-xml-tool a.inline-flex,
+        #json-xml-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 6px 10px;
+            gap: 6px;
+        }
+
+        #json-xml-tool .tab-btn {
+            flex: 1 1 0;
+            justify-content: center;
+        }
+
+        #json-xml-tool .step-item {
+            gap: 4px;
+            min-width: 0;
+        }
+
+        #json-xml-tool .step-label {
+            font-size: 11px;
+        }
+
+        #json-xml-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #json-xml-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        #json-xml-tool input:not([type=file]),
+        #json-xml-tool textarea {
+            font-size: 16px;
+        }
+
+        #json-textarea {
+            min-height: 250px;
+        }
+
+        #file-preview {
+            padding: 12px;
+            gap: 8px;
+        }
+
+        #remove-file {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const SAMPLE_OBJ = JSON.stringify({
     username:   'booker12',
     identifier: 9012,
@@ -643,13 +724,11 @@
       country: 'UK'
     }
   }, null, 2);
-
   const SAMPLE_ARR = JSON.stringify([
     { username: 'booker12',  department: 'Sales',       active: true  },
     { username: 'grey07',    department: 'Depot',       active: true  },
     { username: 'johnson81', department: 'Engineering', active: false },
   ], null, 2);
-
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
   const panelText   = document.getElementById('panel-text');
@@ -662,29 +741,27 @@
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const jsonTA      = document.getElementById('json-textarea');
-
   let selectedFile = null;
   let blobUrl      = null;
   let activeTab    = 'text';
   let detectTimer  = null;
   let lastXml      = '';
   let lastJson     = '';
-
   // ── Tabs ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
-
   function switchTab(tab) {
     activeTab = tab;
     tabText.classList.toggle('active', tab === 'text');
+        tabText.setAttribute('aria-pressed', String(tab === 'text'));
     tabFile.classList.toggle('active', tab === 'file');
+        tabFile.setAttribute('aria-pressed', String(tab === 'file'));
     panelText.classList.toggle('hidden', tab !== 'text');
     panelFile.classList.toggle('hidden', tab !== 'file');
     hideError();
     refreshConvertBtn();
     refreshDetection();
   }
-
   // ── Samples / Paste / Format / Clear ──
   document.getElementById('btn-sample-obj').addEventListener('click', () => {
     jsonTA.value = SAMPLE_OBJ;
@@ -710,18 +787,15 @@
     jsonTA.value = '';
     jsonTA.dispatchEvent(new Event('input'));
   });
-
   // ── Indent slider ──
   document.getElementById('opt-indent').addEventListener('input', function () {
     document.getElementById('indent-val').textContent = this.value;
   });
-
   // ── Textarea input ──
   jsonTA.addEventListener('input', () => {
     const v     = jsonTA.value;
     const lines = v ? v.split('\n').length : 0;
     document.getElementById('json-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
-
     const status = document.getElementById('json-status');
     if (!v.trim()) {
       status.innerHTML = '<span class="text-fn-text3">Paste a JSON object or array</span>';
@@ -742,12 +816,10 @@
         status.innerHTML = '<span class="text-fn-red">Invalid JSON — ' + escHtml(e.message.substring(0, 60)) + '</span>';
       }
     }
-
     refreshConvertBtn();
     clearTimeout(detectTimer);
     detectTimer = setTimeout(refreshDetection, 300);
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -758,7 +830,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   async function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -776,7 +847,6 @@
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
-
     if (file.size < 2 * 1024 * 1024) {
       try {
         const text   = await file.text();
@@ -784,10 +854,8 @@
         detectFromParsed(parsed);
       } catch(_) {}
     }
-
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -798,7 +866,6 @@
     refreshConvertBtn();
     hideError();
   }
-
   function refreshConvertBtn() {
     if (activeTab === 'text') {
       try { JSON.parse(jsonTA.value); convertBtn.disabled = false; }
@@ -807,7 +874,6 @@
       convertBtn.disabled = !selectedFile;
     }
   }
-
   // ── Detection ──
   function refreshDetection() {
     if (activeTab !== 'text') return;
@@ -819,20 +885,17 @@
       document.getElementById('detected-content').classList.add('hidden');
     }
   }
-
   function detectFromParsed(parsed) {
     const stats = analyzeJson(parsed);
     const wrap  = document.getElementById('detected-content');
     const list  = document.getElementById('detected-chips');
     list.innerHTML = '';
-
     const chips = [['chip-type', 'Type', stats.type]];
     if (stats.keyCount !== null)  chips.push(['chip-keys',  'Keys',  stats.keyCount + '']);
     if (stats.itemCount !== null) chips.push(['chip-keys',  'Items', stats.itemCount + '']);
     if (stats.depth > 0)          chips.push(['chip-depth', 'Depth', stats.depth + '']);
     if (stats.hasArrays)          chips.push(['chip-mode',  'Arrays', 'detected']);
     if (stats.hasNulls)           chips.push(['chip-mode',  'Nulls', 'detected']);
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -842,7 +905,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   function analyzeJson(v, depth) {
     depth = depth || 1;
     if (Array.isArray(v)) {
@@ -866,16 +928,13 @@
     }
     return { type: typeof v, keyCount: null, itemCount: null, depth, hasArrays: false, hasNulls: false };
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const rootEl    = document.getElementById('opt-root').value.trim()  || 'root';
     const itemEl    = document.getElementById('opt-item').value.trim()   || 'item';
     const indent    = parseInt(document.getElementById('opt-indent').value);
@@ -883,10 +942,8 @@
     const inclDecl  = document.getElementById('opt-declaration').checked;
     const prettify  = document.getElementById('opt-prettify').checked;
     const attrMode  = document.getElementById('opt-attributes').checked;
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 22, 400, 'Parsing JSON input…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(22, 52, 600, 'Mapping types & structure…');
@@ -899,10 +956,8 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(78, 92, 400, 'Serializing output…');
     }, 1900);
-
     try {
       let res, endpoint, fetchOpts;
-
       if (activeTab === 'text') {
         endpoint  = 'https://api.filenewer.com/api/tools/json-text-to-xml';
         const payload = {
@@ -935,35 +990,28 @@
         fetchOpts = { method: 'POST', body: fd };
         lastJson = '';
       }
-
       const res2 = await fetch(endpoint, fetchOpts);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res2.ok) {
         let msg = 'Conversion failed. Please check your JSON and try again.';
         try { const d = await res2.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
-
       if (outputMode === 'file') {
         // File download
         const blob = await res2.blob();
         if (blobUrl) URL.revokeObjectURL(blobUrl);
         blobUrl = URL.createObjectURL(blob);
-
         const outName = activeTab === 'file'
           ? selectedFile.name.replace(/\.json$/i, '') + '.xml'
           : 'output.xml';
-
         const dlLink = document.getElementById('download-link');
         dlLink.href     = blobUrl;
         dlLink.download = outName;
         dlLink.classList.remove('hidden');
         dlLink.classList.add('flex');
-
         // Try to read blob for preview
         const reader = new FileReader();
         reader.onload = e => {
@@ -975,11 +1023,9 @@
         // JSON response with xml field
         const data = await res2.json();
         lastXml = data.xml || '';
-
         const dlLink = document.getElementById('download-link');
         dlLink.classList.add('hidden');
         dlLink.classList.remove('flex');
-
         showResultState(lastJson, lastXml, {
           outputMode,
           rootEl,
@@ -994,9 +1040,7 @@
           sizeXmlKb:  data.size_xml_kb,
         });
       }
-
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -1005,7 +1049,6 @@
       updateStepIndicator(1);
     }
   }
-
   function showResultState(jsonStr, xmlStr, meta) {
     // JSON pane
     const jsonPre = document.getElementById('json-preview');
@@ -1016,14 +1059,11 @@
     } catch(_) {
       jsonPre.textContent = jsonStr || '(file upload)';
     }
-
     // XML pane
     document.getElementById('xml-preview').textContent = xmlStr;
-
     // Size label
     const xmlBytes = new TextEncoder().encode(xmlStr).length;
     document.getElementById('xml-size-label').textContent = formatBytes(xmlBytes);
-
     // Meta line
     const parts = [];
     if (meta.type)      parts.push(meta.type);
@@ -1031,16 +1071,13 @@
     if (meta.itemCount) parts.push(meta.itemCount + ' items');
     if (meta.depth)     parts.push('depth ' + meta.depth);
     document.getElementById('result-meta').textContent = parts.join(' · ') || '—';
-
     // Title
     document.getElementById('result-title').textContent = meta.attrMode
       ? 'Converted with attributes mode'
       : 'Conversion complete';
-
     // Result chips
     renderResultChips(meta);
   }
-
   function renderResultChips(meta) {
     const wrap = document.getElementById('result-chips-wrap');
     wrap.innerHTML = '';
@@ -1051,7 +1088,6 @@
     if (meta.attrMode)  chips.push(['chip-mode', 'Mode', 'attributes']);
     if (meta.inclDecl)  chips.push(['chip-size', 'Declaration', '<?xml?>']);
     if (meta.sizeXmlKb) chips.push(['chip-size', 'XML size', meta.sizeXmlKb + ' KB']);
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -1061,7 +1097,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Copy buttons ──
   document.getElementById('btn-copy-xml').addEventListener('click', async () => {
     try {
@@ -1071,7 +1106,6 @@
       setTimeout(() => { label.textContent = 'Copy XML'; }, 2000);
     } catch(_) {}
   });
-
   document.getElementById('btn-copy-json').addEventListener('click', async () => {
     try {
       const text = document.getElementById('json-preview').textContent;
@@ -1081,7 +1115,6 @@
       setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
     } catch(_) {}
   });
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -1090,13 +1123,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -1105,7 +1136,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1125,7 +1155,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1138,11 +1167,9 @@
     }
     requestAnimationFrame(step);
   }
-
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1167,7 +1194,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1177,13 +1203,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1194,9 +1218,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection
