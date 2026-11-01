@@ -9,8 +9,7 @@
     <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
             {{-- Step indicator --}}
-            <div
-                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input JSON'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -414,8 +413,7 @@
             object and uses them as headers. Missing values in any row are left as empty cells.'],
             ['Can I paste JSON directly without a file?', 'Yes — switch to the Paste JSON tab, drop your JSON text into
             the editor, and convert instantly. You will get an inline table preview plus a .csv download.'],
-            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
-            deleted
+            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -444,13 +442,11 @@
     .tab-btn {
         color: var(--fn-text3);
     }
-
     .tab-btn.active {
         background: var(--fn-surface);
         color: var(--fn-text);
         box-shadow: 0 1px 4px oklch(0% 0 0 / 12%);
     }
-
     #csv-preview-table th {
         background: oklch(var(--fn-surface2-l, 22%) var(--fn-surface2-c, 0) var(--fn-surface2-h, 0) / 1);
         padding: 6px 10px;
@@ -460,7 +456,6 @@
         border-bottom: 1px solid oklch(var(--fn-text-l, 80%) 0 0 / 10%);
         white-space: nowrap;
     }
-
     #csv-preview-table td {
         padding: 5px 10px;
         color: var(--fn-text2);
@@ -470,129 +465,36 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     #csv-preview-table tr:last-child td {
         border-bottom: none;
     }
-
     #csv-preview-table tr:hover td {
         background: oklch(var(--fn-text-l, 80%) 0 0 / 4%);
     }
 
-    #json-csv-tool .tab-btn.active {
-        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
-        color: #fff;
-    }
-
-    #json-csv-tool button:focus-visible,
-    #json-csv-tool a:focus-visible {
-        outline: 2px solid #2563eb;
-        outline-offset: 3px;
-    }
-
-    #drop-zone:focus-within {
-        outline: 2px solid #2563eb;
-        outline-offset: 3px;
-    }
-
-    #json-csv-tool .grid>*,
-    #json-csv-tool .flex-1 {
-        min-width: 0;
-    }
-
-    #json-csv-tool .justify-between {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    #file-name,
-    #output-name,
-    #file-meta,
-    #error-text,
-    #json-status {
-        overflow-wrap: anywhere;
-        white-space: normal;
-    }
-
-    #json-csv-tool input,
-    #json-csv-tool textarea {
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    #csv-preview-wrap {
-        width: 100%;
-        min-width: 0;
-    }
-
-    #csv-preview-wrap>div:last-child {
-        max-width: 100%;
-        overscroll-behavior-x: contain;
-    }
-
+    #json-csv-tool .tab-btn.active { background: var(--color-fn-blue, var(--fn-blue, #2563eb)); color: #fff; }
+    #json-csv-tool button:focus-visible, #json-csv-tool a:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+    #drop-zone:focus-within { outline: 2px solid #2563eb; outline-offset: 3px; }
+    #json-csv-tool .grid > *, #json-csv-tool .flex-1 { min-width: 0; }
+    #json-csv-tool .justify-between { flex-wrap: wrap; gap: 8px; }
+    #file-name, #output-name, #file-meta, #error-text, #json-status { overflow-wrap: anywhere; white-space: normal; }
+    #json-csv-tool input, #json-csv-tool textarea { max-width: 100%; box-sizing: border-box; }
+    #csv-preview-wrap { width: 100%; min-width: 0; }
+    #csv-preview-wrap > div:last-child { max-width: 100%; overscroll-behavior-x: contain; }
     @media (max-width: 639px) {
-
-        #json-csv-tool button,
-        #json-csv-tool a.inline-flex {
-            min-height: 34px;
-            font-size: 12px;
-            padding: 6px 10px;
-            gap: 6px;
-        }
-
-        #json-csv-tool .tab-btn {
-            flex: 1 1 0;
-            justify-content: center;
-        }
-
-        #json-csv-tool .step-item {
-            gap: 4px;
-            min-width: 0;
-        }
-
-        #json-csv-tool .step-label {
-            font-size: 11px;
-        }
-
-        #json-csv-tool .step-dot {
-            flex-shrink: 0;
-            width: 22px;
-            height: 22px;
-        }
-
-        #json-csv-tool .step-item+div {
-            width: 12px;
-            margin-left: 4px;
-            margin-right: 4px;
-        }
-
-        #json-csv-tool input:not([type=file]),
-        #json-csv-tool textarea {
-            font-size: 16px;
-        }
-
-        #json-textarea {
-            min-height: 250px;
-        }
-
-        #file-preview {
-            padding: 12px;
-            gap: 8px;
-        }
-
-        #remove-file {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            padding: 6px;
-        }
-
-        #csv-preview-table th,
-        #csv-preview-table td {
-            font-size: 12px;
-            padding: 5px 8px;
-        }
+        #json-csv-tool button, #json-csv-tool a.inline-flex { min-height: 34px; font-size: 12px; padding: 6px 10px; gap: 6px; }
+        #json-csv-tool .tab-btn { flex: 1 1 0; justify-content: center; }
+        #json-csv-tool .step-item { gap: 4px; min-width: 0; }
+        #json-csv-tool .step-label { font-size: 11px; }
+        #json-csv-tool .step-dot { flex-shrink: 0; width: 22px; height: 22px; }
+        #json-csv-tool .step-item + div { width: 12px; margin-left: 4px; margin-right: 4px; }
+        #json-csv-tool input:not([type=file]), #json-csv-tool textarea { font-size: 16px; }
+        #json-textarea { min-height: 250px; }
+        #file-preview { padding: 12px; gap: 8px; }
+        #remove-file { width: 32px; height: 32px; min-width: 32px; padding: 6px; }
+        #csv-preview-table th, #csv-preview-table td { font-size: 12px; padding: 5px 8px; }
     }
+
 </style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}

@@ -413,7 +413,7 @@
             ['What if my objects have different keys?', 'No problem. The converter collects all unique keys across every
             object and uses them as headers. Missing values in any row are left as empty cells.'],
             ['Can I paste JSON directly without a file?', 'Yes — switch to the Paste JSON tab, drop your JSON text into
-            the editor, and convert instantly. You\\'ll get an inline table preview plus a .csv download.'],
+            the editor, and convert instantly. You will get an inline table preview plus a .csv download.'],
             ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
             deleted
             after processing. We never read, share or store your content.'],
