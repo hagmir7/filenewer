@@ -553,18 +553,23 @@
         }
 
         #timestamp-tool #single-input {
-            padding: 12px;
+            padding: 14px 108px 14px 12px;
+            min-height: 56px;
         }
 
         #timestamp-tool .single-input-actions {
-            position: static;
-            transform: none;
-            justify-content: flex-end;
-            margin-top: 8px;
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            gap: 4px;
+            margin: 0;
         }
 
         #timestamp-tool .single-input-actions button {
-            min-width: 44px;
+            min-width: 40px;
+            min-height: 44px;
+            padding: 0 8px;
         }
 
         #timestamp-tool .batch-actions {
@@ -594,6 +599,65 @@
         #timestamp-tool .batch-result-card .truncate {
             white-space: normal;
         }
+    }
+
+
+    /* Clear selected and focused states for both conversion tabs. */
+    #timestamp-tool .tab-btn.active,
+    #timestamp-tool .tab-btn:focus {
+        background: var(--fn-blue);
+        color: #fff;
+        box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+    }
+
+    #timestamp-tool .tab-btn:not(.active):hover {
+        background: var(--fn-surface);
+        color: var(--fn-text);
+    }
+
+    #timestamp-tool .tab-btn:focus-visible {
+        outline-offset: 2px;
+    }
+
+    #timestamp-tool .single-input-actions button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        line-height: 1;
+        transition: background .15s, color .15s, border-color .15s;
+    }
+
+    #timestamp-tool #btn-now {
+        background: var(--fn-blue);
+        border-color: var(--fn-blue);
+        color: #fff;
+        font-weight: 700;
+    }
+
+    #timestamp-tool #btn-now:hover,
+    #timestamp-tool #btn-now:focus {
+        background: var(--fn-blue-l);
+        color: #fff;
+    }
+
+    #timestamp-tool #btn-clear-single {
+        width: 40px;
+        padding: 0;
+        background: var(--fn-surface);
+        color: var(--fn-text3);
+    }
+
+    #timestamp-tool #btn-clear-single:hover,
+    #timestamp-tool #btn-clear-single:focus {
+        background: var(--fn-surface2);
+        border-color: var(--fn-red);
+        color: var(--fn-red);
+    }
+
+    #timestamp-tool #btn-clear-single svg {
+        width: 18px;
+        height: 18px;
     }
 </style>
 @endpush
