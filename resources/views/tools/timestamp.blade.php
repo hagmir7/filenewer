@@ -1,21 +1,15 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="timestamp-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── Mode tabs ── --}}
-            <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
+            <div class="tool-tabs flex flex-wrap items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 <button type="button" id="tab-single"
                     class="tab-btn active flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -39,27 +33,26 @@
                     Batch Convert
                 </button>
                 {{-- Live clock --}}
-                <div class="ml-auto flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <div
+                    class="tool-clock ml-auto flex flex-wrap items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/8 rounded-xl">
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     <span class="text-sm font-mono font-semibold text-fn-text2" id="live-clock">—</span>
                     <span class="text-fn-text3 text-sm" id="live-unix">—</span>
                 </div>
             </div>
-
-            <div class="p-6 lg:p-8">
-
+            <div class="tool-body p-3 sm:p-5 lg:p-8">
                 {{-- ══ TIMEZONE BAR (shared) ══ --}}
                 <div
-                    class="flex flex-wrap items-center gap-3 mb-6 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                    class="timezone-bar flex flex-wrap items-center gap-3 mb-6 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     <div class="flex items-center gap-2 flex-1 min-w-0">
-                        <label class="text-sm font-semibold text-fn-text2 shrink-0">From</label>
+                        <label for="from-tz" class="text-sm font-semibold text-fn-text2 shrink-0">From</label>
                         <select id="from-tz"
                             class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
                         </select>
                     </div>
                     <button type="button" id="swap-tz"
                         class="w-8 h-8 flex items-center justify-center rounded-lg bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 transition-all shrink-0"
-                        title="Swap timezones">
+                        title="Swap timezones" aria-label="Swap timezones">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="17 1 21 5 17 9" />
@@ -69,7 +62,7 @@
                         </svg>
                     </button>
                     <div class="flex items-center gap-2 flex-1 min-w-0">
-                        <label class="text-sm font-semibold text-fn-text2 shrink-0">To</label>
+                        <label for="to-tz" class="text-sm font-semibold text-fn-text2 shrink-0">To</label>
                         <select id="to-tz"
                             class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
                         </select>
@@ -85,22 +78,20 @@
                         <span id="tz-detected-label">Detected from browser</span>
                     </div>
                 </div>
-
                 {{-- ══ SINGLE TAB ══ --}}
                 <div id="panel-single">
-
                     {{-- Input row --}}
-                    <div class="flex gap-2 mb-4">
-                        <div class="relative flex-1">
-                            <input type="text" id="single-input"
+                    <div class="single-input-row flex flex-col sm:flex-row gap-2 mb-4">
+                        <div class="single-input-wrap relative flex-1 min-w-0">
+                            <input type="text" id="single-input" aria-label="Timestamp or date"
                                 placeholder="Enter timestamp, date, or try: now · today · yesterday · tomorrow"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm rounded-xl px-4 py-3 pr-24 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 placeholder:font-sans" />
-                            <div class="absolute right-3 top-1/2 -translate-y-1/2 flex gap-1.5">
+                            <div class="single-input-actions absolute right-3 top-1/2 -translate-y-1/2 flex gap-1.5">
                                 <button type="button" id="btn-now"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm font-semibold rounded-lg transition-all">
                                     Now
                                 </button>
-                                <button type="button" id="btn-clear-single"
+                                <button type="button" id="btn-clear-single" aria-label="Clear input"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
                                         width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -113,7 +104,7 @@
                             </div>
                         </div>
                         <button type="button" id="single-convert-btn"
-                            class="flex items-center gap-2 px-5 py-3 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 shrink-0"
+                            class="flex items-center justify-center gap-2 px-5 py-3 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 shrink-0"
                             disabled>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -122,7 +113,6 @@
                             Convert
                         </button>
                     </div>
-
                     {{-- Quick format examples --}}
                     <div class="flex flex-wrap gap-1.5 mb-6">
                         <span class="text-sm text-fn-text3 mr-1 self-center">Try:</span>
@@ -138,7 +128,6 @@
                             data-val="{{ $ex }}">{{ $ex }}</button>
                         @endforeach
                     </div>
-
                     {{-- Error --}}
                     <div id="single-error"
                         class="hidden mb-4 flex items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-red">
@@ -150,10 +139,8 @@
                         </svg>
                         <span id="single-error-text"></span>
                     </div>
-
                     {{-- Result grid --}}
                     <div id="single-result" class="hidden">
-
                         {{-- Header meta --}}
                         <div class="flex flex-wrap items-center gap-2 mb-4 px-1">
                             <span class="text-sm font-mono text-fn-text3" id="res-input-label"></span>
@@ -163,12 +150,9 @@
                                 class="hidden text-sm px-2 py-0.5 bg-fn-amber/12 border border-fn-amber/30 text-fn-amber rounded-md font-semibold">DST</span>
                             <span class="text-sm text-fn-text3 ml-auto" id="res-relative"></span>
                         </div>
-
                         {{-- Format cards grid --}}
                         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2" id="format-cards"></div>
-
                     </div>
-
                     {{-- Loading shimmer --}}
                     <div id="single-loading" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         @for($i = 0; $i < 12; $i++) <div
@@ -176,27 +160,24 @@
                     </div>
                     @endfor
                 </div>
-
             </div>{{-- /panel-single --}}
-
             {{-- ══ BATCH TAB ══ --}}
             <div id="panel-batch" class="hidden">
-
                 <div class="grid lg:grid-cols-2 gap-6">
-
                     {{-- Input --}}
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
+                    <div class="min-w-0 space-y-3">
+                        <div class="batch-toolbar flex flex-wrap items-center justify-between gap-2">
                             <p class="text-sm font-semibold text-fn-text2">Input Values <span
                                     class="font-normal text-fn-text3 ml-1">(one per line)</span></p>
-                            <div class="flex gap-2">
+                            <div class="batch-actions flex flex-wrap items-center gap-2">
                                 <button type="button" id="btn-load-examples"
                                     class="text-sm text-fn-blue-l hover:underline font-semibold">Load examples</button>
                                 <button type="button" id="btn-clear-batch"
                                     class="text-sm text-fn-text3 hover:text-fn-red font-semibold">Clear</button>
                             </div>
                         </div>
-                        <textarea id="batch-input" rows="14" spellcheck="false"
+                        <textarea id="batch-input" aria-label="Timestamps or dates, one per line" rows="14"
+                            spellcheck="false"
                             placeholder="1704067200&#10;2024-01-15T08:30:00Z&#10;now&#10;yesterday&#10;2024-06-01 12:00:00"
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <button type="button" id="batch-convert-btn"
@@ -209,12 +190,11 @@
                             Convert All
                         </button>
                     </div>
-
                     {{-- Results --}}
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
+                    <div class="min-w-0 space-y-3">
+                        <div class="batch-toolbar flex flex-wrap items-center justify-between gap-2">
                             <p class="text-sm font-semibold text-fn-text2">Results</p>
-                            <div class="flex gap-2">
+                            <div class="batch-actions flex flex-wrap items-center gap-2">
                                 <span id="batch-stats" class="hidden text-sm text-fn-text3"></span>
                                 <button type="button" id="btn-copy-batch"
                                     class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -237,7 +217,6 @@
                                 </a>
                             </div>
                         </div>
-
                         <div id="batch-results-wrap" class="space-y-2 max-h-96 overflow-y-auto pr-1">
                             <div id="batch-placeholder"
                                 class="flex flex-col items-center justify-center h-48 text-fn-text3 text-sm gap-2 border-2 border-dashed border-fn-text/8 rounded-xl">
@@ -249,7 +228,6 @@
                                 Results will appear here
                             </div>
                         </div>
-
                         <div id="batch-error"
                             class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -260,19 +238,15 @@
                             <span id="batch-error-text"></span>
                         </div>
                     </div>
-
                 </div>
             </div>{{-- /panel-batch --}}
-
         </div>{{-- /card body --}}
     </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FORMAT REFERENCE ══ --}}
-<section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="timestamp-reference" class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Accepted Input Formats</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @php
@@ -301,12 +275,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 @push('styles')
 {{-- ══ STYLES ══ --}}
 <style>
@@ -392,14 +363,244 @@
     .example-btn:hover {
         background: oklch(49% 0.24 264/8%);
     }
+
+    /* Scoped layout rules also cover cards inserted by JavaScript. */
+    #timestamp-tool *,
+    #timestamp-reference * {
+        box-sizing: border-box;
+    }
+
+    #timestamp-tool .tool-body,
+    #timestamp-tool .tool-body>div,
+    #timestamp-tool .timezone-bar>div,
+    #timestamp-tool .format-card,
+    #timestamp-tool .batch-result-card,
+    #timestamp-reference .grid>div {
+        min-width: 0;
+    }
+
+    #timestamp-tool button,
+    #timestamp-tool select,
+    #timestamp-tool #btn-download-batch {
+        min-height: 44px;
+    }
+
+    #timestamp-tool button,
+    #timestamp-tool #btn-download-batch {
+        touch-action: manipulation;
+    }
+
+    #timestamp-tool svg {
+        flex-shrink: 0;
+    }
+
+    #timestamp-tool .tab-btn {
+        justify-content: center;
+        flex: 1 1 140px;
+        padding-inline: 12px;
+    }
+
+    #timestamp-tool .tool-clock {
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    #timestamp-tool .timezone-bar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+    }
+
+    #timestamp-tool .timezone-bar>div:last-child {
+        grid-column: 1 / -1;
+        overflow-wrap: anywhere;
+    }
+
+    #timestamp-tool #swap-tz {
+        width: 44px;
+        height: 44px;
+    }
+
+    #timestamp-tool .timezone-bar select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #timestamp-tool .format-card {
+        min-height: 64px;
+        padding-right: 58px;
+    }
+
+    #timestamp-tool .format-card .card-value {
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    #timestamp-tool .format-card .card-copy {
+        opacity: 1;
+    }
+
+    #timestamp-tool #format-cards,
+    #timestamp-tool #single-loading,
+    #timestamp-reference .grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #timestamp-tool #res-input-label,
+    #timestamp-tool #res-tz-label,
+    #timestamp-tool #single-error-text,
+    #timestamp-tool #batch-error-text,
+    #timestamp-tool .batch-result-card span,
+    #timestamp-reference .font-mono {
+        overflow-wrap: anywhere;
+    }
+
+    #timestamp-tool .batch-result-card .grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #timestamp-tool .batch-result-card .grid>div {
+        min-width: 0;
+        flex-wrap: wrap;
+    }
+
+    #timestamp-tool .batch-result-card>.flex {
+        flex-wrap: wrap;
+    }
+
+    #timestamp-tool #batch-results-wrap {
+        max-height: min(32rem, 65vh);
+        overscroll-behavior: contain;
+    }
+
+    #timestamp-tool #batch-input {
+        min-height: 220px;
+        max-height: 60vh;
+        resize: vertical;
+    }
+
+    #timestamp-tool button:focus-visible,
+    #timestamp-tool a:focus-visible,
+    #timestamp-tool .format-card:focus-visible {
+        outline: 2px solid var(--fn-blue-l);
+        outline-offset: 3px;
+    }
+
+    @media (min-width: 640px) {
+
+        #timestamp-tool #format-cards,
+        #timestamp-tool #single-loading,
+        #timestamp-reference .grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        #timestamp-tool .tab-btn {
+            flex: 0 1 auto;
+        }
+
+        #timestamp-tool .tool-clock {
+            flex-basis: 100%;
+        }
+    }
+
+    @media (min-width: 1024px) {
+
+        #timestamp-tool #format-cards,
+        #timestamp-tool #single-loading,
+        #timestamp-reference .grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        #timestamp-tool .tool-clock {
+            flex-basis: auto;
+        }
+    }
+
+    @media (max-width: 639px) {
+        #timestamp-tool .tool-clock {
+            flex: 1 1 100%;
+            margin-left: 0;
+        }
+
+        #timestamp-tool .timezone-bar {
+            grid-template-columns: minmax(0, 1fr) 44px;
+            padding: 12px;
+        }
+
+        #timestamp-tool .timezone-bar>div:nth-of-type(1) {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        #timestamp-tool .timezone-bar>div:nth-of-type(2) {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        #timestamp-tool #swap-tz {
+            grid-column: 2;
+            grid-row: 1 / 3;
+            align-self: center;
+        }
+
+        #timestamp-tool .timezone-bar label {
+            width: 36px;
+        }
+
+        #timestamp-tool input,
+        #timestamp-tool textarea,
+        #timestamp-tool select {
+            font-size: 16px;
+        }
+
+        #timestamp-tool #single-input {
+            padding: 12px;
+        }
+
+        #timestamp-tool .single-input-actions {
+            position: static;
+            transform: none;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+
+        #timestamp-tool .single-input-actions button {
+            min-width: 44px;
+        }
+
+        #timestamp-tool .batch-actions {
+            width: 100%;
+        }
+
+        #timestamp-tool #batch-stats {
+            flex-basis: 100%;
+        }
+
+        #timestamp-tool #btn-copy-batch,
+        #timestamp-tool #btn-download-batch {
+            flex: 1 1 130px;
+            justify-content: center;
+        }
+
+        #timestamp-tool #res-relative {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        #timestamp-tool .example-btn {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        #timestamp-tool .batch-result-card .truncate {
+            white-space: normal;
+        }
+    }
 </style>
 @endpush
-
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       // ── Timezone list ──
       const TIMEZONES = [
         ['UTC',                  'UTC'],
@@ -432,10 +633,8 @@
         ['America/Mexico_City',  'Mexico (-6/-5)'],
         ['America/Argentina/Buenos_Aires', 'Argentina (-3)'],
       ];
-
       // Detect browser timezone
       const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-
       // Populate selects
       function populateTzSelect(selectEl, defaultTz) {
         selectEl.innerHTML = '';
@@ -456,31 +655,26 @@
           selectEl.insertBefore(opt, selectEl.firstChild);
         }
       }
-
       const fromTzEl = document.getElementById('from-tz');
       const toTzEl   = document.getElementById('to-tz');
       populateTzSelect(fromTzEl, 'UTC');
       populateTzSelect(toTzEl,   browserTz);
       document.getElementById('tz-detected-label').textContent = `To: ${browserTz} (detected)`;
-
       // Swap
       document.getElementById('swap-tz').addEventListener('click', () => {
         const tmp = fromTzEl.value;
         fromTzEl.value = toTzEl.value;
         toTzEl.value   = tmp;
       });
-
       // ── Tab switching ──
       document.getElementById('tab-single').addEventListener('click', () => switchTab('single'));
       document.getElementById('tab-batch').addEventListener('click',  () => switchTab('batch'));
-
       function switchTab(tab) {
         document.getElementById('tab-single').classList.toggle('active', tab === 'single');
         document.getElementById('tab-batch').classList.toggle('active',  tab === 'batch');
         document.getElementById('panel-single').classList.toggle('hidden', tab !== 'single');
         document.getElementById('panel-batch').classList.toggle('hidden',  tab !== 'batch');
       }
-
       // ── Live clock ──
       function updateClock() {
         const now = new Date();
@@ -489,12 +683,10 @@
       }
       updateClock();
       setInterval(updateClock, 1000);
-
       // ── Single tab ──
       const singleInput  = document.getElementById('single-input');
       const singleBtn    = document.getElementById('single-convert-btn');
       let   debounceTimer = null;
-
       singleInput.addEventListener('input', () => {
         singleBtn.disabled = !singleInput.value.trim();
         // Auto-convert with debounce
@@ -503,20 +695,16 @@
           if (singleInput.value.trim()) doSingleConvert();
         }, 600);
       });
-
       singleInput.addEventListener('keydown', e => {
         if (e.key === 'Enter') { clearTimeout(debounceTimer); doSingleConvert(); }
       });
-
       singleBtn.addEventListener('click', () => { clearTimeout(debounceTimer); doSingleConvert(); });
-
       document.getElementById('btn-now').addEventListener('click', () => {
         singleInput.value = 'now';
         singleBtn.disabled = false;
         clearTimeout(debounceTimer);
         doSingleConvert();
       });
-
       document.getElementById('btn-clear-single').addEventListener('click', () => {
         singleInput.value = '';
         singleBtn.disabled = true;
@@ -524,7 +712,6 @@
         document.getElementById('single-error').classList.add('hidden');
         document.getElementById('single-loading').classList.add('hidden');
       });
-
       document.querySelectorAll('.example-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           singleInput.value = btn.dataset.val;
@@ -533,26 +720,21 @@
           doSingleConvert();
         });
       });
-
       // Re-convert when timezones change
       fromTzEl.addEventListener('change', () => { if (singleInput.value.trim()) doSingleConvert(); });
       toTzEl.addEventListener('change',   () => { if (singleInput.value.trim()) doSingleConvert(); });
-
       async function doSingleConvert() {
         const value = singleInput.value.trim();
         if (!value) return;
-
         document.getElementById('single-error').classList.add('hidden');
         document.getElementById('single-result').classList.add('hidden');
         document.getElementById('single-loading').classList.remove('hidden');
-
         try {
           const payload = {
             value,
             from_tz: fromTzEl.value,
             to_tz:   toTzEl.value,
           };
-
           const res  = await fetch('https://api.filenewer.com/api/tools/timestamp', {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -560,7 +742,6 @@
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || data.detail || 'Conversion failed.');
-
           renderSingleResult(data);
         } catch(err) {
           document.getElementById('single-loading').classList.add('hidden');
@@ -569,19 +750,15 @@
           document.getElementById('single-error').classList.add('flex');
         }
       }
-
       function renderSingleResult(data) {
         document.getElementById('single-loading').classList.add('hidden');
         const f = data.formats ?? {};
-
         document.getElementById('res-input-label').textContent = data.input ?? '';
         document.getElementById('res-tz-label').textContent    =
           `${data.from_timezone ?? ''} → ${data.to_timezone ?? ''}  ·  UTC${f.utc_offset ?? ''}`;
         document.getElementById('res-relative').textContent = f.relative ?? '';
-
         const dstBadge = document.getElementById('res-dst-badge');
         data.is_dst ? dstBadge.classList.remove('hidden') : dstBadge.classList.add('hidden');
-
         // Format cards
         const formatDefs = [
           ['Human Readable',   f.human_readable],
@@ -601,13 +778,18 @@
           ['Quarter',          f.quarter],
           ['UTC Offset',       f.utc_offset],
         ];
-
         const container = document.getElementById('format-cards');
         container.innerHTML = '';
         formatDefs.forEach(([label, value]) => {
           if (value == null) return;
           const card = document.createElement('div');
           card.className = 'format-card';
+          card.tabIndex = 0;
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-label', 'Copy ' + label);
+          card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); card.click(); }
+          });
           card.innerHTML = `
             <span class="card-label">${label}</span>
             <span class="card-value">${value}</span>
@@ -623,24 +805,19 @@
           });
           container.appendChild(card);
         });
-
         document.getElementById('single-result').classList.remove('hidden');
       }
-
       // ── Batch tab ──
       const batchInput = document.getElementById('batch-input');
       const batchBtn   = document.getElementById('batch-convert-btn');
       let   batchBlob  = null;
-
       batchInput.addEventListener('input', () => {
         batchBtn.disabled = !batchInput.value.trim();
       });
-
       document.getElementById('btn-load-examples').addEventListener('click', () => {
         batchInput.value = '1704067200\n2024-01-15T08:30:00Z\nnow\nyesterday\n2024-06-01 12:00:00';
         batchBtn.disabled = false;
       });
-
       document.getElementById('btn-clear-batch').addEventListener('click', () => {
         batchInput.value = '';
         batchBtn.disabled = true;
@@ -653,22 +830,17 @@
         const wrap = document.getElementById('batch-results-wrap');
         wrap.querySelectorAll('.batch-result-card').forEach(el => el.remove());
       });
-
       batchBtn.addEventListener('click', doBatchConvert);
-
       async function doBatchConvert() {
         const raw    = batchInput.value.trim();
         if (!raw) return;
         const values = raw.split('\n').map(l => l.trim()).filter(Boolean);
-
         batchBtn.disabled = true;
         batchBtn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Converting…`;
-
         document.getElementById('batch-error').classList.add('hidden');
         document.getElementById('batch-placeholder').classList.add('hidden');
         const wrap = document.getElementById('batch-results-wrap');
         wrap.querySelectorAll('.batch-result-card').forEach(el => el.remove());
-
         try {
           const res  = await fetch('https://api.filenewer.com/api/tools/timestamp/batch', {
             method:  'POST',
@@ -681,19 +853,15 @@
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Batch conversion failed.');
-
           const results = data.results ?? [];
-
           // Stats
           document.getElementById('batch-stats').textContent =
             `${data.success ?? results.filter(r=>r.success).length} success · ${data.failed ?? results.filter(r=>!r.success).length} failed`;
           document.getElementById('batch-stats').classList.remove('hidden');
-
           // Render cards
           results.forEach(result => {
             const card = document.createElement('div');
             card.className = 'batch-result-card ' + (result.success ? 'success' : 'failed');
-
             if (result.success) {
               const f = result.formats ?? {};
               card.innerHTML = `
@@ -717,27 +885,23 @@
             }
             wrap.appendChild(card);
           });
-
           // Copy / Download
           const jsonStr = JSON.stringify(data, null, 2);
           if (batchBlob) URL.revokeObjectURL(batchBlob.url);
           const blob = new Blob([jsonStr], { type: 'application/json' });
           const url  = URL.createObjectURL(blob);
           batchBlob  = { url };
-
           const copyBtn = document.getElementById('btn-copy-batch');
           const dlBtn   = document.getElementById('btn-download-batch');
           copyBtn.classList.remove('hidden');
           dlBtn.classList.remove('hidden');
           dlBtn.href     = url;
           dlBtn.download = 'timestamps.json';
-
           copyBtn.onclick = async () => {
             await navigator.clipboard.writeText(jsonStr).catch(() => {});
             document.getElementById('batch-copy-label').textContent = 'Copied!';
             setTimeout(() => { document.getElementById('batch-copy-label').textContent = 'Copy JSON'; }, 2000);
           };
-
         } catch(err) {
           document.getElementById('batch-error-text').textContent = err.message;
           document.getElementById('batch-error').classList.remove('hidden');
@@ -748,13 +912,10 @@
           batchBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Convert All`;
         }
       }
-
       function escHtml(s) {
         return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       }
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection
