@@ -439,28 +439,11 @@
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
-            @foreach([
-            ['What is YAML used for?','YAML is a human-readable data format used heavily in DevOps and infrastructure
-            tooling — Kubernetes manifests, Docker Compose files, GitHub Actions workflows, Ansible playbooks,
-            application configs, and OpenAPI specs all use YAML. Its indented structure is much easier to read than JSON
-            for nested config.'],
-            ['Block style vs flow style — which one?','Block (default) is what almost everyone wants — multi-line
-            indented YAML where each key sits on its own line. Flow style produces compact single-line output that looks
-            similar to JSON, useful only when you need a one-liner.'],
-            ['Should I sort keys?','Sorting keys alphabetically can make diffs cleaner in version control and improve
-            consistency across files. Leave it off if your JSON keys are already in a meaningful order (like API
-            responses where order matters).'],
-            ['What does "Allow unicode" do?','When on (default), characters like emoji and non-Latin scripts (e.g.
-            Arabic, Chinese) are kept as-is in the YAML — readable directly. When off, they get escaped to \uXXXX
-            sequences for ASCII-only output, useful for legacy systems that cannot handle UTF-8.'],
-            ['Is my data safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
-            deleted
-            after processing. We never read, share or store your content.'],
-            ] as [$q, $a])
+
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">What is YAML used for?</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -468,10 +451,82 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">YAML is a human-readable data format used heavily
+                        in DevOps and infrastructure tooling — Kubernetes manifests, Docker Compose files, GitHub
+                        Actions workflows, Ansible playbooks, application configs, and OpenAPI specs all use YAML. Its
+                        indented structure is much easier to read than JSON for nested config.</p>
                 </div>
             </div>
-            @endforeach
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Block style vs flow style — which one?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Block (default) is what almost everyone wants —
+                        multi-line indented YAML where each key sits on its own line. Flow style produces compact
+                        single-line output that looks similar to JSON, useful only when you need a one-liner.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Should I sort keys?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Sorting keys alphabetically can make diffs cleaner
+                        in version control and improve consistency across files. Leave it off if your JSON keys are
+                        already in a meaningful order (like API responses where order matters).</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">What does &quot;Allow unicode&quot; do?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">When on (default), characters like emoji and
+                        non-Latin scripts (e.g. Arabic, Chinese) are kept as-is in the YAML — readable directly. When
+                        off, they get escaped to \uXXXX sequences for ASCII-only output, useful for legacy systems that
+                        cannot handle UTF-8.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Is my data safe and private?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
+                        transit. and are permanently deleted after processing. We never read, share or store your
+                        content.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
