@@ -3,28 +3,25 @@
 <x-ld-json :tool="$tool" />
 @endpush
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
 <!-- ══════════════════════ TOOL ══════════════════════ -->
-<section id="tool" class="py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="tool" class="py-8 sm:py-12 lg:py-16 bg-fn-surface border-y border-white/[0.07]"
+    aria-labelledby="tool-heading">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 id="tool-heading" class="sr-only">Image Compressor Tool</h2>
-
         <!-- ─ Options Bar ─ -->
-        <div class="flex flex-wrap items-center gap-5 mb-6 bg-fn-bg border border-white/[0.07] rounded-2xl px-6 py-4">
-
+        <div
+            class="compress-options flex flex-wrap items-center gap-5 mb-6 bg-fn-bg border border-white/[0.07] rounded-2xl px-6 py-4">
             <!-- Quality Slider -->
-            <div class="flex items-center gap-3 flex-1 min-w-[200px]">
-                <label class="text-fn-text3 text-sm font-medium whitespace-nowrap">Quality</label>
+            <div class="quality-control flex items-center gap-3 flex-1 min-w-0">
+                <label for="quality-slider" class="text-fn-text3 text-sm font-medium whitespace-nowrap">Quality</label>
                 <input id="quality-slider" type="range" min="10" max="100" value="82"
                     class="flex-1 accent-purple-500 cursor-pointer h-1.5 rounded-full" />
                 <span id="quality-val" class="text-fn-text2 text-sm font-mono font-semibold w-8 text-right">82%</span>
             </div>
-
             <!-- Output Format -->
             <div class="flex items-center gap-2">
-                <label class="text-fn-text3 text-sm font-medium whitespace-nowrap">Output</label>
+                <label for="output-format" class="text-fn-text3 text-sm font-medium whitespace-nowrap">Output</label>
                 <select id="output-format"
                     class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
                     <option value="original">Same as input</option>
@@ -33,10 +30,10 @@
                     <option value="image/webp">Force WebP</option>
                 </select>
             </div>
-
             <!-- Max dimension -->
             <div class="flex items-center gap-2">
-                <label class="text-fn-text3 text-sm font-medium whitespace-nowrap">Max Width/Height</label>
+                <label for="max-dim" class="text-fn-text3 text-sm font-medium whitespace-nowrap">Max
+                    Width/Height</label>
                 <select id="max-dim"
                     class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
                     <option value="0">No resize</option>
@@ -47,7 +44,6 @@
                     <option value="400">400px (thumbnail)</option>
                 </select>
             </div>
-
             <!-- Download All -->
             <button id="download-all-btn" disabled
                 class="ml-auto inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-purple-600 rounded-xl hover:bg-purple-500 hover:-translate-y-0.5 transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:translate-y-0">
@@ -59,14 +55,11 @@
                 </svg>
                 Download All
             </button>
-
         </div>
-
         <!-- ─ Drop Zone ─ -->
         <div id="drop-zone"
             class="relative border-2 border-dashed border-white/[0.10] rounded-2xl bg-fn-bg transition-all duration-200 cursor-pointer hover:border-purple-500/50 hover:bg-purple-500/[0.03] group"
-            role="button" aria-label="Upload images">
-
+            role="button" tabindex="0" aria-label="Upload images">
             <!-- Empty state -->
             <div id="drop-empty" class="flex flex-col items-center justify-center py-20 px-6 text-center">
                 <div
@@ -94,10 +87,8 @@
                     Select Images
                 </label>
             </div>
-
             <!-- Results grid (shown after upload) -->
             <div id="results-grid" class="hidden p-5">
-
                 <!-- Stats bar -->
                 <div id="stats-bar" class="flex flex-wrap items-center gap-5 mb-5 px-1">
                     <div class="flex items-center gap-2">
@@ -116,7 +107,7 @@
                         <span class="text-fn-text3 text-sm">Saved:</span>
                         <span id="stat-saved" class="text-fn-green text-sm font-mono font-bold">0%</span>
                     </div>
-                    <div class="ml-auto flex items-center gap-2">
+                    <div class="stats-actions ml-auto flex flex-wrap items-center gap-2">
                         <button id="add-more-btn"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -132,15 +123,11 @@
                         </button>
                     </div>
                 </div>
-
                 <!-- Cards -->
                 <div id="image-cards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-
             </div>
-
             <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" multiple class="hidden" />
         </div>
-
         <!-- Processing indicator -->
         <div id="processing-bar"
             class="hidden mt-4 flex items-center gap-3 px-5 py-3 bg-fn-bg border border-white/[0.07] rounded-xl">
@@ -151,14 +138,11 @@
             <span class="text-fn-text2 text-sm font-medium">Compressing images…</span>
             <span id="progress-text" class="text-fn-text3 text-sm font-mono ml-auto">0 / 0</span>
         </div>
-
     </div>
 </section>
-
 <!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
 <section id="how" class="py-24 bg-fn-bg" aria-labelledby="how-heading">
-    <div class="max-w-6xl mx-auto px-6">
-
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
             <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Three steps to smaller
@@ -166,9 +150,7 @@
             <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No accounts, no uploads to servers.
                 Everything runs right in your browser — fast, private, and free.</p>
         </div>
-
         <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
-
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">01</div>
                 <div
@@ -185,7 +167,6 @@
                 <p class="text-fn-text2 text-sm leading-relaxed">Drag and drop up to 20 JPG, PNG, or WebP files at once.
                     Or click to open a file picker. All formats accepted up to 25 MB each.</p>
             </div>
-
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
                 <div
@@ -209,7 +190,6 @@
                 <p class="text-fn-text2 text-sm leading-relaxed">Dial in your target quality (10–100%), choose an output
                     format, and optionally cap the maximum width or height for resizing.</p>
             </div>
-
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">03</div>
                 <div
@@ -227,15 +207,12 @@
                 <p class="text-fn-text2 text-sm leading-relaxed">Download images individually or grab everything as a
                     single ZIP. See exactly how much space you saved per image before downloading.</p>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ FEATURES ══════════════════════ -->
 <section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
-    <div class="max-w-6xl mx-auto px-6">
-
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">What's Included</p>
             <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Built for web
@@ -243,9 +220,7 @@
             <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">Whether you're optimizing a single hero image or a
                 folder of product photos, Filenewer handles it.</p>
         </div>
-
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -262,7 +237,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Process up to 20 images in one go. Drag a whole folder,
                     adjust quality once, and download everything. No repetitive single-file uploads.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg"
@@ -283,7 +257,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Slide between 10% and 100% quality. The tool shows
                     real-time before/after file sizes so you can find the perfect compression/quality balance.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -296,7 +269,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Convert between JPG, PNG, and WebP on the fly. Force
                     all outputs to WebP for maximum web performance with the same visual quality.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg"
@@ -314,7 +286,6 @@
                     preserving aspect ratio. Ideal for creating web-ready thumbnails or reducing oversized camera
                     photos.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -328,7 +299,6 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Each image card shows a thumbnail, original size,
                     compressed size, and percentage saved at a glance — so you know exactly what you're getting.</p>
             </div>
-
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -343,22 +313,17 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">All compression happens in your browser using the
                     Canvas API. Your images never leave your device — no uploads, no storage, no privacy risk.</p>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ FAQ ══════════════════════ -->
 <section id="faq" class="py-24 bg-fn-bg" aria-labelledby="faq-heading">
-    <div class="max-w-3xl mx-auto px-6">
-
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">FAQ</p>
             <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
         </div>
-
         <div class="flex flex-col gap-3">
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -373,7 +338,6 @@
                     can also convert between these formats on output — for example, uploading a PNG and downloading it
                     as a compressed WebP for better web performance.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -389,7 +353,6 @@
                     Below 60%, you may notice softening on fine textures. The default setting of 82% is optimized for
                     this balance.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -404,7 +367,6 @@
                     browser using the HTML5 Canvas API and the File API. Your images are never sent to Filenewer's
                     servers — they stay on your device at all times.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -420,7 +382,6 @@
                     already-optimized PNGs. The best approach for PNGs is to convert them to WebP or JPG instead, which
                     you can do with the Output Format option.</p>
             </details>
-
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
@@ -435,28 +396,22 @@
                     session. For unlimited bulk processing, automated pipelines, or API access for integrating
                     compression into your workflow, .</p>
             </details>
-
         </div>
     </div>
 </section>
-
-
 <x-tools-content :tool="$tool" />
-
 <!-- ══════════════════════ RELATED TOOLS ══════════════════════ -->
 <x-tools-section />
-
 <!-- ══════════════════════ CTA ══════════════════════ -->
 <section id="cta" class="py-24 bg-fn-surface border-y border-white/[0.07] text-center relative overflow-hidden"
     aria-labelledby="cta-heading">
     <div
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
         <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get More</p>
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Need unlimited
             bulk compression or API access?</h2>
-
         <p class="text-fn-text3 text-sm mt-5"><svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -476,15 +431,236 @@
             account needed</p>
     </div>
 </section>
-
 <!-- ══════════════════════ SCRIPT ══════════════════════ -->
-@push('footer')
-{{-- JSZip for Download All --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+<style>
+    #tool *,
+    #how *,
+    #features * {
+        box-sizing: border-box;
+    }
+
+    #tool .compress-options>*,
+    #tool #image-cards>* {
+        min-width: 0;
+    }
+
+    #tool #quality-slider {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #tool #quality-val {
+        width: 44px;
+        flex-shrink: 0;
+    }
+
+    #tool .compress-options select {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #tool button,
+    #tool label[for="file-input"] {
+        touch-action: manipulation;
+    }
+
+    #tool button:focus-visible,
+    #tool select:focus-visible,
+    #tool #drop-zone:focus-visible,
+    #tool input:focus-visible {
+        outline: 2px solid #a855f7;
+        outline-offset: 3px;
+    }
+
+    #tool select:focus {
+        background-color: var(--color-fn-surface2, var(--fn-surface2, #292235));
+        border-color: #a855f7;
+    }
+
+    #tool button:active:not(:disabled) {
+        background-color: #7e22ce;
+        color: #fff;
+    }
+
+    #tool #image-cards {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #tool #image-cards img {
+        max-width: 100%;
+    }
+
+    #tool #image-cards .truncate {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #tool #image-cards .flex {
+        min-width: 0;
+        flex-wrap: wrap;
+    }
+
+    #tool #image-cards svg {
+        flex-shrink: 0;
+    }
+
+    #tool #processing-bar {
+        flex-wrap: wrap;
+    }
+
+    @media (min-width: 640px) {
+        #tool #image-cards {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 1024px) {
+        #tool #image-cards {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 767px) {
+        #tool .compress-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            padding: 16px;
+            gap: 14px;
+        }
+
+        #tool .quality-control {
+            grid-column: 1 / -1;
+        }
+
+        #tool .compress-options>div:not(.quality-control) {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 6px;
+        }
+
+        #tool #download-all-btn {
+            grid-column: 1 / -1;
+            margin-left: 0;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #tool button,
+        #tool label[for="file-input"] {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.25;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #tool select {
+            font-size: 16px;
+            width: 100%;
+            min-height: 38px;
+            padding: 6px 8px;
+        }
+
+        #tool .compress-options {
+            padding: 12px;
+            gap: 12px;
+        }
+
+        #tool .compress-options label {
+            font-size: 12px;
+            white-space: normal;
+        }
+
+        #tool #drop-empty {
+            padding: 32px 12px;
+        }
+
+        #tool #drop-empty>p:first-of-type {
+            font-size: 15px;
+        }
+
+        #tool #drop-empty>p {
+            font-size: 12px;
+        }
+
+        #tool #results-grid {
+            padding: 10px;
+        }
+
+        #tool #stats-bar {
+            gap: 10px;
+        }
+
+        #tool #stats-bar>div {
+            min-width: 0;
+            flex-wrap: wrap;
+        }
+
+        #tool #stats-bar span {
+            font-size: 12px;
+        }
+
+        #tool .stats-actions {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        #tool #image-cards .p-4 {
+            padding: 12px;
+        }
+
+        #tool #image-cards .text-sm {
+            font-size: 12px;
+        }
+
+        #tool .remove-item {
+            width: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+            flex-shrink: 0;
+        }
+
+        #tool #processing-bar {
+            padding: 10px 12px;
+            gap: 8px;
+        }
+
+        #tool #processing-bar span {
+            font-size: 12px;
+        }
+
+        #how,
+        #features {
+            padding-block: 40px;
+        }
+
+        #how .p-10,
+        #features .p-7 {
+            padding: 24px;
+        }
+
+        #how .mb-16,
+        #features .mb-16 {
+            margin-bottom: 28px;
+        }
+
+        #how h2,
+        #features h2 {
+            font-size: 26px;
+        }
+    }
+</style>
+
+@push('footer')
+*{{-- JSZip for Download All --}}*
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
     (function () {
-
     // ── DOM refs ──────────────────────────────────────────────
     const dropZone       = document.getElementById('drop-zone');
     const fileInput      = document.getElementById('file-input');
@@ -504,77 +680,64 @@
     const statOriginal   = document.getElementById('stat-original');
     const statCompressed = document.getElementById('stat-compressed');
     const statSaved      = document.getElementById('stat-saved');
-
     const MAX_FILES = 20;
     const MAX_BYTES = 25 * 1024 * 1024; // 25 MB
-
     // ── State ─────────────────────────────────────────────────
     // { id, file, originalSize, compressedBlob, compressedSize, status: 'pending'|'done'|'error' }
     let items = [];
     let idCounter = 0;
-
     // ── Helpers ───────────────────────────────────────────────
     function fmtSize(bytes) {
         if (bytes < 1024)       return bytes + ' B';
         if (bytes < 1024*1024)  return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / (1024*1024)).toFixed(2) + ' MB';
     }
-
     function fmtPct(orig, comp) {
         if (!orig) return '0%';
         const saved = ((orig - comp) / orig) * 100;
         return (saved >= 0 ? '−' : '+') + Math.abs(saved).toFixed(1) + '%';
     }
-
     function savedColor(orig, comp) {
         const pct = orig ? ((orig - comp) / orig) * 100 : 0;
         if (pct >= 40) return 'text-fn-green';
         if (pct >= 10) return 'text-fn-amber';
         return 'text-fn-text3';
     }
-
     function getOutputMime(file) {
         const fmt = outputFormat.value;
         if (fmt === 'original') return file.type || 'image/jpeg';
         return fmt;
     }
-
     function getExt(mime) {
         return { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[mime] || 'jpg';
     }
-
     function stemName(filename, mime) {
         const dot = filename.lastIndexOf('.');
         const stem = dot > 0 ? filename.slice(0, dot) : filename;
         return stem + '_compressed.' + getExt(mime);
     }
-
     // ── Compress single image ─────────────────────────────────
     function compressImage(file) {
         return new Promise((resolve, reject) => {
             const mime    = getOutputMime(file);
             const quality = parseInt(qualitySlider.value) / 100;
             const maxDim  = parseInt(maxDimSel.value) || 0;
-
             const img = new Image();
             const url = URL.createObjectURL(file);
             img.onload = () => {
                 URL.revokeObjectURL(url);
                 let { width, height } = img;
-
                 // Resize if needed
                 if (maxDim > 0 && (width > maxDim || height > maxDim)) {
                     if (width >= height) { height = Math.round(height * maxDim / width); width = maxDim; }
                     else                 { width  = Math.round(width  * maxDim / height); height = maxDim; }
                 }
-
                 const canvas = document.createElement('canvas');
                 canvas.width = width; canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 // White bg for JPG (no transparency)
                 if (mime === 'image/jpeg') { ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,width,height); }
                 ctx.drawImage(img, 0, 0, width, height);
-
                 canvas.toBlob(blob => {
                     if (blob) resolve(blob);
                     else reject(new Error('Compression failed'));
@@ -584,7 +747,6 @@
             img.src = url;
         });
     }
-
     // ── Render card ───────────────────────────────────────────
     function renderCard(item) {
         let existing = imageCards.querySelector(`[data-id="${item.id}"]`);
@@ -593,9 +755,7 @@
             existing.dataset.id = item.id;
             imageCards.appendChild(existing);
         }
-
         existing.className = 'bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden hover:border-white/[0.14] transition-colors';
-
         if (item.status === 'pending') {
             existing.innerHTML = `
                 <div class="aspect-video bg-fn-bg flex items-center justify-center">
@@ -610,7 +770,6 @@
                 </div>`;
             return;
         }
-
         if (item.status === 'error') {
             existing.innerHTML = `
                 <div class="aspect-video bg-fn-bg flex items-center justify-center text-fn-red text-2xl"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg></div>
@@ -620,7 +779,6 @@
                 </div>`;
             return;
         }
-
         // Done
         const thumbUrl = URL.createObjectURL(item.compressedBlob);
         const sc = savedColor(item.originalSize, item.compressedSize);
@@ -647,47 +805,39 @@
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         Download
                     </button>
-                    <button class="remove-item inline-flex items-center justify-center w-8 h-8 text-fn-text3 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all" data-id="${item.id}">
+                    <button type="button" aria-label="Remove image" class="remove-item inline-flex items-center justify-center w-8 h-8 text-fn-text3 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all" data-id="${item.id}">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </button>
                 </div>
             </div>`;
     }
-
     function escHtml(s) {
         return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
-
     // ── Update global stats ───────────────────────────────────
     function updateStats() {
         const done  = items.filter(i => i.status === 'done');
         const origTotal = items.reduce((s, i) => s + i.originalSize, 0);
         const compTotal = done.reduce((s, i) => s + i.compressedSize, 0);
         const pct = origTotal > 0 ? ((origTotal - compTotal) / origTotal * 100).toFixed(1) : 0;
-
         statCount.textContent      = items.length;
         statOriginal.textContent   = fmtSize(origTotal);
         statCompressed.textContent = fmtSize(compTotal);
         statSaved.textContent      = `−${pct}%`;
-
         downloadAllBtn.disabled = done.length === 0;
     }
-
     // ── Process files ─────────────────────────────────────────
     async function processFiles(files) {
         const allowed = Array.from(files).filter(f =>
             ['image/jpeg','image/png','image/webp'].includes(f.type) && f.size <= MAX_BYTES
         );
-
         const available = MAX_FILES - items.length;
         const toProcess = allowed.slice(0, available);
         if (!toProcess.length) return;
-
         // Show results view
         dropEmpty.classList.add('hidden');
         resultsGrid.classList.remove('hidden');
         processingBar.classList.remove('hidden');
-
         // Register items
         toProcess.forEach(file => {
             const id = ++idCounter;
@@ -695,7 +845,6 @@
             renderCard(items.at(-1));
         });
         updateStats();
-
         // Compress sequentially
         let done = 0;
         for (const item of items.filter(i => i.status === 'pending')) {
@@ -711,10 +860,8 @@
             renderCard(item);
             updateStats();
         }
-
         processingBar.classList.add('hidden');
     }
-
     // ── Recompress all on settings change ─────────────────────
     async function recompressAll() {
         if (!items.length) return;
@@ -735,7 +882,6 @@
         }
         processingBar.classList.add('hidden');
     }
-
     // ── Download single ───────────────────────────────────────
     function downloadSingle(id) {
         const item = items.find(i => i.id === id);
@@ -747,7 +893,6 @@
         a.click();
         URL.revokeObjectURL(a.href);
     }
-
     // ── Download all as ZIP ───────────────────────────────────
     async function downloadAll() {
         const done = items.filter(i => i.status === 'done');
@@ -764,7 +909,6 @@
         a.click();
         URL.revokeObjectURL(a.href);
     }
-
     // ── Remove item ───────────────────────────────────────────
     function removeItem(id) {
         items = items.filter(i => i.id !== id);
@@ -776,7 +920,6 @@
             resultsGrid.classList.add('hidden');
         }
     }
-
     // ── Clear all ─────────────────────────────────────────────
     function clearAll() {
         items = [];
@@ -786,19 +929,22 @@
         downloadAllBtn.disabled = true;
         updateStats();
     }
-
     // ── Event listeners ───────────────────────────────────────
     // Drop zone click → file input
     dropZone.addEventListener('click', (e) => {
+        if (e.target === fileInput || e.target.closest('label[for="file-input"]')) return;
         if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.download-single') || e.target.closest('.remove-item')) return;
         fileInput.click();
     });
-
+    dropZone.addEventListener('keydown', e => {
+        if (e.target === dropZone && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault(); fileInput.click();
+        }
+    });
     fileInput.addEventListener('change', () => {
         if (fileInput.files.length) processFiles(fileInput.files);
         fileInput.value = '';
     });
-
     // Drag & drop
     dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
@@ -814,7 +960,6 @@
         dropZone.classList.remove('border-purple-500/60', 'bg-purple-500/[0.04]');
         if (e.dataTransfer.files.length) processFiles(e.dataTransfer.files);
     });
-
     // Card delegation
     imageCards.addEventListener('click', (e) => {
         const dl  = e.target.closest('.download-single');
@@ -822,7 +967,6 @@
         if (dl)  downloadSingle(parseInt(dl.dataset.id));
         if (rem) removeItem(parseInt(rem.dataset.id));
     });
-
     // Options — re-compress
     let recompressDebounce;
     qualitySlider.addEventListener('input', () => {
@@ -832,14 +976,11 @@
     });
     outputFormat.addEventListener('change', recompressAll);
     maxDimSel.addEventListener('change', recompressAll);
-
     // Buttons
     downloadAllBtn.addEventListener('click', downloadAll);
     clearAllBtn.addEventListener('click', clearAll);
     addMoreBtn.addEventListener('click', () => fileInput.click());
-
 })();
 </script>
 @endpush
-
 @endsection
