@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="compare-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="compare-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input'],['2','Comparing'],['3','Result']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,16 +24,13 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- ── Mode tabs ── --}}
                     <div
-                        class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
-                        <button type="button" id="tab-text"
+                        class="compare-tabs flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
+                        <button type="button" id="tab-text" aria-pressed="true"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +40,7 @@
                             </svg>
                             Compare Text
                         </button>
-                        <button type="button" id="tab-file"
+                        <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,20 +50,18 @@
                             Compare Files
                         </button>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
-
                         <div class="grid md:grid-cols-2 gap-3">
                             {{-- Text 1 --}}
                             <div>
-                                <div class="flex items-center justify-between mb-2">
+                                <div class="compare-toolbar flex flex-wrap items-center justify-between gap-2 mb-2">
                                     <label class="text-sm font-semibold text-fn-text2">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l font-bold text-xs">A</span>
                                         Original
                                     </label>
-                                    <div class="flex gap-1">
+                                    <div class="compare-actions flex flex-wrap gap-1">
                                         <button type="button" data-paste-target="text1-area"
                                             class="paste-btn flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -97,13 +86,13 @@
                             </div>
                             {{-- Text 2 --}}
                             <div>
-                                <div class="flex items-center justify-between mb-2">
+                                <div class="compare-toolbar flex flex-wrap items-center justify-between gap-2 mb-2">
                                     <label class="text-sm font-semibold text-fn-text2">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-fn-green/10 border border-fn-green/20 text-fn-green font-bold text-xs">B</span>
                                         Modified
                                     </label>
-                                    <div class="flex gap-1">
+                                    <div class="compare-actions flex flex-wrap gap-1">
                                         <button type="button" data-paste-target="text2-area"
                                             class="paste-btn flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                             <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -127,13 +116,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>{{-- /panel-text --}}
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div class="grid md:grid-cols-2 gap-3">
-
                             {{-- File 1 --}}
                             <div>
                                 <label class="text-sm font-semibold text-fn-text2 mb-2 flex items-center gap-2">
@@ -195,7 +181,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             {{-- File 2 --}}
                             <div>
                                 <label class="text-sm font-semibold text-fn-text2 mb-2 flex items-center gap-2">
@@ -257,44 +242,41 @@
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     </div>{{-- /panel-file --}}
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-
                         <div class="flex flex-wrap items-center gap-4">
                             {{-- Compare mode --}}
                             <div class="flex items-center gap-2">
                                 <span class="text-xs font-semibold text-fn-text2 shrink-0">Compare by</span>
-                                <div class="flex gap-1">
+                                <div class="compare-actions flex flex-wrap gap-1">
                                     @foreach([['line','Line'],['word','Word'],['char','Char'],['sentence','Sentence']]
                                     as [$cval, $clabel])
                                     <button type="button"
                                         class="mode-btn {{ $cval === 'line' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
-                                        data-mode="{{ $cval }}">{{ $clabel }}</button>
+                                        data-mode="{{ $cval }}"
+                                        aria-pressed="{{ $cval === 'line' ? 'true' : 'false' }}">{{ $clabel }}</button>
                                     @endforeach
                                 </div>
                             </div>
-
                             <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
-
                             {{-- Output format --}}
                             <div class="flex items-center gap-2">
                                 <span class="text-xs font-semibold text-fn-text2 shrink-0">View</span>
-                                <div class="flex gap-1">
+                                <div class="compare-actions flex flex-wrap gap-1">
                                     @foreach([['side_by_side','Side by
                                     side'],['unified','Unified'],['html','Inline'],['json','Raw JSON']] as [$fval,
                                     $flabel])
                                     <button type="button"
                                         class="format-btn {{ $fval === 'side_by_side' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
-                                        data-format="{{ $fval }}">{{ $flabel }}</button>
+                                        data-format="{{ $fval }}"
+                                        aria-pressed="{{ $fval === 'side_by_side' ? 'true' : 'false' }}">{{ $flabel
+                                        }}</button>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-
                         <div class="flex flex-wrap items-center gap-5">
                             {{-- Ignore toggles --}}
                             @foreach([
@@ -315,7 +297,6 @@
                                 <span class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</span>
                             </label>
                             @endforeach
-
                             {{-- Context lines --}}
                             <div class="flex items-center gap-2">
                                 <span class="text-xs font-semibold text-fn-text2">Context</span>
@@ -325,7 +306,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -338,7 +318,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Compare button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -352,9 +331,7 @@
                         </svg>
                         Compare
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -370,7 +347,7 @@
                                 <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                             </svg>
                         </div>
-                        <div class="flex gap-1">
+                        <div class="compare-actions flex flex-wrap gap-1">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
@@ -391,10 +368,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Comparing…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Analysing differences between A and B</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -404,7 +379,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Uploading inputs'],
@@ -431,10 +405,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Result ── --}}
                 <div id="state-download" class="hidden">
-
                     {{-- Summary header --}}
                     <div class="flex flex-wrap items-center gap-3 mb-5">
                         <div id="verdict-badge"
@@ -455,7 +427,7 @@
                             <span class="text-xs text-fn-text3">Similarity</span>
                             <span class="text-sm font-bold text-fn-text" id="similarity-val">—</span>
                         </div>
-                        <div class="ml-auto flex items-center gap-2">
+                        <div class="result-actions ml-auto flex flex-wrap items-center gap-2">
                             <button type="button" id="btn-copy-result"
                                 class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -477,13 +449,12 @@
                             </a>
                         </div>
                     </div>
-
                     {{-- Stats grid --}}
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
                         @foreach([
                         ['stat-added','+ Added','text-fn-green'],
                         ['stat-removed','- Removed','text-fn-red'],
-                        ['stat-changed','~ Changed','text-fn-amber'],
+                        ['stat-changed','\~ Changed','text-fn-amber'],
                         ['stat-unchanged','= Unchanged','text-fn-text3'],
                         ] as [$sid,$slabel,$scolor])
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
@@ -492,13 +463,11 @@
                         </div>
                         @endforeach
                     </div>
-
                     {{-- Diff output --}}
                     <div id="diff-output-wrap"
                         class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-[500px]">
                         <div id="diff-output" class="font-mono text-xs leading-relaxed"></div>
                     </div>
-
                     {{-- Actions --}}
                     <div class="mt-5 flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -511,7 +480,6 @@
                             New comparison
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -520,16 +488,13 @@
                         Your content is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -544,7 +509,8 @@
             ['Can I ignore case or whitespace?','Yes — toggle Ignore case, Ignore whitespace, and Ignore blank lines to
             tune what counts as a real difference. Useful when comparing code that has formatting changes but the same
             logic.'],
-            ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are
+            permanently
             deleted after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -565,12 +531,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -717,12 +680,200 @@
         border-color: oklch(75% 0.15 55 / 30%);
         color: oklch(65% 0.15 55);
     }
-</style>
 
+    /* Responsive comparison controls, scoped to this tool. */
+    #compare-tool * {
+        box-sizing: border-box;
+    }
+
+    #compare-tool .grid>*,
+    #compare-tool .compare-toolbar>*,
+    #compare-tool .diff-row .content,
+    #compare-tool .sbs-cell {
+        min-width: 0;
+    }
+
+    #compare-tool .tab-btn.active,
+    #compare-tool .mode-btn.active,
+    #compare-tool .format-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #compare-tool button,
+    #compare-tool a[download] {
+        touch-action: manipulation;
+    }
+
+    #compare-tool button:focus-visible,
+    #compare-tool a:focus-visible,
+    #compare-tool textarea:focus-visible,
+    #compare-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px;
+    }
+
+    #compare-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #compare-tool .toggle-wrap input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #compare-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #compare-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #compare-tool textarea {
+        max-width: 100%;
+        min-width: 0;
+        resize: vertical;
+    }
+
+    #compare-tool .file-name,
+    #compare-tool .file-meta,
+    #compare-tool #error-text {
+        overflow-wrap: anywhere;
+    }
+
+    #compare-tool .sbs-grid {
+        grid-template-columns: 32px minmax(0, 1fr) 32px minmax(0, 1fr);
+    }
+
+    #compare-tool .sbs-cell,
+    #compare-tool .diff-row .content,
+    #compare-tool #diff-output pre {
+        overflow-wrap: anywhere;
+    }
+
+    #compare-tool svg {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 767px) {
+        #compare-tool .compare-steps {
+            padding: 16px 8px;
+        }
+
+        #compare-tool .compare-steps .step-item {
+            gap: 4px;
+        }
+
+        #compare-tool .compare-steps .step-label {
+            font-size: 11px;
+        }
+
+        #compare-tool .compare-steps>div:not(.step-item) {
+            width: 16px;
+            margin-inline: 5px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #compare-tool button,
+        #compare-tool a[download] {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.25;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #compare-tool .compare-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 100%;
+        }
+
+        #compare-tool .tab-btn {
+            justify-content: center;
+            padding: 8px 6px;
+            min-height: 36px;
+        }
+
+        #compare-tool .tab-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        #compare-tool .mode-btn,
+        #compare-tool .format-btn {
+            min-height: 30px;
+            padding: 5px 8px;
+            font-size: 11px;
+        }
+
+        #compare-tool textarea {
+            font-size: 16px;
+            height: 220px;
+            min-height: 140px;
+            padding: 12px;
+        }
+
+        #compare-tool input[type="number"] {
+            font-size: 16px;
+            min-height: 34px;
+        }
+
+        #compare-tool #state-upload .flex.items-center.gap-2 {
+            flex-wrap: wrap;
+        }
+
+        #compare-tool #state-upload label {
+            min-height: 30px;
+        }
+
+        #compare-tool .drop-zone {
+            padding: 24px 12px;
+        }
+
+        #compare-tool .file-name {
+            white-space: normal;
+        }
+
+        #compare-tool .remove-file {
+            min-width: 30px;
+            padding: 6px;
+        }
+
+        #compare-tool .result-actions {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #compare-tool .sbs-grid {
+            grid-template-columns: 24px minmax(0, 1fr) 24px minmax(0, 1fr);
+            font-size: 11px;
+        }
+
+        #compare-tool .sbs-cell {
+            padding: 4px;
+        }
+
+        #compare-tool #diff-output {
+            max-width: 100%;
+        }
+
+        #compare-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   // ── Refs ──
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
@@ -733,20 +884,19 @@
   const errorText   = document.getElementById('error-text');
   const text1Area   = document.getElementById('text1-area');
   const text2Area   = document.getElementById('text2-area');
-
   let activeTab    = 'text';
   let activeMode   = 'line';
   let activeFormat = 'side_by_side';
   let files        = { 1: null, 2: null };
   let rawDiffText  = '';
   let blobUrl      = null;
-
   // ── Tab switching ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
-
   function switchTab(tab) {
     activeTab = tab;
+    tabText.setAttribute('aria-pressed', String(tab === 'text'));
+    tabFile.setAttribute('aria-pressed', String(tab === 'file'));
     tabText.classList.toggle('active', tab === 'text');
     tabFile.classList.toggle('active', tab === 'file');
     panelText.classList.toggle('hidden', tab !== 'text');
@@ -754,23 +904,23 @@
     hideError();
     refreshConvertBtn();
   }
-
   // ── Mode / Format buttons ──
   document.querySelectorAll('.mode-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.mode-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       activeMode = btn.dataset.mode;
     });
   });
   document.querySelectorAll('.format-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.format-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       activeFormat = btn.dataset.format;
     });
   });
-
   // ── Text areas meta + enable button ──
   [text1Area, text2Area].forEach((ta, i) => {
     ta.addEventListener('input', () => {
@@ -780,7 +930,6 @@
       refreshConvertBtn();
     });
   });
-
   // Paste/Clear buttons
   document.querySelectorAll('.paste-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -799,7 +948,6 @@
       target.dispatchEvent(new Event('input'));
     });
   });
-
   // ── File drop zones ──
   document.querySelectorAll('.drop-zone').forEach(dz => {
     const slot = dz.dataset.slot;
@@ -811,20 +959,17 @@
     });
     dz.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(slot, e.dataTransfer.files[0]); });
   });
-
   document.querySelectorAll('.file-input').forEach(input => {
     input.addEventListener('change', e => {
       if (e.target.files[0]) handleFile(e.target.dataset.slot, e.target.files[0]);
     });
   });
-
   document.querySelectorAll('.remove-file').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
       resetFile(btn.dataset.removeSlot);
     });
   });
-
   function handleFile(slot, file) {
     hideError();
     if (file.size > 50 * 1024 * 1024) {
@@ -840,7 +985,6 @@
     document.getElementById(`drop-zone-${slot}`).classList.add('has-file');
     refreshConvertBtn();
   }
-
   function resetFile(slot) {
     files[slot] = null;
     const preview = document.getElementById(`file-preview-${slot}`);
@@ -852,7 +996,6 @@
     dz.classList.remove('has-file');
     refreshConvertBtn();
   }
-
   function refreshConvertBtn() {
     if (activeTab === 'text') {
       convertBtn.disabled = !(text1Area.value && text2Area.value);
@@ -860,30 +1003,24 @@
       convertBtn.disabled = !(files[1] && files[2]);
     }
   }
-
   // ── Compare ──
   convertBtn.addEventListener('click', startCompare);
-
   async function startCompare() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
-
     const isFile = activeTab === 'file';
     const endpoint = isFile
       ? 'https://api.filenewer.com/api/tools/file-compare'
       : 'https://api.filenewer.com/api/tools/text-compare';
-
     // We always ask the API for JSON so we can render our own UI + show stats + diff array.
     // The user's "View" format controls how we render the result client-side.
     // For JSON raw view we still send json; for unified/side_by_side we render from differences array.
     const apiOutputFormat = 'json';
-
     const ignoreCase       = document.getElementById('opt-ignore-case').checked;
     const ignoreWhitespace = document.getElementById('opt-ignore-whitespace').checked;
     const ignoreBlankLines = document.getElementById('opt-ignore-blank').checked;
     const contextLines     = parseInt(document.getElementById('opt-context').value) || 3;
-
     let fetchBody, fetchHeaders = {};
     if (isFile) {
       const fd = new FormData();
@@ -909,11 +1046,9 @@
       });
       fetchHeaders = { 'Content-Type': 'application/json' };
     }
-
     // Animate progress
     setProcessStep('proc-1','active');
     animateProgress(0, 25, 400, 'Uploading inputs…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
       animateProgress(25, 55, 500, 'Tokenising content…');
@@ -926,24 +1061,19 @@
       setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
       animateProgress(80, 92, 400, 'Rendering result…');
     }, 1700);
-
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Comparison failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const data = await res.json();
       renderResult(data);
-
       setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
       animateProgress(92, 100, 250, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch(err) {
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       console.error(err);
@@ -952,37 +1082,31 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResult(data) {
     const isIdentical = data.is_identical;
     const similarity  = data.similarity ?? 0;
     const stats       = data.stats ?? {};
     const differences = data.differences ?? [];
-
     // Verdict
     const badge = document.getElementById('verdict-badge');
     badge.className = 'inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-sm font-bold ' +
       (isIdentical ? 'verdict-match' : 'verdict-diff');
-    document.getElementById('verdict-icon').textContent = isIdentical ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+    document.getElementById('verdict-icon').innerHTML = isIdentical ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-shuffle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 4l3 3l-3 3" /><path d="M18 20l3 -3l-3 -3" /><path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5" /><path d="M21 7h-5a4.978 4.978 0 0 0 -3 1m-4 8a4.984 4.984 0 0 1 -3 1h-3" /></svg>';
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-shuffle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 4l3 3l-3 3" /><path d="M18 20l3 -3l-3 -3" /><path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5" /><path d="M21 7h-5a4.978 4.978 0 0 0 -3 1m-4 8a4.984 4.984 0 0 1 -3 1h-3" /></svg>`;
     document.getElementById('verdict-text').textContent = isIdentical ? 'Identical' : 'Differences found';
-
     document.getElementById('similarity-val').textContent =
       (typeof similarity === 'number' ? similarity.toFixed(1) : similarity) + '%';
-
     document.getElementById('stat-added').textContent     = stats.added ?? 0;
     document.getElementById('stat-removed').textContent   = stats.removed ?? 0;
     document.getElementById('stat-changed').textContent   = stats.changed ?? 0;
     document.getElementById('stat-unchanged').textContent = stats.unchanged ?? 0;
-
     // Render diff based on active format
     const out = document.getElementById('diff-output');
     out.innerHTML = '';
     out.className = 'font-mono text-xs leading-relaxed';
-
     if (activeFormat === 'json') {
       const pre = document.createElement('pre');
       pre.style.padding = '16px';
@@ -1002,14 +1126,12 @@
       renderInline(out, differences);
       rawDiffText = buildUnifiedText(differences);
     }
-
     // Wire up download + copy
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = URL.createObjectURL(new Blob([rawDiffText], { type: 'text/plain;charset=utf-8;' }));
     const dl = document.getElementById('download-link');
     dl.href = blobUrl;
     dl.download = activeFormat === 'json' ? 'diff.json' : 'diff.txt';
-
     document.getElementById('btn-copy-result').onclick = async () => {
       try {
         await navigator.clipboard.writeText(rawDiffText);
@@ -1018,7 +1140,6 @@
       } catch(_) {}
     };
   }
-
   function renderUnified(container, diffs) {
     diffs.forEach(d => {
       if (d.type === 'equal') {
@@ -1041,7 +1162,6 @@
       }
     });
   }
-
   function renderInline(container, diffs) {
     // Similar to unified but without gutter
     diffs.forEach(d => {
@@ -1065,7 +1185,6 @@
       }
     });
   }
-
   function renderSideBySide(container, diffs) {
     const grid = document.createElement('div');
     grid.className = 'sbs-grid';
@@ -1073,18 +1192,15 @@
       const oldLines = splitLines(d.old_content);
       const newLines = splitLines(d.new_content);
       const maxLen = Math.max(oldLines.length, newLines.length);
-
       for (let i = 0; i < maxLen; i++) {
         const leftLine  = oldLines[i] ?? '';
         const rightLine = newLines[i] ?? '';
         const leftLn    = oldLines[i] !== undefined ? (d.old_start + i) : '';
         const rightLn   = newLines[i] !== undefined ? (d.new_start + i) : '';
-
         let leftClass = '', rightClass = '';
         if (d.type === 'delete')  { leftClass = 'remove'; }
         if (d.type === 'insert')  { rightClass = 'add'; }
         if (d.type === 'replace') { leftClass = 'remove'; rightClass = 'add'; }
-
         appendCell(grid, 'sbs-ln left',    leftLn);
         appendCell(grid, 'sbs-cell left ' + leftClass,  leftLine);
         appendCell(grid, 'sbs-ln',         rightLn);
@@ -1093,14 +1209,12 @@
     });
     container.appendChild(grid);
   }
-
   function appendCell(parent, cls, text) {
     const div = document.createElement('div');
     div.className = cls;
     div.textContent = text;
     parent.appendChild(div);
   }
-
   function diffRow(type, lineNum, sign, content) {
     const row = document.createElement('div');
     row.className = 'diff-row ' + type;
@@ -1111,12 +1225,10 @@
     row.querySelector('.content').textContent = content;
     return row;
   }
-
   function splitLines(text) {
     if (!text) return [];
     return text.replace(/\n$/, '').split('\n');
   }
-
   function buildUnifiedText(diffs) {
     let out = '';
     diffs.forEach(d => {
@@ -1133,7 +1245,6 @@
     });
     return out;
   }
-
   // ── Helpers ──
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
@@ -1141,7 +1252,6 @@
     });
     if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -1150,7 +1260,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1172,7 +1281,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1185,7 +1293,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     text1Area.value = '';
@@ -1200,7 +1307,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1210,13 +1316,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1231,9 +1335,7 @@
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection
