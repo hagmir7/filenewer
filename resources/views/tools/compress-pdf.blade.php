@@ -2,19 +2,15 @@
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-compressor" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="compression-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @php $cmpSteps = [['1','Upload PDF'],['2','Compressing'],['3','Download']]; @endphp
                 @foreach($cmpSteps as [$n,$label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
@@ -29,12 +25,9 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
                         class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
@@ -66,12 +59,9 @@
                             Choose PDF File
                         </div>
                         <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
-
-
-                        <input type="file" id="file-input" accept=".pdf,application/pdf"
+                        <input type="file" id="file-input" aria-label="Choose PDF file" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -91,7 +81,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove PDF"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -100,7 +90,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Compression level selector --}}
                     <div class="mt-5">
                         <label class="text-sm font-semibold text-fn-text2 block mb-3">Compression Level</label>
@@ -116,7 +105,7 @@
                             @foreach($levels as [$lval,$lname,$lspec,$ldesc,$lsaving])
                             <button type="button"
                                 class="level-btn {{ $lval === 'extreme' ? 'active' : '' }} flex flex-col items-start gap-1 p-3 rounded-xl border text-left transition-all"
-                                data-level="{{ $lval }}">
+                                data-level="{{ $lval }}" aria-pressed="{{ $lval === 'extreme' ? 'true' : 'false' }}">
                                 <div class="flex items-center justify-between w-full">
                                     <span class="text-sm font-bold">{{ $lname }}</span>
                                     <span class="saving-badge text-sm font-bold px-1.5 py-0.5 rounded-md">{{ $lsaving
@@ -128,7 +117,6 @@
                             @endforeach
                         </div>
                     </div>
-
                     {{-- Password (optional) --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
                         <label for="opt-password" class="text-sm font-semibold text-fn-text2 block mb-1.5">
@@ -137,7 +125,7 @@
                         <div class="relative">
                             <input type="password" id="opt-password" placeholder="Leave blank if not protected"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button" id="toggle-password"
+                            <button type="button" id="toggle-password" aria-label="Show password" aria-pressed="false"
                                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                 <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -155,7 +143,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 flex items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -168,7 +155,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Compress button --}}
                     <button id="compress-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -179,9 +165,7 @@
                         </svg>
                         Compress PDF
                     </button>
-
                 </div>{{-- /state-upload --}}
-
                 {{-- ── STATE: Compressing ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -222,7 +206,6 @@
                     </div>
                     <h2 class="text-xl font-bold mb-2" id="conv-title">Compressing your PDF…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this may take a moment for large files</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -232,7 +215,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @php
                         $cmpProcSteps = [
@@ -262,7 +244,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -277,7 +258,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Compression Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your file is ready.</p>
-
                     {{-- Savings card --}}
                     <div class="max-w-sm mx-auto mb-6">
                         <div class="bg-fn-surface2 border border-fn-green/15 rounded-2xl overflow-hidden">
@@ -326,7 +306,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- File card --}}
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4 mb-6 text-left">
@@ -348,7 +327,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="compressed.pdf"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -360,7 +338,6 @@
                         </svg>
                         Download Compressed PDF
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -376,7 +353,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -385,16 +361,13 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @php
@@ -410,7 +383,8 @@
             settings.'],
             ['Can I compress a password-protected PDF?', 'Yes — enter the PDF password in the optional password field
             before compressing.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
@@ -433,12 +407,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     /* Level buttons */
@@ -479,22 +450,208 @@
         background: oklch(62% 0.22 25/15%);
         color: oklch(62% 0.22 25);
     }
-</style>
 
+    /* Responsive PDF compression controls and selected level. */
+    #pdf-compressor * {
+        box-sizing: border-box;
+    }
+
+    #pdf-compressor .grid>*,
+    #pdf-compressor .level-btn {
+        min-width: 0;
+    }
+
+    #pdf-compressor .level-btn.active,
+    #pdf-compressor .level-btn[data-level="extreme"].active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+    }
+
+    #pdf-compressor .level-btn.active .saving-badge {
+        background: rgb(255 255 255 / 18%);
+        color: #fff;
+    }
+
+    #pdf-compressor .level-btn.active>span {
+        opacity: 1;
+    }
+
+    #pdf-compressor button,
+    #pdf-compressor a {
+        touch-action: manipulation;
+    }
+
+    #pdf-compressor button:focus-visible,
+    #pdf-compressor a:focus-visible,
+    #pdf-compressor input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #pdf-compressor .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #pdf-compressor #file-name,
+    #pdf-compressor #output-name,
+    #pdf-compressor #file-meta,
+    #pdf-compressor #output-size,
+    #pdf-compressor #error-text,
+    #pdf-compressor #result-subtitle {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    #pdf-compressor svg {
+        flex-shrink: 0;
+    }
+
+    #pdf-compressor #toggle-password {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 4px;
+        right: 4px;
+    }
+
+    #pdf-compressor #opt-password {
+        min-height: 42px;
+        padding-right: 42px;
+    }
+
+    @media (max-width: 767px) {
+        #pdf-compressor .compression-steps {
+            padding: 16px 8px;
+        }
+
+        #pdf-compressor .compression-steps .step-item {
+            gap: 4px;
+        }
+
+        #pdf-compressor .compression-steps .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-compressor .compression-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #pdf-compressor button,
+        #pdf-compressor a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #pdf-compressor #drop-zone {
+            padding: 28px 12px;
+        }
+
+        #pdf-compressor #drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #pdf-compressor #drop-zone p {
+            font-size: 12px;
+        }
+
+        #pdf-compressor #drop-zone .pointer-events-none {
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        #pdf-compressor #file-preview {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #pdf-compressor #remove-file {
+            min-width: 32px;
+            padding: 6px;
+        }
+
+        #pdf-compressor #level-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        #pdf-compressor .level-btn {
+            padding: 10px;
+            gap: 5px;
+        }
+
+        #pdf-compressor .level-btn>.flex {
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        #pdf-compressor .level-btn .text-sm {
+            font-size: 11px;
+        }
+
+        #pdf-compressor .level-btn .font-bold:not(.saving-badge) {
+            font-size: 13px;
+        }
+
+        #pdf-compressor .saving-badge {
+            padding: 3px 5px;
+        }
+
+        #pdf-compressor #opt-password {
+            font-size: 16px;
+        }
+
+        #pdf-compressor #toggle-password {
+            min-height: 32px;
+        }
+
+        #pdf-compressor #download-link {
+            max-width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+        }
+
+        #pdf-compressor #state-download .flex {
+            flex-wrap: wrap;
+        }
+
+        #pdf-compressor #state-download .flex-1 {
+            min-width: 0;
+        }
+
+        #pdf-compressor #state-download>p {
+            text-align: center;
+        }
+
+        #pdf-compressor #progress-label {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+    }
+</style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       let selectedFile  = null;
       let activeLevel   = 'extreme';
       let blobUrl       = null;
-
       // ── Drop zone ──
       const dropZone    = document.getElementById('drop-zone');
       const fileInput   = document.getElementById('file-input');
       const filePreview = document.getElementById('file-preview');
-
       ['dragenter','dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
       });
@@ -513,7 +670,6 @@
         document.getElementById('compress-btn').disabled = true;
         hideError();
       });
-
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
@@ -529,46 +685,42 @@
         dropZone.classList.add('has-file');
         document.getElementById('compress-btn').disabled = false;
       }
-
       // ── Level buttons ──
       document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.level-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
           activeLevel = btn.dataset.level;
         });
       });
-
       // ── Password toggle ──
       document.getElementById('toggle-password').addEventListener('click', () => {
         const input  = document.getElementById('opt-password');
         const isPass = input.type === 'password';
         input.type   = isPass ? 'text' : 'password';
+        const toggle = document.getElementById('toggle-password');
+        toggle.setAttribute('aria-pressed', String(isPass));
+        toggle.setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
         document.getElementById('eye-show').classList.toggle('hidden', isPass);
         document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
       });
-
       // ── Compress ──
       document.getElementById('compress-btn').addEventListener('click', startCompression);
-
       async function startCompression() {
         if (!selectedFile) return;
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         document.getElementById('conv-title').textContent = `Compressing with ${activeLevel} level…`;
-
         const fd = new FormData();
         fd.append('file',              selectedFile);
         fd.append('compression_level', activeLevel);
         fd.append('output',            'json'); // get stats + base64 so we can show savings
         const pw = document.getElementById('opt-password').value.trim();
         if (pw) fd.append('password', pw);
-
         setProcessStep('proc-1','active');
         animateProgress(0, 20, 700, 'Uploading & reading PDF…');
-
         const t2 = setTimeout(() => {
           setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
           animateProgress(20, 55, 1200, 'Compressing images to target DPI…');
@@ -581,24 +733,18 @@
           setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
           animateProgress(78, 90, 600, 'Finalising compressed file…');
         }, 3100);
-
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/pdf-compress', {
             method: 'POST',
             body:   fd,
           });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!res.ok) {
             const d = await res.json().catch(() => ({}));
             throw new Error(d.error || 'Compression failed. Please try again.');
           }
-
           const ct = res.headers.get('Content-Type') || '';
-
           let blob, stats = {};
-
           if (ct.includes('application/json')) {
             // JSON response with base64 — output=json path
             const data = await res.json();
@@ -619,24 +765,19 @@
               filename:           res.headers.get('Content-Disposition')?.match(/filename="?([^"]+)"?/)?.[1] || null,
             };
           }
-
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
-
           const fileName = stats.filename
             || selectedFile.name.replace(/\.pdf$/i, `_compressed_${activeLevel}.pdf`);
-
           // Wire download
           const link    = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = fileName;
-
           // Populate results
           const origKb  = stats.original_size_kb   ?? (selectedFile.size / 1024);
           const compKb  = stats.compressed_size_kb  ?? (blob.size / 1024);
           const pct     = stats.reduction_percent    ?? Math.round((1 - compKb / origKb) * 100);
           const savedKb = origKb - compKb;
-
           document.getElementById('reduction-pct').textContent = Math.round(pct) + '%';
           document.getElementById('orig-size').textContent     = formatKb(origKb);
           document.getElementById('comp-size').textContent     = formatKb(compKb);
@@ -648,17 +789,14 @@
           document.getElementById('output-size').textContent   = formatKb(compKb) + ' · PDF Document';
           document.getElementById('result-subtitle').textContent =
             `Reduced from ${formatKb(origKb)} to ${formatKb(compKb)} — saved ${Math.round(pct)}%`;
-
           // Animated bar chart
           const barPct = Math.max(5, Math.round((compKb / origKb) * 100));
           setTimeout(() => {
             document.getElementById('bar-comp').style.height = barPct + '%';
           }, 400);
-
           setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
           animateProgress(90, 100, 300, 'Done!');
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch(err) {
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           showState('upload');
@@ -666,7 +804,6 @@
           showError(err.message || 'Something went wrong. Please try again.');
         }
       }
-
       // ── Helpers ──
       function formatKb(kb) {
         if (!kb && kb !== 0) return '—';
@@ -674,14 +811,12 @@
         return Math.round(kb) + ' KB';
       }
       function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : '—'; }
-
       function showState(state) {
         ['upload','converting','download'].forEach(s => {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
         if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
       }
-
       function updateStepIndicator(active) {
         [1,2,3].forEach(n => {
           const el = document.getElementById('step-' + n);
@@ -690,7 +825,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -710,7 +844,6 @@
           dot.style.background  = 'oklch(67% 0.18 162/15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         const start = performance.now();
@@ -723,7 +856,6 @@
         }
         requestAnimationFrame(step);
       }
-
       function showError(msg) {
         document.getElementById('error-text').textContent = msg;
         const el = document.getElementById('upload-error');
@@ -738,7 +870,6 @@
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         selectedFile    = null;
@@ -751,8 +882,9 @@
         // Reset bar chart
         document.getElementById('bar-comp').style.height = '30%';
         // Reset to extreme
-        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.level-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
         document.querySelector('.level-btn[data-level="extreme"]').classList.add('active');
+        document.querySelector('.level-btn[data-level="extreme"]').setAttribute('aria-pressed', 'true');
         activeLevel = 'extreme';
         hideError();
         showState('upload');
@@ -760,7 +892,6 @@
         animateProgress(0, 0, 0, 'Starting…');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -772,9 +903,7 @@
           if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection
