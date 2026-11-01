@@ -2,19 +2,14 @@
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="base64-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── Mode tabs ── --}}
-            <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2 flex-wrap">
+            <div class="b64-tabs flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2 flex-wrap">
                 @php
                 $b64Tabs = [
                 ['encode-text', '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil"
@@ -48,25 +43,24 @@
                 @foreach($b64Tabs as [$tval,$ticon,$tlabel])
                 <button type="button"
                     class="tab-btn {{ $tval === 'encode-text' ? 'active' : '' }} flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"
-                    data-tab="{{ $tval }}">
+                    data-tab="{{ $tval }}" aria-pressed="{{ $tval === 'encode-text' ? 'true' : 'false' }}">
                     <span>{!! $ticon !!}</span>
                     <span>{{ $tlabel }}</span>
                 </button>
                 @endforeach
             </div>
-
-            <div class="p-6 lg:p-8">
-
+            <div class="p-3 sm:p-5 lg:p-8">
                 {{-- ══ SHARED OPTIONS BAR ══ --}}
                 <div
-                    class="flex flex-wrap items-center gap-3 mb-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
+                    class="b64-options flex flex-wrap items-center gap-3 mb-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     <div class="flex items-center gap-2">
                         <span class="text-sm font-semibold text-fn-text2 shrink-0">Encoding</span>
                         @php $encodingTypes = [['standard','Standard'],['url_safe','URL-safe'],['mime','MIME']]; @endphp
                         @foreach($encodingTypes as [$eval,$elabel])
                         <button type="button"
                             class="enc-type-btn {{ $eval === 'standard' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
-                            data-enc="{{ $eval }}">{{ $elabel }}</button>
+                            data-enc="{{ $eval }}" aria-pressed="{{ $eval === 'standard' ? 'true' : 'false' }}">{{
+                            $elabel }}</button>
                         @endforeach
                     </div>
                     <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
@@ -90,7 +84,8 @@
                             @foreach($decOutputs as [$doval,$dolabel])
                             <button type="button"
                                 class="dec-output-btn {{ $doval === 'json' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
-                                data-decout="{{ $doval }}">{{ $dolabel }}</button>
+                                data-decout="{{ $doval }}" aria-pressed="{{ $doval === 'json' ? 'true' : 'false' }}">{{
+                                $dolabel }}</button>
                             @endforeach
                         </div>
                         <div class="flex items-center gap-2" id="decode-filename-wrap">
@@ -110,14 +105,13 @@
                         </select>
                     </div>
                 </div>
-
                 {{-- ══ ENCODE TEXT TAB ══ --}}
                 <div id="panel-encode-text" class="tab-panel">
                     <div class="grid lg:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
+                        <div class="min-w-0 space-y-2">
+                            <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                 <p class="text-sm font-semibold text-fn-text2">Input Text</p>
-                                <div class="flex gap-2">
+                                <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <button type="button" id="et-paste"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -146,10 +140,10 @@
                                 Encode
                             </button>
                         </div>
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
+                        <div class="min-w-0 space-y-2">
+                            <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                 <p class="text-sm font-semibold text-fn-text2">Base64 Output</p>
-                                <div class="flex gap-2" id="et-output-actions">
+                                <div class="b64-actions flex flex-wrap items-center gap-2" id="et-output-actions">
                                     <span id="et-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="et-copy"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -178,12 +172,10 @@
                         </div>
                     </div>
                 </div>{{-- /encode-text --}}
-
                 {{-- ══ ENCODE FILE TAB ══ --}}
                 <div id="panel-encode-file" class="tab-panel hidden">
-
                     <div class="grid lg:grid-cols-2 gap-4">
-                        <div class="space-y-3">
+                        <div class="min-w-0 space-y-3">
                             <div id="ef-drop-zone"
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                 <div class="text-4xl mb-3"><svg xmlns="http://www.w3.org/2000/svg"
@@ -246,11 +238,10 @@
                                 Encode File
                             </button>
                         </div>
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
+                        <div class="min-w-0 space-y-2">
+                            <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                 <p class="text-sm font-semibold text-fn-text2">Base64 Output</p>
-                                <div class="flex gap-2">
+                                <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <span id="ef-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="ef-copy"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -267,10 +258,9 @@
                             <textarea id="ef-output" rows="8" readonly spellcheck="false"
                                 placeholder="Base64 encoded output will appear here…"
                                 class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
-
                             {{-- Data URI card (shown for images) --}}
                             <div id="ef-data-uri-wrap" class="hidden space-y-2">
-                                <div class="flex items-center justify-between">
+                                <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                     <p class="text-sm font-semibold text-fn-text2">Data URI</p>
                                     <button type="button" id="ef-copy-uri"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -303,14 +293,13 @@
                         </div>
                     </div>
                 </div>{{-- /encode-file --}}
-
                 {{-- ══ DECODE TAB ══ --}}
                 <div id="panel-decode" class="tab-panel hidden">
                     <div class="grid lg:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
+                        <div class="min-w-0 space-y-2">
+                            <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                 <p class="text-sm font-semibold text-fn-text2">Base64 Input</p>
-                                <div class="flex gap-2">
+                                <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <button type="button" id="dec-paste"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -340,11 +329,10 @@
                                 Decode
                             </button>
                         </div>
-
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
+                        <div class="min-w-0 space-y-2">
+                            <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                 <p class="text-sm font-semibold text-fn-text2">Decoded Output</p>
-                                <div class="flex gap-2">
+                                <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <span id="dec-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="dec-copy"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -384,14 +372,13 @@
                         </div>
                     </div>
                 </div>{{-- /decode --}}
-
                 {{-- ══ VALIDATE TAB ══ --}}
                 <div id="panel-validate" class="tab-panel hidden">
                     <div class="max-w-2xl">
                         <div class="space-y-2 mb-4">
-                            <div class="flex items-center justify-between">
+                            <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
                                 <p class="text-sm font-semibold text-fn-text2">Base64 String to Validate</p>
-                                <div class="flex gap-2">
+                                <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <button type="button" id="val-paste"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -420,7 +407,6 @@
                                 Validate
                             </button>
                         </div>
-
                         {{-- Validation result --}}
                         <div id="val-result" class="hidden p-5 rounded-2xl border">
                             <div class="flex items-center gap-3 mb-4">
@@ -440,7 +426,6 @@
                             </div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="val-stats"></div>
                         </div>
-
                         <div id="val-error"
                             class="hidden mt-3 flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -451,16 +436,13 @@
                         </div>
                     </div>
                 </div>{{-- /validate --}}
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ ENCODING REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Encoding Types</h2>
         <div class="grid sm:grid-cols-3 gap-4">
             @php
@@ -483,13 +465,9 @@
         </div>
     </div>
 </section>
-
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -541,26 +519,221 @@
         color: var(--fn-text2);
         margin-top: 2px;
     }
-</style>
 
+    /* Responsive controls and persistent selected states. */
+    #base64-tool * {
+        box-sizing: border-box;
+    }
+
+    #base64-tool .grid>*,
+    #base64-tool .tab-panel,
+    #base64-tool .b64-options>*,
+    #base64-tool .b64-toolbar>* {
+        min-width: 0;
+    }
+
+    #base64-tool .b64-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    #base64-tool .tab-btn {
+        justify-content: center;
+        min-height: 48px;
+        padding-inline: 8px;
+    }
+
+    #base64-tool .tab-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    #base64-tool .tab-btn.active,
+    #base64-tool .enc-type-btn.active,
+    #base64-tool .dec-output-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #base64-tool button,
+    #base64-tool select,
+    #base64-tool input[type="text"],
+    #base64-tool a[download] {
+        min-height: 44px;
+        touch-action: manipulation;
+    }
+
+    #base64-tool button,
+    #base64-tool a[download] {
+        justify-content: center;
+    }
+
+    #base64-tool button:focus-visible,
+    #base64-tool a:focus-visible,
+    #base64-tool input:focus-visible,
+    #base64-tool textarea:focus-visible,
+    #base64-tool select:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px;
+    }
+
+    #base64-tool .b64-options>.flex {
+        flex-wrap: wrap;
+    }
+
+    #base64-tool .decode-only>.flex {
+        flex-wrap: wrap;
+        min-width: 0;
+    }
+
+    #base64-tool .decode-only label {
+        min-height: 44px;
+    }
+
+    #base64-tool .toggle-wrap {
+        flex-shrink: 0;
+    }
+
+    #base64-tool .toggle-wrap input:checked~.toggle-track {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+    }
+
+    #base64-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #base64-tool textarea {
+        display: block;
+        min-width: 0;
+        max-width: 100%;
+        resize: vertical;
+        overflow-wrap: anywhere;
+    }
+
+    #base64-tool svg {
+        flex-shrink: 0;
+    }
+
+    #base64-tool [id$="-stats"],
+    #base64-tool [id$="-error-text"],
+    #base64-tool #ef-file-name,
+    #base64-tool #ef-file-meta,
+    #base64-tool .stat-value,
+    #base64-tool #val-message {
+        overflow-wrap: anywhere;
+    }
+
+    #base64-tool #ef-img-preview {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    #base64-tool #ef-remove {
+        min-width: 44px;
+        flex-shrink: 0;
+    }
+
+    #base64-tool #ef-drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    @media (min-width: 768px) {
+        #base64-tool .b64-tabs {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 639px) {
+        #base64-tool .b64-options {
+            padding: 12px;
+            gap: 12px;
+        }
+
+        #base64-tool .b64-options>.flex {
+            width: 100%;
+            gap: 8px;
+        }
+
+        #base64-tool .decode-only>.flex {
+            width: 100%;
+        }
+
+        #base64-tool #decode-filename-wrap input {
+            flex: 1;
+            min-width: 0;
+            width: 100%;
+        }
+
+        #base64-tool .b64-actions {
+            gap: 6px;
+            max-width: 100%;
+        }
+
+        #base64-tool [id$="-output-actions"] {
+            width: 100%;
+        }
+
+        #base64-tool [id$="-stats"] {
+            flex-basis: 100%;
+        }
+
+        #base64-tool textarea,
+        #base64-tool input[type="text"],
+        #base64-tool select {
+            font-size: 16px;
+        }
+
+        #base64-tool textarea {
+            height: 240px;
+            min-height: 160px;
+            padding: 12px;
+        }
+
+        #base64-tool #ef-drop-zone {
+            padding: 24px 12px;
+        }
+
+        #base64-tool #ef-file-preview {
+            flex-wrap: wrap;
+        }
+
+        #base64-tool #ef-file-name {
+            white-space: normal;
+        }
+
+        #base64-tool #val-stats {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        #base64-tool #val-result {
+            padding: 12px;
+        }
+    }
+</style>
 {{-- ══ JAVASCRIPT ══ --}}
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       const API = 'https://api.filenewer.com/api/tools';
       let activeTab    = 'encode-text';
       let activeEnc    = 'standard';
       let activeDecOut = 'json';
       let efFile       = null;
       let decBlobUrl   = null;
-
       // ── Tab switching ──
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           activeTab = btn.dataset.tab;
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
           document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
           document.getElementById('panel-' + activeTab).classList.remove('hidden');
           // Show/hide options bar sections
@@ -570,26 +743,25 @@
             el.classList.toggle('hidden', activeTab === 'decode' || activeTab === 'validate'));
         });
       });
-
       // ── Encoding type buttons ──
       document.querySelectorAll('.enc-type-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.enc-type-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.enc-type-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
           activeEnc = btn.dataset.enc;
         });
       });
-
       // ── Decode output buttons ──
       document.querySelectorAll('.dec-output-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.dec-output-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.dec-output-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
           activeDecOut = btn.dataset.decout;
           document.getElementById('decode-filename-wrap').classList.toggle('hidden', activeDecOut !== 'file');
         });
       });
-
       // ── Paste & clear helpers ──
       function setupPasteClear(pasteId, clearId, targetId, btnId) {
         document.getElementById(pasteId)?.addEventListener('click', async () => {
@@ -603,11 +775,9 @@
           if (btnId) document.getElementById(btnId).disabled = true;
         });
       }
-
       setupPasteClear('et-paste', 'et-clear', 'et-input', 'et-encode-btn');
       setupPasteClear('dec-paste', 'dec-clear', 'dec-input', 'dec-decode-btn');
       setupPasteClear('val-paste', 'val-clear', 'val-input', 'val-btn');
-
       // Enable buttons on input
       ['et-input','dec-input','val-input'].forEach(id => {
         const el  = document.getElementById(id);
@@ -616,7 +786,6 @@
           document.getElementById(btn).disabled = !el.value.trim();
         });
       });
-
       // ── Copy helpers ──
       function setupCopy(btnId, labelId, getVal) {
         document.getElementById(btnId)?.addEventListener('click', async () => {
@@ -628,12 +797,10 @@
           } catch(_) {}
         });
       }
-
       setupCopy('et-copy', 'et-copy-label', () => document.getElementById('et-output').value);
       setupCopy('ef-copy', 'ef-copy-label', () => document.getElementById('ef-output').value);
       setupCopy('ef-copy-uri', 'ef-copy-uri-label', () => document.getElementById('ef-data-uri').value);
       setupCopy('dec-copy', 'dec-copy-label', () => document.getElementById('dec-output').value);
-
       // ══ ENCODE TEXT ══
       document.getElementById('et-encode-btn').addEventListener('click', async () => {
         const text = document.getElementById('et-input').value;
@@ -664,11 +831,9 @@
           resetBtn('et-encode-btn', 'Encode');
         }
       });
-
       // ══ ENCODE FILE ══
       const efDropZone = document.getElementById('ef-drop-zone');
       const efInput    = document.getElementById('ef-input');
-
       ['dragenter','dragover'].forEach(evt => {
         efDropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); efDropZone.classList.add('drag-over'); });
       });
@@ -682,7 +847,6 @@
         hideEl('ef-file-preview');
         document.getElementById('ef-encode-btn').disabled = true;
       });
-
       function handleEfFile(file) {
         if (file.size > 10 * 1024 * 1024) {
           document.getElementById('ef-error-text').textContent = 'File exceeds the 10MB limit.';
@@ -692,25 +856,24 @@
         efFile = file;
         const ext  = file.name.split('.').pop().toLowerCase();
         const imgExts = ['png','jpg','jpeg','gif','webp','svg','bmp'];
-        document.getElementById('ef-icon').textContent       = imgExts.includes(ext) ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M15 8h.01" />
-	<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
-	<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-	<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14 3v4a1 1 0 0 0 1 1h4" />
-	<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-	<path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg>';
+        document.getElementById('ef-icon').innerHTML       = imgExts.includes(ext) ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M15 8h.01" />
+    <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
+    <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+    <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+    <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+</svg>`;
         document.getElementById('ef-file-name').textContent  = file.name;
         document.getElementById('ef-file-meta').textContent  = formatBytes(file.size) + ' · ' + (file.type || ext.toUpperCase());
         showEl('ef-file-preview', 'flex');
         document.getElementById('ef-encode-btn').disabled = false;
         hideEl('ef-error');
       }
-
       document.getElementById('ef-encode-btn').addEventListener('click', async () => {
         if (!efFile) return;
         setLoading('ef-encode-btn');
@@ -747,7 +910,6 @@
           resetBtn('ef-encode-btn', 'Encode File');
         }
       });
-
       // ══ DECODE ══
       document.getElementById('dec-decode-btn').addEventListener('click', async () => {
         const text = document.getElementById('dec-input').value.trim();
@@ -764,13 +926,11 @@
             output:        activeDecOut,
           };
           if (activeDecOut === 'file') payload.filename = filename;
-
           const res = await fetch(`${API}/base64-decode`, {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },
             body:    JSON.stringify(payload),
           });
-
           if (activeDecOut === 'file') {
             if (!res.ok) { const d = await res.json(); throw new Error(d.error || 'Decode failed.'); }
             const blob = await res.blob();
@@ -800,7 +960,6 @@
           resetBtn('dec-decode-btn', 'Decode');
         }
       });
-
       // ══ VALIDATE ══
       document.getElementById('val-btn').addEventListener('click', async () => {
         const text = document.getElementById('val-input').value.trim();
@@ -815,24 +974,22 @@
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Validation failed.');
-
           const valid = data.is_valid;
           const result = document.getElementById('val-result');
           result.className = `p-5 rounded-2xl border ${valid
             ? 'bg-fn-green/6 border-fn-green/20'
             : 'bg-fn-red/6 border-fn-red/20'}`;
-          document.getElementById('val-icon').textContent    = valid ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('val-icon').innerHTML    = valid ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>';
+</svg>`;
           document.getElementById('val-title').textContent   = valid ? 'Valid Base64' : 'Invalid Base64';
           document.getElementById('val-message').textContent = data.message ?? '';
-
           const statsEl = document.getElementById('val-stats');
           statsEl.innerHTML = '';
           const chips = [
@@ -855,7 +1012,6 @@
           resetBtn('val-btn', 'Validate');
         }
       });
-
       // ── Utility ──
       function showEl(id, display = 'block') {
         const el = document.getElementById(id);
@@ -887,9 +1043,7 @@
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection
