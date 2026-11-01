@@ -716,6 +716,53 @@
             padding: 12px;
         }
     }
+
+
+    /* Compact mobile buttons; tablet and desktop sizing stays unchanged. */
+    @media (max-width: 639px) {
+
+        #base64-tool button,
+        #base64-tool a[download] {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.25;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #base64-tool .tab-btn {
+            min-height: 36px;
+            padding: 7px 8px;
+        }
+
+        #base64-tool .tab-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        #base64-tool .enc-type-btn,
+        #base64-tool .dec-output-btn {
+            min-height: 30px;
+            padding: 5px 8px;
+            font-size: 11px;
+        }
+
+        #base64-tool #ef-remove {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #base64-tool .b64-tabs {
+            gap: 4px;
+            padding: 6px;
+        }
+
+        #base64-tool .b64-actions {
+            gap: 4px;
+        }
+    }
 </style>
 {{-- ══ JAVASCRIPT ══ --}}
 @push('footer')
