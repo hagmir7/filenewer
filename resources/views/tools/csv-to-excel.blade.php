@@ -1,21 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="csv-excel-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="csv-steps flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @php $steps = [['1','Input CSV'],['2','Converting'],['3','Download']]; @endphp
                 @foreach($steps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
@@ -30,15 +25,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-3 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- ── Mode tabs ── --}}
                     <div
-                        class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
+                        class="csv-tabs flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
                         <button type="button" id="tab-file"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -59,10 +51,8 @@
                             Paste CSV
                         </button>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file">
-
                         <div id="drop-zone"
                             class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="flex items-center justify-center mb-5">
@@ -96,7 +86,6 @@
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         {{-- File preview --}}
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -116,7 +105,7 @@
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
                             </div>
-                            <button type="button" id="remove-file"
+                            <button type="button" id="remove-file" aria-label="Remove CSV file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -125,7 +114,6 @@
                                 </svg>
                             </button>
                         </div>
-
                         {{-- File options --}}
                         <div class="mt-4 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -158,15 +146,12 @@
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
                         </div>
-
                     </div>{{-- /panel-file --}}
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text" class="hidden">
-
                         {{-- Sheet mode toggle --}}
                         <div
-                            class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4 w-fit">
+                            class="csv-tabs flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4 w-fit">
                             <button type="button" id="sheet-mode-single"
                                 class="sheet-mode-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -187,14 +172,13 @@
                                 Multi-Sheet
                             </button>
                         </div>
-
                         {{-- Single sheet panel --}}
                         <div id="panel-single">
                             <div class="relative">
                                 <textarea id="csv-textarea" rows="11" spellcheck="false"
                                     placeholder="Paste your CSV here, e.g.&#10;username;identifier;first_name;department&#10;booker12;9012;Rachel;Sales&#10;grey07;2070;Laura;Depot"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
-                                <div class="absolute top-3 right-3 flex gap-2">
+                                <div class="csv-text-actions absolute top-3 right-3 flex gap-2">
                                     <button type="button" id="btn-paste"
                                         class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
@@ -224,7 +208,6 @@
                             <div id="csv-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold">
                             </div>
                         </div>
-
                         {{-- Multi-sheet panel --}}
                         <div id="panel-multi" class="hidden">
                             {{-- Dynamic sheet editors --}}
@@ -241,7 +224,6 @@
                             <div id="multi-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold">
                             </div>
                         </div>
-
                         {{-- Text options --}}
                         <div class="mt-4 grid sm:grid-cols-3 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -279,9 +261,7 @@
                                         class="font-mono">output.xlsx</span></p>
                             </div>
                         </div>
-
                     </div>{{-- /panel-text --}}
-
                     {{-- Excel features strip --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <p class="text-sm font-semibold text-fn-text2 mb-3">Output Excel Features</p>
@@ -306,7 +286,6 @@
                             @endforeach
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -319,7 +298,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -329,9 +307,7 @@
                         </svg>
                         Convert to Excel
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -406,7 +382,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -421,7 +396,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-8">Your Excel workbook is ready.</p>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -443,7 +417,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="output.xlsx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -455,7 +428,6 @@
                         </svg>
                         Download Excel File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -471,7 +443,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -480,16 +451,13 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
-    <div class="max-w-3xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
@@ -505,7 +473,8 @@
             independently into the same workbook.'],
             ['Can I set a custom sheet name and filename?', 'Yes — both fields are optional. If left blank, the sheet
             defaults to Sheet1 and the filename to output.xlsx (or your uploaded filename with .xlsx).'],
-            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my data safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q,$a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -526,12 +495,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .tab-btn {
@@ -589,13 +555,193 @@
             transform: none;
         }
     }
-</style>
 
+    /* Responsive CSV inputs, options, and persistent selected states. */
+    #csv-excel-tool * {
+        box-sizing: border-box;
+    }
+
+    #csv-excel-tool .grid>*,
+    #csv-excel-tool .sheet-editor,
+    #csv-excel-tool .sheet-name-input {
+        min-width: 0;
+    }
+
+    #csv-excel-tool .tab-btn.active,
+    #csv-excel-tool .sheet-mode-btn.active,
+    #csv-excel-tool .file-sep-btn.active,
+    #csv-excel-tool .text-sep-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: #fff;
+        border-color: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
+    }
+
+    #csv-excel-tool button,
+    #csv-excel-tool a {
+        touch-action: manipulation;
+    }
+
+    #csv-excel-tool button:focus-visible,
+    #csv-excel-tool a:focus-visible,
+    #csv-excel-tool input:focus-visible,
+    #csv-excel-tool textarea:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-excel-tool .drop-zone:focus-within {
+        outline: 2px solid #60a5fa;
+        outline-offset: 3px;
+    }
+
+    #csv-excel-tool textarea {
+        max-width: 100%;
+        min-width: 0;
+        resize: vertical;
+    }
+
+    #csv-excel-tool #file-name,
+    #csv-excel-tool #output-name {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #csv-excel-tool #file-meta,
+    #csv-excel-tool #output-size,
+    #csv-excel-tool #error-text,
+    #csv-excel-tool [id$="status"] {
+        overflow-wrap: anywhere;
+    }
+
+    #csv-excel-tool svg {
+        flex-shrink: 0;
+    }
+
+    #csv-excel-tool .remove-sheet-btn {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 767px) {
+        #csv-excel-tool .csv-steps {
+            padding: 16px 8px;
+        }
+
+        #csv-excel-tool .csv-steps .step-item {
+            gap: 4px;
+        }
+
+        #csv-excel-tool .csv-steps .step-label {
+            font-size: 11px;
+        }
+
+        #csv-excel-tool .csv-steps>div:not(.step-item) {
+            width: 12px;
+            margin-inline: 4px;
+        }
+    }
+
+    @media (max-width: 639px) {
+
+        #csv-excel-tool button,
+        #csv-excel-tool a {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            line-height: 1.3;
+            border-radius: 8px;
+            gap: 5px;
+        }
+
+        #csv-excel-tool .csv-tabs {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            width: 100%;
+        }
+
+        #csv-excel-tool .tab-btn,
+        #csv-excel-tool .sheet-mode-btn {
+            justify-content: center;
+            padding: 7px 6px;
+        }
+
+        #csv-excel-tool .file-sep-btn,
+        #csv-excel-tool .text-sep-btn {
+            min-height: 30px;
+            padding: 5px;
+            font-size: 11px;
+        }
+
+        #csv-excel-tool #drop-zone {
+            padding: 28px 12px;
+        }
+
+        #csv-excel-tool #drop-zone h2 {
+            font-size: 16px;
+        }
+
+        #csv-excel-tool #drop-zone p {
+            font-size: 12px;
+        }
+
+        #csv-excel-tool #drop-zone .pointer-events-none {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        #csv-excel-tool #file-preview {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        #csv-excel-tool #remove-file,
+        #csv-excel-tool .remove-sheet-btn {
+            min-width: 32px;
+            min-height: 32px;
+            padding: 6px;
+        }
+
+        #csv-excel-tool input[type="text"],
+        #csv-excel-tool textarea {
+            font-size: 16px;
+        }
+
+        #csv-excel-tool textarea {
+            padding: 12px;
+            min-height: 160px;
+        }
+
+        #csv-excel-tool #csv-textarea {
+            height: 240px;
+        }
+
+        #csv-excel-tool .csv-text-actions {
+            position: static;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        #csv-excel-tool .sheet-editor {
+            padding: 12px;
+        }
+
+        #csv-excel-tool #download-link {
+            max-width: 100%;
+            justify-content: center;
+            padding: 10px 14px;
+        }
+
+        #csv-excel-tool #state-download>p {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+    }
+</style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       // ── Refs ──
       const tabFile      = document.getElementById('tab-file');
       const tabText      = document.getElementById('tab-text');
@@ -617,7 +763,6 @@
       const sheetEditors = document.getElementById('sheet-editors');
       const multiStatus  = document.getElementById('multi-status');
       const singleSheetNameWrap = document.getElementById('single-sheet-name-wrap');
-
       let selectedFile  = null;
       let blobUrl       = null;
       let activeTab     = 'file';
@@ -626,18 +771,15 @@
       let activeSepFile = ',';
       let activeSepText = ',';
       let sheetCount    = 0;
-
       const sepLabels = {
         ',':   'Comma — standard',
         ';':   'Semicolon — European locale',
-        '\\t': 'Tab — TSV format',
+        '\\\t': 'Tab — TSV format',
         '|':   'Pipe separator',
       };
-
       // ── Tab switching ──
       tabFile.addEventListener('click', () => switchTab('file'));
       tabText.addEventListener('click', () => switchTab('text'));
-
       function switchTab(tab) {
         activeTab = tab;
         tabFile.classList.toggle('active', tab === 'file');
@@ -647,11 +789,9 @@
         hideError();
         refreshConvertBtn();
       }
-
       // ── Sheet mode (text tab) ──
       smSingle.addEventListener('click', () => switchSheetMode('single'));
       smMulti.addEventListener('click',  () => switchSheetMode('multi'));
-
       function switchSheetMode(mode) {
         sheetMode = mode;
         smSingle.classList.toggle('active', mode === 'single');
@@ -662,7 +802,6 @@
         document.getElementById('text-opt-sheet').disabled = mode !== 'single';
         refreshConvertBtn();
       }
-
       // ── Separator buttons — file tab ──
       document.querySelectorAll('.file-sep-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -672,7 +811,6 @@
           document.getElementById('file-sep-hint').textContent = sepLabels[activeSepFile] ?? '';
         });
       });
-
       // ── Separator buttons — text tab ──
       document.querySelectorAll('.text-sep-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -683,7 +821,6 @@
           validateCsv(); // re-validate with new sep
         });
       });
-
       // ── Drag & drop ──
       ['dragenter','dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -694,7 +831,6 @@
       dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
       fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
       removeFileBtn.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
       function handleFile(file) {
         hideError();
         if (!file.name.toLowerCase().endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
@@ -715,7 +851,6 @@
         dropZone.classList.add('has-file');
         refreshConvertBtn();
       }
-
       function resetFile() {
         selectedFile    = null;
         fileInput.value = '';
@@ -725,11 +860,9 @@
         refreshConvertBtn();
         hideError();
       }
-
       // ── CSV textarea validation (single sheet) ──
       let validateTimer = null;
       csvTA.addEventListener('input', () => { clearTimeout(validateTimer); validateTimer = setTimeout(validateCsv, 300); });
-
       function validateCsv() {
         const raw = csvTA.value.trim();
         if (!raw) {
@@ -743,7 +876,7 @@
           csvValid = false;
           csvStatus.innerHTML = errStatus('Need at least a header row and one data row');
         } else {
-          const sep  = activeSepText === '\\t' ? '\t' : activeSepText;
+          const sep  = activeSepText === '\\\t' ? '\t' : activeSepText;
           const cols  = lines[0].split(sep).length;
           csvValid = true;
           csvStatus.innerHTML = okStatus(`Valid CSV · ${lines.length - 1} row${lines.length - 1 !== 1 ? 's' : ''} · ${cols} column${cols !== 1 ? 's' : ''}`);
@@ -752,10 +885,8 @@
         csvStatus.classList.add('flex');
         refreshConvertBtn();
       }
-
       // ── Multi-sheet editors ──
       let sheetEditorData = []; // [{ name, csv }]
-
       function addSheetEditor(name = '', csv = '') {
         sheetCount++;
         const idx  = sheetCount;
@@ -768,7 +899,7 @@
             <input type="text" placeholder="Sheet name, e.g. Users" value="${escHtml(name)}"
               class="sheet-name-input flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60"
               data-idx="${idx}" />
-            <button type="button" class="remove-sheet-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all" data-id="${id}">
+            <button type="button" aria-label="Remove sheet" class="remove-sheet-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all" data-id="${id}">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
@@ -784,18 +915,15 @@
         div.querySelector('.sheet-name-input').addEventListener('input', validateMulti);
         validateMulti();
       }
-
       function escHtml(s) {
         return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       }
-
       function getSheetEditorData() {
         return [...sheetEditors.querySelectorAll('.sheet-editor')].map(div => ({
           name: div.querySelector('.sheet-name-input').value.trim(),
           csv:  div.querySelector('.sheet-csv-input').value.trim(),
         }));
       }
-
       function validateMulti() {
         const sheets = getSheetEditorData();
         if (sheets.length === 0) {
@@ -813,13 +941,10 @@
         multiStatus.classList.remove('hidden'); multiStatus.classList.add('flex');
         refreshConvertBtn();
       }
-
       document.getElementById('btn-add-sheet').addEventListener('click', () => addSheetEditor());
-
       // Init with two default sheets
       addSheetEditor('Sheet1', '');
       addSheetEditor('Sheet2', '');
-
       // ── Paste & clear (single) ──
       document.getElementById('btn-paste').addEventListener('click', async () => {
         try { csvTA.value = await navigator.clipboard.readText(); validateCsv(); } catch (_) {}
@@ -827,7 +952,6 @@
       document.getElementById('btn-clear').addEventListener('click', () => {
         csvTA.value = ''; csvStatus.classList.add('hidden'); csvValid = false; refreshConvertBtn();
       });
-
       function refreshConvertBtn() {
         if (activeTab === 'file') {
           convertBtn.disabled = !selectedFile;
@@ -838,18 +962,14 @@
           convertBtn.disabled = sheets.length === 0 || sheets.some(s => !s.csv || s.csv.split('\n').filter(Boolean).length < 2);
         }
       }
-
       // ── Convert ──
       convertBtn.addEventListener('click', startConversion);
-
       async function startConversion() {
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         const isFile = activeTab === 'file';
         let endpoint, fetchBody, fetchHeaders = {};
-
         if (isFile) {
           // ── multipart/form-data → /api/tools/csv-file-to-excel ──
           endpoint = 'https://api.filenewer.com/api/tools/csv-file-to-excel';
@@ -858,29 +978,27 @@
           const sheet    = document.getElementById('file-opt-sheet').value.trim();
           const filename = document.getElementById('file-opt-filename').value.trim();
           // Only send separator if user has overridden from auto
-          if (activeSepFile !== ',') fd.append('separator', activeSepFile === '\\t' ? '\t' : activeSepFile);
+          if (activeSepFile !== ',') fd.append('separator', activeSepFile === '\\\t' ? '\t' : activeSepFile);
           if (sheet)    fd.append('sheet_name', sheet);
           if (filename) fd.append('filename',   filename);
           fetchBody = fd;
-
         } else if (sheetMode === 'single') {
           // ── application/json single → /api/tools/csv-text-to-excel ──
           endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-excel';
           const sheet    = document.getElementById('text-opt-sheet').value.trim();
           const filename = document.getElementById('text-opt-filename').value.trim();
-          const sep      = activeSepText === '\\t' ? '\t' : activeSepText;
+          const sep      = activeSepText === '\\\t' ? '\t' : activeSepText;
           const payload  = { csv: csvTA.value.trim(), separator: sep };
           if (sheet)    payload.sheet_name = sheet;
           if (filename) payload.filename   = filename;
           fetchBody    = JSON.stringify(payload);
           fetchHeaders = { 'Content-Type': 'application/json' };
-
         } else {
           // ── application/json multi-sheet → /api/tools/csv-text-to-excel ──
           endpoint = 'https://api.filenewer.com/api/tools/csv-text-to-excel';
           const sheets   = getSheetEditorData();
           const filename = document.getElementById('text-opt-filename').value.trim();
-          const sep      = activeSepText === '\\t' ? '\t' : activeSepText;
+          const sep      = activeSepText === '\\\t' ? '\t' : activeSepText;
           // Build sheets object: { "SheetName": "csv string", ... }
           const sheetsObj = {};
           sheets.forEach((s, i) => { sheetsObj[s.name || `Sheet${i + 1}`] = s.csv; });
@@ -889,7 +1007,6 @@
           fetchBody    = JSON.stringify(payload);
           fetchHeaders = { 'Content-Type': 'application/json' };
         }
-
         // Determine output filename
         let outputFilename;
         if (isFile) {
@@ -903,11 +1020,9 @@
             ? (custom.toLowerCase().endsWith('.xlsx') ? custom : custom + '.xlsx')
             : 'output.xlsx';
         }
-
         // Animate
         setProcessStep('proc-1', 'active');
         animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
-
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
           animateProgress(22, 52, 800, 'Applying styles & column widths…');
@@ -920,33 +1035,25 @@
           setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
           animateProgress(76, 90, 600, 'Generating Excel workbook…');
         }, 2600);
-
         try {
           const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!res.ok) {
             let errMsg = 'Conversion failed. Please try again.';
             try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
-
           const blob = await res.blob();
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
-
           const link    = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = outputFilename;
-
           document.getElementById('output-name').textContent = outputFilename;
           document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
-
           setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
           animateProgress(90, 100, 300, 'Done!');
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -955,7 +1062,6 @@
           updateStepIndicator(1);
         }
       }
-
       // ── Helpers ──
       function okStatus(msg) {
         return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">${msg}</span>`;
@@ -963,14 +1069,12 @@
       function errStatus(msg) {
         return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span class="text-fn-red">${msg}</span>`;
       }
-
       function showState(state) {
         ['upload','converting','download'].forEach(s => {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
         if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
       }
-
       function updateStepIndicator(active) {
         [1,2,3].forEach(n => {
           const el = document.getElementById('step-' + n);
@@ -979,7 +1083,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -999,7 +1102,6 @@
           dot.style.background  = 'oklch(67% 0.18 162/15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         const start = performance.now();
@@ -1012,7 +1114,6 @@
         }
         requestAnimationFrame(step);
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         resetFile();
@@ -1045,7 +1146,6 @@
         animateProgress(0, 0, 0, 'Starting…');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
-
       function showError(msg) {
         errorText.textContent = msg;
         uploadError.classList.remove('hidden');
@@ -1060,7 +1160,6 @@
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1072,9 +1171,7 @@
           if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection
