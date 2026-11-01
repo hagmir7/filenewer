@@ -11,18 +11,38 @@
             {{-- Step indicator --}}
             <div
                 class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
-                @foreach([['1','Input HTML'],['2','Converting'],['3','Download']] as [$n, $label])
-                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
+
+                <div class="step-item active flex items-center gap-2" id="step-1">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Input HTML</span>
                 </div>
-                @if($n !== '3')
+
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
-                @endif
-                @endforeach
+
+
+                <div class="step-item  flex items-center gap-2" id="step-2">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">2</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Converting</span>
+                </div>
+
+                <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
+
+
+                <div class="step-item  flex items-center gap-2" id="step-3">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">3</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                </div>
+
+
             </div>
             <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
@@ -323,13 +343,8 @@
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
-                        @foreach([
-                        ['proc-1','Reading HTML content'],
-                        ['proc-2','Splitting chapters at &lt;h1&gt;'],
-                        ['proc-3','Embedding images &amp; metadata'],
-                        ['proc-4','Packaging EPUB archive'],
-                        ] as [$pid, $plabel])
-                        <div class="flex items-center gap-3" id="{{ $pid }}">
+
+                        <div class="flex items-center gap-3" id="proc-1">
                             <div
                                 class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
                                 <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
@@ -343,9 +358,60 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{!! $plabel !!}</span>
+                            <span class="text-sm text-fn-text3">Reading HTML content</span>
                         </div>
-                        @endforeach
+
+                        <div class="flex items-center gap-3" id="proc-2">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Splitting chapters at &lt;h1&gt;</span>
+                        </div>
+
+                        <div class="flex items-center gap-3" id="proc-3">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Embedding images &amp; metadata</span>
+                        </div>
+
+                        <div class="flex items-center gap-3" id="proc-4">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Packaging EPUB archive</span>
+                        </div>
+
                     </div>
                 </div>
                 {{-- ── STATE: Download ── --}}
@@ -430,31 +496,105 @@
         <p class="text-fn-text3 text-sm text-center mb-6">All standard HTML elements are preserved in the EPUB output
         </p>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            @foreach([
-            ['&lt;h1&gt;', 'Chapter split + heading'],
-            ['&lt;h2&gt; – &lt;h6&gt;', 'Section headings'],
-            ['&lt;p&gt;', 'Paragraph'],
-            ['&lt;strong&gt; / &lt;b&gt;', 'Bold text'],
-            ['&lt;em&gt; / &lt;i&gt;', 'Italic text'],
-            ['&lt;u&gt;', 'Underline'],
-            ['&lt;a href&gt;', 'Hyperlink'],
-            ['&lt;img src&gt;', 'Embedded image'],
-            ['&lt;img src="data:..."&gt;', 'Base64 image'],
-            ['&lt;table&gt;', 'Styled table'],
-            ['&lt;ul&gt; / &lt;ol&gt;', 'Lists'],
-            ['&lt;blockquote&gt;', 'Quote block'],
-            ['&lt;code&gt; / &lt;pre&gt;', 'Code block'],
-            ['&lt;hr&gt;', 'Horizontal rule'],
-            ['&lt;style&gt;', 'Inline CSS preserved'],
-            ['&lt;title&gt;', 'Auto-extract title'],
-            ['&lt;meta name="author"&gt;', 'Auto-extract author'],
-            ['&lt;meta name="description"&gt;', 'Auto-extract description'],
-            ] as [$tag, $desc])
+
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">{!! $tag !!}</code>
-                <span class="text-xs text-fn-text3 leading-tight">{{ $desc }}</span>
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;h1&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Chapter split + heading</span>
             </div>
-            @endforeach
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;h2&gt; – &lt;h6&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Section headings</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;p&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Paragraph</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;strong&gt; / &lt;b&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Bold text</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;em&gt; / &lt;i&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Italic text</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;u&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Underline</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;a href&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Hyperlink</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;img src&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Embedded image</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;img src="data:..."&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Base64 image</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;table&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Styled table</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;ul&gt; / &lt;ol&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Lists</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;blockquote&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Quote block</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;code&gt; / &lt;pre&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Code block</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;hr&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Horizontal rule</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;style&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Inline CSS preserved</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;title&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Auto-extract title</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;meta name="author"&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Auto-extract author</span>
+            </div>
+
+            <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
+                <code
+                    class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;meta name="description"&gt;</code>
+                <span class="text-xs text-fn-text3 leading-tight">Auto-extract description</span>
+            </div>
+
         </div>
     </div>
 </section>
@@ -463,45 +603,117 @@
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
-            @foreach([
-            ['How are chapters split?', 'Every <h1> tag in your HTML becomes a new chapter in the EPUB. Headings <h2>
-                    through <h6> become section headings within a chapter. If your document has no <h1> tags, the entire
-                            content becomes a single chapter.'],
-                            ['Can I add a cover image?', 'Yes — when using the file upload mode, you can attach a cover
-                            image (.jpg or .png) alongside your HTML file. The cover is embedded as the first page of
-                            the EPUB and appears in your reader\\'s library grid.'],
-                            ['What metadata is auto-extracted from HTML?', 'If you leave the title, author, or
-                            description fields blank, the converter reads them directly from your HTML — the <title> tag
-                                becomes the book title, and
-                                <meta name="author"> and
-                                <meta name="description"> fill in the other fields automatically.'],
-                                ['Does it support right-to-left languages like Arabic?', 'Yes. Set the language to
-                                Arabic (or any RTL language) and the EPUB will be generated with the correct reading
-                                direction and text alignment. The converter handles Unicode and multi-byte character
-                                sets fully.'],
-                                ['Are inline images and base64 images supported?', 'Yes. Images referenced via <img
-                                    src="path"> are embedded if accessible, and base64-encoded images (<img
-                                    src="data:image/...;base64,...">) are embedded directly from the HTML. Embedded
-                                images in the EPUB work offline on any reader.'],
-                                ['Is my HTML safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit.
-                                and are
-                                permanently deleted after processing. We never read, share, or store your content.'],
-                                ] as [$q, $a])
-                                <div class="border border-fn-text/8 rounded-xl overflow-hidden">
-                                    <button type="button"
-                                        class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                                        <span class="font-semibold text-sm">{{ $q }}</span>
-                                        <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <polyline points="6 9 12 15 18 9" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-body hidden px-5 pb-4">
-                                        <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
-                                    </div>
-                                </div>
-                                @endforeach
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">How are chapters split?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Every &lt;h1&gt; tag in your HTML becomes a new
+                        chapter in the EPUB. Headings &lt;h2&gt;
+                        through &lt;h6&gt; become section headings within a chapter. If your document has no &lt;h1&gt;
+                        tags, the entire
+                        content becomes a single chapter.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Can I add a cover image?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — when using the file upload mode, you can
+                        attach a cover
+                        image (.jpg or .png) alongside your HTML file. The cover is embedded as the first page of
+                        the EPUB and appears in your eBook reader library grid.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">What metadata is auto-extracted from HTML?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">If you leave the title, author, or
+                        description fields blank, the converter reads them directly from your HTML — the &lt;title&gt;
+                        tag
+                        becomes the book title, and
+                        &lt;meta name=&quot;author&quot;&gt; and
+                        &lt;meta name=&quot;description&quot;&gt; fill in the other fields automatically.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Does it support right-to-left languages like Arabic?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes. Set the language to
+                        Arabic (or any RTL language) and the EPUB will be generated with the correct reading
+                        direction and text alignment. The converter handles Unicode and multi-byte character
+                        sets fully.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Are inline images and base64 images supported?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes. Images referenced via &lt;img
+                        src=&quot;path&quot;&gt; are embedded if accessible, and base64-encoded images (&lt;img
+                        src=&quot;data:image/...;base64,...&quot;&gt;) are embedded directly from the HTML. Embedded
+                        images in the EPUB work offline on any reader.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Is my HTML safe and private?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
+                        transit. and are
+                        permanently deleted after processing. We never read, share, or store your content.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
