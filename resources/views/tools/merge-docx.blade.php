@@ -9,27 +9,41 @@
     <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
             {{-- Step indicator --}}
-            @php
-            $steps = [
-            ['1', 'Upload Files'],
-            ['2', 'Merging'],
-            ['3', 'Download'],
-            ];
-            @endphp
+
             <div
                 class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
-                @foreach($steps as [$n, $label])
-                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
+
+                <div class="step-item active flex items-center gap-2" id="step-1">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Upload Files</span>
                 </div>
-                @if($n !== '3')
+
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
-                @endif
-                @endforeach
+
+
+                <div class="step-item  flex items-center gap-2" id="step-2">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">2</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Merging</span>
+                </div>
+
+                <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
+
+
+                <div class="step-item  flex items-center gap-2" id="step-3">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">3</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                </div>
+
+
             </div>
             <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
@@ -219,17 +233,10 @@
                         <span id="progress-label">Starting&hellip;</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-                    @php
-                    $procSteps = [
-                    ['proc-1', 'Uploading documents'],
-                    ['proc-2', 'Reading & parsing each file'],
-                    ['proc-3', 'Merging content & styles'],
-                    ['proc-4', 'Packaging final document'],
-                    ];
-                    @endphp
+
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
-                        @foreach($procSteps as [$pid, $plabel])
-                        <div class="flex flex-wrap items-center gap-3" id="{{ $pid }}">
+
+                        <div class="flex flex-wrap items-center gap-3" id="proc-1">
                             <div
                                 class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
                                 <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
@@ -243,9 +250,60 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">Uploading documents</span>
                         </div>
-                        @endforeach
+
+                        <div class="flex flex-wrap items-center gap-3" id="proc-2">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Reading &amp; parsing each file</span>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-3" id="proc-3">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Merging content &amp; styles</span>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-3" id="proc-4">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Packaging final document</span>
+                        </div>
+
                     </div>
                 </div>
                 {{-- ── STATE: Download ── --}}
@@ -323,29 +381,12 @@
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
-            @php
-            $faqs = [
-            ['Is this really free?', 'Files up to 200MB total are completely free with no account needed.'],
-            ['How many files can I merge?', 'You can merge between 2 and 20 .docx files at once. Simply drag and drop or
-            click to browse.'],
-            ['Can I control the merge order?', 'Yes, after uploading you can drag and drop files in the list to reorder
-            them. Documents are merged from top to bottom.'],
-            ['Will formatting be preserved?', 'Yes, styles, fonts, images, tables, and formatting from each document are
-            preserved in the merged output.'],
-            ['What is the separator text?', 'An optional text line inserted between each merged document. Use {n} for
-            the document number and {filename} for the original file name.'],
-            ['Can I add a Table of Contents?', 'Yes, enable the Table of Contents option to insert an auto-generated TOC
-            at the beginning of the merged document.'],
-            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
-            deleted
-            after processing. We never read, share or store your content.'],
-            ];
-            @endphp
-            @foreach($faqs as [$q, $a])
+
+
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">Is this really free?</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -353,10 +394,114 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">Files up to 200MB total are completely free with no
+                        account needed.</p>
                 </div>
             </div>
-            @endforeach
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">How many files can I merge?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">You can merge between 2 and 20 .docx files at once.
+                        Simply drag and drop or
+                        click to browse.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Can I control the merge order?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes, after uploading you can drag and drop files in
+                        the list to reorder
+                        them. Documents are merged from top to bottom.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Will formatting be preserved?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes, styles, fonts, images, tables, and formatting
+                        from each document are
+                        preserved in the merged output.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">What is the separator text?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">An optional text line inserted between each merged
+                        document. Use {n} for
+                        the document number and {filename} for the original file name.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Can I add a Table of Contents?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes, enable the Table of Contents option to insert
+                        an auto-generated TOC
+                        at the beginning of the merged document.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Is my file safe and private?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
+                        transit. and are permanently
+                        deleted
+                        after processing. We never read, share or store your content.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

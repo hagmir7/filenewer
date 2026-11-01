@@ -12,18 +12,38 @@
             {{-- Step indicator --}}
             <div
                 class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
-                @foreach([['1','Input Markdown'],['2','Converting'],['3','Download']] as [$n, $label])
-                <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
+
+                <div class="step-item active flex items-center gap-2" id="step-1">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Input Markdown</span>
                 </div>
-                @if($n !== '3')
+
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
-                @endif
-                @endforeach
+
+
+                <div class="step-item  flex items-center gap-2" id="step-2">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">2</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Converting</span>
+                </div>
+
+                <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
+
+
+                <div class="step-item  flex items-center gap-2" id="step-3">
+                    <div
+                        class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
+                        <span class="text-sm font-bold">3</span>
+                    </div>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                </div>
+
+
             </div>
             <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
@@ -205,10 +225,19 @@
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Font</label>
                                 <select id="opt-font"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 cursor-pointer focus:outline-none focus:border-fn-blue/40">
-                                    @foreach(['Calibri','Arial','Times New Roman','Georgia','Verdana','Courier New'] as
-                                    $f)
-                                    <option value="{{ $f }}" {{ $f==='Calibri' ? 'selected' : '' }}>{{ $f }}</option>
-                                    @endforeach
+
+                                    <option value="Calibri" selected>Calibri</option>
+
+                                    <option value="Arial">Arial</option>
+
+                                    <option value="Times New Roman">Times New Roman</option>
+
+                                    <option value="Georgia">Georgia</option>
+
+                                    <option value="Verdana">Verdana</option>
+
+                                    <option value="Courier New">Courier New</option>
+
                                 </select>
                             </div>
                             <div>
@@ -222,22 +251,38 @@
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Line spacing</label>
                                 <div class="flex flex-wrap gap-1">
-                                    @foreach([['1.0','1.0'],['1.15','1.15'],['1.5','1.5'],['2.0','2.0']] as [$sval,
-                                    $slabel])
+
                                     <button type="button"
-                                        class="spacing-btn {{ $sval === '1.15' ? 'active' : '' }} flex-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
-                                        data-val="{{ $sval }}">{{ $slabel }}</button>
-                                    @endforeach
+                                        class="spacing-btn  flex-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
+                                        data-val="1.0">1.0</button>
+
+                                    <button type="button"
+                                        class="spacing-btn active flex-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
+                                        data-val="1.15">1.15</button>
+
+                                    <button type="button"
+                                        class="spacing-btn  flex-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
+                                        data-val="1.5">1.5</button>
+
+                                    <button type="button"
+                                        class="spacing-btn  flex-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
+                                        data-val="2.0">2.0</button>
+
                                 </div>
                             </div>
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Page size</label>
                                 <select id="opt-page"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 cursor-pointer focus:outline-none focus:border-fn-blue/40">
-                                    @foreach([['A4','A4'],['Letter','US Letter'],['Legal','Legal'],['A3','A3']] as [$pv,
-                                    $pl])
-                                    <option value="{{ $pv }}" {{ $pv==='A4' ? 'selected' : '' }}>{{ $pl }}</option>
-                                    @endforeach
+
+                                    <option value="A4" selected>A4</option>
+
+                                    <option value="Letter">US Letter</option>
+
+                                    <option value="Legal">Legal</option>
+
+                                    <option value="A3">A3</option>
+
                                 </select>
                             </div>
                         </div>
@@ -304,13 +349,8 @@
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
-                        @foreach([
-                        ['proc-1','Uploading Markdown content'],
-                        ['proc-2','Parsing headings & tables'],
-                        ['proc-3','Applying fonts & styles'],
-                        ['proc-4','Building Word document'],
-                        ] as [$pid, $plabel])
-                        <div class="flex items-center gap-3" id="{{ $pid }}">
+
+                        <div class="flex items-center gap-3" id="proc-1">
                             <div
                                 class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
                                 <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
@@ -324,9 +364,60 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">Uploading Markdown content</span>
                         </div>
-                        @endforeach
+
+                        <div class="flex items-center gap-3" id="proc-2">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Parsing headings &amp; tables</span>
+                        </div>
+
+                        <div class="flex items-center gap-3" id="proc-3">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Applying fonts &amp; styles</span>
+                        </div>
+
+                        <div class="flex items-center gap-3" id="proc-4">
+                            <div
+                                class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
+                                <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
+                                    fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
+                                        stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-fn-text3">Building Word document</span>
+                        </div>
+
                     </div>
                 </div>
                 {{-- ── STATE: Download ── --}}
@@ -401,39 +492,101 @@
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
-            @foreach([
-            ['What Markdown syntax is supported?','The full GitHub-Flavored Markdown set: headings (ATX # and Setext
-            ===), bold, italic, strikethrough, inline and fenced code blocks, ordered and unordered lists, nested lists,
-            task lists (- [ ] / - [x]), tables, blockquotes, horizontal rules, links, image placeholders, and a few raw
-            HTML tags (<u>, <mark>, <br>).'],
-                    ['Will tables and code blocks look good in Word?','Yes — tables get a styled blue header row, code
-                    blocks get a grey background with a blue left border and Courier New font, and inline code is
-                    rendered in red monospace. Headings 1–6 use Word\\'s built-in heading styles so your Table of
-                    Contents will work correctly.'],
-                    ['Can I control the font and page size?','Yes — pick from Calibri, Arial, Times New Roman, Georgia,
-                    Verdana, or Courier New. Font size ranges from 6 to 72pt. Page size supports A4, Letter, Legal, and
-                    A3. Line spacing options are 1.0, 1.15 (default), 1.5, and 2.0.'],
-                    ['Can I paste Markdown instead of uploading a file?','Yes — use the "Write / Paste" tab to paste or
-                    type Markdown directly. A live preview shows how it will look, then the final .docx closely matches
-                    that preview.'],
-                    ['Is my content safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are
-                    permanently deleted after processing. We never read, share or store your content.'],
-                    ] as [$q, $a])
-                    <div class="border border-fn-text/8 rounded-xl overflow-hidden">
-                        <button type="button"
-                            class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                            <span class="font-semibold text-sm">{{ $q }}</span>
-                            <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9" />
-                            </svg>
-                        </button>
-                        <div class="faq-body hidden px-5 pb-4">
-                            <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
-                        </div>
-                    </div>
-                    @endforeach
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">What Markdown syntax is supported?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">The full GitHub-Flavored Markdown set: headings
+                        (ATX # and Setext
+                        ===), bold, italic, strikethrough, inline and fenced code blocks, ordered and unordered lists,
+                        nested lists,
+                        task lists (- [ ] / - [x]), tables, blockquotes, horizontal rules, links, image placeholders,
+                        and a few raw
+                        HTML tags (&lt;u&gt;, &lt;mark&gt;, &lt;br&gt;).</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Will tables and code blocks look good in Word?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — tables get a styled blue header row, code
+                        blocks get a grey background with a blue left border and Courier New font, and inline code is
+                        rendered in red monospace. Headings 1–6 use the built-in Word heading styles so your Table of
+                        Contents will work correctly.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Can I control the font and page size?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — pick from Calibri, Arial, Times New Roman,
+                        Georgia,
+                        Verdana, or Courier New. Font size ranges from 6 to 72pt. Page size supports A4, Letter, Legal,
+                        and
+                        A3. Line spacing options are 1.0, 1.15 (default), 1.5, and 2.0.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Can I paste Markdown instead of uploading a file?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — use the &quot;Write / Paste&quot; tab to
+                        paste or
+                        type Markdown directly. A live preview shows how it will look, then the final .docx closely
+                        matches
+                        that preview.</p>
+                </div>
+            </div>
+
+            <div class="border border-fn-text/8 rounded-xl overflow-hidden">
+                <button type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
+                    <span class="font-semibold text-sm">Is my content safe and private?</span>
+                    <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-4">
+                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
+                        transit. and are
+                        permanently deleted after processing. We never read, share or store your content.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -662,19 +815,20 @@
     #markdown-word-tool .tab-btn.active,
     #markdown-word-tool .edit-view-btn.active,
     #markdown-word-tool .spacing-btn.active {
-        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
-        color: #fff;
+        background: var(--color-fn-blue, var(--fn-blue, *#2563eb));
+        * color: *#fff;
+        *
     }
 
     #markdown-word-tool button:focus-visible,
     #markdown-word-tool a:focus-visible {
-        outline: 2px solid #2563eb;
-        outline-offset: 3px;
+        outline: 2px solid *#2563eb;
+        * outline-offset: 3px;
     }
 
     #drop-zone:focus-within {
-        outline: 2px solid #2563eb;
-        outline-offset: 3px;
+        outline: 2px solid *#2563eb;
+        * outline-offset: 3px;
     }
 
     #markdown-word-tool .grid>*,
@@ -705,12 +859,13 @@
     }
 
     #markdown-word-tool input:checked~.toggle-track {
-        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        background: var(--color-fn-blue, var(--fn-blue, *#2563eb));
+        *
     }
 
     #markdown-word-tool input:focus-visible~.toggle-track {
-        outline: 2px solid #2563eb;
-        outline-offset: 3px;
+        outline: 2px solid *#2563eb;
+        * outline-offset: 3px;
     }
 
     #markdown-word-tool .toggle-wrap {
@@ -835,7 +990,7 @@ def calculate_growth(current, previous):
 \`\`\`
 Inline code like \`npm install\` and ~~deprecated~~ features render nicely.
 ---
-For questions, see the [contact page]\(https://example.com).
+For questions, see the [contact page]\\(https://example.com).
 `;
   // ── Refs ──
   const tabText     = document.getElementById('tab-text');
