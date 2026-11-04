@@ -1,19 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="word-txt-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
             @php
             $steps = [
@@ -22,7 +16,8 @@
             ['3', 'Download'],
             ];
             @endphp
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach($steps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -36,15 +31,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
@@ -76,7 +68,6 @@
                             accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl items-center gap-4">
@@ -96,7 +87,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">&mdash; &middot; Word Document</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove Word file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -105,13 +96,10 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-6 space-y-3">
-
                         {{-- Row 1: Include Headers + Include Tables --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Include Headers --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Heading
@@ -126,7 +114,6 @@
                                 <p class="text-fn-text3 text-sm mt-1.5">Adds underline markers (===, ---) below headings
                                     for readability.</p>
                             </div>
-
                             {{-- Include Tables --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Tables</label>
@@ -141,10 +128,8 @@
                                     output.</p>
                             </div>
                         </div>
-
                         {{-- Row 2: Include Comments + Encoding --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Include Comments --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Comments</label>
@@ -158,7 +143,6 @@
                                 <p class="text-fn-text3 text-sm mt-1.5">Extract and include document comments in the
                                     text output.</p>
                             </div>
-
                             {{-- Encoding --}}
                             @php
                             $encOptions = [
@@ -182,10 +166,8 @@
                                     supports all languages</p>
                             </div>
                         </div>
-
                         {{-- Row 3: Page separator + Output filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Page separator --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-page-sep" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -197,7 +179,6 @@
                                 <p class="text-fn-text3 text-sm mt-1.5">Insert a custom separator between page breaks.
                                 </p>
                             </div>
-
                             {{-- Output filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -210,7 +191,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -223,7 +203,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -233,9 +212,7 @@
                         </svg>
                         Convert to TXT
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -271,10 +248,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting your file&hellip;</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -284,7 +259,6 @@
                         <span id="progress-label">Starting&hellip;</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     @php
                     $procSteps = [
                     ['proc-1', 'Uploading & reading document'],
@@ -314,7 +288,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -329,7 +302,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your text file is ready.</p>
-
                     {{-- Stats bar --}}
                     <div id="stats-wrap" class="hidden max-w-lg mx-auto mb-6">
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -351,7 +323,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Text preview --}}
                     <div id="text-preview-wrap" class="hidden max-w-2xl mx-auto mb-6 text-left">
                         <p class="text-fn-text2 text-sm font-semibold mb-2">Preview</p>
@@ -361,7 +332,6 @@
                         </div>
                         <p class="text-fn-text3 text-sm mt-2" id="text-preview-meta"></p>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-green/12 border border-fn-green/20 flex items-center justify-center text-2xl shrink-0"
@@ -380,7 +350,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="output.txt"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -392,7 +361,6 @@
                         </svg>
                         <span id="download-btn-label">Download TXT</span>
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -408,7 +376,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -417,13 +384,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -442,11 +406,11 @@
             and append them to the text output.'],
             ['What encoding should I choose?', 'UTF-8 (default) supports all languages including Arabic, Chinese, and
             accented characters. Use ASCII for basic English only, or Latin-1 for Western European languages.'],
-            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
-
             @foreach($faqs as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
@@ -466,13 +430,9 @@
         </div>
     </div>
 </section>
-
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .enc-btn {
@@ -497,10 +457,148 @@
     }
 </style>
 
+<style>
+    #word-txt-tool .grid>*,
+    #word-txt-tool .flex-1 {
+        min-width: 0
+    }
+
+    #word-txt-tool input,
+    #word-txt-tool select {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #word-txt-tool .enc-btn.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #word-txt-tool .toggle-label {
+        padding: 8px;
+        border: 1px solid transparent;
+        border-radius: 8px
+    }
+
+    #word-txt-tool .toggle-label:has(input:checked) {
+        background: #2563eb18;
+        border-color: #2563eb66
+    }
+
+    #word-txt-tool input[type=checkbox] {
+        accent-color: #2563eb;
+        flex-shrink: 0
+    }
+
+    #word-txt-tool button:focus-visible,
+    #word-txt-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #word-txt-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #word-txt-tool #drop-zone:focus-within {
+        border-color: #2563eb;
+        background: #2563eb12
+    }
+
+    #word-txt-tool #file-name,
+    #word-txt-tool #output-name,
+    #word-txt-tool #error-text,
+    #word-txt-tool #text-preview-meta {
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #word-txt-tool #text-preview {
+        max-width: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere
+    }
+
+    #word-txt-tool .step-dot {
+        flex-shrink: 0
+    }
+
+    @media(max-width:767px) {
+        #word-txt-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #word-txt-tool button,
+        #word-txt-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 9px;
+            gap: 6px
+        }
+
+        #word-txt-tool input[type=text],
+        #word-txt-tool select {
+            font-size: 16px
+        }
+
+        #word-txt-tool .toggle-label {
+            padding: 6px
+        }
+
+        #word-txt-tool .toggle-label span {
+            font-size: 12px
+        }
+
+        #word-txt-tool .step-item {
+            gap: 4px
+        }
+
+        #word-txt-tool .step-label {
+            font-size: 11px;
+            line-height: 1.3
+        }
+
+        #word-txt-tool .step-item .step-dot {
+            width: 22px;
+            height: 22px
+        }
+
+        #word-txt-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        #word-txt-tool #file-preview {
+            gap: 8px;
+            padding: 12px
+        }
+
+        #word-txt-tool #remove-file {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0
+        }
+
+        #word-txt-tool #drop-zone .inline-flex {
+            font-size: 12px;
+            padding: 8px 12px
+        }
+    }
+</style>
+
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       var dropZone    = document.getElementById('drop-zone');
       var fileInput   = document.getElementById('file-input');
       var convertBtn  = document.getElementById('convert-btn');
@@ -508,26 +606,29 @@
       var removeFile  = document.getElementById('remove-file');
       var uploadError = document.getElementById('upload-error');
       var errorText   = document.getElementById('error-text');
-
       var selectedFile  = null;
       var blobUrl       = null;
+      function syncEncodingButtons() {
+        document.querySelectorAll('#word-txt-tool .enc-btn').forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+        });
+      }
+      syncEncodingButtons();
       var activeEnc     = 'utf-8';
-
       var encHints = {
         'utf-8':   'UTF-8 \u2014 universal encoding, supports all languages',
         'ascii':   'ASCII \u2014 basic English characters only',
         'latin-1': 'Latin-1 \u2014 Western European languages'
       };
-
       document.querySelectorAll('.enc-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.enc-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          syncEncodingButtons();
           activeEnc = btn.dataset.enc;
           document.getElementById('enc-hint').textContent = encHints[activeEnc] || '';
         });
       });
-
       ['dragenter', 'dragover'].forEach(function (evt) {
         dropZone.addEventListener(evt, function (e) { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
       });
@@ -537,13 +638,11 @@
       dropZone.addEventListener('drop', function (e) { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
       fileInput.addEventListener('change', function (e) { if (e.target.files[0]) handleFile(e.target.files[0]); });
       removeFile.addEventListener('click', function (e) { e.stopPropagation(); resetFile(); });
-
       var ACCEPTED_EXTS  = ['.docx', '.doc'];
       var ACCEPTED_TYPES = [
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'application/msword'
       ];
-
       function handleFile(file) {
         hideError();
         var ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
@@ -565,7 +664,6 @@
         dropZone.classList.add('has-file');
         convertBtn.disabled = false;
       }
-
       function resetFile() {
         selectedFile    = null;
         fileInput.value = '';
@@ -575,16 +673,12 @@
         convertBtn.disabled = true;
         hideError();
       }
-
       convertBtn.addEventListener('click', startConversion);
-
       async function startConversion() {
         if (!selectedFile) return;
-
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         var includeHeaders  = document.getElementById('opt-headers').checked;
         var includeTables   = document.getElementById('opt-tables').checked;
         var includeComments = document.getElementById('opt-comments').checked;
@@ -594,7 +688,6 @@
         var outputFilename  = customFilename
           ? (customFilename.indexOf('.') !== -1 ? customFilename : customFilename + '.txt')
           : baseName + '.txt';
-
         // Build form for JSON response (stats + preview)
         var jsonForm = new FormData();
         jsonForm.append('file',             selectedFile);
@@ -604,7 +697,6 @@
         jsonForm.append('include_comments', includeComments ? 'true' : 'false');
         jsonForm.append('encoding',         activeEnc);
         if (pageSep) jsonForm.append('page_separator', pageSep);
-
         // Build form for file download
         var fileForm = new FormData();
         fileForm.append('file',             selectedFile);
@@ -614,75 +706,60 @@
         fileForm.append('include_comments', includeComments ? 'true' : 'false');
         fileForm.append('encoding',         activeEnc);
         if (pageSep) fileForm.append('page_separator', pageSep);
-
         // Animate
         setProcessStep('proc-1', 'active');
         animateProgress(0, 20, 700, 'Uploading & reading document\u2026');
-
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
           animateProgress(20, 50, 900, 'Parsing paragraphs & headings\u2026');
         }, 800);
-
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
           animateProgress(50, 75, 900, 'Extracting tables & comments\u2026');
         }, 1800);
-
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
           animateProgress(75, 90, 700, 'Encoding & packaging text file\u2026');
         }, 2900);
-
         try {
           // Fire both requests in parallel
           var results = await Promise.all([
             fetch('https://api.filenewer.com/api/tools/word-to-txt', { method: 'POST', body: jsonForm }).catch(function () { return null; }),
             fetch('https://api.filenewer.com/api/tools/word-to-txt', { method: 'POST', body: fileForm })
           ]);
-
           var jsonRes = results[0];
           var fileRes = results[1];
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!fileRes.ok) {
             var errMsg = 'Conversion failed. Please try again.';
             try { var d = await fileRes.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
-
           // File blob
           var blob = await fileRes.blob();
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
-
           var link    = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = outputFilename;
-
           document.getElementById('output-name').textContent        = outputFilename;
           document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 Text File';
           document.getElementById('download-btn-label').textContent = 'Download TXT';
           document.getElementById('download-subtitle').textContent  = 'Your text file is ready.';
-
           // Stats + preview from JSON response (non-blocking)
           var statsWrap       = document.getElementById('stats-wrap');
           var textPreviewWrap = document.getElementById('text-preview-wrap');
-
           if (jsonRes && jsonRes.ok) {
             try {
               var data = await jsonRes.json();
-
               document.getElementById('stat-paragraphs').textContent = data.paragraphs || 0;
               document.getElementById('stat-words').textContent      = data.words || 0;
               document.getElementById('stat-tables').textContent     = data.tables || 0;
               document.getElementById('stat-headings').textContent   = data.headings || 0;
               statsWrap.classList.remove('hidden');
-
               if (data.text) {
                 var preview    = data.text.substring(0, 2000);
                 var totalChars = data.chars || data.text.length;
@@ -703,13 +780,10 @@
             statsWrap.classList.add('hidden');
             textPreviewWrap.classList.add('hidden');
           }
-
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
           animateProgress(90, 100, 300, 'Done!');
-
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -718,20 +792,17 @@
           updateStepIndicator(1);
         }
       }
-
       function showState(state) {
         ['upload', 'converting', 'download'].forEach(function (s) {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
         if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-
         var card = document.querySelector('.bg-fn-surface.border.rounded-2xl');
         if (card) {
           var offset = card.getBoundingClientRect().top + window.pageYOffset - 20;
           window.scrollTo({ top: offset, behavior: 'smooth' });
         }
       }
-
       function updateStepIndicator(active) {
         [1, 2, 3].forEach(function (n) {
           var el = document.getElementById('step-' + n);
@@ -740,7 +811,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         var el = document.getElementById(id);
         if (!el) return;
@@ -762,7 +832,6 @@
           dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         var start = performance.now();
@@ -775,7 +844,6 @@
         }
         requestAnimationFrame(step);
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         resetFile();
@@ -787,6 +855,7 @@
         document.querySelectorAll('.enc-btn').forEach(function (b) { b.classList.remove('active'); });
         document.querySelector('.enc-btn[data-enc="utf-8"]').classList.add('active');
         activeEnc = 'utf-8';
+        syncEncodingButtons();
         document.getElementById('enc-hint').textContent = encHints['utf-8'];
         document.getElementById('stats-wrap').classList.add('hidden');
         document.getElementById('text-preview-wrap').classList.add('hidden');
@@ -795,7 +864,6 @@
         animateProgress(0, 0, 0, 'Starting\u2026');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
-
       function showError(msg) {
         errorText.textContent = msg;
         uploadError.classList.remove('hidden');
@@ -805,13 +873,11 @@
         uploadError.classList.add('hidden');
         uploadError.classList.remove('flex');
       }
-
       function formatBytes(bytes) {
         if (bytes < 1024)    return bytes + ' B';
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       document.querySelectorAll('.faq-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var body   = btn.nextElementSibling;
@@ -825,9 +891,7 @@
           }
         });
       });
-
     });
 </script>
 @endpush
-
 @endsection

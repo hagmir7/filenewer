@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="sql-excel-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Input SQL'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,16 +24,13 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Mode tabs --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6 w-fit">
-                        <button type="button" id="tab-text"
+                        <button type="button" id="tab-text" aria-pressed="true"
                             class="tab-btn active flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -49,7 +40,7 @@
                             </svg>
                             Paste SQL
                         </button>
-                        <button type="button" id="tab-file"
+                        <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,7 +50,6 @@
                             Upload .sql
                         </button>
                     </div>
-
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
@@ -81,22 +71,19 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <textarea id="sql-textarea" rows="12" spellcheck="false"
                             placeholder='Paste SQL with CREATE TABLE and/or INSERT INTO statements, e.g.&#10;&#10;CREATE TABLE users (&#10;  id INTEGER PRIMARY KEY,&#10;  username TEXT NOT NULL,&#10;  age INTEGER&#10;);&#10;&#10;INSERT INTO users VALUES (1, &#39;alice&#39;, 30);&#10;INSERT INTO users VALUES (2, &#39;bob&#39;, 25);'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
-
                         <div class="flex items-center justify-between text-xs mt-1.5">
                             <span id="sql-status" class="text-fn-text3">Paste SQL with CREATE TABLE or INSERT
                                 statements</span>
                             <span id="sql-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
                         </div>
                     </div>
-
                     {{-- ══ FILE TAB ══ --}}
                     <div id="panel-file" class="hidden">
                         <div id="drop-zone"
-                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                            class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                             <div class="flex items-center justify-center mb-5">
                                 <div
                                     class="w-20 h-20 rounded-2xl bg-fn-purple/10 border border-fn-purple/20 flex items-center justify-center">
@@ -125,7 +112,6 @@
                             <input type="file" id="file-input" accept=".sql,application/sql,text/sql,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
-
                         <div id="file-preview"
                             class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
                             <div
@@ -141,7 +127,7 @@
                                 <p class="font-semibold text-sm truncate" id="file-name">database.sql</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
-                            <button type="button" id="remove-file"
+                            <button type="button" id="remove-file" aria-label="Remove file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -151,7 +137,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Detected tables preview --}}
                     <div id="detected-content"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-blue/15 rounded-xl">
@@ -168,14 +153,12 @@
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2" id="detected-sheets"></div>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
                             <p class="text-sm font-semibold text-fn-text2">Output Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div>
                                 <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -185,7 +168,6 @@
                                 <input type="text" id="opt-filename" placeholder="database.xlsx"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
-
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Extra sheets</label>
                                 <div class="flex flex-col gap-1.5">
@@ -215,7 +197,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -228,7 +209,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -241,7 +221,6 @@
                         Convert to Excel
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -279,10 +258,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting SQL to Excel…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Parsing tables, schemas, and INSERT data</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -292,7 +269,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Reading SQL content'],
@@ -319,7 +295,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -334,13 +309,11 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6">Your Excel file is ready with one sheet per table.</p>
-
                     {{-- Sheets generated --}}
                     <div id="result-sheets-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Sheets generated</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-sheets"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -365,7 +338,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="database.xlsx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -377,7 +349,6 @@
                         </svg>
                         Download Excel File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -389,7 +360,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -398,13 +368,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -419,12 +386,14 @@
             named after the table. The Schema sheet (if enabled) lists every table with its columns, types, and
             constraints in one consolidated view.'],
             ['What about NULL values and quoted strings?', 'NULL becomes an empty cell. Single-quoted strings have
-            escaped quotes (`it\'\'s`) handled correctly. Numeric values are auto-detected and right-aligned. Booleans
+            escaped quotes (two consecutive single quotes) handled correctly. Numeric values are auto-detected and
+            right-aligned. Booleans
             (TRUE/FALSE) are converted appropriately.'],
-            ['What\'s in the Schema sheet?', 'For each CREATE TABLE statement found, the Schema sheet lists every column
+            ['What is in the Schema sheet?', 'For each CREATE TABLE statement found, the Schema sheet lists every column
             with its declared SQL type (TEXT, INTEGER, etc.) and any constraints (PRIMARY KEY, NOT NULL, AUTOINCREMENT,
             FOREIGN KEY, defaults). Useful for documenting database structures.'],
-            ['Is my SQL safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my SQL safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -445,10 +414,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .tab-btn {
         color: var(--fn-text3);
@@ -517,10 +484,157 @@
     }
 </style>
 
+<style>
+    #sql-excel-tool .grid>*,
+    #sql-excel-tool .flex-1 {
+        min-width: 0
+    }
+
+    #sql-excel-tool input,
+    #sql-excel-tool textarea {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #sql-excel-tool .tab-btn.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #sql-excel-tool .toggle-wrap input:checked~.toggle-track {
+        background: #2563eb
+    }
+
+    #sql-excel-tool .toggle-wrap input:checked~.toggle-thumb {
+        transform: translateX(16px)
+    }
+
+    #sql-excel-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #sql-excel-tool button:focus-visible,
+    #sql-excel-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #sql-excel-tool textarea:focus-visible,
+    #sql-excel-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #sql-excel-tool #drop-zone:focus-within {
+        border-color: #2563eb;
+        background: #2563eb12
+    }
+
+    #sql-excel-tool #file-name,
+    #sql-excel-tool #output-name,
+    #sql-excel-tool #error-text,
+    #sql-excel-tool .sheet-label {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        min-width: 0
+    }
+
+    #sql-excel-tool .sheet-chip {
+        min-width: 0;
+        flex-wrap: wrap
+    }
+
+    #sql-excel-tool .step-dot {
+        flex-shrink: 0
+    }
+
+    @media(max-width:767px) {
+        #sql-excel-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #sql-excel-tool button,
+        #sql-excel-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 10px;
+            gap: 6px
+        }
+
+        #sql-excel-tool .tab-btn {
+            justify-content: center;
+            flex: 1
+        }
+
+        #sql-excel-tool .tab-btn:first-child {
+            min-width: 0
+        }
+
+        #sql-excel-tool .w-fit:has(> .tab-btn) {
+            width: 100%;
+            box-sizing: border-box
+        }
+
+        #sql-excel-tool input[type=text],
+        #sql-excel-tool textarea {
+            font-size: 16px
+        }
+
+        #sql-excel-tool #sql-textarea {
+            padding: 12px;
+            min-height: 220px
+        }
+
+        #sql-excel-tool .step-item {
+            gap: 4px
+        }
+
+        #sql-excel-tool .step-label {
+            font-size: 11px;
+            line-height: 1.3
+        }
+
+        #sql-excel-tool .step-item .step-dot {
+            width: 22px;
+            height: 22px
+        }
+
+        #sql-excel-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        #sql-excel-tool #file-preview {
+            gap: 8px;
+            padding: 12px
+        }
+
+        #sql-excel-tool #remove-file {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0
+        }
+
+        #sql-excel-tool #drop-zone .inline-flex {
+            font-size: 12px;
+            padding: 8px 12px
+        }
+    }
+</style>
+
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const SAMPLE_SQL = `-- Users table with sample data
 CREATE TABLE users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -530,12 +644,10 @@ CREATE TABLE users (
   department TEXT,
   active BOOLEAN DEFAULT TRUE
 );
-
 INSERT INTO users (id, username, email, age, department, active) VALUES (1, 'booker12', 'booker@mail.com', 30, 'Sales', TRUE);
 INSERT INTO users (id, username, email, age, department, active) VALUES (2, 'grey07', 'grey@mail.com', 25, 'Depot', TRUE);
 INSERT INTO users (id, username, email, age, department, active) VALUES (3, 'johnson81', NULL, 35, 'Engineering', FALSE);
-
--- Orders table
+\-- Orders table
 CREATE TABLE orders (
   id INTEGER PRIMARY KEY,
   user_id INTEGER,
@@ -544,12 +656,10 @@ CREATE TABLE orders (
   price REAL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
-
 INSERT INTO orders VALUES (1, 1, 'Widget', 5, 19.99);
 INSERT INTO orders VALUES (2, 1, 'Gadget', 2, 49.50);
 INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
 `;
-
   const tabText     = document.getElementById('tab-text');
   const tabFile     = document.getElementById('tab-file');
   const panelText   = document.getElementById('panel-text');
@@ -562,18 +672,17 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
   const sqlTA       = document.getElementById('sql-textarea');
-
   let selectedFile = null;
   let blobUrl      = null;
   let activeTab    = 'text';
   let detectTimer  = null;
-
   // ── Tabs ──
   tabText.addEventListener('click', () => switchTab('text'));
   tabFile.addEventListener('click', () => switchTab('file'));
-
   function switchTab(tab) {
     activeTab = tab;
+    tabText.setAttribute('aria-pressed', String(tab === 'text'));
+    tabFile.setAttribute('aria-pressed', String(tab === 'file'));
     tabText.classList.toggle('active', tab === 'text');
     tabFile.classList.toggle('active', tab === 'file');
     panelText.classList.toggle('hidden', tab !== 'text');
@@ -582,7 +691,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     refreshConvertBtn();
     refreshDetection();
   }
-
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     sqlTA.value = SAMPLE_SQL;
@@ -595,13 +703,11 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     sqlTA.value = '';
     sqlTA.dispatchEvent(new Event('input'));
   });
-
   // ── Textarea input ──
   sqlTA.addEventListener('input', () => {
     const v = sqlTA.value;
     const lines = v ? v.split('\n').length : 0;
     document.getElementById('sql-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
-
     // Live SQL detection status
     const status = document.getElementById('sql-status');
     if (!v.trim()) {
@@ -622,12 +728,10 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
         status.innerHTML = '<span class="text-fn-amber">No CREATE TABLE or INSERT statements detected — server will try to parse anyway</span>';
       }
     }
-
     refreshConvertBtn();
     clearTimeout(detectTimer);
     detectTimer = setTimeout(refreshDetection, 250);
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -638,7 +742,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   async function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -656,7 +759,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
-
     // Read file for client-side detection (only if reasonable size)
     if (file.size < 5 * 1024 * 1024) {
       try {
@@ -664,10 +766,8 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
         detectFromText(text);
       } catch(_) {}
     }
-
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -678,12 +778,10 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     refreshConvertBtn();
     hideError();
   }
-
   function refreshConvertBtn() {
     if (activeTab === 'text') convertBtn.disabled = !sqlTA.value.trim();
     else                      convertBtn.disabled = !selectedFile;
   }
-
   // ── Detection preview ──
   function refreshDetection() {
     if (activeTab === 'text') {
@@ -692,13 +790,11 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       detectFromText(v);
     }
   }
-
   function detectFromText(sql) {
     const stats = analyzeSql(sql);
     const wrap = document.getElementById('detected-content');
     const list = document.getElementById('detected-sheets');
     list.innerHTML = '';
-
     const sheets = [];
     if (document.getElementById('opt-stats').checked) {
       sheets.push(['summary', 'Summary', '—']);
@@ -709,12 +805,10 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     stats.tables.forEach(t => {
       sheets.push(['table', t.name, t.inserts + ' rows']);
     });
-
     if (sheets.length === 0) {
       wrap.classList.add('hidden');
       return;
     }
-
     sheets.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
@@ -727,16 +821,13 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     });
     wrap.classList.remove('hidden');
   }
-
   // Lightweight SQL analyzer — strips comments, finds CREATE TABLE + INSERT INTO statements
   function analyzeSql(sql) {
     // Strip block comments and line comments
     let cleaned = sql
-      .replace(/\/\*[\s\S]*?\*\//g, '')   // /* ... */
+      .replace(/\/\*[\s\S]*?\*\//g, '')   // /\ ... */*
       .replace(/--[^\n]*/g, '');           // -- ...
-
     const tables = {};
-
     // CREATE TABLE
     const createRe = /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?[`"\[]?([\w]+)[`"\]]?\s*\(/gi;
     let m;
@@ -744,7 +835,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       const name = m[1];
       if (!tables[name]) tables[name] = { name, inserts: 0 };
     }
-
     // INSERT INTO
     const insertRe = /INSERT\s+INTO\s+[`"\[]?([\w]+)[`"\]]?/gi;
     let totalInserts = 0;
@@ -754,30 +844,24 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       tables[name].inserts++;
       totalInserts++;
     }
-
     return {
       tables: Object.values(tables),
       totalInserts,
     };
   }
-
   // Re-detect when toggles change
   document.getElementById('opt-stats').addEventListener('change', refreshDetection);
   document.getElementById('opt-schema').addEventListener('change', refreshDetection);
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const customFilename = document.getElementById('opt-filename').value.trim();
     const includeStats   = document.getElementById('opt-stats').checked;
     const includeSchema  = document.getElementById('opt-schema').checked;
-
     let outName;
     if (customFilename) {
       outName = customFilename.toLowerCase().endsWith('.xlsx') ? customFilename : customFilename + '.xlsx';
@@ -786,10 +870,8 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     } else {
       outName = 'database.xlsx';
     }
-
     let endpoint, fetchBody, fetchHeaders = {};
     let sqlForDetection = '';
-
     if (activeTab === 'file') {
       endpoint = 'https://api.filenewer.com/api/tools/sql-file-to-excel';
       const fd = new FormData();
@@ -813,10 +895,8 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       fetchBody    = JSON.stringify(payload);
       fetchHeaders = { 'Content-Type': 'application/json' };
     }
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 25, 500, 'Reading SQL content…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(25, 55, 700, 'Parsing CREATE TABLE schemas…');
@@ -829,40 +909,31 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(80, 92, 500, 'Building Excel workbook…');
     }, 2200);
-
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
-
       // Render result sheet chips from client-side analysis
       if (sqlForDetection.trim()) {
         renderResultSheets(sqlForDetection, includeStats, includeSchema);
       } else {
         document.getElementById('result-sheets-wrap').classList.add('hidden');
       }
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -871,20 +942,16 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       updateStepIndicator(1);
     }
   }
-
   function renderResultSheets(sql, includeStats, includeSchema) {
     const stats = analyzeSql(sql);
     const wrap = document.getElementById('result-sheets-wrap');
     const list = document.getElementById('result-sheets');
     list.innerHTML = '';
-
     const sheets = [];
     if (includeStats) sheets.push(['summary', 'Summary', '—']);
     if (includeSchema && stats.tables.length > 0) sheets.push(['schema', 'Schema', stats.tables.length + ' tables']);
     stats.tables.forEach(t => sheets.push(['table', t.name, t.inserts + ' rows']));
-
     if (sheets.length === 0) { wrap.classList.add('hidden'); return; }
-
     sheets.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
@@ -897,7 +964,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -906,13 +972,11 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -921,7 +985,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -941,7 +1004,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -954,7 +1016,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -971,7 +1032,6 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -981,13 +1041,11 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body = btn.nextElementSibling;
@@ -998,9 +1056,7 @@ INSERT INTO orders VALUES (3, 2, 'Gizmo', 10, 5.00);
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

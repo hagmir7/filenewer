@@ -1,23 +1,17 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="word-md-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload Word'],['2','Converting'],['3','Markdown']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -31,15 +25,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-4xl">
@@ -71,7 +62,6 @@
                             accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -90,7 +80,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove Word file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -99,11 +89,9 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Simplified options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <p class="text-sm font-semibold text-fn-text2 mb-3">Options</p>
-
                         <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
                             @foreach([
                             ['opt-toc', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -133,7 +121,7 @@
                                     d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
                                 <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
                                 <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-                            </svg>', 'Image placeholders', 'Insert ![Image N](...) markers', false],
+                            </svg>', 'Image placeholders', 'Insert ![Image N]\(...) markers', false],
                             ['opt-emphasis', 'B', 'Keep bold & italic', 'Preserve **bold** and *italic*', true],
                             ] as [$tid, $ticon, $tlabel, $tdesc, $tdefault])
                             <label class="flex items-start gap-2.5 cursor-pointer select-none">
@@ -157,7 +145,6 @@
                             </label>
                             @endforeach
                         </div>
-
                         {{-- Advanced (collapsed) --}}
                         <details class="mt-3 pt-3 border-t border-fn-text/8">
                             <summary
@@ -204,7 +191,6 @@
                             </div>
                         </details>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -217,7 +203,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -229,7 +214,6 @@
                         Convert to Markdown
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -257,10 +241,8 @@
                             <span class="font-mono font-black text-2xl text-fn-green">M↓</span>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting to Markdown…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -270,7 +252,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Uploading Word document'],
@@ -297,10 +278,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Result ── --}}
                 <div id="state-download" class="hidden">
-
                     {{-- Success header --}}
                     <div class="flex flex-wrap items-center gap-3 mb-4">
                         <div
@@ -353,7 +332,6 @@
                             </a>
                         </div>
                     </div>
-
                     {{-- View toggle --}}
                     <div
                         class="flex items-center gap-1 p-1 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-3 w-fit">
@@ -376,19 +354,16 @@
                             Source
                         </button>
                     </div>
-
                     {{-- Rendered preview --}}
                     <div id="preview-wrap"
                         class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-6 max-h-[500px] overflow-auto">
                         <div id="md-preview" class="md-body"></div>
                     </div>
-
                     {{-- Source view --}}
                     <div id="source-wrap" class="hidden relative">
                         <pre id="md-source"
                             class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-5 text-xs font-mono text-fn-text2 leading-relaxed overflow-auto max-h-[500px] whitespace-pre-wrap break-words cursor-text"></pre>
                     </div>
-
                     {{-- Headings outline (collapsible) --}}
                     <div id="headings-wrap" class="hidden mt-4">
                         <button type="button" id="btn-toggle-headings"
@@ -404,7 +379,6 @@
                         <div id="headings-list"
                             class="hidden mt-3 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl"></div>
                     </div>
-
                     <div class="mt-5 flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -416,7 +390,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -425,13 +398,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -440,7 +410,7 @@
             @foreach([
             ['What is Markdown used for?','Markdown is a lightweight text format used by GitHub READMEs, static site
             generators (Jekyll, Hugo, Next.js), documentation tools, note-taking apps (Obsidian, Notion), and most
-            developer tooling. It\'s easy to read as plain text and renders cleanly as formatted HTML.'],
+            developer tooling. It is easy to read as plain text and renders cleanly as formatted HTML.'],
             ['What elements are preserved?','Headings (H1–H6), bold, italic, lists, tables, code blocks, blockquotes,
             links, and optional image placeholders. Fonts, colors, and page layout are not preserved since Markdown is a
             plain-text format.'],
@@ -450,7 +420,8 @@
             ['Will my tables be preserved?','Yes — tables are converted to Markdown table syntax with | pipes and header
             separator rows. You can turn this off with the "Convert tables" option if you prefer paragraph text
             instead.'],
-            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?','All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -471,12 +442,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .heading-btn,
@@ -701,10 +669,164 @@
     }
 </style>
 
+<style>
+    #word-md-tool .grid>*,
+    #word-md-tool .flex-1 {
+        min-width: 0
+    }
+
+    #word-md-tool input,
+    #word-md-tool select {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #word-md-tool .heading-btn.active,
+    #word-md-tool .code-btn.active,
+    #word-md-tool .view-btn.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #word-md-tool .toggle-wrap input:checked~.toggle-track {
+        background: #2563eb
+    }
+
+    #word-md-tool .toggle-wrap input:checked~.toggle-thumb {
+        transform: translateX(16px)
+    }
+
+    #word-md-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #word-md-tool button:focus-visible,
+    #word-md-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #word-md-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #word-md-tool #drop-zone:focus-within {
+        border-color: #2563eb;
+        background: #2563eb12
+    }
+
+    #word-md-tool #file-name,
+    #word-md-tool #output-name,
+    #word-md-tool #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #word-md-tool #md-preview {
+        min-width: 0;
+        overflow-wrap: anywhere
+    }
+
+    #word-md-tool #md-preview img {
+        max-width: 100%;
+        height: auto
+    }
+
+    #word-md-tool #md-preview pre,
+    #word-md-tool #md-source {
+        max-width: 100%;
+        overflow-x: auto
+    }
+
+    #word-md-tool #md-preview table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto
+    }
+
+    #word-md-tool .step-dot {
+        flex-shrink: 0
+    }
+
+    @media(max-width:767px) {
+        #word-md-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #word-md-tool button,
+        #word-md-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 9px;
+            gap: 6px
+        }
+
+        #word-md-tool input[type=text],
+        #word-md-tool select {
+            font-size: 16px
+        }
+
+        #word-md-tool .step-item {
+            gap: 4px
+        }
+
+        #word-md-tool .step-label {
+            font-size: 11px;
+            line-height: 1.3
+        }
+
+        #word-md-tool .step-item .step-dot {
+            width: 22px;
+            height: 22px
+        }
+
+        #word-md-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        #word-md-tool #file-preview {
+            gap: 8px;
+            padding: 12px
+        }
+
+        #word-md-tool #remove-file {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0
+        }
+
+        #word-md-tool #drop-zone .inline-flex {
+            font-size: 12px;
+            padding: 8px 12px
+        }
+
+        #word-md-tool #md-preview {
+            font-size: 13px
+        }
+    }
+</style>
+
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
+  function syncPressedStates() {
+    document.querySelectorAll('#word-md-tool .heading-btn, #word-md-tool .code-btn, #word-md-tool .view-btn').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+    });
+  }
+  syncPressedStates();
   // ── Refs ──
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
@@ -713,18 +835,17 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile    = null;
   let blobUrl         = null;
   let activeHeading   = 'atx';
   let activeCode      = 'fenced';
   let markdownSource  = '';
-
   // ── Heading / code style buttons ──
   document.querySelectorAll('.heading-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.heading-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      syncPressedStates();
       activeHeading = btn.dataset.val;
     });
   });
@@ -732,10 +853,10 @@
     btn.addEventListener('click', () => {
       document.querySelectorAll('.code-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      syncPressedStates();
       activeCode = btn.dataset.val;
     });
   });
-
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -746,7 +867,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -767,7 +887,6 @@
     dropZone.classList.add('has-file');
     convertBtn.disabled = false;
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -777,17 +896,14 @@
     convertBtn.disabled = true;
     hideError();
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     if (!selectedFile) return;
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const fd = new FormData();
     fd.append('file',              selectedFile);
     fd.append('include_toc',       document.getElementById('opt-toc').checked);
@@ -797,11 +913,9 @@
     fd.append('heading_style',     activeHeading);
     fd.append('code_block_style',  activeCode);
     fd.append('output',            'json');
-
     // Animate
     setProcessStep('proc-1', 'active');
     animateProgress(0, 25, 500, 'Uploading Word document…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(25, 55, 700, 'Reading paragraphs & headings…');
@@ -814,30 +928,23 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(80, 92, 500, 'Building final output…');
     }, 2200);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/word-to-markdown', {
         method: 'POST',
         body: fd,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
-
       const data = await res.json();
       markdownSource = data.markdown ?? '';
-
       renderResult(data);
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -846,19 +953,16 @@
       updateStepIndicator(1);
     }
   }
-
   // ── Render result ──
   function renderResult(data) {
     const md       = data.markdown ?? '';
     const headings = data.headings ?? [];
-
     // Stats
     document.getElementById('stat-words').textContent    = (data.word_count ?? 0).toLocaleString();
     document.getElementById('stat-chars').textContent    = (data.char_count ?? 0).toLocaleString();
     document.getElementById('stat-tables').textContent   = data.table_count ?? 0;
     document.getElementById('stat-images').textContent   = data.image_count ?? 0;
     document.getElementById('stat-headings').textContent = headings.length;
-
     // Rendered preview — defer so the UI can paint "Converting done" first
     const previewEl = document.getElementById('md-preview');
     previewEl.innerHTML = '<p style="color:var(--fn-text3);text-align:center;padding:20px;">Rendering preview…</p>';
@@ -870,10 +974,8 @@
         previewEl.innerHTML = '<p style="color:var(--fn-red);text-align:center;padding:20px;">Preview could not render — use the Source view instead.</p>';
       }
     }, 50);
-
     // Source
     document.getElementById('md-source').textContent = md;
-
     // Download link
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = URL.createObjectURL(new Blob([md], { type: 'text/markdown;charset=utf-8;' }));
@@ -881,7 +983,6 @@
     const dl = document.getElementById('btn-download');
     dl.href = blobUrl;
     dl.download = outName;
-
     // Copy button
     document.getElementById('btn-copy').onclick = async () => {
       try {
@@ -890,7 +991,6 @@
         setTimeout(() => { document.getElementById('copy-label').textContent = 'Copy'; }, 2000);
       } catch(_) {}
     };
-
     // Headings outline
     const wrap = document.getElementById('headings-wrap');
     if (headings.length > 0) {
@@ -910,18 +1010,16 @@
       wrap.classList.add('hidden');
     }
   }
-
   // ── View toggle ──
   document.getElementById('view-preview').addEventListener('click', () => setView('preview'));
   document.getElementById('view-source').addEventListener('click',  () => setView('source'));
-
   function setView(v) {
     document.getElementById('view-preview').classList.toggle('active', v === 'preview');
     document.getElementById('view-source').classList.toggle('active',  v === 'source');
     document.getElementById('preview-wrap').classList.toggle('hidden', v !== 'preview');
     document.getElementById('source-wrap').classList.toggle('hidden',  v !== 'source');
+    syncPressedStates();
   }
-
   // ── Headings toggle ──
   document.getElementById('btn-toggle-headings').addEventListener('click', () => {
     const list = document.getElementById('headings-list');
@@ -935,11 +1033,9 @@
       chev.style.transform = 'rotate(180deg)';
     }
   });
-
   // ── Markdown → HTML renderer (uses marked.js if available) ──
   function mdToHtml(md) {
     if (!md) return '<p style="color:var(--fn-text3);text-align:center;">No content</p>';
-
     // If marked.js is available, use it (much faster + safer for huge docs)
     if (typeof marked !== 'undefined') {
       try {
@@ -954,12 +1050,10 @@
         console.warn('marked.js failed, falling back to plain text:', e);
       }
     }
-
     // Fallback: escape and show as preformatted text (no regex — won't freeze)
     const esc = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     return '<pre style="white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.7;">' + esc + '</pre>';
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -968,13 +1062,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -983,7 +1075,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1005,7 +1096,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1018,7 +1108,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1030,6 +1119,7 @@
     document.querySelectorAll('.code-btn').forEach(b => b.classList.toggle('active', b.dataset.val === 'fenced'));
     activeHeading = 'atx';
     activeCode    = 'fenced';
+    syncPressedStates();
     markdownSource = '';
     setView('preview');
     document.getElementById('md-preview').innerHTML = '';
@@ -1041,7 +1131,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1051,13 +1140,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1072,9 +1159,7 @@
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

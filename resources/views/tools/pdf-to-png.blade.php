@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-png-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload PDF'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
@@ -70,7 +61,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -99,7 +89,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Output mode --}}
                     <div class="mt-5">
                         <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
@@ -149,10 +138,8 @@
                             @endforeach
                         </div>
                     </div>
-
                     {{-- Settings --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-
                         {{-- DPI slider --}}
                         <div>
                             <div class="flex items-center justify-between mb-2">
@@ -181,7 +168,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         {{-- Pages selector (zip + base64 only) --}}
                         <div id="pages-section">
                             <label for="opt-pages" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -192,7 +178,6 @@
                                 placeholder="e.g. 1,3,5 or 1-10 or leave blank for all pages"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                         </div>
-
                         {{-- Single page (single mode only) --}}
                         <div id="single-page-section" class="hidden">
                             <label for="opt-single-page" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -202,7 +187,6 @@
                             <input type="number" id="opt-single-page" min="1" placeholder="1"
                                 class="w-32 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40" />
                         </div>
-
                         {{-- Password (encrypted PDF) --}}
                         <div>
                             <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -212,7 +196,8 @@
                             <div class="relative max-w-sm">
                                 <input type="password" id="opt-password" placeholder="Leave blank if not protected"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" id="toggle-password"
+                                <button type="button" id="toggle-password" aria-label="Show password"
+                                    aria-pressed="false"
                                     class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                     <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -230,9 +215,7 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -245,7 +228,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -258,7 +240,6 @@
                         Convert to PNG
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -296,10 +277,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting your PDF…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -309,7 +288,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Uploading & validating PDF'],
@@ -336,7 +314,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -351,7 +328,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your PNG files are ready.</p>
-
                     {{-- Pages preview gallery (base64 mode only) --}}
                     <div id="pages-gallery-wrap" class="hidden max-w-3xl mx-auto mb-6 text-left">
                         <div class="flex items-center justify-between mb-2">
@@ -364,7 +340,6 @@
                             class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 max-h-[360px] overflow-auto p-2 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         </div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-purple/12 border border-fn-purple/20 flex items-center justify-center text-2xl shrink-0"
@@ -385,7 +360,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="output.zip"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -397,7 +371,6 @@
                         </svg>
                         <span id="download-label">Download ZIP</span>
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -409,7 +382,6 @@
                             Convert another PDF
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -418,13 +390,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -444,7 +413,8 @@
             files.'],
             ['Can I convert an encrypted PDF?', 'Yes — paste the password into the optional password field. The output
             PNGs themselves are not encrypted.'],
-            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -465,12 +435,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .mode-card {
@@ -557,12 +524,123 @@
     .page-thumb .page-label .pn {
         font-family: monospace;
     }
+
+    #pdf-png-tool .mode-card.active,
+    #pdf-png-tool .dpi-preset.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: white;
+        border-color: #2563eb;
+    }
+
+    #pdf-png-tool .mode-card.active span,
+    #pdf-png-tool .mode-card.active p {
+        color: white;
+    }
+
+    #pages-gallery {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    #pages-gallery img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+<style>
+    #pdf-png-tool .grid>*,
+    #pdf-png-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #pdf-png-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #file-meta,
+    #output-name,
+    #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #pdf-png-tool input,
+    #pdf-png-tool select {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #pdf-png-tool button:focus-visible,
+    #pdf-png-tool a:focus-visible,
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #toggle-password[aria-pressed="true"] {
+        background: #2563eb;
+        color: white;
+        border-radius: 6px;
+    }
+
+    @media(max-width:639px) {
+
+        #pdf-png-tool button,
+        #pdf-png-tool #download-link {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            gap: 6px;
+        }
+
+        #pdf-png-tool #toggle-password {
+            min-width: 32px;
+            padding: 5px;
+        }
+
+        #pdf-png-tool input:not([type=file]):not([type=range]),
+        #pdf-png-tool select {
+            font-size: 16px;
+        }
+
+        #pdf-png-tool .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-png-tool .step-item {
+            gap: 4px;
+        }
+
+        #pdf-png-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #pdf-png-tool .step-item+div {
+            width: 12px;
+            margin: 0 4px;
+        }
+
+        #file-preview {
+            gap: 8px;
+            padding: 12px;
+        }
+
+        #remove-file {
+            min-width: 32px;
+            width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+    }
 </style>
 
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   // ── Refs ──
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
@@ -571,11 +649,9 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile = null;
   let blobUrl      = null;
   let activeMode   = 'zip';
-
   // ── Mode selector ──
   document.querySelectorAll('.mode-card').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -587,7 +663,6 @@
       document.getElementById('single-page-section').classList.toggle('hidden', activeMode !== 'single');
     });
   });
-
   // ── DPI slider + presets ──
   const dpiSlider = document.getElementById('opt-dpi');
   dpiSlider.addEventListener('input', () => {
@@ -599,7 +674,6 @@
       b.classList.toggle('active', parseInt(b.dataset.val) === v);
     });
   });
-
   document.querySelectorAll('.dpi-preset').forEach(btn => {
     btn.addEventListener('click', () => {
       const v = btn.dataset.val;
@@ -607,7 +681,6 @@
       dpiSlider.dispatchEvent(new Event('input'));
     });
   });
-
   function estimateSize(dpi) {
     if (dpi <= 80)  return '~200 KB / page';
     if (dpi <= 160) return '~500 KB / page';
@@ -615,7 +688,6 @@
     if (dpi <= 350) return '~2 MB / page';
     return '~6 MB / page';
   }
-
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -626,7 +698,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
@@ -645,7 +716,6 @@
     dropZone.classList.add('has-file');
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -655,11 +725,9 @@
     refreshConvertBtn();
     hideError();
   }
-
   function refreshConvertBtn() {
     convertBtn.disabled = !selectedFile;
   }
-
   // ── Password toggle ──
   document.getElementById('toggle-password').addEventListener('click', () => {
     const input  = document.getElementById('opt-password');
@@ -667,26 +735,23 @@
     input.type   = isPass ? 'text' : 'password';
     document.getElementById('eye-show').classList.toggle('hidden', isPass);
     document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
+    document.getElementById('toggle-password').setAttribute('aria-pressed', String(isPass));
+    document.getElementById('toggle-password').setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
   });
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     if (!selectedFile) return;
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const dpi      = parseInt(dpiSlider.value) || 200;
     const password = document.getElementById('opt-password').value.trim();
-
     const fd = new FormData();
     fd.append('file',   selectedFile);
     fd.append('output', activeMode);
     fd.append('dpi',    dpi);
-
     if (activeMode === 'single') {
       const pageNum = document.getElementById('opt-single-page').value.trim();
       if (pageNum) fd.append('pages', pageNum);
@@ -694,13 +759,10 @@
       const pages = document.getElementById('opt-pages').value.trim();
       if (pages) fd.append('pages', pages);
     }
-
     if (password) fd.append('password', password);
-
     // Animate
     setProcessStep('proc-1', 'active');
     animateProgress(0, 25, 500, 'Uploading & validating PDF…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(25, 55, 700, 'Reading pages at ' + dpi + ' DPI…');
@@ -713,23 +775,18 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(80, 92, 500, 'Packaging output…');
     }, 2500);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-png', {
         method: 'POST',
         body: fd,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
-
       const baseName = selectedFile.name.replace(/\.pdf$/i, '');
-
       if (activeMode === 'base64') {
         // JSON response with base64 pages
         const data = await res.json();
@@ -739,11 +796,9 @@
         const blob = await res.blob();
         renderBinaryResult(blob, baseName, activeMode);
       }
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -752,13 +807,10 @@
       updateStepIndicator(1);
     }
   }
-
   function renderBinaryResult(blob, baseName, mode) {
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = URL.createObjectURL(blob);
-
     const link = document.getElementById('download-link');
-
     if (mode === 'single') {
       const pageNum    = document.getElementById('opt-single-page').value.trim() || '1';
       const outputName = `${baseName}_page_${pageNum}.png`;
@@ -766,13 +818,13 @@
       link.download = outputName;
       document.getElementById('output-name').textContent = outputName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PNG Image';
-      document.getElementById('output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+      document.getElementById('output-icon').textContent = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M15 8h.01" />
   <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
   <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
   <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg>';
+</svg>`;
       document.getElementById('download-label').textContent = 'Download PNG';
       document.getElementById('result-subtitle').textContent = 'Your PNG image is ready.';
     } else {
@@ -781,31 +833,26 @@
       link.download = outputName;
       document.getElementById('output-name').textContent = outputName;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ZIP Archive';
-      document.getElementById('output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+      document.getElementById('output-icon').textContent = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
   <path d="M12 12l8 -4.5" />
   <path d="M12 12l0 9" />
   <path d="M12 12l-8 -4.5" />
   <path d="M16 5.25l-8 4.5" />
-</svg>';
+</svg>`;
       document.getElementById('download-label').textContent = 'Download ZIP';
       document.getElementById('result-subtitle').textContent = 'Your PNG files are ready in a zip archive.';
     }
-
     document.getElementById('pages-gallery-wrap').classList.add('hidden');
   }
-
   async function renderBase64Result(data, baseName) {
     const pages = data.pages || [];
     const totalPages = data.total_pages ?? pages.length;
-
     document.getElementById('pages-count').textContent  = pages.length;
     document.getElementById('pages-plural').textContent = pages.length === 1 ? '' : 's';
-
     const totalSize = pages.reduce((sum, p) => sum + (p.size_kb || 0), 0);
     document.getElementById('pages-total-size').textContent = formatSizeKb(totalSize) + ' total';
-
     // Render gallery thumbnails
     const gallery = document.getElementById('pages-gallery');
     gallery.innerHTML = '';
@@ -824,27 +871,24 @@
       gallery.appendChild(thumb);
     });
     document.getElementById('pages-gallery-wrap').classList.remove('hidden');
-
     // Build a zip using JSZip if available, otherwise just offer JSON download
     const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8;' });
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = URL.createObjectURL(jsonBlob);
-
     const link = document.getElementById('download-link');
     const outputName = `${baseName}_pages.json`;
     link.href = blobUrl;
     link.download = outputName;
     document.getElementById('output-name').textContent = outputName;
     document.getElementById('output-size').textContent = formatBytes(jsonBlob.size) + ' · JSON Response';
-    document.getElementById('output-icon').textContent = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+    document.getElementById('output-icon').textContent = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
   <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-</svg>';
+</svg>`;
     document.getElementById('download-label').textContent = 'Download JSON';
     document.getElementById('result-subtitle').textContent = `${totalPages} page${totalPages !== 1 ? 's' : ''} rendered as base64. Click any thumbnail to download that page individually.`;
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -853,13 +897,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -868,7 +910,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -890,7 +931,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -903,7 +943,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -922,7 +961,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -932,7 +970,6 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
@@ -943,7 +980,6 @@
     if (kb >= 1024) return (kb / 1024).toFixed(2) + ' MB';
     return Math.round(kb) + ' KB';
   }
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -958,9 +994,7 @@
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

@@ -1,21 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="split-pdf-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload PDF'],['2','Splitting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -29,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
@@ -69,7 +61,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -89,7 +80,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -98,7 +89,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Split mode selector --}}
                     <div class="mt-5">
                         <label class="text-sm font-semibold text-fn-text2 block mb-3">Split Mode</label>
@@ -166,10 +156,8 @@
                             @endforeach
                         </div>
                     </div>
-
                     {{-- Mode-specific options --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-
                         {{-- Page mode (no extra options) --}}
                         <div id="mode-opts-page" class="mode-opts">
                             <div class="flex items-center gap-3">
@@ -190,7 +178,6 @@
                                 </div>
                             </div>
                         </div>
-
                         {{-- Chunk mode --}}
                         <div id="mode-opts-chunk" class="mode-opts hidden">
                             <label for="opt-chunk" class="text-xs font-semibold text-fn-text2 block mb-2">
@@ -207,7 +194,6 @@
                                 (<span id="chunk-breakdown">3+3+3+1</span> pages).
                             </p>
                         </div>
-
                         {{-- Range mode --}}
                         <div id="mode-opts-range" class="mode-opts hidden">
                             <div class="flex items-center justify-between mb-2">
@@ -226,7 +212,6 @@
                             <p class="text-xs text-fn-text3 mt-2">Each range becomes one output file. Page numbers are
                                 1-based.</p>
                         </div>
-
                         {{-- Pages mode --}}
                         <div id="mode-opts-pages" class="mode-opts hidden">
                             <label for="opt-pages" class="text-xs font-semibold text-fn-text2 block mb-2">
@@ -237,9 +222,7 @@
                             <p class="text-xs text-fn-text3 mt-2">Comma-separated page numbers. Each page becomes its
                                 own PDF.</p>
                         </div>
-
                     </div>
-
                     {{-- Password (for encrypted PDFs) --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
                         <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -249,7 +232,7 @@
                         <div class="relative">
                             <input type="password" id="opt-password" placeholder="Leave blank if not protected"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button" id="toggle-password"
+                            <button type="button" id="toggle-password" aria-label="Show password" aria-pressed="false"
                                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                 <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -267,7 +250,6 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -280,7 +262,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -292,9 +273,7 @@
                         </svg>
                         Split PDF
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -333,10 +312,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Splitting your PDF…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -346,7 +323,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Uploading & validating PDF'],
@@ -373,7 +349,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -388,7 +363,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Split Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your split PDFs are ready.</p>
-
                     {{-- Parts table --}}
                     <div id="parts-preview" class="hidden max-w-2xl mx-auto mb-6 text-left">
                         <div class="flex items-center justify-between mb-2">
@@ -401,7 +375,6 @@
                             <table id="parts-table" class="w-full text-xs"></table>
                         </div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -424,7 +397,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="split_pages.zip"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -436,7 +408,6 @@
                         </svg>
                         Download ZIP Archive
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -448,7 +419,6 @@
                             Split another PDF
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -457,13 +427,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -478,9 +445,10 @@
             needed.'],
             ['Can I split an encrypted PDF?', 'Yes — enter the PDF password in the optional password field before
             splitting. The split output files will be plain (unencrypted).'],
-            ['What if I specify a page number that doesn\'t exist?', 'The API will return an error if any page or range
-            is out of bounds. Check your PDF\'s total page count first if you\'re unsure.'],
-            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['What if I specify a page number that does not exist?', 'The API will return an error if any page or range
+            is out of bounds. Check your PDF document total page count first if you are unsure.'],
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -501,12 +469,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .mode-card {
@@ -635,10 +600,175 @@
     }
 </style>
 
+<style>
+    #split-pdf-tool .grid>*,
+    #split-pdf-tool .flex-1 {
+        min-width: 0
+    }
+
+    #split-pdf-tool input {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #split-pdf-tool .mode-card.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #split-pdf-tool .mode-card.active span {
+        color: #fff;
+        opacity: 1
+    }
+
+    #split-pdf-tool button:focus-visible,
+    #split-pdf-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #split-pdf-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #split-pdf-tool #drop-zone:focus-within {
+        border-color: #2563eb;
+        background: #2563eb12
+    }
+
+    #split-pdf-tool #toggle-password {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border-radius: 6px
+    }
+
+    #split-pdf-tool #toggle-password[aria-pressed=true] {
+        background: #2563eb;
+        color: #fff
+    }
+
+    #split-pdf-tool #file-name,
+    #split-pdf-tool #output-name,
+    #split-pdf-tool #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #split-pdf-tool .range-row {
+        flex-wrap: wrap
+    }
+
+    #split-pdf-tool .step-dot {
+        flex-shrink: 0
+    }
+
+    @media(max-width:767px) {
+        #split-pdf-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #split-pdf-tool button,
+        #split-pdf-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 10px;
+            gap: 6px
+        }
+
+        #split-pdf-tool .mode-card {
+            padding: 10px
+        }
+
+        #split-pdf-tool .mode-card>div {
+            flex-wrap: wrap
+        }
+
+        #split-pdf-tool .mode-card .text-sm {
+            font-size: 12px
+        }
+
+        #split-pdf-tool .mode-card .text-xs {
+            font-size: 11px;
+            line-height: 1.4
+        }
+
+        #split-pdf-tool input[type=text],
+        #split-pdf-tool input[type=password],
+        #split-pdf-tool input[type=number] {
+            font-size: 16px
+        }
+
+        #split-pdf-tool .range-row {
+            gap: 6px;
+            padding: 8px
+        }
+
+        #split-pdf-tool .range-row input[type=number] {
+            width: 58px;
+            padding: 5px 4px
+        }
+
+        #split-pdf-tool .range-row .range-remove {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            flex-shrink: 0
+        }
+
+        #split-pdf-tool .step-item {
+            gap: 4px
+        }
+
+        #split-pdf-tool .step-label {
+            font-size: 11px;
+            line-height: 1.3
+        }
+
+        #split-pdf-tool .step-item .step-dot {
+            width: 22px;
+            height: 22px
+        }
+
+        #split-pdf-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        #split-pdf-tool #file-preview {
+            gap: 8px;
+            padding: 12px
+        }
+
+        #split-pdf-tool #remove-file {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0
+        }
+
+        #split-pdf-tool #drop-zone .inline-flex {
+            font-size: 12px;
+            padding: 8px 12px
+        }
+    }
+</style>
+
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   // ── Refs ──
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
@@ -647,34 +777,35 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile = null;
   let blobUrl      = null;
   let activeMode   = 'page';
   let ranges       = [[1, 3]]; // default range when switching to range mode
-
+  function syncModeButtons() {
+    document.querySelectorAll('#split-pdf-tool .mode-card').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+    });
+  }
+  syncModeButtons();
   // ── Mode selector ──
   document.querySelectorAll('.mode-card').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.mode-card').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeMode = btn.dataset.mode;
-
+      syncModeButtons();
       // Show/hide options
       document.querySelectorAll('.mode-opts').forEach(el => el.classList.add('hidden'));
       document.getElementById('mode-opts-' + activeMode).classList.remove('hidden');
-
       // Initialize ranges if empty when switching to range mode
       if (activeMode === 'range' && ranges.length === 0) {
         ranges = [[1, 3]];
         renderRanges();
       }
       if (activeMode === 'range') renderRanges();
-
       refreshConvertBtn();
     });
   });
-
   // ── Chunk slider ──
   const chunkSlider = document.getElementById('opt-chunk');
   chunkSlider.addEventListener('input', () => {
@@ -690,7 +821,6 @@
     document.getElementById('chunk-result').textContent = total + ' file' + (total !== 1 ? 's' : '');
     document.getElementById('chunk-breakdown').textContent = breakdown;
   });
-
   // ── Range mode ──
   document.getElementById('btn-add-range').addEventListener('click', () => {
     const last = ranges[ranges.length - 1];
@@ -698,11 +828,9 @@
     ranges.push([nextStart, nextStart + 2]);
     renderRanges();
   });
-
   function renderRanges() {
     const list = document.getElementById('ranges-list');
     list.innerHTML = '';
-
     if (ranges.length === 0) {
       const empty = document.createElement('p');
       empty.className = 'text-xs text-fn-text3 italic';
@@ -710,7 +838,6 @@
       list.appendChild(empty);
       return;
     }
-
     ranges.forEach((rng, idx) => {
       const row = document.createElement('div');
       row.className = 'range-row';
@@ -741,12 +868,10 @@
       list.appendChild(row);
     });
   }
-
   function updateRangePages(row, rng) {
     const count = Math.max(0, (rng[1] ?? 0) - (rng[0] ?? 0) + 1);
     row.querySelector('.range-pages').textContent = count + ' page' + (count !== 1 ? 's' : '');
   }
-
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -757,7 +882,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
@@ -776,7 +900,6 @@
     dropZone.classList.add('has-file');
     refreshConvertBtn();
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -786,27 +909,25 @@
     refreshConvertBtn();
     hideError();
   }
-
   function refreshConvertBtn() {
     convertBtn.disabled = !selectedFile;
   }
-
   // ── Password toggle ──
   document.getElementById('toggle-password').addEventListener('click', () => {
     const input  = document.getElementById('opt-password');
     const isPass = input.type === 'password';
     input.type   = isPass ? 'text' : 'password';
+    const toggle = document.getElementById('toggle-password');
+    toggle.setAttribute('aria-pressed', String(isPass));
+    toggle.setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
     document.getElementById('eye-show').classList.toggle('hidden', isPass);
     document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
   });
-
   // ── Split ──
   convertBtn.addEventListener('click', startSplit);
-
   async function startSplit() {
     if (!selectedFile) return;
     hideError();
-
     // Validate mode-specific input
     if (activeMode === 'range' && ranges.length === 0) {
       showError('Please add at least one page range.');
@@ -819,16 +940,13 @@
         return;
       }
     }
-
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const fd = new FormData();
     fd.append('file',     selectedFile);
     fd.append('split_by', activeMode);
     fd.append('output',   'zip');
-
     if (activeMode === 'chunk') {
       fd.append('chunk_size', chunkSlider.value);
     } else if (activeMode === 'range') {
@@ -840,21 +958,17 @@
         .filter(n => !isNaN(n) && n > 0);
       fd.append('pages', JSON.stringify(pages));
     }
-
     const password = document.getElementById('opt-password').value.trim();
     if (password) fd.append('password', password);
-
     // Also get JSON metadata in a second call so we can show parts table
     const metadataFd = new FormData();
     for (const [k, v] of fd.entries()) {
       if (k === 'output') metadataFd.append('output', 'json');
       else metadataFd.append(k, v);
     }
-
     // Animate
     setProcessStep('proc-1', 'active');
     animateProgress(0, 25, 600, 'Uploading & validating PDF…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(25, 50, 700, 'Analysing page structure…');
@@ -867,43 +981,33 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(78, 90, 600, 'Packaging into zip archive…');
     }, 2500);
-
     try {
       // Run file + metadata requests in parallel
       const [fileRes, metaRes] = await Promise.all([
         fetch('https://api.filenewer.com/api/tools/pdf-split', { method: 'POST', body: fd }),
         fetch('https://api.filenewer.com/api/tools/pdf-split', { method: 'POST', body: metadataFd }).catch(() => null),
       ]);
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!fileRes.ok) {
         let msg = 'Split failed. Please try again.';
         try { const d = await fileRes.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await fileRes.blob();
-
       // Parse metadata if available
       let metadata = null;
       if (metaRes && metaRes.ok) {
         try { metadata = await metaRes.json(); } catch(_) {}
       }
-
       const baseName     = selectedFile.name.replace(/\.pdf$/i, '');
       const zipFilename  = `${baseName}_split.zip`;
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link    = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = zipFilename;
-
       document.getElementById('output-name').textContent = zipFilename;
       document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ZIP Archive';
-
       // Render parts table from metadata
       if (metadata && metadata.parts) {
         renderPartsTable(metadata);
@@ -912,12 +1016,9 @@
       } else {
         document.getElementById('parts-preview').classList.add('hidden');
       }
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(90, 100, 300, 'Done!');
-
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -926,18 +1027,14 @@
       updateStepIndicator(1);
     }
   }
-
   function renderPartsTable(metadata) {
     const wrap  = document.getElementById('parts-preview');
     const table = document.getElementById('parts-table');
     const parts = metadata.parts ?? [];
-
     document.getElementById('parts-count').textContent = parts.length;
     document.getElementById('parts-plural').textContent = parts.length === 1 ? '' : 's';
-
     const totalSizeKb = parts.reduce((sum, p) => sum + (p.size_kb || 0), 0);
     document.getElementById('parts-total-size').textContent = formatSizeKb(totalSizeKb) + ' total';
-
     table.innerHTML = `
       <thead>
         <tr>
@@ -962,7 +1059,6 @@
     table.appendChild(tbody);
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     // Scroll to the top of the converter card so user sees progress
@@ -972,14 +1068,12 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
     if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -988,7 +1082,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1010,7 +1103,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1023,7 +1115,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1039,6 +1130,7 @@
     document.querySelectorAll('.mode-card').forEach(b => b.classList.remove('active'));
     document.querySelector('.mode-card[data-mode="page"]').classList.add('active');
     activeMode = 'page';
+    syncModeButtons();
     document.querySelectorAll('.mode-opts').forEach(el => el.classList.add('hidden'));
     document.getElementById('mode-opts-page').classList.remove('hidden');
     document.getElementById('parts-preview').classList.add('hidden');
@@ -1047,7 +1139,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1057,7 +1148,6 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024)    return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
@@ -1068,10 +1158,8 @@
     if (kb >= 1024) return (kb / 1024).toFixed(2) + ' MB';
     return Math.round(kb) + ' KB';
   }
-
   // Initialize
   renderRanges();
-
   // ── FAQ ──
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1086,9 +1174,7 @@
       }
     });
   });
-
 }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

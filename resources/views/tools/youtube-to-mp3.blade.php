@@ -1,20 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-10 sm:pb-16">
+<section id="youtube-mp3-tool" class="pb-10 sm:pb-16">
     <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
             <div
                 class="flex items-center justify-center gap-0 px-3 sm:px-8 py-3 sm:py-5 border-b border-fn-text/7 bg-fn-surface2 overflow-x-auto">
@@ -34,12 +27,9 @@
                 @endif
                 @endforeach
             </div>
-
             <div class="p-3 sm:p-6 lg:p-10">
-
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- ══ URL PANEL ══ --}}
                     <div id="panel-url">
                         <div class="flex items-center justify-between mb-2">
@@ -61,7 +51,6 @@
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
                             </div>
                         </div>
-
                         <div class="relative">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
@@ -73,18 +62,15 @@
                                 placeholder="https://www.youtube.com/watch?v=… or youtu.be/…"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-xl pl-10 sm:pl-11 pr-4 py-3 sm:py-3.5 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                         </div>
-
                         <p id="url-status" class="text-xs mt-1.5"><span class="text-fn-text3">Paste a YouTube video
                                 link</span></p>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-3 sm:mt-5 p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-2.5 sm:mb-3">
                             <p class="text-xs sm:text-sm font-semibold text-fn-text2">Audio Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-2.5 sm:gap-3">
                             <div>
                                 <label for="opt-quality"
@@ -105,7 +91,6 @@
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
                         </div>
-
                         <label
                             class="mt-2.5 sm:mt-3 flex items-center gap-2 cursor-pointer select-none px-3 py-2 bg-fn-surface border border-fn-text/10 rounded-lg hover:border-fn-blue/25 transition-colors">
                             <div class="toggle-wrap relative w-8 h-4 shrink-0">
@@ -124,7 +109,6 @@
                             </div>
                         </label>
                     </div>
-
                     {{-- Copyright notice --}}
                     <div
                         class="mt-3 sm:mt-4 flex items-start gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 bg-fn-amber/6 border border-fn-amber/20 rounded-xl">
@@ -141,7 +125,6 @@
                             redistributing audio from videos you don't have rights to typically violates YouTube's Terms
                             of Service and copyright law.</p>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-3 sm:mt-4 items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-xs sm:text-sm text-fn-text2">
@@ -154,7 +137,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-4 sm:mt-6 w-full py-3 sm:py-3.5 bg-fn-blue text-white font-bold text-sm sm:text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -166,7 +148,6 @@
                         Convert to MP3
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-4 sm:py-6">
                     <div class="flex items-center justify-center gap-3 sm:gap-5 mb-5 sm:mb-8">
@@ -195,12 +176,11 @@
                                 <path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
                                 <path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
                                 <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
-                            </svg></div>
+                            </svg>
+                        </div>
                     </div>
-
                     <h2 class="text-base sm:text-xl font-bold mb-1.5 sm:mb-2">Converting to MP3…</h2>
                     <p class="text-fn-text3 text-xs sm:text-sm mb-5 sm:mb-8">Extracting and encoding the audio track</p>
-
                     <div class="max-w-md mx-auto mb-2.5 sm:mb-3">
                         <div class="h-1.5 sm:h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -211,7 +191,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-2.5 sm:gap-3 text-left">
                         @foreach([
                         ['proc-1','Resolving video URL'],
@@ -238,7 +217,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-4 sm:py-6">
                     <div
@@ -249,14 +227,13 @@
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                             <path d="M9 12l2 2l4 -4" />
-                        </svg></div>
+                        </svg>
+                    </div>
                     <h2 class="text-lg sm:text-2xl font-bold mb-1 sm:mb-2" id="result-title">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-xs sm:text-sm mb-4 sm:mb-6">Your MP3 is ready to download.</p>
-
                     <div id="result-sheets-wrap" class="hidden max-w-2xl mx-auto mb-4 sm:mb-6">
                         <div class="flex flex-wrap gap-2 justify-center" id="result-sheets"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-3 sm:p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 text-left">
                         <div
@@ -268,16 +245,15 @@
                                 <path d="M4 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
                                 <path d="M15 15a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" />
                                 <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
-                            </svg></div>
+                            </svg>
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-xs sm:text-sm truncate" id="output-name">audio.mp3</p>
                             <p class="text-fn-text3 text-xs sm:text-sm mt-0.5" id="output-size">MP3 Audio</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <audio id="audio-preview" controls class="w-full max-w-sm mx-auto mb-4 sm:mb-6 hidden"></audio>
-
                     <a id="download-link" href="#" download="audio.mp3"
                         class="inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-8 py-2.5 sm:py-3.5 text-white font-bold text-sm sm:text-base rounded-xl transition-all hover:-translate-y-0.5 mb-3 sm:mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -289,7 +265,6 @@
                         </svg>
                         Download MP3
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-3.5 sm:px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs sm:text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -301,7 +276,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-4 sm:mt-6 text-fn-text3 text-xs sm:text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -311,13 +285,10 @@
                         Your link and file are encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6">
@@ -332,11 +303,12 @@
             for speech or podcasts.'],
             ['What does loudness normalization do?', 'It evens out the perceived volume of the track to a consistent
             target level, useful when the source audio is unusually quiet, loud, or inconsistent across sections.'],
-            ['Is it legal to convert a YouTube video to MP3?', 'Only if you own the content, it\'s royalty-free or
+            ['Is it legal to convert a YouTube video to MP3?', 'Only if you own the content, it is royalty-free or
             Creative-Commons licensed, or you have explicit permission from the rights holder. Downloading and
-            redistributing audio you don\'t have rights to typically violates YouTube\'s Terms of Service and copyright
-            law — you\'re responsible for confirming the source is usable this way.'],
-            ['Is my link and file private?', 'All requests use TLS 1.3 / HTTPS encryption in transit. and any temporary files are
+            redistributing audio you do not have rights to typically violates YouTube Terms of Service and copyright
+            law — you are responsible for confirming the source is usable this way.'],
+            ['Is my link and file private?', 'All requests use TLS 1.3 / HTTPS encryption in transit. and any temporary
+            files are
             permanently deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -357,10 +329,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .sheet-chip {
         display: inline-flex;
@@ -429,21 +399,110 @@
     }
 </style>
 
+<style>
+    #youtube-mp3-tool .grid>*,
+    #youtube-mp3-tool .flex-1 {
+        min-width: 0
+    }
+
+    #youtube-mp3-tool input,
+    #youtube-mp3-tool select {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #youtube-mp3-tool .toggle-wrap input:checked~.toggle-track {
+        background: #2563eb
+    }
+
+    #youtube-mp3-tool .toggle-wrap input:checked~.toggle-thumb {
+        transform: translateX(16px)
+    }
+
+    #youtube-mp3-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #youtube-mp3-tool button:focus-visible,
+    #youtube-mp3-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #youtube-mp3-tool input:focus-visible,
+    #youtube-mp3-tool select:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #youtube-mp3-tool #output-name,
+    #youtube-mp3-tool #error-text,
+    #youtube-mp3-tool #result-title,
+    #youtube-mp3-tool #url-status {
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #youtube-mp3-tool audio {
+        max-width: 100%;
+        min-width: 0
+    }
+
+    #youtube-mp3-tool .step-item.active .step-dot {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff
+    }
+
+    #youtube-mp3-tool .step-item.active .step-label {
+        color: #2563eb
+    }
+
+    @media(max-width:767px) {
+        #youtube-mp3-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #youtube-mp3-tool button,
+        #youtube-mp3-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 9px;
+            gap: 6px
+        }
+
+        #youtube-mp3-tool input[type=text],
+        #youtube-mp3-tool input[type=url],
+        #youtube-mp3-tool select {
+            font-size: 16px
+        }
+
+        #youtube-mp3-tool .step-label {
+            font-size: 11px
+        }
+
+        #youtube-mp3-tool #result-sheets>* {
+            max-width: 100%;
+            overflow-wrap: anywhere
+        }
+    }
+</style>
+
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const SAMPLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-
   const urlInput    = document.getElementById('url-input');
   const convertBtn  = document.getElementById('convert-btn');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let blobUrl = null;
-
   const URL_RE = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/)|youtu\.be\/)[\w-]{6,}/i;
-
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
     urlInput.value = SAMPLE_URL;
@@ -456,13 +515,11 @@
     urlInput.value = '';
     urlInput.dispatchEvent(new Event('input'));
   });
-
   // ── URL input ──
   urlInput.addEventListener('input', () => {
     const v = urlInput.value.trim();
     const status = document.getElementById('url-status');
     const valid = URL_RE.test(v);
-
     if (!v) {
       status.innerHTML = '<span class="text-fn-text3">Paste a YouTube video link</span>';
     } else if (valid) {
@@ -471,16 +528,13 @@
         Looks like a valid YouTube link
       </span>`;
     } else {
-      status.innerHTML = '<span class="text-fn-amber">Doesn\'t look like a YouTube URL — the server will still try</span>';
+      status.innerHTML = '<span class="text-fn-amber">Does not look like a YouTube URL — the server will still try</span>';
     }
-
     convertBtn.disabled = !v;
     hideError();
   });
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     const url = urlInput.value.trim();
     if (!url) return;
@@ -488,25 +542,20 @@
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const customFilename = document.getElementById('opt-filename').value.trim();
     const quality   = document.getElementById('opt-quality').value;
     const normalize = document.getElementById('opt-normalize').checked;
-
     let outName;
     if (customFilename) {
       outName = customFilename.toLowerCase().endsWith('.mp3') ? customFilename : customFilename + '.mp3';
     } else {
       outName = 'audio.mp3';
     }
-
     const payload = { url };
     if (quality && quality !== '192') payload.quality = quality;
     if (normalize) payload.normalize = true;
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 500, 'Resolving video URL…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 50, 700, 'Extracting audio stream…');
@@ -519,7 +568,6 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(85, 92, 500, 'Finalizing file…');
     }, 2700);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/youtube-to-mp3', {
         method: 'POST',
@@ -527,43 +575,32 @@
         body: JSON.stringify(payload),
       });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       const title   = res.headers.get('X-Title');
       const duration = res.headers.get('X-Duration');
       const bitrate  = res.headers.get('X-Bitrate');
       const sizeMB   = res.headers.get('X-Filesize-MB');
-
       if (!customFilename && title) outName = title + '.mp3';
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href = blobUrl;
       link.download = outName;
-
       const audioPreview = document.getElementById('audio-preview');
       audioPreview.src = blobUrl;
       audioPreview.classList.remove('hidden');
-
       document.getElementById('result-title').textContent = title || 'Conversion Complete!';
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent = (sizeMB ? parseFloat(sizeMB).toFixed(2) + ' MB' : formatBytes(blob.size)) + ' · MP3 Audio';
-
       renderResultDetails({ duration, bitrate, sizeMB });
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -572,19 +609,15 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResultDetails({ duration, bitrate, sizeMB }) {
     const wrap = document.getElementById('result-sheets-wrap');
     const list = document.getElementById('result-sheets');
     list.innerHTML = '';
-
     const chips = [];
     if (duration) chips.push(['duration', 'Duration', formatDuration(parseFloat(duration))]);
     if (bitrate)  chips.push(['bitrate', 'Bitrate', bitrate]);
     if (sizeMB)   chips.push(['size', 'Size', parseFloat(sizeMB).toFixed(2) + ' MB']);
-
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
-
     chips.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
@@ -597,7 +630,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -606,13 +638,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -621,7 +651,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -641,7 +670,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -654,7 +682,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     urlInput.value = '';
@@ -671,7 +698,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -681,20 +707,17 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   function formatDuration(seconds) {
     seconds = Math.round(seconds);
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return m + ':' + String(s).padStart(2, '0');
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body = btn.nextElementSibling;
@@ -705,9 +728,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

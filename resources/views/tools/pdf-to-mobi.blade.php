@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-mobi-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload PDF'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-amber/40 hover:bg-fn-amber/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-amber/40 hover:bg-fn-amber/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center">
@@ -69,7 +60,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -94,19 +84,15 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
                             <p class="text-sm font-semibold text-fn-text2">eBook Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Left column --}}
                             <div class="flex flex-col gap-3">
-
                                 <div>
                                     <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         Book title
@@ -115,7 +101,6 @@
                                     <input type="text" id="opt-title" placeholder="My Book"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                                 <div>
                                     <label for="opt-author" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         Author
@@ -124,7 +109,6 @@
                                     <input type="text" id="opt-author" placeholder="John Smith"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                                 <div>
                                     <label for="opt-language"
                                         class="text-xs font-semibold text-fn-text2 block mb-1.5">Language</label>
@@ -143,12 +127,9 @@
                                         <option value="ru">Russian</option>
                                     </select>
                                 </div>
-
                             </div>
-
                             {{-- Right column --}}
                             <div class="flex flex-col gap-3">
-
                                 <div>
                                     <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
                                         PDF password
@@ -158,7 +139,8 @@
                                         <input type="password" id="opt-password"
                                             placeholder="Leave blank if not protected"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-9 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                        <button type="button" id="toggle-password"
+                                        <button type="button" id="toggle-password" aria-label="Show password"
+                                            aria-pressed="false"
                                             class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                             <svg id="eye-show" width="14" height="14" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -176,7 +158,6 @@
                                         </button>
                                     </div>
                                 </div>
-
                                 {{-- Output format --}}
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output
@@ -221,11 +202,9 @@
                                     <p class="text-xs text-fn-text3 mt-1.5" id="fmt-hint">.mobi uses Calibre for the
                                         best Kindle quality</p>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -238,7 +217,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -249,7 +227,6 @@
                         <span id="convert-btn-label">Convert to MOBI</span>
                     </button>
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -283,11 +260,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2" id="converting-title">Converting PDF to MOBI…</h2>
                     <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Running Calibre — extracting text
                         &amp; building eBook structure</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -297,7 +272,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1','Reading PDF content'],
@@ -324,7 +298,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -340,13 +313,11 @@
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-6" id="download-subtitle">Your eBook is ready — open it in Kindle
                         or any compatible reader.</p>
-
                     {{-- Result metadata chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
                         <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Conversion details</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -368,7 +339,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="book.mobi"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -380,7 +350,6 @@
                         </svg>
                         <span id="download-btn-label">Download MOBI File</span>
                     </a>
-
                     {{-- Kindle tip --}}
                     <div id="kindle-tip"
                         class="max-w-sm mx-auto mb-5 p-3 bg-fn-amber/6 border border-fn-amber/20 rounded-xl flex items-start gap-2.5 text-left">
@@ -394,7 +363,6 @@
                         <p class="text-xs text-fn-text2 leading-relaxed">To read on Kindle, send this file to your <span
                                 class="font-semibold">@kindle.com</span> email address or transfer via USB.</p>
                     </div>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -406,7 +374,6 @@
                             Convert another
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -415,13 +382,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ METHOD COMPARISON ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -476,15 +440,13 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
         <div class="space-y-3">
             @foreach([
-            ['What\'s the difference between .mobi and .epub output?', 'MOBI uses Calibre for conversion and produces a
+            ['What is the difference between .mobi and .epub output?', 'MOBI uses Calibre for conversion and produces a
             native Kindle format with 5-star quality — preserving headings, images, tables, and metadata precisely. EPUB
             is a universal open format readable on Apple Books, Kobo, and most eReaders, but it uses a lighter
             conversion path. Choose MOBI for Kindle, EPUB for everything else.'],
@@ -496,7 +458,8 @@
             ['What metadata fields are embedded?', 'The title, author, and language fields are written directly into the
             eBook metadata. This means the book title and author name appear correctly in your Kindle library instead of
             a generic filename.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share, or store your content. PDF passwords are used only during conversion
             and are not retained.'],
             ] as [$q, $a])
@@ -518,10 +481,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .fmt-btn {
         border-color: var(--fn-text-10, oklch(0% 0 0 / 10%));
@@ -593,12 +554,117 @@
         border-color: oklch(67% 0.18 162 / 30%);
         background: oklch(67% 0.18 162 / 6%);
     }
+
+    #pdf-mobi-tool .fmt-btn.active {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: white;
+        border-color: #2563eb;
+    }
+
+    #pdf-mobi-tool .fmt-btn.active span,
+    #pdf-mobi-tool .fmt-btn.active p {
+        color: white;
+    }
+
+    #pdf-mobi-tool .fmt-btn:has(input:focus-visible) {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+</style>
+<style>
+    #pdf-mobi-tool .grid>*,
+    #pdf-mobi-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #pdf-mobi-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #file-meta,
+    #output-name,
+    #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #pdf-mobi-tool input,
+    #pdf-mobi-tool select {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #pdf-mobi-tool button:focus-visible,
+    #pdf-mobi-tool a:focus-visible,
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #toggle-password[aria-pressed="true"] {
+        background: #2563eb;
+        color: white;
+        border-radius: 6px;
+    }
+
+    @media(max-width:639px) {
+
+        #pdf-mobi-tool button,
+        #pdf-mobi-tool #download-link {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            gap: 6px;
+        }
+
+        #pdf-mobi-tool #toggle-password {
+            min-width: 32px;
+            padding: 5px;
+        }
+
+        #pdf-mobi-tool input:not([type=file]):not([type=range]),
+        #pdf-mobi-tool select {
+            font-size: 16px;
+        }
+
+        #pdf-mobi-tool .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-mobi-tool .step-item {
+            gap: 4px;
+        }
+
+        #pdf-mobi-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #pdf-mobi-tool .step-item+div {
+            width: 12px;
+            margin: 0 4px;
+        }
+
+        #file-preview {
+            gap: 8px;
+            padding: 12px;
+        }
+
+        #remove-file {
+            min-width: 32px;
+            width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+    }
 </style>
 
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
   const convertBtn  = document.getElementById('convert-btn');
@@ -606,10 +672,8 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile = null;
   let blobUrl      = null;
-
   // ── Format toggle ──
   document.querySelectorAll('input[name="output_format"]').forEach(radio => {
     radio.addEventListener('change', () => {
@@ -623,7 +687,6 @@
       document.getElementById('kindle-tip').style.display = isMobi ? '' : 'none';
     });
   });
-
   // ── Password toggle ──
   document.getElementById('toggle-password').addEventListener('click', () => {
     const inp  = document.getElementById('opt-password');
@@ -633,8 +696,9 @@
     inp.type = isText ? 'password' : 'text';
     show.classList.toggle('hidden', !isText);
     hide.classList.toggle('hidden', isText);
+    document.getElementById('toggle-password').setAttribute('aria-pressed', String(!isText));
+    document.getElementById('toggle-password').setAttribute('aria-label', isText ? 'Show password' : 'Hide password');
   });
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -645,7 +709,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     const name = file.name.toLowerCase();
@@ -665,7 +728,6 @@
     dropZone.classList.add('has-file');
     convertBtn.disabled = false;
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -675,46 +737,37 @@
     convertBtn.disabled = true;
     hideError();
   }
-
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
-
   async function startConversion() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const title    = document.getElementById('opt-title').value.trim();
     const author   = document.getElementById('opt-author').value.trim();
     const language = document.getElementById('opt-language').value;
     const password = document.getElementById('opt-password').value;
     const format   = document.querySelector('input[name="output_format"]:checked').value;
     const isMobi   = format === 'mobi';
-
     // Update converting state labels
     document.getElementById('converting-title').textContent    = `Converting PDF to ${isMobi ? 'MOBI' : 'EPUB'}…`;
     document.getElementById('converting-subtitle').textContent = isMobi
       ? 'Running Calibre — extracting text & building eBook structure'
       : 'Building EPUB — extracting content & packaging eBook';
     document.querySelector('#proc-4 .proc-label').textContent = `Building ${isMobi ? 'MOBI' : 'EPUB'} file`;
-
     // Determine output filename
     const baseName = selectedFile.name.replace(/\.pdf$/i, '');
     const outName  = (title ? title.replace(/[^a-z0-9]/gi, '_').toLowerCase() : baseName) + '.' + format;
-
     const endpoint = `https://api.filenewer.com/api/tools/pdf-to-${format}`;
-
     const fd = new FormData();
     fd.append('file', selectedFile);
     if (title)    fd.append('title',    title);
     if (author)   fd.append('author',   author);
     if (language) fd.append('language', language);
     if (password) fd.append('password', password);
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 500, 'Reading PDF content…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 50, 900, 'Extracting text & structure…');
@@ -727,12 +780,9 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(75, 92, 600, `Building ${isMobi ? 'MOBI' : 'EPUB'} file…`);
     }, 2400);
-
     try {
       const res = await fetch(endpoint, { method: 'POST', body: fd });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Conversion failed. Please check your PDF and try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
@@ -740,21 +790,16 @@
         if (res.status === 400 && !password) msg += ' If this PDF is password-protected, please enter the password.';
         throw new Error(msg);
       }
-
       const blob = await res.blob();
-
       // Read response headers for metadata
       const pages  = res.headers.get('X-Pages')   || null;
       const method = res.headers.get('X-Method')  || (isMobi ? 'calibre' : 'epub-fallback');
       const sizeKb = res.headers.get('X-Size-KB') || null;
-
       if (blobUrl) URL.revokeObjectURL(blobUrl);
       blobUrl = URL.createObjectURL(blob);
-
       const link = document.getElementById('download-link');
       link.href     = blobUrl;
       link.download = outName;
-
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
         formatBytes(blob.size) + ` · ${isMobi ? 'Kindle MOBI' : 'EPUB eBook'}`;
@@ -763,13 +808,10 @@
         ? 'Your eBook is ready — open it in Kindle or any compatible reader.'
         : 'Your eBook is ready — open it in Apple Books, Kobo, or any EPUB reader.';
       document.getElementById('kindle-tip').style.display = isMobi ? '' : 'none';
-
       renderResultChips({ format, title, author, language, password: !!password, pages, method });
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -778,12 +820,10 @@
       updateStepIndicator(1);
     }
   }
-
   function renderResultChips({ format, title, author, language, password, pages, method }) {
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-
     const chips = [
       ['chip-format', 'Format',  '.' + format.toUpperCase()],
       ['chip-lang',   'Method',  method],
@@ -793,7 +833,6 @@
     if (author)   chips.push(['chip-meta', 'Author', author]);
     if (pages)    chips.push(['chip-meta', 'Pages',  pages + 'p']);
     if (password) chips.push(['chip-lock', 'Password', 'used']);
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -803,7 +842,6 @@
     });
     wrap.classList.remove('hidden');
   }
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -812,13 +850,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -827,7 +863,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -847,7 +882,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -860,7 +894,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -884,7 +917,6 @@
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
     document.querySelector('#proc-4 .proc-label').textContent = 'Building MOBI file';
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -894,13 +926,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -911,9 +941,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

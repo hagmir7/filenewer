@@ -1,36 +1,28 @@
 @extends('layouts.base')
-
-
-
 @section('content')
-
 <!-- ══════════════════════ HERO ══════════════════════ -->
-<section id="hero" class="relative pt-10 md:pt-28 pb-24 text-center overflow-hidden hero-glow hero-grid">
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-
+<section id="hero"
+    class="relative pt-10 md:pt-20 lg:pt-28 pb-12 sm:pb-16 lg:pb-24 text-center overflow-hidden hero-glow hero-grid">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <!-- Badge -->
         <div
             class="animate-fade-up opacity-0 delay-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-600 bg-fn-blue/10 text-fn-blue-l text-sm font-semibold tracking-wide uppercase mb-7">
             <span class="w-1.5 h-1.5 rounded-full bg-fn-blue-l animate-pulse-dot"></span>
             Smarter File Processing
         </div>
-
         <!-- H1 -->
         <h1
             class="animate-fade-up opacity-0 delay-1 text-4xl sm:text-5xl lg:text-[4rem] font-bold tracking-[-0.035em] leading-[1.1] max-w-3xl mx-auto mb-5">
             Filenewer: The Fastest <span class="text-gradient">Online File Tools</span><br />for Modern Work
         </h1>
-
         <!-- Sub -->
         <p class="animate-fade-up opacity-0 delay-2 text-fn-text2 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
             Filenewer is a free online toolkit to convert, compress, merge, split and edit PDF, Word, Excel, CSV and
             image files, plus invoice and contract generators. No sign-up, no software to install.
         </p>
-
         <!-- CTAs -->
         <div
             class="animate-fade-up opacity-0 delay-3 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-14 px-4">
-
             {{-- <a href="/signup"
                 class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm sm:text-base font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -39,7 +31,6 @@
                 </svg>
                 Start Free
             </a> --}}
-
             <a href="#tools"
                 class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 text-sm sm:text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
                 Explore Tools
@@ -49,9 +40,7 @@
                     <polyline points="12 5 19 12 12 19" />
                 </svg>
             </a>
-
         </div>
-
         <!-- Benefit pills -->
         <div class="animate-fade-up opacity-0 delay-4 flex flex-wrap justify-center gap-x-7 gap-y-3">
             <div class="flex items-center gap-2 text-fn-text3 text-sm font-medium">
@@ -83,13 +72,12 @@
                 Works on any device
             </div>
         </div>
-
     </div>
 </section>
 <!-- ══════════════════════ FEATURES ══════════════════════ -->
-<section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
-    <div class="max-w-6xl mx-auto px-6">
-
+<section id="features" class="py-12 sm:py-16 lg:py-24 bg-fn-surface border-y border-white/[0.07]"
+    aria-labelledby="features-heading">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Core Product</p>
             <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything you need
@@ -97,10 +85,8 @@
             <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">Three powerful toolsets, built for
                 teams and individuals who need results without the complexity.</p>
         </div>
-
         <!-- Grid -->
         <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
-
             <!-- Card 1 -->
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group">
                 <div
@@ -120,12 +106,10 @@
                 <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">PDF ·
                     DOCX · CSV · JPG · SVG</span>
             </div>
-
             <!-- Card 2 -->
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group">
                 <div
                     class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-6 bg-fn-cyan/10 border border-fn-cyan/25">
-
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="icon icon-tabler icons-tabler-outline icon-tabler-file-certificate">
@@ -140,9 +124,7 @@
                 <p class="text-fn-text2 text-sm leading-relaxed mb-4">Generate professional invoices, contracts, and
                     reports automatically. Fill in your data and Filenewer produces a clean, print-ready PDF
                     instantly.</p>
-
             </div>
-
             <!-- Card 3 -->
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors group">
                 <div
@@ -158,20 +140,20 @@
                     </svg>
                 </div>
                 <h3 class="text-lg font-semibold tracking-tight mb-2.5">Smart File Processing</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract text from your PDF,
-                    Word, Excel, and image files. Combine several files into one, or split a large file into parts, with no software to
+                <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt, and extract text
+                    from your PDF,
+                    Word, Excel, and image files. Combine several files into one, or split a large file into parts, with
+                    no software to
                     install.</p>
-                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress · Merge · Extract · OCR</span>
+                <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress ·
+                    Merge · Extract · OCR</span>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ WHY ══════════════════════ -->
-<section id="why" class="py-24 bg-fn-bg" aria-labelledby="why-heading">
-    <div class="max-w-6xl mx-auto px-6">
-
+<section id="why" class="py-12 sm:py-16 lg:py-24 bg-fn-bg" aria-labelledby="why-heading">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="mb-16">
             <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Why Filenewer</p>
             <h2 id="why-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Built for speed, trust,
@@ -179,11 +161,9 @@
             <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">We stripped away everything that slows you
                 down and left only what matters: fast, reliable, secure file tools.</p>
         </div>
-
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
             <div
-                class="p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
+                class="p-4 sm:p-6 lg:p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
@@ -194,9 +174,8 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Server-side processing powered by optimized
                     infrastructure. Files ready in seconds, not minutes.</p>
             </div>
-
             <div
-                class="p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
+                class="p-4 sm:p-6 lg:p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -211,9 +190,8 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">AES-256 encryption on all uploads. Your files are
                     never shared, sold, or stored beyond your session.</p>
             </div>
-
             <div
-                class="p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
+                class="p-4 sm:p-6 lg:p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-rocket">
@@ -227,9 +205,8 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Access core free file tools instantly. No sign-up,
                     no friction — just drag, drop, and download.</p>
             </div>
-
             <div
-                class="p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
+                class="p-4 sm:p-6 lg:p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-sparkles-2">
@@ -243,9 +220,8 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">A tool you'll actually enjoy using. No bloated
                     menus, no distracting ads — just the task at hand.</p>
             </div>
-
             <div
-                class="p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
+                class="p-4 sm:p-6 lg:p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile">
@@ -258,9 +234,8 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Works flawlessly on desktop, tablet, and mobile.
                     Process files wherever you are, from any browser.</p>
             </div>
-
             <div
-                class="p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
+                class="p-4 sm:p-6 lg:p-7 bg-fn-surface border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
                 <div class="text-3xl mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -275,19 +250,16 @@
                 <p class="text-fn-text3 text-sm leading-relaxed">Handle tens or hundreds of files at once. Ideal for
                     developers, agencies, and data teams with volume needs.</p>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ TOOLS ══════════════════════ -->
 <x-tools-section />
-
 <!-- ══════════════════════ SECURITY ══════════════════════ -->
-<section id="security" class="py-24 bg-fn-bg relative overflow-hidden cyan-glow" aria-labelledby="security-heading">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-
+<section id="security" class="py-12 sm:py-16 lg:py-24 bg-fn-bg relative overflow-hidden cyan-glow"
+    aria-labelledby="security-heading">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <!-- Left: Copy -->
             <div>
                 <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Privacy &amp;
@@ -296,9 +268,7 @@
                     private. Always.</h2>
                 <p class="text-fn-text2 text-lg leading-relaxed">We built secure file processing into every layer of
                     Filenewer — from upload to deletion, your data is fully protected.</p>
-
                 <div class="flex flex-col gap-5 mt-9">
-
                     <div class="flex gap-4">
                         <div
                             class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
@@ -319,7 +289,6 @@
                             </p>
                         </div>
                     </div>
-
                     <div class="flex gap-4">
                         <div
                             class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
@@ -340,7 +309,6 @@
                                 from our servers after processing. No manual action needed.</p>
                         </div>
                     </div>
-
                     <div class="flex gap-4">
                         <div
                             class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
@@ -358,7 +326,6 @@
                                 access your file contents. Your documents are processed and gone — full stop.</p>
                         </div>
                     </div>
-
                     <div class="flex gap-4">
                         <div
                             class="w-9 h-9 flex-shrink-0 rounded-lg flex items-center justify-center bg-fn-cyan/10 border border-fn-cyan/20 text-sm mt-0.5">
@@ -379,10 +346,8 @@
                                 infrastructure. Your data rights are respected regardless of where you are.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
-
             <!-- Right: Status Panel -->
             <div class="security-panel relative bg-fn-surface border border-white/[0.07] rounded-2xl p-8">
                 <!-- Terminal chrome -->
@@ -392,10 +357,8 @@
                     <span class="w-3 h-3 rounded-full bg-fn-green"></span>
                     <span class="text-fn-text3 text-sm font-mono ml-auto">security-status.log</span>
                 </div>
-
                 <!-- Status rows -->
                 <div class="flex flex-col gap-3">
-
                     <div
                         class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                         <span class="flex items-center gap-2.5 text-fn-text2 text-sm"><svg
@@ -411,7 +374,6 @@
                         <span
                             class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
                     </div>
-
                     <div
                         class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                         <span class="flex items-center gap-2.5 text-fn-text2 text-sm"><svg
@@ -427,7 +389,6 @@
                         <span
                             class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ACTIVE</span>
                     </div>
-
                     <div
                         class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                         <span class="flex items-center gap-2.5 text-fn-text2 text-sm"><svg
@@ -444,7 +405,6 @@
                         <span
                             class="flex items-center gap-1.5 text-fn-green text-sm font-mono font-medium before:content-['●'] before:text-[0.5rem]">ENABLED</span>
                     </div>
-
                     <div
                         class="flex items-center justify-between px-4 py-3 bg-fn-surface2 rounded-xl border border-white/[0.07]">
                         <span class="flex items-center gap-2.5 text-fn-text2 text-sm"><svg
@@ -460,20 +420,18 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
 <!-- ══════════════════════ CTA ══════════════════════ -->
-<section id="cta" class="py-24 bg-fn-surface border-y border-white/[0.07] text-center relative overflow-hidden"
+<section id="cta"
+    class="py-12 sm:py-16 lg:py-24 bg-fn-surface border-y border-white/[0.07] text-center relative overflow-hidden"
     aria-labelledby="cta-heading">
     <!-- Glow -->
     <div
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
-
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get Started Today</p>
         <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
             processing files smarter — right now</h2>
@@ -481,29 +439,22 @@
             Join small businesses who rely on Filenewer's online file
             tools every day. No credit card required.
         </p>
-
         <div class="flex flex-wrap justify-center gap-3">
             <a href="/tools"
                 class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
                 Browse All Tools
             </a>
         </div>
-
         <p class="text-fn-text3 text-sm mt-5">
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                style="vertical-align:-0.125em">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-
             </svg> Free to use &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-
-
             </svg> Secure &amp; private &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -515,5 +466,95 @@
     </div>
 </section>
 
+<style>
+    :is(#hero, #features, #why, #security, #cta) .grid>* {
+        min-width: 0
+    }
+
+    :is(#hero, #features, #why, #security, #cta) svg {
+        flex-shrink: 0
+    }
+
+    :is(#hero, #features, #why, #security, #cta) a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 4px
+    }
+
+    :is(#hero, #features, #why, #security, #cta) p {
+        overflow-wrap: break-word
+    }
+
+    @media(max-width:639px) {
+        #hero h1 {
+            font-size: clamp(1.8rem, 8vw, 2.5rem);
+            line-height: 1.15;
+            letter-spacing: -.025em
+        }
+
+        #hero h1 br {
+            display: none
+        }
+
+        #hero>div>p {
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 24px
+        }
+
+        #hero .rounded-full {
+            font-size: 10px;
+            letter-spacing: .04em;
+            max-width: 100%;
+            padding: 6px 10px;
+            margin-bottom: 20px
+        }
+
+        #hero a,
+        #cta a {
+            width: auto;
+            max-width: 100%;
+            min-height: 36px;
+            padding: 8px 16px;
+            font-size: 12px;
+            gap: 6px
+        }
+
+        #hero .delay-3 {
+            padding-inline: 0;
+            margin-bottom: 24px
+        }
+
+        #hero .delay-4 {
+            gap: 10px 16px
+        }
+
+        #hero .delay-4>div {
+            font-size: 11px;
+            gap: 5px
+        }
+
+        :is(#features, #why, #security, #cta) h2 {
+            font-size: 26px;
+            line-height: 1.2
+        }
+
+        #security .gap-16 {
+            gap: 28px
+        }
+
+        #cta>div>p {
+            font-size: 14px;
+            line-height: 1.7
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+        :is(#hero, #features, #why, #security, #cta) .animate-fade-up {
+            animation: none;
+            opacity: 1;
+            transform: none
+        }
+    }
+</style>
 
 @endsection

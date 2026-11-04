@@ -3,17 +3,14 @@
 <x-ld-json :tool="$tool" />
 @endpush
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-rotate-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @php $rotSteps = [['1','Upload PDF'],['2','Set Rotation'],['3','Download']]; @endphp
                 @foreach($rotSteps as [$n,$label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
@@ -28,14 +25,11 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
@@ -67,7 +61,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- Error --}}
                     <div id="upload-error"
                         class="hidden mt-4 flex items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -80,9 +73,7 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                 </div>{{-- /state-upload --}}
-
                 {{-- ── STATE: Loading page info ── --}}
                 <div id="state-loading" class="hidden text-center py-12">
                     <svg class="spin w-10 h-10 text-fn-blue-l mx-auto mb-4" viewBox="0 0 24 24" fill="none">
@@ -92,10 +83,8 @@
                     <p class="text-fn-text2 font-semibold">Reading PDF pages…</p>
                     <p class="text-fn-text3 text-sm mt-1">Fetching page dimensions and current rotation</p>
                 </div>
-
                 {{-- ── STATE: Configure rotation ── --}}
                 <div id="state-configure" class="hidden">
-
                     {{-- File info bar --}}
                     <div class="flex items-center gap-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-6">
                         <div
@@ -124,7 +113,6 @@
                             Change file
                         </button>
                     </div>
-
                     {{-- Global rotation controls --}}
                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-5">
                         <div class="flex flex-wrap items-center justify-between gap-3">
@@ -132,7 +120,7 @@
                                 <p class="text-sm font-semibold text-fn-text2 mb-0.5">Rotate All Pages</p>
                                 <p class="text-fn-text3 text-sm">Apply the same rotation to every page at once</p>
                             </div>
-                            <div class="flex items-center gap-2">
+                            <div class="flex flex-wrap items-center gap-2">
                                 @php
                                 $rotBtns = [
                                 ['90', '↻ 90°', 'Rotate right 90°'],
@@ -151,13 +139,12 @@
                                 <button type="button"
                                     class="global-rot-btn px-3 py-2 rounded-xl border text-sm font-bold transition-all"
                                     data-rot="{{ $rval }}" title="{{ $rtitle }}">
-                                    {{ $rlabel }}
+                                    {!! $rlabel !!}
                                 </button>
                                 @endforeach
                             </div>
                         </div>
                     </div>
-
                     {{-- Page grid --}}
                     <div class="mb-5">
                         <div class="flex items-center justify-between mb-3">
@@ -169,7 +156,6 @@
                         <div id="page-grid" class="grid gap-3"
                             style="grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));"></div>
                     </div>
-
                     {{-- Apply button --}}
                     <button type="button" id="apply-btn"
                         class="w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all hover:bg-fn-blue-l hover:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -179,7 +165,6 @@
                         </svg>
                         Apply Rotation & Download
                     </button>
-
                     {{-- Apply error --}}
                     <div id="apply-error"
                         class="hidden mt-3 flex items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -192,9 +177,7 @@
                         </svg>
                         <span id="apply-error-text"></span>
                     </div>
-
                 </div>{{-- /state-configure --}}
-
                 {{-- ── STATE: Applying ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -241,7 +224,6 @@
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -256,7 +238,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Rotation Applied!</h2>
                     <p class="text-fn-text2 text-sm mb-8">Your rotated PDF is ready.</p>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -277,7 +258,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="rotated.pdf"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -289,7 +269,6 @@
                         </svg>
                         Download Rotated PDF
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" id="rotate-again-btn"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -305,7 +284,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -314,13 +292,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -337,9 +312,10 @@
             ['Does it preserve the existing rotation of my pages?', 'Yes — when you upload a PDF the tool reads the
             current rotation of every page via the page info API and displays it. Your adjustments are relative
             additions to the existing rotation.'],
-            ['Can I rotate only specific pages?', 'Yes — simply leave pages you don\'t want to rotate at 0° (or their
+            ['Can I rotate only specific pages?', 'Yes — simply leave pages you do not want to rotate at 0° (or their
             current rotation). Only pages where the rotation differs from the original will have rotation applied.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
@@ -362,12 +338,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 @push('styles')
 {{-- ══ STYLES ══ --}}
 <style>
@@ -466,24 +439,157 @@
         border-color: oklch(49% 0.24 264/30%);
         color: var(--fn-blue-l);
     }
+
+    #pdf-rotate-tool .global-rot-btn.active {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+    }
+
+    #pdf-rotate-tool .page-card.rotated {
+        border-color: #2563eb;
+    }
+
+    #pdf-rotate-tool .page-rot-badge.not-zero {
+        background: #2563eb;
+        color: white;
+    }
+
+    #pdf-rotate-tool .global-rot-btn {
+        white-space: nowrap;
+    }
+
+    #pdf-rotate-tool .global-rot-btn:first-child {
+        margin-left: 0;
+    }
+
+    #cfg-file-name,
+    #cfg-file-meta,
+    #apply-error-text {
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    @media(max-width:639px) {
+        #page-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        #pdf-rotate-tool .page-card .flex {
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        #pdf-rotate-tool .global-rot-btn {
+            font-size: 11px;
+            padding: 6px 8px;
+        }
+    }
 </style>
 @endpush
+<style>
+    #pdf-rotate-tool .grid>*,
+    #pdf-rotate-tool .flex-1 {
+        min-width: 0;
+    }
+
+    #pdf-rotate-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #file-name,
+    #file-meta,
+    #output-name,
+    #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #pdf-rotate-tool input,
+    #pdf-rotate-tool select {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    #pdf-rotate-tool button:focus-visible,
+    #pdf-rotate-tool a:focus-visible,
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #toggle-password[aria-pressed="true"] {
+        background: #2563eb;
+        color: white;
+        border-radius: 6px;
+    }
+
+    @media(max-width:639px) {
+
+        #pdf-rotate-tool button,
+        #pdf-rotate-tool #download-link {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            gap: 6px;
+        }
+
+        #pdf-rotate-tool #toggle-password {
+            min-width: 32px;
+            padding: 5px;
+        }
+
+        #pdf-rotate-tool input:not([type=file]):not([type=range]),
+        #pdf-rotate-tool select {
+            font-size: 16px;
+        }
+
+        #pdf-rotate-tool .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-rotate-tool .step-item {
+            gap: 4px;
+        }
+
+        #pdf-rotate-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #pdf-rotate-tool .step-item+div {
+            width: 12px;
+            margin: 0 4px;
+        }
+
+        #file-preview {
+            gap: 8px;
+            padding: 12px;
+        }
+
+        #remove-file {
+            min-width: 32px;
+            width: 32px;
+            height: 32px;
+            padding: 6px;
+        }
+    }
+</style>
 
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       // ── State ──
       let selectedFile  = null;
       let blobUrl       = null;
       let pageData      = [];   // [{ page, width, height, rotation (original) }]
       let userRotations = [];   // per-page additional rotation (0/90/180/270)
-
       // ── Drop zone ──
       const dropZone   = document.getElementById('drop-zone');
       const fileInput  = document.getElementById('file-input');
-
       ['dragenter','dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
       });
@@ -492,7 +598,6 @@
       });
       dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
       fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
-
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
@@ -503,7 +608,6 @@
         selectedFile = file;
         loadPageInfo();
       }
-
       // ── Change file ──
       document.getElementById('change-file-btn').addEventListener('click', () => {
         showState('upload');
@@ -514,52 +618,51 @@
         userRotations = [];
         document.getElementById('page-grid').innerHTML = '';
       });
-
       // ── Load page info via /api/tools/pdf-pages ──
       async function loadPageInfo() {
         showState('loading');
         updateStepIndicator(2);
-
         const fd = new FormData();
         fd.append('file', selectedFile);
-
         try {
           const res  = await fetch('https://api.filenewer.com/api/tools/pdf-pages', { method: 'POST', body: fd });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Could not read PDF pages.');
-
           pageData      = data.pages ?? [];
           userRotations = pageData.map(() => 0);
-
           // Populate file info bar
           document.getElementById('cfg-file-name').textContent = selectedFile.name;
           document.getElementById('cfg-file-meta').textContent =
             formatBytes(selectedFile.size) + ' · ' + pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
           document.getElementById('page-count-label').textContent =
             pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
-
           buildPageGrid();
           showState('configure');
-
         } catch(err) {
           showState('upload');
           updateStepIndicator(1);
           showError(err.message || 'Failed to read PDF. Please try again.');
         }
       }
-
       // ── Build page grid ──
+      function syncRotationButtons() {
+        const uniform = userRotations.length > 0 && userRotations.every(value => value === userRotations[0]);
+        document.querySelectorAll('.global-rot-btn').forEach(button => {
+          const selected = uniform && Number(button.dataset.rot) === userRotations[0];
+          button.classList.toggle('active', selected);
+          button.setAttribute('aria-pressed', String(selected));
+        });
+      }
       function buildPageGrid() {
+        syncRotationButtons();
         const grid = document.getElementById('page-grid');
         grid.innerHTML = '';
-
         pageData.forEach((page, idx) => {
           const card = document.createElement('div');
           card.className = 'page-card p-2';
           card.id = `page-card-${idx}`;
           card.innerHTML = pageCardHTML(page, idx, userRotations[idx]);
           grid.appendChild(card);
-
           // Click to cycle
           card.querySelector('.page-thumb').addEventListener('click', () => cycleRotation(idx));
           // CW button
@@ -568,13 +671,11 @@
           card.querySelector('.btn-ccw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, -90); });
         });
       }
-
       function pageCardHTML(page, idx, userRot) {
         const totalRot   = (page.rotation + userRot + 360) % 360;
         const isLandscape = (totalRot === 90 || totalRot === 270);
         const badgeClass  = userRot === 0 ? 'is-zero' : 'not-zero';
         const badgeText   = userRot === 0 ? `${totalRot}°` : `+${userRot}° → ${totalRot}°`;
-
         return `
           <div class="page-thumb mb-2" style="transform-origin:center; ${isLandscape ? 'aspect-ratio:297/210' : ''}">
             <div class="absolute inset-0" style="transform:rotate(${totalRot}deg); transition:transform .3s ease;">
@@ -601,18 +702,16 @@
             </div>
           </div>`;
       }
-
       function cycleRotation(idx) {
         userRotations[idx] = (userRotations[idx] + 90) % 360;
         refreshCard(idx);
       }
-
       function addRotation(idx, delta) {
         userRotations[idx] = ((userRotations[idx] + delta) + 360) % 360;
         refreshCard(idx);
       }
-
       function refreshCard(idx) {
+        syncRotationButtons();
         const card = document.getElementById(`page-card-${idx}`);
         if (!card) return;
         card.innerHTML = pageCardHTML(pageData[idx], idx, userRotations[idx]);
@@ -621,7 +720,6 @@
         card.querySelector('.btn-cw').addEventListener('click',  e => { e.stopPropagation(); addRotation(idx, 90); });
         card.querySelector('.btn-ccw').addEventListener('click', e => { e.stopPropagation(); addRotation(idx, -90); });
       }
-
       // ── Global rotation buttons ──
       document.querySelectorAll('.global-rot-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -630,94 +728,75 @@
           buildPageGrid(); // rebuild all cards
         });
       });
-
       // ── Apply rotation ──
       document.getElementById('apply-btn').addEventListener('click', applyRotation);
-
       async function applyRotation() {
         document.getElementById('apply-error').classList.add('hidden');
-
         // Determine which pages need rotation (user rotation ≠ 0)
         // If all pages have the same non-zero rotation → use global rotation param
         // Otherwise → per-page approach: send multiple requests or group by rotation value
         // API supports: rotation + optional pages= comma list
         // Strategy: group pages by their userRotation value, send one request per group,
         // then combine. If only one rotation value is used → single request.
-
         const rotGroups = {};
         userRotations.forEach((rot, idx) => {
           if (rot === 0) return; // skip no-change pages
           if (!rotGroups[rot]) rotGroups[rot] = [];
           rotGroups[rot].push(pageData[idx].page);
         });
-
         const allZero = Object.keys(rotGroups).length === 0;
         if (allZero) {
           document.getElementById('apply-error-text').textContent = 'No rotation applied — please rotate at least one page.';
           document.getElementById('apply-error').classList.remove('hidden');
           return;
         }
-
         showState('converting');
         animateProgress(0, 30, 600, 'Preparing rotation…');
-
         try {
           let resultBlob;
           const rotEntries = Object.entries(rotGroups);
-
           if (rotEntries.length === 1) {
             // Single rotation value — one API call
             const [rotation, pages] = rotEntries[0];
             const allPages = pages.length === pageData.length;
             resultBlob = await callRotateApi(selectedFile, rotation, allPages ? null : pages.join(','));
             animateProgress(30, 90, 800, 'Rotating pages…');
-
           } else {
             // Multiple rotation values — chain calls: each call takes output of previous as input
             animateProgress(30, 50, 500, 'Rotating first group…');
             let currentBlob = null;
-
             for (let i = 0; i < rotEntries.length; i++) {
               const [rotation, pages] = rotEntries[i];
               const sourceFile = currentBlob
                 ? new File([currentBlob], selectedFile.name, { type: 'application/pdf' })
                 : selectedFile;
-
               currentBlob = await callRotateApi(sourceFile, rotation, pages.join(','));
               animateProgress(50 + Math.round((i + 1) / rotEntries.length * 35), 85, 400,
                 `Rotating group ${i + 1} of ${rotEntries.length}…`);
             }
             resultBlob = currentBlob;
           }
-
           animateProgress(90, 100, 300, 'Done!');
-
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(resultBlob);
-
           const fileName = selectedFile.name.replace(/\.pdf$/i, '_rotated.pdf');
           const link = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = fileName;
-
           document.getElementById('output-name').textContent = fileName;
           document.getElementById('output-size').textContent = formatBytes(resultBlob.size) + ' · PDF Document';
-
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch(err) {
           showState('configure');
           document.getElementById('apply-error-text').textContent = err.message || 'Rotation failed. Please try again.';
           document.getElementById('apply-error').classList.remove('hidden');
         }
       }
-
       async function callRotateApi(file, rotation, pages) {
         const fd = new FormData();
         fd.append('file',     file);
         fd.append('rotation', rotation);
         if (pages) fd.append('pages', pages);
-
         const res = await fetch('https://api.filenewer.com/api/tools/pdf-rotate', { method: 'POST', body: fd });
         if (!res.ok) {
           const d = await res.json().catch(() => ({}));
@@ -725,7 +804,6 @@
         }
         return await res.blob();
       }
-
       // ── Rotate again button ──
       document.getElementById('rotate-again-btn').addEventListener('click', () => {
         // Go back to configure with same file
@@ -734,14 +812,12 @@
         showState('configure');
         updateStepIndicator(2);
       });
-
       // ── Helpers ──
       function showState(state) {
         ['upload','loading','configure','converting','download'].forEach(s => {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
       }
-
       function updateStepIndicator(active) {
         [1,2,3].forEach(n => {
           const el = document.getElementById('step-' + n);
@@ -750,7 +826,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         const start = performance.now();
@@ -763,7 +838,6 @@
         }
         requestAnimationFrame(step);
       }
-
       function showError(msg) {
         document.getElementById('error-text').textContent = msg;
         document.getElementById('upload-error').classList.remove('hidden');
@@ -778,7 +852,6 @@
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       // ── FAQ ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -790,9 +863,7 @@
           if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

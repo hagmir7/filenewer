@@ -601,7 +601,6 @@
         }
     }
 
-
     /* The selected tab stays highlighted after focus moves away. */
     #timestamp-tool .tab-btn.active,
     #timestamp-tool .tab-btn[aria-pressed="true"] {
@@ -658,6 +657,106 @@
     #timestamp-tool #btn-clear-single svg {
         width: 18px;
         height: 18px;
+    }
+
+    /* Compact controls for phones; selected tabs remain visible. */
+    #timestamp-tool .tab-btn.active,
+    #timestamp-tool .tab-btn[aria-pressed="true"] {
+        background: #2563eb;
+        color: #fff
+    }
+
+    #timestamp-tool #btn-now {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff
+    }
+
+    #timestamp-tool #btn-now:hover {
+        background: #1d4ed8
+    }
+
+    #timestamp-tool .format-card:focus-visible .card-copy {
+        opacity: 1
+    }
+
+    @media(max-width:639px) {
+
+        #timestamp-tool button,
+        #timestamp-tool #btn-download-batch {
+            min-height: 34px;
+            padding: 7px 10px;
+            font-size: 12px;
+            gap: 6px
+        }
+
+        #timestamp-tool .tool-tabs {
+            gap: 4px;
+            padding: 6px
+        }
+
+        #timestamp-tool .tab-btn {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 8px 6px;
+            font-size: 12px
+        }
+
+        #timestamp-tool .tool-clock {
+            padding: 6px 8px;
+            gap: 6px
+        }
+
+        #timestamp-tool .tool-clock span {
+            font-size: 11px;
+            overflow-wrap: anywhere
+        }
+
+        #timestamp-tool #single-input {
+            min-height: 48px;
+            padding: 10px 98px 10px 10px
+        }
+
+        #timestamp-tool .single-input-actions {
+            right: 5px;
+            gap: 4px
+        }
+
+        #timestamp-tool .single-input-actions button {
+            min-width: 32px;
+            min-height: 32px;
+            height: 32px;
+            padding: 0 7px;
+            border-radius: 7px;
+            font-size: 11px
+        }
+
+        #timestamp-tool #btn-clear-single {
+            width: 32px;
+            padding: 0
+        }
+
+        #timestamp-tool #btn-clear-single svg {
+            width: 14px;
+            height: 14px
+        }
+
+        #timestamp-tool #swap-tz {
+            min-height: 34px;
+            width: 34px;
+            height: 34px;
+            padding: 0
+        }
+
+        #timestamp-tool .timezone-bar {
+            grid-template-columns: minmax(0, 1fr) 34px;
+            gap: 8px
+        }
+
+        #timestamp-tool .batch-actions {
+            flex-wrap: wrap;
+            gap: 6px
+        }
     }
 </style>
 @endpush

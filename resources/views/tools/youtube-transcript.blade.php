@@ -1,20 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ TOOL CARD ══ --}}
-<section class="pb-8 sm:pb-16 overflow-x-hidden">
+<section id="transcript-tool" class="pb-8 sm:pb-16 overflow-x-hidden">
     <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
             <div
                 class="flex items-center justify-center gap-0 px-2 sm:px-8 py-3 sm:py-5 border-b border-fn-text/7 bg-fn-surface2 overflow-x-auto">
@@ -34,16 +27,12 @@
                 @endif
                 @endforeach
             </div>
-
             <div class="p-3 sm:p-8 lg:p-10">
-
                 {{-- ── STATE: Input ── --}}
                 <div id="state-upload">
-
                     {{-- URL input --}}
                     <div class="mb-4 sm:mb-5">
                         <label for="yt-url" class="text-xs font-semibold text-fn-text2 block mb-2">YouTube URL</label>
-
                         {{-- On mobile: stacked input + button; on sm+: inline --}}
                         <div class="flex flex-col sm:flex-row gap-2">
                             <div class="relative flex-1 min-w-0">
@@ -69,20 +58,17 @@
                                 Paste URL
                             </button>
                         </div>
-
                         <div class="mt-1.5">
                             <span id="url-status" class="text-xs text-fn-text3 break-words">Supports youtube.com,
                                 youtu.be, Shorts, and embed URLs</span>
                         </div>
                     </div>
-
                     {{-- Options --}}
                     <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4 sm:mb-5">
                         <div class="flex items-center justify-between mb-3 gap-2">
                             <p class="text-sm font-semibold text-fn-text2">Transcript Settings</p>
                             <span class="text-xs text-fn-text3 shrink-0">Optional</span>
                         </div>
-
                         {{-- Language selects: side by side on all screens --}}
                         <div class="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
                             <div class="min-w-0">
@@ -121,7 +107,6 @@
                                 </select>
                             </div>
                         </div>
-
                         {{-- Output format: 2 cols on mobile, 4 on sm+ --}}
                         <div class="mb-3">
                             <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output format</label>
@@ -187,7 +172,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         {{-- Toggles: 2 cols on sm+ --}}
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                             @foreach([
@@ -214,7 +198,6 @@
                             @endforeach
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mb-4 items-start gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -227,7 +210,6 @@
                         </svg>
                         <span id="error-text" class="break-words">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="w-full py-3.5 text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:opacity-90 hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2"
                         style="background: oklch(52% 0.22 25);">
@@ -238,7 +220,6 @@
                         Get Transcript
                     </button>
                 </div>
-
                 {{-- ── STATE: Fetching ── --}}
                 <div id="state-converting" class="hidden text-center py-4 sm:py-6">
                     <div class="flex items-center justify-center gap-2 sm:gap-5 mb-5 sm:mb-8">
@@ -270,11 +251,9 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-base sm:text-xl font-bold mb-2 px-2" id="fetching-title">Fetching Transcript…</h2>
                     <p class="text-fn-text3 text-xs sm:text-sm mb-5 sm:mb-8 px-4 break-words" id="converting-subtitle">
                         Connecting to YouTube &amp; extracting captions</p>
-
                     <div class="max-w-md mx-auto mb-3 px-2">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -286,7 +265,6 @@
                         <span id="progress-pct"
                             class="font-mono font-semibold text-fn-text2 text-xs sm:text-sm shrink-0">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left px-2">
                         @foreach([
                         ['proc-1', 'Validating &amp; extracting video ID'],
@@ -312,7 +290,6 @@
                         </div>
                         @endforeach
                     </div>
-
                     {{-- Whisper fallback notice --}}
                     <div id="whisper-notice"
                         class="hidden max-w-sm mx-auto mt-6 p-3 bg-fn-amber/6 border border-fn-amber/20 rounded-xl flex items-start gap-2 text-left">
@@ -327,10 +304,8 @@
                             to <span class="font-semibold">Whisper AI</span> transcription. This may take a minute…</p>
                     </div>
                 </div>
-
                 {{-- ── STATE: Result ── --}}
                 <div id="state-download" class="hidden py-2">
-
                     {{-- Video info bar --}}
                     <div
                         class="flex items-start gap-2 sm:gap-3 mb-4 sm:mb-5 p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -358,7 +333,6 @@
                             <span class="hidden sm:inline">Watch</span>
                         </a>
                     </div>
-
                     {{-- Toolbar: stacks on mobile --}}
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
                         <div class="flex items-center gap-2 flex-wrap min-w-0">
@@ -397,11 +371,9 @@
                             </button>
                         </div>
                     </div>
-
                     {{-- Transcript output --}}
                     <pre id="transcript-output"
                         class="w-full bg-fn-surface2 border border-fn-text/10 rounded-xl px-3 sm:px-5 py-4 text-xs sm:text-sm text-fn-text2 leading-relaxed overflow-auto max-h-64 sm:max-h-[32rem] whitespace-pre-wrap break-words font-sans"></pre>
-
                     {{-- Method badge + privacy note --}}
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-3 gap-2">
                         <div class="flex items-center gap-1.5" id="method-badge"></div>
@@ -414,15 +386,11 @@
                             <span>Transcript not stored — cleared after your session ends.</span>
                         </p>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ HOW IT WORKS ══ --}}
 <section class="py-8 sm:py-12 border-t border-fn-text/7 bg-fn-surface2 overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -509,8 +477,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ OUTPUT FORMATS ══ --}}
 <section class="py-8 sm:py-12 border-t border-fn-text/7 bg-fn-surface overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -569,8 +535,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-8 sm:py-16 border-t border-fn-text/7 bg-fn-surface2 overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
@@ -582,7 +546,7 @@
             (youtu.be/...), Shorts (youtube.com/shorts/...), embed URLs (youtube.com/embed/...), and even bare URLs
             without the protocol (youtube.com/watch?v=...) are all accepted.'],
             ['What if the video has no captions?', 'If no caption track is found, the tool automatically falls back to
-            Whisper AI — it downloads the audio and runs OpenAI\'s speech-to-text model. This produces a high-quality
+            Whisper AI — it downloads the audio and runs the OpenAI speech-to-text model. This produces a high-quality
             transcript for almost any video, though it takes longer than caption extraction.'],
             ['Can I get transcripts in languages other than English?', 'Yes — select the transcript language to fetch an
             existing caption track in that language. You can also translate the transcript to another language after
@@ -590,7 +554,7 @@
             ['What is the difference between SRT and VTT?', 'SRT (SubRip) is the most widely supported subtitle format —
             compatible with VLC, Premiere Pro, DaVinci Resolve, and most video tools. VTT (WebVTT) is the standard for
             HTML5 video elements and browser-based players. Both contain timed captions; the syntax differs slightly.'],
-            ['What does auto-captions do?', 'When enabled (default), the tool will also check for YouTube\'s
+            ['What does auto-captions do?', 'When enabled (default), the tool will also check for YouTube
             automatically generated captions if no manual captions are found in the requested language. Auto-captions
             are generally accurate for clearly spoken English and many other languages.'],
             ['Is the transcript stored or logged?', 'No. The transcript content is returned directly to your browser and
@@ -614,10 +578,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .fmt-card {
         border-color: oklch(0% 0 0 / 10%);
@@ -640,8 +602,10 @@
         max-width: 100%;
     }
 
+    *
+
     /* Transcript scrollbar */
-    #transcript-output::-webkit-scrollbar {
+    * #transcript-output::-webkit-scrollbar {
         width: 4px;
         height: 4px;
     }
@@ -655,8 +619,10 @@
         border-radius: 4px;
     }
 
+    *
+
     /* Guard against any accidental horizontal overflow on small screens */
-    #state-upload,
+    * #state-upload,
     #state-converting,
     #state-download {
         max-width: 100%;
@@ -669,8 +635,10 @@
         word-break: break-word;
     }
 
+    *
+
     /* Extra-narrow phones (< 380px) — tighten spacing & type a bit further */
-    @media (max-width: 380px) {
+    * @media (max-width: 380px) {
         .step-label {
             font-size: 9px;
         }
@@ -687,29 +655,135 @@
     }
 </style>
 
+<style>
+    #transcript-tool .grid>*,
+    #transcript-tool .flex-1 {
+        min-width: 0
+    }
+
+    #transcript-tool input,
+    #transcript-tool select {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #transcript-tool .fmt-card.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #transcript-tool .fmt-card.active span {
+        color: #fff
+    }
+
+    #transcript-tool .fmt-card:focus-within {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #transcript-tool .toggle-wrap input:checked~.toggle-track {
+        background: #2563eb
+    }
+
+    #transcript-tool .toggle-wrap input:checked~.toggle-thumb {
+        transform: translateX(16px)
+    }
+
+    #transcript-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #transcript-tool button:focus-visible,
+    #transcript-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #transcript-tool input:focus-visible,
+    #transcript-tool select:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #transcript-tool #transcript-output {
+        max-width: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere
+    }
+
+    #transcript-tool #result-stats,
+    #transcript-tool #error-text {
+        overflow-wrap: anywhere
+    }
+
+    #transcript-tool .step-item.active .step-dot {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff
+    }
+
+    #transcript-tool .step-item.active .step-label {
+        color: #2563eb
+    }
+
+    @media(max-width:767px) {
+        #transcript-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #transcript-tool button,
+        #transcript-tool a[download] {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 9px;
+            gap: 6px
+        }
+
+        #transcript-tool input[type=text],
+        #transcript-tool input[type=url],
+        #transcript-tool select {
+            font-size: 16px
+        }
+
+        #transcript-tool .fmt-card {
+            padding: 9px 8px
+        }
+
+        #transcript-tool .step-label {
+            font-size: 11px
+        }
+
+        #transcript-tool #result-stats {
+            flex-shrink: 1
+        }
+    }
+</style>
+
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const urlInput    = document.getElementById('yt-url');
   const convertBtn  = document.getElementById('convert-btn');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let lastTranscript = '';
   let lastFilename   = 'transcript.txt';
-
   // ── URL paste button ──
   document.getElementById('btn-paste-url').addEventListener('click', async () => {
     try { urlInput.value = await navigator.clipboard.readText(); urlInput.dispatchEvent(new Event('input')); } catch(_) {}
   });
-
   // ── URL validation ──
   urlInput.addEventListener('input', () => {
     const val    = urlInput.value.trim();
     const status = document.getElementById('url-status');
     const vid    = extractVideoId(val);
-
     if (!val) {
       status.innerHTML = '<span class="text-fn-text3">Supports youtube.com, youtu.be, Shorts, and embed URLs</span>';
       convertBtn.disabled = true;
@@ -727,7 +801,6 @@
       convertBtn.disabled = true;
     }
   });
-
   // ── Format cards ──
   document.querySelectorAll('.fmt-radio').forEach(radio => {
     radio.addEventListener('change', () => {
@@ -739,30 +812,24 @@
       tsWrap.style.pointerEvents = isText ? '' : 'none';
     });
   });
-
   // ── Fetch transcript ──
   convertBtn.addEventListener('click', startFetch);
   urlInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !convertBtn.disabled) startFetch(); });
-
   async function startFetch() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const url            = urlInput.value.trim();
     const language       = document.getElementById('opt-language').value;
     const translateTo    = document.getElementById('opt-translate').value || null;
     const outputFormat   = document.querySelector('input[name="output_format"]:checked').value;
     const inclTimestamps = document.getElementById('opt-timestamps').checked;
     const autoCaptions   = document.getElementById('opt-auto').checked;
-
     document.getElementById('converting-subtitle').textContent =
       `Fetching ${outputFormat.toUpperCase()} · ${language}${translateTo ? ' → ' + translateTo : ''}`;
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 400, 'Validating & extracting video ID…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 55, 1000, 'Fetching transcript via API…');
@@ -779,7 +846,6 @@
       document.getElementById('whisper-notice').classList.remove('hidden');
       document.getElementById('fetching-title').textContent = 'Running Whisper AI…';
     }, 8000);
-
     const payload = {
       url,
       language,
@@ -788,30 +854,23 @@
       auto_captions:      autoCaptions,
     };
     if (translateTo) payload.translate_to = translateTo;
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/youtube-transcript', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(payload),
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(whisperTimer);
-
       if (!res.ok) {
         let msg = 'Failed to fetch transcript. The video may have captions disabled.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       const data = await res.json();
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
-
       showResult(data, outputFormat, url);
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(whisperTimer);
@@ -820,57 +879,51 @@
       updateStepIndicator(1);
     }
   }
-
   function showResult(data, format, url) {
     document.getElementById('video-title').textContent = data.title || 'Untitled Video';
     document.getElementById('video-link').href = data.url || url;
-
     const chips = document.getElementById('video-meta-chips');
     chips.innerHTML = '';
     [
-      data.duration_str  && ['<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /></svg>', data.duration_str],
-      data.word_count    && ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+      data.duration_str  && [`<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /></svg>`, data.duration_str],
+      data.word_count    && [`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
   <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
   <path d="M16 5l3 3" />
-</svg>', Number(data.word_count).toLocaleString() + ' words'],
-      data.segment_count && ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+</svg>`, Number(data.word_count).toLocaleString() + ' words'],
+      data.segment_count && [`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
   <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-</svg>', data.segment_count + ' seg'],
-      data.language      && ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
+</svg>`, data.segment_count + ' seg'],
+      data.language      && [`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-world">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
   <path d="M3.6 9h16.8" />
   <path d="M3.6 15h16.8" />
   <path d="M11.5 3a17 17 0 0 0 0 18" />
   <path d="M12.5 3a17 17 0 0 1 0 18" />
-</svg>', data.language.toUpperCase()],
+</svg>`, data.language.toUpperCase()],
     ].filter(Boolean).forEach(([icon, label]) => {
       const chip = document.createElement('span');
       chip.className = 'meta-chip';
       chip.innerHTML = `<span>${icon}</span><span>${label}</span>`;
       chips.appendChild(chip);
     });
-
     const formatLabels = { text: 'Plain text', srt: 'SRT subtitles', vtt: 'WebVTT subtitles', json: 'JSON segments' };
     const extMap       = { text: 'txt', srt: 'srt', vtt: 'vtt', json: 'json' };
     document.getElementById('result-format-label').textContent = formatLabels[format] || format;
     document.getElementById('result-stats').textContent =
       data.char_count ? `${Number(data.char_count).toLocaleString()} chars` : '';
-
     const ext = extMap[format] || 'txt';
     document.getElementById('download-ext-label').textContent = `.${ext}`;
     lastFilename = `${(data.video_id || 'transcript').replace(/[^a-z0-9]/gi, '_').toLowerCase()}_transcript.${ext}`;
-
     const content = format === 'json'
       ? JSON.stringify(data.transcript ?? data, null, 2)
       : (data.transcript || '');
     lastTranscript = content;
     document.getElementById('transcript-output').textContent = content;
-
     const badge = document.getElementById('method-badge');
     badge.innerHTML = '';
     if (data.method) {
@@ -880,20 +933,19 @@
       pill.style.cssText = isWhisper
         ? 'background: oklch(60% 0.22 295 / 8%); border: 1px solid oklch(60% 0.22 295 / 25%); color: oklch(55% 0.22 295)'
         : 'background: oklch(67% 0.18 162 / 8%); border: 1px solid oklch(67% 0.18 162 / 25%); color: oklch(50% 0.18 162)';
-      pill.innerHTML = `${isWhisper ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-microphone">
+      pill.innerHTML = `${isWhisper ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-microphone">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" />
   <path d="M5 10a7 7 0 0 0 14 0" />
   <path d="M8 21l8 0" />
   <path d="M12 17l0 4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-</svg>'} ${data.method}`;
+</svg>`} ${data.method}`;
       badge.appendChild(pill);
     }
   }
-
   document.getElementById('btn-copy').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(lastTranscript);
@@ -902,7 +954,6 @@
       setTimeout(() => { label.textContent = 'Copy'; }, 2000);
     } catch(_) {}
   });
-
   document.getElementById('btn-download-txt').addEventListener('click', () => {
     const blob = new Blob([lastTranscript], { type: 'text/plain;charset=utf-8' });
     const a    = document.createElement('a');
@@ -911,7 +962,6 @@
     a.click();
     URL.revokeObjectURL(a.href);
   });
-
   function extractVideoId(url) {
     if (!url) return null;
     const s = url.trim().replace(/^(?!https?:\/\/)/i, 'https://');
@@ -926,12 +976,10 @@
     const m = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([a-zA-Z0-9_-]{11})/);
     return m ? m[1] : null;
   }
-
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
     if (card) window.scrollTo({ top: card.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
@@ -939,7 +987,6 @@
     document.getElementById('whisper-notice').classList.add('hidden');
     document.getElementById('fetching-title').textContent = 'Fetching Transcript…';
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -948,7 +995,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -968,7 +1014,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -981,7 +1026,6 @@
     }
     requestAnimationFrame(step);
   }
-
   window.resetConverter = function () {
     urlInput.value     = '';
     lastTranscript     = '';
@@ -1003,7 +1047,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1013,7 +1056,6 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1024,9 +1066,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

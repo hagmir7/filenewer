@@ -1,19 +1,13 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="txt-word-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
             @php
             $steps = [
@@ -22,7 +16,8 @@
             ['3', 'Download'],
             ];
             @endphp
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach($steps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -36,15 +31,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center text-4xl">
@@ -75,7 +67,6 @@
                         <input type="file" id="file-input" accept=".txt,text/plain"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl items-center gap-4">
@@ -94,7 +85,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.txt</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">&mdash; &middot; Text File</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -103,13 +94,10 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-6 space-y-3">
-
                         {{-- Row 1: Document Title + Font --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Document Title --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-title" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -121,7 +109,6 @@
                                 <p class="text-fn-text3 text-sm mt-1.5">Adds a title heading at the top of the document.
                                 </p>
                             </div>
-
                             {{-- Font --}}
                             @php
                             $fontOptions = [
@@ -146,10 +133,8 @@
                                 </div>
                             </div>
                         </div>
-
                         {{-- Row 2: Font Size + Line Spacing --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Font Size --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-font-size" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -164,7 +149,6 @@
                                     <span>72pt</span>
                                 </div>
                             </div>
-
                             {{-- Line Spacing --}}
                             @php
                             $spacingOptions = [
@@ -188,10 +172,8 @@
                                 <p class="text-fn-text3 text-sm" id="spacing-hint">1.15 &mdash; default Word spacing</p>
                             </div>
                         </div>
-
                         {{-- Row 3: Page Size + Encoding --}}
                         <div class="grid sm:grid-cols-2 gap-3">
-
                             {{-- Page Size --}}
                             @php
                             $pageOptions = [
@@ -213,7 +195,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             {{-- Encoding --}}
                             @php
                             $encOptions = [
@@ -235,10 +216,8 @@
                                 </div>
                             </div>
                         </div>
-
                         {{-- Row 4: Auto-detection toggles --}}
                         <div class="grid sm:grid-cols-3 gap-3">
-
                             {{-- Detect Headings --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Detect Headings</label>
@@ -248,7 +227,6 @@
                                     <span class="text-sm text-fn-text2">Auto-detect #, ===, ALL CAPS</span>
                                 </label>
                             </div>
-
                             {{-- Detect Lists --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Detect Lists</label>
@@ -258,7 +236,6 @@
                                     <span class="text-sm text-fn-text2">Auto-detect -, *, 1. items</span>
                                 </label>
                             </div>
-
                             {{-- Detect Tables --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Detect Tables</label>
@@ -269,7 +246,6 @@
                                 </label>
                             </div>
                         </div>
-
                         {{-- Row 5: Output filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -283,7 +259,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -296,7 +271,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -306,9 +280,7 @@
                         </svg>
                         Convert to Word
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -344,10 +316,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2">Converting your file&hellip;</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -357,7 +327,6 @@
                         <span id="progress-label">Starting&hellip;</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     @php
                     $procSteps = [
                     ['proc-1', 'Uploading & reading text file'],
@@ -387,7 +356,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -402,7 +370,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your Word document is ready.</p>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0"
@@ -421,7 +388,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     <a id="download-link" href="#" download="output.docx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
@@ -433,7 +399,6 @@
                         </svg>
                         <span id="download-btn-label">Download DOCX</span>
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -449,7 +414,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -458,13 +422,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -482,11 +443,11 @@
             ['What fonts are available?', 'You can choose from Calibri (default), Arial, Times New Roman, Georgia,
             Verdana, or Courier New. Font size is adjustable from 6pt to 72pt.'],
             ['What page sizes are supported?', 'A4 (default), Letter, Legal, and A3 page sizes are all supported.'],
-            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
-
             @foreach($faqs as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
@@ -506,12 +467,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 {{-- ══ STYLES ══ --}}
 <style>
     .font-btn,
@@ -546,10 +504,146 @@
     }
 </style>
 
+<style>
+    #txt-word-tool .grid>*,
+    #txt-word-tool .flex-1 {
+        min-width: 0
+    }
+
+    #txt-word-tool input,
+    #txt-word-tool select {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #txt-word-tool .font-btn.active,
+    #txt-word-tool .spacing-btn.active,
+    #txt-word-tool .page-btn.active,
+    #txt-word-tool .enc-btn.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #txt-word-tool button:focus-visible,
+    #txt-word-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #txt-word-tool input:focus-visible,
+    #txt-word-tool select:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #txt-word-tool #drop-zone:focus-within {
+        border-color: #2563eb;
+        background: #2563eb12
+    }
+
+    #txt-word-tool .toggle-label {
+        padding: 8px;
+        border: 1px solid transparent;
+        border-radius: 8px
+    }
+
+    #txt-word-tool .toggle-label:has(input:checked) {
+        background: #2563eb18;
+        border-color: #2563eb66
+    }
+
+    #txt-word-tool input[type=checkbox] {
+        accent-color: #2563eb;
+        flex-shrink: 0
+    }
+
+    #txt-word-tool #file-name,
+    #txt-word-tool #output-name,
+    #txt-word-tool #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #txt-word-tool .step-dot {
+        flex-shrink: 0
+    }
+
+    @media(max-width:767px) {
+        #txt-word-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #txt-word-tool button,
+        #txt-word-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 8px;
+            gap: 6px
+        }
+
+        #txt-word-tool input[type=text],
+        #txt-word-tool input[type=number],
+        #txt-word-tool select {
+            font-size: 16px
+        }
+
+        #txt-word-tool .toggle-label {
+            padding: 6px
+        }
+
+        #txt-word-tool .toggle-label span {
+            font-size: 12px
+        }
+
+        #txt-word-tool .step-item {
+            gap: 4px
+        }
+
+        #txt-word-tool .step-label {
+            font-size: 11px;
+            line-height: 1.3
+        }
+
+        #txt-word-tool .step-item .step-dot {
+            width: 22px;
+            height: 22px
+        }
+
+        #txt-word-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        #txt-word-tool #file-preview {
+            gap: 8px;
+            padding: 12px
+        }
+
+        #txt-word-tool #remove-file {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0
+        }
+
+        #txt-word-tool #drop-zone .inline-flex {
+            font-size: 12px;
+            padding: 8px 12px
+        }
+    }
+</style>
+
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       var dropZone    = document.getElementById('drop-zone');
       var fileInput   = document.getElementById('file-input');
       var convertBtn  = document.getElementById('convert-btn');
@@ -559,28 +653,31 @@
       var errorText   = document.getElementById('error-text');
       var fontSizeSlider = document.getElementById('opt-font-size');
       var fontSizeValue  = document.getElementById('font-size-value');
-
       var selectedFile   = null;
       var blobUrl        = null;
+      function syncOptionButtons() {
+        document.querySelectorAll('#txt-word-tool .font-btn, #txt-word-tool .spacing-btn, #txt-word-tool .page-btn, #txt-word-tool .enc-btn').forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+        });
+      }
+      syncOptionButtons();
       var activeFont     = 'Calibri';
       var activeSpacing  = '1.15';
       var activePage     = 'A4';
       var activeEnc      = 'utf-8';
-
       // Font size slider
       fontSizeSlider.addEventListener('input', function () {
         fontSizeValue.textContent = fontSizeSlider.value;
       });
-
       // Font buttons
       document.querySelectorAll('.font-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.font-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          syncOptionButtons();
           activeFont = btn.dataset.font;
         });
       });
-
       // Spacing buttons
       var spacingHints = {
         '1.0':  '1.0 \u2014 single spacing, compact',
@@ -592,29 +689,29 @@
         btn.addEventListener('click', function () {
           document.querySelectorAll('.spacing-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          syncOptionButtons();
           activeSpacing = btn.dataset.spacing;
           document.getElementById('spacing-hint').textContent = spacingHints[activeSpacing] || '';
         });
       });
-
       // Page size buttons
       document.querySelectorAll('.page-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.page-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          syncOptionButtons();
           activePage = btn.dataset.page;
         });
       });
-
       // Encoding buttons
       document.querySelectorAll('.enc-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.enc-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
+          syncOptionButtons();
           activeEnc = btn.dataset.enc;
         });
       });
-
       // Drag & drop
       ['dragenter', 'dragover'].forEach(function (evt) {
         dropZone.addEventListener(evt, function (e) { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -625,10 +722,8 @@
       dropZone.addEventListener('drop', function (e) { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
       fileInput.addEventListener('change', function (e) { if (e.target.files[0]) handleFile(e.target.files[0]); });
       removeFile.addEventListener('click', function (e) { e.stopPropagation(); resetFile(); });
-
       var ACCEPTED_EXTS  = ['.txt'];
       var ACCEPTED_TYPES = ['text/plain'];
-
       function handleFile(file) {
         hideError();
         var ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
@@ -650,7 +745,6 @@
         dropZone.classList.add('has-file');
         convertBtn.disabled = false;
       }
-
       function resetFile() {
         selectedFile    = null;
         fileInput.value = '';
@@ -660,16 +754,12 @@
         convertBtn.disabled = true;
         hideError();
       }
-
       convertBtn.addEventListener('click', startConversion);
-
       async function startConversion() {
         if (!selectedFile) return;
-
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         var title           = document.getElementById('opt-title').value.trim();
         var detectHeadings  = document.getElementById('opt-detect-headings').checked;
         var detectLists     = document.getElementById('opt-detect-lists').checked;
@@ -679,7 +769,6 @@
         var outputFilename  = customFilename
           ? (customFilename.indexOf('.') !== -1 ? customFilename : customFilename + '.docx')
           : baseName + '.docx';
-
         var formData = new FormData();
         formData.append('file',             selectedFile);
         formData.append('font_name',        activeFont);
@@ -691,63 +780,49 @@
         formData.append('detect_lists',     detectLists     ? 'true' : 'false');
         formData.append('detect_tables',    detectTables    ? 'true' : 'false');
         if (title) formData.append('title', title);
-
         // Animate
         setProcessStep('proc-1', 'active');
         animateProgress(0, 20, 700, 'Uploading & reading text file\u2026');
-
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
           animateProgress(20, 50, 900, 'Detecting headings, lists & tables\u2026');
         }, 800);
-
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
           animateProgress(50, 75, 900, 'Building Word document\u2026');
         }, 1800);
-
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
           animateProgress(75, 90, 700, 'Applying formatting & packaging\u2026');
         }, 2900);
-
         try {
           var res = await fetch('https://api.filenewer.com/api/tools/txt-to-word', {
             method: 'POST',
             body:   formData
           });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           if (!res.ok) {
             var errMsg = 'Conversion failed. Please try again.';
             try { var d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
-
           var blob = await res.blob();
-
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
-
           var link    = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = outputFilename;
-
           document.getElementById('output-name').textContent        = outputFilename;
           document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 Word Document';
           document.getElementById('download-btn-label').textContent = 'Download DOCX';
           document.getElementById('download-subtitle').textContent  = 'Your Word document is ready.';
-
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
           animateProgress(90, 100, 300, 'Done!');
-
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
-
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -756,20 +831,17 @@
           updateStepIndicator(1);
         }
       }
-
       function showState(state) {
         ['upload', 'converting', 'download'].forEach(function (s) {
           document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
         });
         if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
-
         var card = document.querySelector('.bg-fn-surface.border.rounded-2xl');
         if (card) {
           var offset = card.getBoundingClientRect().top + window.pageYOffset - 20;
           window.scrollTo({ top: offset, behavior: 'smooth' });
         }
       }
-
       function updateStepIndicator(active) {
         [1, 2, 3].forEach(function (n) {
           var el = document.getElementById('step-' + n);
@@ -778,7 +850,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       function setProcessStep(id, state) {
         var el = document.getElementById(id);
         if (!el) return;
@@ -800,7 +871,6 @@
           dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
         }
       }
-
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
         var start = performance.now();
@@ -813,7 +883,6 @@
         }
         requestAnimationFrame(step);
       }
-
       window.resetConverter = function () {
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         resetFile();
@@ -839,6 +908,7 @@
         document.querySelectorAll('.enc-btn').forEach(function (b) { b.classList.remove('active'); });
         document.querySelector('.enc-btn[data-enc="utf-8"]').classList.add('active');
         activeEnc = 'utf-8';
+        syncOptionButtons();
         // Reset detection checkboxes
         document.getElementById('opt-detect-headings').checked = true;
         document.getElementById('opt-detect-lists').checked    = true;
@@ -848,7 +918,6 @@
         animateProgress(0, 0, 0, 'Starting\u2026');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
-
       function showError(msg) {
         errorText.textContent = msg;
         uploadError.classList.remove('hidden');
@@ -858,13 +927,11 @@
         uploadError.classList.add('hidden');
         uploadError.classList.remove('flex');
       }
-
       function formatBytes(bytes) {
         if (bytes < 1024)    return bytes + ' B';
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       document.querySelectorAll('.faq-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var body   = btn.nextElementSibling;
@@ -878,9 +945,7 @@
           }
         });
       });
-
     });
 </script>
 @endpush
-
 @endsection

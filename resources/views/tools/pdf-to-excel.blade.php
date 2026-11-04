@@ -3,17 +3,14 @@
 <x-ld-json :tool="$tool" />
 @endpush
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="pdf-excel-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload PDF'],['2','Converting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -27,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-4xl">
@@ -68,7 +62,6 @@
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview (shown after selection) --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -97,7 +90,6 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-2 gap-3">
                         {{-- Password (optional) --}}
@@ -109,7 +101,8 @@
                             <div class="relative">
                                 <input type="password" id="opt-password" placeholder="Leave blank if not protected"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" id="toggle-password"
+                                <button type="button" id="toggle-password" aria-label="Show password"
+                                    aria-pressed="false"
                                     class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                     <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -127,7 +120,6 @@
                                 </button>
                             </div>
                         </div>
-
                         {{-- Custom output filename (optional) --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -142,7 +134,6 @@
                             </p>
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -155,7 +146,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -165,9 +155,7 @@
                         </svg>
                         Convert to Excel
                     </button>
-
                 </div>
-
                 {{-- ── STATE: Converting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -208,10 +196,8 @@
                             </svg>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2" id="conv-title">Converting your file…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -221,7 +207,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     {{-- Processing steps --}}
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
@@ -249,7 +234,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden text-center py-6">
                     <div
@@ -264,7 +248,6 @@
                     </div>
                     <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
                     <p class="text-fn-text2 text-sm mb-8">Your Excel spreadsheet is ready.</p>
-
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -289,7 +272,6 @@
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
-
                     {{-- href and download attr are set dynamically via blob URL --}}
                     <a id="download-link" href="#" download="document.xlsx"
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
@@ -302,7 +284,6 @@
                         </svg>
                         Download Excel File
                     </a>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -318,7 +299,6 @@
                             All tools
                         </a>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -327,14 +307,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -346,8 +322,9 @@
             identifies rows, columns, merged cells, and numeric values. Accuracy is near-perfect for digital PDFs with
             embedded text.'],
             ['Can I convert password-protected PDFs?', 'Absolutely. Just enter your PDF password in the optional
-            password field before converting and we\'ll handle the rest.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            password field before converting and we will handle the rest.'],
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ['What if my PDF has multiple tables?', 'Each table detected in your PDF is extracted to its own sheet
             within the Excel workbook, keeping everything neatly organised.'],
@@ -370,17 +347,123 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
+<style>
+    #pdf-excel-tool .grid>*,
+    #pdf-excel-tool .flex-1 {
+        min-width: 0;
+    }
 
+    #pdf-excel-tool .justify-between {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #pdf-excel-tool label:has(input[type=checkbox]) {
+        padding: 7px 10px;
+        border-radius: 8px;
+    }
+
+    #pdf-excel-tool label:has(input[type=checkbox]:checked) {
+        background: var(--color-fn-blue, var(--fn-blue, #2563eb));
+        color: white;
+    }
+
+    #pdf-excel-tool label:has(input[type=checkbox]:checked) span {
+        color: white;
+    }
+
+    #pdf-excel-tool input[type=checkbox] {
+        flex-shrink: 0;
+        accent-color: #2563eb;
+    }
+
+    #pdf-excel-tool button:focus-visible,
+    #pdf-excel-tool a:focus-visible,
+    #pdf-excel-tool label:has(input:focus-visible),
+    #drop-zone:focus-within {
+        outline: 2px solid #2563eb;
+        outline-offset: 3px;
+    }
+
+    #pdf-excel-tool .file-row p,
+    #output-name,
+    #output-meta,
+    #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    #add-more-btn {
+        position: relative;
+    }
+
+    #pdf-excel-tool input[type=text] {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    @media(max-width:639px) {
+
+        #pdf-excel-tool button,
+        #pdf-excel-tool #download-link {
+            min-height: 34px;
+            padding: 6px 10px;
+            font-size: 12px;
+            gap: 6px;
+        }
+
+        #pdf-excel-tool input[type=text] {
+            font-size: 16px;
+        }
+
+        #pdf-excel-tool .step-label {
+            font-size: 11px;
+        }
+
+        #pdf-excel-tool .step-item {
+            gap: 4px;
+        }
+
+        #pdf-excel-tool .step-dot {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+        }
+
+        #pdf-excel-tool .step-item+div {
+            width: 12px;
+            margin: 0 4px;
+        }
+
+        #pdf-excel-tool .file-row {
+            gap: 7px;
+            padding: 10px;
+        }
+
+        #pdf-excel-tool .file-row button {
+            min-width: 32px;
+            padding: 6px;
+        }
+    }
+
+    #pdf-excel-tool #toggle-password {
+        min-width: 32px;
+        padding: 5px;
+    }
+
+    #pdf-excel-tool #toggle-password[aria-pressed="true"] {
+        background: #2563eb;
+        color: white;
+        border-radius: 6px;
+    }
+</style>
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
       // ── Element refs ──
       const dropZone      = document.getElementById('drop-zone');
       const fileInput     = document.getElementById('file-input');
@@ -393,18 +476,17 @@
       const pwdInput      = document.getElementById('opt-password');
       const eyeShow       = document.getElementById('eye-show');
       const eyeHide       = document.getElementById('eye-hide');
-
       let selectedFile = null;
       let blobUrl      = null;
-
       // ── Password visibility toggle ──
       togglePwdBtn.addEventListener('click', () => {
         const isPassword = pwdInput.type === 'password';
         pwdInput.type = isPassword ? 'text' : 'password';
         eyeShow.classList.toggle('hidden', isPassword);
+        togglePwdBtn.setAttribute('aria-pressed', String(isPassword));
+        togglePwdBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
         eyeHide.classList.toggle('hidden', !isPassword);
       });
-
       // ── Drag & drop ──
       ['dragenter', 'dragover'].forEach(evt => {
         dropZone.addEventListener(evt, e => {
@@ -413,7 +495,6 @@
           dropZone.classList.add('drag-over');
         });
       });
-
       ['dragleave', 'dragend', 'drop'].forEach(evt => {
         dropZone.addEventListener(evt, e => {
           e.preventDefault();
@@ -421,54 +502,43 @@
           dropZone.classList.remove('drag-over');
         });
       });
-
       dropZone.addEventListener('drop', e => {
         const file = e.dataTransfer.files[0];
         if (file) handleFile(file);
       });
-
       // ── File input change ──
       fileInput.addEventListener('change', e => {
         if (e.target.files[0]) handleFile(e.target.files[0]);
       });
-
       // ── Remove file ──
       removeFile.addEventListener('click', e => {
         e.stopPropagation();
         resetFile();
       });
-
       // ── Handle selected file ──
       function handleFile(file) {
         hideError();
-
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
           showError('Please select a valid PDF file.');
           return;
         }
-
         if (file.size > 50 * 1024 * 1024) {
           showError('File exceeds the 200MB free limit.');
           return;
         }
-
         selectedFile = file;
-
         // Pre-fill output filename input with the PDF name swapped to .xlsx
         const defaultXlsx = file.name.replace(/\.pdf$/i, '.xlsx');
         const filenameInput = document.getElementById('opt-filename');
         if (!filenameInput.value) filenameInput.value = defaultXlsx;
-
         document.getElementById('file-name').textContent   = file.name;
         document.getElementById('file-meta').textContent   = formatBytes(file.size) + ' · PDF Document';
         document.getElementById('output-name').textContent = defaultXlsx;
-
         filePreview.classList.remove('hidden');
         filePreview.classList.add('flex');
         dropZone.classList.add('has-file');
         convertBtn.disabled = false;
       }
-
       function resetFile() {
         selectedFile    = null;
         fileInput.value = '';
@@ -478,60 +548,47 @@
         convertBtn.disabled = true;
         hideError();
       }
-
       // ── Convert button ──
       convertBtn.addEventListener('click', startConversion);
-
       async function startConversion() {
         if (!selectedFile) return;
-
         hideError();
         showState('converting');
         updateStepIndicator(2);
-
         // ── Build FormData ──
         // Required: file
         // Optional: password, filename
         const formData = new FormData();
         formData.append('file', selectedFile);
-
         const password = document.getElementById('opt-password').value.trim();
         if (password) formData.append('password', password);
-
         const customFilename = document.getElementById('opt-filename').value.trim();
         const outputFilename = customFilename || selectedFile.name.replace(/\.pdf$/i, '.xlsx');
         if (customFilename) formData.append('filename', customFilename);
-
         // ── Animated progress steps ──
         setProcessStep('proc-1', 'active');
         animateProgress(0, 20, 800, 'Uploading file…');
-
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
           animateProgress(20, 50, 1000, 'Detecting tables & data regions…');
         }, 1000);
-
         const t3 = setTimeout(() => {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
           animateProgress(50, 75, 1200, 'Extracting rows, columns & values…');
         }, 2200);
-
         const t4 = setTimeout(() => {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
           animateProgress(75, 90, 1000, 'Generating Excel spreadsheet…');
         }, 3600);
-
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-excel', {
             method: 'POST',
             body:   formData,
           });
-
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
           // ── On error the API returns JSON { "error": "..." } ──
           if (!res.ok) {
             let errMsg = 'Conversion failed. Please try again.';
@@ -541,32 +598,25 @@
             } catch (_) {}
             throw new Error(errMsg);
           }
-
           // ── On success the API streams binary .xlsx bytes directly ──
           const blob     = await res.blob();
           const fileName = outputFilename.endsWith('.xlsx') ? outputFilename : outputFilename + '.xlsx';
-
           // Revoke previous blob URL if any
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(blob);
-
           // Wire up the download anchor
           const link    = document.getElementById('download-link');
           link.href     = blobUrl;
           link.download = fileName;
-
           document.getElementById('output-name').textContent = fileName;
           document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Spreadsheet';
-
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
           animateProgress(90, 100, 400, 'Done!');
-
           setTimeout(() => {
             showState('download');
             updateStepIndicator(3);
           }, 500);
-
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -575,7 +625,6 @@
           updateStepIndicator(1);
         }
       }
-
       // ── State switcher ──
       function showState(state) {
         ['upload', 'converting', 'download'].forEach(s => {
@@ -585,7 +634,6 @@
           document.getElementById('state-download').classList.add('bounce-in');
         }
       }
-
       // ── Step indicator ──
       function updateStepIndicator(active) {
         [1, 2, 3].forEach(n => {
@@ -595,7 +643,6 @@
           if (n === active) el.classList.add('active');
         });
       }
-
       // ── Processing steps ──
       function setProcessStep(id, state) {
         const el = document.getElementById(id);
@@ -603,12 +650,10 @@
         const dot   = el.querySelector('.step-dot');
         const check = el.querySelector('.check-icon');
         const spin  = el.querySelector('.spin-icon');
-
         check.classList.add('hidden');
         spin.classList.add('hidden');
         dot.style.borderColor = '';
         dot.style.background  = '';
-
         if (state === 'active') {
           spin.classList.remove('hidden');
           dot.style.borderColor = 'oklch(49% 0.24 264)';
@@ -620,7 +665,6 @@
           dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
         }
       }
-
       // ── Progress bar ──
       function animateProgress(from, to, duration, label) {
         document.getElementById('progress-label').textContent = label;
@@ -634,7 +678,6 @@
         }
         requestAnimationFrame(step);
       }
-
       // ── Reset ──
       window.resetConverter = function () {
         if (blobUrl) {
@@ -649,7 +692,6 @@
         animateProgress(0, 0, 0, 'Starting…');
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
-
       // ── Error helpers ──
       function showError(msg) {
         errorText.textContent = msg;
@@ -660,34 +702,27 @@
         uploadError.classList.add('hidden');
         uploadError.classList.remove('flex');
       }
-
       // ── Format bytes ──
       function formatBytes(bytes) {
         if (bytes < 1024)    return bytes + ' B';
         if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / 1048576).toFixed(1) + ' MB';
       }
-
       // ── FAQ accordion ──
       document.querySelectorAll('.faq-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const body   = btn.nextElementSibling;
           const icon   = btn.querySelector('.faq-icon');
           const isOpen = !body.classList.contains('hidden');
-
           document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
           document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-
           if (!isOpen) {
             body.classList.remove('hidden');
             icon.style.transform = 'rotate(180deg)';
           }
         });
       });
-
     }); // end DOMContentLoaded
 </script>
-
 @endpush
-
 @endsection

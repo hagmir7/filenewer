@@ -1,21 +1,15 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ MAIN CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-6xl mx-auto px-6">
+<section id="uuid-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- ── Mode tabs ── --}}
-            <div class="flex items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
+            <div class="uuid-tabs flex flex-wrap items-center gap-1 p-2 border-b border-fn-text/7 bg-fn-surface2">
                 @php
                 $uuidTabs = [
                 ['generate', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -51,16 +45,12 @@
                 </button>
                 @endforeach
             </div>
-
             <div class="p-6 lg:p-8">
-
                 {{-- ══ GENERATE TAB ══ --}}
                 <div id="panel-generate" class="tab-panel">
                     <div class="grid lg:grid-cols-3 gap-6">
-
                         {{-- ── LEFT: Options ── --}}
                         <div class="lg:col-span-1 space-y-4">
-
                             {{-- Version --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">UUID Version</label>
@@ -75,7 +65,6 @@
                                 <p class="text-fn-text3 text-sm mt-2" id="ver-desc">Random (cryptographically secure)
                                 </p>
                             </div>
-
                             {{-- Count --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
@@ -89,7 +78,6 @@
                                 <input type="number" id="opt-count-num" min="1" max="50" value="1"
                                     class="mt-2 w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
-
                             {{-- Name-based options (v3/v5) --}}
                             <div id="name-opts"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
@@ -110,7 +98,6 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
-
                             {{-- Format options --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1">Format</label>
@@ -137,7 +124,6 @@
                                 </label>
                                 @endforeach
                             </div>
-
                             {{-- Prefix / Suffix / Seed --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1">Extra Options</label>
@@ -160,7 +146,6 @@
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
-
                             <button type="button" id="gen-btn"
                                 class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -169,9 +154,7 @@
                                 </svg>
                                 Generate
                             </button>
-
                         </div>{{-- /left --}}
-
                         {{-- ── RIGHT: Output ── --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
@@ -201,7 +184,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             {{-- UUID list --}}
                             <div id="gen-uuid-list" class="space-y-1.5 min-h-32">
                                 {{-- Empty state --}}
@@ -217,7 +199,6 @@
                                     <span class="text-sm">Configure options and click Generate</span>
                                 </div>
                             </div>
-
                             <div id="gen-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -228,14 +209,11 @@
                                 <span id="gen-error-text"></span>
                             </div>
                         </div>
-
                     </div>
                 </div>{{-- /panel-generate --}}
-
                 {{-- ══ VALIDATE TAB ══ --}}
                 <div id="panel-validate" class="tab-panel hidden">
                     <div class="max-w-2xl space-y-4">
-
                         <div class="flex gap-2">
                             <input type="text" id="val-input" placeholder="550e8400-e29b-41d4-a716-446655440000"
                                 class="flex-1 bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40" />
@@ -245,7 +223,6 @@
                                 Validate
                             </button>
                         </div>
-
                         {{-- Quick paste --}}
                         <div class="flex flex-wrap gap-2">
                             <button type="button" id="val-paste"
@@ -272,7 +249,6 @@
                                 data-uuid="{{ $ve }}">{{ Str::limit($ve, 20) }}</button>
                             @endforeach
                         </div>
-
                         {{-- Result --}}
                         <div id="val-result" class="hidden p-5 rounded-2xl border space-y-4">
                             <div class="flex items-center gap-3">
@@ -298,7 +274,6 @@
                                 <div class="grid sm:grid-cols-2 gap-1.5" id="val-formats"></div>
                             </div>
                         </div>
-
                         <div id="val-error"
                             class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -309,11 +284,9 @@
                         </div>
                     </div>
                 </div>{{-- /panel-validate --}}
-
                 {{-- ══ BULK TAB ══ --}}
                 <div id="panel-bulk" class="tab-panel hidden">
                     <div class="grid lg:grid-cols-3 gap-6">
-
                         {{-- Options --}}
                         <div class="space-y-4">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -326,7 +299,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
                                     Count — <span id="bulk-count-val" class="text-fn-blue-l">10</span>
@@ -339,7 +311,6 @@
                                 <input type="number" id="bulk-count-num" min="1" max="1000" value="10"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
-
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Export Format</label>
                                 <div class="space-y-1.5">
@@ -356,7 +327,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
                             <div class="grid grid-cols-2 gap-2">
                                 <button type="button" id="bulk-preview-btn"
                                     class="py-2.5 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-bold rounded-xl transition-all hover:bg-fn-surface2 flex items-center justify-center gap-1.5">
@@ -379,7 +349,6 @@
                                 </button>
                             </div>
                         </div>
-
                         {{-- Preview output --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
@@ -421,16 +390,12 @@
                                 <span id="bulk-error-text"></span>
                             </div>
                         </div>
-
                     </div>
                 </div>{{-- /panel-bulk --}}
-
             </div>{{-- /card body --}}
         </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ VERSION REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-5xl mx-auto px-6">
@@ -476,12 +441,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 @push('styles')
 {{-- ══ STYLES ══ --}}
 <style>
@@ -628,13 +590,156 @@
     }
 </style>
 @endpush
+
+<style>
+    #uuid-tool .grid>*,
+    #uuid-tool .flex-1 {
+        min-width: 0
+    }
+
+    #uuid-tool input,
+    #uuid-tool select,
+    #uuid-tool textarea {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #uuid-tool .tab-btn.active,
+    #uuid-tool .ver-btn.active,
+    #uuid-tool .bulk-ver-btn.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #uuid-tool .toggle-wrap {
+        flex-shrink: 0
+    }
+
+    #uuid-tool .toggle-wrap input:checked~.toggle-track {
+        background: #2563eb
+    }
+
+    #uuid-tool .toggle-wrap input:checked~.toggle-thumb {
+        transform: translateX(16px)
+    }
+
+    #uuid-tool .toggle-wrap input:focus-visible~.toggle-track {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #uuid-tool button:focus-visible,
+    #uuid-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #uuid-tool input:focus-visible,
+    #uuid-tool select:focus-visible,
+    #uuid-tool textarea:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #uuid-tool .uuid-row .uuid-text,
+    #uuid-tool #val-uuid-display,
+    #uuid-tool .fmt-row,
+    #uuid-tool [id$="error-text"] {
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #uuid-tool .uuid-row .uuid-copy {
+        opacity: 1;
+        flex-shrink: 0
+    }
+
+    #uuid-tool .uuid-row .uuid-num {
+        flex-shrink: 0
+    }
+
+    #uuid-tool .fmt-row {
+        flex-wrap: wrap
+    }
+
+    #uuid-tool #bulk-output {
+        width: 100%;
+        resize: vertical
+    }
+
+    @media(max-width:767px) {
+        #uuid-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #uuid-tool button,
+        #uuid-tool #bulk-dl-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 9px;
+            gap: 6px
+        }
+
+        #uuid-tool .uuid-tabs .tab-btn {
+            flex: 1 1 0;
+            min-width: 0;
+            justify-content: center;
+            padding: 8px 5px;
+            font-size: 11px;
+            gap: 4px
+        }
+
+        #uuid-tool .uuid-tabs .tab-btn svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0
+        }
+
+        #uuid-tool input[type=text],
+        #uuid-tool input[type=number],
+        #uuid-tool select,
+        #uuid-tool textarea {
+            font-size: 16px
+        }
+
+        #uuid-tool .uuid-row {
+            padding: 9px 8px;
+            gap: 6px
+        }
+
+        #uuid-tool .uuid-row .uuid-text {
+            font-size: 11px
+        }
+
+        #uuid-tool .uuid-row .uuid-copy {
+            font-size: 10px
+        }
+
+        #uuid-tool #val-btn,
+        #uuid-tool #val-paste {
+            flex-shrink: 0
+        }
+    }
+</style>
+
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
+      function syncPressedStates() {
+        document.querySelectorAll('#uuid-tool .tab-btn, #uuid-tool .ver-btn, #uuid-tool .bulk-ver-btn').forEach(button => {
+          button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+        });
+      }
+      syncPressedStates();
       const API = 'https://api.filenewer.com/api/tools';
-
       // ── Version descriptions ──
       const verDescs = {
         1: 'Time-based (MAC address)',
@@ -644,28 +749,26 @@
         6: 'Reordered time-based (sortable)',
         7: 'Unix timestamp ms (sortable, modern)',
       };
-
       // ── Tab switching ──
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
+          syncPressedStates();
           document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
           document.getElementById('panel-' + btn.dataset.tab).classList.remove('hidden');
         });
       });
-
       // ══ GENERATE TAB ══
-
       let genVersion = 4;
       let bulkVersion = 4;
       let bulkBlobUrl = null;
-
       // Version buttons
       document.querySelectorAll('.ver-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.ver-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
+          syncPressedStates();
           genVersion = parseInt(btn.dataset.ver);
           document.getElementById('ver-desc').textContent = verDescs[genVersion] ?? '';
           // Show/hide name options
@@ -673,7 +776,6 @@
           document.getElementById('name-opts').classList.toggle('hidden', !needsName);
         });
       });
-
       // Count slider ↔ number sync
       const countRange = document.getElementById('opt-count');
       const countNum   = document.getElementById('opt-count-num');
@@ -687,19 +789,15 @@
         countRange.value = v;
         document.getElementById('count-val').textContent = v;
       });
-
       // Generate button
       document.getElementById('gen-btn').addEventListener('click', doGenerate);
       document.getElementById('gen-regen').addEventListener('click', doGenerate);
-
       async function doGenerate() {
         const btn = document.getElementById('gen-btn');
         btn.disabled = true;
         btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Generating…`;
-
         const count = parseInt(countNum.value) || 1;
         hideEl('gen-error');
-
         const payload = {
           version:   genVersion,
           count,
@@ -709,16 +807,13 @@
           prefix:    document.getElementById('opt-prefix').value || '',
           suffix:    document.getElementById('opt-suffix').value || '',
         };
-
         const needsName = genVersion === 3 || genVersion === 5;
         if (needsName) {
           payload.namespace = document.getElementById('opt-namespace').value;
           payload.name      = document.getElementById('opt-name').value;
         }
-
         const seed = document.getElementById('opt-seed').value;
         if (seed) payload.seed = parseInt(seed);
-
         try {
           const res  = await fetch(`${API}/uuid-generate`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -726,7 +821,6 @@
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Generation failed.');
-
           renderUUIDs(data.uuids ?? [], data.description ?? verDescs[genVersion]);
         } catch(err) {
           document.getElementById('gen-error-text').textContent = err.message;
@@ -736,17 +830,14 @@
           btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`;
         }
       }
-
       function renderUUIDs(uuids, desc) {
         const list = document.getElementById('gen-uuid-list');
         list.innerHTML = '';
         hideEl('gen-empty'); // remove empty state if still there
-
         const empty = document.createElement('div');
         empty.id = 'gen-empty';
         empty.className = 'hidden';
         list.appendChild(empty);
-
         uuids.forEach((uuid, idx) => {
           const row = document.createElement('div');
           row.className = 'uuid-row';
@@ -765,14 +856,12 @@
           });
           list.appendChild(row);
         });
-
         // Badge + actions
         document.getElementById('gen-desc-badge').textContent = desc;
         showEl('gen-desc-badge');
         showEl('gen-copy-all');
         showEl('gen-regen');
         document.getElementById('gen-output-label').textContent = `Generated UUIDs (${uuids.length})`;
-
         // Copy all
         document.getElementById('gen-copy-all').onclick = async () => {
           await navigator.clipboard.writeText(uuids.join('\n')).catch(() => {});
@@ -780,20 +869,15 @@
           setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
         };
       }
-
       // ══ VALIDATE TAB ══
-
       const valInput = document.getElementById('val-input');
       const valBtn   = document.getElementById('val-btn');
-
       valInput.addEventListener('input', () => { valBtn.disabled = !valInput.value.trim(); });
       valInput.addEventListener('keydown', e => { if (e.key === 'Enter') doValidate(); });
       valBtn.addEventListener('click', doValidate);
-
       document.getElementById('val-paste').addEventListener('click', async () => {
         try { valInput.value = await navigator.clipboard.readText(); valBtn.disabled = false; } catch(_) {}
       });
-
       document.querySelectorAll('.val-example').forEach(btn => {
         btn.addEventListener('click', () => {
           valInput.value = btn.dataset.uuid;
@@ -801,14 +885,12 @@
           doValidate();
         });
       });
-
       async function doValidate() {
         const uuid = valInput.value.trim();
         if (!uuid) return;
         valBtn.disabled = true;
         valBtn.textContent = '…';
         hideEl('val-error'); hideEl('val-result');
-
         try {
           const res  = await fetch(`${API}/uuid-validate`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -816,25 +898,22 @@
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Validation failed.');
-
           const valid = data.is_valid;
           const result = document.getElementById('val-result');
           result.className = `p-5 rounded-2xl border space-y-4 ${valid
             ? 'bg-fn-green/6 border-fn-green/20'
             : 'bg-fn-red/6 border-fn-red/20'}`;
-
-          document.getElementById('val-icon').textContent         = valid ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('val-icon').textContent         = valid ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>';
+</svg>`;
           document.getElementById('val-title').textContent        = valid ? 'Valid UUID' : 'Invalid UUID';
           document.getElementById('val-uuid-display').textContent = data.uuid ?? uuid;
-
           // Chips
           const chips = document.getElementById('val-chips');
           chips.innerHTML = '';
@@ -850,7 +929,6 @@
               chips.appendChild(span);
             });
           }
-
           // Format cards
           const fmts = data.formatted ?? {};
           const fmtDefs = [
@@ -861,7 +939,6 @@
             ['URN',         fmts.urn],
             ['Hex',         fmts.hex],
           ].filter(([,v]) => v != null);
-
           const fmtWrap = document.getElementById('val-formats-wrap');
           const fmtEl   = document.getElementById('val-formats');
           if (valid && fmtDefs.length > 0) {
@@ -884,7 +961,6 @@
           } else {
             fmtWrap.classList.add('hidden');
           }
-
           showEl('val-result');
         } catch(err) {
           document.getElementById('val-error-text').textContent = err.message;
@@ -894,18 +970,16 @@
           valBtn.textContent = 'Validate';
         }
       }
-
       // ══ BULK TAB ══
-
       // Version buttons (bulk)
       document.querySelectorAll('.bulk-ver-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.bulk-ver-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
+          syncPressedStates();
           bulkVersion = parseInt(btn.dataset.ver);
         });
       });
-
       // Count sync
       const bulkRange = document.getElementById('bulk-count');
       const bulkNum   = document.getElementById('bulk-count-num');
@@ -919,20 +993,16 @@
         bulkRange.value = v;
         document.getElementById('bulk-count-val').textContent = v;
       });
-
       document.getElementById('bulk-preview-btn').addEventListener('click', () => doBulk('preview'));
       document.getElementById('bulk-download-btn').addEventListener('click', () => doBulk('download'));
-
       async function doBulk(mode) {
         const count  = parseInt(bulkNum.value) || 10;
         const format = document.querySelector('input[name="bulk-format"]:checked').value;
         hideEl('bulk-error');
-
         const previewBtn  = document.getElementById('bulk-preview-btn');
         const downloadBtn = document.getElementById('bulk-download-btn');
         previewBtn.disabled  = true;
         downloadBtn.disabled = true;
-
         try {
           const res  = await fetch(`${API}/uuid-bulk`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -940,7 +1010,6 @@
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data.error || 'Bulk generation failed.');
-
           // Build output string
           let output = '';
           if (data.export) {
@@ -948,19 +1017,16 @@
           } else if (Array.isArray(data.uuids)) {
             output = data.uuids.join('\n');
           }
-
           document.getElementById('bulk-output').value = output;
           document.getElementById('bulk-meta').textContent = `${count} UUIDs · v${bulkVersion} · ${format}`;
           showEl('bulk-meta');
           showEl('bulk-copy-btn');
-
           // Wire copy
           document.getElementById('bulk-copy-btn').onclick = async () => {
             await navigator.clipboard.writeText(output).catch(() => {});
             document.getElementById('bulk-copy-label').textContent = 'Copied!';
             setTimeout(() => { document.getElementById('bulk-copy-label').textContent = 'Copy'; }, 2000);
           };
-
           // Download link
           const extMap = { standard:'txt', csv:'csv', json:'json', sql:'sql', array:'js' };
           const ext    = extMap[format] ?? 'txt';
@@ -971,9 +1037,7 @@
           dlLink.download = `uuids_v${bulkVersion}.${ext}`;
           document.getElementById('bulk-dl-label').textContent = `Download .${ext}`;
           showEl('bulk-dl-link');
-
           if (mode === 'download') dlLink.click();
-
         } catch(err) {
           document.getElementById('bulk-error-text').textContent = err.message;
           showEl('bulk-error', 'flex');
@@ -982,7 +1046,6 @@
           downloadBtn.disabled = false;
         }
       }
-
       // ── Utility ──
       function showEl(id, display = 'block') {
         const el = document.getElementById(id);
@@ -999,9 +1062,7 @@
       function escHtml(s) {
         return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       }
-
     }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection

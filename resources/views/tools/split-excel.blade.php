@@ -1,22 +1,16 @@
 @extends('layouts.base')
-
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
-
-
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="split-excel-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @foreach([['1','Upload File'],['2','Splitting'],['3','Download']] as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
@@ -30,15 +24,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
                     {{-- Drop zone --}}
                     <div id="drop-zone"
-                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-12 text-center cursor-pointer hover:border-fn-green/40 hover:bg-fn-green/4 relative transition-colors">
+                        class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-5 sm:p-10 text-center cursor-pointer hover:border-fn-green/40 hover:bg-fn-green/4 relative transition-colors">
                         <div class="flex items-center justify-center mb-5">
                             <div
                                 class="w-20 h-20 rounded-2xl bg-fn-green/10 border border-fn-green/20 flex items-center justify-center">
@@ -69,7 +60,6 @@
                             accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
-
                     {{-- File preview --}}
                     <div id="file-preview"
                         class="hidden mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-4">
@@ -87,7 +77,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">workbook.xlsx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file"
+                        <button type="button" id="remove-file" aria-label="Remove file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -96,19 +86,15 @@
                             </svg>
                         </button>
                     </div>
-
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
                             <p class="text-sm font-semibold text-fn-text2">Split Settings</p>
                             <span class="text-xs text-fn-text3">Optional</span>
                         </div>
-
                         <div class="grid sm:grid-cols-2 gap-4">
-
                             {{-- Left: split mode --}}
                             <div class="flex flex-col gap-3">
-
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Split mode</label>
                                     <div class="flex flex-col gap-1.5">
@@ -165,12 +151,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                             </div>
-
                             {{-- Right: dynamic options per mode --}}
                             <div class="flex flex-col gap-3">
-
                                 {{-- Chunk size (shown for chunk mode) --}}
                                 <div id="opt-chunk-wrap" class="hidden flex flex-col gap-1.5">
                                     <label for="opt-chunk-size" class="text-xs font-semibold text-fn-text2 block">
@@ -181,7 +164,6 @@
                                     <p class="text-xs text-fn-text3">Each sheet is divided into parts of this many rows.
                                         Headers are preserved in every chunk.</p>
                                 </div>
-
                                 {{-- Sheet name picker (shown for sheets mode) --}}
                                 <div id="opt-sheets-wrap" class="hidden flex flex-col gap-1.5">
                                     <label class="text-xs font-semibold text-fn-text2 block">
@@ -194,7 +176,6 @@
                                     <p class="text-xs text-fn-text3">Sheet names are case-sensitive. Leave blank to
                                         extract all sheets.</p>
                                 </div>
-
                                 {{-- Default helper (shown for sheet mode) --}}
                                 <div id="opt-sheet-help" class="flex flex-col gap-2">
                                     <div
@@ -223,7 +204,6 @@
                                             sheets inside your workbook before splitting.</p>
                                     </div>
                                 </div>
-
                                 {{-- Output mode --}}
                                 <div>
                                     <label for="opt-output"
@@ -234,7 +214,6 @@
                                         <option value="json">Metadata only (JSON preview)</option>
                                     </select>
                                 </div>
-
                                 {{-- Output filename --}}
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
@@ -244,12 +223,9 @@
                                     <input type="text" id="opt-filename" placeholder="split_sheets.zip"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-
                     {{-- Error banner --}}
                     <div id="upload-error"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -262,7 +238,6 @@
                         </svg>
                         <span id="error-text">Something went wrong.</span>
                     </div>
-
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -275,7 +250,6 @@
                         <span id="split-btn-label">Split Excel File</span>
                     </button>
                 </div>
-
                 {{-- ── STATE: Splitting ── --}}
                 <div id="state-converting" class="hidden text-center py-6">
                     <div class="flex items-center justify-center gap-5 mb-8">
@@ -307,11 +281,9 @@
                                 style="font-size:10px; color: oklch(55% 0.18 162); font-weight:700">S3</div>
                         </div>
                     </div>
-
                     <h2 class="text-xl font-bold mb-2" id="splitting-title">Splitting Excel File…</h2>
                     <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Reading workbook &amp; extracting
                         sheets</p>
-
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -321,7 +293,6 @@
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
-
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
                         @foreach([
                         ['proc-1', 'Reading workbook'],
@@ -348,10 +319,8 @@
                         @endforeach
                     </div>
                 </div>
-
                 {{-- ── STATE: Download ── --}}
                 <div id="state-download" class="hidden py-4">
-
                     {{-- ZIP download state --}}
                     <div id="zip-result" class="hidden text-center py-4">
                         <div
@@ -369,12 +338,10 @@
                         <h2 class="text-2xl font-bold mb-2">Split Complete!</h2>
                         <p class="text-fn-text2 text-sm mb-6" id="zip-subtitle">Your files are ready inside a .zip
                             archive.</p>
-
                         <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
                             <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Split details</p>
                             <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                         </div>
-
                         <div
                             class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                             <div
@@ -400,7 +367,6 @@
                             </div>
                             <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                         </div>
-
                         <a id="download-link" href="#" download="split_sheets.zip"
                             class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                             style="background: oklch(67% 0.18 162);">
@@ -413,7 +379,6 @@
                             Download ZIP
                         </a>
                     </div>
-
                     {{-- JSON / metadata result --}}
                     <div id="json-result" class="hidden">
                         <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
@@ -445,7 +410,6 @@
                                 Copy JSON
                             </button>
                         </div>
-
                         {{-- Parts table --}}
                         <div id="parts-table-wrap" class="hidden mb-4 overflow-x-auto">
                             <table class="w-full text-xs border-collapse">
@@ -462,11 +426,9 @@
                                 <tbody id="parts-tbody" class="divide-y divide-fn-text/7"></tbody>
                             </table>
                         </div>
-
                         <pre id="json-preview"
                             class="bg-fn-surface2 border border-fn-text/10 rounded-xl px-4 py-3 text-xs font-mono text-fn-text2 overflow-auto max-h-80 leading-relaxed whitespace-pre-wrap"></pre>
                     </div>
-
                     <div class="flex items-center justify-center gap-3 flex-wrap mt-6">
                         <button type="button" onclick="resetConverter()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -478,7 +440,6 @@
                             Split another file
                         </button>
                     </div>
-
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -487,13 +448,10 @@
                         Your file is encrypted and permanently deleted after processing.
                     </p>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 {{-- ══ SPLIT MODES ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
@@ -544,8 +502,6 @@
         </div>
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -565,7 +521,8 @@
             ['What is the JSON / metadata output?', 'Selecting "Metadata only" returns a JSON object listing every part
             that would be generated — including filename, sheet name, row count, column count, and estimated size in KB
             — without producing any files. Useful for previewing a split before downloading.'],
-            ['Is my Excel file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            ['Is my Excel file safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are
+            permanently
             deleted after processing. We never read, share, or store your content.'],
             ] as [$q, $a])
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
@@ -586,10 +543,8 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
 <x-tools-section />
-
 <style>
     .mode-card {
         border-color: oklch(0% 0 0 / 10%);
@@ -668,11 +623,9 @@
         background: oklch(60% 0.22 295 / 6%);
     }
 </style>
-
 @push('footer')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-
   const dropZone    = document.getElementById('drop-zone');
   const fileInput   = document.getElementById('file-input');
   const convertBtn  = document.getElementById('convert-btn');
@@ -680,23 +633,19 @@
   const removeFile  = document.getElementById('remove-file');
   const uploadError = document.getElementById('upload-error');
   const errorText   = document.getElementById('error-text');
-
   let selectedFile = null;
   let blobUrl      = null;
-
   // ── Split mode cards ──
   const MODE_PANELS = {
     sheet:  ['opt-sheet-help'],
     chunk:  ['opt-chunk-wrap'],
     sheets: ['opt-sheets-wrap'],
   };
-
   document.querySelectorAll('.split-mode-radio').forEach(radio => {
     radio.addEventListener('change', () => {
       // Update card active states
       document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
       radio.closest('.mode-card').classList.add('active');
-
       // Show/hide panels
       Object.values(MODE_PANELS).flat().forEach(id => {
         const el = document.getElementById(id);
@@ -706,13 +655,11 @@
         const el = document.getElementById(id);
         if (el) el.classList.remove('hidden');
       });
-
       // Update proc-4 label for JSON mode
       updateProc4Label(document.getElementById('opt-output').value, radio.value);
       updateBtnLabel(radio.value, document.getElementById('opt-output').value);
     });
   });
-
   document.getElementById('opt-output').addEventListener('change', function () {
     const mode = document.querySelector('input[name="split_by"]:checked').value;
     updateProc4Label(this.value, mode);
@@ -721,12 +668,10 @@
     document.getElementById('opt-filename').closest('div').style.opacity      = this.value === 'json' ? '0.4' : '1';
     document.getElementById('opt-filename').closest('div').style.pointerEvents = this.value === 'json' ? 'none' : '';
   });
-
   function updateProc4Label(output, mode) {
     const el = document.querySelector('#proc-4 span');
     if (el) el.textContent = output === 'json' ? 'Returning metadata JSON' : 'Packaging .zip archive';
   }
-
   function updateBtnLabel(mode, output) {
     const labels = {
       sheet:  output === 'json' ? 'Preview split by sheet' : 'Split by sheet',
@@ -735,7 +680,6 @@
     };
     document.getElementById('split-btn-label').textContent = labels[mode] || 'Split Excel File';
   }
-
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
     dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -746,7 +690,6 @@
   dropZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeFile.addEventListener('click', e => { e.stopPropagation(); resetFile(); });
-
   function handleFile(file) {
     hideError();
     if (!file.name.match(/\.(xlsx|xls)$/i)) {
@@ -765,7 +708,6 @@
     dropZone.classList.add('has-file');
     convertBtn.disabled = false;
   }
-
   function resetFile() {
     selectedFile    = null;
     fileInput.value = '';
@@ -775,34 +717,28 @@
     convertBtn.disabled = true;
     hideError();
   }
-
   // ── Split ──
   convertBtn.addEventListener('click', startSplit);
-
   async function startSplit() {
     hideError();
     showState('converting');
     updateStepIndicator(2);
     scrollToCard();
-
     const splitBy    = document.querySelector('input[name="split_by"]:checked').value;
     const output     = document.getElementById('opt-output').value;
     const chunkSize  = document.getElementById('opt-chunk-size').value;
     const sheetsRaw  = document.getElementById('opt-sheets-input').value.trim();
     const customFile = document.getElementById('opt-filename').value.trim();
-
     // Build sheet names JSON array
     let sheetsJson = null;
     if (splitBy === 'sheets' && sheetsRaw) {
       const names = sheetsRaw.split('\n').map(s => s.trim()).filter(Boolean);
       sheetsJson  = JSON.stringify(names);
     }
-
     const outName = output === 'json' ? null
       : (customFile
           ? (customFile.toLowerCase().endsWith('.zip') ? customFile : customFile + '.zip')
           : `split_${splitBy === 'chunk' ? 'chunks' : 'sheets'}.zip`);
-
     const subtitleMap = {
       sheet:  'Reading workbook — splitting into one file per sheet',
       chunk:  `Reading workbook — splitting every ${chunkSize} rows`,
@@ -812,17 +748,14 @@
     document.getElementById('splitting-title').textContent =
       splitBy === 'chunk' ? 'Splitting by Row Count…' :
       splitBy === 'sheets' ? 'Extracting Sheets…' : 'Splitting by Sheet…';
-
     const fd = new FormData();
     fd.append('file',     selectedFile);
     fd.append('split_by', splitBy);
     fd.append('output',   output);
     if (splitBy === 'chunk')  fd.append('chunk_size', chunkSize);
     if (sheetsJson)           fd.append('sheets',     sheetsJson);
-
     setProcessStep('proc-1', 'active');
     animateProgress(0, 20, 400, 'Reading workbook…');
-
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
       animateProgress(20, 52, 700, 'Applying split strategy…');
@@ -835,24 +768,19 @@
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
       animateProgress(78, 92, 500, output === 'json' ? 'Returning metadata JSON…' : 'Packaging .zip archive…');
     }, 2100);
-
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/split-excel', {
         method: 'POST',
         body:   fd,
       });
-
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-
       if (!res.ok) {
         let msg = 'Split failed. Please check your file and try again.';
         try { const d = await res.json(); if (d.error) msg = d.error; } catch(_) {}
         throw new Error(msg);
       }
-
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
       animateProgress(92, 100, 300, 'Done!');
-
       if (output === 'json') {
         const data = await res.json();
         showJsonResult(data, splitBy);
@@ -860,7 +788,6 @@
         const blob = await res.blob();
         if (blobUrl) URL.revokeObjectURL(blobUrl);
         blobUrl = URL.createObjectURL(blob);
-
         const link = document.getElementById('download-link');
         link.href     = blobUrl;
         link.download = outName;
@@ -870,9 +797,7 @@
           `Your split files are ready — download the .zip and extract to get individual .xlsx files.`;
         showZipResult(splitBy, null, null);
       }
-
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
-
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
@@ -881,20 +806,16 @@
       updateStepIndicator(1);
     }
   }
-
   function showZipResult(splitBy, totalParts, totalRows) {
     document.getElementById('zip-result').classList.remove('hidden');
     document.getElementById('json-result').classList.add('hidden');
-
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-
     const modeLabel = { sheet: 'by sheet', chunk: 'by chunk', sheets: 'extracted' }[splitBy] || splitBy;
     const chips = [['chip-mode', 'Mode', modeLabel]];
     if (totalParts) chips.push(['chip-parts', 'Parts', totalParts + '']);
     if (totalRows)  chips.push(['chip-rows',  'Rows',  Number(totalRows).toLocaleString()]);
-
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
@@ -904,16 +825,13 @@
     });
     if (chips.length) wrap.classList.remove('hidden');
   }
-
   function showJsonResult(data, splitBy) {
     document.getElementById('zip-result').classList.add('hidden');
     document.getElementById('json-result').classList.remove('hidden');
-
     document.getElementById('json-result-title').textContent =
       `${data.total_parts} part${data.total_parts !== 1 ? 's' : ''} — ${(data.split_by || splitBy).replace('_', ' ')} mode`;
     document.getElementById('json-result-meta').textContent =
       `${data.parts?.length || 0} entries`;
-
     // Parts table
     if (data.parts && data.parts.length) {
       const tbody = document.getElementById('parts-tbody');
@@ -932,21 +850,18 @@
       });
       document.getElementById('parts-table-wrap').classList.remove('hidden');
     }
-
     document.getElementById('json-preview').textContent = JSON.stringify(data, null, 2);
   }
-
   // ── Copy JSON ──
   document.getElementById('btn-copy-json').addEventListener('click', async () => {
     try {
       const text = document.getElementById('json-preview').textContent;
       await navigator.clipboard.writeText(text);
       const btn = document.getElementById('btn-copy-json');
-      btn.textContent = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Copied!';
-      setTimeout(() => { btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy JSON'; }, 2000);
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Copied!`;
+      setTimeout(() => { btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy JSON`; }, 2000);
     } catch(_) {}
   });
-
   // ── Helpers ──
   function scrollToCard() {
     const card = document.querySelector('#state-converting')?.closest('.bg-fn-surface');
@@ -955,13 +870,11 @@
       window.scrollTo({ top, behavior: 'smooth' });
     }
   }
-
   function showState(state) {
     ['upload', 'converting', 'download'].forEach(s => {
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
   }
-
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
       const el = document.getElementById('step-' + n);
@@ -970,7 +883,6 @@
       if (n === active) el.classList.add('active');
     });
   }
-
   function setProcessStep(id, state) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -990,7 +902,6 @@
       dot.style.background  = 'oklch(67% 0.18 162 / 15%)';
     }
   }
-
   function animateProgress(from, to, duration, label) {
     document.getElementById('progress-label').textContent = label;
     const start = performance.now();
@@ -1003,11 +914,9 @@
     }
     requestAnimationFrame(step);
   }
-
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
   window.resetConverter = function () {
     if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
     resetFile();
@@ -1043,7 +952,6 @@
     animateProgress(0, 0, 0, 'Starting…');
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
-
   function showError(msg) {
     errorText.textContent = msg;
     uploadError.classList.remove('hidden');
@@ -1053,13 +961,11 @@
     uploadError.classList.add('hidden');
     uploadError.classList.remove('flex');
   }
-
   function formatBytes(bytes) {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
-
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const body   = btn.nextElementSibling;
@@ -1070,9 +976,7 @@
       if (!isOpen) { body.classList.remove('hidden'); icon.style.transform = 'rotate(180deg)'; }
     });
   });
-
 });
 </script>
 @endpush
-
 @endsection

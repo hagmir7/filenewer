@@ -2,17 +2,15 @@
 @push('scripts')
 <x-ld-json :tool="$tool" />
 @endpush
-
 @section('content')
-
 <x-tool-hero :tool="$tool" />
 {{-- ══ CONVERTER CARD ══ --}}
-<section class="pb-16">
-    <div class="max-w-5xl mx-auto px-6">
+<section id="watermark-tool" class="pb-10 sm:pb-16">
+    <div class="max-w-5xl mx-auto px-3 sm:px-6">
         <div class="bg-fn-surface border border-fn-text/8 rounded-2xl overflow-hidden shadow-2xl">
-
             {{-- Step indicator --}}
-            <div class="flex items-center justify-center gap-0 px-8 py-5 border-b border-fn-text/7 bg-fn-surface2">
+            <div
+                class="flex items-center justify-center gap-0 px-3 sm:px-8 py-4 sm:py-5 border-b border-fn-text/7 bg-fn-surface2">
                 @php $wmSteps = [['1','Upload PDF'],['2','Watermarking'],['3','Download']]; @endphp
                 @foreach($wmSteps as [$n, $label])
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
@@ -27,17 +25,12 @@
                 @endif
                 @endforeach
             </div>
-
-            <div class="p-8 lg:p-10">
-
+            <div class="p-4 sm:p-6 lg:p-10">
                 {{-- ── STATE: Upload ── --}}
                 <div id="state-upload">
-
-                    <div class="grid lg:grid-cols-2 gap-8">
-
+                    <div class="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                         {{-- ── LEFT: Upload + Options ── --}}
                         <div class="space-y-4">
-
                             {{-- Drop zone --}}
                             <div id="drop-zone"
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-8 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
@@ -53,7 +46,8 @@
                                             <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
                                             <path d="M17 12h3" />
                                             <path d="M21 8h-4v8" />
-                                        </svg></div>
+                                        </svg>
+                                    </div>
                                 </div>
                                 <h2 class="text-base font-bold mb-1.5">Drop your PDF here</h2>
                                 <p class="text-fn-text3 text-sm mb-4">or click to browse</p>
@@ -71,7 +65,6 @@
                                 <input type="file" id="file-input" accept=".pdf,application/pdf"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
-
                             {{-- File preview --}}
                             <div id="file-preview"
                                 class="hidden p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl flex items-center gap-3">
@@ -86,12 +79,13 @@
                                         <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
                                         <path d="M17 12h3" />
                                         <path d="M21 8h-4v8" />
-                                    </svg></div>
+                                    </svg>
+                                </div>
                                 <div class="flex-1 min-w-0">
                                     <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                                 </div>
-                                <button type="button" id="remove-file"
+                                <button type="button" id="remove-file" aria-label="Remove PDF"
                                     class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -100,7 +94,6 @@
                                     </svg>
                                 </button>
                             </div>
-
                             {{-- Watermark type toggle --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Type</label>
@@ -137,10 +130,8 @@
                                     </button>
                                 </div>
                             </div>
-
                             {{-- TEXT options --}}
                             <div id="text-options" class="space-y-3">
-
                                 {{-- Watermark text --}}
                                 <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                     <label for="opt-text"
@@ -157,7 +148,6 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                                 {{-- Color + Font size --}}
                                 <div class="grid grid-cols-2 gap-3">
                                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -177,7 +167,7 @@
                                             @foreach($colors as [$cval, $chex])
                                             <button type="button"
                                                 class="color-btn {{ $cval === 'grey' ? 'active' : '' }} w-7 h-7 rounded-lg border-2 transition-all hover:scale-110"
-                                                data-color="{{ $cval }}"
+                                                data-color="{{ $cval }}" aria-label="{{ ucfirst($cval) }}"
                                                 style="background:{{ $chex }}; border-color: {{ $cval === 'grey' ? '#6b7280' : 'transparent' }}"
                                                 title="{{ ucfirst($cval) }}">
                                             </button>
@@ -196,9 +186,7 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>{{-- /text-options --}}
-
                             {{-- IMAGE options --}}
                             <div id="image-options" class="hidden space-y-3">
                                 <div id="img-drop-zone"
@@ -227,7 +215,7 @@
                                         <p class="font-semibold text-sm truncate" id="img-name">logo.png</p>
                                         <p class="text-fn-text3 text-sm mt-0.5" id="img-meta">—</p>
                                     </div>
-                                    <button type="button" id="remove-img"
+                                    <button type="button" id="remove-img" aria-label="Remove watermark image"
                                         class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
@@ -238,12 +226,9 @@
                                     </button>
                                 </div>
                             </div>{{-- /image-options --}}
-
                         </div>{{-- /left col --}}
-
                         {{-- ── RIGHT: Shared options + Live Preview ── --}}
                         <div class="space-y-4">
-
                             {{-- Live preview --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <p class="text-sm font-semibold text-fn-text2 mb-3">Live Preview</p>
@@ -271,7 +256,6 @@
                             <p class="text-fn-text3 text-sm mt-2 text-center">Approximate preview — actual output may
                                 vary</p>
                         </div>
-
                         {{-- Position --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-2">Position</label>
@@ -292,7 +276,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                         {{-- Opacity + Angle --}}
                         <div class="grid grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
@@ -316,7 +299,6 @@
                                 </div>
                             </div>
                         </div>
-
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-1.5">
@@ -328,10 +310,8 @@
                             <p class="text-fn-text3 text-sm mt-1.5">Comma-separated page numbers · leave blank to
                                 watermark all pages</p>
                         </div>
-
                     </div>{{-- /right col --}}
                 </div>{{-- /grid --}}
-
                 {{-- Error banner --}}
                 <div id="upload-error"
                     class="hidden mt-5 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
@@ -343,7 +323,6 @@
                     </svg>
                     <span id="error-text">Something went wrong.</span>
                 </div>
-
                 {{-- Action button --}}
                 <button id="action-btn" type="button" disabled
                     class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -355,9 +334,7 @@
                     </svg>
                     Apply Watermark
                 </button>
-
             </div>{{-- /state-upload --}}
-
             {{-- ── STATE: Processing ── --}}
             <div id="state-converting" class="hidden text-center py-6">
                 <div class="flex items-center justify-center gap-5 mb-8">
@@ -371,7 +348,8 @@
                             <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
                             <path d="M17 12h3" />
                             <path d="M21 8h-4v8" />
-                        </svg></div>
+                        </svg>
+                    </div>
                     <div class="flex gap-1">
                         <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                             style="animation-delay:0s"></span>
@@ -390,7 +368,8 @@
                             <path d="M6 9h4" />
                             <path d="M8 9v6" />
                             <path d="M13 15v-6l2 3l2 -3v6" />
-                        </svg></div>
+                        </svg>
+                    </div>
                 </div>
                 <h2 class="text-xl font-bold mb-2">Applying watermark…</h2>
                 <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
@@ -430,7 +409,6 @@
                     @endforeach
                 </div>
             </div>
-
             {{-- ── STATE: Download ── --}}
             <div id="state-download" class="hidden text-center py-6">
                 <div
@@ -441,10 +419,10 @@
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                         <path d="M9 12l2 2l4 -4" />
-                    </svg></div>
+                    </svg>
+                </div>
                 <h2 class="text-2xl font-bold mb-2">Watermark Applied!</h2>
                 <p class="text-fn-text2 text-sm mb-8">Your watermarked PDF is ready.</p>
-
                 <div
                     class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                     <div
@@ -457,14 +435,14 @@
                             <path d="M6 9h4" />
                             <path d="M8 9v6" />
                             <path d="M13 15v-6l2 3l2 -3v6" />
-                        </svg></div>
+                        </svg>
+                    </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">watermarked.pdf</p>
                         <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
                     </div>
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                 </div>
-
                 <a id="download-link" href="#" download="watermarked.pdf"
                     class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                     style="background: oklch(67% 0.18 162);">
@@ -476,7 +454,6 @@
                     </svg>
                     Download Watermarked PDF
                 </a>
-
                 <div class="flex items-center justify-center gap-3 flex-wrap">
                     <button type="button" onclick="resetConverter()"
                         class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
@@ -492,7 +469,6 @@
                         All tools
                     </a>
                 </div>
-
                 <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
@@ -501,13 +477,10 @@
                     Your file is encrypted and permanently deleted after processing.
                 </p>
             </div>
-
         </div>{{-- /card body --}}
     </div>{{-- /card --}}
     </div>
 </section>
-
-
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
@@ -525,7 +498,8 @@
             ['What opacity should I choose?', '0.3 is the default — balanced and visible without obscuring content. Use
             0.1 for a very subtle watermark, 0.5 for medium visibility, or 0.8+ for a heavy stamp. 1.0 is fully
             opaque.'],
-            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted
+            ['Is my PDF safe and private?', 'All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently
+            deleted
             after processing. We never read, share or store your content.'],
             ];
             @endphp
@@ -548,13 +522,9 @@
         </div>
     </div>
 </section>
-
 <x-tools-content :tool="$tool" />
-
-
 {{-- ══ RELATED TOOLS ══ --}}
 <x-tools-section />
-
 @push('styles')
 {{-- ══ STYLES ══ --}}
 <style>
@@ -592,26 +562,166 @@
         outline-offset: 2px;
     }
 
+    *
+
     /* Preview positioning */
-    #preview-watermark {
+    * #preview-watermark {
         transition: all .2s ease;
     }
 </style>
 @endpush
 
+<style>
+    #watermark-tool .grid>*,
+    #watermark-tool .flex-1 {
+        min-width: 0
+    }
+
+    #watermark-tool input {
+        max-width: 100%;
+        box-sizing: border-box
+    }
+
+    #watermark-tool .wm-type-btn.active,
+    #watermark-tool .pos-btn.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        box-shadow: 0 2px 8px #2563eb33
+    }
+
+    #watermark-tool .color-btn.active {
+        outline: 3px solid #2563eb;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 1px #fff
+    }
+
+    #watermark-tool button:focus-visible,
+    #watermark-tool a:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px
+    }
+
+    #watermark-tool input:focus-visible {
+        outline: 2px solid #60a5fa;
+        outline-offset: 2px
+    }
+
+    #watermark-tool #drop-zone:focus-within,
+    #watermark-tool #img-drop-zone:focus-within {
+        border-color: #2563eb;
+        background: #2563eb12
+    }
+
+    #watermark-tool #file-name,
+    #watermark-tool #img-name,
+    #watermark-tool #output-name,
+    #watermark-tool #error-text {
+        white-space: normal;
+        overflow-wrap: anywhere
+    }
+
+    #watermark-tool #preview-canvas-wrap {
+        max-width: 100%;
+        overflow: hidden
+    }
+
+    #watermark-tool .step-dot {
+        flex-shrink: 0
+    }
+
+    @media(max-width:767px) {
+        #watermark-tool .justify-between {
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    }
+
+    @media(max-width:639px) {
+
+        #watermark-tool button,
+        #watermark-tool #download-link {
+            min-height: 34px;
+            font-size: 12px;
+            padding: 7px 9px;
+            gap: 6px
+        }
+
+        #watermark-tool .color-btn {
+            width: 28px;
+            height: 28px;
+            min-height: 28px;
+            padding: 0
+        }
+
+        #watermark-tool #color-grid {
+            gap: 8px
+        }
+
+        #watermark-tool input[type=text],
+        #watermark-tool input[type=number] {
+            font-size: 16px
+        }
+
+        #watermark-tool .step-item {
+            gap: 4px
+        }
+
+        #watermark-tool .step-label {
+            font-size: 11px;
+            line-height: 1.3
+        }
+
+        #watermark-tool .step-item .step-dot {
+            width: 22px;
+            height: 22px
+        }
+
+        #watermark-tool .step-item+div {
+            width: 12px;
+            margin-left: 4px;
+            margin-right: 4px;
+            flex-shrink: 0
+        }
+
+        #watermark-tool #file-preview,
+        #watermark-tool #img-preview-wrap {
+            gap: 8px;
+            padding: 12px
+        }
+
+        #watermark-tool #remove-file,
+        #watermark-tool #remove-img {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0
+        }
+
+        #watermark-tool #drop-zone .inline-flex {
+            font-size: 12px;
+            padding: 8px 12px
+        }
+    }
+</style>
+
 @push('footer')
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
             // ── State ──
             let selectedFile = null;
             let selectedImage = null;
             let blobUrl = null;
             let wmType = 'text'; // 'text' | 'image'
+            function syncPressedStates() {
+                document.querySelectorAll('#watermark-tool .wm-type-btn, #watermark-tool .pos-btn, #watermark-tool .color-btn').forEach(button => {
+                    button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+                });
+            }
+            syncPressedStates();
             let activeColor = 'grey';
             let activePos = 'center';
-
             const colorHexMap = {
                 red: '#ef4444',
                 blue: '#3b82f6',
@@ -621,13 +731,13 @@
                 yellow: '#eab308',
                 white: '#ffffff',
             };
-
             // ── Watermark type toggle ──
             document.querySelectorAll('.wm-type-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     wmType = btn.dataset.type;
                     document.querySelectorAll('.wm-type-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
+                    syncPressedStates();
                     document.getElementById('text-options').classList.toggle('hidden', wmType !== 'text');
                     document.getElementById('image-options').classList.toggle('hidden', wmType !== 'image');
                     document.getElementById('angle-wrap').style.opacity = '1';
@@ -637,12 +747,10 @@
                     updateActionBtn();
                 });
             });
-
             // ── PDF drop zone ──
             const dropZone = document.getElementById('drop-zone');
             const fileInput = document.getElementById('file-input');
             const filePreview = document.getElementById('file-preview');
-
             ['dragenter', 'dragover'].forEach(evt => {
                 dropZone.addEventListener(evt, e => {
                     e.preventDefault();
@@ -673,7 +781,6 @@
                 updateActionBtn();
                 hideError();
             });
-
             function handlePdf(file) {
                 hideError();
                 if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
@@ -692,12 +799,10 @@
                 dropZone.classList.add('has-file');
                 updateActionBtn();
             }
-
             // ── Image drop zone ──
             const imgDropZone = document.getElementById('img-drop-zone');
             const imgInput = document.getElementById('img-input');
             const imgPreviewWrap = document.getElementById('img-preview-wrap');
-
             ['dragenter', 'dragover'].forEach(evt => {
                 imgDropZone.addEventListener(evt, e => {
                     e.preventDefault();
@@ -727,7 +832,6 @@
                 document.getElementById('preview-img').src = '';
                 updateActionBtn();
             });
-
             function handleImage(file) {
                 hideError();
                 if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
@@ -752,7 +856,6 @@
                 imgDropZone.classList.add('has-file');
                 updateActionBtn();
             }
-
             // ── Preset text buttons ──
             document.querySelectorAll('.preset-text-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -760,7 +863,6 @@
                     updatePreview();
                 });
             });
-
             // ── Color buttons ──
             document.querySelectorAll('.color-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -769,23 +871,23 @@
                         b.style.borderColor = 'transparent';
                     });
                     btn.classList.add('active');
+                    syncPressedStates();
                     btn.style.borderColor = btn.style.backgroundColor;
                     activeColor = btn.dataset.color;
                     document.getElementById('color-label').textContent = btn.title;
                     updatePreview();
                 });
             });
-
             // ── Position grid ──
             document.querySelectorAll('.pos-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
+                    syncPressedStates();
                     activePos = btn.dataset.pos;
                     updatePreview();
                 });
             });
-
             // ── Sliders ──
             document.getElementById('opt-opacity').addEventListener('input', e => {
                 document.getElementById('opacity-val').textContent = parseFloat(e.target.value).toFixed(2);
@@ -800,7 +902,6 @@
                 updatePreview();
             });
             document.getElementById('opt-text').addEventListener('input', updatePreview);
-
             // ── Live preview ──
             function updatePreview() {
                 const previewWM = document.getElementById('preview-watermark');
@@ -808,7 +909,6 @@
                 const previewImg = document.getElementById('preview-img');
                 const opacity = parseFloat(document.getElementById('opt-opacity').value);
                 const angle = parseInt(document.getElementById('opt-angle').value);
-
                 // Position mapping → flexbox alignment
                 const posMap = {
                     'center': ['center', 'center'],
@@ -825,7 +925,6 @@
                 previewWM.style.alignItems = alignItems;
                 previewWM.style.justifyContent = justifyContent;
                 previewWM.style.padding = activePos === 'center' ? '0' : '16px';
-
                 if (wmType === 'text') {
                     const text = document.getElementById('opt-text').value || 'WATERMARK';
                     const fontSize = parseInt(document.getElementById('opt-font-size').value);
@@ -839,17 +938,14 @@
                     previewImg.style.transform = `rotate(${angle}deg)`;
                 }
             }
-
             function hexWithOpacity(hex, opacity) {
                 const r = parseInt(hex.slice(1, 3), 16);
                 const g = parseInt(hex.slice(3, 5), 16);
                 const b = parseInt(hex.slice(5, 7), 16);
                 return `rgba(${r},${g},${b},${opacity})`;
             }
-
             // Init preview
             updatePreview();
-
             // ── Refresh convert button ──
             function updateActionBtn() {
                 const btn = document.getElementById('action-btn');
@@ -859,20 +955,16 @@
                     btn.disabled = !selectedFile || !selectedImage;
                 }
             }
-
             // ── Convert ──
             document.getElementById('action-btn').addEventListener('click', startConversion);
-
             async function startConversion() {
                 hideError();
                 showState('converting');
                 updateStepIndicator(2);
-
                 const opacity = parseFloat(document.getElementById('opt-opacity').value);
                 const angle = parseInt(document.getElementById('opt-angle').value);
                 const pages = document.getElementById('opt-pages').value.trim();
                 const fileName = selectedFile.name.replace(/\.pdf$/i, '_watermarked.pdf');
-
                 const fd = new FormData();
                 fd.append('file', selectedFile);
                 fd.append('watermark_type', wmType);
@@ -880,7 +972,6 @@
                 fd.append('opacity', opacity);
                 fd.append('angle', angle);
                 if (pages) fd.append('pages', pages);
-
                 if (wmType === 'text') {
                     fd.append('watermark_text', document.getElementById('opt-text').value.trim() || 'CONFIDENTIAL');
                     fd.append('color', activeColor);
@@ -888,10 +979,8 @@
                 } else {
                     fd.append('watermark_image', selectedImage);
                 }
-
                 setProcessStep('proc-1', 'active');
                 animateProgress(0, 25, 700, 'Uploading & reading PDF…');
-
                 const t2 = setTimeout(() => {
                     setProcessStep('proc-1', 'done');
                     setProcessStep('proc-2', 'active');
@@ -907,7 +996,6 @@
                     setProcessStep('proc-4', 'active');
                     animateProgress(78, 90, 600, 'Generating output PDF…');
                 }, 2700);
-
                 try {
                     const res = await fetch('https://api.filenewer.com/api/tools/pdf-watermark', {
                         method: 'POST',
@@ -923,14 +1011,11 @@
                     const blob = await res.blob();
                     if (blobUrl) URL.revokeObjectURL(blobUrl);
                     blobUrl = URL.createObjectURL(blob);
-
                     const link = document.getElementById('download-link');
                     link.href = blobUrl;
                     link.download = fileName;
-
                     document.getElementById('output-name').textContent = fileName;
                     document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
-
                     setProcessStep('proc-3', 'done');
                     setProcessStep('proc-4', 'done');
                     animateProgress(90, 100, 300, 'Done!');
@@ -938,7 +1023,6 @@
                         showState('download');
                         updateStepIndicator(3);
                     }, 500);
-
                 } catch (err) {
                     clearTimeout(t2);
                     clearTimeout(t3);
@@ -948,7 +1032,6 @@
                     updateStepIndicator(1);
                 }
             }
-
             // ── Helpers ──
             function showState(state) {
                 ['upload', 'converting', 'download'].forEach(s => {
@@ -956,7 +1039,6 @@
                 });
                 if (state === 'download') document.getElementById('state-download').classList.add('bounce-in');
             }
-
             function updateStepIndicator(active) {
                 [1, 2, 3].forEach(n => {
                     const el = document.getElementById('step-' + n);
@@ -965,7 +1047,6 @@
                     if (n === active) el.classList.add('active');
                 });
             }
-
             function setProcessStep(id, state) {
                 const el = document.getElementById(id);
                 if (!el) return;
@@ -987,11 +1068,9 @@
                     dot.style.background = 'oklch(67% 0.18 162/15%)';
                 }
             }
-
             function animateProgress(from, to, duration, label) {
                 document.getElementById('progress-label').textContent = label;
                 const start = performance.now();
-
                 function step(now) {
                     const t = Math.min((now - start) / duration, 1);
                     const pct = Math.round(from + (to - from) * t);
@@ -1001,7 +1080,6 @@
                 }
                 requestAnimationFrame(step);
             }
-
             window.resetConverter = function() {
                 if (blobUrl) {
                     URL.revokeObjectURL(blobUrl);
@@ -1050,6 +1128,7 @@
                 activePos = 'center';
                 document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
                 document.querySelector('.pos-btn[data-pos="center"]').classList.add('active');
+                syncPressedStates();
                 updatePreview();
                 updateActionBtn();
                 hideError();
@@ -1058,26 +1137,22 @@
                 animateProgress(0, 0, 0, 'Starting…');
                 ['proc-1', 'proc-2', 'proc-3', 'proc-4'].forEach(id => setProcessStep(id, ''));
             };
-
             function showError(msg) {
                 const el = document.getElementById('upload-error');
                 document.getElementById('error-text').textContent = msg;
                 el.classList.remove('hidden');
                 el.classList.add('flex');
             }
-
             function hideError() {
                 const el = document.getElementById('upload-error');
                 el.classList.add('hidden');
                 el.classList.remove('flex');
             }
-
             function formatBytes(bytes) {
                 if (bytes < 1024) return bytes + ' B';
                 if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
                 return (bytes / 1048576).toFixed(1) + ' MB';
             }
-
             // ── FAQ ──
             document.querySelectorAll('.faq-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -1092,9 +1167,7 @@
                     }
                 });
             });
-
         }); // end DOMContentLoaded
 </script>
 @endpush
-
 @endsection
