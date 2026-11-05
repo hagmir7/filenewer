@@ -27,7 +27,7 @@ class ToolController extends Controller
 
         // If URL contains /tools
         if ($request->is('tools') || $request->is('tools/*')) {
-            $title = 'Free Online File Tools - PDF, Image, Document & Data Utilities | Filenewer';
+            $title = 'Free Online File Tools - PDF, Image & Document | Filenewer';
             $description = 'Explore 60+free online file tools to convert, compress, edit, merge, split, generate, and optimize PDFs, images, documents, spreadsheets, videos, and more. Fast, secure, and no registration required.';
         }
 

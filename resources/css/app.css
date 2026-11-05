@@ -161,3 +161,68 @@ input[type="checkbox"]:checked {
 .delay-5 {
     animation-delay: 0.5s;
 }
+
+
+
+
+@layer components {
+    .rich-body {
+        @apply prose prose-base prose-invert mx-auto max-w-5xl px-4 sm:px-6 text-gray-300 leading-6 sm:prose-lg sm:leading-7 break-words;
+
+        /* Headings */
+        @apply prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-white prose-headings:scroll-mt-24;
+
+        @apply prose-h1:text-2xl prose-h1:leading-tight prose-h1:mt-0 prose-h1:mb-4 sm:prose-h1:text-3xl;
+
+        @apply prose-h2:text-xl prose-h2:leading-tight prose-h2:mt-7 prose-h2:mb-3 prose-h2:border-b prose-h2:border-gray-800 prose-h2:pb-2 sm:prose-h2:text-2xl;
+
+        @apply prose-h3:text-lg prose-h3:leading-snug prose-h3:mt-5 prose-h3:mb-2 sm:prose-h3:text-xl;
+
+        @apply prose-h4:text-base prose-h4:leading-snug prose-h4:mt-4 prose-h4:mb-2 sm:prose-h4:text-lg;
+
+        @apply [&_h5]:text-base [&_h5]:font-semibold [&_h5]:leading-snug [&_h5]:text-gray-100 [&_h5]:mt-4 [&_h5]:mb-2;
+
+        @apply [&_h6]:text-base [&_h6]:font-semibold [&_h6]:leading-snug [&_h6]:text-gray-200 [&_h6]:mt-4 [&_h6]:mb-2;
+
+        /* Text */
+        @apply prose-p:text-gray-300 prose-p:leading-6 prose-p:my-3 sm:prose-p:leading-7;
+
+        @apply prose-strong:font-semibold prose-strong:text-white prose-em:text-gray-200 [&_del]:text-gray-500 [&_s]:text-gray-500 [&_u]:underline-offset-4;
+
+        @apply [&_mark]:rounded [&_mark]:bg-yellow-200 [&_mark]:px-1 [&_mark]:py-0.5 [&_mark]:text-gray-900;
+
+        /* Links */
+        @apply prose-a:text-blue-400 prose-a:font-medium prose-a:no-underline prose-a:underline-offset-4 hover:prose-a:text-blue-300 hover:prose-a:underline;
+
+        /* Lists */
+        @apply prose-ul:list-disc prose-ul:my-3 prose-ul:ps-5 prose-ol:list-decimal prose-ol:my-3 prose-ol:ps-5 prose-li:my-1 prose-li:ps-1 prose-li:text-gray-300 prose-li:leading-6 sm:prose-li:leading-7 marker:text-blue-400 [&_li>p]:my-1 [&_li>ul]:my-1 [&_li>ol]:my-1;
+
+        /* Task lists */
+        @apply [&_input[type=checkbox]]:size-4 [&_input[type=checkbox]]:me-2 [&_input[type=checkbox]]:align-middle [&_input[type=checkbox]]:accent-blue-500 [&_.contains-task-list]:list-none [&_.contains-task-list]:ps-0 [&_.task-list-item]:list-none [&_ul[data-type=taskList]]:list-none [&_ul[data-type=taskList]]:ps-0 [&_li[data-type=taskItem]]:flex [&_li[data-type=taskItem]]:items-start [&_li[data-type=taskItem]]:gap-2 [&_li[data-type=taskItem]>label]:shrink-0 [&_li[data-type=taskItem]>div]:min-w-0 [&_li[data-type=taskItem]>div]:flex-1 [&_li[data-type=taskItem]>div>p]:mt-0;
+
+        /* Blockquote */
+        @apply prose-blockquote:my-5 prose-blockquote:border-s-4 prose-blockquote:border-blue-500 prose-blockquote:bg-gray-900/60 prose-blockquote:px-4 prose-blockquote:py-2 prose-blockquote:rounded-e-lg prose-blockquote:text-gray-300 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:leading-6 sm:prose-blockquote:px-6 sm:prose-blockquote:leading-7 [&_blockquote_p]:my-2 [&_blockquote_p:first-of-type]:before:content-none [&_blockquote_p:last-of-type]:after:content-none;
+
+        /* Code */
+        @apply prose-code:rounded prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-blue-300 prose-code:text-[0.875em] prose-code:font-normal prose-code:break-words prose-code:before:content-none prose-code:after:content-none;
+
+        @apply prose-pre:my-5 prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:rounded-xl prose-pre:border prose-pre:border-gray-800 prose-pre:bg-gray-950 prose-pre:p-4 prose-pre:text-sm prose-pre:leading-6 sm:prose-pre:p-5 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-inherit [&_pre_code]:text-[length:inherit] [&_pre_code]:whitespace-pre [&_pre_code]:break-normal;
+
+        /* Tables */
+        @apply prose-table:my-5 prose-table:block prose-table:max-w-full prose-table:overflow-x-auto prose-table:rounded-lg prose-table:border prose-table:border-gray-800 prose-table:border-separate prose-table:border-spacing-0 prose-table:text-base prose-table:leading-6 prose-thead:bg-gray-800/70 prose-th:min-w-32 prose-th:px-4 prose-th:py-3 prose-th:text-white prose-th:font-semibold prose-th:align-top prose-th:border-b prose-th:border-gray-700 prose-td:min-w-32 prose-td:px-4 prose-td:py-3 prose-td:text-gray-300 prose-td:align-top prose-td:border-b prose-td:border-gray-800 [&_tbody_tr:nth-child(even)]:bg-gray-900/40 [&_tbody_tr:last-child_td]:border-b-0 [&_th_p]:m-0 [&_td_p]:m-0;
+
+        /* Media */
+        @apply prose-img:mx-auto prose-img:my-5 prose-img:max-w-full prose-img:h-auto prose-img:rounded-xl prose-figure:my-5 prose-figcaption:mt-2 prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:leading-5 prose-figcaption:text-gray-400 [&_figure_img]:my-0;
+
+        @apply [&_video]:my-5 [&_video]:w-full [&_video]:rounded-xl [&_audio]:my-5 [&_audio]:w-full [&_iframe]:my-5 [&_iframe]:max-w-full [&_iframe]:rounded-xl [&_iframe[src*='youtube.com']]:aspect-video [&_iframe[src*='youtube.com']]:h-auto [&_iframe[src*='youtube.com']]:w-full [&_iframe[src*='youtube-nocookie.com']]:aspect-video [&_iframe[src*='youtube-nocookie.com']]:h-auto [&_iframe[src*='youtube-nocookie.com']]:w-full [&_iframe[src*='player.vimeo.com']]:aspect-video [&_iframe[src*='player.vimeo.com']]:h-auto [&_iframe[src*='player.vimeo.com']]:w-full;
+
+        /* Misc */
+        @apply prose-hr:my-6 prose-hr:border-gray-800;
+
+        @apply [&_details]:my-4 [&_details]:rounded-lg [&_details]:border [&_details]:border-gray-800 [&_details]:bg-gray-900/40 [&_details]:p-4 [&_summary]:cursor-pointer [&_summary]:font-semibold [&_summary]:text-white [&_details[open]>summary]:mb-2;
+
+        @apply prose-kbd:rounded prose-kbd:border prose-kbd:border-gray-700 prose-kbd:bg-gray-800 prose-kbd:px-1.5 prose-kbd:py-0.5 prose-kbd:text-sm prose-kbd:text-gray-100 prose-kbd:shadow-none;
+
+        @apply [&>:first-child]:mt-0 [&>:last-child]:mb-0;
+    }
+}
