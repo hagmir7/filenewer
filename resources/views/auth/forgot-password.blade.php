@@ -76,8 +76,9 @@
                     class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <p class="text-sm text-fn-text2 leading-relaxed">Reset links expire after 60 minutes and can only be
-                    used once for your security.</p>
+               <p class="text-sm text-fn-text2 leading-relaxed">
+                For your security, reset links expire after 60 minutes and can only be used once.
+            </p>
             </div>
         </div>
 

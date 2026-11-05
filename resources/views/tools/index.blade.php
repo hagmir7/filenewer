@@ -15,7 +15,7 @@
                 @elseif(request()->is('tools') || request()->is('tools/*'))
                 Free Online File Tools for <br> PDF, Images, Documents & More
                 @else
-                Filenewer - The Fastest Online File Tools,<br>
+                Free Online File Tools – PDF, Word, Excel & Image,<br>
                 For Modern Work
                 @endif
             </h1>
@@ -66,9 +66,8 @@
 {{-- ══ MAIN LAYOUT ══ --}}
 <div class="max-w-7xl mx-auto px-6 pb-24">
     <div class="flex gap-8">
-
         {{-- ── TOOL GRID ── --}}
-        <main class="flex-1 min-w-0 pt-2">
+        <div class="flex-1 min-w-0 pt-2">
 
             {{-- Mobile filter button --}}
             <div class="flex items-center justify-between mb-5 lg:hidden">
@@ -84,21 +83,20 @@
             </div>
 
             {{-- Sort row --}}
-            <div class="hidden lg:flex items-center justify-between mb-7">
-                <p class="text-fn-text3 text-sm" id="result-count">
-                    Showing <strong class="text-fn-text font-semibold">{{ $totalTools }}</strong> tools
-                </p>
-                <div class="flex items-center gap-2">
-                    <span class="text-fn-text3 text-sm">Sort:</span>
-                    <select id="sort-select"
-                        class="bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-medium rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/50 cursor-pointer">
-                        <option value="popular">Most Popular</option>
-                        <option value="newest">Newest First</option>
-                        <option value="az">A → Z</option>
-                    </select>
-                </div>
+           <div class="hidden lg:flex items-center justify-between mb-7">
+            <p class="text-fn-text3 text-sm" id="result-count">
+                Showing <strong class="text-fn-text font-semibold">{{ $totalTools }}</strong> tools
+            </p>
+            <div class="flex items-center gap-2">
+                <label for="sort-select" class="text-fn-text3 text-sm">Sort:</label>
+                <select id="sort-select" aria-label="Sort tools"
+                    class="bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-medium rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/50 cursor-pointer">
+                    <option value="popular">Most Popular</option>
+                    <option value="newest">Newest First</option>
+                    <option value="az">A → Z</option>
+                </select>
             </div>
-
+        </div>
             {{-- ── CATEGORIES LOOP ── --}}
             @foreach($categories as $category)
             @if($category->tools->isNotEmpty())
@@ -172,7 +170,7 @@
             @endif
             @endforeach
 
-        </main>
+        </div>
     </div>
 </div>
 

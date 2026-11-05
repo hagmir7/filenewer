@@ -22,7 +22,7 @@ class ToolController extends Controller
         $categories = $categories->get();
 
         // Default SEO
-        $title = 'Filenewer - The Fastest Online File Tools, For Modern Work';
+        $title = 'Free Online File Tools – PDF, Word, Excel & Image | Filenewer';
         $description = 'Convert, compress, edit and generate files instantly. 60+free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
 
         // If URL contains /tools
