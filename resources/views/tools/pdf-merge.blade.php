@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @pushOnce('scripts', 'tool-ld-json')
-    <x-ld-json :tool="$tool" />
+<x-ld-json :tool="$tool" />
 @endPushOnce
 @section('content')
 <x-tool-hero :tool="$tool" />
@@ -48,15 +48,16 @@
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
                             Choose PDF Files
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 20 files · 200MB limi ·</p>
+                        <p class="text-fn-text3 text-sm mt-5">Max 20 files · 200MB total</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf" multiple
+                            aria-label="Upload PDF files"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
                     {{-- File list --}}
@@ -65,7 +66,7 @@
                             <p class="text-sm font-semibold text-fn-text2 flex items-center gap-2">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="text-fn-blue-l">
+                                    class="text-fn-blue-l" aria-hidden="true">
                                     <line x1="8" y1="6" x2="21" y2="6" />
                                     <line x1="8" y1="12" x2="21" y2="12" />
                                     <line x1="8" y1="18" x2="21" y2="18" />
@@ -73,17 +74,20 @@
                                     <line x1="3" y1="12" x2="3.01" y2="12" />
                                     <line x1="3" y1="18" x2="3.01" y2="18" />
                                 </svg>
-                                Drag rows to reorder · <span id="file-count" class="text-fn-blue-l">0 files</span>
+                                Reorder with the arrows or drag rows · <span id="file-count" class="text-fn-blue-l">0
+                                    files</span>
                             </p>
                             <button type="button" id="add-more-btn"
                                 class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-blue-l hover:text-white hover:bg-fn-blue border border-fn-blue/30 rounded-lg transition-all relative">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                    aria-hidden="true">
                                     <line x1="12" y1="5" x2="12" y2="19" />
                                     <line x1="5" y1="12" x2="19" y2="12" />
                                 </svg>
                                 Add more
                                 <input type="file" id="add-more-input" accept=".pdf,application/pdf" multiple
+                                    aria-label="Add more PDF files"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </button>
                         </div>
@@ -99,7 +103,8 @@
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-2 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Output File Name</label>
+                            <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">Output File
+                                Name</label>
                             <input type="text" id="opt-filename" value="merged" placeholder="merged"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder-fn-text3" />
                             <p class="text-fn-text3 text-sm mt-1">.pdf will be added automatically</p>
@@ -124,11 +129,11 @@
                         </div>
                     </div>
                     {{-- Error banner --}}
-                    <div id="upload-error"
+                    <div id="upload-error" role="alert"
                         class="hidden mt-4 items-center gap-3 px-4 py-3 bg-fn-red/8 border border-fn-red/25 rounded-xl text-sm text-fn-text2">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round"
-                            stroke-linejoin="round">
+                            stroke-width="2" class="text-fn-red shrink-0" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -139,7 +144,7 @@
                     <button id="merge-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
                         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M8 6H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3" />
                             <rect x="8" y="2" width="8" height="8" rx="1" />
                         </svg>
@@ -153,27 +158,29 @@
                             class="w-12 h-12 rounded-xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-2xl">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                stroke-linejoin="round" aria-hidden="true"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-                                <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
                             </svg>
                         </div>
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-2xl">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+                                stroke-linejoin="round" aria-hidden="true"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
-                                <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
                             </svg>
                         </div>
-                        <div class="flex gap-1">
+                        <div class="flex gap-1" aria-hidden="true">
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
                                 style="animation-delay:0s"></span>
                             <span class="w-2 h-2 rounded-full bg-fn-blue-l animate-bounce"
@@ -183,23 +190,29 @@
                         </div>
                         <div
                             class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip"
-                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                                style="vertical-align:-0.125em">
-                                <path
-                                    d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
                             </svg>
                         </div>
                     </div>
                     <h2 class="text-xl font-bold mb-2">Merging your files…</h2>
                     <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
                     <div class="max-w-md mx-auto mb-3">
-                        <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
+                        <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8"
+                            role="progressbar" aria-label="Merge progress" aria-valuemin="0" aria-valuemax="100"
+                            aria-valuenow="0" id="progress-bar">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
+                    <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8"
+                        aria-live="polite">
                         <span id="progress-label">Starting…</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
@@ -218,11 +231,11 @@
                                 class="step-dot w-5 h-5 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center shrink-0 transition-all duration-300">
                                 <svg class="check-icon hidden w-3 h-3 text-fn-green" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                                    stroke-linejoin="round">
+                                    stroke-linejoin="round" aria-hidden="true">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
                                 <svg class="spin-icon hidden w-3 h-3 text-fn-blue-l spin" viewBox="0 0 24 24"
-                                    fill="none">
+                                    fill="none" aria-hidden="true">
                                     <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
@@ -238,7 +251,7 @@
                         class="w-20 h-20 rounded-2xl bg-fn-green/12 border border-fn-green/25 flex items-center justify-center text-4xl mx-auto mb-5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+                            aria-hidden="true" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                             <path d="M9 12l2 2l4 -4" />
@@ -254,12 +267,15 @@
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
                             class="w-12 h-12 rounded-xl bg-fn-amber/12 border border-fn-amber/20 flex items-center justify-center text-2xl shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-paperclip"
-                                width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                                style="vertical-align:-0.125em">
-                                <path
-                                    d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" aria-hidden="true"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                                <path d="M17 12h3" />
+                                <path d="M21 8h-4v8" />
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
@@ -272,7 +288,7 @@
                         class="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-base rounded-xl transition-all hover:-translate-y-0.5 mb-4"
                         style="background: oklch(67% 0.18 162);">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
@@ -283,20 +299,21 @@
                         <button type="button" onclick="resetMerger()"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
                             Merge more files
                         </button>
-                        <a href=""
+                        <a href="{{ url('/tools') }}"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
                             All tools
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"
+                            aria-hidden="true">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
                         Your files are encrypted and permanently deleted after processing.
@@ -366,6 +383,11 @@
         box-sizing: border-box;
     }
 
+    #merge-pdf-tool .move-btn:disabled {
+        opacity: .3;
+        cursor: not-allowed;
+    }
+
     @media(max-width:639px) {
 
         #merge-pdf-tool button,
@@ -414,6 +436,8 @@
 {{-- ══ JAVASCRIPT ══ --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const MAX_FILES    = 20;
+        const MAX_TOTAL    = 200 * 1024 * 1024; // 200MB total
         const dropZone     = document.getElementById('drop-zone');
         const fileInput    = document.getElementById('file-input');
         const addMoreInput = document.getElementById('add-more-input');
@@ -422,6 +446,7 @@
         const fileListEl   = document.getElementById('file-list');
         const uploadError  = document.getElementById('upload-error');
         const errorText    = document.getElementById('error-text');
+        const progressBar  = document.getElementById('progress-bar');
         let files          = [];
         let expiryInterval = null;
         let dragSrcIndex   = null;
@@ -456,21 +481,30 @@
         // ── Add files ──
         function addFiles(newFiles) {
             hideError();
+            let total = files.reduce((s, x) => s + x.size, 0);
             for (const f of newFiles) {
                 if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) {
                     showError(`"${f.name}" is not a PDF file.`);
                     continue;
                 }
-                if (f.size > 50 * 1024 * 1024) {
-                    showError(`"${f.name}" exceeds the 200MB limit.`);
-                    continue;
-                }
-                if (files.length >= 20) {
+                if (files.length >= MAX_FILES) {
                     showError('Maximum 20 files allowed on the free plan.');
                     break;
                 }
+                if (total + f.size > MAX_TOTAL) {
+                    showError('Total size exceeds the 200MB limit.');
+                    break;
+                }
                 files.push(f);
+                total += f.size;
             }
+            renderFileList();
+        }
+        // ── Move a file up or down ──
+        function moveFile(from, to) {
+            if (to < 0 || to >= files.length || from === to) return;
+            const moved = files.splice(from, 1)[0];
+            files.splice(to, 0, moved);
             renderFileList();
         }
         // ── Render file list ──
@@ -493,39 +527,60 @@
                 li.className = 'file-row flex items-center gap-3 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl';
                 li.draggable = true;
                 li.dataset.index = idx;
+                const safeName = escHtml(file.name);
                 li.innerHTML = `
-                    <div class="drag-handle text-fn-text3 hover:text-fn-text2 shrink-0 transition-colors" title="Drag to reorder">
+                    <div class="drag-handle text-fn-text3 hover:text-fn-text2 shrink-0 transition-colors" title="Drag to reorder" aria-hidden="true">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/>
                         </svg>
                     </div>
-                    <div class="w-8 h-8 rounded-lg bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-lg shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
-    <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
-    <path d="M17 12h3" />
-    <path d="M21 8h-4v8" />
-</svg></div>
+                    <div class="w-8 h-8 rounded-lg bg-fn-red/10 border border-fn-red/20 flex items-center justify-center text-lg shrink-0" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2" />
+                        <path d="M3 12h2a2 2 0 1 0 0 -4h-2v8" />
+                        <path d="M17 12h3" />
+                        <path d="M21 8h-4v8" />
+                    </svg></div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-semibold text-sm truncate">${escHtml(file.name)}</p>
+                        <p class="font-semibold text-sm truncate">${safeName}</p>
                         <p class="text-fn-text3 text-sm">${formatBytes(file.size)}</p>
                     </div>
                     <span class="page-badge text-sm font-mono text-fn-text3 shrink-0">#${idx + 1}</span>
-                    <button type="button" data-remove="${idx}" class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                        </svg>
-                    </button>
+                    <div class="flex items-center shrink-0">
+                        <button type="button" data-move="up" aria-label="Move ${safeName} up" ${idx === 0 ? 'disabled' : ''}
+                            class="move-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-blue/10 text-fn-text3 hover:text-fn-blue-l transition-all">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+                        </button>
+                        <button type="button" data-move="down" aria-label="Move ${safeName} down" ${idx === files.length - 1 ? 'disabled' : ''}
+                            class="move-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-blue/10 text-fn-text3 hover:text-fn-blue-l transition-all">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <button type="button" data-remove aria-label="Remove ${safeName}"
+                            class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
                 `;
                 li.querySelector('[data-remove]').addEventListener('click', e => {
                     e.stopPropagation();
-                    files.splice(parseInt(e.currentTarget.dataset.remove), 1);
+                    files.splice(idx, 1);
                     renderFileList();
+                });
+                li.querySelector('[data-move="up"]').addEventListener('click', e => {
+                    e.stopPropagation();
+                    moveFile(idx, idx - 1);
+                });
+                li.querySelector('[data-move="down"]').addEventListener('click', e => {
+                    e.stopPropagation();
+                    moveFile(idx, idx + 1);
                 });
                 li.addEventListener('dragstart', e => {
                     dragSrcIndex = idx;
                     setTimeout(() => li.classList.add('dragging'), 0);
                     e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', String(idx));
                 });
                 li.addEventListener('dragend', () => {
                     li.classList.remove('dragging');
@@ -539,11 +594,9 @@
                 });
                 li.addEventListener('drop', e => {
                     e.preventDefault(); e.stopPropagation();
-                    const targetIndex = parseInt(li.dataset.index);
+                    const targetIndex = parseInt(li.dataset.index, 10);
                     if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
-                        const moved = files.splice(dragSrcIndex, 1)[0];
-                        files.splice(targetIndex, 0, moved);
-                        renderFileList();
+                        moveFile(dragSrcIndex, targetIndex);
                     }
                     dragSrcIndex = null;
                 });
@@ -582,14 +635,19 @@
                 animateProgress(75, 90, 1000, 'Finalising document…');
             }, 3600);
             try {
-                const res  = await fetch('', {
-                    method: 'POST',
-                    body:   formData,
+                const res = await fetch('', {
+                    method:  'POST',
+                    body:    formData,
+                    headers: { 'Accept': 'application/json' },
                 });
                 clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-                const data = await res.json();
+                let data = {};
+                try { data = await res.json(); } catch (_) {}
                 if (!res.ok || !data.success) {
-                    throw new Error(data.message || 'Merge failed. Please try again.');
+                    const fallback = res.status === 413
+                        ? 'Files are too large. Please upload smaller files.'
+                        : 'Merge failed. Please try again.';
+                    throw new Error(data.message || fallback);
                 }
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'done');
@@ -655,10 +713,11 @@
             document.getElementById('progress-label').textContent = label;
             const start = performance.now();
             function step(now) {
-                const t   = Math.min((now - start) / duration, 1);
+                const t   = duration === 0 ? 1 : Math.min((now - start) / duration, 1);
                 const pct = Math.round(from + (to - from) * t);
                 document.getElementById('progress-fill').style.width = pct + '%';
                 document.getElementById('progress-pct').textContent  = pct + '%';
+                progressBar.setAttribute('aria-valuenow', pct);
                 if (t < 1) requestAnimationFrame(step);
             }
             requestAnimationFrame(step);
@@ -707,15 +766,18 @@
         }
         // ── FAQ accordion ──
         document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.setAttribute('aria-expanded', 'false');
             btn.addEventListener('click', () => {
                 const body   = btn.nextElementSibling;
                 const icon   = btn.querySelector('.faq-icon');
                 const isOpen = !body.classList.contains('hidden');
                 document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
                 document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+                document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
                 if (!isOpen) {
                     body.classList.remove('hidden');
                     icon.style.transform = 'rotate(180deg)';
+                    btn.setAttribute('aria-expanded', 'true');
                 }
             });
         });
