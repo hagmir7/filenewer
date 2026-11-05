@@ -1,9 +1,9 @@
 @extends('layouts.base')
 
 
-@push('scripts')
-<x-ld-json :tool="$tool" />
-@endpush
+@pushOnce('scripts', 'tool-ld-json')
+    <x-ld-json :tool="$tool" />
+@endPushOnce
 
 @section('content')
 

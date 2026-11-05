@@ -1,37 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
-
-<head>
-    @php
+@php
     $baseUrl = rtrim(config('app.url'), '/');
     $canonical = $baseUrl . request()->getPathInfo();
     $pageTitle = $title ?? 'Filenewer – Online File Tools & Converters';
-    $pageDescription = Str::limit($description ?? 'Filenewer is your all-in-one platform for online file tools: convert,
-    generate, compress, and process business documents fast and securely. No install needed.', 169, '');
-    @endphp
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- SEO Meta -->
-    <title>{{ $pageTitle }}</title>
-    <meta name="description" content="{{ $pageDescription }}" />
-    <meta name="keywords" content="{{ $tags ?? 'online file tools, file converter online, business document generator, PDF tools online, secure file processing, free file tools' }}" />
-    <link rel="canonical" href="{{ $canonical }}" />
-    <meta property="og:title" content="{{ $pageTitle }}" />
-    <meta property="og:description" content="{{ $pageDescription }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{ $baseUrl }}/filenewer-thumbnail.png">
-    <meta property="og:url" content="{{ $canonical }}" />
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta property="og:site_name" content="Filenewer" />
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{{ $pageTitle }}" />
-    <meta name="twitter:description" content="{{ $pageDescription }}" />
-    <meta name="twitter:image" content="{{ $baseUrl }}/filenewer-thumbnail.png" />
-
-    @if (request()->is('/'))
-    <script type="application/ld+json">
-        {!! json_encode([
+    $rawDescription = $description ?? 'Filenewer is your all-in-one platform for online file tools: convert, generate, compress, and process business documents fast and securely. No install needed.';
+    // Strip tags, collapse newlines/spaces, cut at a word boundary
+    $pageDescription = Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($rawDescription))), 160, '…', preserveWords: true);
+    $homeSchema = null;
+    if (request()->is('/')) {
+        $homeSchema = [
             '@context' => 'https://schema.org',
             '@graph' => [
                 [
@@ -40,21 +16,53 @@
                     'url' => $baseUrl . '/',
                     'name' => 'Filenewer',
                     'alternateName' => ['Filenewer.com'],
+                    'publisher' => ['@id' => $baseUrl . '/#organization'],
                 ],
                 [
                     '@type' => 'Organization',
                     '@id' => $baseUrl . '/#organization',
                     'name' => 'Filenewer',
                     'url' => $baseUrl . '/',
-                    'logo' => $baseUrl . '/filenewer-logo.svg',
+                    'logo' => [
+                        '@type' => 'ImageObject',
+                        'url' => $baseUrl . '/filenewer-logo.svg',
+                    ],
                 ],
             ],
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
-    </script>
+        ];
+    }
+@endphp
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}" />
+    <link rel="canonical" href="{{ $canonical }}" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <meta property="og:title" content="{{ $pageTitle }}" />
+    <meta property="og:description" content="{{ $pageDescription }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ $canonical }}" />
+    <meta property="og:site_name" content="Filenewer" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="{{ $baseUrl }}/filenewer-thumbnail.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $pageTitle }}" />
+    <meta name="twitter:description" content="{{ $pageDescription }}" />
+    <meta name="twitter:image" content="{{ $baseUrl }}/filenewer-thumbnail.png" />
+
+    @if ($homeSchema)
+        <script type="application/ld+json">{!! json_encode($homeSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
     @endif
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Preconnect for performance -->
+
     <meta name="google-adsense-account" content="ca-pub-5306320936731470">
     <meta name="google-site-verification" content="Pyz_dZTtqYYTpgqR_U-mRi67lCHeqOvFSNgA-Pmztpk" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

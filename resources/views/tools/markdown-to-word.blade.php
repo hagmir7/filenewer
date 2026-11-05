@@ -1,6 +1,7 @@
 @extends('layouts.base')
-@push('scripts')
-<x-ld-json :tool="$tool" />
+@pushOnce('scripts', 'tool-ld-json')
+    <x-ld-json :tool="$tool" />
+@endPushOnce
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js" defer></script>
 @endpush
 @section('content')
