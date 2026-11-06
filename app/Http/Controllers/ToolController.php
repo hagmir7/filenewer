@@ -23,19 +23,19 @@ class ToolController extends Controller
 
         // Default SEO
         $title = 'Free Online File Tools – PDF, Word, Excel & Image | Filenewer';
-        $description = 'Convert, compress, edit and generate files instantly. 60+free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
+        $description = 'Convert, compress, edit and generate files instantly. 60+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
 
         // If URL contains /tools
         if ($request->is('tools') || $request->is('tools/*')) {
             $title = 'Free Online File Tools - PDF, Image & Document | Filenewer';
-            $description = 'Explore 60+free online file tools to convert, compress, edit, merge, split, generate, and optimize PDFs, images, documents, spreadsheets, videos, and more. Fast, secure, and no registration required.';
+            $description = 'Explore 60+ free online file tools to convert, compress, edit, merge, split, generate, and optimize PDFs, images, documents, spreadsheets, videos, and more. Fast, secure, and no registration required.';
         }
 
         // Category-specific SEO
         if ($request->filled('category') && $categories->isNotEmpty()) {
-            $categoryName = $categories->first()->title;
-            $title = "{$categoryName} — Free Online Tools";
-            $description = "Discover free {$categoryName} tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.";
+            $category = $categories->first();
+            $title = "{$category->title} — Free Online Tools";
+            $description = $category->description ?: "Discover free {$category->title} tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.";
         }
 
         return view('tools.index', compact('categories', 'title', 'description'));

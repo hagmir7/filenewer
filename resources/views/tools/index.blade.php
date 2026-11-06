@@ -7,19 +7,25 @@
     <div class="absolute inset-0 grid-lines pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
 
-        <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
-                @if(request('category') && $categories->isNotEmpty())
-                @php $categoryTitle = $categories->first()->title; @endphp
-                {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
-                @elseif(request()->is('tools') || request()->is('tools/*'))
-                Free Online File Tools for <br> PDF, Images, Documents & More
-                @else
-                Free Online File Tools – PDF, Word, Excel & Image,<br>
-                For Modern Work
-                @endif
-            </h1>
-        </div>
+       <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
+        <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
+            @if(request('category') && $categories->isNotEmpty())
+            @php $categoryTitle = $categories->first()->title; @endphp
+            {{ str_contains($categoryTitle, 'Tools') ? $categoryTitle : $categoryTitle . ' Tools' }}
+            @elseif(request()->is('tools') || request()->is('tools/*'))
+            Free Online File Tools for <br> PDF, Images, Documents & More
+            @else
+            Free Online File Tools – PDF, Word, Excel & Image,<br>
+            For Modern Work
+            @endif
+        </h1>
+
+        @if(!empty($description) && request('category') && $categories->isNotEmpty())
+        <p class="mt-4 max-w-2xl mx-auto text-fn-text3 text-base sm:text-lg leading-relaxed">
+            {{ $description }}
+        </p>
+        @endif
+    </div>
         {{-- Search bar --}}
         <div class="animate-fade-up opacity-0 delay-2 max-w-2xl mx-auto mb-6">
             <div class="relative">
