@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
@@ -14,8 +15,9 @@ class PageController extends Controller
             ->firstOrFail();
 
         $title = $page->title;
+        $description = $page->description ?: Str::limit(trim(strip_tags($page->content)), 160);
 
-        return view('page.show', compact('page', 'title'));
+        return view('page.show', compact('page', 'title', 'description'));
     }
 
 

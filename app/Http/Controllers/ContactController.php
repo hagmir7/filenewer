@@ -14,6 +14,8 @@ class ContactController extends Controller
 
         return view('contact.index', compact('title', 'description'));
     }
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([
