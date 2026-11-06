@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Pages\Schemas;
 
 use Filament\Actions\Action;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
@@ -31,6 +32,10 @@ class PageForm
                                         fn($state, callable $set) => $set('slug', Str::slug($state))
                                     )
                                     ->maxLength(255),
+                                Textarea::make('description')
+                                    ->label('Description')
+                                    ->maxLength(160)
+                                    ->nullable(),
                                 RichEditor::make('content')
                                     ->label('Content')
                                     ->required(),

@@ -9,9 +9,11 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view('contact.index');
-    }
+        $title = 'Contact Us';
+        $description = 'Get in touch with the FileNewer team. Send us your questions, feedback, or support requests and we will get back to you as soon as possible.';
 
+        return view('contact.index', compact('title', 'description'));
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
