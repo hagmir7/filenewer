@@ -22,6 +22,7 @@ jobs:
             "https://filenewer.com/blog"
             "https://filenewer.com/ads.txt"
             "https://filenewer.com/robots.txt"
+            "https://filenewer.com/tools/robots.txt"
           )
           fail=0
           report=""
