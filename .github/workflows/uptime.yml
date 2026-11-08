@@ -1,0 +1,63 @@
+name: Uptime check
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'   # use '*/30 * * * *' for a private repo
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check URLs
+        id: check
+        run: |
+          urls=(
+            "https://filenewer.com"
+            "https://filenewer.com/tools"
+            "https://filenewer.com/blog"
+            "https://filenewer.com/ads.txt"
+            "https://filenewer.com/robots.txt"
+          )
+          fail=0
+          report=""
+          for url in "${urls[@]}"; do
+            code=$(curl -s -o /dev/null -L --max-time 20 --retry 2 --retry-delay 5 \
+              --retry-all-errors -w '%{http_code}' \
+              -A "Mozilla/5.0 (compatible; UptimeCheck)" "$url" || echo "000")
+            echo "$url -> $code"
+            if [ "$code" != "200" ]; then
+              fail=1
+              report+="$url returned $code"$'\n'
+              echo "::error::$url returned $code"
+            fi
+          done
+          {
+            echo "report<<EOF"
+            echo "$report"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          exit $fail
+
+      # Optional: send the alert to any inbox via SMTP (see step 4)
+      - name: Send alert email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: 587
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "🔴 Filenewer is DOWN"
+          to: ${{ secrets.ALERT_EMAIL }}
+          from: Filenewer Alerts <${{ secrets.SMTP_USER }}>
+          body: |
+            One or more checks failed:
+
+            ${{ steps.check.outputs.report }}
+
+            Run details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
