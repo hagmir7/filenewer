@@ -2,7 +2,7 @@ name: Uptime check
 
 on:
   schedule:
-    - cron: '*/10 * * * *'   # use '*/30 * * * *' for a private repo
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Check URLs
@@ -22,7 +22,6 @@ jobs:
             "https://filenewer.com/blog"
             "https://filenewer.com/ads.txt"
             "https://filenewer.com/robots.txt"
-            "https://filenewer.com/this-does-not-exist"
           )
           fail=0
           report=""
@@ -44,13 +43,13 @@ jobs:
           } >> "$GITHUB_OUTPUT"
           exit $fail
 
-      # Optional: send the alert to any inbox via SMTP (see step 4)
       - name: Send alert email
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.SMTP_HOST }}
-          server_port: 587
+          server_port: 465
+          secure: true
           username: ${{ secrets.SMTP_USER }}
           password: ${{ secrets.SMTP_PASS }}
           subject: "🔴 Filenewer is DOWN"
