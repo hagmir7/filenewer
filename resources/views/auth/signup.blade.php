@@ -1,8 +1,5 @@
 @extends('layouts.base')
-@extends('layouts.app', [
-'robots' => 'noindex, nofollow',
-'adsEnabled' => false,
-])
+
 @section('content')
 <div class="min-h-screen flex">
     <div
@@ -10,8 +7,7 @@
 
         <!-- Logo -->
         <a href="/">
-            <img src="/filenewer-logo.svg" alt="The Fastest Online File Tools " width="100" height="50"
-                class="h-[40px] w-auto md:h-[57px]">
+            <img src="/filenewer-logo.svg" alt="The Fastest Online File Tools " width="100" height="50" class="h-[40px] w-auto md:h-[57px]">
         </a>
 
         <!-- Center content -->
