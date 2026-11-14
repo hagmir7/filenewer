@@ -1,5 +1,8 @@
 @extends('layouts.base')
-
+@extends('layouts.app', [
+'robots' => 'noindex, nofollow',
+'adsEnabled' => false,
+])
 @section('content')
 <div class="min-h-screen flex">
 
