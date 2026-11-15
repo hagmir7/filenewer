@@ -216,7 +216,7 @@
             {{ count($sheets) }} sheet(s) &middot;
             {{ collect($sheets)->sum(fn($s) => max(0, count($s['rows']) - 1)) }} data rows
         </div>
-        <div class="doc-date">Generated: {{ now()->format('d M Y, H:i') }}</div>
+        <div class="doc-date">{{ __('Generated:') }} {{ now()->locale(app()->getLocale())->isoFormat('lll') }}</div>
     </div>
 
     @foreach ($sheets as $sheet)

@@ -21,7 +21,7 @@
 
             <a href="/tools?category={{ $tool->category->slug }}"
                 class="min-w-0 break-words hover:text-fn-text transition-colors">
-                {{ __($tool->category->title) }}
+                {{ $tool->category->localized('title') }}
             </a>
 
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -30,7 +30,7 @@
             </svg>
 
             <span aria-current="page" class="min-w-0 break-words text-fn-text2">
-                {{ __($tool->name) }}
+                {{ $tool->localized('name') }}
             </span>
         </nav>
 
@@ -45,10 +45,10 @@
                 <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 mb-2">
                     <h1
                         class="w-full sm:w-auto text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-tight break-words">
-                        {{ __($tool->title) }}
+                        {{ $tool->localized('title') }}
                     </h1>
 
-                    @if(str_contains($tool->tags ?? '', 'popular'))
+                    @if(in_array('popular', $tool->sourceTags(), true))
                     <span
                         class="inline-flex items-center gap-1 px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-[10px] sm:text-xs font-semibold rounded-full whitespace-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -61,7 +61,7 @@
                     </span>
                     @endif
 
-                    @if(str_contains($tool->tags ?? '', 'new'))
+                    @if(in_array('new', $tool->sourceTags(), true))
                     <span
                         class="inline-flex items-center px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-[10px] sm:text-xs font-semibold rounded-full whitespace-nowrap">
                         {{ __('New') }}
@@ -70,7 +70,7 @@
                 </div>
 
                 <p class="max-w-xl text-xs sm:text-sm text-fn-text3 leading-relaxed break-words">
-                    {{ __(Str::squish($tool->description ?? '')) }}
+                    {{ $tool->localizedDescription() }}
                 </p>
             </div>
         </div>

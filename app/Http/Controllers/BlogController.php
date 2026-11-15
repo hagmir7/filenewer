@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -33,11 +31,10 @@ class BlogController extends Controller
             ->limit(3)
             ->get();
 
-        $description = $blog->excerpt;
+        $description = $blog->localized('excerpt');
         $image = $blog->featured_image;
-        $title = $blog->title;
+        $title = $blog->localized('title');
 
         return view('blog.show', compact('blog', 'title', 'description', 'image', 'recommended'));
     }
-
 }

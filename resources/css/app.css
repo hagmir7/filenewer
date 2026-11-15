@@ -1,8 +1,6 @@
+@import '@fontsource-variable/cairo';
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-
-
-/* DM Sans weights */
 
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -56,14 +54,15 @@
     }
 }
 
-/* body {
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-}
+@layer base {
+    [lang|="ar"] {
+        --font-sans: "Cairo Variable", "DM Sans", sans-serif;
+        --font-serif: "Cairo Variable", "DM Sans", sans-serif;
+        --font-mono: "DM Mono", "Cairo Variable", monospace;
 
-code {
-    font-family: "DM Mono", monospace;
-} */
+        font-family: var(--font-sans);
+    }
+}
 
 /* Noise overlay */
 body::before {

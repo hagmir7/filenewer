@@ -21,13 +21,13 @@
                     <polyline points="9 18 15 12 9 6" />
                 </svg>
                 <a href="/tools?category={{ $tool->category->slug }}" class="hover:text-fn-text transition-colors">
-                    {{ __($tool->category->title) }}
+                    {{ $tool->category->localized('title') }}
                 </a>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6" />
                 </svg>
-                <span class="text-fn-text2">{{ __($tool->name) }}</span>
+                <span class="text-fn-text2">{{ $tool->localized('name') }}</span>
             </nav>
             {{-- Tool heading --}}
             <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-5 mb-6">
@@ -37,8 +37,8 @@
                 </div>
                 <div>
                     <div class="md:flex items-center gap-3 mb-1 flex-wrap">
-                        <h1 class="text-lg md:text-2xl font-bold tracking-tight">{{ __($tool->title) }}</h1>
-                        @if(str_contains($tool->tags ?? '', 'popular'))
+                        <h1 class="text-lg md:text-2xl font-bold tracking-tight">{{ $tool->localized('title') }}</h1>
+                        @if(in_array('popular', $tool->sourceTags(), true))
                         <span
                             class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-sm font-semibold rounded-full"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -50,12 +50,12 @@
                             </svg>
                             {{ __('Popular') }}</span>
                         @endif
-                        @if(str_contains($tool->tags ?? '', 'new'))
+                        @if(in_array('new', $tool->sourceTags(), true))
                         <span
                             class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">{{ __('New') }}</span>
                         @endif
                     </div>
-                    <p class="text-fn-text3 text-sm leading-relaxed max-w-xl">{{ __(Str::squish($tool->description ?? '')) }}</p>
+                    <p class="text-fn-text3 text-sm leading-relaxed max-w-xl">{{ $tool->localizedDescription() }}</p>
                 </div>
             </div>
             {{-- Quick stats --}}
@@ -279,8 +279,8 @@
                         {!! $related->icon !!}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-semibold text-sm">{{ __($related->name) }}</p>
-                        <p class="text-fn-text3 text-sm truncate">{{ __(Str::squish($related->description ?? '')) }}</p>
+                        <p class="font-semibold text-sm">{{ $related->localized('name') }}</p>
+                        <p class="text-fn-text3 text-sm truncate">{{ $related->localizedDescription() }}</p>
                     </div>
                     <svg class="w-4 h-4 text-fn-text3 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -293,6 +293,9 @@
             </div>
         </div>
         @endif
+    </div>
+    <div class="max-w-6xl mx-auto px-6">
+        <x-tools-content :tool="$tool" />
     </div>
     <x-faqs />
 </div>

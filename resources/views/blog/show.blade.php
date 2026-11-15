@@ -20,36 +20,36 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
-            <span class="text-fn-text2 truncate max-w-xs">{{ $blog->title }}</span>
+            <span class="text-fn-text2 truncate max-w-xs">{{ $blog->localized('title') }}</span>
         </nav>
 
         <div class="max-w-3xl">
             <!-- Category + meta -->
             <div class="flex items-center gap-3 mb-5 flex-wrap">
-                @if($blog->category)
+                @if($blog->localized('category'))
                 <a href="/blog?cat={{ Str::slug($blog->category) }}"
                     class="px-3 py-1 bg-fn-blue/10 border border-fn-blue/25 rounded-full text-fn-blue-l text-sm font-semibold hover:bg-fn-blue/15 transition-colors">
-                    {{ $blog->category }}
+                    {{ $blog->localized('category') }}
                 </a>
                 <span class="text-fn-text3 text-sm">·</span>
                 @endif
-                <span class="text-fn-text3 text-sm">{{ $readMinutes }} min read</span>
+                <span class="text-fn-text3 text-sm">{{ trans_choice('reading_time', $readMinutes, ['count' => $readMinutes]) }}</span>
                 @if($blog->published_at)
                 <span class="text-fn-text3 text-sm">·</span>
-                <span class="text-fn-text3 text-sm">{{ \Carbon\Carbon::parse($blog->published_at)->format('F j, Y')
+                <span class="text-fn-text3 text-sm">{{ \Carbon\Carbon::parse($blog->published_at)->locale(app()->getLocale())->isoFormat('LL')
                     }}</span>
                 @endif
             </div>
 
             <!-- Title -->
             <h1 class="font-serif text-3xl sm:text-4xl lg:text-[2.8rem] font-normal tracking-tight leading-[1.15] mb-5">
-                {{ $blog->title }}
+                {{ $blog->localized('title') }}
             </h1>
 
             <!-- Subtitle / Excerpt -->
-            @if($blog->excerpt)
+            @if($blog->localized('excerpt'))
             <p class="text-fn-text2 text-lg leading-relaxed mb-8 max-w-2xl">
-                {{ $blog->excerpt }}
+                {{ $blog->localized('excerpt') }}
             </p>
             @endif
 
@@ -70,7 +70,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 <!-- Share buttons -->
                 <div class="flex items-center gap-2">
                     <span class="text-fn-text3 text-sm font-medium mr-1">{{ __('Share:') }}</span>
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog->title) }}"
+                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog->localized('title')) }}"
                         target="_blank" rel="noopener"
                         class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-sm font-medium transition-all hover:text-fn-text">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -117,7 +117,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
             <div class="max-w-6xl mx-auto mb-2">
                 @if($blog->featured_image)
                 <div class="rounded-2xl h-64 sm:h-80 relative overflow-hidden border border-fn-text/7">
-                    <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}"
+                    <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->localized('title') }}"
                         class="w-full h-full object-cover" />
                 </div>
                 @else
@@ -136,7 +136,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                                 <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
                                 <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                             </svg></div>
-                        <p class="text-fn-text3 text-sm font-mono">{{ $blog->category ?? 'Article' }}</p>
+                        <p class="text-fn-text3 text-sm font-mono">{{ $blog->localized('category') ?? __('Article') }}</p>
                     </div>
                 </div>
                 @endif
@@ -164,16 +164,16 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                             prose-th:text-gray-100 prose-th:font-semibold prose-th:px-4 prose-th:py-2 prose-th:text-left
                             prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-gray-800 prose-td:text-gray-300
                             max-w-none">
-                {!! $blog->content !!}
+                {!! $blog->localized('content') !!}
             </div>
 
             <!-- Tags -->
-            @if($blog->category)
+            @if($blog->localized('category'))
             <div class="flex flex-wrap gap-2 mt-10 pt-8 border-t border-fn-text/7">
                 <span class="text-fn-text3 text-sm font-medium mr-1">{{ __('Tags:') }}</span>
                 <a href="/blog?cat={{ Str::slug($blog->category) }}"
                     class="px-3 py-1 bg-fn-surface border border-fn-text/10 rounded-full text-fn-text3 text-sm hover:border-fn-blue/30 hover:text-fn-blue-l transition-all">
-                    #{{ Str::slug($blog->category) }}
+                    #{{ str_replace(' ', '-', $blog->localized('category')) }}
                 </a>
             </div>
             @endif
@@ -267,10 +267,10 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                                 <path d="M16 17l-1.5 1.5" />
                             </svg>
                         </div>
-                        <p class="font-semibold text-sm">{{ __($tool->name) }}</p>
+                        <p class="font-semibold text-sm">{{ $tool->localized('name') }}</p>
                     </div>
-                    @if($tool->description)
-                    <p class="text-fn-text3 text-sm leading-relaxed mb-4">{{ Str::limit($tool->description, 80) }}</p>
+                    @if($tool->localizedDescription())
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-4">{{ Str::limit($tool->localizedDescription(), 80) }}</p>
                     @endif
                     <a href="/tools/{{ $tool->slug }}"
                         class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-lg transition-all">
@@ -302,7 +302,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
 
                 @if($post->featured_image)
                 <div class="h-36 overflow-hidden">
-                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->localized('title') }}"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 @else
@@ -321,19 +321,19 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 @endif
 
                 <div class="p-5 flex flex-col flex-1">
-                    @if($post->category)
-                    <span class="text-fn-blue-l text-sm font-semibold mb-2">{{ $post->category }}</span>
+                    @if($post->localized('category'))
+                    <span class="text-fn-blue-l text-sm font-semibold mb-2">{{ $post->localized('category') }}</span>
                     @endif
                     <h3
                         class="font-serif text-base font-normal leading-snug tracking-tight mb-2 group-hover:text-fn-blue-l transition-colors duration-200">
-                        {{ $post->title }}
+                        {{ $post->localized('title') }}
                     </h3>
-                    @if($post->excerpt)
-                    <p class="text-fn-text3 text-sm leading-relaxed mb-3 line-clamp-2">{{ $post->excerpt }}</p>
+                    @if($post->localized('excerpt'))
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-3 line-clamp-2">{{ $post->localized('excerpt') }}</p>
                     @endif
                     <p class="text-fn-text3 text-sm mt-auto">
-                        @if($post->read_time){{ $postReadMinutes }} min read · @endif
-                        @if($post->published_at){{ \Carbon\Carbon::parse($post->published_at)->format('M j') }}@endif
+                        @if($post->read_time){{ trans_choice('reading_time', $postReadMinutes, ['count' => $postReadMinutes]) }} · @endif
+                        @if($post->published_at){{ \Carbon\Carbon::parse($post->published_at)->locale(app()->getLocale())->isoFormat('ll') }}@endif
                     </p>
                 </div>
             </a>

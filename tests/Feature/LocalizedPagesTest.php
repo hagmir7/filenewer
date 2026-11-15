@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Tool;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -9,6 +11,49 @@ uses(RefreshDatabase::class);
 beforeEach(function () {
     $this->withoutVite();
 });
+
+it('localizes reading times and publication dates on blog pages', function (string $locale, string $oneMinute, string $twoMinutes, string $fiveMinutes, string $fullDate, string $shortMonth) {
+    $author = User::factory()->create();
+    $featured = Blog::create([
+        'title' => 'Featured localization article',
+        'content' => 'A short article.',
+        'user_id' => $author->id,
+        'is_published' => true,
+        'published_at' => '2026-11-15 12:00:00',
+    ]);
+    Blog::create([
+        'title' => 'Second localization article',
+        'content' => str_repeat('word ', 201),
+        'user_id' => $author->id,
+        'is_published' => true,
+        'published_at' => '2026-11-14 12:00:00',
+    ]);
+
+    $this->withSession(['locale' => $locale]);
+    $index = $this->get('/blog')->assertSuccessful()
+        ->assertSee($oneMinute)
+        ->assertSee($twoMinutes)
+        ->assertSee($shortMonth);
+    $article = $this->get('/blog/'.$featured->slug)->assertSuccessful()
+        ->assertSee($fiveMinutes)
+        ->assertSee($fullDate)
+        ->assertSee($shortMonth);
+
+    if ($locale !== 'en') {
+        $index->assertDontSee('min read');
+        $article->assertDontSee('min read')->assertDontSee('November');
+    }
+
+    $this->withSession(['locale' => 'en'])->get('/blog/'.$featured->slug)
+        ->assertSuccessful()->assertSee('5 min read')->assertSee('November 15, 2026');
+})->with([
+    ['en', '1 min read', '2 min read', '5 min read', 'November 15, 2026', 'Nov'],
+    ['ar', 'دقيقة واحدة للقراءة', 'دقيقتان للقراءة', '5 دقائق للقراءة', '15 نوفمبر 2026', 'نوفمبر'],
+    ['fr', '1 minute de lecture', '2 minutes de lecture', '5 minutes de lecture', '15 novembre 2026', 'nov.'],
+    ['es', '1 minuto de lectura', '2 minutos de lectura', '5 minutos de lectura', '15 de noviembre de 2026', 'nov'],
+    ['hi', 'पढ़ने का समय: 1 मिनट', 'पढ़ने का समय: 2 मिनट', 'पढ़ने का समय: 5 मिनट', '15 नवम्बर 2026', 'नव.'],
+    ['zh_CN', '1 分钟阅读', '2 分钟阅读', '5 分钟阅读', '2026年11月15日', '11月'],
+]);
 
 it('renders public database backed pages in every supported language', function (string $locale) {
     $category = Category::create(['title' => 'PDF Tools', 'slug' => 'pdf']);

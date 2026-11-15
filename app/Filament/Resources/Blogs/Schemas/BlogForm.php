@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\Blogs\Schemas;
 
+use App\Filament\Schemas\TranslationTabs;
+use App\Models\Blog;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -30,8 +32,7 @@ class BlogForm
                                     ->required()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(
-                                        fn($state, callable $set) =>
-                                        $set('slug', Str::slug($state))
+                                        fn ($state, callable $set) => $set('slug', Str::slug($state))
                                     )
                                     ->maxLength(255),
 
@@ -42,6 +43,7 @@ class BlogForm
                                 RichEditor::make('content')
                                     ->label('Content')
                                     ->required(),
+                                TranslationTabs::make(Blog::TRANSLATABLE_CONTENT),
                             ])
                             ->columnSpan(2),
 

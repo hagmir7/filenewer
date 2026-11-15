@@ -847,7 +847,7 @@ yesterday
       // ── Live clock ──
       function updateClock() {
         const now = new Date();
-        document.getElementById('live-clock').textContent = now.toLocaleTimeString();
+        document.getElementById('live-clock').textContent = now.toLocaleTimeString({{ Illuminate\Support\Js::from(config('app.supported_locales.'.app()->getLocale().'.language')) }});
         document.getElementById('live-unix').textContent  = '· ' + Math.floor(now.getTime() / 1000);
       }
       updateClock();

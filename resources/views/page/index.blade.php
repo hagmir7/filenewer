@@ -32,12 +32,12 @@
                 class="group flex flex-col bg-fn-surface border border-fn-text/7 rounded-2xl p-6 hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300">
 
                 <h2 class="font-serif text-lg font-normal leading-snug tracking-tight mb-2.5">
-                    {{ $page->title }}
+                    {{ $page->localized('title') }}
                 </h2>
 
-                @if ($page->excerpt)
+                @if ($page->localized('description'))
                 <p class="text-fn-text3 text-sm leading-relaxed mb-5">
-                    {{ $page->excerpt }}
+                    {{ $page->localized('description') }}
                 </p>
                 @endif
 

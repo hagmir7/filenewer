@@ -16,13 +16,13 @@
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
-            <span class="text-fn-text2 truncate max-w-xs">{{ $page->title }}</span>
+            <span class="text-fn-text2 truncate max-w-xs">{{ $page->localized('title') }}</span>
         </nav>
 
         <div class="max-w-3xl">
             <!-- Title -->
             <h1 class="font-serif text-3xl sm:text-4xl lg:text-[2.8rem] font-normal tracking-tight leading-[1.15] mb-5">
-                {{ $page->title }}
+                {{ $page->localized('title') }}
             </h1>
         </div>
     </div>
@@ -47,7 +47,7 @@
                 prose-ol:text-gray-300 prose-ul:text-gray-300
                 prose-li:marker:text-blue-400
                 prose-img:rounded-xl
-                dark:prose-invert"> {!! $page->content !!}</div>
+                dark:prose-invert"> {!! $page->localized('content') !!}</div>
             <!-- CTA Banner -->
             <div
                 class="mt-10 p-8 bg-fn-surface border border-fn-blue/20 rounded-2xl text-center relative overflow-hidden">

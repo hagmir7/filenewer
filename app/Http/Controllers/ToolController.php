@@ -34,10 +34,9 @@ class ToolController extends Controller
         // Category-specific SEO
         if ($request->filled('category') && $categories->isNotEmpty()) {
             $category = $categories->first();
-            $title = __(':category — Free Online Tools', ['category' => __($category->title)]);
-            $description = $category->description
-                ? __(\Illuminate\Support\Str::squish($category->description))
-                : __('Discover free :category tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.', ['category' => __($category->title)]);
+            $title = __(':category — Free Online Tools', ['category' => $category->localized('title')]);
+            $description = $category->localized('description')
+                ?: __('Discover free :category tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.', ['category' => $category->localized('title')]);
         }
 
         return view('tools.index', compact('categories', 'title', 'description'));
@@ -57,9 +56,9 @@ class ToolController extends Controller
             ->take(6)
             ->get();
 
-        $title = __($tool->title ?? $tool->name);
-        $description = __(\Illuminate\Support\Str::squish($tool->description ?? ''));
-        $tags = $tool->tags;
+        $title = $tool->localized('title') ?: $tool->localized('name');
+        $description = $tool->localizedDescription() ?? '';
+        $tags = implode(', ', $tool->localized('tags'));
 
         $viewName = 'tools.'.$tool->slug;
 

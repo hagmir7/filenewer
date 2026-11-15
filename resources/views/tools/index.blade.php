@@ -87,7 +87,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
             <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
                 <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
                     @if ($activeCategory)
-                    {{ __($activeCategory->title) }}
+                    {{ $activeCategory->localized('title') }}
                     @elseif (request()->is('tools') || request()->is('tools/*'))
                     {{ __('Free Online File Tools for') }} <br> {{ __('PDF, Images, Documents & More') }}
                     @else
@@ -184,7 +184,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         {!! $section->icon !!}
                     </div>
                     @endif
-                    <h2 class="text-base font-bold tracking-tight">{{ __($section->title) }}</h2>
+                    <h2 class="text-base font-bold tracking-tight">{{ $section instanceof \App\Models\Category ? $section->localized('title') : __($section->title) }}</h2>
                     @unless ($isHome)
                     <span class="px-2 py-0.5 bg-fn-surface2 rounded-full text-fn-text3 text-sm font-mono">
                         {{ $section->tools->count() }}
@@ -203,12 +203,12 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                     @foreach ($section->tools as $tool)
                     @php
                     // Compare whole tags: "filenewer tools" contains "new" and was triggering the New badge.
-                    $tagList = collect(explode(',', $tool->tags ?? ''))->map(fn ($tag) => strtolower(trim($tag)));
+                    $tagList = collect($tool->sourceTags())->map(fn ($tag) => strtolower(trim($tag)));
                     @endphp
                     <a href="/tools/{{ $tool->slug }}"
                         class="tool-card bg-fn-surface border border-fn-text/8 rounded-xl p-4 flex items-start gap-3.5"
-                        data-cat="{{ $section->slug }}" data-tags="{{ $tool->tags ?? '' }}"
-                        data-name="{{ Str::lower(__($tool->name).' '.$tool->name) }}">
+                        data-cat="{{ $section->slug }}" data-tags="{{ implode(',', $tool->sourceTags()) }}"
+                        data-name="{{ Str::lower(trim($tool->localized('name').' '.$tool->name.' '.implode(' ', $tool->localized('tags')))) }}">
 
                         {{-- Icon --}}
                         <div
@@ -219,7 +219,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         {{-- Body --}}
                         <div class="flex-1 min-w-0">
                             <div class="flex items-start justify-between gap-2 mb-1">
-                                <h3 class="font-semibold text-sm leading-snug">{{ __(trim($tool->name)) }}</h3>
+                                <h3 class="font-semibold text-sm leading-snug">{{ $tool->localized('name') }}</h3>
 
                                 {{-- Badges --}}
                                 @if ($tagList->contains('popular'))
@@ -239,7 +239,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                                 @endif
                             </div>
                             {{-- Full description, clamped visually (no "..." baked into the HTML) --}}
-                            <p class="text-fn-text3 text-sm leading-relaxed line-clamp-2">{{ __(Str::squish($tool->description ?? '')) }}</p>
+                            <p class="text-fn-text3 text-sm leading-relaxed line-clamp-2">{{ $tool->localizedDescription() }}</p>
                         </div>
 
                         {{-- Arrow --}}
@@ -288,7 +288,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         {!! $category->icon !!}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-semibold text-sm leading-snug">{{ __($category->title) }}</h3>
+                        <h3 class="font-semibold text-sm leading-snug">{{ $category->localized('title') }}</h3>
                         <p class="text-fn-text3 text-sm mt-0.5">
                             {{ trans_choice('tool_count', $category->tools->count(), ['count' => $category->tools->count()]) }}
                         </p>

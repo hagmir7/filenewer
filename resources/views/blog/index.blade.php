@@ -47,7 +47,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                 <div
                     class="feat-img relative h-56 lg:h-auto min-h-[280px] flex items-center justify-center overflow-hidden">
                     @if ($featured->featured_image)
-                    <img src="{{ asset('storage/' . $featured->featured_image) }}" alt="{{ $featured->title }}"
+                    <img src="{{ asset('storage/' . $featured->featured_image) }}" alt="{{ $featured->localized('title') }}"
                         class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/30"></div>
                     @else
@@ -69,7 +69,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                         </div>
                         <span
                             class="inline-block px-3 py-1 bg-fn-blue/15 border border-fn-blue/30 rounded-full text-fn-blue-l text-sm font-semibold">
-                            {{ $featured->category ?? 'Article' }}
+                            {{ $featured->localized('category') ?? __('Article') }}
                         </span>
                     </div>
                     @endif
@@ -85,16 +85,16 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                             </span>
                             @if ($featured->content)
                             <span class="text-fn-text3 text-sm">
-                                {{ $featuredReadTime }} min read
+                                {{ trans_choice('reading_time', $featuredReadTime, ['count' => $featuredReadTime]) }}
                             </span>
                             @endif
                         </div>
                         <h2
                             class="card-title font-serif text-2xl lg:text-3xl font-normal leading-snug tracking-tight mb-4 transition-colors duration-200">
-                            {{ $featured->title }}
+                            {{ $featured->localized('title') }}
                         </h2>
                         <p class="text-fn-text2 text-sm leading-relaxed mb-6">
-                            {{ $featured->excerpt }}
+                            {{ $featured->localized('excerpt') }}
                         </p>
                     </div>
                     <div class="flex items-center justify-between">
@@ -107,7 +107,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                                 <p class="text-sm font-semibold">{{ $featured->user->name ?? 'Author' }}</p>
                                 <p class="text-sm text-fn-text3">
                                     {{ $featured->published_at ?
-                                    \Carbon\Carbon::parse($featured->published_at)->format('M j, Y') : '' }}
+                                    \Carbon\Carbon::parse($featured->published_at)->locale(app()->getLocale())->isoFormat('ll') : '' }}
                                 </p>
                             </div>
                         </div>
@@ -179,7 +179,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                 {{-- Card image / header --}}
                 <div class="h-44 relative flex items-center justify-center overflow-hidden">
                     @if ($blog->featured_image)
-                    <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->title }}"
+                    <img src="{{ asset('storage/' . $blog->featured_image) }}" alt="{{ $blog->localized('title') }}"
                         class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/20"></div>
                     @else
@@ -263,24 +263,24 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                 {{-- Content --}}
                 <div class="p-6 flex flex-col flex-1">
                     <div class="flex items-center gap-2 mb-3">
-                        @if ($blog->category)
+                        @if ($blog->localized('category'))
                         <span
                             class="px-2.5 py-0.5 {{ $color['bg'] }} border {{ $color['border'] }} rounded-full {{ $color['text'] }} text-sm font-semibold">
-                            {{ ucfirst($blog->category) }}
+                            {{ ucfirst($blog->localized('category')) }}
                         </span>
                         @endif
                         @if ($readTime)
-                        <span class="text-fn-text3 text-sm">{{ $readTime }} min read</span>
+                        <span class="text-fn-text3 text-sm">{{ trans_choice('reading_time', $readTime, ['count' => $readTime]) }}</span>
                         @endif
                     </div>
 
                     <h3
                         class="card-title font-serif text-lg font-normal leading-snug tracking-tight mb-2.5 transition-colors duration-200 flex-1">
-                        {{ $blog->title }}
+                        {{ $blog->localized('title') }}
                     </h3>
 
                     <p class="text-fn-text3 text-sm leading-relaxed mb-5">
-                        {{ $blog->excerpt }}
+                        {{ $blog->localized('excerpt') }}
                     </p>
 
                     <div class="flex items-center justify-between mt-auto pt-4 border-t border-fn-text/7">
@@ -292,7 +292,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                             <span class="text-sm text-fn-text3">
                                 {{ $blog->user->name ?? 'Author' }}
                                 @if ($blog->published_at)
-                                · {{ \Carbon\Carbon::parse($blog->published_at)->format('M j') }}
+                                · {{ \Carbon\Carbon::parse($blog->published_at)->locale(app()->getLocale())->isoFormat('ll') }}
                                 @endif
                             </span>
                         </div>

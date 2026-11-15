@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Categories\Schemas;
 
+use App\Filament\Schemas\TranslationTabs;
+use App\Models\Category;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Text;
@@ -24,24 +26,26 @@ class CategoryForm
                     ->rows(3)
                     ->columnSpanFull(),
 
+                TranslationTabs::make(Category::TRANSLATABLE_CONTENT),
+
                 Textarea::make('icon')
                     ->label('Icon (SVG code)')
                     ->placeholder('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">...</svg>')
                     ->rows(6)
                     ->live(debounce: 500)
                     ->extraInputAttributes(['dir' => 'ltr', 'spellcheck' => 'false'])
-                    ->rule(fn(): \Closure => function (string $attribute, $value, \Closure $fail) {
+                    ->rule(fn (): \Closure => function (string $attribute, $value, \Closure $fail) {
                         if (filled($value) && ! preg_match('/^\s*<svg[\s>].*<\/svg>\s*$/is', $value)) {
                             $fail('The icon must be valid SVG code (<svg ...>...</svg>).');
                         }
                     })
-                    ->dehydrateStateUsing(fn(?string $state): ?string => filled($state) ? self::sanitizeSvg($state) : null)
+                    ->dehydrateStateUsing(fn (?string $state): ?string => filled($state) ? self::sanitizeSvg($state) : null)
                     ->columnSpanFull(),
 
-                Text::make(fn(Get $get): HtmlString => new HtmlString(
-                    '<div style="width:4rem;height:4rem;">' . self::sanitizeSvg((string) $get('icon')) . '</div>'
+                Text::make(fn (Get $get): HtmlString => new HtmlString(
+                    '<div style="width:4rem;height:4rem;">'.self::sanitizeSvg((string) $get('icon')).'</div>'
                 ))
-                    ->visible(fn(Get $get): bool => filled($get('icon')))
+                    ->visible(fn (Get $get): bool => filled($get('icon')))
                     ->columnSpanFull(),
             ]);
     }

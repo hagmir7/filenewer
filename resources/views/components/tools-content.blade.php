@@ -1,7 +1,8 @@
-@if ($tool->body)
+@php($localizedBody = $tool->localizedBody())
+@if ($localizedBody)
 <section class="pb-4 sm:pb-6">
     <article class="rich-body py-4">
-        {!! $tool->body !!}
+        {!! $localizedBody !!}
     </article>
 </section>
 @endif

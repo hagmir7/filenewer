@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\Tools\Schemas;
 
+use App\Filament\Schemas\TranslationTabs;
+use App\Models\Tool;
 use Filament\Actions\Action;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -31,8 +33,7 @@ class ToolForm
                                     ->required()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(
-                                        fn($state, callable $set) =>
-                                        $set('slug', Str::slug($state))
+                                        fn ($state, callable $set) => $set('slug', Str::slug($state))
                                     )
                                     ->maxLength(255),
 
@@ -42,19 +43,15 @@ class ToolForm
                                     ->required()
                                     ->maxLength(255),
 
-                                Textarea::make('description')
-                                    ->label('Description')
-                                    ->placeholder('Enter tool description...')
-                                    ->rows(3),
-
                                 TagsInput::make('tags')
-                                    ->label(__("Keywords"))
-                                    ->placeholder("SEO Keywords")
+                                    ->label(__('Keywords'))
+                                    ->placeholder('SEO Keywords')
                                     ->separator(',')
                                     ->splitKeys([',', 'Enter', '،']),
 
-                                RichEditor::make('body')
-                                    ->label(__("Content")),
+                                Textarea::make('description')->label('Description (English)')->rows(3),
+                                RichEditor::make('body')->label('Content (English)'),
+                                TranslationTabs::make(Tool::TRANSLATABLE_CONTENT),
                             ])
                             ->columnSpan(2),
 
@@ -64,15 +61,13 @@ class ToolForm
 
                                 Select::make('category')
                                     ->relationship('category', 'title')
-                                    ->label(__("Category"))
+                                    ->label(__('Category'))
                                     ->searchable()
                                     ->preload()
                                     ->required(),
                                 TextInput::make('icon')
                                     ->label('Icon')
                                     ->placeholder('e.g. heroicon-o-wrench'),
-
-
 
                                 TextInput::make('slug')
                                     ->label('URL Slug')
@@ -84,7 +79,7 @@ class ToolForm
                                             ->tooltip('Copy URL')
                                             ->action(function ($livewire, $state) {
                                                 $livewire->js(
-                                                    'window.navigator.clipboard.writeText("https://filenewer.com/tools/' . $state . '");
+                                                    'window.navigator.clipboard.writeText("https://filenewer.com/tools/'.$state.'");
                                                     $tooltip("Copied!", { timeout: 1500 });'
                                                 );
                                             })

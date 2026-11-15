@@ -72,6 +72,9 @@ $organization,
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $pageDescription }}" />
+    @if (! empty($tags))
+    <meta name="keywords" content="{{ $tags }}" />
+    @endif
     <link rel="canonical" href="{{ $canonical }}" />
     <meta name="robots" content="{{ $robots }}" />
     <meta property="og:title" content="{{ $pageTitle }}" />

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
+use App\Filament\Schemas\TranslationTabs;
+use App\Models\Page;
 use Filament\Actions\Action;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
@@ -29,7 +31,7 @@ class PageForm
                                     ->required()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(
-                                        fn($state, callable $set) => $set('slug', Str::slug($state))
+                                        fn ($state, callable $set) => $set('slug', Str::slug($state))
                                     )
                                     ->maxLength(255),
                                 Textarea::make('description')
@@ -39,6 +41,7 @@ class PageForm
                                 RichEditor::make('content')
                                     ->label('Content')
                                     ->required(),
+                                TranslationTabs::make(Page::TRANSLATABLE_CONTENT, ['description' => 160]),
                             ])
                             ->columnSpan(2),
 
@@ -55,7 +58,7 @@ class PageForm
                                             ->tooltip('Copy URL')
                                             ->action(function ($livewire, $state) {
                                                 $livewire->js(
-                                                    'window.navigator.clipboard.writeText("https://filenewer.com/pages/' . $state . '");
+                                                    'window.navigator.clipboard.writeText("https://filenewer.com/pages/'.$state.'");
                                                     $tooltip("Copied!", { timeout: 1500 });'
                                                 );
                                             })
