@@ -43,7 +43,7 @@
                     class="tab-btn {{ $tval === 'encrypt' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}" aria-pressed="{{ $tval === 'encrypt' ? 'true' : 'false' }}">
                     <span class="{{ $tval === 'hash' ? 'font-black text-base' : '' }}">{!! $ticon !!}</span>
-                    <span>{{ $tlabel }}</span>
+                    <span>{{ __(Str::squish((string) $tlabel)) }}</span>
                 </button>
                 @endforeach
             </div>
@@ -69,8 +69,8 @@
                                             d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
                                         <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                                     </svg></div>
-                                <h2 class="text-base font-bold mb-1">Drop any file here</h2>
-                                <p class="text-fn-text3 text-sm mb-4">PDF, images, documents — any format supported</p>
+                                <h2 class="text-base font-bold mb-1">{{ __('Drop any file here') }}</h2>
+                                <p class="text-fn-text3 text-sm mb-4">{{ __('PDF, images, documents — any format supported') }}</p>
                                 <div
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -79,9 +79,9 @@
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
                                     </svg>
-                                    Choose File
+                                    {{ __('Choose File') }}
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                                <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                                 <input type="file" id="enc-file-input"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
@@ -115,7 +115,7 @@
 
                             {{-- Algorithm --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Algorithm</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Algorithm') }}</label>
                                 <div class="grid grid-cols-3 gap-2">
                                     @php
                                     $algorithms = [
@@ -128,10 +128,9 @@
                                     <button type="button"
                                         class="algo-btn {{ $aval === 'AES-256-GCM' ? 'active' : '' }} flex flex-col items-start gap-0.5 p-3 rounded-xl border text-left transition-all"
                                         data-algo="{{ $aval }}">
-                                        <span class="text-sm font-bold font-mono">{{ $aval }}</span>
-                                        <span class="algo-badge text-sm font-semibold px-1.5 py-0.5 rounded-md">{{
-                                            $abadge }}</span>
-                                        <span class="text-fn-text3 text-sm leading-tight mt-0.5">{{ $adesc }}</span>
+                                        <span class="text-sm font-bold font-mono">{{ __(Str::squish((string) $aval)) }}</span>
+                                        <span class="algo-badge text-sm font-semibold px-1.5 py-0.5 rounded-md">{{ __(Str::squish((string) $abadge)) }}</span>
+                                        <span class="text-fn-text3 text-sm leading-tight mt-0.5">{{ __(Str::squish((string) $adesc)) }}</span>
                                     </button>
                                     @endforeach
                                 </div>
@@ -140,12 +139,12 @@
                             {{-- Password --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                    Encryption Password <span class="text-fn-red">*</span>
+                                    {{ __('Encryption Password') }} <span class="text-fn-red">*</span>
                                 </label>
                                 <div class="relative mb-2">
-                                    <input type="password" id="enc-password" placeholder="Enter a strong password"
+                                    <input type="password" id="enc-password" placeholder="{{ __('Enter a strong password') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    <button type="button" aria-label="Toggle password visibility"
+                                    <button type="button" aria-label="{{ __('Toggle password visibility') }}"
                                         class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text"
                                         data-target="enc-password">
                                         <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none"
@@ -183,7 +182,7 @@
 
                         {{-- How it works --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-                            <p class="text-sm font-semibold text-fn-text2">How it works</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('How it works') }}</p>
                             @php
                             $encSteps = [
                             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -230,14 +229,14 @@
                             @foreach($encSteps as [$icon,$text])
                             <div class="flex items-start gap-2.5">
                                 <span class="text-base shrink-0">{!! $icon !!}</span>
-                                <span class="text-sm text-fn-text3 leading-relaxed">{{ $text }}</span>
+                                <span class="text-sm text-fn-text3 leading-relaxed">{{ __(Str::squish((string) $text)) }}</span>
                             </div>
                             @endforeach
                         </div>
 
                         {{-- Output info --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <p class="text-sm font-semibold text-fn-text2 mb-2">Output</p>
+                            <p class="text-sm font-semibold text-fn-text2 mb-2">{{ __('Output') }}</p>
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-10 h-10 rounded-lg bg-fn-red/12 border border-fn-red/20 flex items-center justify-center text-xl shrink-0">
@@ -253,9 +252,9 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-semibold text-fn-text2" id="enc-output-preview">your_file.enc
+                                    <p class="text-sm font-semibold text-fn-text2" id="enc-output-preview">{{ __('your_file.enc') }}
                                     </p>
-                                    <p class="text-fn-text3 text-sm">Encrypted binary file · add .enc extension</p>
+                                    <p class="text-fn-text3 text-sm">{{ __('Encrypted binary file · add .enc extension') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -278,7 +277,7 @@
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                             </svg>
-                            Encrypt File
+                            {{ __('Encrypt File') }}
                         </button>
 
                         {{-- Download card --}}
@@ -297,7 +296,7 @@
                                     </svg>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-sm truncate" id="enc-out-name">file.enc</p>
+                                    <p class="font-semibold text-sm truncate" id="enc-out-name">{{ __('file.enc') }}</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="enc-out-meta">—</p>
                                 </div>
                                 <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
@@ -311,7 +310,7 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download Encrypted File
+                                {{ __('Download Encrypted File') }}
                             </a>
                         </div>
                     </div>
@@ -337,8 +336,8 @@
                                     <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
                                     <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
                                 </svg></div>
-                            <h2 class="text-base font-bold mb-1">Drop your .enc file here</h2>
-                            <p class="text-fn-text3 text-sm mb-4">Files encrypted with Filenewer's encrypt tool</p>
+                            <h2 class="text-base font-bold mb-1">{{ __('Drop your .enc file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-4">{{ __('Files encrypted with Filenewer\'s encrypt tool') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -347,7 +346,7 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose .enc File
+                                {{ __('Choose .enc File') }}
                             </div>
                             <input type="file" id="dec-file-input" accept=".enc"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -369,7 +368,7 @@
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-sm truncate" id="dec-file-name">file.enc</p>
+                                <p class="font-semibold text-sm truncate" id="dec-file-name">{{ __('file.enc') }}</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">—</p>
                             </div>
                             <button type="button" id="dec-remove"
@@ -384,13 +383,13 @@
 
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                Decryption Password <span class="text-fn-red">*</span>
+                                {{ __('Decryption Password') }} <span class="text-fn-red">*</span>
                             </label>
                             <div class="relative">
                                 <input type="password" id="dec-password"
-                                    placeholder="Enter the password used to encrypt"
+                                    placeholder="{{ __('Enter the password used to encrypt') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" aria-label="Toggle password visibility"
+                                <button type="button" aria-label="{{ __('Toggle password visibility') }}"
                                     class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text"
                                     data-target="dec-password">
                                     <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -427,7 +426,7 @@
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                             </svg>
-                            Decrypt File
+                            {{ __('Decrypt File') }}
                         </button>
 
                         {{-- Result --}}
@@ -461,7 +460,7 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download Decrypted File
+                                {{ __('Download Decrypted File') }}
                             </a>
                         </div>
                     </div>
@@ -481,24 +480,20 @@
                                         <path d="M12 16h.01" />
                                     </svg></span>
                                 <div>
-                                    <p class="text-sm font-bold text-fn-text mb-1">Important</p>
-                                    <p class="text-sm text-fn-text3 leading-relaxed">You must use the exact same
-                                        password that was used to encrypt the file. If the password is wrong or the file
-                                        is corrupted, decryption will fail.</p>
+                                    <p class="text-sm font-bold text-fn-text mb-1">{{ __('Important') }}</p>
+                                    <p class="text-sm text-fn-text3 leading-relaxed">{{ __('You must use the exact same password that was used to encrypt the file. If the password is wrong or the file is corrupted, decryption will fail.') }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
-                            <p class="text-sm font-semibold text-fn-text2">Supported algorithms</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Supported algorithms') }}</p>
                             @foreach($algorithms as [$aval,$abadge,$adesc])
                             <div class="flex items-center gap-2">
-                                <span class="text-sm font-mono font-bold text-fn-blue-l w-28 shrink-0">{{ $aval
-                                    }}</span>
-                                <span class="text-sm text-fn-text3">{{ $adesc }}</span>
+                                <span class="text-sm font-mono font-bold text-fn-blue-l w-28 shrink-0">{{ __(Str::squish((string) $aval)) }}</span>
+                                <span class="text-sm text-fn-text3">{{ __(Str::squish((string) $adesc)) }}</span>
                             </div>
                             @endforeach
-                            <p class="text-sm text-fn-text3 mt-2">Algorithm is auto-detected from the file header — no
-                                need to specify.</p>
+                            <p class="text-sm text-fn-text3 mt-2">{{ __('Algorithm is auto-detected from the file header — no need to specify.') }}</p>
                         </div>
                     </div>
 
@@ -517,7 +512,7 @@
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                             <polyline points="14 2 14 8 20 8" />
                         </svg>
-                        Hash File
+                        {{ __('Hash File') }}
                     </button>
                     <button type="button" id="hash-tab-text"
                         class="hash-tab-btn flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -527,7 +522,7 @@
                             <line x1="9" y1="20" x2="15" y2="20" />
                             <line x1="12" y1="4" x2="12" y2="20" />
                         </svg>
-                        Hash Text
+                        {{ __('Hash Text') }}
                     </button>
                 </div>
 
@@ -541,12 +536,12 @@
                             <div id="hash-drop-zone"
                                 class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-8 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                 <div class="text-3xl mb-2">#</div>
-                                <h2 class="text-base font-bold mb-1">Drop any file to hash</h2>
-                                <p class="text-fn-text3 text-sm mb-3">Compute checksums for any file type</p>
+                                <h2 class="text-base font-bold mb-1">{{ __('Drop any file to hash') }}</h2>
+                                <p class="text-fn-text3 text-sm mb-3">{{ __('Compute checksums for any file type') }}</p>
                                 <div
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
-                                    Choose File</div>
-                                <<p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                                    {{ __('Choose File') }}</div>
+                                <<p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                                     <input type="file" id="hash-file-input"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
@@ -573,28 +568,28 @@
                         {{-- Text input --}}
                         <div id="hash-text-panel" class="hidden space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2">Input Text</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Input Text') }}</p>
                                 <div class="flex gap-2">
                                     <button type="button" id="hash-text-paste"
-                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">Paste</button>
+                                        class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">{{ __('Paste') }}</button>
                                     <button type="button" id="hash-text-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                 </div>
                             </div>
                             <textarea id="hash-text-input" rows="8" spellcheck="false"
-                                placeholder="Enter or paste text to hash…"
+                                placeholder="{{ __('Enter or paste text to hash…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         </div>
 
                         {{-- Algorithm selector --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <div class="flex items-center justify-between mb-2">
-                                <label class="text-sm font-semibold text-fn-text2">Algorithms</label>
+                                <label class="text-sm font-semibold text-fn-text2">{{ __('Algorithms') }}</label>
                                 <div class="flex gap-2">
                                     <button type="button" id="hash-select-all"
-                                        class="text-sm text-fn-blue-l hover:underline font-semibold">All</button>
+                                        class="text-sm text-fn-blue-l hover:underline font-semibold">{{ __('All') }}</button>
                                     <button type="button" id="hash-select-none"
-                                        class="text-sm text-fn-text3 hover:underline font-semibold">None</button>
+                                        class="text-sm text-fn-text3 hover:underline font-semibold">{{ __('None') }}</button>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-1.5">
@@ -614,8 +609,8 @@
                                     class="flex items-center gap-2 p-2 rounded-lg hover:bg-fn-surface transition-colors cursor-pointer">
                                     <input type="checkbox" name="hash-algo" value="{{ $hval }}" {{ $hdefault ? 'checked'
                                         : '' }} class="w-3.5 h-3.5 accent-fn-blue rounded" />
-                                    <span class="text-sm font-semibold text-fn-text2">{{ $hlabel }}</span>
-                                    <span class="text-fn-text3 text-sm ml-auto font-mono">{{ $hlen }}</span>
+                                    <span class="text-sm font-semibold text-fn-text2">{{ __(Str::squish((string) $hlabel)) }}</span>
+                                    <span class="text-fn-text3 text-sm ml-auto font-mono">{{ __(Str::squish((string) $hlen)) }}</span>
                                 </label>
                                 @endforeach
                             </div>
@@ -633,14 +628,14 @@
                         <button type="button" id="hash-btn" disabled
                             class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l flex items-center justify-center gap-2">
                             <span class="font-black text-base">#</span>
-                            Compute Hashes
+                            {{ __('Compute Hashes') }}
                         </button>
                     </div>
 
                     {{-- Right: Results --}}
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <p class="text-sm font-semibold text-fn-text2">Hash Results</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Hash Results') }}</p>
                             <div class="flex gap-2">
                                 <span id="hash-meta" class="hidden text-sm text-fn-text3"></span>
                                 <button type="button" id="hash-copy-all"
@@ -650,7 +645,7 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                     </svg>
-                                    <span id="hash-copy-all-label">Copy all</span>
+                                    <span id="hash-copy-all-label">{{ __('Copy all') }}</span>
                                 </button>
                             </div>
                         </div>
@@ -659,7 +654,7 @@
                             <div id="hash-empty"
                                 class="flex flex-col items-center justify-center h-48 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
                                 <span class="text-3xl font-black opacity-30">#</span>
-                                <span class="text-sm">Hash results will appear here</span>
+                                <span class="text-sm">{{ __('Hash results will appear here') }}</span>
                             </div>
                         </div>
                     </div>
@@ -676,7 +671,7 @@
 {{-- ══ ALGORITHM REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Hash Algorithms Reference</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Hash Algorithms Reference') }}</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @php
             $algoRef = [
@@ -696,7 +691,7 @@
             @foreach($algoRef as [$name,$len,$secure,$val,$desc])
             <div class="p-4 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <div class="flex items-center justify-between mb-1.5">
-                    <span class="font-bold text-sm">{{ $name }}</span>
+                    <span class="font-bold text-sm">{{ __(Str::squish((string) $name)) }}</span>
                     @if($secure)
                     <span
                         class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold"><svg
@@ -706,14 +701,14 @@
                             style="vertical-align:-0.125em">
                             <path d="M5 12l5 5l10 -10" />
                         </svg>
-                        Secure</span>
+                        {{ __('Secure') }}</span>
                     @else
                     <span
-                        class="text-sm px-2 py-0.5 bg-fn-red/10 border border-fn-red/20 text-fn-red rounded-md font-semibold">Legacy</span>
+                        class="text-sm px-2 py-0.5 bg-fn-red/10 border border-fn-red/20 text-fn-red rounded-md font-semibold">{{ __('Legacy') }}</span>
                     @endif
                 </div>
-                <p class="text-sm font-mono text-fn-blue-l mb-1.5">{{ $len }}</p>
-                <p class="text-sm text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-1.5">{{ __(Str::squish((string) $len)) }}</p>
+                <p class="text-sm text-fn-text3 leading-relaxed">{{ __(Str::squish((string) $desc)) }}</p>
             </div>
             @endforeach
         </div>
@@ -1073,11 +1068,11 @@
 
   setupDropZone('enc-drop-zone', 'enc-file-input', 'enc-file-preview', 'enc-file-name', 'enc-file-meta', 'enc-remove', f => {
     encFile = f;
-    document.getElementById('enc-output-preview').textContent = f.name + '.enc';
+    document.getElementById('enc-output-preview').textContent = f.name + {{ Illuminate\Support\Js::from(__('.enc')) }};
     updateEncBtn();
   }, () => {
     encFile = null;
-    document.getElementById('enc-output-preview').textContent = 'your_file.enc';
+    document.getElementById('enc-output-preview').textContent = {{ Illuminate\Support\Js::from(__('your_file.enc')) }};
     updateEncBtn();
   });
 
@@ -1101,7 +1096,7 @@
     fd.append('algorithm', activeAlgo);
     try {
       const res = await fetch(`${API}/file-encrypt`, { method:'POST', body:fd });
-      if (!res.ok) { const d=await res.json().catch(()=>({})); throw new Error(d.error||'Encryption failed.'); }
+      if (!res.ok) { const d=await res.json().catch(()=>({})); throw new Error(d.error||{{ Illuminate\Support\Js::from(__('Encryption failed.')) }}); }
       const blob    = await res.blob();
       const outName = res.headers.get('Content-Disposition')?.match(/filename="?([^"]+)"?/)?.[1] || (encFile.name + '.enc');
       const origKb  = parseFloat(res.headers.get('X-Original-Size-KB')) || (encFile.size/1024);
@@ -1146,7 +1141,7 @@
     fd.append('password', document.getElementById('dec-password').value);
     try {
       const res = await fetch(`${API}/file-decrypt`, { method:'POST', body:fd });
-      if (!res.ok) { const d=await res.json().catch(()=>({})); throw new Error(d.error||'Decryption failed. Check your password.'); }
+      if (!res.ok) { const d=await res.json().catch(()=>({})); throw new Error(d.error||{{ Illuminate\Support\Js::from(__('Decryption failed. Check your password.')) }}); }
       const blob    = await res.blob();
       const outName = res.headers.get('Content-Disposition')?.match(/filename="?([^"]+)"?/)?.[1]
         || decFile.name.replace(/\.enc$/i,'');
@@ -1157,7 +1152,7 @@
       dl.href = decBlobUrl; dl.download = outName;
       document.getElementById('dec-out-name').textContent = outName;
       document.getElementById('dec-out-meta').textContent =
-        formatKb(origKb) + ' · ' + (res.headers.get('X-Algorithm') || 'Decrypted');
+        formatKb(origKb) + ' · ' + (res.headers.get('X-Algorithm') || {{ Illuminate\Support\Js::from(__('Decrypted')) }});
       showEl('dec-result');
     } catch(err) {
       document.getElementById('dec-error-text').textContent = err.message;
@@ -1215,7 +1210,7 @@
   document.getElementById('hash-btn').addEventListener('click', async () => {
     const selectedAlgos = [...document.querySelectorAll('input[name="hash-algo"]:checked')].map(cb => cb.value);
     if (selectedAlgos.length === 0) {
-      document.getElementById('hash-error-text').textContent = 'Select at least one algorithm.';
+      document.getElementById('hash-error-text').textContent = {{ Illuminate\Support\Js::from(__('Select at least one algorithm.')) }};
       showEl('hash-error', 'flex'); return;
     }
     hideEl('hash-error');
@@ -1234,7 +1229,7 @@
         });
       }
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Hashing failed.');
+      if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Hashing failed.')) }});
       renderHashResults(data);
     } catch(err) {
       document.getElementById('hash-error-text').textContent = err.message;
@@ -1262,18 +1257,18 @@
       div.className = 'hash-row';
       div.tabIndex = 0;
       div.setAttribute('role', 'button');
-      div.setAttribute('aria-label', 'Copy ' + algo.toUpperCase() + ' hash');
+      div.setAttribute('aria-label', {{ Illuminate\Support\Js::from(__('Copy ')) }} + algo.toUpperCase() + {{ Illuminate\Support\Js::from(__(' hash')) }});
       div.addEventListener('keydown', event => {
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); div.click(); }
       });
-      div.innerHTML = `
-        <div class="hash-label">${algo.toUpperCase()} <span class="hash-copy">Copy</span></div>
-        <div class="hash-value">${escHtml(hash)}</div>`;
+      div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+        <div class="hash-label">:value0 <span class="hash-copy">Copy</span></div>
+        <div class="hash-value">:value1</div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(algo.toUpperCase())).replaceAll(/:value1(?!\d)/g, () => String(escHtml(hash)));
       div.addEventListener('click', () => {
         navigator.clipboard.writeText(hash).catch(() => {});
         div.classList.add('copied');
-        div.querySelector('.hash-copy').textContent = 'Copied!';
-        setTimeout(() => { div.classList.remove('copied'); div.querySelector('.hash-copy').textContent = 'Copy'; }, 1500);
+        div.querySelector('.hash-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { div.classList.remove('copied'); div.querySelector('.hash-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 1500);
       });
       results.appendChild(div);
     });
@@ -1281,8 +1276,8 @@
     showEl('hash-copy-all');
     document.getElementById('hash-copy-all').onclick = async () => {
       await navigator.clipboard.writeText(allText).catch(() => {});
-      document.getElementById('hash-copy-all-label').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('hash-copy-all-label').textContent = 'Copy all'; }, 2000);
+      document.getElementById('hash-copy-all-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+      setTimeout(() => { document.getElementById('hash-copy-all-label').textContent = {{ Illuminate\Support\Js::from(__('Copy all')) }}; }, 2000);
     };
   }
 
@@ -1302,7 +1297,7 @@
       onRemove();
     });
     function handle(file) {
-      if (file.size > 50*1024*1024) { alert('File exceeds 200MB limit.'); return; }
+      if (file.size > 50*1024*1024) { alert({{ Illuminate\Support\Js::from(__('File exceeds 200MB limit.')) }}); return; }
       onFile(file);
       document.getElementById(nameId).textContent = file.name;
       document.getElementById(metaId).textContent = formatBytes(file.size) + ' · ' + (file.type || file.name.split('.').pop().toUpperCase());
@@ -1323,7 +1318,7 @@
   }
   function setLoading(btn, label) {
     btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> ${label}`;
+    btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> :value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(label));
   }
   function resetBtn(btn, label) { btn.disabled = false; btn.innerHTML = label; }
   function formatBytes(b) {

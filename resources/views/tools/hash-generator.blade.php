@@ -37,7 +37,7 @@
                     class="tab-btn {{ $tval === 'generate' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}">
                     <span class="{{ $tval === 'generate' ? 'font-black text-base' : '' }}">{!! $ticon !!}</span>
-                    <span>{{ $tlabel }}</span>
+                    <span>{{ __(Str::squish((string) $tlabel)) }}</span>
                 </button>
                 @endforeach
             </div>
@@ -57,7 +57,7 @@
                                         <line x1="9" y1="20" x2="15" y2="20" />
                                         <line x1="12" y1="4" x2="12" y2="20" />
                                     </svg>
-                                    Text
+                                    {{ __('Text') }}
                                 </button>
                                 <button type="button" id="gen-mode-file"
                                     class="gen-mode-btn flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -66,27 +66,27 @@
                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                         <polyline points="14 2 14 8 20 8" />
                                     </svg>
-                                    File
+                                    {{ __('File') }}
                                 </button>
                             </div>
                             {{-- Text input --}}
                             <div id="gen-text-panel" class="space-y-2">
                                 <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between">
-                                    <label class="text-sm font-semibold text-fn-text2">Input Text</label>
+                                    <label class="text-sm font-semibold text-fn-text2">{{ __('Input Text') }}</label>
                                     <div class="flex flex-wrap gap-2">
                                         <button type="button" id="gen-paste"
-                                            class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">Paste</button>
+                                            class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">{{ __('Paste') }}</button>
                                         <button type="button" id="gen-clear"
-                                            class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
+                                            class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                     </div>
                                 </div>
                                 <textarea id="gen-text-input" rows="5" spellcheck="false"
-                                    placeholder="Enter or paste text to hash…"
+                                    placeholder="{{ __('Enter or paste text to hash…') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                                 <div
                                     class="hash-toolbar flex flex-wrap gap-2 items-center justify-between text-fn-text3 text-sm">
-                                    <span id="gen-char-count">0 characters</span>
-                                    <span id="gen-byte-count">0 bytes</span>
+                                    <span id="gen-char-count">{{ __('0 characters') }}</span>
+                                    <span id="gen-byte-count">{{ __('0 bytes') }}</span>
                                 </div>
                             </div>
                             {{-- File input --}}
@@ -94,12 +94,12 @@
                                 <div id="gen-drop-zone"
                                     class="drop-zone border-2 border-dashed border-fn-text/15 rounded-xl p-6 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
                                     <div class="text-3xl mb-2 font-black text-fn-text3/30">#</div>
-                                    <p class="text-sm font-bold mb-1">Drop any file</p>
-                                    <p class="text-fn-text3 text-sm mb-3">Compute hashes for any file type · Max 200MB
+                                    <p class="text-sm font-bold mb-1">{{ __('Drop any file') }}</p>
+                                    <p class="text-fn-text3 text-sm mb-3">{{ __('Compute hashes for any file type · Max 200MB') }}
                                     </p>
                                     <div
                                         class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
-                                        Choose File</div>
+                                        {{ __('Choose File') }}</div>
                                     <input type="file" id="gen-file-input"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
@@ -126,15 +126,14 @@
                             {{-- Algorithms --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between mb-2">
-                                    <label class="text-sm font-semibold text-fn-text2">Algorithms</label>
+                                    <label class="text-sm font-semibold text-fn-text2">{{ __('Algorithms') }}</label>
                                     <div class="flex flex-wrap gap-2">
                                         <button type="button" id="algo-select-all"
-                                            class="text-sm text-fn-blue-l hover:underline font-semibold">All</button>
+                                            class="text-sm text-fn-blue-l hover:underline font-semibold">{{ __('All') }}</button>
                                         <button type="button" id="algo-select-none"
-                                            class="text-sm text-fn-text3 hover:underline font-semibold">None</button>
+                                            class="text-sm text-fn-text3 hover:underline font-semibold">{{ __('None') }}</button>
                                         <button type="button" id="algo-select-secure"
-                                            class="text-sm text-fn-green hover:underline font-semibold">Secure
-                                            only</button>
+                                            class="text-sm text-fn-green hover:underline font-semibold">{{ __('Secure only') }}</button>
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-y-0.5">
@@ -162,8 +161,8 @@
                                         <input type="checkbox" name="gen-algo" value="{{ $hval }}"
                                             data-secure="{{ $hsecure ? 'true' : 'false' }}" {{ $hdefault ? 'checked'
                                             : '' }} class="w-3.5 h-3.5 accent-fn-blue rounded" />
-                                        <span class="text-sm font-semibold text-fn-text2 flex-1">{{ $hlabel }}</span>
-                                        <span class="text-fn-text3 text-sm font-mono">{{ $hbits }}b</span>
+                                        <span class="text-sm font-semibold text-fn-text2 flex-1">{{ __(Str::squish((string) $hlabel)) }}</span>
+                                        <span class="text-fn-text3 text-sm font-mono">{{ __(Str::squish((string) $hbits)) }}b</span>
                                         @if(!$hsecure)
                                         <span class="text-fn-red text-sm font-bold">!</span>
                                         @endif
@@ -175,14 +174,13 @@
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                                 <div>
                                     <label for="gen-hmac" class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                        HMAC Key <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('HMAC Key') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
-                                    <input type="text" id="gen-hmac" placeholder="Secret key for HMAC"
+                                    <input type="text" id="gen-hmac" placeholder="{{ __('Secret key for HMAC') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                                 <div>
-                                    <label class="text-sm font-semibold text-fn-text2 block mb-1.5">Output
-                                        Format</label>
+                                    <label class="text-sm font-semibold text-fn-text2 block mb-1.5">{{ __('Output Format') }}</label>
                                     <div class="flex flex-wrap gap-1.5">
                                         @php $outFmts =
                                         [['hex','hex'],['base64','base64'],['base64url','base64url'],['int','int']];
@@ -190,7 +188,7 @@
                                         @foreach($outFmts as [$fval,$flabel])
                                         <button type="button"
                                             class="out-fmt-btn {{ $fval === 'hex' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-mono font-semibold transition-all"
-                                            data-fmt="{{ $fval }}">{{ $flabel }}</button>
+                                            data-fmt="{{ $fval }}">{{ __(Str::squish((string) $flabel)) }}</button>
                                         @endforeach
                                     </div>
                                 </div>
@@ -199,13 +197,13 @@
                                 class="w-full py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
                                 disabled>
                                 <span class="font-black text-base">#</span>
-                                Compute Hashes
+                                {{ __('Compute Hashes') }}
                             </button>
                         </div>{{-- /left --}}
                         {{-- ── RIGHT: Results ── --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2" id="gen-result-label">Hash Results</p>
+                                <p class="text-sm font-semibold text-fn-text2" id="gen-result-label">{{ __('Hash Results') }}</p>
                                 <div class="flex flex-wrap gap-2">
                                     <span id="gen-meta" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="gen-copy-all"
@@ -216,7 +214,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="gen-copy-label">Copy all</span>
+                                        <span id="gen-copy-label">{{ __('Copy all') }}</span>
                                     </button>
                                 </div>
                             </div>
@@ -224,8 +222,8 @@
                                 <div id="gen-empty"
                                     class="flex flex-col items-center justify-center h-64 border-2 border-dashed border-fn-text/8 rounded-xl text-fn-text3 gap-2">
                                     <span class="text-4xl font-black opacity-20">#</span>
-                                    <span class="text-sm">Hash results will appear here</span>
-                                    <span class="text-sm">Enter text or upload a file, then click Compute</span>
+                                    <span class="text-sm">{{ __('Hash results will appear here') }}</span>
+                                    <span class="text-sm">{{ __('Enter text or upload a file, then click Compute') }}</span>
                                 </div>
                             </div>
                             <div id="gen-error"
@@ -245,13 +243,13 @@
                     <div class="max-w-2xl space-y-4">
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block">Hash 1</label>
-                                <textarea id="cmp-hash1" rows="4" spellcheck="false" placeholder="Paste first hash…"
+                                <label class="text-sm font-semibold text-fn-text2 block">{{ __('Hash 1') }}</label>
+                                <textarea id="cmp-hash1" rows="4" spellcheck="false" placeholder="{{ __('Paste first hash…') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             </div>
                             <div class="space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block">Hash 2</label>
-                                <textarea id="cmp-hash2" rows="4" spellcheck="false" placeholder="Paste second hash…"
+                                <label class="text-sm font-semibold text-fn-text2 block">{{ __('Hash 2') }}</label>
+                                <textarea id="cmp-hash2" rows="4" spellcheck="false" placeholder="{{ __('Paste second hash…') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             </div>
                         </div>
@@ -261,7 +259,7 @@
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
-                            Compare Hashes
+                            {{ __('Compare Hashes') }}
                         </button>
                         {{-- Result --}}
                         <div id="cmp-result" class="hidden p-5 rounded-2xl border">
@@ -276,7 +274,7 @@
                                         <path d="M9 12l2 2l4 -4" />
                                     </svg></span>
                                 <div>
-                                    <p class="font-bold text-base" id="cmp-title">Hashes Match</p>
+                                    <p class="font-bold text-base" id="cmp-title">{{ __('Hashes Match') }}</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="cmp-message"></p>
                                 </div>
                             </div>
@@ -284,7 +282,7 @@
                         </div>
                         {{-- Live diff (character-by-character) --}}
                         <div id="cmp-diff" class="hidden">
-                            <p class="text-sm font-semibold text-fn-text2 mb-2">Diff View</p>
+                            <p class="text-sm font-semibold text-fn-text2 mb-2">{{ __('Diff View') }}</p>
                             <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl font-mono text-sm leading-relaxed break-all"
                                 id="cmp-diff-view"></div>
                         </div>
@@ -313,11 +311,11 @@
                                     <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
                                     <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                                 </svg></div>
-                            <h2 class="text-base font-bold mb-1">Drop a file to verify its checksum</h2>
-                            <p class="text-fn-text3 text-sm mb-4">Any file type · Max 200MB</p>
+                            <h2 class="text-base font-bold mb-1">{{ __('Drop a file to verify its checksum') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-4">{{ __('Any file type · Max 200MB') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
-                                Choose File</div>
+                                {{ __('Choose File') }}</div>
                             <input type="file" id="chk-file-input"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -350,7 +348,7 @@
                         </div>
                         {{-- Algorithm selector --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Algorithm</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Algorithm') }}</label>
                             <div class="flex flex-wrap gap-2">
                                 @php $chkAlgos = ['sha256','sha512','md5','sha1','sha3_256','blake2b']; @endphp
                                 @foreach($chkAlgos as $ca)
@@ -363,10 +361,9 @@
                         {{-- Expected checksum (optional verify) --}}
                         <div>
                             <label for="chk-expected" class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                Expected Checksum <span class="font-normal text-fn-text3 ml-1">(optional — paste to
-                                    verify)</span>
+                                {{ __('Expected Checksum') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional — paste to verify)') }}</span>
                             </label>
-                            <input type="text" id="chk-expected" placeholder="Paste expected hash to verify against…"
+                            <input type="text" id="chk-expected" placeholder="{{ __('Paste expected hash to verify against…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40" />
                         </div>
                         <button type="button" id="chk-btn" disabled
@@ -376,13 +373,13 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Compute Checksum
+                            {{ __('Compute Checksum') }}
                         </button>
                         {{-- Result --}}
                         <div id="chk-result" class="hidden space-y-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="hash-toolbar flex flex-wrap gap-2 items-center justify-between mb-2">
-                                    <p class="text-sm font-semibold text-fn-text2" id="chk-algo-label">SHA-256</p>
+                                    <p class="text-sm font-semibold text-fn-text2" id="chk-algo-label">{{ __('SHA-256') }}</p>
                                     <button type="button" id="chk-copy-btn"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -391,7 +388,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="chk-copy-label">Copy</span>
+                                        <span id="chk-copy-label">{{ __('Copy') }}</span>
                                     </button>
                                 </div>
                                 <p class="font-mono text-sm text-fn-text2 break-all" id="chk-hash-display">—</p>
@@ -411,7 +408,7 @@
                                         <path d="M9 12l2 2l4 -4" />
                                     </svg></span>
                                 <div>
-                                    <p class="font-bold text-sm" id="chk-verify-title">Checksum Verified</p>
+                                    <p class="font-bold text-sm" id="chk-verify-title">{{ __('Checksum Verified') }}</p>
                                     <p class="text-sm text-fn-text3 mt-0.5" id="chk-verify-sub"></p>
                                 </div>
                             </div>
@@ -433,16 +430,16 @@
 {{-- ══ ALGORITHM REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Algorithm Reference</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Algorithm Reference') }}</h2>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-fn-text/8">
-                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Algorithm</th>
-                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Family</th>
-                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Bits</th>
-                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Secure</th>
-                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">Use case</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">{{ __('Algorithm') }}</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">{{ __('Family') }}</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">{{ __('Bits') }}</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">{{ __('Secure') }}</th>
+                        <th class="text-left px-4 py-3 text-sm font-semibold text-fn-text3">{{ __('Use case') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-fn-text/5">
@@ -466,9 +463,9 @@
                     @endphp
                     @foreach($algoTable as [$name,$family,$bits,$secure,$use])
                     <tr class="hover:bg-fn-surface2 transition-colors">
-                        <td class="px-4 py-2.5 font-mono font-bold text-sm text-fn-text2">{{ $name }}</td>
-                        <td class="px-4 py-2.5 text-sm text-fn-text3">{{ $family }}</td>
-                        <td class="px-4 py-2.5 text-sm font-mono text-fn-text3">{{ $bits }}</td>
+                        <td class="px-4 py-2.5 font-mono font-bold text-sm text-fn-text2">{{ __(Str::squish((string) $name)) }}</td>
+                        <td class="px-4 py-2.5 text-sm text-fn-text3">{{ __(Str::squish((string) $family)) }}</td>
+                        <td class="px-4 py-2.5 text-sm font-mono text-fn-text3">{{ __(Str::squish((string) $bits)) }}</td>
                         <td class="px-4 py-2.5">
                             @if($secure)
                             <span class="text-sm font-bold text-fn-green"><svg xmlns="http://www.w3.org/2000/svg"
@@ -485,10 +482,10 @@
                                     stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
                                     <path d="M18 6l-12 12" />
                                     <path d="M6 6l12 12" />
-                                </svg> Legacy</span>
+                                </svg> {{ __('Legacy') }}</span>
                             @endif
                         </td>
-                        <td class="px-4 py-2.5 text-sm text-fn-text3">{{ $use }}</td>
+                        <td class="px-4 py-2.5 text-sm text-fn-text3">{{ __(Str::squish((string) $use)) }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -828,8 +825,8 @@
   const genTA = document.getElementById('gen-text-input');
   genTA.addEventListener('input', () => {
     const val = genTA.value;
-    document.getElementById('gen-char-count').textContent = val.length.toLocaleString() + ' characters';
-    document.getElementById('gen-byte-count').textContent = new Blob([val]).size.toLocaleString() + ' bytes';
+    document.getElementById('gen-char-count').textContent = val.length.toLocaleString() + {{ Illuminate\Support\Js::from(__(' characters')) }};
+    document.getElementById('gen-byte-count').textContent = new Blob([val]).size.toLocaleString() + {{ Illuminate\Support\Js::from(__(' bytes')) }};
     refreshGenBtn();
   });
   document.getElementById('gen-paste').addEventListener('click', async () => {
@@ -879,7 +876,7 @@
     hideEl('gen-error');
     const btn = document.getElementById('gen-btn');
     btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Computing…`;
+    btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Computing…')) }});
     const selectedAlgos = [...document.querySelectorAll('input[name="gen-algo"]:checked')].map(cb => cb.value);
     const hmacKey       = document.getElementById('gen-hmac').value.trim();
     try {
@@ -903,14 +900,14 @@
         res = await fetch(`${API}/hash-generate`, { method: 'POST', body: fd });
       }
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Hashing failed.');
+      if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Hashing failed.')) }});
       renderHashResults(data);
     } catch(err) {
       document.getElementById('gen-error-text').textContent = err.message;
       showEl('gen-error', 'flex');
     } finally {
       btn.disabled = false;
-      btn.innerHTML = `<span class="font-black text-base">#</span> Compute Hashes`;
+      btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="font-black text-base">#</span> Compute Hashes')) }});
       refreshGenBtn();
     }
   }
@@ -936,23 +933,23 @@
       div.className = 'hash-result-row';
       div.tabIndex = 0;
       div.setAttribute('role', 'button');
-      div.setAttribute('aria-label', 'Copy ' + algo.toUpperCase() + ' hash');
+      div.setAttribute('aria-label', {{ Illuminate\Support\Js::from(__('Copy ')) }} + algo.toUpperCase() + {{ Illuminate\Support\Js::from(__(' hash')) }});
       div.addEventListener('keydown', event => {
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); div.click(); }
       });
-      div.innerHTML = `
+      div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <div class="hr-header">
-          <span class="hr-algo">${escHtml(algo.toUpperCase())}</span>
-          <span class="hr-bits">${bits} bits</span>
-          <span class="hr-secure ${secure ? 'text-fn-green' : 'text-fn-red'}">${secure ? `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Secure` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy`}</span>
+          <span class="hr-algo">:value0</span>
+          <span class="hr-bits">:value1 bits</span>
+          <span class="hr-secure :value2">:value3</span>
           <span class="hr-copy">Copy</span>
         </div>
-        <div class="hr-value">${escHtml(hash)}</div>`;
+        <div class="hr-value">:value4</div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(algo.toUpperCase()))).replaceAll(/:value1(?!\d)/g, () => String(bits)).replaceAll(/:value2(?!\d)/g, () => String(secure ? 'text-fn-green' : 'text-fn-red')).replaceAll(/:value3(?!\d)/g, () => String(secure ? `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Secure` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> Legacy`)).replaceAll(/:value4(?!\d)/g, () => String(escHtml(hash)));
       div.addEventListener('click', () => {
         navigator.clipboard.writeText(hash).catch(() => {});
         div.classList.add('copied');
-        div.querySelector('.hr-copy').textContent = 'Copied!';
-        setTimeout(() => { div.classList.remove('copied'); div.querySelector('.hr-copy').textContent = 'Copy'; }, 1500);
+        div.querySelector('.hr-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { div.classList.remove('copied'); div.querySelector('.hr-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 1500);
       });
       container.appendChild(div);
     });
@@ -969,8 +966,8 @@
     showEl('gen-copy-all');
     document.getElementById('gen-copy-all').onclick = async () => {
       await navigator.clipboard.writeText(allLines.join('\n')).catch(() => {});
-      document.getElementById('gen-copy-label').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
+      document.getElementById('gen-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+      setTimeout(() => { document.getElementById('gen-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy all')) }}; }, 2000);
     };
   }
   // ══ COMPARE ══
@@ -985,29 +982,29 @@
     const h1 = cmpHash1.value.trim();
     const h2 = cmpHash2.value.trim();
     cmpBtn.disabled = true;
-    cmpBtn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Comparing…`;
+    cmpBtn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Comparing…')) }});
     try {
       const res  = await fetch(`${API}/hash-compare`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ hash1: h1, hash2: h2 }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Comparison failed.');
+      if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Comparison failed.')) }});
       const match  = data.match ?? false;
       const result = document.getElementById('cmp-result');
       result.className = `p-5 rounded-2xl border ${match
         ? 'bg-fn-green/6 border-fn-green/20'
         : 'bg-fn-red/6 border-fn-red/20'}`;
-      document.getElementById('cmp-icon').innerHTML    = match ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+      document.getElementById('cmp-icon').innerHTML    = match ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>`;
-      document.getElementById('cmp-title').textContent   = match ? 'Hashes Match' : 'Hashes Do Not Match';
+</svg>')) }});
+      document.getElementById('cmp-title').textContent   = match ? {{ Illuminate\Support\Js::from(__('Hashes Match')) }} : {{ Illuminate\Support\Js::from(__('Hashes Do Not Match')) }};
       document.getElementById('cmp-message').textContent = data.message ?? '';
       // Stats chips
       const stats = document.getElementById('cmp-stats');
@@ -1018,7 +1015,7 @@
       ].forEach(([label, val]) => {
         const div = document.createElement('div');
         div.className = 'px-3 py-2 bg-fn-surface2 border border-fn-text/8 rounded-lg text-center';
-        div.innerHTML = `<p class="text-sm text-fn-text3">${label}</p><p class="text-sm font-bold text-fn-text2 mt-0.5">${val}</p>`;
+        div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p class="text-sm text-fn-text3">:value0</p><p class="text-sm font-bold text-fn-text2 mt-0.5">:value1</p>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(val));
         stats.appendChild(div);
       });
       showEl('cmp-result');
@@ -1037,7 +1034,7 @@
       showEl('cmp-error', 'flex');
     } finally {
       cmpBtn.disabled = false;
-      cmpBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Compare Hashes`;
+      cmpBtn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Compare Hashes')) }});
     }
   });
   // ══ CHECKSUM ══
@@ -1056,24 +1053,24 @@
     hideEl('chk-error'); hideEl('chk-result');
     const btn = document.getElementById('chk-btn');
     btn.disabled = true;
-    btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Computing…`;
+    btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Computing…')) }});
     const fd = new FormData();
     fd.append('file',      chkFile);
     fd.append('algorithm', activeAlgo);
     try {
       const res  = await fetch(`${API}/file-checksum`, { method: 'POST', body: fd });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Checksum failed.');
+      if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Checksum failed.')) }});
       chkHash = data.checksum ?? '';
       document.getElementById('chk-algo-label').textContent   = (data.algorithm ?? activeAlgo).toUpperCase();
       document.getElementById('chk-hash-display').textContent = chkHash;
       document.getElementById('chk-size-label').textContent   =
-        (data.filename ?? chkFile.name) + ' · ' + (data.size_kb ?? 0) + ' KB';
+        (data.filename ?? chkFile.name) + ' · ' + (data.size_kb ?? 0) + {{ Illuminate\Support\Js::from(__(' KB')) }};
       // Copy button
       document.getElementById('chk-copy-btn').onclick = async () => {
         await navigator.clipboard.writeText(chkHash).catch(() => {});
-        document.getElementById('chk-copy-label').textContent = 'Copied!';
-        setTimeout(() => { document.getElementById('chk-copy-label').textContent = 'Copy'; }, 2000);
+        document.getElementById('chk-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { document.getElementById('chk-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
       };
       // Verify against expected
       const expected = document.getElementById('chk-expected').value.trim();
@@ -1083,19 +1080,19 @@
         verifyEl.className = `p-4 rounded-2xl border flex items-center gap-3 ${matches
           ? 'bg-fn-green/6 border-fn-green/20'
           : 'bg-fn-red/6 border-fn-red/20'}`;
-        document.getElementById('chk-verify-icon').innerHTML  = matches ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+        document.getElementById('chk-verify-icon').innerHTML  = matches ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>`;
-        document.getElementById('chk-verify-title').textContent = matches ? 'Checksum Verified <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>' : 'Checksum Mismatch!';
+</svg>')) }});
+        document.getElementById('chk-verify-title').textContent = matches ? {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('Checksum Verified <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>')) }} : {{ Illuminate\Support\Js::from(__('Checksum Mismatch!')) }};
         document.getElementById('chk-verify-sub').textContent   = matches
-          ? 'The file matches the expected checksum.'
-          : 'The computed checksum does not match. File may be corrupted or tampered.';
+          ? {{ Illuminate\Support\Js::from(__('The file matches the expected checksum.')) }}
+          : {{ Illuminate\Support\Js::from(__('The computed checksum does not match. File may be corrupted or tampered.')) }};
         showEl('chk-verify-result', 'flex');
       } else {
         hideEl('chk-verify-result');
@@ -1106,7 +1103,7 @@
       showEl('chk-error', 'flex');
     } finally {
       btn.disabled = false;
-      btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Compute Checksum`;
+      btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Compute Checksum')) }});
       if (chkFile) btn.disabled = false;
     }
   });
@@ -1126,7 +1123,7 @@
       onRemove();
     });
     function handle(file) {
-      if (file.size > 50*1024*1024) { alert('File exceeds 200MB limit.'); return; }
+      if (file.size > 50*1024*1024) { alert({{ Illuminate\Support\Js::from(__('File exceeds 200MB limit.')) }}); return; }
       onFile(file);
       document.getElementById(nameId).textContent = file.name;
       document.getElementById(metaId).textContent = formatBytes(file.size) + ' · ' + (file.type || file.name.split('.').pop().toUpperCase());

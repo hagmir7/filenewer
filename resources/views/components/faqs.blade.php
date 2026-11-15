@@ -1,6 +1,6 @@
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         @php
         $faqs = [
         ['Is this really free?', 'Merging up to 20 PDFs (200MB each) is completely free with no account needed'],
@@ -17,7 +17,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -25,7 +25,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach

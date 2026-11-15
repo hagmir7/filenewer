@@ -80,7 +80,18 @@ return [
 
     'locale' => env('APP_LOCALE', 'en'),
 
+    'default_locale' => env('APP_LOCALE', 'en'),
+
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+
+    'supported_locales' => [
+        'en' => ['name' => 'English', 'language' => 'en', 'direction' => 'ltr', 'regional' => 'en_US'],
+        'ar' => ['name' => 'العربية', 'language' => 'ar', 'direction' => 'rtl', 'regional' => 'ar_AR'],
+        'fr' => ['name' => 'Français', 'language' => 'fr', 'direction' => 'ltr', 'regional' => 'fr_FR'],
+        'es' => ['name' => 'Español', 'language' => 'es', 'direction' => 'ltr', 'regional' => 'es_ES'],
+        'hi' => ['name' => 'हिन्दी', 'language' => 'hi', 'direction' => 'ltr', 'regional' => 'hi_IN'],
+        'zh_CN' => ['name' => '简体中文', 'language' => 'zh-CN', 'direction' => 'ltr', 'regional' => 'zh_CN'],
+    ],
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 

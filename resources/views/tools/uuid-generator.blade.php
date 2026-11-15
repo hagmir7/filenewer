@@ -41,7 +41,7 @@
                 <button type="button"
                     class="tab-btn {{ $tval === 'generate' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}">
-                    <span>{!! $ticon !!}</span><span>{{ $tlabel }}</span>
+                    <span>{!! $ticon !!}</span><span>{{ __(Str::squish((string) $tlabel)) }}</span>
                 </button>
                 @endforeach
             </div>
@@ -53,22 +53,22 @@
                         <div class="lg:col-span-1 space-y-4">
                             {{-- Version --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">UUID Version</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('UUID Version') }}</label>
                                 <div class="grid grid-cols-3 gap-1.5">
                                     @php $uuidVersions = [1,3,4,5,6,7]; @endphp
                                     @foreach($uuidVersions as $v)
                                     <button type="button"
                                         class="ver-btn {{ $v === 4 ? 'active' : '' }} py-2 rounded-xl border text-sm font-bold transition-all"
-                                        data-ver="{{ $v }}">v{{ $v }}</button>
+                                        data-ver="{{ $v }}">v{{ __(Str::squish((string) $v)) }}</button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-2" id="ver-desc">Random (cryptographically secure)
+                                <p class="text-fn-text3 text-sm mt-2" id="ver-desc">{{ __('Random (cryptographically secure)') }}
                                 </p>
                             </div>
                             {{-- Count --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Count — <span id="count-val" class="text-fn-blue-l">1</span>
+                                    {{ __('Count —') }} <span id="count-val" class="text-fn-blue-l">1</span>
                                 </label>
                                 <input type="range" id="opt-count" min="1" max="50" value="1" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
@@ -82,25 +82,25 @@
                             <div id="name-opts"
                                 class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                                 <div>
-                                    <label class="text-sm font-semibold text-fn-text2 block mb-1.5">Namespace</label>
+                                    <label class="text-sm font-semibold text-fn-text2 block mb-1.5">{{ __('Namespace') }}</label>
                                     <select id="opt-namespace"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
-                                        <option value="dns">DNS</option>
-                                        <option value="url">URL</option>
-                                        <option value="oid">OID</option>
-                                        <option value="x500">X.500</option>
+                                        <option value="dns">{{ __('DNS') }}</option>
+                                        <option value="url">{{ __('URL') }}</option>
+                                        <option value="oid">{{ __('OID') }}</option>
+                                        <option value="x500">{{ __('X.500') }}</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="opt-name" class="text-sm font-semibold text-fn-text2 block mb-1.5">Name
+                                    <label for="opt-name" class="text-sm font-semibold text-fn-text2 block mb-1.5">{{ __('Name') }}
                                         <span class="text-fn-red">*</span></label>
-                                    <input type="text" id="opt-name" placeholder="e.g. example.com"
+                                    <input type="text" id="opt-name" placeholder="{{ __('e.g. example.com') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
                             {{-- Format options --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Format</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">{{ __('Format') }}</label>
                                 @php
                                 $fmtToggles = [
                                 ['opt-uppercase', 'Uppercase'],
@@ -120,29 +120,29 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-sm text-fn-text2 font-semibold">{{ $tlabel }}</span>
+                                    <span class="text-sm text-fn-text2 font-semibold">{{ __(Str::squish((string) $tlabel)) }}</span>
                                 </label>
                                 @endforeach
                             </div>
                             {{-- Prefix / Suffix / Seed --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Extra Options</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">{{ __('Extra Options') }}</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="text-sm text-fn-text3 block mb-1">Prefix</label>
-                                        <input type="text" id="opt-prefix" placeholder="ID-"
+                                        <label class="text-sm text-fn-text3 block mb-1">{{ __('Prefix') }}</label>
+                                        <input type="text" id="opt-prefix" placeholder="{{ __('ID-') }}"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                     <div>
-                                        <label class="text-sm text-fn-text3 block mb-1">Suffix</label>
-                                        <input type="text" id="opt-suffix" placeholder="-END"
+                                        <label class="text-sm text-fn-text3 block mb-1">{{ __('Suffix') }}</label>
+                                        <input type="text" id="opt-suffix" placeholder="{{ __('-END') }}"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-sm text-fn-text3 block mb-1">Seed <span
-                                            class="font-normal">(optional — for reproducibility)</span></label>
-                                    <input type="number" id="opt-seed" placeholder="e.g. 42"
+                                    <label class="text-sm text-fn-text3 block mb-1">{{ __('Seed') }} <span
+                                            class="font-normal">{{ __('(optional — for reproducibility)') }}</span></label>
+                                    <input type="number" id="opt-seed" placeholder="{{ __('e.g. 42') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
@@ -152,13 +152,13 @@
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                                 </svg>
-                                Generate
+                                {{ __('Generate') }}
                             </button>
                         </div>{{-- /left --}}
                         {{-- ── RIGHT: Output ── --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2" id="gen-output-label">Generated UUIDs</p>
+                                <p class="text-sm font-semibold text-fn-text2" id="gen-output-label">{{ __('Generated UUIDs') }}</p>
                                 <div class="flex gap-2">
                                     <span id="gen-desc-badge"
                                         class="hidden text-sm px-2 py-1 bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l rounded-lg font-semibold"></span>
@@ -170,7 +170,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="gen-copy-label">Copy all</span>
+                                        <span id="gen-copy-label">{{ __('Copy all') }}</span>
                                     </button>
                                     <button type="button" id="gen-regen"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-sm font-semibold rounded-lg transition-all">
@@ -180,7 +180,7 @@
                                             <polyline points="1 4 1 10 7 10" />
                                             <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                         </svg>
-                                        Regenerate
+                                        {{ __('Regenerate') }}
                                     </button>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                                         <line x1="12" y1="12" x2="12" y2="16" />
                                         <line x1="10" y1="14" x2="14" y2="14" />
                                     </svg>
-                                    <span class="text-sm">Configure options and click Generate</span>
+                                    <span class="text-sm">{{ __('Configure options and click Generate') }}</span>
                                 </div>
                             </div>
                             <div id="gen-error"
@@ -215,12 +215,12 @@
                 <div id="panel-validate" class="tab-panel hidden">
                     <div class="max-w-2xl space-y-4">
                         <div class="flex gap-2">
-                            <input type="text" id="val-input" placeholder="550e8400-e29b-41d4-a716-446655440000"
+                            <input type="text" id="val-input" placeholder="{{ __('550e8400-e29b-41d4-a716-446655440000') }}"
                                 class="flex-1 bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40" />
                             <button type="button" id="val-btn"
                                 class="px-5 py-3 bg-fn-blue text-white font-bold text-sm rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 shrink-0"
                                 disabled>
-                                Validate
+                                {{ __('Validate') }}
                             </button>
                         </div>
                         {{-- Quick paste --}}
@@ -233,9 +233,9 @@
                                         d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                     <rect x="8" y="2" width="8" height="4" rx="1" />
                                 </svg>
-                                Paste
+                                {{ __('Paste') }}
                             </button>
-                            <span class="text-sm text-fn-text3 self-center">Try:</span>
+                            <span class="text-sm text-fn-text3 self-center">{{ __('Try:') }}</span>
                             @php
                             $valExamples = [
                             '550e8400-e29b-41d4-a716-446655440000',
@@ -262,7 +262,7 @@
                                         <path d="M9 12l2 2l4 -4" />
                                     </svg></span>
                                 <div>
-                                    <p class="font-bold text-base" id="val-title">Valid UUID</p>
+                                    <p class="font-bold text-base" id="val-title">{{ __('Valid UUID') }}</p>
                                     <p class="text-fn-text3 text-sm mt-0.5 font-mono" id="val-uuid-display"></p>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@
                             <div class="flex flex-wrap gap-2" id="val-chips"></div>
                             {{-- Formatted versions --}}
                             <div id="val-formats-wrap" class="hidden">
-                                <p class="text-sm font-semibold text-fn-text2 mb-2">All Formats</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-2">{{ __('All Formats') }}</p>
                                 <div class="grid sm:grid-cols-2 gap-1.5" id="val-formats"></div>
                             </div>
                         </div>
@@ -290,18 +290,18 @@
                         {{-- Options --}}
                         <div class="space-y-4">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Version</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Version') }}</label>
                                 <div class="grid grid-cols-3 gap-1.5">
                                     @foreach($uuidVersions as $v)
                                     <button type="button"
                                         class="bulk-ver-btn {{ $v === 4 ? 'active' : '' }} py-2 rounded-xl border text-sm font-bold transition-all"
-                                        data-ver="{{ $v }}">v{{ $v }}</button>
+                                        data-ver="{{ $v }}">v{{ __(Str::squish((string) $v)) }}</button>
                                     @endforeach
                                 </div>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Count — <span id="bulk-count-val" class="text-fn-blue-l">10</span>
+                                    {{ __('Count —') }} <span id="bulk-count-val" class="text-fn-blue-l">10</span>
                                 </label>
                                 <input type="range" id="bulk-count" min="1" max="1000" value="10" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
@@ -312,7 +312,7 @@
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Export Format</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Export Format') }}</label>
                                 <div class="space-y-1.5">
                                     @php $bulkFormats = [['standard','One per line'],['csv','CSV with
                                     header'],['json','JSON array'],['sql','SQL INSERT'],['array','JS array']]; @endphp
@@ -321,8 +321,8 @@
                                         class="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-fn-surface transition-colors">
                                         <input type="radio" name="bulk-format" value="{{ $fval }}" {{ $fval==='json'
                                             ? 'checked' : '' }} class="accent-fn-blue" />
-                                        <span class="text-sm text-fn-text2 font-semibold">{{ $flabel }}</span>
-                                        <span class="text-fn-text3 text-sm font-mono ml-auto">{{ $fval }}</span>
+                                        <span class="text-sm text-fn-text2 font-semibold">{{ __(Str::squish((string) $flabel)) }}</span>
+                                        <span class="text-fn-text3 text-sm font-mono ml-auto">{{ __(Str::squish((string) $fval)) }}</span>
                                     </label>
                                     @endforeach
                                 </div>
@@ -335,7 +335,7 @@
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                         <circle cx="12" cy="12" r="3" />
                                     </svg>
-                                    Preview
+                                    {{ __('Preview') }}
                                 </button>
                                 <button type="button" id="bulk-download-btn"
                                     class="py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l flex items-center justify-center gap-1.5">
@@ -345,14 +345,14 @@
                                         <polyline points="7 10 12 15 17 10" />
                                         <line x1="12" y1="15" x2="12" y2="3" />
                                     </svg>
-                                    Download
+                                    {{ __('Download') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Preview output --}}
                         <div class="lg:col-span-2 space-y-3">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2">Preview</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Preview') }}</p>
                                 <div class="flex gap-2">
                                     <span id="bulk-meta" class="hidden text-sm text-fn-text3"></span>
                                     <button type="button" id="bulk-copy-btn"
@@ -363,7 +363,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="bulk-copy-label">Copy</span>
+                                        <span id="bulk-copy-label">{{ __('Copy') }}</span>
                                     </button>
                                     <a id="bulk-dl-link" href="#" download="uuids.txt"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -374,12 +374,12 @@
                                             <polyline points="7 10 12 15 17 10" />
                                             <line x1="12" y1="15" x2="12" y2="3" />
                                         </svg>
-                                        <span id="bulk-dl-label">Download</span>
+                                        <span id="bulk-dl-label">{{ __('Download') }}</span>
                                     </a>
                                 </div>
                             </div>
                             <textarea id="bulk-output" rows="20" readonly spellcheck="false"
-                                placeholder="Click Preview or Download to generate UUIDs…"
+                                placeholder="{{ __('Click Preview or Download to generate UUIDs…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             <div id="bulk-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
@@ -399,7 +399,7 @@
 {{-- ══ VERSION REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-5xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">UUID Versions Guide</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('UUID Versions Guide') }}</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @php
             $versionGuide = [
@@ -417,7 +417,7 @@
             @foreach($versionGuide as [$ver,$algo,$sortable,$desc])
             <div class="p-4 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="text-base font-black text-fn-text">{{ $ver }}</span>
+                    <span class="text-base font-black text-fn-text">{{ __(Str::squish((string) $ver)) }}</span>
                     @if($sortable)
                     <span
                         class="text-sm px-2 py-0.5 bg-fn-green/10 border border-fn-green/25 text-fn-green rounded-md font-bold"><svg
@@ -427,15 +427,14 @@
                             style="vertical-align:-0.125em">
                             <path d="M5 12l5 5l10 -10" />
                         </svg>
-                        Sortable</span>
+                        {{ __('Sortable') }}</span>
                     @else
                     <span
-                        class="text-sm px-2 py-0.5 bg-fn-text/6 border border-fn-text/10 text-fn-text3 rounded-md font-semibold">Not
-                        sortable</span>
+                        class="text-sm px-2 py-0.5 bg-fn-text/6 border border-fn-text/10 text-fn-text3 rounded-md font-semibold">{{ __('Not sortable') }}</span>
                     @endif
                 </div>
-                <p class="text-sm font-mono text-fn-blue-l mb-1.5">{{ $algo }}</p>
-                <p class="text-sm text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-1.5">{{ __(Str::squish((string) $algo)) }}</p>
+                <p class="text-sm text-fn-text3 leading-relaxed">{{ __(Str::squish((string) $desc)) }}</p>
             </div>
             @endforeach
         </div>
@@ -744,7 +743,7 @@
       const verDescs = {
         1: 'Time-based (MAC address)',
         3: 'MD5 name-based (deterministic)',
-        4: 'Random (cryptographically secure)',
+        4: {{ Illuminate\Support\Js::from(__('Random (cryptographically secure)')) }},
         5: 'SHA-1 name-based (deterministic)',
         6: 'Reordered time-based (sortable)',
         7: 'Unix timestamp ms (sortable, modern)',
@@ -795,7 +794,7 @@
       async function doGenerate() {
         const btn = document.getElementById('gen-btn');
         btn.disabled = true;
-        btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Generating…`;
+        btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Generating…')) }});
         const count = parseInt(countNum.value) || 1;
         hideEl('gen-error');
         const payload = {
@@ -820,14 +819,14 @@
             body: JSON.stringify(payload),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Generation failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Generation failed.')) }});
           renderUUIDs(data.uuids ?? [], data.description ?? verDescs[genVersion]);
         } catch(err) {
           document.getElementById('gen-error-text').textContent = err.message;
           showEl('gen-error', 'flex');
         } finally {
           btn.disabled = false;
-          btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate`;
+          btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Generate')) }});
         }
       }
       function renderUUIDs(uuids, desc) {
@@ -841,17 +840,17 @@
         uuids.forEach((uuid, idx) => {
           const row = document.createElement('div');
           row.className = 'uuid-row';
-          row.innerHTML = `
-            <span class="uuid-num">${idx + 1}</span>
-            <span class="uuid-text">${escHtml(uuid)}</span>
-            <span class="uuid-copy">Copy</span>`;
+          row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+            <span class="uuid-num">:value0</span>
+            <span class="uuid-text">:value1</span>
+            <span class="uuid-copy">Copy</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(idx + 1)).replaceAll(/:value1(?!\d)/g, () => String(escHtml(uuid)));
           row.addEventListener('click', () => {
             navigator.clipboard.writeText(uuid).catch(() => {});
             row.classList.add('copied');
-            row.querySelector('.uuid-copy').textContent = 'Copied!';
+            row.querySelector('.uuid-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
             setTimeout(() => {
               row.classList.remove('copied');
-              row.querySelector('.uuid-copy').textContent = 'Copy';
+              row.querySelector('.uuid-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }};
             }, 1500);
           });
           list.appendChild(row);
@@ -861,12 +860,12 @@
         showEl('gen-desc-badge');
         showEl('gen-copy-all');
         showEl('gen-regen');
-        document.getElementById('gen-output-label').textContent = `Generated UUIDs (${uuids.length})`;
+        document.getElementById('gen-output-label').textContent = ({{ Illuminate\Support\Js::from(__('Generated UUIDs (:value0)')) }}).replaceAll(/:value0(?!\d)/g, () => String(uuids.length));
         // Copy all
         document.getElementById('gen-copy-all').onclick = async () => {
           await navigator.clipboard.writeText(uuids.join('\n')).catch(() => {});
-          document.getElementById('gen-copy-label').textContent = 'Copied!';
-          setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
+          document.getElementById('gen-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+          setTimeout(() => { document.getElementById('gen-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy all')) }}; }, 2000);
         };
       }
       // ══ VALIDATE TAB ══
@@ -897,22 +896,22 @@
             body: JSON.stringify({ uuid }),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Validation failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Validation failed.')) }});
           const valid = data.is_valid;
           const result = document.getElementById('val-result');
           result.className = `p-5 rounded-2xl border space-y-4 ${valid
             ? 'bg-fn-green/6 border-fn-green/20'
             : 'bg-fn-red/6 border-fn-red/20'}`;
-          document.getElementById('val-icon').textContent         = valid ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('val-icon').textContent         = valid ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>`;
-          document.getElementById('val-title').textContent        = valid ? 'Valid UUID' : 'Invalid UUID';
+</svg>')) }});
+          document.getElementById('val-title').textContent        = valid ? {{ Illuminate\Support\Js::from(__('Valid UUID')) }} : {{ Illuminate\Support\Js::from(__('Invalid UUID')) }};
           document.getElementById('val-uuid-display').textContent = data.uuid ?? uuid;
           // Chips
           const chips = document.getElementById('val-chips');
@@ -925,7 +924,7 @@
             ].forEach(([label, val]) => {
               const span = document.createElement('span');
               span.className = 'val-chip';
-              span.innerHTML = `<span class="text-fn-text3">${label}:</span> ${escHtml(String(val))}`;
+              span.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">:value0:</span> :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(escHtml(String(val))));
               chips.appendChild(span);
             });
           }
@@ -946,14 +945,14 @@
             fmtDefs.forEach(([label, value]) => {
               const div = document.createElement('div');
               div.className = 'fmt-row';
-              div.innerHTML = `
-                <span class="fmt-row-label">${label}</span>
-                <span class="fmt-row-value">${escHtml(String(value))}</span>
-                <span class="fmt-row-copy">Copy</span>`;
+              div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+                <span class="fmt-row-label">:value0</span>
+                <span class="fmt-row-value">:value1</span>
+                <span class="fmt-row-copy">Copy</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(escHtml(String(value))));
               div.addEventListener('click', () => {
                 navigator.clipboard.writeText(String(value)).catch(() => {});
-                div.querySelector('.fmt-row-copy').textContent = 'Copied!';
-                setTimeout(() => { div.querySelector('.fmt-row-copy').textContent = 'Copy'; }, 1500);
+                div.querySelector('.fmt-row-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+                setTimeout(() => { div.querySelector('.fmt-row-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 1500);
               });
               fmtEl.appendChild(div);
             });
@@ -967,7 +966,7 @@
           showEl('val-error', 'flex');
         } finally {
           valBtn.disabled = false;
-          valBtn.textContent = 'Validate';
+          valBtn.textContent = {{ Illuminate\Support\Js::from(__('Validate')) }};
         }
       }
       // ══ BULK TAB ══
@@ -1009,7 +1008,7 @@
             body: JSON.stringify({ version: bulkVersion, count, format, output: 'json' }),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Bulk generation failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Bulk generation failed.')) }});
           // Build output string
           let output = '';
           if (data.export) {
@@ -1018,14 +1017,14 @@
             output = data.uuids.join('\n');
           }
           document.getElementById('bulk-output').value = output;
-          document.getElementById('bulk-meta').textContent = `${count} UUIDs · v${bulkVersion} · ${format}`;
+          document.getElementById('bulk-meta').textContent = ({{ Illuminate\Support\Js::from(__(':value0 UUIDs · v:value1 · :value2')) }}).replaceAll(/:value0(?!\d)/g, () => String(count)).replaceAll(/:value1(?!\d)/g, () => String(bulkVersion)).replaceAll(/:value2(?!\d)/g, () => String(format));
           showEl('bulk-meta');
           showEl('bulk-copy-btn');
           // Wire copy
           document.getElementById('bulk-copy-btn').onclick = async () => {
             await navigator.clipboard.writeText(output).catch(() => {});
-            document.getElementById('bulk-copy-label').textContent = 'Copied!';
-            setTimeout(() => { document.getElementById('bulk-copy-label').textContent = 'Copy'; }, 2000);
+            document.getElementById('bulk-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+            setTimeout(() => { document.getElementById('bulk-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
           };
           // Download link
           const extMap = { standard:'txt', csv:'csv', json:'json', sql:'sql', array:'js' };
@@ -1035,7 +1034,7 @@
           const dlLink = document.getElementById('bulk-dl-link');
           dlLink.href     = bulkBlobUrl;
           dlLink.download = `uuids_v${bulkVersion}.${ext}`;
-          document.getElementById('bulk-dl-label').textContent = `Download .${ext}`;
+          document.getElementById('bulk-dl-label').textContent = ({{ Illuminate\Support\Js::from(__('Download .:value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(ext));
           showEl('bulk-dl-link');
           if (mode === 'download') dlLink.click();
         } catch(err) {

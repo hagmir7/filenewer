@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -44,8 +44,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Jupyter Notebook here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .ipynb files — or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Jupyter Notebook here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .ipynb files — or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -54,9 +54,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose .ipynb File
+                            {{ __('Choose .ipynb File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input" accept=".ipynb,application/json,text/plain"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -72,7 +72,7 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="file-name">notebook.ipynb</p>
+                            <p class="font-semibold text-sm truncate" id="file-name">{{ __('notebook.ipynb') }}</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
                         <div id="nb-badge" class="hidden shrink-0 flex flex-col items-end gap-1"></div>
@@ -96,46 +96,46 @@
                                 <polyline points="14 2 14 8 20 8" />
                                 <line x1="8" y1="13" x2="16" y2="13" />
                             </svg>
-                            <p class="text-sm font-semibold text-fn-text2">Detected in your notebook</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Detected in your notebook') }}</p>
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
-                            <p class="text-sm font-semibold text-fn-text2">PDF Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('PDF Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-4">
                             {{-- Left: metadata + theme --}}
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Title
-                                        <span class="font-normal text-fn-text3 ml-1">(shown on cover)</span>
+                                        {{ __('Title') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(shown on cover)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-title" placeholder="Defaults to filename"
+                                    <input type="text" id="opt-title" placeholder="{{ __('Defaults to filename') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-author" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Author
-                                        <span class="font-normal text-fn-text3 ml-1">(shown on cover)</span>
+                                        {{ __('Author') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(shown on cover)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-author" placeholder="e.g. Jane Smith"
+                                    <input type="text" id="opt-author" placeholder="{{ __('e.g. Jane Smith') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
                                     <input type="text" id="opt-filename" placeholder="notebook.pdf"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 {{-- Theme picker --}}
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Theme</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Theme') }}</label>
                                     <div class="grid grid-cols-2 gap-2">
                                         <label id="theme-light-wrap"
                                             class="theme-card active flex items-center gap-2.5 px-3 py-2.5 border rounded-xl cursor-pointer transition-all">
@@ -157,8 +157,8 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="text-xs font-bold text-fn-text">Light</p>
-                                                <p class="text-xs text-fn-text3">White background</p>
+                                                <p class="text-xs font-bold text-fn-text">{{ __('Light') }}</p>
+                                                <p class="text-xs text-fn-text3">{{ __('White background') }}</p>
                                             </div>
                                         </label>
                                         <label id="theme-dark-wrap"
@@ -173,8 +173,8 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="text-xs font-bold text-fn-text">Dark</p>
-                                                <p class="text-xs text-fn-text3">Dark background</p>
+                                                <p class="text-xs font-bold text-fn-text">{{ __('Dark') }}</p>
+                                                <p class="text-xs text-fn-text3">{{ __('Dark background') }}</p>
                                             </div>
                                         </label>
                                     </div>
@@ -183,7 +183,7 @@
                             {{-- Right: cell content toggles --}}
                             <div class="flex flex-col gap-3">
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Render mode</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Render mode') }}</label>
                                     <div class="grid grid-cols-3 gap-1.5 mb-3">
                                         @foreach([
                                         ['mode-full', 'Full', 'Everything', 'Default — code + outputs + markdown'],
@@ -192,18 +192,15 @@
                                         ] as [$mid, $mlabel, $msub, $mdesc])
                                         <button type="button" id="{{ $mid }}" data-desc="{{ $mdesc }}"
                                             class="mode-btn {{ $mid === 'mode-full' ? 'active' : '' }} flex flex-col items-center gap-1 px-2 py-2.5 border rounded-xl text-center text-xs font-semibold transition-all cursor-pointer">
-                                            <span class="mode-label">{{ $mlabel }}</span>
-                                            <span class="text-fn-text3 font-normal text-xs leading-tight">{{ $msub
-                                                }}</span>
+                                            <span class="mode-label">{{ __(Str::squish((string) $mlabel)) }}</span>
+                                            <span class="text-fn-text3 font-normal text-xs leading-tight">{{ __(Str::squish((string) $msub)) }}</span>
                                         </button>
                                         @endforeach
                                     </div>
-                                    <p class="text-xs text-fn-text3 italic" id="mode-desc">Default — code + outputs +
-                                        markdown</p>
+                                    <p class="text-xs text-fn-text3 italic" id="mode-desc">{{ __('Default — code + outputs + markdown') }}</p>
                                 </div>
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Cell
-                                        sections</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Cell sections') }}</label>
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
                                         ['opt-input', 'Code input', 'Render code cell source', true],
@@ -223,8 +220,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">{!! $tdesc !!}</p>
+                                                <p class="text-xs font-semibold text-fn-text2">{{ __(Str::squish((string) $tlabel)) }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{!! \App\Support\ToolMessages::html((string) $tdesc) !!}</p>
                                             </div>
                                         </label>
                                         @endforeach
@@ -243,7 +240,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -254,7 +251,7 @@
                             <line x1="16" y1="13" x2="8" y2="13" />
                             <line x1="16" y1="17" x2="8" y2="17" />
                         </svg>
-                        Convert to PDF
+                        {{ __('Convert to PDF') }}
                     </button>
                 </div>
                 {{-- ── STATE: Rendering ── --}}
@@ -287,16 +284,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Rendering Notebook to PDF…</h2>
-                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Processing cells, rendering outputs
-                        &amp; generating PDF</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Rendering Notebook to PDF…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">{{ __('Processing cells, rendering outputs & generating PDF') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -320,7 +316,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{!! $plabel !!}</span>
+                            <span class="text-sm text-fn-text3">{!! \App\Support\ToolMessages::html((string) $plabel) !!}</span>
                         </div>
                         @endforeach
                     </div>
@@ -337,11 +333,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Render Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6">Your PDF is ready to open, share, or print.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Render Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6">{{ __('Your PDF is ready to open, share, or print.') }}</p>
                     {{-- Result chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Notebook details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Notebook details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
                     <div
@@ -360,7 +356,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">notebook.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('PDF Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -373,7 +369,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download PDF
+                        {{ __('Download PDF') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -383,7 +379,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -391,7 +387,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -401,8 +397,8 @@
 {{-- ══ RENDER MODES ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">Render Modes</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">Choose what gets included in the PDF output</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('Render Modes') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-6">{{ __('Choose what gets included in the PDF output') }}</p>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -411,9 +407,7 @@
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
                 <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-            </svg>', 'Full', 'light', 'Default', 'Code input + cell outputs + markdown cells. Best for sharing complete
-            notebooks with collaborators.', true, true, true],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            </svg>', 'Full', 'light', 'Default', 'Code input + cell outputs + markdown cells. Best for sharing complete notebooks with collaborators.', true, true, true], ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -421,9 +415,7 @@
                 <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
                 <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
                 <path d="M4 20h14" />
-            </svg>', 'Report', 'blue', 'Report', 'Hides source code — only outputs and markdown are rendered. Ideal for
-            sharing results with non-technical audiences.', false, true, true],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            </svg>', 'Report', 'blue', 'Report', 'Hides source code — only outputs and markdown are rendered. Ideal for sharing results with non-technical audiences.', false, true, true], ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-device-imac-code">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -442,17 +434,17 @@
                     <span class="text-2xl">{!! $icon !!}</span>
                     <div>
                         <div class="flex items-center gap-2">
-                            <p class="font-bold text-sm">{{ $name }}</p>
+                            <p class="font-bold text-sm">{{ __(Str::squish((string) $name)) }}</p>
                             <span class="text-xs font-semibold px-1.5 py-0.5 rounded-md
                                 @if($color === 'blue')   bg-fn-blue/10 text-fn-blue-l
                                 @elseif($color === 'purple') bg-fn-purple/10 text-fn-purple
                                 @else bg-fn-surface2 text-fn-text3 @endif">
-                                {{ $badge }}
+                                {{ __(Str::squish((string) $badge)) }}
                             </span>
                         </div>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed mb-3">{{ $desc }}</p>
+                <p class="text-xs text-fn-text2 leading-relaxed mb-3">{{ __(Str::squish((string) $desc)) }}</p>
                 <div class="flex flex-col gap-1">
                     @foreach([['Code input', $input], ['Cell outputs', $output], ['Markdown', $md]] as [$item, $on])
                     <div class="flex items-center gap-1.5 text-xs {{ $on ? 'text-fn-green' : 'text-fn-text3' }}">
@@ -468,7 +460,7 @@
                             <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>
                         @endif
-                        {{ $item }}
+                        {{ __(Str::squish((string) $item)) }}
                     </div>
                     @endforeach
                 </div>
@@ -480,7 +472,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What cell types are supported?', 'The converter handles all standard Jupyter cell types: code cells
@@ -505,7 +497,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -513,7 +505,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -811,7 +803,7 @@
       });
       if (!matched) {
         document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById('mode-desc').textContent = 'Custom combination';
+        document.getElementById('mode-desc').textContent = {{ Illuminate\Support\Js::from(__('Custom combination')) }};
       }
     });
   });
@@ -828,16 +820,16 @@
   async function handleFile(file) {
     hideError();
     if (!file.name.toLowerCase().endsWith('.ipynb')) {
-      showError('Please select a valid Jupyter Notebook file (.ipynb).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid Jupyter Notebook file (.ipynb).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · Jupyter Notebook';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Jupyter Notebook')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -862,16 +854,16 @@
     const wrap = document.getElementById('detected-content');
     const list = document.getElementById('detected-chips');
     list.innerHTML = '';
-    const chips = [['chip-cells', 'Total cells', cells.length + '']];
-    if (codeCells > 0) chips.push(['chip-cells',  'Code cells',     codeCells + '']);
-    if (mdCells > 0)   chips.push(['chip-mode',   'Markdown cells', mdCells + '']);
-    if (kernel)        chips.push(['chip-kernel',  'Kernel',         kernel]);
-    if (langVer)       chips.push(['chip-kernel',  'Python',         langVer]);
+    const chips = [['chip-cells', {{ Illuminate\Support\Js::from(__('Total cells')) }}, cells.length + '']];
+    if (codeCells > 0) chips.push(['chip-cells',  {{ Illuminate\Support\Js::from(__('Code cells')) }},     codeCells + '']);
+    if (mdCells > 0)   chips.push(['chip-mode',   {{ Illuminate\Support\Js::from(__('Markdown cells')) }}, mdCells + '']);
+    if (kernel)        chips.push(['chip-kernel',  {{ Illuminate\Support\Js::from(__('Kernel')) }},         kernel]);
+    if (langVer)       chips.push(['chip-kernel',  {{ Illuminate\Support\Js::from(__('Python')) }},         langVer]);
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -916,7 +908,7 @@
     // Update subtitle with chosen settings
     const modeLabel = !inclInput ? 'report mode' : (!inclOutput && !inclMd) ? 'code only' : 'full mode';
     document.getElementById('converting-subtitle').textContent =
-      `${theme === 'dark' ? 'Dark theme' : 'Light theme'} · ${modeLabel} — rendering cells to PDF`;
+      ({{ Illuminate\Support\Js::from(__(':value0 · :value1 — rendering cells to PDF')) }}).replaceAll(/:value0(?!\d)/g, () => String(theme === 'dark' ? 'Dark theme' : 'Light theme')).replaceAll(/:value1(?!\d)/g, () => String(modeLabel));
     const fd = new FormData();
     fd.append('file',            selectedFile);
     fd.append('theme',           theme);
@@ -926,18 +918,18 @@
     if (title)  fd.append('title',  title);
     if (author) fd.append('author', author);
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 500, 'Parsing notebook structure…');
+    animateProgress(0, 20, 500, {{ Illuminate\Support\Js::from(__('Parsing notebook structure…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(20, 52, 800, 'Rendering code cells…');
+      animateProgress(20, 52, 800, {{ Illuminate\Support\Js::from(__('Rendering code cells…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(52, 78, 800, 'Rendering markdown & outputs…');
+      animateProgress(52, 78, 800, {{ Illuminate\Support\Js::from(__('Rendering markdown & outputs…')) }});
     }, 1500);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 600, 'Generating PDF document…');
+      animateProgress(78, 92, 600, {{ Illuminate\Support\Js::from(__('Generating PDF document…')) }});
     }, 2400);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/ipynb-to-pdf', {
@@ -965,15 +957,15 @@
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
-        (sizeMb ? sizeMb + ' MB' : formatBytes(blob.size)) + ' · PDF Document';
+        (sizeMb ? sizeMb + {{ Illuminate\Support\Js::from(__(' MB')) }} : formatBytes(blob.size)) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
       renderResultChips({ totalCells, codeCells, mdCells, theme, resTitle, resAuthor, inclInput, inclOutput, inclMd });
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -983,21 +975,21 @@
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
     const chips = [];
-    if (totalCells) chips.push(['chip-cells', 'Cells',    totalCells]);
-    if (codeCells)  chips.push(['chip-cells', 'Code',     codeCells + ' cells']);
-    if (mdCells)    chips.push(['chip-mode',  'Markdown', mdCells + ' cells']);
-    chips.push(['chip-theme', 'Theme', theme]);
+    if (totalCells) chips.push(['chip-cells', {{ Illuminate\Support\Js::from(__('Cells')) }},    totalCells]);
+    if (codeCells)  chips.push(['chip-cells', {{ Illuminate\Support\Js::from(__('Code')) }},     codeCells + ' cells']);
+    if (mdCells)    chips.push(['chip-mode',  {{ Illuminate\Support\Js::from(__('Markdown')) }}, mdCells + ' cells']);
+    chips.push(['chip-theme', {{ Illuminate\Support\Js::from(__('Theme')) }}, theme]);
     const parts = [];
     if (inclInput)   parts.push('input');
     if (inclOutput)  parts.push('output');
     if (inclMd)      parts.push('markdown');
-    if (parts.length < 3) chips.push(['chip-mode', 'Rendered', parts.join(' + ') || 'none']);
-    if (resTitle)   chips.push(['chip-size', 'Title',  resTitle.substring(0, 22)]);
-    if (resAuthor)  chips.push(['chip-size', 'Author', resAuthor.substring(0, 22)]);
+    if (parts.length < 3) chips.push(['chip-mode', {{ Illuminate\Support\Js::from(__('Rendered')) }}, parts.join(' + ') || 'none']);
+    if (resTitle)   chips.push(['chip-size', {{ Illuminate\Support\Js::from(__('Title')) }},  resTitle.substring(0, 22)]);
+    if (resAuthor)  chips.push(['chip-size', {{ Illuminate\Support\Js::from(__('Author')) }}, resAuthor.substring(0, 22)]);
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -1068,7 +1060,7 @@
     // Reset mode
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('mode-full').classList.add('active');
-    document.getElementById('mode-desc').textContent = 'Default — code + outputs + markdown';
+    document.getElementById('mode-desc').textContent = {{ Illuminate\Support\Js::from(__('Default — code + outputs + markdown')) }};
     // Reset toggles
     document.getElementById('opt-input').checked    = true;
     document.getElementById('opt-output').checked   = true;
@@ -1077,7 +1069,7 @@
     document.getElementById('result-info-wrap').classList.add('hidden');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

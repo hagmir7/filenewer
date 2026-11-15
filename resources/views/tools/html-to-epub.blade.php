@@ -17,7 +17,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Input HTML</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Input HTML') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -28,7 +28,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">2</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Converting</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Converting') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -39,7 +39,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">3</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Download') }}</span>
                 </div>
 
 
@@ -58,7 +58,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste HTML
+                            {{ __('Paste HTML') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -67,16 +67,16 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload .html
+                            {{ __('Upload .html') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2">HTML source</p>
+                            <p class="text-xs font-semibold text-fn-text2">{{ __('HTML source') }}</p>
                             <div class="flex gap-1">
                                 <button type="button" id="btn-sample"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Sample</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">{{ __('Sample') }}</button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -85,19 +85,18 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                             </div>
                         </div>
                         <textarea id="html-textarea" rows="12" spellcheck="false"
-                            placeholder='<html>&#10;<head><title>My Book</title></head>&#10;<body>&#10;  <h1>Introduction</h1>&#10;  <p>Welcome to my book.</p>&#10;  <h1>Chapter 1</h1>&#10;  <p>Chapter content here.</p>&#10;  <h2>Section 1.1</h2>&#10;  <p>More content...</p>&#10;</body>&#10;</html>'
+                            placeholder='<html>&#10;<head><title>My Book</title></head>&#10;<body>&#10;  <h1>{{ __('Introduction') }}</h1>&#10;  <p>Welcome to my book.</p>&#10;  <h1>Chapter 1</h1>&#10;  <p>Chapter content here.</p>&#10;  <h2>Section 1.1</h2>&#10;  <p>More content...</p>&#10;</body>&#10;</html>'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <div class="flex items-center justify-between text-xs mt-1.5">
-                            <span id="html-status" class="text-fn-text3">Paste HTML — h1 tags become chapter
-                                splits</span>
-                            <span id="html-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
+                            <span id="html-status" class="text-fn-text3">{{ __('Paste HTML — h1 tags become chapter splits') }}</span>
+                            <span id="html-meta" class="text-fn-text3/70">{{ __('0 chars · 0 lines') }}</span>
                         </div>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
@@ -115,8 +114,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your HTML file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">Supports .html / .htm files — or click to browse</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your HTML file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .html / .htm files — or click to browse') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -125,9 +124,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose HTML File
+                                {{ __('Choose HTML File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                             <input type="file" id="file-input" accept=".html,.htm,text/html"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -142,7 +141,7 @@
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-sm truncate" id="file-name">book.html</p>
+                                <p class="font-semibold text-sm truncate" id="file-name">{{ __('book.html') }}</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
                             <button type="button" id="remove-file"
@@ -157,8 +156,8 @@
                         {{-- Cover image upload --}}
                         <div class="mt-4">
                             <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                Cover image
-                                <span class="font-normal text-fn-text3 ml-1">(optional — .jpg, .png)</span>
+                                {{ __('Cover image') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(optional — .jpg, .png)') }}</span>
                             </label>
                             <div id="cover-drop-zone"
                                 class="relative flex items-center gap-3 px-4 py-3 bg-fn-surface2 border border-dashed border-fn-text/15 rounded-xl cursor-pointer hover:border-fn-blue/30 transition-colors">
@@ -173,13 +172,13 @@
                                             <polyline points="21 15 16 10 5 21" />
                                         </svg>
                                     </div>
-                                    <span class="text-sm text-fn-text3">Click or drag a cover image here</span>
+                                    <span class="text-sm text-fn-text3">{{ __('Click or drag a cover image here') }}</span>
                                 </div>
                                 <div id="cover-preview" class="hidden items-center gap-3 w-full">
-                                    <img id="cover-thumb" src="" alt="Cover"
+                                    <img id="cover-thumb" src="" alt="{{ __('Cover') }}"
                                         class="w-9 h-12 object-cover rounded-lg border border-fn-text/10 shrink-0" />
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-semibold truncate" id="cover-name">cover.jpg</p>
+                                        <p class="text-sm font-semibold truncate" id="cover-name">{{ __('cover.jpg') }}</p>
                                         <p class="text-xs text-fn-text3" id="cover-size">—</p>
                                     </div>
                                     <button type="button" id="remove-cover"
@@ -207,70 +206,69 @@
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                             </svg>
-                            <p class="text-sm font-semibold text-fn-text2">Your EPUB will contain</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Your EPUB will contain') }}</p>
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
                     {{-- Metadata options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">eBook Metadata</p>
-                            <span class="text-xs text-fn-text3">Optional — auto-extracted from HTML if omitted</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('eBook Metadata') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional — auto-extracted from HTML if omitted') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="flex flex-col gap-3">
                                 <div>
-                                    <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">Book
-                                        title</label>
-                                    <input type="text" id="opt-title" placeholder="Auto-extracted from &lt;title&gt;"
+                                    <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Book title') }}</label>
+                                    <input type="text" id="opt-title" placeholder="{{ __('Auto-extracted from <title>') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-author"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Author</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Author') }}</label>
                                     <input type="text" id="opt-author"
-                                        placeholder="Auto-extracted from &lt;meta name=author&gt;"
+                                        placeholder="{{ __('Auto-extracted from <meta name=author>') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-publisher"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Publisher</label>
-                                    <input type="text" id="opt-publisher" placeholder="My Publisher"
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Publisher') }}</label>
+                                    <input type="text" id="opt-publisher" placeholder="{{ __('My Publisher') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-description"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Description</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Description') }}</label>
                                     <textarea id="opt-description" rows="3"
-                                        placeholder="Auto-extracted from &lt;meta name=description&gt;"
+                                        placeholder="{{ __('Auto-extracted from <meta name=description>') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60 resize-none"></textarea>
                                 </div>
                                 <div>
                                     <label for="opt-language"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Language</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Language') }}</label>
                                     <select id="opt-language"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                        <option value="en" selected>English</option>
-                                        <option value="ar">Arabic (عربي)</option>
-                                        <option value="fr">French</option>
-                                        <option value="de">German</option>
-                                        <option value="es">Spanish</option>
-                                        <option value="it">Italian</option>
-                                        <option value="pt">Portuguese</option>
-                                        <option value="nl">Dutch</option>
-                                        <option value="zh">Chinese</option>
-                                        <option value="ja">Japanese</option>
-                                        <option value="ru">Russian</option>
+                                        <option value="en" selected>{{ __('English') }}</option>
+                                        <option value="ar">{{ __('Arabic (عربي)') }}</option>
+                                        <option value="fr">{{ __('French') }}</option>
+                                        <option value="de">{{ __('German') }}</option>
+                                        <option value="es">{{ __('Spanish') }}</option>
+                                        <option value="it">{{ __('Italian') }}</option>
+                                        <option value="pt">{{ __('Portuguese') }}</option>
+                                        <option value="nl">{{ __('Dutch') }}</option>
+                                        <option value="zh">{{ __('Chinese') }}</option>
+                                        <option value="ja">{{ __('Japanese') }}</option>
+                                        <option value="ru">{{ __('Russian') }}</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-filename" placeholder="book.epub"
+                                    <input type="text" id="opt-filename" placeholder="{{ __('book.epub') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
@@ -286,7 +284,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -295,7 +293,7 @@
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
                             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                         </svg>
-                        Convert to EPUB
+                        {{ __('Convert to EPUB') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -331,15 +329,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting HTML to EPUB…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Splitting chapters, embedding assets &amp; packaging eBook</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting HTML to EPUB…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Splitting chapters, embedding assets & packaging eBook') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -358,7 +356,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Reading HTML content</span>
+                            <span class="text-sm text-fn-text3">{{ __('Reading HTML content') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-2">
@@ -375,7 +373,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Splitting chapters at &lt;h1&gt;</span>
+                            <span class="text-sm text-fn-text3">{{ __('Splitting chapters at <h1>') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-3">
@@ -392,7 +390,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Embedding images &amp; metadata</span>
+                            <span class="text-sm text-fn-text3">{{ __('Embedding images & metadata') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-4">
@@ -409,7 +407,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Packaging EPUB archive</span>
+                            <span class="text-sm text-fn-text3">{{ __('Packaging EPUB archive') }}</span>
                         </div>
 
                     </div>
@@ -426,12 +424,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6">Your EPUB is ready — open it in Apple Books, Kobo, or any EPUB
-                        reader.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6">{{ __('Your EPUB is ready — open it in Apple Books, Kobo, or any EPUB reader.') }}</p>
                     {{-- Result chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">eBook details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('eBook details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
                     <div
@@ -450,8 +447,8 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="output-name">book.epub</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">EPUB eBook</p>
+                            <p class="font-semibold text-sm truncate" id="output-name">{{ __('book.epub') }}</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('EPUB eBook') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -464,7 +461,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download EPUB File
+                        {{ __('Download EPUB File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -474,7 +471,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -482,7 +479,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -492,107 +489,107 @@
 {{-- ══ SUPPORTED ELEMENTS ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">Supported HTML Elements</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">All standard HTML elements are preserved in the EPUB output
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('Supported HTML Elements') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-6">{{ __('All standard HTML elements are preserved in the EPUB output') }}
         </p>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;h1&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Chapter split + heading</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Chapter split + heading') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;h2&gt; – &lt;h6&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Section headings</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Section headings') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;p&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Paragraph</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Paragraph') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;strong&gt; / &lt;b&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Bold text</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Bold text') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;em&gt; / &lt;i&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Italic text</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Italic text') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;u&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Underline</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Underline') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;a href&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Hyperlink</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Hyperlink') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;img src&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Embedded image</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Embedded image') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;img src="data:..."&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Base64 image</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Base64 image') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;table&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Styled table</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Styled table') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;ul&gt; / &lt;ol&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Lists</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Lists') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;blockquote&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Quote block</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Quote block') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;code&gt; / &lt;pre&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Code block</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Code block') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;hr&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Horizontal rule</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Horizontal rule') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;style&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Inline CSS preserved</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Inline CSS preserved') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;title&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Auto-extract title</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Auto-extract title') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;meta name="author"&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Auto-extract author</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Auto-extract author') }}</span>
             </div>
 
             <div class="flex items-start gap-2 p-2.5 bg-fn-surface border border-fn-text/8 rounded-xl">
                 <code
                     class="text-xs font-mono text-fn-blue-l shrink-0 leading-tight mt-px">&lt;meta name="description"&gt;</code>
-                <span class="text-xs text-fn-text3 leading-tight">Auto-extract description</span>
+                <span class="text-xs text-fn-text3 leading-tight">{{ __('Auto-extract description') }}</span>
             </div>
 
         </div>
@@ -601,13 +598,13 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">How are chapters split?</span>
+                    <span class="font-semibold text-sm">{{ __('How are chapters split?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -615,18 +612,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Every &lt;h1&gt; tag in your HTML becomes a new
-                        chapter in the EPUB. Headings &lt;h2&gt;
-                        through &lt;h6&gt; become section headings within a chapter. If your document has no &lt;h1&gt;
-                        tags, the entire
-                        content becomes a single chapter.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Every <h1> tag in your HTML becomes a new chapter in the EPUB. Headings <h2> through <h6> become section headings within a chapter. If your document has no <h1> tags, the entire content becomes a single chapter.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Can I add a cover image?</span>
+                    <span class="font-semibold text-sm">{{ __('Can I add a cover image?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -634,17 +627,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — when using the file upload mode, you can
-                        attach a cover
-                        image (.jpg or .png) alongside your HTML file. The cover is embedded as the first page of
-                        the EPUB and appears in your eBook reader library grid.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — when using the file upload mode, you can attach a cover image (.jpg or .png) alongside your HTML file. The cover is embedded as the first page of the EPUB and appears in your eBook reader library grid.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What metadata is auto-extracted from HTML?</span>
+                    <span class="font-semibold text-sm">{{ __('What metadata is auto-extracted from HTML?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -652,19 +642,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">If you leave the title, author, or
-                        description fields blank, the converter reads them directly from your HTML — the &lt;title&gt;
-                        tag
-                        becomes the book title, and
-                        &lt;meta name=&quot;author&quot;&gt; and
-                        &lt;meta name=&quot;description&quot;&gt; fill in the other fields automatically.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('If you leave the title, author, or description fields blank, the converter reads them directly from your HTML — the <title> tag becomes the book title, and <meta name="author"> and <meta name="description"> fill in the other fields automatically.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Does it support right-to-left languages like Arabic?</span>
+                    <span class="font-semibold text-sm">{{ __('Does it support right-to-left languages like Arabic?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -672,17 +657,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes. Set the language to
-                        Arabic (or any RTL language) and the EPUB will be generated with the correct reading
-                        direction and text alignment. The converter handles Unicode and multi-byte character
-                        sets fully.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes. Set the language to Arabic (or any RTL language) and the EPUB will be generated with the correct reading direction and text alignment. The converter handles Unicode and multi-byte character sets fully.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Are inline images and base64 images supported?</span>
+                    <span class="font-semibold text-sm">{{ __('Are inline images and base64 images supported?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -690,17 +672,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes. Images referenced via &lt;img
-                        src=&quot;path&quot;&gt; are embedded if accessible, and base64-encoded images (&lt;img
-                        src=&quot;data:image/...;base64,...&quot;&gt;) are embedded directly from the HTML. Embedded
-                        images in the EPUB work offline on any reader.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes. Images referenced via <img src="path"> are embedded if accessible, and base64-encoded images (<img src="data:image/...;base64,...">) are embedded directly from the HTML. Embedded images in the EPUB work offline on any reader.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Is my HTML safe and private?</span>
+                    <span class="font-semibold text-sm">{{ __('Is my HTML safe and private?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -708,9 +687,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
-                        transit. and are
-                        permanently deleted after processing. We never read, share, or store your content.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted after processing. We never read, share, or store your content.') }}</p>
                 </div>
             </div>
 
@@ -991,10 +968,10 @@
   htmlTA.addEventListener('input', () => {
     const v     = htmlTA.value;
     const lines = v ? v.split('\n').length : 0;
-    document.getElementById('html-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
+    document.getElementById('html-meta').textContent = v.length.toLocaleString() + {{ Illuminate\Support\Js::from(__(' chars · ')) }} + lines + {{ Illuminate\Support\Js::from(__(' lines')) }};
     const status = document.getElementById('html-status');
     if (!v.trim()) {
-      status.innerHTML = '<span class="text-fn-text3">Paste HTML — h1 tags become chapter splits</span>';
+      status.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">Paste HTML — h1 tags become chapter splits</span>')) }};
     } else {
       const stats = analyzeHtml(v);
       if (stats.h1Count > 0 || stats.pCount > 0) {
@@ -1002,12 +979,12 @@
         if (stats.h1Count > 0)    parts.push(`${stats.h1Count} chapter${stats.h1Count !== 1 ? 's' : ''}`);
         if (stats.imgCount > 0)   parts.push(`${stats.imgCount} image${stats.imgCount !== 1 ? 's' : ''}`);
         if (stats.tableCount > 0) parts.push(`${stats.tableCount} table${stats.tableCount !== 1 ? 's' : ''}`);
-        status.innerHTML = `<span class="text-fn-green flex items-center gap-1.5">
+        status.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-green flex items-center gap-1.5">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Valid HTML detected${parts.length ? ' · ' + parts.join(' · ') : ''}
-        </span>`;
+          Valid HTML detected:value0
+        </span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(parts.length ? ' · ' + parts.join(' · ') : ''));
       } else {
-        status.innerHTML = '<span class="text-fn-amber">No headings or paragraphs found — ensure this is valid HTML</span>';
+        status.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-amber">No headings or paragraphs found — ensure this is valid HTML</span>')) }};
       }
     }
     refreshConvertBtn();
@@ -1028,16 +1005,16 @@
     hideError();
     const name = file.name.toLowerCase();
     if (!name.match(/\.(html|htm)$/)) {
-      showError('Please select a valid HTML file (.html or .htm).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid HTML file (.html or .htm).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · HTML Document';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · HTML Document')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -1126,18 +1103,18 @@
     const list  = document.getElementById('detected-chips');
     list.innerHTML = '';
     const chips = [];
-    if (stats.h1Count > 0)    chips.push(['chip-chapters', 'Chapters', stats.h1Count + '']);
-    if (stats.h2Count > 0)    chips.push(['chip-chapters', 'Sections', stats.h2Count + '']);
-    if (stats.imgCount > 0)   chips.push(['chip-images',   'Images',   stats.imgCount + '']);
-    if (stats.tableCount > 0) chips.push(['chip-meta',     'Tables',   stats.tableCount + '']);
-    if (stats.hasCode)        chips.push(['chip-meta',     'Code blocks', `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>`]);
-    if (stats.hasStyle)       chips.push(['chip-lang',     'CSS styles', `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>`]);
-    if (stats.autoTitle)      chips.push(['chip-lang',     'Title',    stats.autoTitle]);
+    if (stats.h1Count > 0)    chips.push(['chip-chapters', {{ Illuminate\Support\Js::from(__('Chapters')) }}, stats.h1Count + '']);
+    if (stats.h2Count > 0)    chips.push(['chip-chapters', {{ Illuminate\Support\Js::from(__('Sections')) }}, stats.h2Count + '']);
+    if (stats.imgCount > 0)   chips.push(['chip-images',   {{ Illuminate\Support\Js::from(__('Images')) }},   stats.imgCount + '']);
+    if (stats.tableCount > 0) chips.push(['chip-meta',     {{ Illuminate\Support\Js::from(__('Tables')) }},   stats.tableCount + '']);
+    if (stats.hasCode)        chips.push(['chip-meta',     {{ Illuminate\Support\Js::from(__('Code blocks')) }}, `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>`]);
+    if (stats.hasStyle)       chips.push(['chip-lang',     {{ Illuminate\Support\Js::from(__('CSS styles')) }}, `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>`]);
+    if (stats.autoTitle)      chips.push(['chip-lang',     {{ Illuminate\Support\Js::from(__('Title')) }},    stats.autoTitle]);
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -1180,18 +1157,18 @@
       outName = 'book.epub';
     }
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 500, 'Reading HTML content…');
+    animateProgress(0, 20, 500, {{ Illuminate\Support\Js::from(__('Reading HTML content…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(20, 50, 800, 'Splitting chapters at <h1>…');
+      animateProgress(20, 50, 800, {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('Splitting chapters at <h1>…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(50, 78, 700, 'Embedding images & metadata…');
+      animateProgress(50, 78, 700, {{ Illuminate\Support\Js::from(__('Embedding images & metadata…')) }});
     }, 1500);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 600, 'Packaging EPUB archive…');
+      animateProgress(78, 92, 600, {{ Illuminate\Support\Js::from(__('Packaging EPUB archive…')) }});
     }, 2400);
     try {
       let res;
@@ -1241,15 +1218,15 @@
       link.href     = blobUrl;
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · EPUB eBook';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · EPUB eBook')) }};
       renderResultChips({ chapters, images, resTitle, resAuthor, language, hasCover: !!selectedCover });
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -1259,17 +1236,17 @@
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
     const chips = [];
-    if (chapters)   chips.push(['chip-chapters', 'Chapters', chapters]);
-    if (images)     chips.push(['chip-images',   'Images',   images]);
-    if (resTitle)   chips.push(['chip-meta',     'Title',    resTitle.substring(0, 20)]);
-    if (resAuthor)  chips.push(['chip-meta',     'Author',   resAuthor.substring(0, 20)]);
-    if (language)   chips.push(['chip-lang',     'Language', language.toUpperCase()]);
-    if (hasCover)   chips.push(['chip-cover',    'Cover',    'embedded']);
+    if (chapters)   chips.push(['chip-chapters', {{ Illuminate\Support\Js::from(__('Chapters')) }}, chapters]);
+    if (images)     chips.push(['chip-images',   {{ Illuminate\Support\Js::from(__('Images')) }},   images]);
+    if (resTitle)   chips.push(['chip-meta',     {{ Illuminate\Support\Js::from(__('Title')) }},    resTitle.substring(0, 20)]);
+    if (resAuthor)  chips.push(['chip-meta',     {{ Illuminate\Support\Js::from(__('Author')) }},   resAuthor.substring(0, 20)]);
+    if (language)   chips.push(['chip-lang',     {{ Illuminate\Support\Js::from(__('Language')) }}, language.toUpperCase()]);
+    if (hasCover)   chips.push(['chip-cover',    {{ Illuminate\Support\Js::from(__('Cover')) }},    'embedded']);
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -1344,7 +1321,7 @@
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

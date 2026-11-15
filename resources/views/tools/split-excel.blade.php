@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -43,8 +43,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Excel workbook here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .xlsx and .xls files — or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Excel workbook here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .xlsx and .xls files — or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -53,9 +53,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Excel File
+                            {{ __('Choose Excel File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input"
                             accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -77,7 +77,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">workbook.xlsx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -89,14 +89,14 @@
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
-                            <p class="text-sm font-semibold text-fn-text2">Split Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Split Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-4">
                             {{-- Left: split mode --}}
                             <div class="flex flex-col gap-3">
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Split mode</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Split mode') }}</label>
                                     <div class="flex flex-col gap-1.5">
                                         @foreach([
                                         ['split-sheet', 'sheet', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -108,9 +108,7 @@
                                             <path
                                                 d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
                                             <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-                                        </svg>', 'One file per sheet', 'Each tab becomes its own
-                                        .xlsx file', true],
-                                        ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        </svg>', 'One file per sheet', 'Each tab becomes its own .xlsx file', true], ['split-chunk', 'chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                             class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
@@ -119,9 +117,7 @@
                                             <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                                             <path d="M9.15 14.85l8.85 -10.85" />
                                             <path d="M6 4l8.85 10.85" />
-                                        </svg>', 'Split by row count', 'Divide each sheet every N
-                                        rows', false],
-                                        ['split-sheets', 'sheets', '<svg xmlns="http://www.w3.org/2000/svg"
+                                        </svg>', 'Split by row count', 'Divide each sheet every N rows', false], ['split-sheets', 'sheets', '<svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-target" width="1em" height="1em"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -138,8 +134,8 @@
                                                 ? 'checked' : '' }} class="sr-only split-mode-radio" />
                                             <span class="text-xl shrink-0">{!! $micon !!}</span>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-bold text-fn-text">{{ $mlabel }}</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">{{ $mdesc }}</p>
+                                                <p class="text-xs font-bold text-fn-text">{{ __(Str::squish((string) $mlabel)) }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{{ __(Str::squish((string) $mdesc)) }}</p>
                                             </div>
                                             <div
                                                 class="shrink-0 w-4 h-4 rounded-full border-2 border-fn-text/20 mode-radio-dot flex items-center justify-center transition-all">
@@ -157,24 +153,24 @@
                                 {{-- Chunk size (shown for chunk mode) --}}
                                 <div id="opt-chunk-wrap" class="hidden flex flex-col gap-1.5">
                                     <label for="opt-chunk-size" class="text-xs font-semibold text-fn-text2 block">
-                                        Rows per chunk
+                                        {{ __('Rows per chunk') }}
                                     </label>
                                     <input type="number" id="opt-chunk-size" value="100" min="1" max="100000" step="1"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40" />
-                                    <p class="text-xs text-fn-text3">Each sheet is divided into parts of this many rows.
-                                        Headers are preserved in every chunk.</p>
+                                    <p class="text-xs text-fn-text3">{{ __('Each sheet is divided into parts of this many rows. Headers are preserved in every chunk.') }}</p>
                                 </div>
                                 {{-- Sheet name picker (shown for sheets mode) --}}
                                 <div id="opt-sheets-wrap" class="hidden flex flex-col gap-1.5">
                                     <label class="text-xs font-semibold text-fn-text2 block">
-                                        Sheet names to extract
-                                        <span class="font-normal text-fn-text3 ml-1">(one per line)</span>
+                                        {{ __('Sheet names to extract') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(one per line)') }}</span>
                                     </label>
                                     <textarea id="opt-sheets-input" rows="4" spellcheck="false"
-                                        placeholder="Sales&#10;HR&#10;Finance"
+                                        placeholder="{{ __('Sales
+HR
+Finance') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
-                                    <p class="text-xs text-fn-text3">Sheet names are case-sensitive. Leave blank to
-                                        extract all sheets.</p>
+                                    <p class="text-xs text-fn-text3">{{ __('Sheet names are case-sensitive. Leave blank to extract all sheets.') }}</p>
                                 </div>
                                 {{-- Default helper (shown for sheet mode) --}}
                                 <div id="opt-sheet-help" class="flex flex-col gap-2">
@@ -187,10 +183,8 @@
                                             <line x1="12" y1="8" x2="12" y2="12" />
                                             <line x1="12" y1="16" x2="12.01" y2="16" />
                                         </svg>
-                                        <p class="text-xs text-fn-text2 leading-relaxed">Each sheet in your workbook
-                                            becomes a separate <span class="font-mono font-semibold">.xlsx</span> file.
-                                            All files are bundled into a <span
-                                                class="font-mono font-semibold">.zip</span> archive for download.</p>
+                                        <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Each sheet in your workbook becomes a separate') }} <span class="font-mono font-semibold">{{ __('.xlsx') }}</span> {{ __('file. All files are bundled into a') }} <span
+                                                class="font-mono font-semibold">{{ __('.zip') }}</span> {{ __('archive for download.') }}</p>
                                     </div>
                                     <div
                                         class="p-3 bg-fn-surface border border-fn-text/8 rounded-xl flex items-start gap-2">
@@ -200,25 +194,24 @@
                                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                                             <polyline points="22 4 12 14.01 9 11.01" />
                                         </svg>
-                                        <p class="text-xs text-fn-text2 leading-relaxed">Upload first to preview the
-                                            sheets inside your workbook before splitting.</p>
+                                        <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Upload first to preview the sheets inside your workbook before splitting.') }}</p>
                                     </div>
                                 </div>
                                 {{-- Output mode --}}
                                 <div>
                                     <label for="opt-output"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Output</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Output') }}</label>
                                     <select id="opt-output"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                        <option value="zip" selected>Download .zip of .xlsx files</option>
-                                        <option value="json">Metadata only (JSON preview)</option>
+                                        <option value="zip" selected>{{ __('Download .zip of .xlsx files') }}</option>
+                                        <option value="json">{{ __('Metadata only (JSON preview)') }}</option>
                                     </select>
                                 </div>
                                 {{-- Output filename --}}
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
                                     <input type="text" id="opt-filename" placeholder="split_sheets.zip"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
@@ -236,7 +229,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -247,7 +240,7 @@
                             <line x1="3" y1="15" x2="21" y2="15" />
                             <line x1="9" y1="3" x2="9" y2="21" />
                         </svg>
-                        <span id="split-btn-label">Split Excel File</span>
+                        <span id="split-btn-label">{{ __('Split Excel File') }}</span>
                     </button>
                 </div>
                 {{-- ── STATE: Splitting ── --}}
@@ -281,16 +274,15 @@
                                 style="font-size:10px; color: oklch(55% 0.18 162); font-weight:700">S3</div>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2" id="splitting-title">Splitting Excel File…</h2>
-                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Reading workbook &amp; extracting
-                        sheets</p>
+                    <h2 class="text-xl font-bold mb-2" id="splitting-title">{{ __('Splitting Excel File…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">{{ __('Reading workbook & extracting sheets') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -314,7 +306,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -335,11 +327,10 @@
                                 <path d="M9 12l2 2l4 -4" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold mb-2">Split Complete!</h2>
-                        <p class="text-fn-text2 text-sm mb-6" id="zip-subtitle">Your files are ready inside a .zip
-                            archive.</p>
+                        <h2 class="text-2xl font-bold mb-2">{{ __('Split Complete!') }}</h2>
+                        <p class="text-fn-text2 text-sm mb-6" id="zip-subtitle">{{ __('Your files are ready inside a .zip archive.') }}</p>
                         <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                            <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Split details</p>
+                            <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Split details') }}</p>
                             <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                         </div>
                         <div
@@ -363,7 +354,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="output-name">split_sheets.zip</p>
-                                <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('ZIP Archive') }}</p>
                             </div>
                             <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                         </div>
@@ -376,7 +367,7 @@
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" y1="15" x2="12" y2="3" />
                             </svg>
-                            Download ZIP
+                            {{ __('Download ZIP') }}
                         </a>
                     </div>
                     {{-- JSON / metadata result --}}
@@ -396,7 +387,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="font-bold text-sm" id="json-result-title">Metadata preview</p>
+                                    <p class="font-bold text-sm" id="json-result-title">{{ __('Metadata preview') }}</p>
                                     <p class="text-fn-text3 text-xs" id="json-result-meta">—</p>
                                 </div>
                             </div>
@@ -407,7 +398,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                Copy JSON
+                                {{ __('Copy JSON') }}
                             </button>
                         </div>
                         {{-- Parts table --}}
@@ -416,11 +407,11 @@
                                 <thead>
                                     <tr class="border-b border-fn-text/10 bg-fn-surface2">
                                         <th class="text-left py-2 px-3 font-bold text-fn-text2">#</th>
-                                        <th class="text-left py-2 px-3 font-bold text-fn-text2">Filename</th>
-                                        <th class="text-left py-2 px-3 font-bold text-fn-text2">Sheet</th>
-                                        <th class="text-right py-2 px-3 font-bold text-fn-text2">Rows</th>
-                                        <th class="text-right py-2 px-3 font-bold text-fn-text2">Cols</th>
-                                        <th class="text-right py-2 px-3 font-bold text-fn-text2">Size</th>
+                                        <th class="text-left py-2 px-3 font-bold text-fn-text2">{{ __('Filename') }}</th>
+                                        <th class="text-left py-2 px-3 font-bold text-fn-text2">{{ __('Sheet') }}</th>
+                                        <th class="text-right py-2 px-3 font-bold text-fn-text2">{{ __('Rows') }}</th>
+                                        <th class="text-right py-2 px-3 font-bold text-fn-text2">{{ __('Cols') }}</th>
+                                        <th class="text-right py-2 px-3 font-bold text-fn-text2">{{ __('Size') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody id="parts-tbody" class="divide-y divide-fn-text/7"></tbody>
@@ -437,7 +428,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Split another file
+                            {{ __('Split another file') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -445,7 +436,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -455,8 +446,8 @@
 {{-- ══ SPLIT MODES ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">Split Modes Explained</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">Three ways to break your workbook into parts</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('Split Modes Explained') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-6">{{ __('Three ways to break your workbook into parts') }}</p>
         <div class="grid sm:grid-cols-3 gap-4">
             @foreach([
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -466,10 +457,7 @@
                 <path d="M15 3v4a1 1 0 0 0 1 1h4" />
                 <path d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2" />
                 <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-            </svg>', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after
-            the
-            sheet. Best for workbooks where each sheet represents a different dataset, region, or time period.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            </svg>', 'One file per sheet', 'sheet', 'Each tab in the workbook becomes its own .xlsx file, named after the sheet. Best for workbooks where each sheet represents a different dataset, region, or time period.'], ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-cut">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -477,9 +465,7 @@
                 <path d="M14 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                 <path d="M9.15 14.85l8.85 -10.85" />
                 <path d="M6 4l8.85 10.85" />
-            </svg>', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row
-            preserved in each chunk. Best for large sheets that need to be imported into systems with row limits.'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em"
+            </svg>', 'Split by row count', 'chunk', 'Every sheet is divided into chunks of N rows, with the header row preserved in each chunk. Best for large sheets that need to be imported into systems with row limits.'], ['<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-target" width="1em"
                 height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
                 <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
@@ -492,11 +478,11 @@
                 <div class="flex items-center gap-2.5 mb-3">
                     <span class="text-2xl">{!! $icon !!}</span>
                     <div>
-                        <p class="font-bold text-sm">{{ $name }}</p>
+                        <p class="font-bold text-sm">{{ __(Str::squish((string) $name)) }}</p>
                         <code class="text-xs font-mono text-fn-text3">split_by={{ $val }}</code>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed">{{ $desc }}</p>
+                <p class="text-xs text-fn-text2 leading-relaxed">{{ __(Str::squish((string) $desc)) }}</p>
             </div>
             @endforeach
         </div>
@@ -505,7 +491,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What format are the output files?', 'Each part is saved as a standard .xlsx file. In zip output mode all
@@ -528,7 +514,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -536,7 +522,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -670,15 +656,15 @@
   });
   function updateProc4Label(output, mode) {
     const el = document.querySelector('#proc-4 span');
-    if (el) el.textContent = output === 'json' ? 'Returning metadata JSON' : 'Packaging .zip archive';
+    if (el) el.textContent = output === 'json' ? {{ Illuminate\Support\Js::from(__('Returning metadata JSON')) }} : {{ Illuminate\Support\Js::from(__('Packaging .zip archive')) }};
   }
   function updateBtnLabel(mode, output) {
     const labels = {
       sheet:  output === 'json' ? 'Preview split by sheet' : 'Split by sheet',
-      chunk:  output === 'json' ? 'Preview split by chunk' : 'Split by row count',
-      sheets: output === 'json' ? 'Preview sheet extraction' : 'Extract sheets',
+      chunk:  output === 'json' ? 'Preview split by chunk' : {{ Illuminate\Support\Js::from(__('Split by row count')) }},
+      sheets: output === 'json' ? 'Preview sheet extraction' : {{ Illuminate\Support\Js::from(__('Extract sheets')) }},
     };
-    document.getElementById('split-btn-label').textContent = labels[mode] || 'Split Excel File';
+    document.getElementById('split-btn-label').textContent = labels[mode] || {{ Illuminate\Support\Js::from(__('Split Excel File')) }};
   }
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
@@ -693,16 +679,16 @@
   function handleFile(file) {
     hideError();
     if (!file.name.match(/\.(xlsx|xls)$/i)) {
-      showError('Please select a valid Excel file (.xlsx or .xls).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid Excel file (.xlsx or .xls).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · Excel Workbook';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Excel Workbook')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -744,10 +730,10 @@
       chunk:  `Reading workbook — splitting every ${chunkSize} rows`,
       sheets: `Reading workbook — extracting selected sheets`,
     };
-    document.getElementById('converting-subtitle').textContent = subtitleMap[splitBy] || 'Processing…';
+    document.getElementById('converting-subtitle').textContent = subtitleMap[splitBy] || {{ Illuminate\Support\Js::from(__('Processing…')) }};
     document.getElementById('splitting-title').textContent =
-      splitBy === 'chunk' ? 'Splitting by Row Count…' :
-      splitBy === 'sheets' ? 'Extracting Sheets…' : 'Splitting by Sheet…';
+      splitBy === 'chunk' ? {{ Illuminate\Support\Js::from(__('Splitting by Row Count…')) }} :
+      splitBy === 'sheets' ? {{ Illuminate\Support\Js::from(__('Extracting Sheets…')) }} : {{ Illuminate\Support\Js::from(__('Splitting by Sheet…')) }};
     const fd = new FormData();
     fd.append('file',     selectedFile);
     fd.append('split_by', splitBy);
@@ -755,18 +741,18 @@
     if (splitBy === 'chunk')  fd.append('chunk_size', chunkSize);
     if (sheetsJson)           fd.append('sheets',     sheetsJson);
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 400, 'Reading workbook…');
+    animateProgress(0, 20, 400, {{ Illuminate\Support\Js::from(__('Reading workbook…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(20, 52, 700, 'Applying split strategy…');
+      animateProgress(20, 52, 700, {{ Illuminate\Support\Js::from(__('Applying split strategy…')) }});
     }, 500);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(52, 78, 700, 'Writing output files…');
+      animateProgress(52, 78, 700, {{ Illuminate\Support\Js::from(__('Writing output files…')) }});
     }, 1300);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 500, output === 'json' ? 'Returning metadata JSON…' : 'Packaging .zip archive…');
+      animateProgress(78, 92, 500, output === 'json' ? {{ Illuminate\Support\Js::from(__('Returning metadata JSON…')) }} : {{ Illuminate\Support\Js::from(__('Packaging .zip archive…')) }});
     }, 2100);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/split-excel', {
@@ -780,7 +766,7 @@
         throw new Error(msg);
       }
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       if (output === 'json') {
         const data = await res.json();
         showJsonResult(data, splitBy);
@@ -792,16 +778,16 @@
         link.href     = blobUrl;
         link.download = outName;
         document.getElementById('output-name').textContent = outName;
-        document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ZIP Archive';
+        document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · ZIP Archive')) }};
         document.getElementById('zip-subtitle').textContent =
-          `Your split files are ready — download the .zip and extract to get individual .xlsx files.`;
+          ({{ Illuminate\Support\Js::from(__('Your split files are ready — download the .zip and extract to get individual .xlsx files.')) }});
         showZipResult(splitBy, null, null);
       }
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -813,13 +799,13 @@
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
     const modeLabel = { sheet: 'by sheet', chunk: 'by chunk', sheets: 'extracted' }[splitBy] || splitBy;
-    const chips = [['chip-mode', 'Mode', modeLabel]];
-    if (totalParts) chips.push(['chip-parts', 'Parts', totalParts + '']);
-    if (totalRows)  chips.push(['chip-rows',  'Rows',  Number(totalRows).toLocaleString()]);
+    const chips = [['chip-mode', {{ Illuminate\Support\Js::from(__('Mode')) }}, modeLabel]];
+    if (totalParts) chips.push(['chip-parts', {{ Illuminate\Support\Js::from(__('Parts')) }}, totalParts + '']);
+    if (totalRows)  chips.push(['chip-rows',  {{ Illuminate\Support\Js::from(__('Rows')) }},  Number(totalRows).toLocaleString()]);
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -829,9 +815,9 @@
     document.getElementById('zip-result').classList.add('hidden');
     document.getElementById('json-result').classList.remove('hidden');
     document.getElementById('json-result-title').textContent =
-      `${data.total_parts} part${data.total_parts !== 1 ? 's' : ''} — ${(data.split_by || splitBy).replace('_', ' ')} mode`;
+      ({{ Illuminate\Support\Js::from(__(':value0 part:value1 — :value2 mode')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.total_parts)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (data.total_parts !== 1)) ? 's' : '')).replaceAll(/:value2(?!\d)/g, () => String((data.split_by || splitBy).replace('_', ' ')));
     document.getElementById('json-result-meta').textContent =
-      `${data.parts?.length || 0} entries`;
+      ({{ Illuminate\Support\Js::from(__(':value0 entries')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.parts?.length || 0));
     // Parts table
     if (data.parts && data.parts.length) {
       const tbody = document.getElementById('parts-tbody');
@@ -839,13 +825,13 @@
       data.parts.forEach(p => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-fn-surface transition-colors';
-        tr.innerHTML = `
-          <td class="py-2 px-3 text-fn-text3">${p.index}</td>
-          <td class="py-2 px-3 font-mono text-fn-text2 truncate max-w-xs">${escHtml(p.filename)}</td>
-          <td class="py-2 px-3 text-fn-text2">${escHtml(p.sheet || '—')}</td>
-          <td class="py-2 px-3 text-right font-mono text-fn-text2">${Number(p.rows).toLocaleString()}</td>
-          <td class="py-2 px-3 text-right font-mono text-fn-text2">${p.cols}</td>
-          <td class="py-2 px-3 text-right font-mono text-fn-text3">${p.size_kb} KB</td>`;
+        tr.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+          <td class="py-2 px-3 text-fn-text3">:value0</td>
+          <td class="py-2 px-3 font-mono text-fn-text2 truncate max-w-xs">:value1</td>
+          <td class="py-2 px-3 text-fn-text2">:value2</td>
+          <td class="py-2 px-3 text-right font-mono text-fn-text2">:value3</td>
+          <td class="py-2 px-3 text-right font-mono text-fn-text2">:value4</td>
+          <td class="py-2 px-3 text-right font-mono text-fn-text3">:value5 KB</td>')) }}).replaceAll(/:value0(?!\d)/g, () => String(p.index)).replaceAll(/:value1(?!\d)/g, () => String(escHtml(p.filename))).replaceAll(/:value2(?!\d)/g, () => String(escHtml(p.sheet || '—'))).replaceAll(/:value3(?!\d)/g, () => String(Number(p.rows).toLocaleString())).replaceAll(/:value4(?!\d)/g, () => String(p.cols)).replaceAll(/:value5(?!\d)/g, () => String(p.size_kb));
         tbody.appendChild(tr);
       });
       document.getElementById('parts-table-wrap').classList.remove('hidden');
@@ -858,8 +844,8 @@
       const text = document.getElementById('json-preview').textContent;
       await navigator.clipboard.writeText(text);
       const btn = document.getElementById('btn-copy-json');
-      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Copied!`;
-      setTimeout(() => { btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy JSON`; }, 2000);
+      btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Copied!')) }});
+      setTimeout(() => { btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy JSON')) }}); }, 2000);
     } catch(_) {}
   });
   // ── Helpers ──
@@ -938,7 +924,7 @@
     document.getElementById('opt-filename').closest('div').style.opacity = '1';
     document.getElementById('opt-filename').closest('div').style.pointerEvents = '';
     // Reset btn label
-    document.getElementById('split-btn-label').textContent = 'Split Excel File';
+    document.getElementById('split-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Split Excel File')) }};
     // Reset result panels
     document.getElementById('result-info-wrap').classList.add('hidden');
     document.getElementById('zip-result').classList.add('hidden');
@@ -946,10 +932,10 @@
     document.getElementById('parts-table-wrap').classList.add('hidden');
     // Reset proc-4 label
     const proc4 = document.querySelector('#proc-4 span');
-    if (proc4) proc4.textContent = 'Packaging .zip archive';
+    if (proc4) proc4.textContent = {{ Illuminate\Support\Js::from(__('Packaging .zip archive')) }};
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

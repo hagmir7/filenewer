@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -44,8 +44,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .pdf files — or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .pdf files — or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -54,9 +54,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -87,62 +87,60 @@
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
-                            <p class="text-sm font-semibold text-fn-text2">eBook Settings</p>
-                            <span class="text-xs text-fn-text3">Optional — metadata auto-read from PDF if blank</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('eBook Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional — metadata auto-read from PDF if blank') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-4">
                             {{-- Left column: metadata --}}
                             <div class="flex flex-col gap-3">
-                                <p class="text-xs font-bold text-fn-text3 uppercase tracking-wider">Metadata</p>
+                                <p class="text-xs font-bold text-fn-text3 uppercase tracking-wider">{{ __('Metadata') }}</p>
                                 <div>
-                                    <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">Book
-                                        title</label>
-                                    <input type="text" id="opt-title" placeholder="Auto-read from PDF"
+                                    <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Book title') }}</label>
+                                    <input type="text" id="opt-title" placeholder="{{ __('Auto-read from PDF') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-author"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Author</label>
-                                    <input type="text" id="opt-author" placeholder="Auto-read from PDF metadata"
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Author') }}</label>
+                                    <input type="text" id="opt-author" placeholder="{{ __('Auto-read from PDF metadata') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-publisher"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Publisher</label>
-                                    <input type="text" id="opt-publisher" placeholder="Auto-read from PDF creator"
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Publisher') }}</label>
+                                    <input type="text" id="opt-publisher" placeholder="{{ __('Auto-read from PDF creator') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-description"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Description</label>
-                                    <input type="text" id="opt-description" placeholder="Auto-read from PDF subject"
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Description') }}</label>
+                                    <input type="text" id="opt-description" placeholder="{{ __('Auto-read from PDF subject') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
                                         <label for="opt-language"
-                                            class="text-xs font-semibold text-fn-text2 block mb-1.5">Language</label>
+                                            class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Language') }}</label>
                                         <select id="opt-language"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                            <option value="en" selected>English</option>
-                                            <option value="ar">Arabic (عربي)</option>
-                                            <option value="fr">French</option>
-                                            <option value="de">German</option>
-                                            <option value="es">Spanish</option>
-                                            <option value="it">Italian</option>
-                                            <option value="pt">Portuguese</option>
-                                            <option value="nl">Dutch</option>
-                                            <option value="zh">Chinese</option>
-                                            <option value="ja">Japanese</option>
-                                            <option value="ru">Russian</option>
+                                            <option value="en" selected>{{ __('English') }}</option>
+                                            <option value="ar">{{ __('Arabic (عربي)') }}</option>
+                                            <option value="fr">{{ __('French') }}</option>
+                                            <option value="de">{{ __('German') }}</option>
+                                            <option value="es">{{ __('Spanish') }}</option>
+                                            <option value="it">{{ __('Italian') }}</option>
+                                            <option value="pt">{{ __('Portuguese') }}</option>
+                                            <option value="nl">{{ __('Dutch') }}</option>
+                                            <option value="zh">{{ __('Chinese') }}</option>
+                                            <option value="ja">{{ __('Japanese') }}</option>
+                                            <option value="ru">{{ __('Russian') }}</option>
                                         </select>
                                     </div>
                                     <div>
                                         <label for="opt-password"
-                                            class="text-xs font-semibold text-fn-text2 block mb-1.5">PDF
-                                            password</label>
+                                            class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('PDF password') }}</label>
                                         <div class="relative">
-                                            <input type="password" id="opt-password" placeholder="If encrypted"
+                                            <input type="password" id="opt-password" placeholder="{{ __('If encrypted') }}"
                                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-8 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                             <button type="button" id="toggle-password"
                                                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
@@ -166,11 +164,11 @@
                             </div>
                             {{-- Right column: image & quality --}}
                             <div class="flex flex-col gap-3">
-                                <p class="text-xs font-bold text-fn-text3 uppercase tracking-wider">Image Quality</p>
+                                <p class="text-xs font-bold text-fn-text3 uppercase tracking-wider">{{ __('Image Quality') }}</p>
                                 {{-- DPI preset cards --}}
                                 <div>
                                     <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Resolution — <span id="dpi-label" class="text-fn-blue-l">150 DPI · Good</span>
+                                        {{ __('Resolution —') }} <span id="dpi-label" class="text-fn-blue-l">{{ __('150 DPI · Good') }}</span>
                                     </label>
                                     <div class="grid grid-cols-5 gap-1.5">
                                         @foreach([
@@ -185,30 +183,29 @@
                                             data-dpi="{{ $dpi }}" data-label="{{ $dpi }} DPI · {{ $qlabel }}">
                                             <input type="radio" name="image_dpi" value="{{ $val }}" {{ $val==='150'
                                                 ? 'checked' : '' }} class="sr-only" />
-                                            <span class="text-xs font-bold">{{ $dpi }}</span>
-                                            <span class="text-xs text-fn-text3 leading-none">{{ $qlabel }}</span>
+                                            <span class="text-xs font-bold">{{ __(Str::squish((string) $dpi)) }}</span>
+                                            <span class="text-xs text-fn-text3 leading-none">{{ __(Str::squish((string) $qlabel)) }}</span>
                                         </label>
                                         @endforeach
                                     </div>
-                                    <p class="text-xs text-fn-text3 mt-1" id="dpi-desc">Default balanced — best for most
-                                        eReaders</p>
+                                    <p class="text-xs text-fn-text3 mt-1" id="dpi-desc">{{ __('Default balanced — best for most eReaders') }}</p>
                                 </div>
                                 {{-- Quality slider --}}
                                 <div>
                                     <label for="opt-quality" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        JPEG quality — <span id="quality-val"
+                                        {{ __('JPEG quality —') }} <span id="quality-val"
                                             class="text-fn-blue-l font-mono">75</span>%
                                     </label>
                                     <input type="range" id="opt-quality" min="30" max="100" value="75"
                                         class="w-full accent-fn-blue cursor-pointer" />
                                     <div class="flex justify-between text-xs text-fn-text3 mt-0.5">
-                                        <span>Smaller file</span>
-                                        <span>Better quality</span>
+                                        <span>{{ __('Smaller file') }}</span>
+                                        <span>{{ __('Better quality') }}</span>
                                     </div>
                                 </div>
                                 {{-- Extract text toggle --}}
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Options</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Options') }}</label>
                                     <label
                                         class="flex items-center gap-2 cursor-pointer select-none px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg hover:border-fn-blue/25 transition-colors">
                                         <div class="toggle-wrap relative w-8 h-4 shrink-0">
@@ -221,19 +218,18 @@
                                             </div>
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-xs font-semibold text-fn-text2">Extract text</p>
-                                            <p class="text-xs text-fn-text3 leading-tight">Include selectable text layer
-                                                in EPUB</p>
+                                            <p class="text-xs font-semibold text-fn-text2">{{ __('Extract text') }}</p>
+                                            <p class="text-xs text-fn-text3 leading-tight">{{ __('Include selectable text layer in EPUB') }}</p>
                                         </div>
                                     </label>
                                 </div>
                                 {{-- Output filename --}}
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-filename" placeholder="book.epub"
+                                    <input type="text" id="opt-filename" placeholder="{{ __('book.epub') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                             </div>
@@ -249,7 +245,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -258,7 +254,7 @@
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
                             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                         </svg>
-                        Convert to EPUB
+                        {{ __('Convert to EPUB') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -294,16 +290,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting PDF to EPUB…</h2>
-                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Rendering pages, extracting text
-                        &amp; packaging eBook</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting PDF to EPUB…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">{{ __('Rendering pages, extracting text & packaging eBook') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -327,7 +322,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -344,12 +339,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6">Your EPUB is ready — open it in Apple Books, Kobo, or any EPUB
-                        reader.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6">{{ __('Your EPUB is ready — open it in Apple Books, Kobo, or any EPUB reader.') }}</p>
                     {{-- Result detail chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Conversion details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Conversion details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
                     <div
@@ -368,8 +362,8 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="output-name">book.epub</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">EPUB eBook</p>
+                            <p class="font-semibold text-sm truncate" id="output-name">{{ __('book.epub') }}</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('EPUB eBook') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -382,7 +376,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download EPUB File
+                        {{ __('Download EPUB File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -392,7 +386,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -400,7 +394,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -410,9 +404,8 @@
 {{-- ══ DPI GUIDE ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">Image Resolution Guide</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">Choose the right DPI for your use case — higher DPI means
-            sharper images and larger file sizes</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('Image Resolution Guide') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-6">{{ __('Choose the right DPI for your use case — higher DPI means sharper images and larger file sizes') }}</p>
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
             @foreach([
             ['72', 'Low', 'Very Small', 'Quick preview', 'bg-fn-surface border-fn-text/10', 'text-fn-text3'],
@@ -422,11 +415,11 @@
             ['300', 'Best', 'Very Large', 'Print quality', 'bg-fn-amber/6 border-fn-amber/20', 'text-fn-amber'],
             ] as [$dpi, $quality, $size, $use, $bg, $color])
             <div class="flex flex-col items-center text-center p-3 border rounded-xl {{ $bg }}">
-                <span class="text-lg font-black {{ $color }}">{{ $dpi }}</span>
-                <span class="text-xs font-bold text-fn-text2 mt-0.5">DPI</span>
-                <span class="text-xs font-semibold {{ $color }} mt-1.5">{{ $quality }}</span>
-                <span class="text-xs text-fn-text3 mt-0.5">{{ $size }}</span>
-                <span class="text-xs text-fn-text3 mt-1 leading-tight">{{ $use }}</span>
+                <span class="text-lg font-black {{ $color }}">{{ __(Str::squish((string) $dpi)) }}</span>
+                <span class="text-xs font-bold text-fn-text2 mt-0.5">{{ __('DPI') }}</span>
+                <span class="text-xs font-semibold {{ $color }} mt-1.5">{{ __(Str::squish((string) $quality)) }}</span>
+                <span class="text-xs text-fn-text3 mt-0.5">{{ __(Str::squish((string) $size)) }}</span>
+                <span class="text-xs text-fn-text3 mt-1 leading-tight">{{ __(Str::squish((string) $use)) }}</span>
             </div>
             @endforeach
         </div>
@@ -435,41 +428,37 @@
 {{-- ══ EPUB STRUCTURE ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">EPUB Structure</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">Each PDF page becomes a chapter — the first page is used as
-            the cover</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('EPUB Structure') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-6">{{ __('Each PDF page becomes a chapter — the first page is used as the cover') }}</p>
         <div
             class="max-w-sm mx-auto bg-fn-surface2 border border-fn-text/8 rounded-2xl p-5 font-mono text-xs text-fn-text2 leading-relaxed">
             <div class="flex items-center gap-2 mb-3">
                 <div class="w-3 h-3 rounded-full bg-fn-blue/40"></div>
-                <span class="font-bold text-fn-text">book.epub</span>
+                <span class="font-bold text-fn-text">{{ __('book.epub') }}</span>
             </div>
             <div class="pl-4 space-y-1 border-l border-fn-text/10">
-                <div class="text-fn-text3">├── META-INF/</div>
-                <div class="pl-4 text-fn-text3">└── container.xml</div>
-                <div class="text-fn-text3">├── OEBPS/</div>
+                <div class="text-fn-text3">{{ __('├── META-INF/') }}</div>
+                <div class="pl-4 text-fn-text3">{{ __('└── container.xml') }}</div>
+                <div class="text-fn-text3">{{ __('├── OEBPS/') }}</div>
                 <div class="pl-4 space-y-1">
-                    <div class="text-fn-text3">├── styles/main.css</div>
-                    <div class="text-fn-text3">├── images/</div>
+                    <div class="text-fn-text3">{{ __('├── styles/main.css') }}</div>
+                    <div class="text-fn-text3">{{ __('├── images/') }}</div>
                     <div class="pl-4 space-y-0.5">
-                        <div><span class="text-fn-blue-l">cover.jpg</span> <span class="text-fn-text3">← first page as
-                                cover</span></div>
-                        <div><span class="text-fn-text3">page_0000.jpg</span> <span class="text-fn-text3">← page 1
-                                render</span></div>
-                        <div><span class="text-fn-text3">page_0001.jpg</span> <span class="text-fn-text3">← page 2
-                                render</span></div>
+                        <div><span class="text-fn-blue-l">{{ __('cover.jpg') }}</span> <span class="text-fn-text3">{{ __('← first page as cover') }}</span></div>
+                        <div><span class="text-fn-text3">{{ __('page_0000.jpg') }}</span> <span class="text-fn-text3">{{ __('← page 1 render') }}</span></div>
+                        <div><span class="text-fn-text3">{{ __('page_0001.jpg') }}</span> <span class="text-fn-text3">{{ __('← page 2 render') }}</span></div>
                         <div class="text-fn-text3">…</div>
                     </div>
-                    <div class="text-fn-text3">├── chapters/</div>
+                    <div class="text-fn-text3">{{ __('├── chapters/') }}</div>
                     <div class="pl-4 space-y-0.5">
-                        <div class="text-fn-text3">page_0000.xhtml</div>
-                        <div class="text-fn-text3">page_0001.xhtml</div>
+                        <div class="text-fn-text3">{{ __('page_0000.xhtml') }}</div>
+                        <div class="text-fn-text3">{{ __('page_0001.xhtml') }}</div>
                         <div class="text-fn-text3">…</div>
                     </div>
-                    <div class="text-fn-text3">├── nav.xhtml</div>
-                    <div class="text-fn-text3">└── toc.ncx</div>
+                    <div class="text-fn-text3">{{ __('├── nav.xhtml') }}</div>
+                    <div class="text-fn-text3">{{ __('└── toc.ncx') }}</div>
                 </div>
-                <div class="text-fn-text3">└── mimetype</div>
+                <div class="text-fn-text3">{{ __('└── mimetype') }}</div>
             </div>
         </div>
     </div>
@@ -477,7 +466,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['How does the PDF to EPUB conversion work?', 'Each page of the PDF is rendered as a high-quality JPEG image
@@ -505,7 +494,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -513,7 +502,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -725,7 +714,7 @@
   const DPI_DESCS = {
     '72':  'Low quality · very small file — quick preview only',
     '96':  'Medium quality · small file — ideal for mobile reading',
-    '150': 'Default balanced — best for most eReaders',
+    '150': {{ Illuminate\Support\Js::from(__('Default balanced — best for most eReaders')) }},
     '200': 'High quality · large file — great for desktop reading',
     '300': 'Best quality · very large file — suitable for print',
   };
@@ -775,16 +764,16 @@
   function handleFile(file) {
     hideError();
     if (!file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file (.pdf).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file (.pdf).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -826,7 +815,7 @@
     }
     // Update converting subtitle with chosen settings
     document.getElementById('converting-subtitle').textContent =
-      `Rendering pages at ${dpi} DPI · quality ${quality}% — packaging eBook`;
+      ({{ Illuminate\Support\Js::from(__('Rendering pages at :value0 DPI · quality :value1% — packaging eBook')) }}).replaceAll(/:value0(?!\d)/g, () => String(dpi)).replaceAll(/:value1(?!\d)/g, () => String(quality));
     const fd = new FormData();
     fd.append('file',          selectedFile);
     fd.append('image_dpi',     dpi);
@@ -839,18 +828,18 @@
     if (description) fd.append('description', description);
     if (password)    fd.append('password',    password);
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 18, 500, 'Reading PDF pages…');
+    animateProgress(0, 18, 500, {{ Illuminate\Support\Js::from(__('Reading PDF pages…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(18, 52, 1000, `Rendering page images at ${dpi} DPI…`);
+      animateProgress(18, 52, 1000, ({{ Illuminate\Support\Js::from(__('Rendering page images at :value0 DPI…')) }}).replaceAll(/:value0(?!\d)/g, () => String(dpi)));
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(52, 78, 800, 'Extracting text & metadata…');
+      animateProgress(52, 78, 800, {{ Illuminate\Support\Js::from(__('Extracting text & metadata…')) }});
     }, 1700);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 600, 'Packaging EPUB archive…');
+      animateProgress(78, 92, 600, {{ Illuminate\Support\Js::from(__('Packaging EPUB archive…')) }});
     }, 2600);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-epub', {
@@ -878,15 +867,15 @@
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
-        (sizeMb ? sizeMb + ' MB' : formatBytes(blob.size)) + ' · EPUB eBook';
+        (sizeMb ? sizeMb + {{ Illuminate\Support\Js::from(__(' MB')) }} : formatBytes(blob.size)) + {{ Illuminate\Support\Js::from(__(' · EPUB eBook')) }};
       renderResultChips({ pages, chapters, dpi, quality, resTitle, resAuthor, language, password: !!password, extractText });
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -896,19 +885,19 @@
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
     const chips = [];
-    if (pages)      chips.push(['chip-pages', 'Pages',    pages + 'p']);
-    if (chapters)   chips.push(['chip-pages', 'Chapters', chapters]);
-    chips.push(['chip-dpi', 'DPI', dpi]);
-    chips.push(['chip-dpi', 'Quality', quality + '%']);
-    if (resTitle)   chips.push(['chip-meta', 'Title',    resTitle.substring(0, 22)]);
-    if (resAuthor)  chips.push(['chip-meta', 'Author',   resAuthor.substring(0, 22)]);
-    if (language)   chips.push(['chip-size', 'Language', language.toUpperCase()]);
-    if (extractText) chips.push(['chip-size', 'Text', 'extracted']);
-    if (password)   chips.push(['chip-lock', 'Password', 'used']);
+    if (pages)      chips.push(['chip-pages', {{ Illuminate\Support\Js::from(__('Pages')) }},    pages + 'p']);
+    if (chapters)   chips.push(['chip-pages', {{ Illuminate\Support\Js::from(__('Chapters')) }}, chapters]);
+    chips.push(['chip-dpi', {{ Illuminate\Support\Js::from(__('DPI')) }}, dpi]);
+    chips.push(['chip-dpi', {{ Illuminate\Support\Js::from(__('Quality')) }}, quality + '%']);
+    if (resTitle)   chips.push(['chip-meta', {{ Illuminate\Support\Js::from(__('Title')) }},    resTitle.substring(0, 22)]);
+    if (resAuthor)  chips.push(['chip-meta', {{ Illuminate\Support\Js::from(__('Author')) }},   resAuthor.substring(0, 22)]);
+    if (language)   chips.push(['chip-size', {{ Illuminate\Support\Js::from(__('Language')) }}, language.toUpperCase()]);
+    if (extractText) chips.push(['chip-size', {{ Illuminate\Support\Js::from(__('Text')) }}, 'extracted']);
+    if (password)   chips.push(['chip-lock', {{ Illuminate\Support\Js::from(__('Password')) }}, 'used']);
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -986,12 +975,12 @@
     document.querySelectorAll('.dpi-card').forEach(c => c.classList.remove('active'));
     document.querySelector('.dpi-card[data-dpi="150"]').classList.add('active');
     document.querySelector('input[name="image_dpi"][value="150"]').checked = true;
-    document.getElementById('dpi-label').textContent = '150 DPI · Good';
+    document.getElementById('dpi-label').textContent = {{ Illuminate\Support\Js::from(__('150 DPI · Good')) }};
     document.getElementById('dpi-desc').textContent  = DPI_DESCS['150'];
     document.getElementById('result-info-wrap').classList.add('hidden');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

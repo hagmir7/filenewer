@@ -18,7 +18,7 @@
                         <line x1="9" y1="20" x2="15" y2="20" />
                         <line x1="12" y1="4" x2="12" y2="20" />
                     </svg>
-                    Paste JSON
+                    {{ __('Paste JSON') }}
                 </button>
                 <button type="button" id="tab-file"
                     class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all">
@@ -27,7 +27,7 @@
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                         <polyline points="14 2 14 8 20 8" />
                     </svg>
-                    Upload File
+                    {{ __('Upload File') }}
                 </button>
             </div>
             <div class="p-4 sm:p-6 lg:p-8">
@@ -36,13 +36,13 @@
                     class="flex flex-wrap items-center gap-3 mb-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     {{-- Indent --}}
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Indent</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('Indent') }}</span>
                         <div class="flex gap-1">
                             @php $indentOpts = [2, 4, 8]; @endphp
                             @foreach($indentOpts as $ind)
                             <button type="button"
                                 class="indent-btn {{ $ind === 4 ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-mono font-bold transition-all"
-                                data-indent="{{ $ind }}">{{ $ind }}</button>
+                                data-indent="{{ $ind }}">{{ __(Str::squish((string) $ind)) }}</button>
                             @endforeach
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                             </div>
                         </div>
-                        <span class="text-sm font-semibold text-fn-text2">Sort Keys</span>
+                        <span class="text-sm font-semibold text-fn-text2">{{ __('Sort Keys') }}</span>
                     </label>
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
                         <div class="toggle-wrap relative w-8 h-4">
@@ -70,7 +70,7 @@
                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                             </div>
                         </div>
-                        <span class="text-sm font-semibold text-fn-text2">Minify</span>
+                        <span class="text-sm font-semibold text-fn-text2">{{ __('Minify') }}</span>
                     </label>
                     <label class="toggle-label flex items-center gap-2 cursor-pointer select-none">
                         <div class="toggle-wrap relative w-8 h-4">
@@ -82,18 +82,18 @@
                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                             </div>
                         </div>
-                        <span class="text-sm font-semibold text-fn-text2">Escape ASCII</span>
+                        <span class="text-sm font-semibold text-fn-text2">{{ __('Escape ASCII') }}</span>
                     </label>
                     <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
                     {{-- Output mode --}}
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Output</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('Output') }}</span>
                         <div class="flex gap-1">
                             @php $outputOpts = [['text','Preview'],['file','Download']]; @endphp
                             @foreach($outputOpts as [$oval,$olabel])
                             <button type="button"
                                 class="output-btn {{ $oval === 'text' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
-                                data-output="{{ $oval }}">{{ $olabel }}</button>
+                                data-output="{{ $oval }}">{{ __(Str::squish((string) $olabel)) }}</button>
                             @endforeach
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Format
+                        {{ __('Format') }}
                     </button>
                 </div>
                 {{-- ══ TEXT TAB ══ --}}
@@ -113,7 +113,7 @@
                         {{-- Input --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2">Input JSON</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Input JSON') }}</p>
                                 <div class="flex gap-2">
                                     <span id="text-input-status" class="hidden text-sm font-semibold"></span>
                                     <button type="button" id="btn-paste"
@@ -125,7 +125,7 @@
                                                 d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                             <rect x="8" y="2" width="8" height="4" rx="1" />
                                         </svg>
-                                        Paste
+                                        {{ __('Paste') }}
                                     </button>
                                     <button type="button" id="btn-clear-text"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
@@ -135,7 +135,7 @@
                                             <polyline points="3 6 5 6 21 6" />
                                             <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
                                         </svg>
-                                        Clear
+                                        {{ __('Clear') }}
                                     </button>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                         {{-- Output --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2">Formatted Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Formatted Output') }}</p>
                                 <div class="flex gap-2" id="output-actions">
                                     <button type="button" id="btn-copy"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -172,7 +172,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="copy-label">Copy</span>
+                                        <span id="copy-label">{{ __('Copy') }}</span>
                                     </button>
                                     <a id="btn-download" href="#" download="formatted.json"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg transition-all hover:bg-fn-green/20">
@@ -183,12 +183,12 @@
                                             <polyline points="7 10 12 15 17 10" />
                                             <line x1="12" y1="15" x2="12" y2="3" />
                                         </svg>
-                                        Download
+                                        {{ __('Download') }}
                                     </a>
                                 </div>
                             </div>
                             <textarea id="json-output" rows="20" readonly spellcheck="false"
-                                placeholder="Formatted JSON will appear here…"
+                                placeholder="{{ __('Formatted JSON will appear here…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/40 cursor-default"></textarea>
                             {{-- Stats bar --}}
                             <div id="stats-bar" class="hidden flex flex-wrap gap-x-4 gap-y-1">
@@ -204,7 +204,7 @@
                                 @endphp
                                 @foreach($statFields as [$sid, $slabel])
                                 <div class="flex items-center gap-1">
-                                    <span class="text-fn-text3 text-sm">{{ $slabel }}:</span>
+                                    <span class="text-fn-text3 text-sm">{{ __(Str::squish($slabel)) }}:</span>
                                     <span class="text-sm font-semibold text-fn-text2" id="{{ $sid }}">—</span>
                                 </div>
                                 @endforeach
@@ -232,8 +232,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your JSON file here</h2>
-                        <p class="text-fn-text3 text-sm mb-5">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your JSON file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-5">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -242,9 +242,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose JSON File
+                            {{ __('Choose JSON File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                         <input type="file" id="file-input" accept=".json,application/json"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -292,7 +292,7 @@
                                                 d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                                             <path d="M9 12l2 2l4 -4" />
                                         </svg></span>
-                                    <p class="font-bold text-sm" id="file-result-title">Format Complete</p>
+                                    <p class="font-bold text-sm" id="file-result-title">{{ __('Format Complete') }}</p>
                                 </div>
                                 <div class="space-y-2" id="file-stats-rows"></div>
                             </div>
@@ -329,11 +329,11 @@
                                         <polyline points="7 10 12 15 17 10" />
                                         <line x1="12" y1="15" x2="12" y2="3" />
                                     </svg>
-                                    Download Formatted JSON
+                                    {{ __('Download Formatted JSON') }}
                                 </a>
                                 <button type="button" onclick="resetFile()"
                                     class="flex items-center justify-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:bg-fn-surface2 transition-all">
-                                    Format another file
+                                    {{ __('Format another file') }}
                                 </button>
                             </div>
                         </div>
@@ -347,7 +347,7 @@
                                 <line x1="12" y1="16" x2="12.01" y2="16" />
                             </svg>
                             <div>
-                                <p class="font-bold mb-0.5">Invalid JSON</p>
+                                <p class="font-bold mb-0.5">{{ __('Invalid JSON') }}</p>
                                 <p class="text-sm" id="file-error-msg"></p>
                             </div>
                         </div>
@@ -371,7 +371,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $jfFaqs = [
@@ -395,7 +395,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -403,7 +403,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -668,13 +668,13 @@
         try {
           JSON.parse(raw);
           jsonInput.classList.remove('invalid'); jsonInput.classList.add('valid');
-          statusEl.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green inline-block mr-1"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">Valid JSON</span>`;
+          statusEl.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green inline-block mr-1"><polyline points="20 6 9 17 4 12"/></svg><span class="text-fn-green">Valid JSON</span>')) }});
           statusEl.classList.remove('hidden');
           errBanner.classList.add('hidden');
           errGutter.classList.add('hidden');
         } catch(e) {
           jsonInput.classList.remove('valid'); jsonInput.classList.add('invalid');
-          statusEl.innerHTML = `<span class="text-fn-red"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg> Invalid</span>`;
+          statusEl.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-red"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg> Invalid</span>')) }});
           statusEl.classList.remove('hidden');
           document.getElementById('text-error-msg').textContent = e.message;
           errBanner.classList.remove('hidden');
@@ -722,13 +722,13 @@
       function handleFile(file) {
         hideGeneralError();
         if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
-          showGeneralError('Please select a valid JSON file.');
+          showGeneralError({{ Illuminate\Support\Js::from(__('Please select a valid JSON file.')) }});
           return;
         }
-        if (file.size > 50 * 1024 * 1024) { showGeneralError('File exceeds the 200MB free limit.'); return; }
+        if (file.size > 50 * 1024 * 1024) { showGeneralError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }}); return; }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON File';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · JSON File')) }};
         filePreview.classList.remove('hidden');
         filePreview.classList.add('flex');
         dropZone.classList.add('has-file');
@@ -751,7 +751,7 @@
         hideGeneralError();
         const btn = document.getElementById('format-btn');
         btn.disabled = true;
-        btn.innerHTML = `<svg class="spin w-3 h-3" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Formatting…`;
+        btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-3 h-3" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Formatting…')) }});
         const sortKeys   = document.getElementById('opt-sort').checked;
         const minify     = document.getElementById('opt-minify').checked;
         const ensureAscii = document.getElementById('opt-ascii').checked;
@@ -762,10 +762,10 @@
             await formatFile(sortKeys, minify, ensureAscii);
           }
         } catch(err) {
-          showGeneralError(err.message || 'Something went wrong. Please try again.');
+          showGeneralError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
         } finally {
           btn.disabled = false;
-          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Format`;
+          btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Format')) }});
           refreshFormatBtn();
         }
       }
@@ -773,7 +773,7 @@
       async function formatText(sortKeys, minify, ensureAscii) {
         let jsonValue;
         try { jsonValue = JSON.parse(jsonInput.value.trim()); }
-        catch(e) { throw new Error('Cannot format — invalid JSON: ' + e.message); }
+        catch(e) { throw new Error({{ Illuminate\Support\Js::from(__('Cannot format — invalid JSON: ')) }} + e.message); }
         const payload = {
           json:         jsonValue,
           indent:       minify ? 0 : activeIndent,
@@ -789,12 +789,12 @@
         });
         if (!res.ok) {
           const d = await res.json().catch(() => ({}));
-          throw new Error(d.error || 'Formatting failed.');
+          throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Formatting failed.')) }});
         }
         const data = await res.json();
         if (!data.is_valid) {
           document.getElementById('text-error-msg').textContent =
-            data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
+            data.error + (data.error_line ? ({{ Illuminate\Support\Js::from(__(' (line :value0, col :value1)')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.error_line)).replaceAll(/:value1(?!\d)/g, () => String(data.error_column)) : '');
           document.getElementById('text-error-banner').classList.remove('hidden');
           document.getElementById('error-gutter').classList.remove('hidden');
           jsonInput.classList.add('invalid');
@@ -846,30 +846,30 @@
         if (data !== null) {
           // Got a JSON response — either { is_valid, formatted, ... } or { error }
           if (data.is_valid === false) {
-            document.getElementById('file-result-icon').textContent  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+            document.getElementById('file-result-icon').textContent  = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>`;
-            document.getElementById('file-result-title').textContent = 'Invalid JSON';
+</svg>')) }});
+            document.getElementById('file-result-title').textContent = {{ Illuminate\Support\Js::from(__('Invalid JSON')) }};
             document.getElementById('file-error-msg').textContent    =
-              data.error + (data.error_line ? ` (line ${data.error_line}, col ${data.error_column})` : '');
+              data.error + (data.error_line ? ({{ Illuminate\Support\Js::from(__(' (line :value0, col :value1)')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.error_line)).replaceAll(/:value1(?!\d)/g, () => String(data.error_column)) : '');
             fileErrBanner.classList.remove('hidden');
             fileStatsRows.innerHTML = '';
             return;
           }
           if (!res.ok) {
-            throw new Error(data.error || 'Formatting failed.');
+            throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Formatting failed.')) }});
           }
           // Valid JSON response — use the `formatted` field as the file content
           const formatted = data.formatted ?? rawText;
           fileErrBanner.classList.add('hidden');
-          document.getElementById('file-result-icon').textContent  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('file-result-icon').textContent  = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>`;
-          document.getElementById('file-result-title').textContent = 'Format Complete';
+</svg>')) }});
+          document.getElementById('file-result-title').textContent = {{ Illuminate\Support\Js::from(__('Format Complete')) }};
           const blob    = new Blob([formatted], { type: 'application/json' });
           const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
           if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
@@ -878,35 +878,35 @@
           dlLink.href     = fileBlobUrl;
           dlLink.download = outName;
           document.getElementById('file-output-name').textContent = outName;
-          document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
+          document.getElementById('file-output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · JSON File')) }};
           // Populate stats from API response
           fileStatsRows.innerHTML = '';
           const apiStats = [
-            ['Type',           data.type       ?? '—'],
-            ['Depth',          data.depth      ?? '—'],
-            ['Keys',           data.key_count  ?? '—'],
-            ['Items',          data.item_count ?? '—'],
-            ['Original size',  data.size_original_kb  != null ? data.size_original_kb  + ' KB' : formatBytes(selectedFile.size)],
-            ['Formatted size', data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : formatBytes(blob.size)],
-            ['Indent',         data.minified ? 'Minified' : (data.indent ?? activeIndent) + ' spaces'],
-            ['Sort keys',      data.sorted_keys ? 'Yes' : 'No'],
+            [{{ Illuminate\Support\Js::from(__('Type')) }},           data.type       ?? '—'],
+            [{{ Illuminate\Support\Js::from(__('Depth')) }},          data.depth      ?? '—'],
+            [{{ Illuminate\Support\Js::from(__('Keys')) }},           data.key_count  ?? '—'],
+            [{{ Illuminate\Support\Js::from(__('Items')) }},          data.item_count ?? '—'],
+            [{{ Illuminate\Support\Js::from(__('Original size')) }},  data.size_original_kb  != null ? data.size_original_kb  + ' KB' : formatBytes(selectedFile.size)],
+            [{{ Illuminate\Support\Js::from(__('Formatted size')) }}, data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : formatBytes(blob.size)],
+            [{{ Illuminate\Support\Js::from(__('Indent')) }},         data.minified ? 'Minified' : (data.indent ?? activeIndent) + ' spaces'],
+            [{{ Illuminate\Support\Js::from(__('Sort keys')) }},      data.sorted_keys ? 'Yes' : 'No'],
           ];
           apiStats.forEach(([label, value]) => {
             const div = document.createElement('div');
             div.className = 'stat-row';
-            div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
+            div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="stat-row-label">:value0</span><span class="stat-row-value">:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(value));
             fileStatsRows.appendChild(div);
           });
         } else {
           // Raw file response (binary/plain text) — treat as direct file download
-          if (!res.ok) throw new Error('Formatting failed.');
+          if (!res.ok) throw new Error({{ Illuminate\Support\Js::from(__('Formatting failed.')) }});
           fileErrBanner.classList.add('hidden');
-          document.getElementById('file-result-icon').textContent  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('file-result-icon').textContent  = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>`;
-          document.getElementById('file-result-title').textContent = 'Format Complete';
+</svg>')) }});
+          document.getElementById('file-result-title').textContent = {{ Illuminate\Support\Js::from(__('Format Complete')) }};
           const blob    = new Blob([rawText], { type: 'application/json' });
           const outName = selectedFile.name.replace(/\.json$/i, '_formatted.json');
           if (fileBlobUrl) URL.revokeObjectURL(fileBlobUrl);
@@ -915,18 +915,18 @@
           dlLink.href     = fileBlobUrl;
           dlLink.download = outName;
           document.getElementById('file-output-name').textContent = outName;
-          document.getElementById('file-output-size').textContent = formatBytes(blob.size) + ' · JSON File';
+          document.getElementById('file-output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · JSON File')) }};
           fileStatsRows.innerHTML = '';
           const knownStats = [
-            ['Original size', formatBytes(selectedFile.size)],
-            ['Formatted size', formatBytes(blob.size)],
-            ['Indent',  minify ? 'Minified' : `${activeIndent} spaces`],
-            ['Sort keys', sortKeys ? 'Yes' : 'No'],
+            [{{ Illuminate\Support\Js::from(__('Original size')) }}, formatBytes(selectedFile.size)],
+            [{{ Illuminate\Support\Js::from(__('Formatted size')) }}, formatBytes(blob.size)],
+            [{{ Illuminate\Support\Js::from(__('Indent')) }},  minify ? 'Minified' : `${activeIndent} spaces`],
+            [{{ Illuminate\Support\Js::from(__('Sort keys')) }}, sortKeys ? 'Yes' : 'No'],
           ];
           knownStats.forEach(([label, value]) => {
             const div = document.createElement('div');
             div.className = 'stat-row';
-            div.innerHTML = `<span class="stat-row-label">${label}</span><span class="stat-row-value">${value}</span>`;
+            div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="stat-row-label">:value0</span><span class="stat-row-value">:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(value));
             fileStatsRows.appendChild(div);
           });
         }
@@ -937,16 +937,16 @@
         document.getElementById('stat-depth').textContent     = data.depth      ?? '—';
         document.getElementById('stat-keys').textContent      = data.key_count  ?? '—';
         document.getElementById('stat-items').textContent     = data.item_count ?? '—';
-        document.getElementById('stat-size-orig').textContent = data.size_original_kb  != null ? data.size_original_kb  + ' KB' : '—';
-        document.getElementById('stat-size-fmt').textContent  = data.size_formatted_kb != null ? data.size_formatted_kb + ' KB' : '—';
+        document.getElementById('stat-size-orig').textContent = data.size_original_kb  != null ? data.size_original_kb  + {{ Illuminate\Support\Js::from(__(' KB')) }} : '—';
+        document.getElementById('stat-size-fmt').textContent  = data.size_formatted_kb != null ? data.size_formatted_kb + {{ Illuminate\Support\Js::from(__(' KB')) }} : '—';
       }
       // ── Copy button ──
       document.getElementById('btn-copy').addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(jsonOutput.value);
           const label = document.getElementById('copy-label');
-          label.textContent = 'Copied!';
-          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+          label.textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+          setTimeout(() => { label.textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
         } catch(_) {}
       });
       // ── Helpers ──

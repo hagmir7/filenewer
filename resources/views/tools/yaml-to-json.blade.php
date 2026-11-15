@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -38,7 +38,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste YAML
+                            {{ __('Paste YAML') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -47,18 +47,18 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload .yaml
+                            {{ __('Upload .yaml') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2">YAML source</p>
+                            <p class="text-xs font-semibold text-fn-text2">{{ __('YAML source') }}</p>
                             <div class="flex gap-1">
                                 <button type="button" id="btn-sample"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Sample</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">{{ __('Sample') }}</button>
                                 <button type="button" id="btn-multi-sample"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Multi-doc</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">{{ __('Multi-doc') }}</button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -67,18 +67,26 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                             </div>
                         </div>
                         <textarea id="yaml-textarea" rows="12" spellcheck="false"
-                            placeholder='Paste your YAML here, e.g.&#10;&#10;username: booker12&#10;identifier: 9012&#10;department: Sales&#10;location: Manchester&#10;tags:&#10;  - admin&#10;  - editor'
+                            placeholder="{{ __('Paste your YAML here, e.g.
+
+username: booker12
+identifier: 9012
+department: Sales
+location: Manchester
+tags:
+ - admin
+ - editor') }}"
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <div class="flex items-center justify-between text-xs mt-1.5">
-                            <span id="yaml-status" class="text-fn-text3">Paste YAML to continue</span>
-                            <span id="yaml-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
+                            <span id="yaml-status" class="text-fn-text3">{{ __('Paste YAML to continue') }}</span>
+                            <span id="yaml-meta" class="text-fn-text3/70">{{ __('0 chars · 0 lines') }}</span>
                         </div>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
@@ -100,8 +108,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your YAML file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">Supports .yaml and .yml — or click to browse</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your YAML file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .yaml and .yml — or click to browse') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -110,9 +118,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose YAML File
+                                {{ __('Choose YAML File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                             <input type="file" id="file-input"
                                 accept=".yaml,.yml,application/x-yaml,text/yaml,text/x-yaml,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -132,10 +140,10 @@
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-sm truncate" id="file-name">data.yaml</p>
+                                <p class="font-semibold text-sm truncate" id="file-name">{{ __('data.yaml') }}</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
-                            <button type="button" id="remove-file" aria-label="Remove YAML file"
+                            <button type="button" id="remove-file" aria-label="{{ __('Remove YAML file') }}"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -148,13 +156,13 @@
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">JSON Options</p>
-                            <span class="text-xs text-fn-text3">Sensible defaults applied</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('JSON Options') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Sensible defaults applied') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="p-3 bg-fn-surface border border-fn-text/8 rounded-lg">
                                 <label class="text-xs font-semibold text-fn-text2 block mb-2">
-                                    Indent — <span class="text-fn-blue-l" id="indent-val">4</span> spaces
+                                    {{ __('Indent —') }} <span class="text-fn-blue-l" id="indent-val">4</span> {{ __('spaces') }}
                                 </label>
                                 <input type="range" id="opt-indent" min="1" max="8" value="4" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
@@ -179,8 +187,8 @@
                                         </div>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</p>
-                                        <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ $tdesc }}</p>
+                                        <p class="text-xs font-semibold text-fn-text2">{{ __(Str::squish((string) $tlabel)) }}</p>
+                                        <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ __(Str::squish((string) $tdesc)) }}</p>
                                     </div>
                                 </label>
                                 @endforeach
@@ -197,7 +205,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -206,7 +214,7 @@
                             <polyline points="16 18 22 12 16 6" />
                             <polyline points="8 6 2 12 8 18" />
                         </svg>
-                        Convert to JSON
+                        {{ __('Convert to JSON') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -236,15 +244,15 @@
                             class="w-16 h-16 rounded-2xl bg-fn-amber/10 border border-fn-amber/20 flex items-center justify-center text-2xl font-mono font-black text-fn-amber">
                             { }</div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting to JSON…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a moment</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting to JSON…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a moment') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -268,7 +276,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -286,7 +294,7 @@
                                     <path
                                         d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                                     <path d="M9 12l2 2l4 -4" />
-                                </svg></span><span>JSON Ready</span>
+                                </svg></span><span>{{ __('JSON Ready') }}</span>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
                             @foreach([
@@ -297,7 +305,7 @@
                             ] as [$sid, $slabel])
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">{{ $slabel }}</span>
+                                <span class="text-fn-text3">{{ __(Str::squish($slabel)) }}</span>
                                 <span class="font-bold text-fn-text" id="{{ $sid }}">—</span>
                             </div>
                             @endforeach
@@ -310,7 +318,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-label">Copy</span>
+                                <span id="copy-label">{{ __('Copy') }}</span>
                             </button>
                             <a id="btn-download" href="#" download="output.json"
                                 class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -320,7 +328,7 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download .json
+                                {{ __('Download .json') }}
                             </a>
                         </div>
                     </div>
@@ -334,7 +342,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -342,7 +350,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your data is encrypted and permanently deleted after processing.
+                        {{ __('Your data is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -352,7 +360,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Why convert YAML to JSON?','Many APIs, JavaScript apps, and configuration tools expect JSON specifically.
@@ -374,7 +382,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -382,7 +390,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -650,11 +658,11 @@ age: 35`;
     const v = yamlTA.value;
     const lines = v ? v.split('\n').length : 0;
     const docs  = v ? (v.split(/^---\s*$/m).filter(s => s.trim()).length || 1) : 0;
-    document.getElementById('yaml-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
+    document.getElementById('yaml-meta').textContent = v.length.toLocaleString() + {{ Illuminate\Support\Js::from(__(' chars · ')) }} + lines + {{ Illuminate\Support\Js::from(__(' lines')) }};
     if (v.trim()) {
-      yamlStatus.innerHTML = `<span class="text-fn-text3">${docs} document${docs !== 1 ? 's' : ''} detected</span>`;
+      yamlStatus.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">:value0 document:value1 detected</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(docs)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (docs !== 1)) ? 's' : ''));
     } else {
-      yamlStatus.innerHTML = '<span class="text-fn-text3">Paste YAML to continue</span>';
+      yamlStatus.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">Paste YAML to continue</span>')) }};
     }
     refreshConvertBtn();
   });
@@ -671,16 +679,16 @@ age: 35`;
     hideError();
     const name = file.name.toLowerCase();
     if (!name.match(/\.(yaml|yml|txt)$/)) {
-      showError('Please select a valid YAML file (.yaml or .yml).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid YAML file (.yaml or .yml).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · YAML';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · YAML')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -730,15 +738,15 @@ age: 35`;
       fetchHeaders = { 'Content-Type': 'application/json' };
     }
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 30, 400, 'Reading YAML content…');
-    const t2 = setTimeout(() => { setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active'); animateProgress(30, 55, 400, 'Resolving anchors & aliases…'); }, 400);
-    const t3 = setTimeout(() => { setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active'); animateProgress(55, 80, 500, 'Converting types to JSON…'); }, 900);
-    const t4 = setTimeout(() => { setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active'); animateProgress(80, 92, 400, 'Formatting output…'); }, 1500);
+    animateProgress(0, 30, 400, {{ Illuminate\Support\Js::from(__('Reading YAML content…')) }});
+    const t2 = setTimeout(() => { setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active'); animateProgress(30, 55, 400, {{ Illuminate\Support\Js::from(__('Resolving anchors & aliases…')) }}); }, 400);
+    const t3 = setTimeout(() => { setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active'); animateProgress(55, 80, 500, {{ Illuminate\Support\Js::from(__('Converting types to JSON…')) }}); }, 900);
+    const t4 = setTimeout(() => { setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active'); animateProgress(80, 92, 400, {{ Illuminate\Support\Js::from(__('Formatting output…')) }}); }, 1500);
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       if (!res.ok) {
-        let msg = 'Conversion failed. Please try again.';
+        let msg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
@@ -746,12 +754,12 @@ age: 35`;
       jsonOutput = data.json ?? '';
       renderResult(data);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 250, 'Done!');
+      animateProgress(92, 100, 250, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 350);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -773,8 +781,8 @@ age: 35`;
     document.getElementById('btn-copy').onclick = async () => {
       try {
         await navigator.clipboard.writeText(jsonOutput);
-        document.getElementById('copy-label').textContent = 'Copied!';
-        setTimeout(() => { document.getElementById('copy-label').textContent = 'Copy'; }, 2000);
+        document.getElementById('copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { document.getElementById('copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
       } catch(_) {}
     };
   }
@@ -861,7 +869,7 @@ age: 35`;
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

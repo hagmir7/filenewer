@@ -45,7 +45,7 @@
                     class="tab-btn {{ $tval === 'encode-text' ? 'active' : '' }} flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}" aria-pressed="{{ $tval === 'encode-text' ? 'true' : 'false' }}">
                     <span>{!! $ticon !!}</span>
-                    <span>{{ $tlabel }}</span>
+                    <span>{{ __(Str::squish((string) $tlabel)) }}</span>
                 </button>
                 @endforeach
             </div>
@@ -54,13 +54,12 @@
                 <div
                     class="b64-options flex flex-wrap items-center gap-3 mb-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     <div class="flex items-center gap-2">
-                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Encoding</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('Encoding') }}</span>
                         @php $encodingTypes = [['standard','Standard'],['url_safe','URL-safe'],['mime','MIME']]; @endphp
                         @foreach($encodingTypes as [$eval,$elabel])
                         <button type="button"
                             class="enc-type-btn {{ $eval === 'standard' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
-                            data-enc="{{ $eval }}" aria-pressed="{{ $eval === 'standard' ? 'true' : 'false' }}">{{
-                            $elabel }}</button>
+                            data-enc="{{ $eval }}" aria-pressed="{{ $eval === 'standard' ? 'true' : 'false' }}">{{ __(Str::squish((string) $elabel)) }}</button>
                         @endforeach
                     </div>
                     <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
@@ -76,31 +75,30 @@
                                     class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                 </div>
                             </div>
-                            <span class="text-sm font-semibold text-fn-text2">As Text</span>
+                            <span class="text-sm font-semibold text-fn-text2">{{ __('As Text') }}</span>
                         </label>
                         <div class="flex items-center gap-2">
-                            <span class="text-sm font-semibold text-fn-text2 shrink-0">Output</span>
+                            <span class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('Output') }}</span>
                             @php $decOutputs = [['json','Preview'],['file','Download']]; @endphp
                             @foreach($decOutputs as [$doval,$dolabel])
                             <button type="button"
                                 class="dec-output-btn {{ $doval === 'json' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-sm font-semibold transition-all"
-                                data-decout="{{ $doval }}" aria-pressed="{{ $doval === 'json' ? 'true' : 'false' }}">{{
-                                $dolabel }}</button>
+                                data-decout="{{ $doval }}" aria-pressed="{{ $doval === 'json' ? 'true' : 'false' }}">{{ __(Str::squish((string) $dolabel)) }}</button>
                             @endforeach
                         </div>
                         <div class="flex items-center gap-2" id="decode-filename-wrap">
-                            <span class="text-sm text-fn-text3">Filename:</span>
+                            <span class="text-sm text-fn-text3">{{ __('Filename:') }}</span>
                             <input type="text" id="opt-decode-filename" placeholder="decoded.txt" value="decoded.txt"
                                 class="bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1 font-mono focus:outline-none w-28 focus:border-fn-blue/40" />
                         </div>
                     </div>
                     {{-- Encode-specific: chunk size --}}
                     <div class="encode-only flex items-center gap-2">
-                        <span class="text-sm font-semibold text-fn-text2 shrink-0">Line wrap</span>
+                        <span class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('Line wrap') }}</span>
                         <select id="opt-chunk"
                             class="bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1 font-sans focus:outline-none cursor-pointer">
-                            <option value="0">None</option>
-                            <option value="76">76 (MIME)</option>
+                            <option value="0">{{ __('None') }}</option>
+                            <option value="76">{{ __('76 (MIME)') }}</option>
                             <option value="64">64</option>
                         </select>
                     </div>
@@ -110,7 +108,7 @@
                     <div class="grid lg:grid-cols-2 gap-4">
                         <div class="min-w-0 space-y-2">
                             <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                <p class="text-sm font-semibold text-fn-text2">Input Text</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Input Text') }}</p>
                                 <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <button type="button" id="et-paste"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -121,14 +119,14 @@
                                                 d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                             <rect x="8" y="2" width="8" height="4" rx="1" />
                                         </svg>
-                                        Paste
+                                        {{ __('Paste') }}
                                     </button>
                                     <button type="button" id="et-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                 </div>
                             </div>
                             <textarea id="et-input" rows="12" spellcheck="false"
-                                placeholder="Enter or paste text to encode…"
+                                placeholder="{{ __('Enter or paste text to encode…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             <button type="button" id="et-encode-btn"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
@@ -137,12 +135,12 @@
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                                 </svg>
-                                Encode
+                                {{ __('Encode') }}
                             </button>
                         </div>
                         <div class="min-w-0 space-y-2">
                             <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                <p class="text-sm font-semibold text-fn-text2">Base64 Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Base64 Output') }}</p>
                                 <div class="b64-actions flex flex-wrap items-center gap-2" id="et-output-actions">
                                     <span id="et-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="et-copy"
@@ -153,12 +151,12 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="et-copy-label">Copy</span>
+                                        <span id="et-copy-label">{{ __('Copy') }}</span>
                                     </button>
                                 </div>
                             </div>
                             <textarea id="et-output" rows="12" readonly spellcheck="false"
-                                placeholder="Base64 encoded output will appear here…"
+                                placeholder="{{ __('Base64 encoded output will appear here…') }}"
                                 class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             <div id="et-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
@@ -186,8 +184,8 @@
                                         <path
                                             d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2" />
                                     </svg></div>
-                                <h2 class="text-base font-bold mb-1">Drop any file here</h2>
-                                <p class="text-fn-text3 text-sm mb-4">Images, documents, audio — any file type</p>
+                                <h2 class="text-base font-bold mb-1">{{ __('Drop any file here') }}</h2>
+                                <p class="text-fn-text3 text-sm mb-4">{{ __('Images, documents, audio — any file type') }}</p>
                                 <div
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -196,9 +194,9 @@
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
                                     </svg>
-                                    Choose File
+                                    {{ __('Choose File') }}
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-3">Max 10MB</p>
+                                <p class="text-fn-text3 text-sm mt-3">{{ __('Max 10MB') }}</p>
                                 <input type="file" id="ef-input"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
@@ -216,7 +214,7 @@
                                         <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                                     </svg></div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-sm truncate" id="ef-file-name">file.png</p>
+                                    <p class="font-semibold text-sm truncate" id="ef-file-name">{{ __('file.png') }}</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="ef-file-meta">—</p>
                                 </div>
                                 <button type="button" id="ef-remove"
@@ -235,12 +233,12 @@
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                                 </svg>
-                                Encode File
+                                {{ __('Encode File') }}
                             </button>
                         </div>
                         <div class="min-w-0 space-y-2">
                             <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                <p class="text-sm font-semibold text-fn-text2">Base64 Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Base64 Output') }}</p>
                                 <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <span id="ef-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="ef-copy"
@@ -251,17 +249,17 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="ef-copy-label">Copy</span>
+                                        <span id="ef-copy-label">{{ __('Copy') }}</span>
                                     </button>
                                 </div>
                             </div>
                             <textarea id="ef-output" rows="8" readonly spellcheck="false"
-                                placeholder="Base64 encoded output will appear here…"
+                                placeholder="{{ __('Base64 encoded output will appear here…') }}"
                                 class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             {{-- Data URI card (shown for images) --}}
                             <div id="ef-data-uri-wrap" class="hidden space-y-2">
                                 <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                    <p class="text-sm font-semibold text-fn-text2">Data URI</p>
+                                    <p class="text-sm font-semibold text-fn-text2">{{ __('Data URI') }}</p>
                                     <button type="button" id="ef-copy-uri"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
@@ -270,15 +268,15 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="ef-copy-uri-label">Copy</span>
+                                        <span id="ef-copy-uri-label">{{ __('Copy') }}</span>
                                     </button>
                                 </div>
                                 <textarea id="ef-data-uri" rows="3" readonly spellcheck="false"
                                     class="w-full bg-fn-surface border border-fn-text/8 text-fn-text3 text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed cursor-default"></textarea>
                                 {{-- Image preview --}}
                                 <div id="ef-img-preview-wrap" class="hidden">
-                                    <p class="text-sm font-semibold text-fn-text2 mb-2">Image Preview</p>
-                                    <img id="ef-img-preview" src="" alt="Preview"
+                                    <p class="text-sm font-semibold text-fn-text2 mb-2">{{ __('Image Preview') }}</p>
+                                    <img id="ef-img-preview" src="" alt="{{ __('Preview') }}"
                                         class="max-h-40 rounded-xl border border-fn-text/8 object-contain bg-fn-surface2 w-full" />
                                 </div>
                             </div>
@@ -298,7 +296,7 @@
                     <div class="grid lg:grid-cols-2 gap-4">
                         <div class="min-w-0 space-y-2">
                             <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                <p class="text-sm font-semibold text-fn-text2">Base64 Input</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Base64 Input') }}</p>
                                 <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <button type="button" id="dec-paste"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -309,14 +307,15 @@
                                                 d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                             <rect x="8" y="2" width="8" height="4" rx="1" />
                                         </svg>
-                                        Paste
+                                        {{ __('Paste') }}
                                     </button>
                                     <button type="button" id="dec-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                 </div>
                             </div>
                             <textarea id="dec-input" rows="12" spellcheck="false"
-                                placeholder="Paste Base64 string here…&#10;e.g. SGVsbG8sIFdvcmxkIQ=="
+                                placeholder="{{ __('Paste Base64 string here…
+e.g. SGVsbG8sIFdvcmxkIQ==') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             <button type="button" id="dec-decode-btn"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
@@ -326,12 +325,12 @@
                                     <rect x="3" y="11" width="18" height="11" rx="2" />
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                 </svg>
-                                Decode
+                                {{ __('Decode') }}
                             </button>
                         </div>
                         <div class="min-w-0 space-y-2">
                             <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                <p class="text-sm font-semibold text-fn-text2">Decoded Output</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Decoded Output') }}</p>
                                 <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <span id="dec-stats" class="hidden text-sm text-fn-text3 self-center"></span>
                                     <button type="button" id="dec-copy"
@@ -342,7 +341,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="dec-copy-label">Copy</span>
+                                        <span id="dec-copy-label">{{ __('Copy') }}</span>
                                     </button>
                                     <a id="dec-download" href="#" download="decoded.txt"
                                         class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -353,12 +352,12 @@
                                             <polyline points="7 10 12 15 17 10" />
                                             <line x1="12" y1="15" x2="12" y2="3" />
                                         </svg>
-                                        Download
+                                        {{ __('Download') }}
                                     </a>
                                 </div>
                             </div>
                             <textarea id="dec-output" rows="12" readonly spellcheck="false"
-                                placeholder="Decoded text will appear here…"
+                                placeholder="{{ __('Decoded text will appear here…') }}"
                                 class="w-full bg-fn-surface border border-fn-text/8 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none resize-none leading-relaxed placeholder:text-fn-text3/30 cursor-default"></textarea>
                             <div id="dec-error"
                                 class="hidden flex items-center gap-2 px-3 py-2 bg-fn-red/8 border border-fn-red/25 rounded-lg text-sm text-fn-red">
@@ -377,7 +376,7 @@
                     <div class="max-w-2xl">
                         <div class="space-y-2 mb-4">
                             <div class="b64-toolbar flex flex-wrap items-center justify-between gap-2">
-                                <p class="text-sm font-semibold text-fn-text2">Base64 String to Validate</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Base64 String to Validate') }}</p>
                                 <div class="b64-actions flex flex-wrap items-center gap-2">
                                     <button type="button" id="val-paste"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
@@ -388,14 +387,14 @@
                                                 d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                             <rect x="8" y="2" width="8" height="4" rx="1" />
                                         </svg>
-                                        Paste
+                                        {{ __('Paste') }}
                                     </button>
                                     <button type="button" id="val-clear"
-                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">Clear</button>
+                                        class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                 </div>
                             </div>
                             <textarea id="val-input" rows="8" spellcheck="false"
-                                placeholder="Paste Base64 string to validate…"
+                                placeholder="{{ __('Paste Base64 string to validate…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                             <button type="button" id="val-btn"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
@@ -404,7 +403,7 @@
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
-                                Validate
+                                {{ __('Validate') }}
                             </button>
                         </div>
                         {{-- Validation result --}}
@@ -420,7 +419,7 @@
                                         <path d="M9 12l2 2l4 -4" />
                                     </svg></span>
                                 <div>
-                                    <p class="font-bold text-base" id="val-title">Valid Base64</p>
+                                    <p class="font-bold text-base" id="val-title">{{ __('Valid Base64') }}</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="val-message"></p>
                                 </div>
                             </div>
@@ -443,7 +442,7 @@
 {{-- ══ ENCODING REFERENCE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Encoding Types</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Encoding Types') }}</h2>
         <div class="grid sm:grid-cols-3 gap-4">
             @php
             $encTypes = [
@@ -457,9 +456,9 @@
             @endphp
             @foreach($encTypes as [$name,$chars,$desc])
             <div class="p-4 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <p class="font-bold text-sm mb-1">{{ $name }}</p>
-                <p class="text-sm font-mono text-fn-blue-l mb-2">{{ $chars }}</p>
-                <p class="text-sm text-fn-text3 leading-relaxed">{{ $desc }}</p>
+                <p class="font-bold text-sm mb-1">{{ __(Str::squish((string) $name)) }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-2">{{ __(Str::squish((string) $chars)) }}</p>
+                <p class="text-sm text-fn-text3 leading-relaxed">{{ __(Str::squish((string) $desc)) }}</p>
             </div>
             @endforeach
         </div>
@@ -839,8 +838,8 @@
           try {
             await navigator.clipboard.writeText(getVal());
             const lbl = document.getElementById(labelId);
-            lbl.textContent = 'Copied!';
-            setTimeout(() => { lbl.textContent = 'Copy'; }, 2000);
+            lbl.textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+            setTimeout(() => { lbl.textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
           } catch(_) {}
         });
       }
@@ -865,10 +864,10 @@
             }),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Encoding failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Encoding failed.')) }});
           document.getElementById('et-output').value = data.encoded ?? '';
           document.getElementById('et-stats').textContent =
-            `${data.original_size_kb ?? 0} KB → ${data.encoded_size_kb ?? 0} KB (+${Math.round(data.overhead_percent ?? 0)}% overhead)`;
+            ({{ Illuminate\Support\Js::from(__(':value0 KB → :value1 KB (+:value2% overhead)')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.original_size_kb ?? 0)).replaceAll(/:value1(?!\d)/g, () => String(data.encoded_size_kb ?? 0)).replaceAll(/:value2(?!\d)/g, () => String(Math.round(data.overhead_percent ?? 0)));
           showEl('et-stats');
           showEl('et-copy');
         } catch(err) {
@@ -896,25 +895,25 @@
       });
       function handleEfFile(file) {
         if (file.size > 10 * 1024 * 1024) {
-          document.getElementById('ef-error-text').textContent = 'File exceeds the 10MB limit.';
+          document.getElementById('ef-error-text').textContent = {{ Illuminate\Support\Js::from(__('File exceeds the 10MB limit.')) }};
           showEl('ef-error', 'flex');
           return;
         }
         efFile = file;
         const ext  = file.name.split('.').pop().toLowerCase();
         const imgExts = ['png','jpg','jpeg','gif','webp','svg','bmp'];
-        document.getElementById('ef-icon').innerHTML       = imgExts.includes(ext) ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+        document.getElementById('ef-icon').innerHTML       = imgExts.includes(ext) ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M15 8h.01" />
     <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
     <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
     <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word">
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M14 3v4a1 1 0 0 0 1 1h4" />
     <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
     <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-</svg>`;
+</svg>')) }});
         document.getElementById('ef-file-name').textContent  = file.name;
         document.getElementById('ef-file-meta').textContent  = formatBytes(file.size) + ' · ' + (file.type || ext.toUpperCase());
         showEl('ef-file-preview', 'flex');
@@ -932,10 +931,10 @@
         try {
           const res  = await fetch(`${API}/base64-encode-file`, { method: 'POST', body: fd });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Encoding failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Encoding failed.')) }});
           document.getElementById('ef-output').value = data.encoded ?? '';
           document.getElementById('ef-stats').textContent =
-            `${data.original_size_kb ?? 0} KB → ${data.encoded_size_kb ?? 0} KB (+${Math.round(data.overhead_percent ?? 0)}% overhead)`;
+            ({{ Illuminate\Support\Js::from(__(':value0 KB → :value1 KB (+:value2% overhead)')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.original_size_kb ?? 0)).replaceAll(/:value1(?!\d)/g, () => String(data.encoded_size_kb ?? 0)).replaceAll(/:value2(?!\d)/g, () => String(Math.round(data.overhead_percent ?? 0)));
           showEl('ef-stats'); showEl('ef-copy');
           if (data.data_uri) {
             document.getElementById('ef-data-uri').value = data.data_uri;
@@ -954,7 +953,7 @@
           document.getElementById('ef-error-text').textContent = err.message;
           showEl('ef-error', 'flex');
         } finally {
-          resetBtn('ef-encode-btn', 'Encode File');
+          resetBtn('ef-encode-btn', {{ Illuminate\Support\Js::from(__('Encode File')) }});
         }
       });
       // ══ DECODE ══
@@ -979,7 +978,7 @@
             body:    JSON.stringify(payload),
           });
           if (activeDecOut === 'file') {
-            if (!res.ok) { const d = await res.json(); throw new Error(d.error || 'Decode failed.'); }
+            if (!res.ok) { const d = await res.json(); throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Decode failed.')) }}); }
             const blob = await res.blob();
             if (decBlobUrl) URL.revokeObjectURL(decBlobUrl);
             decBlobUrl = URL.createObjectURL(blob);
@@ -993,10 +992,10 @@
             hideEl('dec-copy');
           } else {
             const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Decode failed.');
+            if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Decode failed.')) }});
             document.getElementById('dec-output').value = data.decoded_text ?? '';
             document.getElementById('dec-stats').textContent =
-              `${data.original_size_kb ?? 0} KB → ${data.decoded_size_kb ?? 0} KB · ${data.text_encoding ?? 'utf-8'}`;
+              ({{ Illuminate\Support\Js::from(__(':value0 KB → :value1 KB · :value2')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.original_size_kb ?? 0)).replaceAll(/:value1(?!\d)/g, () => String(data.decoded_size_kb ?? 0)).replaceAll(/:value2(?!\d)/g, () => String(data.text_encoding ?? 'utf-8'));
             showEl('dec-stats'); showEl('dec-copy');
             hideEl('dec-download');
           }
@@ -1020,35 +1019,35 @@
             body:    JSON.stringify({ text }),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Validation failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Validation failed.')) }});
           const valid = data.is_valid;
           const result = document.getElementById('val-result');
           result.className = `p-5 rounded-2xl border ${valid
             ? 'bg-fn-green/6 border-fn-green/20'
             : 'bg-fn-red/6 border-fn-red/20'}`;
-          document.getElementById('val-icon').innerHTML    = valid ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+          document.getElementById('val-icon').innerHTML    = valid ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
-</svg>`;
-          document.getElementById('val-title').textContent   = valid ? 'Valid Base64' : 'Invalid Base64';
+</svg>')) }});
+          document.getElementById('val-title').textContent   = valid ? {{ Illuminate\Support\Js::from(__('Valid Base64')) }} : {{ Illuminate\Support\Js::from(__('Invalid Base64')) }};
           document.getElementById('val-message').textContent = data.message ?? '';
           const statsEl = document.getElementById('val-stats');
           statsEl.innerHTML = '';
           const chips = [
-            ['Encoding',    data.encoding ?? '—'],
-            ['Input size',  (data.input_size ?? 0) + ' chars'],
-            ['Decoded size', (data.decoded_size_kb ?? 0) + ' KB'],
-            ['Decoded bytes', data.decoded_size ?? '—'],
+            [{{ Illuminate\Support\Js::from(__('Encoding')) }},    data.encoding ?? '—'],
+            [{{ Illuminate\Support\Js::from(__('Input size')) }},  (data.input_size ?? 0) + ' chars'],
+            [{{ Illuminate\Support\Js::from(__('Decoded size')) }}, (data.decoded_size_kb ?? 0) + ' KB'],
+            [{{ Illuminate\Support\Js::from(__('Decoded bytes')) }}, data.decoded_size ?? '—'],
           ];
           chips.forEach(([label, value]) => {
             const div = document.createElement('div');
             div.className = 'val-stat-chip';
-            div.innerHTML = `<div class="stat-label">${label}</div><div class="stat-value">${value}</div>`;
+            div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<div class="stat-label">:value0</div><div class="stat-value">:value1</div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(value));
             statsEl.appendChild(div);
           });
           showEl('val-result');
@@ -1076,7 +1075,7 @@
         const btn = document.getElementById(btnId);
         if (!btn) return;
         btn.disabled = true;
-        btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Working…`;
+        btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Working…')) }});
       }
       function resetBtn(btnId, label) {
         const btn = document.getElementById(btnId);

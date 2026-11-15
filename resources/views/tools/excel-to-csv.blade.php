@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -46,8 +46,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Excel file here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .xlsx and .xls · or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Excel file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .xlsx and .xls · or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -56,10 +56,10 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Excel File
+                            {{ __('Choose Excel File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
-                        <input type="file" id="file-input" aria-label="Choose Excel file"
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
+                        <input type="file" id="file-input" aria-label="{{ __('Choose Excel file') }}"
                             accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -81,9 +81,9 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">report.xlsx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · Excel Spreadsheet</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · Excel Spreadsheet') }}</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove Excel file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove Excel file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -98,32 +98,30 @@
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output Mode') }}</label>
                                 <select id="opt-output"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
-                                    <option value="file">First sheet → single .csv</option>
-                                    <option value="zip">All sheets → ZIP of .csv files</option>
+                                    <option value="file">{{ __('First sheet → single .csv') }}</option>
+                                    <option value="zip">{{ __('All sheets → ZIP of .csv files') }}</option>
                                 </select>
-                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">Downloads the first sheet
-                                    as a single CSV file.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">{{ __('Downloads the first sheet as a single CSV file.') }}</p>
                             </div>
                             {{-- Sheet name / index --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="sheet-option-wrap">
                                 <label for="opt-sheet" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Sheet Name or Index
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Sheet Name or Index') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-sheet" placeholder='e.g. Sales or 0'
+                                <input type="text" id="opt-sheet" placeholder="{{ __('e.g. Sales or 0') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5" id="sheet-hint">Leave blank to use the first
-                                    sheet.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5" id="sheet-hint">{{ __('Leave blank to use the first sheet.') }}</p>
                             </div>
                         </div>
                         {{-- Row 2: Separator + Output filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Separator --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">CSV Separator</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('CSV Separator') }}</label>
                                 <div class="grid grid-cols-4 gap-2 mb-2">
                                     @foreach([[',','Comma'],[';','Semicolon'],['\\\t','Tab'],['|','Pipe']] as [$sep,
                                     $lbl])
@@ -134,18 +132,17 @@
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm" id="sep-hint">Comma — standard CSV format</p>
+                                <p class="text-fn-text3 text-sm" id="sep-hint">{{ __('Comma — standard CSV format') }}</p>
                             </div>
                             {{-- Output filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. export.csv"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. export.csv') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your Excel filename with .csv or
-                                    .zip</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to your Excel filename with .csv or .zip') }}</p>
                             </div>
                         </div>
                     </div>
@@ -159,7 +156,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -168,7 +165,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to CSV
+                        {{ __('Convert to CSV') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -212,15 +209,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting your file…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting your file…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 15 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -244,7 +241,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -261,8 +258,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your CSV file is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">{{ __('Your CSV file is ready.') }}</p>
                     {{-- Sheet tabs (shown when output=zip / multi-sheet preview) --}}
                     <div id="sheet-tabs-wrap" class="hidden max-w-2xl mx-auto mb-4 text-left">
                         <div class="flex items-center gap-1 flex-wrap mb-3" id="sheet-tabs"></div>
@@ -289,7 +286,7 @@
                             </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.csv</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">CSV File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('CSV File') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -302,7 +299,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download CSV</span>
+                        <span id="download-btn-label">{{ __('Download CSV') }}</span>
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -312,11 +309,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -324,7 +321,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -334,7 +331,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
@@ -354,7 +351,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -362,7 +359,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -632,7 +629,7 @@
       let sheetData     = {}; // { sheetName: csvString } — populated from text response for preview
       // ── Separator buttons ──
       const sepHints = {
-        ',':  'Comma — standard CSV format',
+        ',':  {{ Illuminate\Support\Js::from(__('Comma — standard CSV format')) }},
         ';':  'Semicolon — common in European locales',
         '\\\t': 'Tab — TSV format, no quoting issues',
         '|':  'Pipe — useful when data contains commas',
@@ -649,11 +646,11 @@
       outputSel.addEventListener('change', () => {
         const isZip = outputSel.value === 'zip';
         outputHint.textContent = isZip
-          ? 'All sheets exported as individual CSV files, bundled in a ZIP archive.'
-          : 'Downloads the first (or specified) sheet as a single CSV file.';
+          ? {{ Illuminate\Support\Js::from(__('All sheets exported as individual CSV files, bundled in a ZIP archive.')) }}
+          : {{ Illuminate\Support\Js::from(__('Downloads the first (or specified) sheet as a single CSV file.')) }};
         sheetHint.textContent = isZip
-          ? 'Leave blank to convert all sheets, or specify one to include only that sheet.'
-          : 'Leave blank to use the first sheet.';
+          ? {{ Illuminate\Support\Js::from(__('Leave blank to convert all sheets, or specify one to include only that sheet.')) }}
+          : {{ Illuminate\Support\Js::from(__('Leave blank to use the first sheet.')) }};
       });
       // ── Drag & drop ──
       ['dragenter', 'dragover'].forEach(evt => {
@@ -675,16 +672,16 @@
         hideError();
         const ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
         if (!ACCEPTED_EXTS.includes(ext) && !ACCEPTED_TYPES.includes(file.type)) {
-          showError('Please select a valid Excel file (.xlsx or .xls).');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid Excel file (.xlsx or .xls).')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · Excel Spreadsheet';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Excel Spreadsheet')) }};
         const fnInput = document.getElementById('opt-filename');
         if (!fnInput.value) fnInput.value = file.name.replace(/\.xlsx?$/i, '.csv');
         filePreview.classList.remove('hidden');
@@ -724,21 +721,21 @@
         if (activeSep !== ',') formData.append('separator', activeSep === '\\\t' ? '\t' : activeSep);
         // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 700, 'Uploading & reading workbook…');
+        animateProgress(0, 20, 700, {{ Illuminate\Support\Js::from(__('Uploading & reading workbook…')) }});
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(20, 50, 900, 'Detecting sheets & structure…');
+          animateProgress(20, 50, 900, {{ Illuminate\Support\Js::from(__('Detecting sheets & structure…')) }});
         }, 800);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(50, 75, 900, 'Serialising rows to CSV…');
+          animateProgress(50, 75, 900, {{ Illuminate\Support\Js::from(__('Serialising rows to CSV…')) }});
         }, 1800);
         const t4 = setTimeout(() => {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(75, 90, 700, 'Packaging output file…');
+          animateProgress(75, 90, 700, {{ Illuminate\Support\Js::from(__('Packaging output file…')) }});
         }, 2900);
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/excel-to-csv', {
@@ -747,7 +744,7 @@
           });
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!res.ok) {
-            let errMsg = 'Conversion failed. Please try again.';
+            let errMsg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
             try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
@@ -758,12 +755,12 @@
           link.href     = blobUrl;
           link.download = outputFilename;
           document.getElementById('output-name').textContent       = outputFilename;
-          document.getElementById('output-size').textContent       = formatBytes(blob.size) + (isZip ? ' · ZIP Archive' : ' · CSV File');
-          document.getElementById('download-btn-label').textContent = isZip ? 'Download ZIP' : 'Download CSV';
+          document.getElementById('output-size').textContent       = formatBytes(blob.size) + (isZip ? {{ Illuminate\Support\Js::from(__(' · ZIP Archive')) }} : {{ Illuminate\Support\Js::from(__(' · CSV File')) }});
+          document.getElementById('download-btn-label').textContent = isZip ? {{ Illuminate\Support\Js::from(__('Download ZIP')) }} : {{ Illuminate\Support\Js::from(__('Download CSV')) }};
           document.getElementById('download-subtitle').textContent  = isZip
-            ? 'Your CSV files are packed and ready.'
-            : 'Your CSV file is ready.';
-          document.getElementById('output-icon').innerHTML        = isZip ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-minimize">
+            ? {{ Illuminate\Support\Js::from(__('Your CSV files are packed and ready.')) }}
+            : {{ Illuminate\Support\Js::from(__('Your CSV file is ready.')) }};
+          document.getElementById('output-icon').innerHTML        = isZip ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-minimize">
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M5 9l4 0l0 -4" />
     <path d="M3 3l6 6" />
@@ -773,13 +770,13 @@
     <path d="M15 9l6 -6" />
     <path d="M19 15l-4 0l0 4" />
     <path d="M15 15l6 6" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar">
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
     <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
     <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
     <path d="M4 20h14" />
-</svg>`;
+</svg>')) }});
           // ── Sheet preview: request again with output=text to get the JSON for preview ──
           // Only show preview for file mode (single sheet); skip for zip
           const sheetTabsWrap = document.getElementById('sheet-tabs-wrap');
@@ -817,12 +814,12 @@
           }
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -851,9 +848,9 @@
         const rows    = lines.slice(1, 11);
         const total   = lines.length - 1;
         document.getElementById('sheet-preview-meta').textContent =
-          `"${sheetName}" · ${total} row${total !== 1 ? 's' : ''} · ${headers.length} column${headers.length !== 1 ? 's' : ''}` +
-          (total > 10 ? ' · showing first 10' : '') +
-          (totalSheets > 1 ? ` · ${totalSheets} sheets total` : '');
+          ({{ Illuminate\Support\Js::from(__('":value0" · :value1 row:value2 · :value3 column:value4')) }}).replaceAll(/:value0(?!\d)/g, () => String(sheetName)).replaceAll(/:value1(?!\d)/g, () => String(total)).replaceAll(/:value2(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (total !== 1)) ? 's' : '')).replaceAll(/:value3(?!\d)/g, () => String(headers.length)).replaceAll(/:value4(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (headers.length !== 1)) ? 's' : '')) +
+          (total > 10 ? {{ Illuminate\Support\Js::from(__(' · showing first 10')) }} : '') +
+          (totalSheets > 1 ? ({{ Illuminate\Support\Js::from(__(' · :value0 sheets total')) }}).replaceAll(/:value0(?!\d)/g, () => String(totalSheets)) : '');
         const table = document.getElementById('csv-preview-table');
         table.innerHTML = '';
         if (headers.length === 0) return;
@@ -951,8 +948,8 @@
         document.getElementById('opt-filename').value = '';
         document.getElementById('opt-sheet').value    = '';
         outputSel.value = 'file';
-        outputHint.textContent = 'Downloads the first (or specified) sheet as a single CSV file.';
-        sheetHint.textContent  = 'Leave blank to use the first sheet.';
+        outputHint.textContent = {{ Illuminate\Support\Js::from(__('Downloads the first (or specified) sheet as a single CSV file.')) }};
+        sheetHint.textContent  = {{ Illuminate\Support\Js::from(__('Leave blank to use the first sheet.')) }};
         // Reset separator to comma
         document.querySelectorAll('.sep-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('.sep-btn[data-sep=","]').classList.add('active');
@@ -962,7 +959,7 @@
         document.getElementById('sheet-tabs-wrap').classList.add('hidden');
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
       function showError(msg) {

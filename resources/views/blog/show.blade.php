@@ -9,13 +9,13 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-8" aria-label="Breadcrumb">
-            <a href="/" class="hover:text-fn-text2 transition-colors">Home</a>
+        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-8" aria-label="{{ __('Breadcrumb') }}">
+            <a href="/" class="hover:text-fn-text2 transition-colors">{{ __('Home') }}</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
-            <a href="/blog" class="hover:text-fn-text2 transition-colors">Blog</a>
+            <a href="/blog" class="hover:text-fn-text2 transition-colors">{{ __('Blog') }}</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6" />
@@ -63,13 +63,13 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                     </div>
                     <div>
                         <p class="text-sm font-semibold">{{ $blog->user->name }}</p>
-                        <p class="text-sm text-fn-text3">Author at Filenewer</p>
+                        <p class="text-sm text-fn-text3">{{ __('Author at Filenewer') }}</p>
                     </div>
                     @endif
                 </div>
                 <!-- Share buttons -->
                 <div class="flex items-center gap-2">
-                    <span class="text-fn-text3 text-sm font-medium mr-1">Share:</span>
+                    <span class="text-fn-text3 text-sm font-medium mr-1">{{ __('Share:') }}</span>
                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog->title) }}"
                         target="_blank" rel="noopener"
                         class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-sm font-medium transition-all hover:text-fn-text">
@@ -77,7 +77,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                             <path
                                 d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                         </svg>
-                        Twitter
+                        {{ __('Twitter') }}
                     </a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
                         target="_blank" rel="noopener"
@@ -86,7 +86,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                             <path
                                 d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
-                        LinkedIn
+                        {{ __('LinkedIn') }}
                     </a>
                     <button onclick="copyLink()"
                         class="share-btn flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface border border-fn-text/10 rounded-lg text-fn-text3 text-sm font-medium transition-all hover:text-fn-text"
@@ -96,7 +96,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                             <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                         </svg>
-                        Copy link
+                        {{ __('Copy link') }}
                     </button>
                 </div>
             </div>
@@ -170,7 +170,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
             <!-- Tags -->
             @if($blog->category)
             <div class="flex flex-wrap gap-2 mt-10 pt-8 border-t border-fn-text/7">
-                <span class="text-fn-text3 text-sm font-medium mr-1">Tags:</span>
+                <span class="text-fn-text3 text-sm font-medium mr-1">{{ __('Tags:') }}</span>
                 <a href="/blog?cat={{ Str::slug($blog->category) }}"
                     class="px-3 py-1 bg-fn-surface border border-fn-text/10 rounded-full text-fn-text3 text-sm hover:border-fn-blue/30 hover:text-fn-blue-l transition-all">
                     #{{ Str::slug($blog->category) }}
@@ -187,12 +187,11 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 </div>
                 <div>
                     <p class="font-semibold text-sm mb-0.5">{{ $blog->user->name }}</p>
-                    <p class="text-fn-text3 text-sm mb-3">Author · Filenewer</p>
+                    <p class="text-fn-text3 text-sm mb-3">{{ __('Author · Filenewer') }}</p>
                     @if($blog->user->bio)
                     <p class="text-fn-text2 text-sm leading-relaxed">{{ $blog->user->bio }}</p>
                     @else
-                    <p class="text-fn-text2 text-sm leading-relaxed">Writing about file tools and automation at
-                        Filenewer.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Writing about file tools and automation at Filenewer.') }}</p>
                     @endif
                 </div>
             </div>
@@ -205,16 +204,16 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                     class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(49%_0.24_264_/_10%)_0%,transparent_65%)] pointer-events-none">
                 </div>
                 <div class="relative z-10">
-                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-2">Try It Free</p>
-                    <h3 class="font-serif text-xl font-normal mb-2">Process your files right now</h3>
-                    <p class="text-fn-text3 text-sm mb-5">No account needed · Fast &amp; secure · 100% free</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-2">{{ __('Try It Free') }}</p>
+                    <h3 class="font-serif text-xl font-normal mb-2">{{ __('Process your files right now') }}</h3>
+                    <p class="text-fn-text3 text-sm mb-5">{{ __('No account needed · Fast & secure · 100% free') }}</p>
                     <a href="/tools"
                         class="inline-flex items-center gap-2 px-6 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all hover:-translate-y-0.5">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Browse All Tools
+                        {{ __('Browse All Tools') }}
                     </a>
                 </div>
             </div>
@@ -227,7 +226,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
 
                 <!-- Table of Contents — auto-generated from headings via JS -->
                 <div class="bg-fn-surface border border-fn-text/7 rounded-2xl p-5">
-                    <p class="text-sm font-semibold uppercase tracking-widest text-fn-text3 mb-4">Table of Contents</p>
+                    <p class="text-sm font-semibold uppercase tracking-widest text-fn-text3 mb-4">{{ __('Table of Contents') }}</p>
                     <nav class="flex flex-col gap-0.5" id="toc-nav">
                         {{-- Populated by JS below --}}
                     </nav>
@@ -236,7 +235,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 <!-- Reading progress -->
                 <div class="bg-fn-surface border border-fn-text/7 rounded-2xl p-5">
                     <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">Reading</p>
+                        <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">{{ __('Reading') }}</p>
                         <p class="text-sm font-mono text-fn-text3" id="progress-pct">0%</p>
                     </div>
                     <div class="h-1.5 bg-fn-surface2 rounded-full overflow-hidden">
@@ -253,7 +252,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                 @if($blog->tools->isNotEmpty())
                 @foreach($blog->tools->take(1) as $tool)
                 <div class="bg-fn-blue/8 border border-fn-blue/20 rounded-2xl p-5">
-                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Featured Tool') }}</p>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-9 h-9 rounded-xl bg-fn-blue/15 flex items-center justify-center text-lg shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tools"
@@ -268,14 +267,14 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
                                 <path d="M16 17l-1.5 1.5" />
                             </svg>
                         </div>
-                        <p class="font-semibold text-sm">{{ $tool->name }}</p>
+                        <p class="font-semibold text-sm">{{ __($tool->name) }}</p>
                     </div>
                     @if($tool->description)
                     <p class="text-fn-text3 text-sm leading-relaxed mb-4">{{ Str::limit($tool->description, 80) }}</p>
                     @endif
                     <a href="/tools/{{ $tool->slug }}"
                         class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-lg transition-all">
-                        Try for Free →
+                        {{ __('Try for Free →') }}
                     </a>
                 </div>
                 @endforeach
@@ -291,7 +290,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
 @if($recommended->isNotEmpty())
 <section class="border-t border-fn-text/7 py-16 bg-fn-surface">
     <div class="max-w-6xl mx-auto px-6">
-        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-7">Related Articles</p>
+        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-7">{{ __('Related Articles') }}</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
             @foreach($recommended as $post)
@@ -345,7 +344,7 @@ $readMinutes = min(20, max(1, (int) ($blog->read_time ?: 5)));
         <div class="text-center mt-10">
             <a href="/blog"
                 class="inline-flex items-center gap-2 px-6 py-2.5 border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                View all articles
+                {{ __('View all articles') }}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12" />

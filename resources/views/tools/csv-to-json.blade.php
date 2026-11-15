@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -48,8 +48,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse — supports .csv and .tsv</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your CSV file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse — supports .csv and .tsv') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -58,10 +58,10 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose CSV File
+                            {{ __('Choose CSV File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
-                        <input type="file" id="file-input" aria-label="Choose CSV or TSV file"
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
+                        <input type="file" id="file-input" aria-label="{{ __('Choose CSV or TSV file') }}"
                             accept=".csv,.tsv,text/csv,text/tab-separated-values"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -86,9 +86,9 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · CSV File') }}</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove CSV file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove CSV file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,25 +101,24 @@
                     <div class="mt-6 grid sm:grid-cols-3 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-delimiter"
-                                class="text-sm font-semibold text-fn-text2 block mb-2">Delimiter</label>
+                                class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Delimiter') }}</label>
                             <select id="opt-delimiter"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
-                                <option value="auto">Auto-detect</option>
-                                <option value=",">Comma ( , )</option>
-                                <option value=";">Semicolon ( ; )</option>
-                                <option value="tab">Tab ( \t )</option>
-                                <option value="|">Pipe ( | )</option>
+                                <option value="auto">{{ __('Auto-detect') }}</option>
+                                <option value=",">{{ __('Comma ( , )') }}</option>
+                                <option value=";">{{ __('Semicolon ( ; )') }}</option>
+                                <option value="tab">{{ __('Tab ( \\t )') }}</option>
+                                <option value="|">{{ __('Pipe ( | )') }}</option>
                             </select>
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-format" class="text-sm font-semibold text-fn-text2 block mb-2">Output
-                                Format</label>
+                            <label for="opt-format" class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output Format') }}</label>
                             <select id="opt-format"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
-                                <option value="array">Array of objects</option>
-                                <option value="keyed">Keyed by first column</option>
-                                <option value="arrays">Array of arrays</option>
-                                <option value="col">Columnar object</option>
+                                <option value="array">{{ __('Array of objects') }}</option>
+                                <option value="keyed">{{ __('Keyed by first column') }}</option>
+                                <option value="arrays">{{ __('Array of arrays') }}</option>
+                                <option value="col">{{ __('Columnar object') }}</option>
                             </select>
                         </div>
                         <div
@@ -127,17 +126,17 @@
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-types" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-sm text-fn-text2">Auto-detect types</span>
+                                <span class="text-sm text-fn-text2">{{ __('Auto-detect types') }}</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-header" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-sm text-fn-text2">First row is header</span>
+                                <span class="text-sm text-fn-text2">{{ __('First row is header') }}</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-pretty" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-sm text-fn-text2">Pretty print JSON</span>
+                                <span class="text-sm text-fn-text2">{{ __('Pretty print JSON') }}</span>
                             </label>
                         </div>
                     </div>
@@ -151,7 +150,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -163,7 +162,7 @@
                             <polyline points="21 16 21 21 16 21" />
                             <line x1="15" y1="15" x2="21" y2="21" />
                         </svg>
-                        Convert to JSON
+                        {{ __('Convert to JSON') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -197,15 +196,15 @@
                             class="w-16 h-16 rounded-2xl bg-fn-blue/10 border border-fn-blue/20 flex items-center justify-center text-3xl">
                             { }</div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting your file…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 10 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting your file…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 10 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -229,7 +228,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -249,10 +248,10 @@
                                 <path d="M9 12l2 2l4 -4" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                        <p class="text-fn-text2 text-sm mb-2">Your JSON file is ready.</p>
+                        <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                        <p class="text-fn-text2 text-sm mb-2">{{ __('Your JSON file is ready.') }}</p>
                         <p class="text-fn-text3 text-sm mb-4">
-                            File will be deleted in <span class="text-fn-amber font-semibold font-mono"
+                            {{ __('File will be deleted in') }} <span class="text-fn-amber font-semibold font-mono"
                                 id="expiry-timer">60:00</span>
                         </p>
                     </div>
@@ -260,15 +259,15 @@
                     <div class="grid grid-cols-3 gap-3 max-w-sm mx-auto mb-6">
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                             <p class="text-xl font-bold font-mono text-fn-blue-l" id="stat-rows">—</p>
-                            <p class="text-fn-text3 text-sm mt-0.5">Rows</p>
+                            <p class="text-fn-text3 text-sm mt-0.5">{{ __('Rows') }}</p>
                         </div>
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                             <p class="text-xl font-bold font-mono text-fn-cyan" id="stat-cols">—</p>
-                            <p class="text-fn-text3 text-sm mt-0.5">Columns</p>
+                            <p class="text-fn-text3 text-sm mt-0.5">{{ __('Columns') }}</p>
                         </div>
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                             <p class="text-xl font-bold font-mono text-fn-green" id="stat-size">—</p>
-                            <p class="text-fn-text3 text-sm mt-0.5">Output size</p>
+                            <p class="text-fn-text3 text-sm mt-0.5">{{ __('Output size') }}</p>
                         </div>
                     </div>
                     {{-- JSON preview --}}
@@ -281,7 +280,7 @@
                                     <polyline points="16 18 22 12 16 6" />
                                     <polyline points="8 6 2 12 8 18" />
                                 </svg>
-                                JSON Preview <span class="text-fn-text3 font-normal">(first 5 records)</span>
+                                {{ __('JSON Preview') }} <span class="text-fn-text3 font-normal">{{ __('(first 5 records)') }}</span>
                             </div>
                             <button type="button" id="copy-btn"
                                 class="flex items-center gap-1.5 px-3 py-1 text-sm font-semibold text-fn-text2 border border-fn-text/15 rounded-lg hover:text-fn-text hover:bg-fn-surface transition-all">
@@ -290,7 +289,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                Copy
+                                {{ __('Copy') }}
                             </button>
                         </div>
                         <pre id="json-preview"
@@ -304,7 +303,7 @@
                             { }</div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">data.json</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">JSON File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('JSON File') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -318,7 +317,7 @@
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" y1="15" x2="12" y2="3" />
                             </svg>
-                            Download JSON File
+                            {{ __('Download JSON File') }}
                         </a>
                         <div class="flex items-center gap-3 flex-wrap justify-center">
                             <button type="button" onclick="resetConverter()"
@@ -328,11 +327,11 @@
                                     <polyline points="1 4 1 10 7 10" />
                                     <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                 </svg>
-                                Convert another
+                                {{ __('Convert another') }}
                             </button>
                             <a href=""
                                 class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                                All tools
+                                {{ __('All tools') }}
                             </a>
                         </div>
                     </div>
@@ -341,7 +340,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -351,7 +350,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Is this really free?',
@@ -369,7 +368,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -377,7 +376,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -598,16 +597,16 @@
             const validExts  = ['.csv','.tsv'];
             const ext        = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
             if (!validTypes.includes(file.type) && !validExts.includes(ext)) {
-                showError('Please select a valid CSV or TSV file.');
+                showError({{ Illuminate\Support\Js::from(__('Please select a valid CSV or TSV file.')) }});
                 return;
             }
             if (file.size > 50 * 1024 * 1024) {
-                showError('File exceeds the 200MB free limit.');
+                showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
                 return;
             }
             selectedFile = file;
             document.getElementById('file-name').textContent = file.name;
-            document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + (ext === '.tsv' ? 'TSV' : 'CSV') + ' File';
+            document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + (ext === '.tsv' ? {{ Illuminate\Support\Js::from(__('TSV')) }} : {{ Illuminate\Support\Js::from(__('CSV')) }}) + {{ Illuminate\Support\Js::from(__(' File')) }};
             document.getElementById('output-name').textContent = file.name.replace(/\.(csv|tsv)$/i, '.json');
             filePreview.classList.remove('hidden');
             filePreview.classList.add('flex');
@@ -639,21 +638,21 @@
             formData.append('pretty_print', document.getElementById('opt-pretty').checked  ? '1' : '0');
             formData.append('_token',       '{{ csrf_token() }}');
             setProcessStep('proc-1', 'active');
-            animateProgress(0, 20, 800, 'Uploading file…');
+            animateProgress(0, 20, 800, {{ Illuminate\Support\Js::from(__('Uploading file…')) }});
             const t2 = setTimeout(() => {
                 setProcessStep('proc-1', 'done');
                 setProcessStep('proc-2', 'active');
-                animateProgress(20, 50, 1000, 'Detecting headers & delimiter…');
+                animateProgress(20, 50, 1000, {{ Illuminate\Support\Js::from(__('Detecting headers & delimiter…')) }});
             }, 1000);
             const t3 = setTimeout(() => {
                 setProcessStep('proc-2', 'done');
                 setProcessStep('proc-3', 'active');
-                animateProgress(50, 75, 1200, 'Inferring data types…');
+                animateProgress(50, 75, 1200, {{ Illuminate\Support\Js::from(__('Inferring data types…')) }});
             }, 2200);
             const t4 = setTimeout(() => {
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'active');
-                animateProgress(75, 90, 1000, 'Generating JSON…');
+                animateProgress(75, 90, 1000, {{ Illuminate\Support\Js::from(__('Generating JSON…')) }});
             }, 3600);
             try {
                 const res  = await fetch('', {
@@ -663,14 +662,14 @@
                 clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
                 const data = await res.json();
                 if (!res.ok || !data.success) {
-                    throw new Error(data.message || 'Conversion failed. Please try again.');
+                    throw new Error(data.message || {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }});
                 }
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'done');
-                animateProgress(90, 100, 400, 'Done!');
+                animateProgress(90, 100, 400, {{ Illuminate\Support\Js::from(__('Done!')) }});
                 setTimeout(() => {
                     document.getElementById('download-link').href       = data.download_url;
-                    document.getElementById('output-size').textContent  = formatBytes(data.file_size) + ' · JSON File';
+                    document.getElementById('output-size').textContent  = formatBytes(data.file_size) + {{ Illuminate\Support\Js::from(__(' · JSON File')) }};
                     document.getElementById('stat-rows').textContent    = data.row_count.toLocaleString();
                     document.getElementById('stat-cols').textContent    = data.col_count.toLocaleString();
                     document.getElementById('stat-size').textContent    = formatBytes(data.file_size);
@@ -682,7 +681,7 @@
                 }, 500);
             } catch (err) {
                 clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-                showError(err.message || 'Something went wrong. Please try again.');
+                showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
                 showState('upload');
                 updateStepIndicator(1);
             }
@@ -692,20 +691,20 @@
             const text = document.getElementById('json-preview').textContent;
             navigator.clipboard.writeText(text).then(() => {
                 this.classList.add('copy-btn-success');
-                this.innerHTML = `
+                this.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
                     Copied!
-                `;
+                ')) }});
                 setTimeout(() => {
                     this.classList.remove('copy-btn-success');
-                    this.innerHTML = `
+                    this.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                         </svg>
                         Copy
-                    `;
+                    ')) }});
                 }, 2000);
             });
         });
@@ -800,7 +799,7 @@
             showState('upload');
             updateStepIndicator(1);
             clearInterval(expiryInterval);
-            animateProgress(0, 0, 0, 'Starting…');
+            animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
             ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
         };
         // ── Error helpers ──

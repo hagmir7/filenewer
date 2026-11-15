@@ -8,40 +8,39 @@
 <section id="tool" class="py-8 sm:py-12 lg:py-16 bg-fn-surface border-y border-white/[0.07]"
     aria-labelledby="tool-heading">
     <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 id="tool-heading" class="sr-only">Image Compressor Tool</h2>
+        <h2 id="tool-heading" class="sr-only">{{ __('Image Compressor Tool') }}</h2>
         <!-- ─ Options Bar ─ -->
         <div
             class="compress-options flex flex-wrap items-center gap-5 mb-6 bg-fn-bg border border-white/[0.07] rounded-2xl px-6 py-4">
             <!-- Quality Slider -->
             <div class="quality-control flex items-center gap-3 flex-1 min-w-0">
-                <label for="quality-slider" class="text-fn-text3 text-sm font-medium whitespace-nowrap">Quality</label>
+                <label for="quality-slider" class="text-fn-text3 text-sm font-medium whitespace-nowrap">{{ __('Quality') }}</label>
                 <input id="quality-slider" type="range" min="10" max="100" value="82"
                     class="flex-1 accent-purple-500 cursor-pointer h-1.5 rounded-full" />
                 <span id="quality-val" class="text-fn-text2 text-sm font-mono font-semibold w-8 text-right">82%</span>
             </div>
             <!-- Output Format -->
             <div class="flex items-center gap-2">
-                <label for="output-format" class="text-fn-text3 text-sm font-medium whitespace-nowrap">Output</label>
+                <label for="output-format" class="text-fn-text3 text-sm font-medium whitespace-nowrap">{{ __('Output') }}</label>
                 <select id="output-format"
                     class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
-                    <option value="original">Same as input</option>
-                    <option value="image/jpeg">Force JPG</option>
-                    <option value="image/png">Force PNG</option>
-                    <option value="image/webp">Force WebP</option>
+                    <option value="original">{{ __('Same as input') }}</option>
+                    <option value="image/jpeg">{{ __('Force JPG') }}</option>
+                    <option value="image/png">{{ __('Force PNG') }}</option>
+                    <option value="image/webp">{{ __('Force WebP') }}</option>
                 </select>
             </div>
             <!-- Max dimension -->
             <div class="flex items-center gap-2">
-                <label for="max-dim" class="text-fn-text3 text-sm font-medium whitespace-nowrap">Max
-                    Width/Height</label>
+                <label for="max-dim" class="text-fn-text3 text-sm font-medium whitespace-nowrap">{{ __('Max Width/Height') }}</label>
                 <select id="max-dim"
                     class="bg-fn-surface border border-white/[0.07] text-fn-text2 text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-purple-500/50 cursor-pointer">
-                    <option value="0">No resize</option>
-                    <option value="3840">4K (3840px)</option>
-                    <option value="1920">1080p (1920px)</option>
-                    <option value="1280">720p (1280px)</option>
-                    <option value="800">800px</option>
-                    <option value="400">400px (thumbnail)</option>
+                    <option value="0">{{ __('No resize') }}</option>
+                    <option value="3840">{{ __('4K (3840px)') }}</option>
+                    <option value="1920">{{ __('1080p (1920px)') }}</option>
+                    <option value="1280">{{ __('720p (1280px)') }}</option>
+                    <option value="800">{{ __('800px') }}</option>
+                    <option value="400">{{ __('400px (thumbnail)') }}</option>
                 </select>
             </div>
             <!-- Download All -->
@@ -53,13 +52,13 @@
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                Download All
+                {{ __('Download All') }}
             </button>
         </div>
         <!-- ─ Drop Zone ─ -->
         <div id="drop-zone"
             class="relative border-2 border-dashed border-white/[0.10] rounded-2xl bg-fn-bg transition-all duration-200 cursor-pointer hover:border-purple-500/50 hover:bg-purple-500/[0.03] group"
-            role="button" tabindex="0" aria-label="Upload images">
+            role="button" tabindex="0" aria-label="{{ __('Upload images') }}">
             <!-- Empty state -->
             <div id="drop-empty" class="flex flex-col items-center justify-center py-20 px-6 text-center">
                 <div
@@ -74,8 +73,8 @@
                         <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
                     </svg>
                 </div>
-                <p class="text-fn-text2 font-semibold text-base mb-2">Drop images here or click to browse</p>
-                <p class="text-fn-text3 text-sm mb-5">Supports JPG, PNG, WebP · Up to 20 images · Max 25 MB each</p>
+                <p class="text-fn-text2 font-semibold text-base mb-2">{{ __('Drop images here or click to browse') }}</p>
+                <p class="text-fn-text3 text-sm mb-5">{{ __('Supports JPG, PNG, WebP · Up to 20 images · Max 25 MB each') }}</p>
                 <label for="file-input"
                     class="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all cursor-pointer">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
@@ -84,7 +83,7 @@
                         <polyline points="17 8 12 3 7 8" />
                         <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
-                    Select Images
+                    {{ __('Select Images') }}
                 </label>
             </div>
             <!-- Results grid (shown after upload) -->
@@ -92,19 +91,19 @@
                 <!-- Stats bar -->
                 <div id="stats-bar" class="flex flex-wrap items-center gap-5 mb-5 px-1">
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-sm">Images:</span>
+                        <span class="text-fn-text3 text-sm">{{ __('Images:') }}</span>
                         <span id="stat-count" class="text-fn-text2 text-sm font-mono font-semibold">0</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-sm">Original:</span>
-                        <span id="stat-original" class="text-fn-text2 text-sm font-mono font-semibold">0 KB</span>
+                        <span class="text-fn-text3 text-sm">{{ __('Original:') }}</span>
+                        <span id="stat-original" class="text-fn-text2 text-sm font-mono font-semibold">{{ __('0 KB') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-sm">Compressed:</span>
-                        <span id="stat-compressed" class="text-fn-text2 text-sm font-mono font-semibold">0 KB</span>
+                        <span class="text-fn-text3 text-sm">{{ __('Compressed:') }}</span>
+                        <span id="stat-compressed" class="text-fn-text2 text-sm font-mono font-semibold">{{ __('0 KB') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-fn-text3 text-sm">Saved:</span>
+                        <span class="text-fn-text3 text-sm">{{ __('Saved:') }}</span>
                         <span id="stat-saved" class="text-fn-green text-sm font-mono font-bold">0%</span>
                     </div>
                     <div class="stats-actions ml-auto flex flex-wrap items-center gap-2">
@@ -115,11 +114,11 @@
                                 <line x1="12" y1="5" x2="12" y2="19" />
                                 <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
-                            Add More
+                            {{ __('Add More') }}
                         </button>
                         <button id="clear-all-btn"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all">
-                            Clear All
+                            {{ __('Clear All') }}
                         </button>
                     </div>
                 </div>
@@ -135,7 +134,7 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" />
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
-            <span class="text-fn-text2 text-sm font-medium">Compressing images…</span>
+            <span class="text-fn-text2 text-sm font-medium">{{ __('Compressing images…') }}</span>
             <span id="progress-text" class="text-fn-text3 text-sm font-mono ml-auto">0 / 0</span>
         </div>
     </div>
@@ -144,11 +143,9 @@
 <section id="how" class="py-24 bg-fn-bg" aria-labelledby="how-heading">
     <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
-            <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Three steps to smaller
-                images</h2>
-            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No accounts, no uploads to servers.
-                Everything runs right in your browser — fast, private, and free.</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Simple Process') }}</p>
+            <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{{ __('Three steps to smaller images') }}</h2>
+            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">{{ __('No accounts, no uploads to servers. Everything runs right in your browser — fast, private, and free.') }}</p>
         </div>
         <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
@@ -163,9 +160,8 @@
                             d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Upload Your Images</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Drag and drop up to 20 JPG, PNG, or WebP files at once.
-                    Or click to open a file picker. All formats accepted up to 25 MB each.</p>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Upload Your Images') }}</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Drag and drop up to 20 JPG, PNG, or WebP files at once. Or click to open a file picker. All formats accepted up to 25 MB each.') }}</p>
             </div>
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
@@ -186,9 +182,8 @@
                         <path d="M18 9v11" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Set Quality &amp; Options</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Dial in your target quality (10–100%), choose an output
-                    format, and optionally cap the maximum width or height for resizing.</p>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Set Quality & Options') }}</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Dial in your target quality (10–100%), choose an output format, and optionally cap the maximum width or height for resizing.') }}</p>
             </div>
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">03</div>
@@ -203,9 +198,8 @@
                         <path d="M6 13l6 6" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Download Compressed Files</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Download images individually or grab everything as a
-                    single ZIP. See exactly how much space you saved per image before downloading.</p>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Download Compressed Files') }}</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Download images individually or grab everything as a single ZIP. See exactly how much space you saved per image before downloading.') }}</p>
             </div>
         </div>
     </div>
@@ -214,11 +208,9 @@
 <section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
     <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="mb-16">
-            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">What's Included</p>
-            <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Built for web
-                performance and bulk workflows</h2>
-            <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">Whether you're optimizing a single hero image or a
-                folder of product photos, Filenewer handles it.</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('What\'s Included') }}</p>
+            <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{{ __('Built for web performance and bulk workflows') }}</h2>
+            <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">{{ __('Whether you\'re optimizing a single hero image or a folder of product photos, Filenewer handles it.') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <div
@@ -233,9 +225,8 @@
                         <path d="M12 12l-8 -4.5" />
                         <path d="M16 5.25l-8 4.5" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Bulk Compression</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Process up to 20 images in one go. Drag a whole folder,
-                    adjust quality once, and download everything. No repetitive single-file uploads.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Bulk Compression') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Process up to 20 images in one go. Drag a whole folder, adjust quality once, and download everything. No repetitive single-file uploads.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
@@ -253,9 +244,8 @@
                         <path d="M18 4v1" />
                         <path d="M18 9v11" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Adjustable Quality</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Slide between 10% and 100% quality. The tool shows
-                    real-time before/after file sizes so you can find the perfect compression/quality balance.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Adjustable Quality') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Slide between 10% and 100% quality. The tool shows real-time before/after file sizes so you can find the perfect compression/quality balance.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
@@ -265,9 +255,8 @@
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Format Conversion</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Convert between JPG, PNG, and WebP on the fly. Force
-                    all outputs to WebP for maximum web performance with the same visual quality.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Format Conversion') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Convert between JPG, PNG, and WebP on the fly. Force all outputs to WebP for maximum web performance with the same visual quality.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
@@ -281,10 +270,8 @@
                         <path d="M10 13l-1.5 -1.5" />
                         <path d="M7 16l-1.5 -1.5" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Smart Resizing</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Cap images at a max dimension (e.g. 1920px) while
-                    preserving aspect ratio. Ideal for creating web-ready thumbnails or reducing oversized camera
-                    photos.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Smart Resizing') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Cap images at a max dimension (e.g. 1920px) while preserving aspect ratio. Ideal for creating web-ready thumbnails or reducing oversized camera photos.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
@@ -295,9 +282,8 @@
                         <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                         <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Before/After Preview</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Each image card shows a thumbnail, original size,
-                    compressed size, and percentage saved at a glance — so you know exactly what you're getting.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Before/After Preview') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Each image card shows a thumbnail, original size, compressed size, and percentage saved at a glance — so you know exactly what you\'re getting.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-purple-500/30 hover:-translate-y-1 transition-all">
@@ -309,9 +295,8 @@
                         <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
                         <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Fully Private</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">All compression happens in your browser using the
-                    Canvas API. Your images never leave your device — no uploads, no storage, no privacy risk.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Fully Private') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('All compression happens in your browser using the Canvas API. Your images never leave your device — no uploads, no storage, no privacy risk.') }}</p>
             </div>
         </div>
     </div>
@@ -320,81 +305,69 @@
 <section id="faq" class="py-24 bg-fn-bg" aria-labelledby="faq-heading">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">FAQ</p>
-            <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('FAQ') }}</p>
+            <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{{ __('Common questions') }}</h2>
         </div>
         <div class="flex flex-col gap-3">
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    What image formats are supported?
+                    {{ __('What image formats are supported?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Input supports JPG/JPEG, PNG, and WebP. You
-                    can also convert between these formats on output — for example, uploading a PNG and downloading it
-                    as a compressed WebP for better web performance.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('Input supports JPG/JPEG, PNG, and WebP. You can also convert between these formats on output — for example, uploading a PNG and downloading it as a compressed WebP for better web performance.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Will I notice any quality loss?
+                    {{ __('Will I notice any quality loss?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">At quality settings of 75–85%, compression is
-                    virtually indistinguishable to the naked eye on most images, while reducing file size by 40–80%.
-                    Below 60%, you may notice softening on fine textures. The default setting of 82% is optimized for
-                    this balance.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('At quality settings of 75–85%, compression is virtually indistinguishable to the naked eye on most images, while reducing file size by 40–80%. Below 60%, you may notice softening on fine textures. The default setting of 82% is optimized for this balance.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Are my images uploaded to your servers?
+                    {{ __('Are my images uploaded to your servers?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">No. Compression is performed entirely in your
-                    browser using the HTML5 Canvas API and the File API. Your images are never sent to Filenewer's
-                    servers — they stay on your device at all times.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('No. Compression is performed entirely in your browser using the HTML5 Canvas API and the File API. Your images are never sent to Filenewer\'s servers — they stay on your device at all times.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Why does my PNG get larger after compression?
+                    {{ __('Why does my PNG get larger after compression?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">PNG uses lossless compression, so applying
-                    JPEG-style quality reduction and re-encoding can sometimes result in a larger or equal size for
-                    already-optimized PNGs. The best approach for PNGs is to convert them to WebP or JPG instead, which
-                    you can do with the Output Format option.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('PNG uses lossless compression, so applying JPEG-style quality reduction and re-encoding can sometimes result in a larger or equal size for already-optimized PNGs. The best approach for PNGs is to convert them to WebP or JPG instead, which you can do with the Output Format option.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Can I compress more than 20 images at once?
+                    {{ __('Can I compress more than 20 images at once?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">The free tool supports up to 20 images per
-                    session. For unlimited bulk processing, automated pipelines, or API access for integrating
-                    compression into your workflow, .</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('The free tool supports up to 20 images per session. For unlimited bulk processing, automated pipelines, or API access for integrating compression into your workflow, .') }}</p>
             </details>
         </div>
     </div>
@@ -409,26 +382,24 @@
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
     <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
-        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Get More</p>
-        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Need unlimited
-            bulk compression or API access?</h2>
+        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Get More') }}</p>
+        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">{{ __('Need unlimited bulk compression or API access?') }}</h2>
         <p class="text-fn-text3 text-sm mt-5"><svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> Free to use &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
+            </svg> {{ __('Free to use ·') }} <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> No uploads to server &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
+            </svg> {{ __('No uploads to server ·') }} <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> No
-            account needed</p>
+            </svg> {{ __('No account needed') }}</p>
     </div>
 </section>
 <!-- ══════════════════════ SCRIPT ══════════════════════ -->
@@ -740,10 +711,10 @@
                 ctx.drawImage(img, 0, 0, width, height);
                 canvas.toBlob(blob => {
                     if (blob) resolve(blob);
-                    else reject(new Error('Compression failed'));
+                    else reject(new Error({{ Illuminate\Support\Js::from(__('Compression failed')) }}));
                 }, mime, quality);
             };
-            img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Could not load image')); };
+            img.onerror = () => { URL.revokeObjectURL(url); reject(new Error({{ Illuminate\Support\Js::from(__('Could not load image')) }})); };
             img.src = url;
         });
     }
@@ -757,7 +728,7 @@
         }
         existing.className = 'bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden hover:border-white/[0.14] transition-colors';
         if (item.status === 'pending') {
-            existing.innerHTML = `
+            existing.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                 <div class="aspect-video bg-fn-bg flex items-center justify-center">
                     <svg class="animate-spin w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
@@ -765,51 +736,51 @@
                     </svg>
                 </div>
                 <div class="p-4">
-                    <p class="text-fn-text2 text-sm font-medium truncate mb-1">${escHtml(item.file.name)}</p>
+                    <p class="text-fn-text2 text-sm font-medium truncate mb-1">:value0</p>
                     <p class="text-fn-text3 text-sm">Compressing…</p>
-                </div>`;
+                </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(item.file.name)));
             return;
         }
         if (item.status === 'error') {
-            existing.innerHTML = `
+            existing.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                 <div class="aspect-video bg-fn-bg flex items-center justify-center text-fn-red text-2xl"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg></div>
                 <div class="p-4">
-                    <p class="text-fn-text2 text-sm font-medium truncate mb-1">${escHtml(item.file.name)}</p>
+                    <p class="text-fn-text2 text-sm font-medium truncate mb-1">:value0</p>
                     <p class="text-fn-red text-sm">Failed to compress</p>
-                </div>`;
+                </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(item.file.name)));
             return;
         }
         // Done
         const thumbUrl = URL.createObjectURL(item.compressedBlob);
         const sc = savedColor(item.originalSize, item.compressedSize);
-        existing.innerHTML = `
+        existing.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
             <div class="aspect-video bg-fn-bg overflow-hidden">
-                <img src="${thumbUrl}" alt="${escHtml(item.file.name)}" class="w-full h-full object-contain" loading="lazy" />
+                <img src=":value0" alt=":value1" class="w-full h-full object-contain" loading="lazy" />
             </div>
             <div class="p-4">
-                <p class="text-fn-text2 text-sm font-medium truncate mb-2">${escHtml(item.file.name)}</p>
+                <p class="text-fn-text2 text-sm font-medium truncate mb-2">:value2</p>
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-3 text-sm font-mono">
-                        <span class="text-fn-text3">${fmtSize(item.originalSize)}</span>
+                        <span class="text-fn-text3">:value3</span>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-text3"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                        <span class="text-fn-text2 font-semibold">${fmtSize(item.compressedSize)}</span>
+                        <span class="text-fn-text2 font-semibold">:value4</span>
                     </div>
-                    <span class="text-sm font-bold font-mono ${sc}">${fmtPct(item.originalSize, item.compressedSize)}</span>
+                    <span class="text-sm font-bold font-mono :value5">:value6</span>
                 </div>
                 <!-- Savings bar -->
                 <div class="w-full bg-fn-bg rounded-full h-1 mb-3 overflow-hidden">
-                    <div class="h-1 rounded-full bg-fn-green transition-all" style="width:${Math.max(0, Math.min(100, ((item.originalSize - item.compressedSize) / item.originalSize) * 100)).toFixed(1)}%"></div>
+                    <div class="h-1 rounded-full bg-fn-green transition-all" style="width::value7%"></div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button class="download-single flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all" data-id="${item.id}">
+                    <button class="download-single flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all" data-id=":value8">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         Download
                     </button>
-                    <button type="button" aria-label="Remove image" class="remove-item inline-flex items-center justify-center w-8 h-8 text-fn-text3 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all" data-id="${item.id}">
+                    <button type="button" aria-label="Remove image" class="remove-item inline-flex items-center justify-center w-8 h-8 text-fn-text3 border border-white/[0.07] rounded-lg hover:text-fn-red hover:border-fn-red/30 transition-all" data-id=":value9">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                     </button>
                 </div>
-            </div>`;
+            </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(thumbUrl)).replaceAll(/:value1(?!\d)/g, () => String(escHtml(item.file.name))).replaceAll(/:value2(?!\d)/g, () => String(escHtml(item.file.name))).replaceAll(/:value3(?!\d)/g, () => String(fmtSize(item.originalSize))).replaceAll(/:value4(?!\d)/g, () => String(fmtSize(item.compressedSize))).replaceAll(/:value5(?!\d)/g, () => String(sc)).replaceAll(/:value6(?!\d)/g, () => String(fmtPct(item.originalSize, item.compressedSize))).replaceAll(/:value7(?!\d)/g, () => String(Math.max(0, Math.min(100, ((item.originalSize - item.compressedSize) / item.originalSize) * 100)).toFixed(1))).replaceAll(/:value8(?!\d)/g, () => String(item.id)).replaceAll(/:value9(?!\d)/g, () => String(item.id));
     }
     function escHtml(s) {
         return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -823,7 +794,7 @@
         statCount.textContent      = items.length;
         statOriginal.textContent   = fmtSize(origTotal);
         statCompressed.textContent = fmtSize(compTotal);
-        statSaved.textContent      = `−${pct}%`;
+        statSaved.textContent      = ({{ Illuminate\Support\Js::from(__('−:value0%')) }}).replaceAll(/:value0(?!\d)/g, () => String(pct));
         downloadAllBtn.disabled = done.length === 0;
     }
     // ── Process files ─────────────────────────────────────────
@@ -848,7 +819,7 @@
         // Compress sequentially
         let done = 0;
         for (const item of items.filter(i => i.status === 'pending')) {
-            progressText.textContent = `${++done} / ${toProcess.length}`;
+            progressText.textContent = ({{ Illuminate\Support\Js::from(__(':value0 / :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(++done)).replaceAll(/:value1(?!\d)/g, () => String(toProcess.length));
             try {
                 const blob = await compressImage(item.file);
                 item.compressedBlob = blob;
@@ -870,7 +841,7 @@
         for (const item of items) {
             item.status = 'pending';
             renderCard(item);
-            progressText.textContent = `${++done} / ${items.length}`;
+            progressText.textContent = ({{ Illuminate\Support\Js::from(__(':value0 / :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(++done)).replaceAll(/:value1(?!\d)/g, () => String(items.length));
             try {
                 const blob = await compressImage(item.file);
                 item.compressedBlob = blob;

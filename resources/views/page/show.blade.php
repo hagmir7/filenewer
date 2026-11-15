@@ -5,13 +5,13 @@
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-8" aria-label="Breadcrumb">
-            <a href="/" class="hover:text-fn-text2 transition-colors">Home</a>
+        <nav class="flex items-center gap-2 text-sm text-fn-text3 mb-8" aria-label="{{ __('Breadcrumb') }}">
+            <a href="/" class="hover:text-fn-text2 transition-colors">{{ __('Home') }}</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
-            <a href="/pages" class="hover:text-fn-text2 transition-colors">Pages</a>
+            <a href="/pages" class="hover:text-fn-text2 transition-colors">{{ __('Pages') }}</a>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6" />
@@ -55,9 +55,9 @@
                     class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(49%_0.24_264_/_10%)_0%,transparent_65%)] pointer-events-none">
                 </div>
                 <div class="relative z-10">
-                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-2">Try It Free</p>
-                    <h3 class="font-serif text-xl font-normal mb-2">Convert your first PDF to Word right now</h3>
-                    <p class="text-fn-text3 text-sm mb-5">No account needed · Results in under 10 seconds · 100% free
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-2">{{ __('Try It Free') }}</p>
+                    <h3 class="font-serif text-xl font-normal mb-2">{{ __('Convert your first PDF to Word right now') }}</h3>
+                    <p class="text-fn-text3 text-sm mb-5">{{ __('No account needed · Results in under 10 seconds · 100% free') }}
                     </p>
                     <a href="/tools/pdf-to-word"
                         class="inline-flex items-center gap-2 px-6 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all hover:-translate-y-0.5">
@@ -65,7 +65,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Open PDF to Word Converter
+                        {{ __('Open PDF to Word Converter') }}
                     </a>
                 </div>
             </div>
@@ -77,7 +77,7 @@
             <div class="sticky top-24 flex flex-col gap-6">
                 <!-- Related tool -->
                 <div class="bg-fn-blue/8 border border-fn-blue/20 rounded-2xl p-5">
-                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Featured Tool</p>
+                    <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Featured Tool') }}</p>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="w-9 h-9 rounded-xl bg-fn-red/15 flex items-center justify-center text-lg shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
@@ -88,13 +88,12 @@
                                 <path d="M21 8h-4v8" />
                             </svg>
                         </div>
-                        <p class="font-semibold text-sm">PDF to Word Converter</p>
+                        <p class="font-semibold text-sm">{{ __('PDF to Word Converter') }}</p>
                     </div>
-                    <p class="text-fn-text3 text-sm leading-relaxed mb-4">Convert any PDF to editable Word. Preserves
-                        all formatting, tables, and fonts.</p>
+                    <p class="text-fn-text3 text-sm leading-relaxed mb-4">{{ __('Convert any PDF to editable Word. Preserves all formatting, tables, and fonts.') }}</p>
                     <a href="/tools/pdf-to-word"
                         class="block text-center py-2 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-lg transition-all">
-                        Try for Free →
+                        {{ __('Try for Free →') }}
                     </a>
                 </div>
             </div>

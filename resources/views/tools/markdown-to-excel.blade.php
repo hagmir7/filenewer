@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -39,7 +39,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Write / Paste
+                            {{ __('Write / Paste') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -48,13 +48,13 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload .md
+                            {{ __('Upload .md') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2">Markdown source</p>
+                            <p class="text-xs font-semibold text-fn-text2">{{ __('Markdown source') }}</p>
                             <div class="flex flex-wrap gap-1">
                                 <button type="button" id="btn-sample"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
@@ -64,7 +64,7 @@
                                         <line x1="12" y1="8" x2="12" y2="12" />
                                         <line x1="12" y1="16" x2="12.01" y2="16" />
                                     </svg>
-                                    Sample
+                                    {{ __('Sample') }}
                                 </button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
@@ -74,19 +74,18 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                             </div>
                         </div>
                         <textarea id="md-textarea" rows="12" spellcheck="false"
                             placeholder='Paste Markdown with tables, lists, headings…&#10;&#10;# Sales Report&#10;&#10;| Product | Sales | Revenue |&#10;|---------|-------|--------|&#10;| Apple   | 100   | 500    |&#10;| Banana  | 200   | 400    |&#10;&#10;- Task item&#10;- [x] Done&#10;- [ ] Todo'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <div class="flex items-center justify-between text-fn-text3 text-xs mt-1.5">
-                            <span id="md-meta">0 characters · 0 lines</span>
-                            <span class="text-fn-text3/70">Tables become sheets · lists go to a Lists sheet · code to
-                                Code sheet</span>
+                            <span id="md-meta">{{ __('0 characters · 0 lines') }}</span>
+                            <span class="text-fn-text3/70">{{ __('Tables become sheets · lists go to a Lists sheet · code to Code sheet') }}</span>
                         </div>
                     </div>{{-- /panel-text --}}
                     {{-- ══ FILE TAB ══ --}}
@@ -99,8 +98,8 @@
                                     <span class="font-mono font-black text-3xl text-fn-green">M↓</span>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your Markdown file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">Supports .md and .markdown — or click to browse</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your Markdown file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .md and .markdown — or click to browse') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -109,9 +108,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose Markdown File
+                                {{ __('Choose Markdown File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                             <input type="file" id="file-input" accept=".md,.markdown,text/markdown,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -122,7 +121,7 @@
                                 <span class="font-mono font-black text-base text-fn-green">M↓</span>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-sm truncate" id="file-name">document.md</p>
+                                <p class="font-semibold text-sm truncate" id="file-name">{{ __('document.md') }}</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
                             <button type="button" id="remove-file"
@@ -147,29 +146,29 @@
                                 <rect x="3" y="14" width="7" height="7" rx="1" />
                                 <rect x="14" y="14" width="7" height="7" rx="1" />
                             </svg>
-                            <p class="text-sm font-semibold text-fn-text2">Your Excel file will contain</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Your Excel file will contain') }}</p>
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" id="detected-sheets"></div>
                     </div>
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
-                            <p class="text-sm font-semibold text-fn-text2">Output Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Output Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Output filename --}}
                             <div>
                                 <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                    Output filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
                                 <input type="text" id="opt-filename" placeholder="output.xlsx"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
                             {{-- Stats toggle --}}
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Summary sheet</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Summary sheet') }}</label>
                                 <label
                                     class="flex items-center gap-2.5 cursor-pointer select-none px-3 py-2 bg-fn-surface border border-fn-text/10 rounded-lg hover:border-fn-blue/25 transition-colors">
                                     <div class="toggle-wrap relative w-8 h-4 shrink-0">
@@ -181,7 +180,7 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-xs font-semibold text-fn-text2">Include summary sheet</span>
+                                    <span class="text-xs font-semibold text-fn-text2">{{ __('Include summary sheet') }}</span>
                                 </label>
                             </div>
                         </div>
@@ -196,7 +195,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -208,7 +207,7 @@
                             <line x1="3" y1="15" x2="21" y2="15" />
                             <line x1="9" y1="3" x2="9" y2="21" />
                         </svg>
-                        Convert to Excel
+                        {{ __('Convert to Excel') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -243,15 +242,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting to Excel…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting to Excel…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -275,7 +274,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -292,11 +291,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6">Your Excel file is ready with multiple sheets.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6">{{ __('Your Excel file is ready with multiple sheets.') }}</p>
                     {{-- Sheets generated preview --}}
                     <div id="result-sheets-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Sheets generated</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Sheets generated') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-sheets"></div>
                     </div>
                     <div
@@ -319,7 +318,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.xlsx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Excel Workbook</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Excel Workbook') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -332,7 +331,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Excel File
+                        {{ __('Download Excel File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -342,7 +341,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -350,7 +349,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -360,7 +359,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['How are Markdown tables converted?','Each Markdown table becomes its own sheet in the Excel workbook —
@@ -383,7 +382,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -391,7 +390,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -719,7 +718,7 @@ def calculate_growth(current, previous):
   mdTA.addEventListener('input', () => {
     const v = mdTA.value;
     const lines = v ? v.split('\n').length : 0;
-    document.getElementById('md-meta').textContent = v.length.toLocaleString() + ' characters · ' + lines + ' lines';
+    document.getElementById('md-meta').textContent = v.length.toLocaleString() + {{ Illuminate\Support\Js::from(__(' characters · ')) }} + lines + {{ Illuminate\Support\Js::from(__(' lines')) }};
     refreshConvertBtn();
     // Debounce detection
     clearTimeout(detectTimer);
@@ -739,16 +738,16 @@ def calculate_growth(current, previous):
     hideError();
     const name = file.name.toLowerCase();
     if (!name.match(/\.(md|markdown|txt)$/)) {
-      showError('Please select a valid Markdown file (.md or .markdown).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid Markdown file (.md or .markdown).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · Markdown';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Markdown')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -793,15 +792,15 @@ def calculate_growth(current, previous):
     list.innerHTML = '';
     const sheets = [];
     if (document.getElementById('opt-stats').checked) {
-      sheets.push(['summary',   'Summary',   '—']);
+      sheets.push(['summary',   {{ Illuminate\Support\Js::from(__('Summary')) }},   '—']);
     }
-    if (stats.headings > 0) sheets.push(['structure', 'Structure', stats.headings]);
+    if (stats.headings > 0) sheets.push(['structure', {{ Illuminate\Support\Js::from(__('Structure')) }}, stats.headings]);
     stats.tables.forEach((t, i) => {
       sheets.push(['table', t.name || 'Table ' + (i + 1), t.rows + ' rows']);
     });
-    if (stats.listItems > 0) sheets.push(['lists',   'Lists',   stats.listItems]);
-    if (stats.codeBlocks > 0) sheets.push(['code',   'Code',    stats.codeBlocks]);
-    if (stats.paragraphs > 0) sheets.push(['content','Content', stats.paragraphs]);
+    if (stats.listItems > 0) sheets.push(['lists',   {{ Illuminate\Support\Js::from(__('Lists')) }},   stats.listItems]);
+    if (stats.codeBlocks > 0) sheets.push(['code',   {{ Illuminate\Support\Js::from(__('Code')) }},    stats.codeBlocks]);
+    if (stats.paragraphs > 0) sheets.push(['content',{{ Illuminate\Support\Js::from(__('Content')) }}, stats.paragraphs]);
     if (sheets.length === 0) {
       wrap.classList.add('hidden');
       return;
@@ -809,10 +808,10 @@ def calculate_growth(current, previous):
     sheets.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
-      chip.innerHTML = `
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <span class="sheet-dot"></span>
         <span class="sheet-label"></span>
-        <span class="sheet-count">${count}</span>`;
+        <span class="sheet-count">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(count));
       chip.querySelector('.sheet-label').textContent = label;
       list.appendChild(chip);
     });
@@ -939,18 +938,18 @@ def calculate_growth(current, previous):
     }
     // Animate
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 500, 'Uploading Markdown content…');
+    animateProgress(0, 25, 500, {{ Illuminate\Support\Js::from(__('Uploading Markdown content…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(25, 55, 700, 'Extracting tables & headings…');
+      animateProgress(25, 55, 700, {{ Illuminate\Support\Js::from(__('Extracting tables & headings…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(55, 80, 700, 'Building sheets & styling…');
+      animateProgress(55, 80, 700, {{ Illuminate\Support\Js::from(__('Building sheets & styling…')) }});
     }, 1400);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(80, 92, 500, 'Generating Excel file…');
+      animateProgress(80, 92, 500, {{ Illuminate\Support\Js::from(__('Generating Excel file…')) }});
     }, 2200);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/markdown-to-excel', {
@@ -960,7 +959,7 @@ def calculate_growth(current, previous):
       });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       if (!res.ok) {
-        let msg = 'Conversion failed. Please try again.';
+        let msg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
@@ -971,7 +970,7 @@ def calculate_growth(current, previous):
       link.href = blobUrl;
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · Excel Workbook')) }};
       // Render sheets preview (client-side computed from the markdown)
       if (mdForDetection.trim()) {
         renderResultSheets(mdForDetection, includeStats);
@@ -979,12 +978,12 @@ def calculate_growth(current, previous):
         document.getElementById('result-sheets-wrap').classList.add('hidden');
       }
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -995,22 +994,22 @@ def calculate_growth(current, previous):
     const list  = document.getElementById('result-sheets');
     list.innerHTML = '';
     const sheets = [];
-    if (includeStats) sheets.push(['summary', 'Summary', '—']);
-    if (stats.headings > 0) sheets.push(['structure', 'Structure', stats.headings + ' headings']);
+    if (includeStats) sheets.push(['summary', {{ Illuminate\Support\Js::from(__('Summary')) }}, '—']);
+    if (stats.headings > 0) sheets.push(['structure', {{ Illuminate\Support\Js::from(__('Structure')) }}, stats.headings + ' headings']);
     stats.tables.forEach((t, i) => {
       sheets.push(['table', t.name || 'Table ' + (i + 1), t.rows + ' rows']);
     });
-    if (stats.listItems > 0)  sheets.push(['lists',   'Lists',   stats.listItems + ' items']);
-    if (stats.codeBlocks > 0) sheets.push(['code',    'Code',    stats.codeBlocks + ' blocks']);
-    if (stats.paragraphs > 0) sheets.push(['content', 'Content', stats.paragraphs + ' para']);
+    if (stats.listItems > 0)  sheets.push(['lists',   {{ Illuminate\Support\Js::from(__('Lists')) }},   stats.listItems + ' items']);
+    if (stats.codeBlocks > 0) sheets.push(['code',    {{ Illuminate\Support\Js::from(__('Code')) }},    stats.codeBlocks + ' blocks']);
+    if (stats.paragraphs > 0) sheets.push(['content', {{ Illuminate\Support\Js::from(__('Content')) }}, stats.paragraphs + ' para']);
     if (sheets.length === 0) { wrap.classList.add('hidden'); return; }
     sheets.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
-      chip.innerHTML = `
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <span class="sheet-dot"></span>
         <span class="sheet-label"></span>
-        <span class="sheet-count">${count}</span>`;
+        <span class="sheet-count">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(count));
       chip.querySelector('.sheet-label').textContent = label;
       list.appendChild(chip);
     });
@@ -1082,7 +1081,7 @@ def calculate_growth(current, previous):
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

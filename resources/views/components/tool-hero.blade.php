@@ -3,16 +3,16 @@
 
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
         {{-- Breadcrumb --}}
-        <nav aria-label="Breadcrumb"
+        <nav aria-label="{{ __('Breadcrumb') }}"
             class="flex flex-wrap items-center gap-x-1.5 gap-y-2 mb-5 sm:mb-6 text-xs sm:text-sm text-fn-text3 [&>svg]:shrink-0">
-            <a href="/" class="hover:text-fn-text transition-colors">Home</a>
+            <a href="/" class="hover:text-fn-text transition-colors">{{ __('Home') }}</a>
 
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="9 18 15 12 9 6" />
             </svg>
 
-            <a href="/tools" class="hover:text-fn-text transition-colors">Tools</a>
+            <a href="/tools" class="hover:text-fn-text transition-colors">{{ __('Tools') }}</a>
 
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -21,7 +21,7 @@
 
             <a href="/tools?category={{ $tool->category->slug }}"
                 class="min-w-0 break-words hover:text-fn-text transition-colors">
-                {{ $tool->category->title }}
+                {{ __($tool->category->title) }}
             </a>
 
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -30,7 +30,7 @@
             </svg>
 
             <span aria-current="page" class="min-w-0 break-words text-fn-text2">
-                {{ $tool->name }}
+                {{ __($tool->name) }}
             </span>
         </nav>
 
@@ -45,7 +45,7 @@
                 <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 mb-2">
                     <h1
                         class="w-full sm:w-auto text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-tight break-words">
-                        {{ $tool->title }}
+                        {{ __($tool->title) }}
                     </h1>
 
                     @if(str_contains($tool->tags ?? '', 'popular'))
@@ -57,20 +57,20 @@
                             <path
                                 d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -2.791 3 -4 2z" />
                         </svg>
-                        Popular
+                        {{ __('Popular') }}
                     </span>
                     @endif
 
                     @if(str_contains($tool->tags ?? '', 'new'))
                     <span
                         class="inline-flex items-center px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-[10px] sm:text-xs font-semibold rounded-full whitespace-nowrap">
-                        New
+                        {{ __('New') }}
                     </span>
                     @endif
                 </div>
 
                 <p class="max-w-xl text-xs sm:text-sm text-fn-text3 leading-relaxed break-words">
-                    {{ $tool->description }}
+                    {{ __(Str::squish($tool->description ?? '')) }}
                 </p>
             </div>
         </div>
@@ -83,7 +83,7 @@
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <span>Secure &amp; private</span>
+                <span>{{ __('Secure & private') }}</span>
             </div>
 
             <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
@@ -92,7 +92,7 @@
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
                 </svg>
-                <span>Fast processing</span>
+                <span>{{ __('Fast processing') }}</span>
             </div>
 
             <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
@@ -100,7 +100,7 @@
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12" />
                 </svg>
-                <span>No sign-up required</span>
+                <span>{{ __('No sign-up required') }}</span>
             </div>
 
             <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
@@ -110,7 +110,7 @@
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span>Free to use</span>
+                <span>{{ __('Free to use') }}</span>
             </div>
         </div>
     </div>

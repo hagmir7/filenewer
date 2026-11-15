@@ -1,17 +1,19 @@
 <?php
 
+use App\Http\Controllers\Auth\FacebookAuthController;
+use App\Http\Controllers\Auth\GithubAuthController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelToPdfController;
-use App\Http\Controllers\PdfToWordController;
-use App\Http\Controllers\ToolController;
-use App\Http\Controllers\Auth\GithubAuthController;
-use App\Http\Controllers\Auth\GoogleAuthController;
-use App\Http\Controllers\Auth\FacebookAuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PdfToWordController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\ToolController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('/language', \App\Http\Controllers\LocaleController::class)->name('locale.update');
 
 Route::prefix('auth')->group(function () {
     Route::get('/facebook', [FacebookAuthController::class, 'redirect'])->name('facebook.login');
@@ -19,8 +21,6 @@ Route::prefix('auth')->group(function () {
     Route::get('/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
     Route::get('/google/callback', [GoogleAuthController::class, 'callback']);
 });
-
-
 
 Route::get('/auth/github', [GithubAuthController::class, 'redirect'])->name('github.login');
 
@@ -32,48 +32,35 @@ Route::get('/home', function () {
     return view('welcome');
 })->name('home');
 
-
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
-
-
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::get('signup', [AuthController::class, 'signup'])->name('signup');
 
 Route::get('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
 
-
-
 Route::post('/signup', [AuthController::class, 'store'])->name('signup.store');
 Route::post('login', [AuthController::class, 'loginStore'])->name('login.store');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
 // Route::get('/', [ExcelToPdfController::class, 'index'])->name('excel.index');
 Route::post('/convert', [ExcelToPdfController::class, 'convert'])->name('excel.convert');
 
-
-
 Route::prefix('pdf-to-word')->name('tools.pdf-to-word.')->group(function () {
-    Route::get('/',                 [PdfToWordController::class, 'index'])->name('index');
-    Route::post('/convert',         [PdfToWordController::class, 'convert'])->name('convert');
-    Route::get('/download/{id}',    [PdfToWordController::class, 'download'])->name('download');
+    Route::get('/', [PdfToWordController::class, 'index'])->name('index');
+    Route::post('/convert', [PdfToWordController::class, 'convert'])->name('convert');
+    Route::get('/download/{id}', [PdfToWordController::class, 'download'])->name('download');
 });
-
 
 Route::controller(ToolController::class)->prefix('tools')->group(function () {
     Route::get('', 'index');
     Route::get('{slug}', 'show');
 });
 
-
 Route::controller(ContactController::class)->prefix('contact')->group(function () {
     Route::get('', 'index')->name('contact');
     Route::post('', 'store')->name('contact.store');
 });
-
-
 
 Route::get('blog', [BlogController::class, 'index']);
 Route::get('blog/{blog:slug}', [BlogController::class, 'show']);
@@ -81,4 +68,3 @@ Route::get('blog/{blog:slug}', [BlogController::class, 'show']);
 // Pages
 Route::get('pages', [PageController::class, 'index']);
 Route::get('pages/{slug}', [PageController::class, 'show']);
-

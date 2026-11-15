@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -49,8 +49,8 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <h2 class="text-base font-bold mb-1.5">Drop your PDF here</h2>
-                                <p class="text-fn-text3 text-sm mb-4">or click to browse</p>
+                                <h2 class="text-base font-bold mb-1.5">{{ __('Drop your PDF here') }}</h2>
+                                <p class="text-fn-text3 text-sm mb-4">{{ __('or click to browse') }}</p>
                                 <div
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-fn-blue text-white text-sm font-semibold rounded-lg pointer-events-none">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -59,9 +59,9 @@
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
                                     </svg>
-                                    Choose PDF
+                                    {{ __('Choose PDF') }}
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                                <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                                 <input type="file" id="file-input" accept=".pdf,application/pdf"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </div>
@@ -85,7 +85,7 @@
                                     <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                                     <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                                 </div>
-                                <button type="button" id="remove-file" aria-label="Remove PDF"
+                                <button type="button" id="remove-file" aria-label="{{ __('Remove PDF') }}"
                                     class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -96,7 +96,7 @@
                             </div>
                             {{-- Watermark type toggle --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Type</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Watermark Type') }}</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button type="button" id="type-text"
                                         class="wm-type-btn active flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"
@@ -111,7 +111,7 @@
                                                 <path d="M6.9 15l6.9 0" />
                                                 <path d="M10.2 6.3l5.8 13.7" />
                                                 <path d="M5 20l6 -16l2 0l7 16" />
-                                            </svg></span> Text
+                                            </svg></span> {{ __('Text') }}
                                     </button>
                                     <button type="button" id="type-image"
                                         class="wm-type-btn flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm font-semibold transition-all"
@@ -126,7 +126,7 @@
                                                     d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
                                                 <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
                                                 <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-                                            </svg></span> Image
+                                            </svg></span> {{ __('Image') }}
                                     </button>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@
                                 {{-- Watermark text --}}
                                 <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                     <label for="opt-text"
-                                        class="text-sm font-semibold text-fn-text2 block mb-2">Watermark Text</label>
+                                        class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Watermark Text') }}</label>
                                     <input type="text" id="opt-text" value="CONFIDENTIAL" maxlength="60"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40" />
                                     <div class="flex gap-2 mt-2 flex-wrap">
@@ -143,15 +143,14 @@
                                         @endphp
                                         @foreach($presetTexts as $pt)
                                         <button type="button"
-                                            class="preset-text-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm rounded-lg font-mono transition-all">{{
-                                            $pt }}</button>
+                                            class="preset-text-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm rounded-lg font-mono transition-all">{{ __(Str::squish((string) $pt)) }}</button>
                                         @endforeach
                                     </div>
                                 </div>
                                 {{-- Color + Font size --}}
                                 <div class="grid grid-cols-2 gap-3">
                                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                        <label class="text-sm font-semibold text-fn-text2 block mb-2">Color</label>
+                                        <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Color') }}</label>
                                         <div class="grid grid-cols-4 gap-1.5" id="color-grid">
                                             @php
                                             $colors = [
@@ -167,17 +166,17 @@
                                             @foreach($colors as [$cval, $chex])
                                             <button type="button"
                                                 class="color-btn {{ $cval === 'grey' ? 'active' : '' }} w-7 h-7 rounded-lg border-2 transition-all hover:scale-110"
-                                                data-color="{{ $cval }}" aria-label="{{ ucfirst($cval) }}"
+                                                data-color="{{ $cval }}" aria-label="{{ __(Str::squish((string) (ucfirst($cval)))) }}"
                                                 style="background:{{ $chex }}; border-color: {{ $cval === 'grey' ? '#6b7280' : 'transparent' }}"
-                                                title="{{ ucfirst($cval) }}">
+                                                title="{{ __(Str::squish((string) (ucfirst($cval)))) }}">
                                             </button>
                                             @endforeach
                                         </div>
-                                        <p class="text-fn-text3 text-sm mt-2" id="color-label">Grey</p>
+                                        <p class="text-fn-text3 text-sm mt-2" id="color-label">{{ __('Grey') }}</p>
                                     </div>
                                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                         <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                            Font Size — <span id="font-size-val" class="text-fn-blue-l">60</span>
+                                            {{ __('Font Size —') }} <span id="font-size-val" class="text-fn-blue-l">60</span>
                                         </label>
                                         <input type="range" id="opt-font-size" min="12" max="120" value="60" step="1"
                                             class="w-full accent-fn-blue cursor-pointer mt-1" />
@@ -202,8 +201,8 @@
                                             <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
                                             <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
                                         </svg></div>
-                                    <p class="text-sm font-semibold mb-1">Drop watermark image</p>
-                                    <p class="text-fn-text3 text-sm">PNG or JPG · transparent PNG recommended</p>
+                                    <p class="text-sm font-semibold mb-1">{{ __('Drop watermark image') }}</p>
+                                    <p class="text-fn-text3 text-sm">{{ __('PNG or JPG · transparent PNG recommended') }}</p>
                                     <input type="file" id="img-input" accept=".png,.jpg,.jpeg,image/png,image/jpeg"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
@@ -212,10 +211,10 @@
                                     <img id="img-preview-thumb" src="" alt=""
                                         class="w-10 h-10 rounded-lg object-contain bg-fn-surface border border-fn-text/8 shrink-0" />
                                     <div class="flex-1 min-w-0">
-                                        <p class="font-semibold text-sm truncate" id="img-name">logo.png</p>
+                                        <p class="font-semibold text-sm truncate" id="img-name">{{ __('logo.png') }}</p>
                                         <p class="text-fn-text3 text-sm mt-0.5" id="img-meta">—</p>
                                     </div>
-                                    <button type="button" id="remove-img" aria-label="Remove watermark image"
+                                    <button type="button" id="remove-img" aria-label="{{ __('Remove watermark image') }}"
                                         class="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
@@ -231,7 +230,7 @@
                         <div class="space-y-4">
                             {{-- Live preview --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <p class="text-sm font-semibold text-fn-text2 mb-3">Live Preview</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-3">{{ __('Live Preview') }}</p>
                                 <div id="preview-canvas-wrap"
                                     class="relative bg-white border border-fn-text/12 rounded-xl overflow-hidden"
                                     style="aspect-ratio:210/297; max-height:280px;">
@@ -247,18 +246,17 @@
                                     class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                                     <span id="preview-text" class="font-bold tracking-widest text-center leading-none"
                                         style="color:rgba(156,163,175,0.35); font-size:clamp(18px,7vw,42px); transform:rotate(-45deg); white-space:nowrap;">
-                                        CONFIDENTIAL
+                                        {{ __('CONFIDENTIAL') }}
                                     </span>
                                     <img id="preview-img" src="" alt=""
                                         class="hidden max-w-1/2 max-h-1/2 object-contain" style="opacity:0.3;" />
                                 </div>
                             </div>
-                            <p class="text-fn-text3 text-sm mt-2 text-center">Approximate preview — actual output may
-                                vary</p>
+                            <p class="text-fn-text3 text-sm mt-2 text-center">{{ __('Approximate preview — actual output may vary') }}</p>
                         </div>
                         {{-- Position --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Position</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Position') }}</label>
                             <div class="grid grid-cols-3 gap-1.5" id="position-grid">
                                 @php
                                 $positions = [
@@ -270,8 +268,8 @@
                                 @foreach($positions as [$pval,$picon])
                                 <button type="button"
                                     class="pos-btn {{ $pval === 'center' ? 'active' : '' }} py-2 rounded-lg border text-sm font-mono transition-all"
-                                    data-pos="{{ $pval }}" title="{{ ucfirst(str_replace('-',' ',$pval)) }}">
-                                    {{ $picon }}
+                                    data-pos="{{ $pval }}" title="{{ __(Str::squish((string) (ucfirst(str_replace('-',' ',$pval))))) }}">
+                                    {{ __(Str::squish((string) $picon)) }}
                                 </button>
                                 @endforeach
                             </div>
@@ -280,17 +278,17 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Opacity — <span id="opacity-val" class="text-fn-blue-l">0.3</span>
+                                    {{ __('Opacity —') }} <span id="opacity-val" class="text-fn-blue-l">0.3</span>
                                 </label>
                                 <input type="range" id="opt-opacity" min="0.05" max="1" value="0.3" step="0.05"
                                     class="w-full accent-fn-blue cursor-pointer mt-1" />
                                 <div class="flex justify-between text-fn-text3 text-sm mt-1">
-                                    <span>Subtle</span><span>Heavy</span>
+                                    <span>{{ __('Subtle') }}</span><span>{{ __('Heavy') }}</span>
                                 </div>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="angle-wrap">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Angle — <span id="angle-val" class="text-fn-blue-l">45°</span>
+                                    {{ __('Angle —') }} <span id="angle-val" class="text-fn-blue-l">45°</span>
                                 </label>
                                 <input type="range" id="opt-angle" min="-90" max="90" value="45" step="5"
                                     class="w-full accent-fn-blue cursor-pointer mt-1" />
@@ -302,13 +300,11 @@
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                Pages <span class="font-normal text-fn-text3 ml-1">(optional — leave blank for
-                                    all)</span>
+                                {{ __('Pages') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional — leave blank for all)') }}</span>
                             </label>
-                            <input type="text" id="opt-pages" placeholder="e.g. 1,2,3 or 1-5"
+                            <input type="text" id="opt-pages" placeholder="{{ __('e.g. 1,2,3 or 1-5') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-fn-text3 text-sm mt-1.5">Comma-separated page numbers · leave blank to
-                                watermark all pages</p>
+                            <p class="text-fn-text3 text-sm mt-1.5">{{ __('Comma-separated page numbers · leave blank to watermark all pages') }}</p>
                         </div>
                     </div>{{-- /right col --}}
                 </div>{{-- /grid --}}
@@ -321,7 +317,7 @@
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
-                    <span id="error-text">Something went wrong.</span>
+                    <span id="error-text">{{ __('Something went wrong.') }}</span>
                 </div>
                 {{-- Action button --}}
                 <button id="action-btn" type="button" disabled
@@ -332,7 +328,7 @@
                         <path d="M2 17l10 5 10-5" />
                         <path d="M2 12l10 5 10-5" />
                     </svg>
-                    Apply Watermark
+                    {{ __('Apply Watermark') }}
                 </button>
             </div>{{-- /state-upload --}}
             {{-- ── STATE: Processing ── --}}
@@ -371,15 +367,15 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-xl font-bold mb-2">Applying watermark…</h2>
-                <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                <h2 class="text-xl font-bold mb-2">{{ __('Applying watermark…') }}</h2>
+                <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                 <div class="max-w-md mx-auto mb-3">
                     <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                     </div>
                 </div>
                 <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                    <span id="progress-label">Starting…</span>
+                    <span id="progress-label">{{ __('Starting…') }}</span>
                     <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                 </div>
                 <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -404,7 +400,7 @@
                                     stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                             </svg>
                         </div>
-                        <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                        <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                     </div>
                     @endforeach
                 </div>
@@ -421,8 +417,8 @@
                         <path d="M9 12l2 2l4 -4" />
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold mb-2">Watermark Applied!</h2>
-                <p class="text-fn-text2 text-sm mb-8">Your watermarked PDF is ready.</p>
+                <h2 class="text-2xl font-bold mb-2">{{ __('Watermark Applied!') }}</h2>
+                <p class="text-fn-text2 text-sm mb-8">{{ __('Your watermarked PDF is ready.') }}</p>
                 <div
                     class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                     <div
@@ -439,7 +435,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">watermarked.pdf</p>
-                        <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
+                        <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('PDF Document') }}</p>
                     </div>
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                 </div>
@@ -452,7 +448,7 @@
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    Download Watermarked PDF
+                    {{ __('Download Watermarked PDF') }}
                 </a>
                 <div class="flex items-center justify-center gap-3 flex-wrap">
                     <button type="button" onclick="resetConverter()"
@@ -462,11 +458,11 @@
                             <polyline points="1 4 1 10 7 10" />
                             <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                         </svg>
-                        Watermark another
+                        {{ __('Watermark another') }}
                     </button>
                     <a href="/tools"
                         class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                        All tools
+                        {{ __('All tools') }}
                     </a>
                 </div>
                 <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -474,7 +470,7 @@
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
-                    Your file is encrypted and permanently deleted after processing.
+                    {{ __('Your file is encrypted and permanently deleted after processing.') }}
                 </p>
             </div>
         </div>{{-- /card body --}}
@@ -484,7 +480,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $wmFaqs = [
@@ -507,7 +503,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -515,7 +511,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -784,16 +780,16 @@
             function handlePdf(file) {
                 hideError();
                 if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-                    showError('Please select a valid PDF file.');
+                    showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
                     return;
                 }
                 if (file.size > 50 * 1024 * 1024) {
-                    showError('File exceeds the 200MB free limit.');
+                    showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
                     return;
                 }
                 selectedFile = file;
                 document.getElementById('file-name').textContent = file.name;
-                document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+                document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
                 filePreview.classList.remove('hidden');
                 filePreview.classList.add('flex');
                 dropZone.classList.add('has-file');
@@ -835,12 +831,12 @@
             function handleImage(file) {
                 hideError();
                 if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.type)) {
-                    showError('Please select a PNG or JPG image for the watermark.');
+                    showError({{ Illuminate\Support\Js::from(__('Please select a PNG or JPG image for the watermark.')) }});
                     return;
                 }
                 selectedImage = file;
                 document.getElementById('img-name').textContent = file.name;
-                document.getElementById('img-meta').textContent = formatBytes(file.size) + ' · ' + (file.type === 'image/png' ? 'PNG' : 'JPEG');
+                document.getElementById('img-meta').textContent = formatBytes(file.size) + ' · ' + (file.type === 'image/png' ? {{ Illuminate\Support\Js::from(__('PNG')) }} : {{ Illuminate\Support\Js::from(__('JPEG')) }});
                 // Thumb + preview
                 const reader = new FileReader();
                 reader.onload = e => {
@@ -980,21 +976,21 @@
                     fd.append('watermark_image', selectedImage);
                 }
                 setProcessStep('proc-1', 'active');
-                animateProgress(0, 25, 700, 'Uploading & reading PDF…');
+                animateProgress(0, 25, 700, {{ Illuminate\Support\Js::from(__('Uploading & reading PDF…')) }});
                 const t2 = setTimeout(() => {
                     setProcessStep('proc-1', 'done');
                     setProcessStep('proc-2', 'active');
-                    animateProgress(25, 55, 900, 'Rendering watermark layer…');
+                    animateProgress(25, 55, 900, {{ Illuminate\Support\Js::from(__('Rendering watermark layer…')) }});
                 }, 800);
                 const t3 = setTimeout(() => {
                     setProcessStep('proc-2', 'done');
                     setProcessStep('proc-3', 'active');
-                    animateProgress(55, 78, 800, 'Stamping pages…');
+                    animateProgress(55, 78, 800, {{ Illuminate\Support\Js::from(__('Stamping pages…')) }});
                 }, 1800);
                 const t4 = setTimeout(() => {
                     setProcessStep('proc-3', 'done');
                     setProcessStep('proc-4', 'active');
-                    animateProgress(78, 90, 600, 'Generating output PDF…');
+                    animateProgress(78, 90, 600, {{ Illuminate\Support\Js::from(__('Generating output PDF…')) }});
                 }, 2700);
                 try {
                     const res = await fetch('https://api.filenewer.com/api/tools/pdf-watermark', {
@@ -1006,7 +1002,7 @@
                     clearTimeout(t4);
                     if (!res.ok) {
                         const d = await res.json().catch(() => ({}));
-                        throw new Error(d.error || 'Watermarking failed. Please try again.');
+                        throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Watermarking failed. Please try again.')) }});
                     }
                     const blob = await res.blob();
                     if (blobUrl) URL.revokeObjectURL(blobUrl);
@@ -1015,10 +1011,10 @@
                     link.href = blobUrl;
                     link.download = fileName;
                     document.getElementById('output-name').textContent = fileName;
-                    document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
+                    document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
                     setProcessStep('proc-3', 'done');
                     setProcessStep('proc-4', 'done');
-                    animateProgress(90, 100, 300, 'Done!');
+                    animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
                     setTimeout(() => {
                         showState('download');
                         updateStepIndicator(3);
@@ -1123,7 +1119,7 @@
                 const greyBtn = document.querySelector('.color-btn[data-color="grey"]');
                 greyBtn.classList.add('active');
                 greyBtn.style.borderColor = '#6b7280';
-                document.getElementById('color-label').textContent = 'Grey';
+                document.getElementById('color-label').textContent = {{ Illuminate\Support\Js::from(__('Grey')) }};
                 // Reset position to center
                 activePos = 'center';
                 document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
@@ -1134,7 +1130,7 @@
                 hideError();
                 showState('upload');
                 updateStepIndicator(1);
-                animateProgress(0, 0, 0, 'Starting…');
+                animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
                 ['proc-1', 'proc-2', 'proc-3', 'proc-4'].forEach(id => setProcessStep(id, ''));
             };
             function showError(msg) {

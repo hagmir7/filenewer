@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -37,7 +37,7 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload File
+                            {{ __('Upload File') }}
                         </button>
                         <button type="button" id="tab-text"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -47,7 +47,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste CSV
+                            {{ __('Paste CSV') }}
                         </button>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
@@ -69,8 +69,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your CSV file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -79,9 +79,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose CSV File
+                                {{ __('Choose CSV File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -102,9 +102,9 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
-                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · CSV File') }}</p>
                             </div>
-                            <button type="button" id="remove-file" aria-label="Remove CSV file"
+                            <button type="button" id="remove-file" aria-label="{{ __('Remove CSV file') }}"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -118,7 +118,10 @@
                     <div id="panel-text" class="hidden">
                         <div class="relative">
                             <textarea id="csv-textarea" rows="11" spellcheck="false"
-                                placeholder="Paste your CSV here, e.g.&#10;Username;Identifier;First name;Department&#10;booker12;9012;Rachel;Sales&#10;grey07;2070;Laura;Depot"
+                                placeholder="{{ __('Paste your CSV here, e.g.
+Username;Identifier;First name;Department
+booker12;9012;Rachel;Sales
+grey07;2070;Laura;Depot') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
                             <div class="csv-text-actions absolute top-3 right-3 flex gap-2">
                                 <button type="button" id="btn-paste"
@@ -129,7 +132,7 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
                                     class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
@@ -141,7 +144,7 @@
                                         <path d="M14 11v6" />
                                         <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
                                     </svg>
-                                    Clear
+                                    {{ __('Clear') }}
                                 </button>
                             </div>
                         </div>
@@ -153,7 +156,7 @@
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- SQL Dialect --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">SQL Dialect</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('SQL Dialect') }}</label>
                                 <div class="grid grid-cols-3 gap-2">
                                     @foreach([
                                     ['mysql', 'MySQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -164,8 +167,7 @@
                                         <path
                                             d="M3 13c3 -1 5 -3 7 -6l1 -3c1 3 3 5 5 6c2 1 4 0 6 -2c0 5 -4 10 -10 10c-4 0 -7 -2 -9 -5" />
                                         <path d="M7 13h.01" />
-                                    </svg>'],
-                                    ['postgres', 'PostgreSQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                    </svg>'], ['postgres', 'PostgreSQL', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-elephant">
@@ -173,8 +175,7 @@
                                         <path
                                             d="M9 6a4 4 0 0 0 -4 4v6a1 1 0 0 0 2 0v-4h2v6h3v-3h5v3h3v-8a4 4 0 0 0 -4 -4h-7" />
                                         <path d="M8 10h.01" />
-                                    </svg>'],
-                                    ['sqlite', 'SQLite', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    </svg>'], ['sqlite', 'SQLite', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
                                         class="icon icon-tabler icons-tabler-outline icon-tabler-database">
@@ -188,7 +189,7 @@
                                         class="dialect-btn {{ $val === 'mysql' ? 'active' : '' }} flex flex-col items-center gap-1 py-2.5 px-2 rounded-xl border text-sm font-semibold transition-all"
                                         data-dialect="{{ $val }}">
                                         <span class="text-lg">{!! $icon !!}</span>
-                                        <span>{{ $lbl }}</span>
+                                        <span>{{ __(Str::squish($lbl)) }}</span>
                                     </button>
                                     @endforeach
                                 </div>
@@ -196,20 +197,20 @@
                             {{-- Table name --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-table" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Table Name
+                                    {{ __('Table Name') }}
                                 </label>
-                                <input type="text" id="opt-table" value="my_table" placeholder="e.g. users"
+                                <input type="text" id="opt-table" value="my_table" placeholder="{{ __('e.g. users') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Used in <span
-                                        class="font-mono text-fn-text2">INSERT INTO <span
-                                            id="table-preview">my_table</span> …</span></p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Used in') }} <span
+                                        class="font-mono text-fn-text2">{{ __('INSERT INTO') }} <span
+                                            id="table-preview">{{ __('my_table') }}</span> …</span></p>
                             </div>
                         </div>
                         {{-- Row 2: Output mode + Filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output') }}</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     @foreach([
                                     ['file', 'Download .sql', '<svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -221,8 +222,7 @@
                                             d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
                                         <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
                                         <path d="M14 4l0 4l-6 0l0 -4" />
-                                    </svg>'],
-                                    ['text', 'Preview SQL', '<svg xmlns="http://www.w3.org/2000/svg"
+                                    </svg>'], ['text', 'Preview SQL', '<svg xmlns="http://www.w3.org/2000/svg"
                                         class="icon icon-tabler icon-tabler-eye" width="1em" height="1em"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -236,22 +236,22 @@
                                         class="output-btn {{ $val === 'file' ? 'active' : '' }} flex items-center gap-2 py-2 px-3 rounded-xl border text-sm font-semibold transition-all"
                                         data-output="{{ $val }}">
                                         <span>{!! $icon !!}</span>
-                                        <span>{{ $lbl }}</span>
+                                        <span>{{ __(Str::squish($lbl)) }}</span>
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-2" id="output-hint">Returns a downloadable .sql file.
+                                <p class="text-fn-text3 text-sm mt-2" id="output-hint">{{ __('Returns a downloadable .sql file.') }}
                                 </p>
                             </div>
                             {{-- Filename (only relevant for file output) --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="filename-wrap">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. users.sql"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. users.sql') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your table name with .sql extension
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to your table name with .sql extension') }}
                                 </p>
                             </div>
                         </div>
@@ -266,7 +266,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -275,7 +275,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        <span id="convert-btn-label">Generate SQL</span>
+                        <span id="convert-btn-label">{{ __('Generate SQL') }}</span>
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -313,15 +313,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Generating your SQL…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Generating your SQL…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -345,7 +345,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -366,8 +366,8 @@
                                 <path d="M9 12l2 2l4 -4" />
                             </svg>
                         </div>
-                        <h2 class="text-2xl font-bold mb-2">SQL Generated!</h2>
-                        <p class="text-fn-text2 text-sm" id="download-subtitle">Your SQL file is ready.</p>
+                        <h2 class="text-2xl font-bold mb-2">{{ __('SQL Generated!') }}</h2>
+                        <p class="text-fn-text2 text-sm" id="download-subtitle">{{ __('Your SQL file is ready.') }}</p>
                     </div>
                     {{-- SQL preview (text output mode) --}}
                     <div id="sql-preview-wrap" class="hidden max-w-3xl mx-auto mb-6">
@@ -375,7 +375,7 @@
                             <div class="flex items-center gap-2">
                                 <span id="dialect-badge"
                                     class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-sm font-bold border"></span>
-                                <p class="text-sm font-semibold text-fn-text2">SQL Preview</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('SQL Preview') }}</p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span id="sql-preview-meta" class="text-sm text-fn-text3"></span>
@@ -386,7 +386,7 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                     </svg>
-                                    <span id="copy-label">Copy</span>
+                                    <span id="copy-label">{{ __('Copy') }}</span>
                                 </button>
                             </div>
                         </div>
@@ -410,8 +410,8 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="output-name">output.sql</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">SQL File</p>
+                            <p class="font-semibold text-sm truncate" id="output-name">{{ __('output.sql') }}</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('SQL File') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -425,7 +425,7 @@
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" y1="15" x2="12" y2="3" />
                             </svg>
-                            <span id="download-btn-label">Download SQL</span>
+                            <span id="download-btn-label">{{ __('Download SQL') }}</span>
                         </a>
                         <div class="flex items-center justify-center gap-3 flex-wrap mt-1">
                             <button type="button" onclick="resetConverter()"
@@ -435,11 +435,11 @@
                                     <polyline points="1 4 1 10 7 10" />
                                     <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                 </svg>
-                                Convert another
+                                {{ __('Convert another') }}
                             </button>
                             <a href="/tools"
                                 class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                                All tools
+                                {{ __('All tools') }}
                             </a>
                         </div>
                         <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -447,7 +447,7 @@
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                             </svg>
-                            Your file is encrypted and permanently deleted after processing.
+                            {{ __('Your file is encrypted and permanently deleted after processing.') }}
                         </p>
                     </div>
                 </div>
@@ -458,7 +458,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
@@ -478,7 +478,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -486,7 +486,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -775,7 +775,7 @@
       }
       // ── Table name live preview ──
       tableInput.addEventListener('input', () => {
-        tablePreview.textContent = tableInput.value.trim() || 'my_table';
+        tablePreview.textContent = tableInput.value.trim() || {{ Illuminate\Support\Js::from(__('my_table')) }};
       });
       // ── Dialect buttons ──
       document.querySelectorAll('.dialect-btn').forEach(btn => {
@@ -793,11 +793,11 @@
           activeOutput = btn.dataset.output;
           const isFile = activeOutput === 'file';
           outputHint.textContent = isFile
-            ? 'Returns a downloadable .sql file.'
-            : 'Displays the generated SQL inline with a copy button.';
+            ? {{ Illuminate\Support\Js::from(__('Returns a downloadable .sql file.')) }}
+            : {{ Illuminate\Support\Js::from(__('Displays the generated SQL inline with a copy button.')) }};
           filenameWrap.style.opacity = isFile ? '1' : '0.4';
           document.getElementById('opt-filename').disabled = !isFile;
-          document.getElementById('convert-btn-label').textContent = isFile ? 'Generate SQL' : 'Preview SQL';
+          document.getElementById('convert-btn-label').textContent = isFile ? {{ Illuminate\Support\Js::from(__('Generate SQL')) }} : {{ Illuminate\Support\Js::from(__('Preview SQL')) }};
         });
       });
       // ── Drag & drop ──
@@ -814,16 +814,16 @@
         hideError();
         const ext = file.name.toLowerCase();
         if (!ext.endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
-          showError('Please select a valid CSV file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid CSV file.')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · CSV File')) }};
         const fnInput = document.getElementById('opt-filename');
         if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.sql');
         filePreview.classList.remove('hidden');
@@ -921,21 +921,21 @@
         }
         // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
+        animateProgress(0, 22, 600, {{ Illuminate\Support\Js::from(__('Parsing CSV rows & headers…')) }});
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(22, 50, 800, 'Inferring column types…');
+          animateProgress(22, 50, 800, {{ Illuminate\Support\Js::from(__('Inferring column types…')) }});
         }, 700);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(50, 76, 800, 'Building INSERT statements…');
+          animateProgress(50, 76, 800, {{ Illuminate\Support\Js::from(__('Building INSERT statements…')) }});
         }, 1600);
         const t4 = setTimeout(() => {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(76, 90, 600, 'Generating output…');
+          animateProgress(76, 90, 600, {{ Illuminate\Support\Js::from(__('Generating output…')) }});
         }, 2600);
         try {
           const res = await fetch(endpoint, {
@@ -945,7 +945,7 @@
           });
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!res.ok) {
-            let errMsg = 'Conversion failed. Please try again.';
+            let errMsg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
             try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
@@ -970,10 +970,12 @@
             const previewCode = document.getElementById('sql-preview-code');
             const PREVIEW_LIMIT = 8000;
             previewCode.textContent = sqlText.length > PREVIEW_LIMIT
-              ? sqlText.slice(0, PREVIEW_LIMIT) + '\n\n-- … truncated for preview, full file in download …'
+              ? sqlText.slice(0, PREVIEW_LIMIT) + {{ Illuminate\Support\Js::from(__('
+
+-- … truncated for preview, full file in download …')) }}
               : sqlText;
             const lines = sqlText.split('\n').length;
-            document.getElementById('sql-preview-meta').textContent = `${lines} lines · ${formatBytes(blob.size)}`;
+            document.getElementById('sql-preview-meta').textContent = ({{ Illuminate\Support\Js::from(__(':value0 lines · :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(lines)).replaceAll(/:value1(?!\d)/g, () => String(formatBytes(blob.size)));
             // Dialect badge
             const badge = document.getElementById('dialect-badge');
             const dc    = dialectColors[activeDialect];
@@ -982,7 +984,7 @@
             badge.style.borderColor  = dc.border;
             badge.style.color        = dc.color;
             document.getElementById('sql-preview-wrap').classList.remove('hidden');
-            document.getElementById('download-subtitle').textContent = 'SQL preview ready — copy or download the file.';
+            document.getElementById('download-subtitle').textContent = {{ Illuminate\Support\Js::from(__('SQL preview ready — copy or download the file.')) }};
           } else {
             // Response is binary .sql file
             const blob = await res.blob();
@@ -994,21 +996,21 @@
             // Also read for copy support
             fullSqlText = await blob.text();
             document.getElementById('sql-preview-wrap').classList.add('hidden');
-            document.getElementById('download-subtitle').textContent = 'Your SQL file is ready.';
+            document.getElementById('download-subtitle').textContent = {{ Illuminate\Support\Js::from(__('Your SQL file is ready.')) }};
             document.getElementById('output-name').textContent = outputFilename;
-            document.getElementById('output-size').textContent = formatBytes(blob.size) + ` · ${dialectLabels[activeDialect]} SQL`;
+            document.getElementById('output-size').textContent = formatBytes(blob.size) + ({{ Illuminate\Support\Js::from(__(' · :value0 SQL')) }}).replaceAll(/:value0(?!\d)/g, () => String(dialectLabels[activeDialect]));
           }
           document.getElementById('output-name').textContent       = outputFilename;
-          document.getElementById('output-size').textContent       = formatBytes(new Blob([fullSqlText]).size) + ` · ${dialectLabels[activeDialect]} SQL`;
-          document.getElementById('download-btn-label').textContent = 'Download SQL';
+          document.getElementById('output-size').textContent       = formatBytes(new Blob([fullSqlText]).size) + ({{ Illuminate\Support\Js::from(__(' · :value0 SQL')) }}).replaceAll(/:value0(?!\d)/g, () => String(dialectLabels[activeDialect]));
+          document.getElementById('download-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Download SQL')) }};
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -1019,8 +1021,8 @@
         try {
           await navigator.clipboard.writeText(fullSqlText);
           const label = document.getElementById('copy-label');
-          label.textContent = 'Copied!';
-          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+          label.textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+          setTimeout(() => { label.textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
         } catch (_) {}
       });
       // ── Helpers ──
@@ -1079,7 +1081,7 @@
         csvValid    = false;
         fullSqlText = '';
         tableInput.value = 'my_table';
-        tablePreview.textContent = 'my_table';
+        tablePreview.textContent = {{ Illuminate\Support\Js::from(__('my_table')) }};
         document.getElementById('opt-filename').value = '';
         document.getElementById('opt-filename').disabled = false;
         filenameWrap.style.opacity = '1';
@@ -1091,13 +1093,13 @@
         document.querySelectorAll('.output-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('.output-btn[data-output="file"]').classList.add('active');
         activeOutput = 'file';
-        outputHint.textContent = 'Returns a downloadable .sql file.';
-        document.getElementById('convert-btn-label').textContent = 'Generate SQL';
+        outputHint.textContent = {{ Illuminate\Support\Js::from(__('Returns a downloadable .sql file.')) }};
+        document.getElementById('convert-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Generate SQL')) }};
         document.getElementById('sql-preview-wrap').classList.add('hidden');
         switchTab('file');
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
       function showError(msg) {

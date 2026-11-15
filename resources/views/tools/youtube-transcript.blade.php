@@ -16,11 +16,10 @@
                     id="step-{{ $n }}">
                     <div
                         class="step-dot w-4 h-4 sm:w-6 sm:h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-[10px] sm:text-sm font-bold">{{ $n }}</span>
+                        <span class="text-[10px] sm:text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
                     <span
-                        class="step-label text-[10px] sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{
-                        $label }}</span>
+                        class="step-label text-[10px] sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{ __(Str::squish((string) $label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-3 sm:w-10 h-px bg-fn-text/10 mx-1 sm:mx-2 shrink-0"></div>
@@ -32,7 +31,7 @@
                 <div id="state-upload">
                     {{-- URL input --}}
                     <div class="mb-4 sm:mb-5">
-                        <label for="yt-url" class="text-xs font-semibold text-fn-text2 block mb-2">YouTube URL</label>
+                        <label for="yt-url" class="text-xs font-semibold text-fn-text2 block mb-2">{{ __('YouTube URL') }}</label>
                         {{-- On mobile: stacked input + button; on sm+: inline --}}
                         <div class="flex flex-col sm:flex-row gap-2">
                             <div class="relative flex-1 min-w-0">
@@ -55,61 +54,60 @@
                                         d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                     <rect x="8" y="2" width="8" height="4" rx="1" />
                                 </svg>
-                                Paste URL
+                                {{ __('Paste URL') }}
                             </button>
                         </div>
                         <div class="mt-1.5">
-                            <span id="url-status" class="text-xs text-fn-text3 break-words">Supports youtube.com,
-                                youtu.be, Shorts, and embed URLs</span>
+                            <span id="url-status" class="text-xs text-fn-text3 break-words">{{ __('Supports youtube.com, youtu.be, Shorts, and embed URLs') }}</span>
                         </div>
                     </div>
                     {{-- Options --}}
                     <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-4 sm:mb-5">
                         <div class="flex items-center justify-between mb-3 gap-2">
-                            <p class="text-sm font-semibold text-fn-text2">Transcript Settings</p>
-                            <span class="text-xs text-fn-text3 shrink-0">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Transcript Settings') }}</p>
+                            <span class="text-xs text-fn-text3 shrink-0">{{ __('Optional') }}</span>
                         </div>
                         {{-- Language selects: side by side on all screens --}}
                         <div class="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
                             <div class="min-w-0">
                                 <label for="opt-language"
-                                    class="text-xs font-semibold text-fn-text2 block mb-1.5">Language</label>
+                                    class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Language') }}</label>
                                 <select id="opt-language"
                                     class="w-full min-w-0 bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-2 sm:px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer truncate">
-                                    <option value="en" selected>English</option>
-                                    <option value="ar">Arabic (عربي)</option>
-                                    <option value="fr">French</option>
-                                    <option value="de">German</option>
-                                    <option value="es">Spanish</option>
-                                    <option value="it">Italian</option>
-                                    <option value="pt">Portuguese</option>
-                                    <option value="zh">Chinese</option>
-                                    <option value="ja">Japanese</option>
-                                    <option value="ru">Russian</option>
+                                    <option value="en" selected>{{ __('English') }}</option>
+                                    <option value="ar">{{ __('Arabic (عربي)') }}</option>
+                                    <option value="fr">{{ __('French') }}</option>
+                                    <option value="de">{{ __('German') }}</option>
+                                    <option value="es">{{ __('Spanish') }}</option>
+                                    <option value="it">{{ __('Italian') }}</option>
+                                    <option value="pt">{{ __('Portuguese') }}</option>
+                                    <option value="zh">{{ __('Chinese') }}</option>
+                                    <option value="ja">{{ __('Japanese') }}</option>
+                                    <option value="ru">{{ __('Russian') }}</option>
                                 </select>
                             </div>
                             <div class="min-w-0">
                                 <label for="opt-translate"
-                                    class="text-xs font-semibold text-fn-text2 block mb-1.5">Translate to</label>
+                                    class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Translate to') }}</label>
                                 <select id="opt-translate"
                                     class="w-full min-w-0 bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-2 sm:px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer truncate">
-                                    <option value="" selected>No translation</option>
-                                    <option value="en">English</option>
-                                    <option value="ar">Arabic (عربي)</option>
-                                    <option value="fr">French</option>
-                                    <option value="de">German</option>
-                                    <option value="es">Spanish</option>
-                                    <option value="it">Italian</option>
-                                    <option value="pt">Portuguese</option>
-                                    <option value="zh">Chinese</option>
-                                    <option value="ja">Japanese</option>
-                                    <option value="ru">Russian</option>
+                                    <option value="" selected>{{ __('No translation') }}</option>
+                                    <option value="en">{{ __('English') }}</option>
+                                    <option value="ar">{{ __('Arabic (عربي)') }}</option>
+                                    <option value="fr">{{ __('French') }}</option>
+                                    <option value="de">{{ __('German') }}</option>
+                                    <option value="es">{{ __('Spanish') }}</option>
+                                    <option value="it">{{ __('Italian') }}</option>
+                                    <option value="pt">{{ __('Portuguese') }}</option>
+                                    <option value="zh">{{ __('Chinese') }}</option>
+                                    <option value="ja">{{ __('Japanese') }}</option>
+                                    <option value="ru">{{ __('Russian') }}</option>
                                 </select>
                             </div>
                         </div>
                         {{-- Output format: 2 cols on mobile, 4 on sm+ --}}
                         <div class="mb-3">
-                            <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output format</label>
+                            <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Output format') }}</label>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                                 @foreach([
                                 ['fmt-text', 'text', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -120,8 +118,7 @@
                                     <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
                                     <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
                                     <path d="M16 5l3 3" />
-                                </svg>', 'Plain text', 'Reading & copying', true],
-                                ['fmt-srt', 'srt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                </svg>', 'Plain text', 'Reading & copying', true], ['fmt-srt', 'srt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-movie">
@@ -135,8 +132,7 @@
                                     <path d="M4 12l16 0" />
                                     <path d="M16 8l4 0" />
                                     <path d="M16 16l4 0" />
-                                </svg>', 'SRT', 'Video players', false],
-                                ['fmt-vtt', 'vtt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                </svg>', 'SRT', 'Video players', false], ['fmt-vtt', 'vtt', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-world">
@@ -146,8 +142,7 @@
                                     <path d="M3.6 15h16.8" />
                                     <path d="M11.5 3a17 17 0 0 0 0 18" />
                                     <path d="M12.5 3a17 17 0 0 1 0 18" />
-                                </svg>', 'VTT', 'HTML5 video', false],
-                                ['fmt-json', 'json', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                </svg>', 'VTT', 'HTML5 video', false], ['fmt-json', 'json', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
                                     class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
@@ -163,10 +158,10 @@
                                         ? 'checked' : '' }} class="sr-only fmt-radio" />
                                     <span class="text-sm sm:text-base shrink-0">{!! $ficon !!}</span>
                                     <div class="min-w-0">
-                                        <p class="text-xs font-bold text-fn-text leading-none truncate">{{ $flabel }}
+                                        <p class="text-xs font-bold text-fn-text leading-none truncate">{{ __(Str::squish((string) $flabel)) }}
                                         </p>
                                         <p class="text-xs text-fn-text3 leading-tight mt-0.5 hidden sm:block truncate">
-                                            {{ $fdesc }}</p>
+                                            {{ __(Str::squish((string) $fdesc)) }}</p>
                                     </div>
                                 </label>
                                 @endforeach
@@ -191,8 +186,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</p>
-                                    <p class="text-xs text-fn-text3 leading-tight hidden sm:block">{{ $tdesc }}</p>
+                                    <p class="text-xs font-semibold text-fn-text2">{{ __(Str::squish((string) $tlabel)) }}</p>
+                                    <p class="text-xs text-fn-text3 leading-tight hidden sm:block">{{ __(Str::squish((string) $tdesc)) }}</p>
                                 </div>
                             </label>
                             @endforeach
@@ -208,7 +203,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text" class="break-words">Something went wrong.</span>
+                        <span id="error-text" class="break-words">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="w-full py-3.5 text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:opacity-90 hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2"
@@ -217,7 +212,7 @@
                             <path
                                 d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
-                        Get Transcript
+                        {{ __('Get Transcript') }}
                     </button>
                 </div>
                 {{-- ── STATE: Fetching ── --}}
@@ -251,9 +246,9 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-base sm:text-xl font-bold mb-2 px-2" id="fetching-title">Fetching Transcript…</h2>
+                    <h2 class="text-base sm:text-xl font-bold mb-2 px-2" id="fetching-title">{{ __('Fetching Transcript…') }}</h2>
                     <p class="text-fn-text3 text-xs sm:text-sm mb-5 sm:mb-8 px-4 break-words" id="converting-subtitle">
-                        Connecting to YouTube &amp; extracting captions</p>
+                        {{ __('Connecting to YouTube & extracting captions') }}</p>
                     <div class="max-w-md mx-auto mb-3 px-2">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
@@ -261,7 +256,7 @@
                     </div>
                     <div
                         class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-5 sm:mb-8 px-2 gap-2">
-                        <span id="progress-label" class="text-xs sm:text-sm truncate">Starting…</span>
+                        <span id="progress-label" class="text-xs sm:text-sm truncate">{{ __('Starting…') }}</span>
                         <span id="progress-pct"
                             class="font-mono font-semibold text-fn-text2 text-xs sm:text-sm shrink-0">0%</span>
                     </div>
@@ -286,7 +281,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs sm:text-sm text-fn-text3 break-words min-w-0">{!! $plabel !!}</span>
+                            <span class="text-xs sm:text-sm text-fn-text3 break-words min-w-0">{!! \App\Support\ToolMessages::html((string) $plabel) !!}</span>
                         </div>
                         @endforeach
                     </div>
@@ -300,8 +295,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <p class="text-xs text-fn-text2 leading-relaxed break-words">Captions not found — falling back
-                            to <span class="font-semibold">Whisper AI</span> transcription. This may take a minute…</p>
+                        <p class="text-xs text-fn-text2 leading-relaxed break-words">{{ __('Captions not found — falling back to') }} <span class="font-semibold">{{ __('Whisper AI') }}</span> {{ __('transcription. This may take a minute…') }}</p>
                     </div>
                 </div>
                 {{-- ── STATE: Result ── --}}
@@ -330,14 +324,13 @@
                                 <polyline points="15 3 21 3 21 9" />
                                 <line x1="10" y1="14" x2="21" y2="3" />
                             </svg>
-                            <span class="hidden sm:inline">Watch</span>
+                            <span class="hidden sm:inline">{{ __('Watch') }}</span>
                         </a>
                     </div>
                     {{-- Toolbar: stacks on mobile --}}
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2">
                         <div class="flex items-center gap-2 flex-wrap min-w-0">
-                            <span class="text-xs font-semibold text-fn-text2 truncate" id="result-format-label">Plain
-                                text</span>
+                            <span class="text-xs font-semibold text-fn-text2 truncate" id="result-format-label">{{ __('Plain text') }}</span>
                             <span id="result-stats" class="text-xs text-fn-text3 shrink-0"></span>
                         </div>
                         <div class="grid grid-cols-3 sm:flex sm:items-center gap-1.5">
@@ -348,7 +341,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-label" class="truncate">Copy</span>
+                                <span id="copy-label" class="truncate">{{ __('Copy') }}</span>
                             </button>
                             <button type="button" id="btn-download-txt"
                                 class="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
@@ -358,7 +351,7 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                <span id="download-ext-label" class="truncate">Download .txt</span>
+                                <span id="download-ext-label" class="truncate">{{ __('Download .txt') }}</span>
                             </button>
                             <button type="button" onclick="resetConverter()"
                                 class="flex items-center justify-center gap-1.5 px-2 sm:px-3 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-xs font-semibold rounded-lg hover:text-fn-text transition-all">
@@ -367,7 +360,7 @@
                                     <polyline points="1 4 1 10 7 10" />
                                     <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                 </svg>
-                                New
+                                {{ __('New') }}
                             </button>
                         </div>
                     </div>
@@ -383,7 +376,7 @@
                                 class="text-fn-green shrink-0 mt-0.5">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                             </svg>
-                            <span>Transcript not stored — cleared after your session ends.</span>
+                            <span>{{ __('Transcript not stored — cleared after your session ends.') }}</span>
                         </p>
                     </div>
                 </div>
@@ -394,8 +387,8 @@
 {{-- ══ HOW IT WORKS ══ --}}
 <section class="py-8 sm:py-12 border-t border-fn-text/7 bg-fn-surface2 overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">How It Works</h2>
-        <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-8">Two-strategy approach for maximum coverage</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('How It Works') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-8">{{ __('Two-strategy approach for maximum coverage') }}</p>
         <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
             <div class="p-4 sm:p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <div class="flex items-center gap-2.5 mb-3">
@@ -409,28 +402,27 @@
                         </svg>
                     </div>
                     <div class="min-w-0">
-                        <p class="font-bold text-sm">Strategy 1 — Transcript API</p>
-                        <p class="text-xs text-fn-green font-semibold">Fast · ⭐⭐⭐⭐</p>
+                        <p class="font-bold text-sm">{{ __('Strategy 1 — Transcript API') }}</p>
+                        <p class="text-xs text-fn-green font-semibold">{{ __('Fast · ⭐⭐⭐⭐') }}</p>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed mb-3">Directly fetches the caption track embedded by the
-                    video creator or auto-generated by YouTube. Instant — no audio processing needed.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed mb-3">{{ __('Directly fetches the caption track embedded by the video creator or auto-generated by YouTube. Instant — no audio processing needed.') }}</p>
                 <div class="flex flex-col gap-1 text-xs text-fn-text3">
                     <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                             class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> <span>No extra dependencies</span></div>
+                        </svg> <span>{{ __('No extra dependencies') }}</span></div>
                     <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                             class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> <span>Language selection &amp; translation</span></div>
+                        </svg> <span>{{ __('Language selection & translation') }}</span></div>
                     <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                             class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> <span>Supports auto-generated captions</span></div>
+                        </svg> <span>{{ __('Supports auto-generated captions') }}</span></div>
                 </div>
             </div>
             <div class="p-4 sm:p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -448,30 +440,29 @@
                         </svg>
                     </div>
                     <div class="min-w-0">
-                        <p class="font-bold text-sm">Strategy 2 — Whisper AI</p>
-                        <p class="text-xs text-fn-purple font-semibold">Slower · ⭐⭐⭐⭐⭐</p>
+                        <p class="font-bold text-sm">{{ __('Strategy 2 — Whisper AI') }}</p>
+                        <p class="text-xs text-fn-purple font-semibold">{{ __('Slower · ⭐⭐⭐⭐⭐') }}</p>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed mb-3">Falls back to downloading the audio and running
-                    OpenAI Whisper for AI-powered speech-to-text when no captions are available.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed mb-3">{{ __('Falls back to downloading the audio and running OpenAI Whisper for AI-powered speech-to-text when no captions are available.') }}</p>
                 <div class="flex flex-col gap-1 text-xs text-fn-text3">
                     <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                             class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> <span>Works on any video, even without captions</span></div>
+                        </svg> <span>{{ __('Works on any video, even without captions') }}</span></div>
                     <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
                             class="text-fn-green shrink-0 mt-0.5">
                             <polyline points="20 6 9 17 4 12" />
-                        </svg> <span>Highest transcription accuracy</span></div>
+                        </svg> <span>{{ __('Highest transcription accuracy') }}</span></div>
                     <div class="flex items-start gap-1.5"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="text-fn-amber shrink-0 mt-0.5">
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
-                        </svg> <span>Takes longer — audio download + AI processing</span></div>
+                        </svg> <span>{{ __('Takes longer — audio download + AI processing') }}</span></div>
                 </div>
             </div>
         </div>
@@ -480,8 +471,8 @@
 {{-- ══ OUTPUT FORMATS ══ --}}
 <section class="py-8 sm:py-12 border-t border-fn-text/7 bg-fn-surface overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">Output Formats</h2>
-        <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-6">Choose the format that fits your workflow</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('Output Formats') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-5 sm:mb-6">{{ __('Choose the format that fits your workflow') }}</p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
             @foreach([
             ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -491,9 +482,7 @@
                 <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
                 <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
                 <path d="M16 5l3 3" />
-            </svg>', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with
-            timestamps'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            </svg>', 'text', 'Plain text', 'Reading & copying', 'Simple readable transcript, optionally with timestamps'], ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-movie">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -505,8 +494,7 @@
                 <path d="M4 12l16 0" />
                 <path d="M16 8l4 0" />
                 <path d="M16 16l4 0" />
-            </svg>', 'srt', 'SRT', 'Video players', 'SubRip format — the standard for most video editing tools'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            </svg>', 'srt', 'SRT', 'Video players', 'SubRip format — the standard for most video editing tools'], ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-world">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -515,8 +503,7 @@
                 <path d="M3.6 15h16.8" />
                 <path d="M11.5 3a17 17 0 0 0 0 18" />
                 <path d="M12.5 3a17 17 0 0 1 0 18" />
-            </svg>', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'],
-            ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            </svg>', 'vtt', 'VTT', 'HTML5 video', 'WebVTT — used by browsers and HTML5 video elements'], ['<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -527,9 +514,9 @@
             ] as [$icon, $val, $name, $use, $desc])
             <div class="p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl min-w-0">
                 <div class="text-xl sm:text-2xl mb-1.5 sm:mb-2">{!! $icon !!}</div>
-                <p class="font-bold text-sm truncate">{{ $name }}</p>
-                <p class="text-xs text-fn-blue-l font-semibold mt-0.5 break-words">{{ $use }}</p>
-                <p class="text-xs text-fn-text3 mt-1.5 leading-relaxed hidden sm:block">{{ $desc }}</p>
+                <p class="font-bold text-sm truncate">{{ __(Str::squish((string) $name)) }}</p>
+                <p class="text-xs text-fn-blue-l font-semibold mt-0.5 break-words">{{ __(Str::squish((string) $use)) }}</p>
+                <p class="text-xs text-fn-text3 mt-1.5 leading-relaxed hidden sm:block">{{ __(Str::squish((string) $desc)) }}</p>
             </div>
             @endforeach
         </div>
@@ -538,7 +525,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-8 sm:py-16 border-t border-fn-text/7 bg-fn-surface2 overflow-x-hidden">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">Frequently Asked Questions
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">{{ __('Frequently Asked Questions') }}
         </h2>
         <div class="space-y-2 sm:space-y-3">
             @foreach([
@@ -563,7 +550,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface transition-colors">
-                    <span class="font-semibold text-sm pr-1">{{ $q }}</span>
+                    <span class="font-semibold text-sm pr-1">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -571,7 +558,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed break-words">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed break-words">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -785,19 +772,19 @@
     const status = document.getElementById('url-status');
     const vid    = extractVideoId(val);
     if (!val) {
-      status.innerHTML = '<span class="text-fn-text3">Supports youtube.com, youtu.be, Shorts, and embed URLs</span>';
+      status.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">Supports youtube.com, youtu.be, Shorts, and embed URLs</span>')) }};
       convertBtn.disabled = true;
       return;
     }
     if (vid) {
-      status.innerHTML = `<span class="text-fn-green flex items-center gap-1.5 flex-wrap">
+      status.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-green flex items-center gap-1.5 flex-wrap">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
-        Valid URL · ID: <code class="font-mono break-all">${vid}</code>
-      </span>`;
+        Valid URL · ID: <code class="font-mono break-all">:value0</code>
+      </span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(vid));
       convertBtn.disabled = false;
       hideError();
     } else {
-      status.innerHTML = '<span class="text-fn-red">Not a recognised YouTube URL</span>';
+      status.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-red">Not a recognised YouTube URL</span>')) }};
       convertBtn.disabled = true;
     }
   });
@@ -827,24 +814,24 @@
     const inclTimestamps = document.getElementById('opt-timestamps').checked;
     const autoCaptions   = document.getElementById('opt-auto').checked;
     document.getElementById('converting-subtitle').textContent =
-      `Fetching ${outputFormat.toUpperCase()} · ${language}${translateTo ? ' → ' + translateTo : ''}`;
+      ({{ Illuminate\Support\Js::from(__('Fetching :value0 · :value1:value2')) }}).replaceAll(/:value0(?!\d)/g, () => String(outputFormat.toUpperCase())).replaceAll(/:value1(?!\d)/g, () => String(language)).replaceAll(/:value2(?!\d)/g, () => String(translateTo ? ' → ' + translateTo : ''));
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 400, 'Validating & extracting video ID…');
+    animateProgress(0, 20, 400, {{ Illuminate\Support\Js::from(__('Validating & extracting video ID…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(20, 55, 1000, 'Fetching transcript via API…');
+      animateProgress(20, 55, 1000, {{ Illuminate\Support\Js::from(__('Fetching transcript via API…')) }});
     }, 500);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(55, 78, 700, 'Processing language & format…');
+      animateProgress(55, 78, 700, {{ Illuminate\Support\Js::from(__('Processing language & format…')) }});
     }, 1600);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 500, 'Building output…');
+      animateProgress(78, 92, 500, {{ Illuminate\Support\Js::from(__('Building output…')) }});
     }, 2400);
     const whisperTimer = setTimeout(() => {
       document.getElementById('whisper-notice').classList.remove('hidden');
-      document.getElementById('fetching-title').textContent = 'Running Whisper AI…';
+      document.getElementById('fetching-title').textContent = {{ Illuminate\Support\Js::from(__('Running Whisper AI…')) }};
     }, 8000);
     const payload = {
       url,
@@ -868,19 +855,19 @@
       }
       const data = await res.json();
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       showResult(data, outputFormat, url);
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); clearTimeout(whisperTimer);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
   }
   function showResult(data, format, url) {
-    document.getElementById('video-title').textContent = data.title || 'Untitled Video';
+    document.getElementById('video-title').textContent = data.title || {{ Illuminate\Support\Js::from(__('Untitled Video')) }};
     document.getElementById('video-link').href = data.url || url;
     const chips = document.getElementById('video-meta-chips');
     chips.innerHTML = '';
@@ -908,16 +895,16 @@
     ].filter(Boolean).forEach(([icon, label]) => {
       const chip = document.createElement('span');
       chip.className = 'meta-chip';
-      chip.innerHTML = `<span>${icon}</span><span>${label}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span>:value0</span><span>:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(icon)).replaceAll(/:value1(?!\d)/g, () => String(label));
       chips.appendChild(chip);
     });
-    const formatLabels = { text: 'Plain text', srt: 'SRT subtitles', vtt: 'WebVTT subtitles', json: 'JSON segments' };
+    const formatLabels = { text: {{ Illuminate\Support\Js::from(__('Plain text')) }}, srt: 'SRT subtitles', vtt: 'WebVTT subtitles', json: 'JSON segments' };
     const extMap       = { text: 'txt', srt: 'srt', vtt: 'vtt', json: 'json' };
     document.getElementById('result-format-label').textContent = formatLabels[format] || format;
     document.getElementById('result-stats').textContent =
-      data.char_count ? `${Number(data.char_count).toLocaleString()} chars` : '';
+      data.char_count ? ({{ Illuminate\Support\Js::from(__(':value0 chars')) }}).replaceAll(/:value0(?!\d)/g, () => String(Number(data.char_count).toLocaleString())) : '';
     const ext = extMap[format] || 'txt';
-    document.getElementById('download-ext-label').textContent = `.${ext}`;
+    document.getElementById('download-ext-label').textContent = ({{ Illuminate\Support\Js::from(__('.:value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(ext));
     lastFilename = `${(data.video_id || 'transcript').replace(/[^a-z0-9]/gi, '_').toLowerCase()}_transcript.${ext}`;
     const content = format === 'json'
       ? JSON.stringify(data.transcript ?? data, null, 2)
@@ -933,7 +920,7 @@
       pill.style.cssText = isWhisper
         ? 'background: oklch(60% 0.22 295 / 8%); border: 1px solid oklch(60% 0.22 295 / 25%); color: oklch(55% 0.22 295)'
         : 'background: oklch(67% 0.18 162 / 8%); border: 1px solid oklch(67% 0.18 162 / 25%); color: oklch(50% 0.18 162)';
-      pill.innerHTML = `${isWhisper ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-microphone">
+      pill.innerHTML = ({{ Illuminate\Support\Js::from(__(':value0 :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(isWhisper ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-microphone">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" />
   <path d="M5 10a7 7 0 0 0 14 0" />
@@ -942,7 +929,7 @@
 </svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-bolt">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
-</svg>`} ${data.method}`;
+</svg>`)).replaceAll(/:value1(?!\d)/g, () => String(data.method));
       badge.appendChild(pill);
     }
   }
@@ -950,8 +937,8 @@
     try {
       await navigator.clipboard.writeText(lastTranscript);
       const label = document.getElementById('copy-label');
-      label.textContent = 'Copied!';
-      setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+      label.textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+      setTimeout(() => { label.textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
     } catch(_) {}
   });
   document.getElementById('btn-download-txt').addEventListener('click', () => {
@@ -985,7 +972,7 @@
       document.getElementById('state-' + s).classList.toggle('hidden', s !== state);
     });
     document.getElementById('whisper-notice').classList.add('hidden');
-    document.getElementById('fetching-title').textContent = 'Fetching Transcript…';
+    document.getElementById('fetching-title').textContent = {{ Illuminate\Support\Js::from(__('Fetching Transcript…')) }};
   }
   function updateStepIndicator(active) {
     [1, 2, 3].forEach(n => {
@@ -1030,7 +1017,7 @@
     urlInput.value     = '';
     lastTranscript     = '';
     lastFilename       = 'transcript.txt';
-    document.getElementById('url-status').innerHTML = '<span class="text-fn-text3">Supports youtube.com, youtu.be, Shorts, and embed URLs</span>';
+    document.getElementById('url-status').innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">Supports youtube.com, youtu.be, Shorts, and embed URLs</span>')) }};
     document.getElementById('opt-language').value   = 'en';
     document.getElementById('opt-translate').value  = '';
     document.getElementById('opt-timestamps').checked = false;
@@ -1044,7 +1031,7 @@
     hideError();
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

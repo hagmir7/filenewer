@@ -1,5 +1,6 @@
 @php
 $baseUrl = rtrim(config('app.url'), '/');
+$language = config('app.supported_locales.'.app()->getLocale(), config('app.supported_locales.en'));
 
 // Canonical: fixed host from APP_URL, no query string, no trailing slash (except "/")
 $path = request()->getPathInfo();
@@ -7,7 +8,7 @@ $path = $path === '/' ? '/' : rtrim($path, '/');
 $canonical = $canonicalUrl ?? ($baseUrl . $path);
 
 // Title: make sure the brand always appears
-$pageTitle = $title ?? 'Filenewer – Online File Tools & Converters';
+$pageTitle = __(Str::squish($title ?? 'Filenewer – Online File Tools & Converters'));
 if (! Str::contains(Str::lower($pageTitle), 'filenewer')) {
 $pageTitle .= ' | Filenewer';
 }
@@ -15,7 +16,7 @@ $pageTitle .= ' | Filenewer';
 $rawDescription = $description ?? 'Filenewer is your all-in-one platform for online file tools: convert, generate,
 compress, and process business documents fast and securely. No install needed.';
 // Strip tags, collapse newlines/spaces, cut at a word boundary
-$pageDescription = Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($rawDescription))), 160, '…', preserveWords:
+$pageDescription = Str::limit(__(Str::squish(strip_tags($rawDescription))), 160, '…', preserveWords:
 true);
 
 // Per-page overrides (pass via @extends('layouts.app', [...]) or from the controller)
@@ -55,7 +56,7 @@ $homeSchema = [
 'name' => 'Filenewer',
 'alternateName' => ['Filenewer.com'],
 'description' => $pageDescription,
-'inLanguage' => 'en',
+'inLanguage' => $language['language'],
 'publisher' => ['@id' => $baseUrl . '/#organization'],
 ],
 $organization,
@@ -64,7 +65,7 @@ $organization,
 }
 @endphp
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth">
+<html lang="{{ $language['language'] }}" dir="{{ $language['direction'] }}" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8" />
@@ -78,7 +79,7 @@ $organization,
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ $canonical }}" />
     <meta property="og:site_name" content="Filenewer" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="{{ $language['regional'] }}" />
     <meta property="og:image" content="{{ $ogImage }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $pageTitle }}" />

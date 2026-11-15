@@ -3,14 +3,14 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
         <div class="text-center mb-7 sm:mb-10 lg:mb-16">
             <p class="text-fn-blue-l text-xs sm:text-sm font-semibold uppercase tracking-widest mb-2 sm:mb-3">
-                Popular Tools
+                {{ __('Popular Tools') }}
             </p>
             <h2 id="tools-heading"
                 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight mb-3 sm:mb-4">
-                Start with the tools used most
+                {{ __('Start with the tools used most') }}
             </h2>
             <p class="text-fn-text2 text-sm sm:text-base lg:text-lg max-w-lg mx-auto leading-relaxed">
-                From PDF conversion to invoice generation — free online file tools our users reach for every day.
+                {{ __('From PDF conversion to invoice generation — free online file tools our users reach for every day.') }}
             </p>
         </div>
 
@@ -29,19 +29,18 @@
                         </svg>
                     </div>
                     <h3 class="min-w-0 font-semibold text-sm leading-snug">
-                        PDF to Word Converter
+                        {{ __('PDF to Word Converter') }}
                     </h3>
                 </div>
 
                 <p class="flex-1 text-fn-text3 text-xs sm:text-sm leading-relaxed">
-                    Convert any PDF into a fully editable Word document. Preserves layout, fonts, and tables with
-                    industry-leading accuracy.
+                    {{ __('Convert any PDF into a fully editable Word document. Preserves layout, fonts, and tables with industry-leading accuracy.') }}
                 </p>
 
                 <a href="/tools/pdf-to-word"
                     class="group inline-flex items-center self-start gap-1.5 mt-4 py-1.5 text-xs sm:text-sm font-semibold text-fn-blue-l rounded focus-visible:outline-2 focus-visible:outline-fn-blue focus-visible:outline-offset-4">
-                    Use Tool
-                    <span class="sr-only">— PDF to Word Converter</span>
+                    {{ __('Use Tool') }}
+                    <span class="sr-only">{{ __('— PDF to Word Converter') }}</span>
                     <svg class="w-3 h-3 shrink-0 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
@@ -64,19 +63,18 @@
                         </svg>
                     </div>
                     <h3 class="min-w-0 font-semibold text-sm leading-snug">
-                        CSV to SQL Converter
+                        {{ __('CSV to SQL Converter') }}
                     </h3>
                 </div>
 
                 <p class="flex-1 text-fn-text3 text-xs sm:text-sm leading-relaxed">
-                    Upload any CSV and get clean, ready-to-run SQL INSERT statements. A must-have free tool for
-                    developers and data analysts.
+                    {{ __('Upload any CSV and get clean, ready-to-run SQL INSERT statements. A must-have free tool for developers and data analysts.') }}
                 </p>
 
                 <a href="/tools/csv-to-sql"
                     class="group inline-flex items-center self-start gap-1.5 mt-4 py-1.5 text-xs sm:text-sm font-semibold text-fn-blue-l rounded focus-visible:outline-2 focus-visible:outline-fn-blue focus-visible:outline-offset-4">
-                    Use Tool
-                    <span class="sr-only">— CSV to SQL Converter</span>
+                    {{ __('Use Tool') }}
+                    <span class="sr-only">{{ __('— CSV to SQL Converter') }}</span>
                     <svg class="w-3 h-3 shrink-0 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
@@ -100,19 +98,18 @@
                         </svg>
                     </div>
                     <h3 class="min-w-0 font-semibold text-sm leading-snug">
-                        Invoice PDF Generator
+                        {{ __('Invoice PDF Generator') }}
                     </h3>
                 </div>
 
                 <p class="flex-1 text-fn-text3 text-xs sm:text-sm leading-relaxed">
-                    Create professional branded invoices in seconds. Download as PDF and send immediately — no account
-                    needed.
+                    {{ __('Create professional branded invoices in seconds. Download as PDF and send immediately — no account needed.') }}
                 </p>
 
                 <a href="/tools/invoice-generator"
                     class="group inline-flex items-center self-start gap-1.5 mt-4 py-1.5 text-xs sm:text-sm font-semibold text-fn-blue-l rounded focus-visible:outline-2 focus-visible:outline-fn-blue focus-visible:outline-offset-4">
-                    Use Tool
-                    <span class="sr-only">— Invoice PDF Generator</span>
+                    {{ __('Use Tool') }}
+                    <span class="sr-only">{{ __('— Invoice PDF Generator') }}</span>
                     <svg class="w-3 h-3 shrink-0 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
@@ -136,19 +133,18 @@
                         </svg>
                     </div>
                     <h3 class="min-w-0 font-semibold text-sm leading-snug">
-                        Image Compressor
+                        {{ __('Image Compressor') }}
                     </h3>
                 </div>
 
                 <p class="flex-1 text-fn-text3 text-xs sm:text-sm leading-relaxed">
-                    Reduce image file size by up to 90% without visible quality loss. Supports JPG, PNG, and WebP for
-                    web performance and bulk processing.
+                    {{ __('Reduce image file size by up to 90% without visible quality loss. Supports JPG, PNG, and WebP for web performance and bulk processing.') }}
                 </p>
 
                 <a href="/tools/compress-image"
                     class="group inline-flex items-center self-start gap-1.5 mt-4 py-1.5 text-xs sm:text-sm font-semibold text-fn-blue-l rounded focus-visible:outline-2 focus-visible:outline-fn-blue focus-visible:outline-offset-4">
-                    Use Tool
-                    <span class="sr-only">— Image Compressor</span>
+                    {{ __('Use Tool') }}
+                    <span class="sr-only">{{ __('— Image Compressor') }}</span>
                     <svg class="w-3 h-3 shrink-0 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
@@ -161,7 +157,7 @@
         <div class="text-center mt-6 sm:mt-10">
             <a href="/tools"
                 class="inline-flex items-center justify-center gap-2 px-4 sm:px-7 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg sm:rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] focus-visible:outline-2 focus-visible:outline-fn-blue focus-visible:outline-offset-4 transition-all">
-                View All Tools
+                {{ __('View All Tools') }}
                 <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7" />

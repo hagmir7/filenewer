@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -46,8 +46,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports digital and scanned PDFs · or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports digital and scanned PDFs · or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -56,9 +56,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -95,27 +95,27 @@
                         {{-- DPI --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                DPI — <span id="dpi-val" class="text-fn-blue-l">300</span>
-                                <span class="font-normal text-fn-text3 ml-1" id="dpi-hint">(Recommended)</span>
+                                {{ __('DPI —') }} <span id="dpi-val" class="text-fn-blue-l">300</span>
+                                <span class="font-normal text-fn-text3 ml-1" id="dpi-hint">{{ __('(Recommended)') }}</span>
                             </label>
                             <input type="range" id="opt-dpi" min="72" max="600" value="300" step="1"
                                 class="w-full accent-fn-blue cursor-pointer" />
                             <div class="flex justify-between text-fn-text3 text-sm mt-1">
-                                <span>72 Fast</span><span>300</span><span>600 Best</span>
+                                <span>{{ __('72 Fast') }}</span><span>300</span><span>{{ __('600 Best') }}</span>
                             </div>
                         </div>
                         {{-- Pages --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                Pages <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                {{ __('Pages') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                             </label>
-                            <input type="text" id="opt-pages" placeholder="e.g. 1,2,3 or blank for all"
+                            <input type="text" id="opt-pages" placeholder="{{ __('e.g. 1,2,3 or blank for all') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-fn-text3 text-sm mt-1.5">Leave blank to extract all pages</p>
+                            <p class="text-fn-text3 text-sm mt-1.5">{{ __('Leave blank to extract all pages') }}</p>
                         </div>
                         {{-- Output --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Output</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output') }}</label>
                             <div class="flex flex-col gap-2">
                                 @php $ocrOutputs = [['json','Preview text inline'],['file','Download .txt file']];
                                 @endphp
@@ -123,7 +123,7 @@
                                 <label class="flex items-center gap-2 cursor-pointer">
                                     <input type="radio" name="ocr-output" value="{{ $oval }}" {{ $oval==='json'
                                         ? 'checked' : '' }} class="accent-fn-blue" />
-                                    <span class="text-sm text-fn-text2 font-semibold">{{ $olabel }}</span>
+                                    <span class="text-sm text-fn-text2 font-semibold">{{ __(Str::squish((string) $olabel)) }}</span>
                                 </label>
                                 @endforeach
                             </div>
@@ -139,7 +139,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Extract button --}}
                     <button id="extract-btn" type="button" disabled
@@ -152,7 +152,7 @@
                             <line x1="16" y1="17" x2="8" y2="17" />
                             <polyline points="10 9 9 9 8 9" />
                         </svg>
-                        Extract Text
+                        {{ __('Extract Text') }}
                     </button>
                 </div>{{-- /state-upload --}}
                 {{-- ── STATE: Extracting ── --}}
@@ -189,15 +189,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Extracting text…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Processing each page — scanned pages may take a moment</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Extracting text…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Processing each page — scanned pages may take a moment') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -222,7 +222,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -242,7 +242,7 @@
                         @foreach($ocrStatChips as [$sid,$slabel])
                         <div
                             class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface2 border border-fn-text/8 rounded-lg">
-                            <span class="text-sm text-fn-text3">{{ $slabel }}:</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($slabel)) }}:</span>
                             <span class="text-sm font-bold text-fn-text2" id="{{ $sid }}">—</span>
                         </div>
                         @endforeach
@@ -261,7 +261,7 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                     </svg>
-                                    <span id="copy-label">Copy</span>
+                                    <span id="copy-label">{{ __('Copy') }}</span>
                                 </button>
                                 <a id="btn-download-txt" href="#" download="extracted.txt"
                                     class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg transition-all hover:bg-fn-green/20">
@@ -271,7 +271,7 @@
                                         <polyline points="7 10 12 15 17 10" />
                                         <line x1="12" y1="15" x2="12" y2="3" />
                                     </svg>
-                                    Download .txt
+                                    {{ __('Download .txt') }}
                                 </a>
                             </div>
                         </div>
@@ -285,7 +285,7 @@
                                 <line x1="12" y1="8" x2="12" y2="12" />
                                 <line x1="12" y1="16" x2="12.01" y2="16" />
                             </svg>
-                            No text detected on this page — it may be blank or contain only images.
+                            {{ __('No text detected on this page — it may be blank or contain only images.') }}
                         </div>
                     </div>
                     {{-- Actions --}}
@@ -297,11 +297,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Extract another PDF
+                            {{ __('Extract another PDF') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-5 text-fn-text3 text-sm flex items-center gap-1.5">
@@ -309,7 +309,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>{{-- /state-result --}}
                 {{-- Download-only result (output=file) --}}
@@ -324,8 +324,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Text Extracted!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="dl-subtitle">Your text file is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Text Extracted!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8" id="dl-subtitle">{{ __('Your text file is ready.') }}</p>
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -342,7 +342,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">extracted.txt</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Text File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Text File') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -355,7 +355,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download .txt File
+                        {{ __('Download .txt File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -365,11 +365,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Extract another
+                            {{ __('Extract another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -377,7 +377,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -387,7 +387,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $ocrFaqs = [
@@ -413,7 +413,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -421,7 +421,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -617,7 +617,7 @@
         const v = +e.target.value;
         document.getElementById('dpi-val').textContent  = v;
         const hint = dpiHints.find(([lo,hi]) => v >= lo && v <= hi);
-        document.getElementById('dpi-hint').textContent = hint ? `(${hint[2]})` : '';
+        document.getElementById('dpi-hint').textContent = hint ? ({{ Illuminate\Support\Js::from(__('(:value0)')) }}).replaceAll(/:value0(?!\d)/g, () => String(hint[2])) : '';
       });
       // ── Drop zone ──
       const dropZone   = document.getElementById('drop-zone');
@@ -644,13 +644,13 @@
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-          showError('Please select a valid PDF file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
           return;
         }
-        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 200MB free limit.'); return; }
+        if (file.size > 50 * 1024 * 1024) { showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }}); return; }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
         filePreview.classList.remove('hidden');
         filePreview.classList.add('flex');
         dropZone.classList.add('has-file');
@@ -672,18 +672,18 @@
         fd.append('dpi',    dpi);
         if (pages) fd.append('pages', pages);
         setProcessStep('proc-1','active');
-        animateProgress(0, 20, 700, 'Uploading & reading PDF…');
+        animateProgress(0, 20, 700, {{ Illuminate\Support\Js::from(__('Uploading & reading PDF…')) }});
         const t2 = setTimeout(() => {
           setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-          animateProgress(20, 50, 1000, 'Detecting text vs scanned pages…');
+          animateProgress(20, 50, 1000, {{ Illuminate\Support\Js::from(__('Detecting text vs scanned pages…')) }});
         }, 800);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-          animateProgress(50, 78, 1200, 'Extracting & preprocessing text…');
+          animateProgress(50, 78, 1200, {{ Illuminate\Support\Js::from(__('Extracting & preprocessing text…')) }});
         }, 1900);
         const t4 = setTimeout(() => {
           setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
-          animateProgress(78, 90, 700, 'Assembling full text output…');
+          animateProgress(78, 90, 700, {{ Illuminate\Support\Js::from(__('Assembling full text output…')) }});
         }, 3300);
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/ocr-pdf', {
@@ -693,10 +693,10 @@
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!res.ok) {
             const d = await res.json().catch(() => ({}));
-            throw new Error(d.error || 'OCR failed. Please try again.');
+            throw new Error(d.error || {{ Illuminate\Support\Js::from(__('OCR failed. Please try again.')) }});
           }
           setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           if (outputMode === 'file') {
             // Binary .txt download
             const blob     = await res.blob();
@@ -706,9 +706,9 @@
             document.getElementById('download-link').href     = blobUrl;
             document.getElementById('download-link').download = fileName;
             document.getElementById('output-name').textContent = fileName;
-            document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Text File';
+            document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · Text File')) }};
             document.getElementById('dl-subtitle').textContent =
-              `Text extracted from ${selectedFile.name}`;
+              ({{ Illuminate\Support\Js::from(__('Text extracted from :value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(selectedFile.name));
             setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
           } else {
             // JSON response — show inline preview
@@ -718,14 +718,14 @@
             document.getElementById('stat-pages').textContent = data.total_pages ?? ocrPages.length;
             document.getElementById('stat-words').textContent = (data.word_count ?? 0).toLocaleString();
             document.getElementById('stat-chars').textContent = (data.char_count ?? 0).toLocaleString();
-            document.getElementById('stat-dpi').textContent   = (data.dpi ?? dpi) + ' DPI';
+            document.getElementById('stat-dpi').textContent   = (data.dpi ?? dpi) + {{ Illuminate\Support\Js::from(__(' DPI')) }};
             // Method badges
             const hasDigital = ocrPages.some(p => p.method === 'digital');
             const hasImage   = ocrPages.some(p => p.method === 'image');
             const badgesEl   = document.getElementById('method-badges');
             badgesEl.innerHTML = '';
-            if (hasDigital) badgesEl.innerHTML += `<span class="method-badge digital"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Digital</span>`;
-            if (hasImage)   badgesEl.innerHTML += `<span class="method-badge image"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg> Image OCR</span>`;
+            if (hasDigital) badgesEl.innerHTML += ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="method-badge digital"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg> Digital</span>')) }});
+            if (hasImage)   badgesEl.innerHTML += ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="method-badge image"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg> Image OCR</span>')) }});
             // Build page tabs
             const tabsEl = document.getElementById('page-tabs');
             tabsEl.innerHTML = '';
@@ -733,15 +733,15 @@
             const allTab = document.createElement('button');
             allTab.type = 'button';
             allTab.className = 'page-tab active';
-            allTab.textContent = 'All pages';
+            allTab.textContent = {{ Illuminate\Support\Js::from(__('All pages')) }};
             allTab.addEventListener('click', () => showPageText(-1, data.full_text, allTab));
             tabsEl.appendChild(allTab);
             ocrPages.forEach((page, idx) => {
               const tab = document.createElement('button');
               tab.type = 'button';
               tab.className = 'page-tab';
-              tab.textContent = `P${page.page}`;
-              tab.title = `Page ${page.page} · ${page.word_count ?? 0} words · ${page.method}`;
+              tab.textContent = ({{ Illuminate\Support\Js::from(__('P:value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(page.page));
+              tab.title = ({{ Illuminate\Support\Js::from(__('Page :value0 · :value1 words · :value2')) }}).replaceAll(/:value0(?!\d)/g, () => String(page.page)).replaceAll(/:value1(?!\d)/g, () => String(page.word_count ?? 0)).replaceAll(/:value2(?!\d)/g, () => String(page.method));
               tab.addEventListener('click', () => showPageText(idx, page.text, tab));
               tabsEl.appendChild(tab);
             });
@@ -762,7 +762,7 @@
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           showState('upload');
           updateStepIndicator(1);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
         }
       }
       function showPageText(idx, text, clickedTab) {
@@ -783,8 +783,8 @@
         try {
           await navigator.clipboard.writeText(document.getElementById('ocr-output').value);
           const label = document.getElementById('copy-label');
-          label.textContent = 'Copied!';
-          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+          label.textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+          setTimeout(() => { label.textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
         } catch(_) {}
       });
       // ── Helpers ──
@@ -856,7 +856,7 @@
         document.getElementById('extract-btn').disabled = true;
         document.getElementById('opt-dpi').value   = '300';
         document.getElementById('dpi-val').textContent = '300';
-        document.getElementById('dpi-hint').textContent = '(Recommended)';
+        document.getElementById('dpi-hint').textContent = {{ Illuminate\Support\Js::from(__('(Recommended)')) }};
         document.getElementById('opt-pages').value = '';
         document.querySelector('input[name="ocr-output"][value="json"]').checked = true;
         document.getElementById('ocr-output').value = '';
@@ -866,7 +866,7 @@
         hideError();
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
       // ── FAQ ──

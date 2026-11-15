@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -37,7 +37,7 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload CSV
+                            {{ __('Upload CSV') }}
                         </button>
                         <button type="button" id="tab-text"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -47,7 +47,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste CSV
+                            {{ __('Paste CSV') }}
                         </button>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
@@ -72,8 +72,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your CSV file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -82,9 +82,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose CSV File
+                                {{ __('Choose CSV File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free · supports .csv and .tsv</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free · supports .csv and .tsv') }}</p>
                             <input type="file" id="file-input"
                                 accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -112,7 +112,7 @@
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
-                            <button type="button" id="remove-file" aria-label="Remove CSV file"
+                            <button type="button" id="remove-file" aria-label="{{ __('Remove CSV file') }}"
                                 class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all shrink-0">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -126,7 +126,10 @@
                     <div id="panel-text" class="hidden">
                         <div class="relative">
                             <textarea id="csv-textarea" rows="10" spellcheck="false"
-                                placeholder='Paste your CSV content here, e.g.&#10;username,identifier,department,location&#10;booker12,9012,Sales,Manchester&#10;grey07,2070,Depot,London'
+                                placeholder="{{ __('Paste your CSV content here, e.g.
+username,identifier,department,location
+booker12,9012,Sales,Manchester
+grey07,2070,Depot,London') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
                             <div class="csv-text-actions absolute top-3 right-3 flex gap-2">
                                 <button type="button" id="btn-paste"
@@ -137,7 +140,7 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
                                     class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
@@ -146,7 +149,7 @@
                                         <polyline points="3 6 5 6 21 6" />
                                         <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
                                     </svg>
-                                    Clear
+                                    {{ __('Clear') }}
                                 </button>
                             </div>
                         </div>
@@ -154,16 +157,16 @@
                     {{-- Separator selector --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex flex-wrap items-center gap-3">
-                            <span class="text-sm font-semibold text-fn-text2 shrink-0">Separator</span>
+                            <span class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('Separator') }}</span>
                             <div class="viewer-button-group flex flex-wrap gap-1">
                                 @foreach([['auto','Auto-detect',''],[',','Comma',','],[';','Semicolon',';'],['\t','Tab','tab'],['|','Pipe','|']]
                                 as [$sval, $slabel, $sdisp])
                                 <button type="button"
                                     class="sep-btn {{ $sval === 'auto' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
-                                    data-sep="{{ $sval }}">{{ $slabel }}</button>
+                                    data-sep="{{ $sval }}">{{ __(Str::squish($slabel)) }}</button>
                                 @endforeach
                             </div>
-                            <span class="ml-auto text-xs text-fn-text3">Leave on Auto for most files</span>
+                            <span class="ml-auto text-xs text-fn-text3">{{ __('Leave on Auto for most files') }}</span>
                         </div>
                     </div>
                     {{-- Error banner --}}
@@ -176,7 +179,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -186,7 +189,7 @@
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                             <circle cx="12" cy="12" r="3" />
                         </svg>
-                        View CSV Data
+                        {{ __('View CSV Data') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -227,15 +230,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Loading CSV data…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Parsing rows and detecting column types</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Loading CSV data…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Parsing rows and detecting column types') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -259,7 +262,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -277,7 +280,7 @@
                         ] as [$sid, $slabel])
                         <div
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface2 border border-fn-text/8 rounded-lg">
-                            <span class="text-xs text-fn-text3">{{ $slabel }}</span>
+                            <span class="text-xs text-fn-text3">{{ __(Str::squish($slabel)) }}</span>
                             <span class="text-sm font-bold text-fn-text" id="{{ $sid }}">—</span>
                         </div>
                         @endforeach
@@ -288,7 +291,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            New CSV
+                            {{ __('New CSV') }}
                         </button>
                     </div>
                     {{-- Filter & sort bar --}}
@@ -296,14 +299,14 @@
                         <div class="viewer-filters flex flex-wrap items-end gap-3">
                             {{-- Filter --}}
                             <div class="flex-1 min-w-[180px]">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Filter column</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1">{{ __('Filter column') }}</label>
                                 <select id="opt-filter-col"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 cursor-pointer">
-                                    <option value="">— All columns —</option>
+                                    <option value="">{{ __('— All columns —') }}</option>
                                 </select>
                             </div>
                             <div class="min-w-[130px]">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Operator</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1">{{ __('Operator') }}</label>
                                 <select id="opt-filter-op"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 cursor-pointer">
                                     @foreach([
@@ -311,64 +314,63 @@
                                     ['equals', 'Equals'],
                                     ['starts_with', 'Starts with'],
                                     ['ends_with', 'Ends with'],
-                                    ['greater_than', '> Greater than'],
-                                    ['less_than', '< Less than'], ['not_empty', 'Not empty' ], ['is_empty', 'Is empty'
-                                        ], ] as [$opv, $opl]) <option value="{{ $opv }}">{{ $opl }}</option>
+                                    ['greater_than', '> Greater than'], ['less_than', '< Less than'], ['not_empty', 'Not empty' ], ['is_empty', 'Is empty'
+                                        ], ] as [$opv, $opl]) <option value="{{ $opv }}">{{ __(Str::squish((string) $opl)) }}</option>
                                         @endforeach
                                 </select>
                             </div>
                             <div class="flex-1 min-w-[180px]">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Value</label>
-                                <input type="text" id="opt-filter-val" placeholder="Search value…"
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1">{{ __('Value') }}</label>
+                                <input type="text" id="opt-filter-val" placeholder="{{ __('Search value…') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
                             {{-- Sort --}}
                             <div class="min-w-[150px]">
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Sort by</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1">{{ __('Sort by') }}</label>
                                 <select id="opt-sort-col"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 cursor-pointer">
-                                    <option value="">— None —</option>
+                                    <option value="">{{ __('— None —') }}</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1">Order</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1">{{ __('Order') }}</label>
                                 <div class="viewer-button-group flex flex-wrap gap-1">
                                     <button type="button"
                                         class="order-btn active px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all"
-                                        data-order="asc">↑ Asc</button>
+                                        data-order="asc">{{ __('↑ Asc') }}</button>
                                     <button type="button"
                                         class="order-btn px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all"
-                                        data-order="desc">↓ Desc</button>
+                                        data-order="desc">{{ __('↓ Desc') }}</button>
                                 </div>
                             </div>
                             {{-- Apply --}}
                             <div class="flex gap-2 ml-auto">
                                 <button type="button" id="btn-reset-filter"
-                                    class="px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Reset</button>
+                                    class="px-3 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Reset') }}</button>
                                 <button type="button" id="btn-apply"
                                     class="flex items-center gap-1.5 px-4 py-1.5 bg-fn-blue text-white text-xs font-bold rounded-lg hover:bg-fn-blue-l transition-all">
                                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
-                                    Apply
+                                    {{ __('Apply') }}
                                 </button>
                             </div>
                         </div>
                         {{-- Column visibility --}}
                         <div class="mt-3 pt-3 border-t border-fn-text/8 flex items-center gap-2 flex-wrap">
-                            <span class="text-xs font-semibold text-fn-text2 shrink-0">Columns:</span>
+                            <span class="text-xs font-semibold text-fn-text2 shrink-0">{{ __('Columns:') }}</span>
                             <div id="column-chips" class="flex flex-wrap gap-1 flex-1"></div>
                             <div class="viewer-button-group flex flex-wrap gap-1">
                                 <button type="button" id="btn-show-all-cols"
-                                    class="text-xs text-fn-blue-l hover:underline font-semibold">Show all</button>
+                                    class="text-xs text-fn-blue-l hover:underline font-semibold">{{ __('Show all') }}</button>
                             </div>
                         </div>
                     </div>
                     {{-- Data table --}}
                     <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-[500px]"
                         id="table-wrap" tabindex="0" role="region"
-                        aria-label="CSV data table; scroll horizontally to view more columns">
+                        aria-label="{{ __('CSV data table; scroll horizontally to view more columns') }}">
                         <table id="data-table" class="w-full text-xs"></table>
                     </div>
                     {{-- Loading overlay --}}
@@ -378,38 +380,38 @@
                             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60"
                                 stroke-dashoffset="20" stroke-linecap="round" />
                         </svg>
-                        Updating…
+                        {{ __('Updating…') }}
                     </div>
                     {{-- Pagination + page size --}}
                     <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs text-fn-text3">Rows per page</span>
+                            <span class="text-xs text-fn-text3">{{ __('Rows per page') }}</span>
                             <select id="opt-page-size"
                                 class="bg-fn-surface2 border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1 font-sans focus:outline-none cursor-pointer">
                                 @foreach([25, 50, 100, 250, 500] as $ps)
-                                <option value="{{ $ps }}" {{ $ps===100 ? 'selected' : '' }}>{{ $ps }}</option>
+                                <option value="{{ $ps }}" {{ $ps===100 ? 'selected' : '' }}>{{ __(Str::squish((string) $ps)) }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="flex items-center gap-1" id="pagination-controls">
-                            <button type="button" id="btn-first" aria-label="First page" class="page-btn"><svg
+                            <button type="button" id="btn-first" aria-label="{{ __('First page') }}" class="page-btn"><svg
                                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="11 17 6 12 11 7" />
                                     <polyline points="18 17 13 12 18 7" />
                                 </svg></button>
-                            <button type="button" id="btn-prev" aria-label="Previous page" class="page-btn"><svg
+                            <button type="button" id="btn-prev" aria-label="{{ __('Previous page') }}" class="page-btn"><svg
                                     width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="15 18 9 12 15 6" />
                                 </svg></button>
                             <span class="px-3 text-xs font-mono text-fn-text2" id="page-indicator">1 / 1</span>
-                            <button type="button" id="btn-next" aria-label="Next page" class="page-btn"><svg width="11"
+                            <button type="button" id="btn-next" aria-label="{{ __('Next page') }}" class="page-btn"><svg width="11"
                                     height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6" />
                                 </svg></button>
-                            <button type="button" id="btn-last" aria-label="Last page" class="page-btn"><svg width="11"
+                            <button type="button" id="btn-last" aria-label="{{ __('Last page') }}" class="page-btn"><svg width="11"
                                     height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="13 17 18 12 13 7" />
@@ -426,7 +428,7 @@
                                 class="transition-transform">
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
-                            Column Statistics
+                            {{ __('Column Statistics') }}
                         </button>
                         <div id="col-stats-wrap" class="hidden mt-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-2"></div>
                     </div>
@@ -435,7 +437,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -445,7 +447,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What can I do with this tool?','View CSV data in a clean, paginated table — sort by any column, filter
@@ -464,7 +466,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -472,7 +474,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -989,16 +991,16 @@
     const name = file.name.toLowerCase();
     if (!name.endsWith('.csv') && !name.endsWith('.tsv') && !name.endsWith('.txt') &&
         !['text/csv', 'text/tab-separated-values', 'text/plain'].includes(file.type)) {
-      showError('Please select a valid CSV, TSV, or text file.');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid CSV, TSV, or text file.')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · CSV File')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -1039,18 +1041,18 @@
       scrollToCard();
       // Animate process steps
       setProcessStep('proc-1', 'active');
-      animateProgress(0, 25, 400, 'Reading CSV content…');
+      animateProgress(0, 25, 400, {{ Illuminate\Support\Js::from(__('Reading CSV content…')) }});
       window._ct2 = setTimeout(() => {
         setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-        animateProgress(25, 55, 500, 'Detecting separator & encoding…');
+        animateProgress(25, 55, 500, {{ Illuminate\Support\Js::from(__('Detecting separator & encoding…')) }});
       }, 500);
       window._ct3 = setTimeout(() => {
         setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-        animateProgress(55, 80, 500, 'Parsing rows & columns…');
+        animateProgress(55, 80, 500, {{ Illuminate\Support\Js::from(__('Parsing rows & columns…')) }});
       }, 1100);
       window._ct4 = setTimeout(() => {
         setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-        animateProgress(80, 92, 400, 'Analysing column stats…');
+        animateProgress(80, 92, 400, {{ Illuminate\Support\Js::from(__('Analysing column stats…')) }});
       }, 1700);
     } else {
       showTableLoading(true);
@@ -1137,7 +1139,7 @@
       renderViewer(data, firstLoad);
       if (firstLoad) {
         setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-        animateProgress(92, 100, 250, 'Done!');
+        animateProgress(92, 100, 250, {{ Illuminate\Support\Js::from(__('Done!')) }});
         setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
       } else {
         showTableLoading(false);
@@ -1146,7 +1148,7 @@
       console.error(err);
       if (firstLoad) {
         clearTimeout(window._ct2); clearTimeout(window._ct3); clearTimeout(window._ct4);
-        showError(err.message || 'Something went wrong. Please try again.');
+        showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
         showState('upload');
         updateStepIndicator(1);
       } else {
@@ -1166,13 +1168,13 @@
     document.getElementById('stat-filtered-rows').textContent = filtered.toLocaleString();
     document.getElementById('stat-columns').textContent       = (data.total_columns ?? columns.length);
     document.getElementById('stat-page-info').textContent     = (data.page ?? 1) + ' / ' + (data.total_pages ?? 1);
-    document.getElementById('stat-separator').textContent     = data.separator ?? 'auto';
+    document.getElementById('stat-separator').textContent     = data.separator ?? {{ Illuminate\Support\Js::from(__('auto')) }};
     // Filter / sort column options (only populate on first load)
     if (firstLoad) {
       const filterSel = document.getElementById('opt-filter-col');
       const sortSel   = document.getElementById('opt-sort-col');
-      filterSel.innerHTML = '<option value="">— All columns —</option>';
-      sortSel.innerHTML   = '<option value="">— None —</option>';
+      filterSel.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<option value="">— All columns —</option>')) }};
+      sortSel.innerHTML   = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<option value="">— None —</option>')) }};
       columns.forEach(col => {
         const o1 = document.createElement('option'); o1.value = col; o1.textContent = col; filterSel.appendChild(o1);
         const o2 = document.createElement('option'); o2.value = col; o2.textContent = col; sortSel.appendChild(o2);
@@ -1200,7 +1202,7 @@
     const rowHeader = document.createElement('th');
     rowHeader.style.width = '40px';
     rowHeader.style.cursor = 'default';
-    rowHeader.innerHTML = '<span style="color:var(--fn-text3)">#</span>';
+    rowHeader.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span style="color:var(--fn-text3)">#</span>')) }};
     trh.appendChild(rowHeader);
     columns.forEach(col => {
       const stat = colStats[col] ?? {};
@@ -1209,12 +1211,12 @@
       const arrow = isSorted ? (sort.order === 'asc' ? '↑' : '↓') : '';
       const th = document.createElement('th');
       th.dataset.col = col;
-      th.innerHTML = `
+      th.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <div class="th-inner">
           <span class="col-name"></span>
-          <span class="type-badge type-${type}">${type}</span>
-          ${arrow ? `<span class="sort-arrow">${arrow}</span>` : ''}
-        </div>`;
+          <span class="type-badge type-:value0">:value1</span>
+          :value2
+        </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(type)).replaceAll(/:value1(?!\d)/g, () => String(type)).replaceAll(/:value2(?!\d)/g, () => String(arrow ? `<span class="sort-arrow">${arrow}</span>` : ''));
       th.querySelector('.col-name').textContent = col;
       th.addEventListener('click', () => sortByColumn(col));
       trh.appendChild(th);
@@ -1231,7 +1233,7 @@
       td.style.textAlign = 'center';
       td.style.padding = '40px 20px';
       td.style.color = 'var(--fn-text3)';
-      td.innerHTML = '<div style="font-size:24px;margin-bottom:4px;opacity:.3;">∅</div>No rows match your filter';
+      td.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<div style="font-size:24px;margin-bottom:4px;opacity:.3;">∅</div>No rows match your filter')) }};
       tr.appendChild(td);
       tbody.appendChild(tr);
     } else {
@@ -1277,7 +1279,7 @@
     columns.forEach(col => {
       const chip = document.createElement('span');
       chip.className = 'col-chip' + (hiddenCols.has(col) ? ' hidden-col' : '');
-      chip.innerHTML = `<span></span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span></span>')) }});
       chip.querySelector('span').textContent = col;
       chip.addEventListener('click', () => {
         if (hiddenCols.has(col)) hiddenCols.delete(col);
@@ -1318,12 +1320,12 @@
           <div class="stat-label">Sum</div><div class="stat-val">${fmtNum(stat.sum)}</div>
         `;
       }
-      card.innerHTML = `
+      card.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <div class="stat-header">
-          <span class="type-badge type-${stat.type ?? 'text'}" style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;${isNumeric ? 'background:oklch(49% 0.24 264 / 15%);color:var(--fn-blue-l);' : 'background:oklch(var(--fn-text-l,80%) 0 0 / 10%);color:var(--fn-text3);'}">${stat.type ?? 'text'}</span>
+          <span class="type-badge type-:value0" style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;:value1">:value2</span>
           <span class="stat-name"></span>
         </div>
-        <div class="stat-grid">${rows}</div>`;
+        <div class="stat-grid">:value3</div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(stat.type ?? 'text')).replaceAll(/:value1(?!\d)/g, () => String(isNumeric ? 'background:oklch(49% 0.24 264 / 15%);color:var(--fn-blue-l);' : 'background:oklch(var(--fn-text-l,80%) 0 0 / 10%);color:var(--fn-text3);')).replaceAll(/:value2(?!\d)/g, () => String(stat.type ?? 'text')).replaceAll(/:value3(?!\d)/g, () => String(rows));
       card.querySelector('.stat-name').textContent = name;
       wrap.appendChild(card);
     });
@@ -1382,7 +1384,7 @@
   function showViewerError(msg) {
     // Lightweight inline error
     const table = document.getElementById('data-table');
-    table.innerHTML = `<tbody><tr><td colspan="99" style="padding:20px;color:var(--fn-red);text-align:center;">${msg}</td></tr></tbody>`;
+    table.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<tbody><tr><td colspan="99" style="padding:20px;color:var(--fn-red);text-align:center;">:value0</td></tr></tbody>')) }}).replaceAll(/:value0(?!\d)/g, () => String(msg));
   }
   // ── Helpers ──
   function scrollToCard() {
@@ -1457,7 +1459,7 @@
     switchTab('file');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

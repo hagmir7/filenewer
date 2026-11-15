@@ -7,56 +7,56 @@
 <!-- ══════════════════════ TOOL ══════════════════════ -->
 <section id="tool" class="py-8 sm:py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="tool-heading">
     <div class="max-w-7xl mx-auto px-3 sm:px-6">
-        <h2 id="tool-heading" class="sr-only">Invoice PDF Generator Tool</h2>
+        <h2 id="tool-heading" class="sr-only">{{ __('Invoice PDF Generator Tool') }}</h2>
         <div class="grid xl:grid-cols-[1fr_480px] gap-5 lg:gap-8 items-start">
             <!-- ── LEFT: Form ── -->
             <div class="flex flex-col gap-6">
                 <!-- ─ Header Row: Invoice Meta ─ -->
                 <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
-                    <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Invoice Details</h3>
+                    <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">{{ __('Invoice Details') }}</h3>
                     <div class="grid sm:grid-cols-3 gap-4">
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Invoice Number</label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Invoice Number') }}</label>
                             <input id="inv-number" type="text" value="INV-0001" class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Issue Date</label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Issue Date') }}</label>
                             <input id="inv-date" type="date" class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Due Date</label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Due Date') }}</label>
                             <input id="inv-due" type="date" class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Currency</label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Currency') }}</label>
                             <select id="inv-currency" class="fn-input cursor-pointer">
                                 <option value="USD">USD — US Dollar ($)</option>
-                                <option value="EUR">EUR — Euro (€)</option>
-                                <option value="GBP">GBP — British Pound (£)</option>
+                                <option value="EUR">{{ __('EUR — Euro (€)') }}</option>
+                                <option value="GBP">{{ __('GBP — British Pound (£)') }}</option>
                                 <option value="CAD">CAD — Canadian Dollar (CA$)</option>
                                 <option value="AUD">AUD — Australian Dollar (A$)</option>
-                                <option value="JPY">JPY — Japanese Yen (¥)</option>
-                                <option value="MAD">MAD — Moroccan Dirham (د.م.)</option>
-                                <option value="AED">AED — UAE Dirham (د.إ)</option>
+                                <option value="JPY">{{ __('JPY — Japanese Yen (¥)') }}</option>
+                                <option value="MAD">{{ __('MAD — Moroccan Dirham (د.م.)') }}</option>
+                                <option value="AED">{{ __('AED — UAE Dirham (د.إ)') }}</option>
                             </select>
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Accent Color</label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Accent Color') }}</label>
                             <div class="flex items-center gap-2">
                                 <input id="inv-color" type="color" value="#2563eb"
                                     class="w-9 h-9 rounded-lg border border-white/[0.07] bg-fn-surface cursor-pointer p-0.5" />
-                                <span id="inv-color-hex" class="text-fn-text3 text-sm font-mono">#2563eb</span>
+                                <span id="inv-color-hex" class="text-fn-text3 text-sm font-mono">{{ __('#2563eb') }}</span>
                             </div>
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Logo URL <span
-                                    class="text-fn-text3/50">(optional)</span></label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Logo URL') }} <span
+                                    class="text-fn-text3/50">{{ __('(optional)') }}</span></label>
                             <input id="inv-logo" type="url" placeholder="https://yoursite.com/logo.png"
                                 class="fn-input" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label class="text-fn-text3 text-sm font-medium">Or Upload Logo <span
-                                    class="text-fn-text3/50">(optional · stays on your device)</span></label>
+                            <label class="text-fn-text3 text-sm font-medium">{{ __('Or Upload Logo') }} <span
+                                    class="text-fn-text3/50">{{ __('(optional · stays on your device)') }}</span></label>
                             <input id="inv-logo-file" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"
                                 class="fn-input cursor-pointer" />
                         </div>
@@ -65,45 +65,44 @@
                 <!-- ─ From / To ─ -->
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
-                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">From (Your
-                            Business)</h3>
+                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">{{ __('From (Your Business)') }}</h3>
                         <div class="flex flex-col gap-3">
-                            <input id="from-name" type="text" placeholder="Business Name" class="fn-input" />
+                            <input id="from-name" type="text" placeholder="{{ __('Business Name') }}" class="fn-input" />
                             <input id="from-email" type="email" placeholder="email@company.com" class="fn-input" />
-                            <input id="from-address" type="text" placeholder="Street Address" class="fn-input" />
+                            <input id="from-address" type="text" placeholder="{{ __('Street Address') }}" class="fn-input" />
                             <div class="grid grid-cols-2 gap-3">
-                                <input id="from-city" type="text" placeholder="City" class="fn-input" />
-                                <input id="from-zip" type="text" placeholder="ZIP / Post" class="fn-input" />
+                                <input id="from-city" type="text" placeholder="{{ __('City') }}" class="fn-input" />
+                                <input id="from-zip" type="text" placeholder="{{ __('ZIP / Post') }}" class="fn-input" />
                             </div>
-                            <input id="from-country" type="text" placeholder="Country" class="fn-input" />
-                            <input id="from-tax-id" type="text" placeholder="Tax ID / VAT No." class="fn-input" />
+                            <input id="from-country" type="text" placeholder="{{ __('Country') }}" class="fn-input" />
+                            <input id="from-tax-id" type="text" placeholder="{{ __('Tax ID / VAT No.') }}" class="fn-input" />
                         </div>
                     </div>
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
-                        <h3 class="text-sm font-semibold text-fn-cyan uppercase tracking-widest mb-5">Bill To (Client)
+                        <h3 class="text-sm font-semibold text-fn-cyan uppercase tracking-widest mb-5">{{ __('Bill To (Client)') }}
                         </h3>
                         <div class="flex flex-col gap-3">
-                            <input id="to-name" type="text" placeholder="Client Name / Company" class="fn-input" />
+                            <input id="to-name" type="text" placeholder="{{ __('Client Name / Company') }}" class="fn-input" />
                             <input id="to-email" type="email" placeholder="client@email.com" class="fn-input" />
-                            <input id="to-address" type="text" placeholder="Street Address" class="fn-input" />
+                            <input id="to-address" type="text" placeholder="{{ __('Street Address') }}" class="fn-input" />
                             <div class="grid grid-cols-2 gap-3">
-                                <input id="to-city" type="text" placeholder="City" class="fn-input" />
-                                <input id="to-zip" type="text" placeholder="ZIP / Post" class="fn-input" />
+                                <input id="to-city" type="text" placeholder="{{ __('City') }}" class="fn-input" />
+                                <input id="to-zip" type="text" placeholder="{{ __('ZIP / Post') }}" class="fn-input" />
                             </div>
-                            <input id="to-country" type="text" placeholder="Country" class="fn-input" />
-                            <input id="to-tax-id" type="text" placeholder="Tax ID / VAT No." class="fn-input" />
+                            <input id="to-country" type="text" placeholder="{{ __('Country') }}" class="fn-input" />
+                            <input id="to-tax-id" type="text" placeholder="{{ __('Tax ID / VAT No.') }}" class="fn-input" />
                         </div>
                     </div>
                 </div>
                 <!-- ─ Line Items ─ -->
                 <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
-                    <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Line Items</h3>
+                    <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">{{ __('Line Items') }}</h3>
                     <!-- Table header -->
                     <div class="hidden md:grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 mb-2 px-1">
-                        <span class="text-fn-text3 text-sm font-medium">Description</span>
-                        <span class="text-fn-text3 text-sm font-medium text-center">Qty</span>
-                        <span class="text-fn-text3 text-sm font-medium text-right">Unit Price</span>
-                        <span class="text-fn-text3 text-sm font-medium text-right">Total</span>
+                        <span class="text-fn-text3 text-sm font-medium">{{ __('Description') }}</span>
+                        <span class="text-fn-text3 text-sm font-medium text-center">{{ __('Qty') }}</span>
+                        <span class="text-fn-text3 text-sm font-medium text-right">{{ __('Unit Price') }}</span>
+                        <span class="text-fn-text3 text-sm font-medium text-right">{{ __('Total') }}</span>
                         <span></span>
                     </div>
                     <div id="line-items" class="flex flex-col gap-2"></div>
@@ -114,50 +113,48 @@
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
-                        Add Line Item
+                        {{ __('Add Line Item') }}
                     </button>
                 </div>
                 <!-- ─ Totals & Settings ─ -->
                 <div class="grid sm:grid-cols-2 gap-6">
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
-                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Tax &amp;
-                            Discount</h3>
+                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">{{ __('Tax & Discount') }}</h3>
                         <div class="flex flex-col gap-3">
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-sm font-medium">Discount (%)</label>
+                                <label class="text-fn-text3 text-sm font-medium">{{ __('Discount (%)') }}</label>
                                 <input id="inv-discount" type="number" min="0" max="100" step="0.01" value="0"
                                     class="fn-input" />
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-sm font-medium">Tax / VAT (%)</label>
+                                <label class="text-fn-text3 text-sm font-medium">{{ __('Tax / VAT (%)') }}</label>
                                 <input id="inv-tax" type="number" min="0" max="100" step="0.01" value="0"
                                     class="fn-input" />
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-sm font-medium">Shipping / Handling</label>
+                                <label class="text-fn-text3 text-sm font-medium">{{ __('Shipping / Handling') }}</label>
                                 <input id="inv-shipping" type="number" min="0" step="0.01" value="0" class="fn-input" />
                             </div>
                         </div>
                     </div>
                     <div class="bg-fn-bg border border-white/[0.07] rounded-2xl p-4 sm:p-7">
-                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">Payment &amp;
-                            Notes</h3>
+                        <h3 class="text-sm font-semibold text-fn-blue-l uppercase tracking-widest mb-5">{{ __('Payment & Notes') }}</h3>
                         <div class="flex flex-col gap-3">
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-sm font-medium">Payment Terms</label>
+                                <label class="text-fn-text3 text-sm font-medium">{{ __('Payment Terms') }}</label>
                                 <select id="inv-terms" class="fn-input cursor-pointer">
-                                    <option>Due on Receipt</option>
-                                    <option>Net 7</option>
-                                    <option selected>Net 15</option>
-                                    <option>Net 30</option>
-                                    <option>Net 60</option>
-                                    <option>Custom</option>
+                                    <option>{{ __('Due on Receipt') }}</option>
+                                    <option>{{ __('Net 7') }}</option>
+                                    <option selected>{{ __('Net 15') }}</option>
+                                    <option>{{ __('Net 30') }}</option>
+                                    <option>{{ __('Net 60') }}</option>
+                                    <option>{{ __('Custom') }}</option>
                                 </select>
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-fn-text3 text-sm font-medium">Notes / Bank Details</label>
+                                <label class="text-fn-text3 text-sm font-medium">{{ __('Notes / Bank Details') }}</label>
                                 <textarea id="inv-notes" rows="3"
-                                    placeholder="Payment instructions, bank details, thank-you note..."
+                                    placeholder="{{ __('Payment instructions, bank details, thank-you note...') }}"
                                     class="fn-input resize-none"></textarea>
                             </div>
                         </div>
@@ -168,7 +165,7 @@
                     class="flex flex-wrap items-center justify-between gap-4 bg-fn-bg border border-white/[0.07] rounded-2xl px-4 sm:px-7 py-4 sm:py-5">
                     <div class="flex items-center gap-4">
                         <div id="total-display" class="text-2xl font-bold text-fn-text tracking-tight">$0.00</div>
-                        <span class="text-fn-text3 text-sm">Total Amount Due</span>
+                        <span class="text-fn-text3 text-sm">{{ __('Total Amount Due') }}</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <button id="preview-btn"
@@ -178,7 +175,7 @@
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                 <circle cx="12" cy="12" r="3" />
                             </svg>
-                            Preview
+                            {{ __('Preview') }}
                         </button>
                         <button id="download-btn"
                             class="inline-flex items-center gap-2 px-7 py-3 text-sm font-semibold text-white bg-fn-blue rounded-xl hover:bg-fn-blue-l btn-glow hover:-translate-y-0.5 transition-all">
@@ -188,7 +185,7 @@
                                 <polyline points="7 10 12 15 17 10" />
                                 <line x1="12" y1="15" x2="12" y2="3" />
                             </svg>
-                            Download PDF
+                            {{ __('Download PDF') }}
                         </button>
                     </div>
                 </div>
@@ -196,8 +193,8 @@
             <!-- ── RIGHT: Live Preview ── -->
             <div class="xl:sticky xl:top-6">
                 <div class="flex items-center justify-between mb-3">
-                    <span class="text-fn-text3 text-sm font-mono uppercase tracking-widest">Live Preview</span>
-                    <span class="text-fn-text3 text-sm">A4 · PDF</span>
+                    <span class="text-fn-text3 text-sm font-mono uppercase tracking-widest">{{ __('Live Preview') }}</span>
+                    <span class="text-fn-text3 text-sm">{{ __('A4 · PDF') }}</span>
                 </div>
                 <!-- Preview shell -->
                 <div class="bg-fn-bg border border-white/[0.07] rounded-2xl overflow-hidden shadow-2xl">
@@ -229,11 +226,9 @@
 <section id="how" class="py-24 bg-fn-bg" aria-labelledby="how-heading">
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Simple Process</p>
-            <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">From blank to sent in
-                minutes</h2>
-            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">No design skills, no accounting software,
-                no account. Just fill in the form and you're done.</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Simple Process') }}</p>
+            <h2 id="how-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{{ __('From blank to sent in minutes') }}</h2>
+            <p class="text-fn-text2 text-lg max-w-lg mx-auto leading-relaxed">{{ __('No design skills, no accounting software, no account. Just fill in the form and you\'re done.') }}</p>
         </div>
         <div class="grid md:grid-cols-3 gap-px border border-white/[0.07] rounded-2xl overflow-hidden">
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
@@ -248,9 +243,8 @@
                         <path d="M13.5 6.5l4 4" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Fill In Your Details</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Enter your business info, client details, invoice
-                    number, and due date. Add a logo by URL or upload one straight from your device.</p>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Fill In Your Details') }}</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Enter your business info, client details, invoice number, and due date. Add a logo by URL or upload one straight from your device.') }}</p>
             </div>
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">02</div>
@@ -264,9 +258,8 @@
                         <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Add Line Items</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">List your services or products with quantities and unit
-                    prices. Apply discounts, tax, and shipping — totals calculate live.</p>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Add Line Items') }}</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed">{{ __('List your services or products with quantities and unit prices. Apply discounts, tax, and shipping — totals calculate live.') }}</p>
             </div>
             <div class="bg-fn-surface2 p-10 hover:bg-fn-surface3 transition-colors relative">
                 <div class="absolute top-10 right-10 text-fn-text3/10 text-6xl font-bold font-mono select-none">03</div>
@@ -282,9 +275,8 @@
                         <path d="M22 19l-3 3l-3 -3" />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold tracking-tight mb-2.5">Download &amp; Send</h3>
-                <p class="text-fn-text2 text-sm leading-relaxed">Click Download PDF to get a clean, professional invoice
-                    file. Attach it directly to your email and get paid faster.</p>
+                <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Download & Send') }}</h3>
+                <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Click Download PDF to get a clean, professional invoice file. Attach it directly to your email and get paid faster.') }}</p>
             </div>
         </div>
     </div>
@@ -293,11 +285,9 @@
 <section id="features" class="py-24 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="features-heading">
     <div class="max-w-6xl mx-auto px-6">
         <div class="mb-16">
-            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">What's Included</p>
-            <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Everything a freelancer
-                or small business needs</h2>
-            <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">No subscriptions. No exports locked behind
-                paywalls. Every feature on this page is free for everyone.</p>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('What\'s Included') }}</p>
+            <h2 id="features-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{{ __('Everything a freelancer or small business needs') }}</h2>
+            <p class="text-fn-text2 text-lg max-w-lg leading-relaxed">{{ __('No subscriptions. No exports locked behind paywalls. Every feature on this page is free for everyone.') }}</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <div
@@ -309,9 +299,8 @@
                         <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                         <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Live Preview</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">See your invoice update in real-time as you type. What
-                    you see in the preview is exactly what gets exported to PDF.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Live Preview') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('See your invoice update in real-time as you type. What you see in the preview is exactly what gets exported to PDF.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
@@ -325,9 +314,8 @@
                         <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
                         <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Custom Branding</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Set your brand color and add a logo — paste a URL or
-                    upload a file. Your invoice header will match your company's visual identity.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Custom Branding') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Set your brand color and add a logo — paste a URL or upload a file. Your invoice header will match your company\'s visual identity.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
@@ -340,9 +328,8 @@
                         <path d="M19 8v5a5 5 0 0 1 -5 5h-3l3 -3m0 6l-3 -3" />
                         <path d="M5 16v-5a5 5 0 0 1 5 -5h3l-3 -3m0 6l3 -3" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">8 Currencies</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Invoice in USD, EUR, GBP, CAD, AUD, JPY, MAD, or AED.
-                    Currency symbol is applied throughout the document automatically.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('8 Currencies') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Invoice in USD, EUR, GBP, CAD, AUD, JPY, MAD, or AED. Currency symbol is applied throughout the document automatically.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
@@ -359,9 +346,8 @@
                         <path d="M12 17l0 .01" />
                         <path d="M16 17l0 .01" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Auto Calculations</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Subtotal, discount, tax/VAT, shipping, and grand total
-                    are all computed automatically as you add or update items.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Auto Calculations') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Subtotal, discount, tax/VAT, shipping, and grand total are all computed automatically as you add or update items.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
@@ -373,9 +359,8 @@
                         <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415" />
                         <path d="M16 5l3 3" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">Notes &amp; Terms</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Add payment instructions, bank account details, or a
-                    thank-you note. Fully supports NET 7, NET 30, and custom terms.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('Notes & Terms') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Add payment instructions, bank account details, or a thank-you note. Fully supports NET 7, NET 30, and custom terms.') }}</p>
             </div>
             <div
                 class="p-7 bg-fn-bg border border-white/[0.07] rounded-xl hover:border-fn-blue/30 hover:-translate-y-1 transition-all">
@@ -387,9 +372,8 @@
                         <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
                         <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
                     </svg></div>
-                <h3 class="font-semibold text-base mb-2">100% Private</h3>
-                <p class="text-fn-text3 text-sm leading-relaxed">Invoice data never leaves your browser. Uploaded logos
-                    and the generated PDF are processed client-side — no server, no storage, no data exposure.</p>
+                <h3 class="font-semibold text-base mb-2">{{ __('100% Private') }}</h3>
+                <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Invoice data never leaves your browser. Uploaded logos and the generated PDF are processed client-side — no server, no storage, no data exposure.') }}</p>
             </div>
         </div>
     </div>
@@ -398,80 +382,69 @@
 <section id="faq" class="py-24 bg-fn-bg" aria-labelledby="faq-heading">
     <div class="max-w-3xl mx-auto px-6">
         <div class="text-center mb-16">
-            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">FAQ</p>
-            <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Common questions</h2>
+            <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('FAQ') }}</p>
+            <h2 id="faq-heading" class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">{{ __('Common questions') }}</h2>
         </div>
         <div class="flex flex-col gap-3">
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Is this invoice generator really free?
+                    {{ __('Is this invoice generator really free?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Yes — 100% free. No watermarks, no sign-up,
-                    no credit card, no usage limits, and no locked features. Everything on this page is available to
-                    everyone, forever.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('Yes — 100% free. No watermarks, no sign-up, no credit card, no usage limits, and no locked features. Everything on this page is available to everyone, forever.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Is the generated PDF legally valid?
+                    {{ __('Is the generated PDF legally valid?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">The PDF contains all standard invoice fields
-                    required in most jurisdictions — invoice number, dates, party details, itemized amounts, and tax.
-                    However, tax law varies by country; consult an accountant for jurisdiction-specific compliance
-                    requirements.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('The PDF contains all standard invoice fields required in most jurisdictions — invoice number, dates, party details, itemized amounts, and tax. However, tax law varies by country; consult an accountant for jurisdiction-specific compliance requirements.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Does my invoice data get saved to your servers?
+                    {{ __('Does my invoice data get saved to your servers?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">No. All invoice generation happens entirely
-                    in your browser. Your client names, amounts, uploaded logos, and business details never touch our
-                    servers. The PDF is created and downloaded locally.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('No. All invoice generation happens entirely in your browser. Your client names, amounts, uploaded logos, and business details never touch our servers. The PDF is created and downloaded locally.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    Can I add my company logo?
+                    {{ __('Can I add my company logo?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">Yes, two ways. Paste a publicly accessible
-                    image URL into the Logo URL field, or upload an image file directly from your device — the file is
-                    read locally in your browser and never uploaded anywhere. PNG, JPG, WEBP, and SVG all work.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('Yes, two ways. Paste a publicly accessible image URL into the Logo URL field, or upload an image file directly from your device — the file is read locally in your browser and never uploaded anywhere. PNG, JPG, WEBP, and SVG all work.') }}</p>
             </details>
             <details class="group bg-fn-surface border border-white/[0.07] rounded-xl overflow-hidden">
                 <summary
                     class="flex items-center justify-between px-6 py-5 cursor-pointer font-semibold text-sm text-fn-text select-none list-none">
-                    How are taxes applied?
+                    {{ __('How are taxes applied?') }}
                     <svg class="w-4 h-4 text-fn-text3 group-open:rotate-180 transition-transform flex-shrink-0"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                     </svg>
                 </summary>
-                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">A single tax / VAT rate is applied to the
-                    subtotal after any discount, then shipping is added to reach the total due. Enter any percentage
-                    you need — the calculation updates live in the preview and in the exported PDF.</p>
+                <p class="px-6 pb-5 text-fn-text2 text-sm leading-relaxed">{{ __('A single tax / VAT rate is applied to the subtotal after any discount, then shipping is added to reach the total due. Enter any percentage you need — the calculation updates live in the preview and in the exported PDF.') }}</p>
             </details>
         </div>
     </div>
@@ -486,30 +459,27 @@
         class="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14)_0%,transparent_65%)] pointer-events-none">
     </div>
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Always Free</p>
-        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Every feature
-            is free — no account, no watermark, no limits</h2>
+        <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Always Free') }}</p>
+        <h2 id="cta-heading" class="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl mx-auto mb-4">{{ __('Every feature is free — no account, no watermark, no limits') }}</h2>
         <p class="text-fn-text2 text-lg max-w-md mx-auto leading-relaxed mb-10">
-            Create as many professional invoices as you need. Nothing is locked behind a paywall, and nothing ever
-            leaves your browser.
+            {{ __('Create as many professional invoices as you need. Nothing is locked behind a paywall, and nothing ever leaves your browser.') }}
         </p>
         <p class="text-fn-text3 text-sm mt-5"><svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> 100% free forever &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
+            </svg> {{ __('100% free forever ·') }} <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> No watermarks &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg"
+            </svg> {{ __('No watermarks ·') }} <svg xmlns="http://www.w3.org/2000/svg"
                 class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                 style="vertical-align:-0.125em">
                 <path d="M5 12l5 5l10 -10" />
-            </svg> No account
-            needed</p>
+            </svg> {{ __('No account needed') }}</p>
     </div>
 </section>
 <!-- ══════════════════════ STYLES ══════════════════════ -->
@@ -708,20 +678,20 @@
             const row = document.createElement('div');
             row.className = 'invoice-line grid grid-cols-[1fr_80px_100px_100px_36px] gap-3 items-center';
             row.dataset.id = item.id;
-            row.innerHTML = `
-                <input type="text" value="${escAttr(item.desc)}" placeholder="Service or product description"
-                    class="fn-input" aria-label="Description" data-field="desc" data-id="${item.id}" />
-                <input type="number" value="${item.qty}" min="0" step="0.01"
-                    class="fn-input text-center" aria-label="Quantity" data-field="qty" data-id="${item.id}" />
-                <input type="number" value="${item.price}" min="0" step="0.01"
-                    class="fn-input text-right" aria-label="Unit price" data-field="price" data-id="${item.id}" />
-                <div class="text-fn-text2 text-sm font-mono text-right py-2 px-1 line-total" data-id="${item.id}">
-                    ${fmtMoney(item.qty * item.price)}
+            row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+                <input type="text" value=":value0" placeholder="Service or product description"
+                    class="fn-input" aria-label="Description" data-field="desc" data-id=":value1" />
+                <input type="number" value=":value2" min="0" step="0.01"
+                    class="fn-input text-center" aria-label="Quantity" data-field="qty" data-id=":value3" />
+                <input type="number" value=":value4" min="0" step="0.01"
+                    class="fn-input text-right" aria-label="Unit price" data-field="price" data-id=":value5" />
+                <div class="text-fn-text2 text-sm font-mono text-right py-2 px-1 line-total" data-id=":value6">
+                    :value7
                 </div>
-                <button type="button" aria-label="Remove line item" class="remove-line w-8 h-8 flex items-center justify-center rounded-lg text-fn-text3 hover:text-fn-red hover:bg-fn-red/10 transition-all" data-id="${item.id}">
+                <button type="button" aria-label="Remove line item" class="remove-line w-8 h-8 flex items-center justify-center rounded-lg text-fn-text3 hover:text-fn-red hover:bg-fn-red/10 transition-all" data-id=":value8">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
-            `;
+            ')) }}).replaceAll(/:value0(?!\d)/g, () => String(escAttr(item.desc))).replaceAll(/:value1(?!\d)/g, () => String(item.id)).replaceAll(/:value2(?!\d)/g, () => String(item.qty)).replaceAll(/:value3(?!\d)/g, () => String(item.id)).replaceAll(/:value4(?!\d)/g, () => String(item.price)).replaceAll(/:value5(?!\d)/g, () => String(item.id)).replaceAll(/:value6(?!\d)/g, () => String(item.id)).replaceAll(/:value7(?!\d)/g, () => String(fmtMoney(item.qty * item.price))).replaceAll(/:value8(?!\d)/g, () => String(item.id));
             container.appendChild(row);
         });
         updateTotals();
@@ -761,7 +731,7 @@
         const logo = getLogo();
         const num  = gv('inv-number') || 'INV-0001';
         // Update filename
-        $('preview-filename').textContent = `invoice-${num}.pdf`;
+        $('preview-filename').textContent = ({{ Illuminate\Support\Js::from(__('invoice-:value0.pdf')) }}).replaceAll(/:value0(?!\d)/g, () => String(num));
         const fromLines = [
             gv('from-name'), gv('from-email'),
             gv('from-address'),
@@ -798,36 +768,36 @@
         `).join('');
         const notes = gv('inv-notes');
         const terms = gv('inv-terms');
-        $('invoice-preview').innerHTML = `
+        $('invoice-preview').innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <div style="padding:48px 52px;">
             <!-- Header -->
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;">
                 <div>
-                    ${logo ? `<img src="${escAttr(logo)}" alt="Logo" style="max-height:56px;max-width:180px;object-fit:contain;margin-bottom:12px;" onerror="this.style.display='none'" />` : ''}
-                    <div style="font-size:22px;font-weight:700;color:#111827;letter-spacing:-0.03em;">${escHtml(gv('from-name') || 'Your Business')}</div>
-                    ${fromLines.slice(1).map(l => `<div style="font-size:11px;color:#6b7280;margin-top:3px;">${escHtml(l)}</div>`).join('')}
+                    :value0
+                    <div style="font-size:22px;font-weight:700;color:#111827;letter-spacing:-0.03em;">:value1</div>
+                    :value2
                 </div>
                 <div style="text-align:right;">
-                    <div style="font-size:28px;font-weight:800;color:${col};letter-spacing:-0.04em;line-height:1;">INVOICE</div>
-                    <div style="font-size:13px;font-weight:600;color:#374151;margin-top:6px;">${escHtml(num)}</div>
-                    <div style="font-size:11px;color:#9ca3af;margin-top:8px;">Issued: <span style="color:#374151;">${formatDate(gv('inv-date'))}</span></div>
-                    <div style="font-size:11px;color:#9ca3af;margin-top:3px;">Due: <span style="color:#374151;font-weight:600;">${formatDate(gv('inv-due'))}</span></div>
-                    <div style="font-size:11px;color:#9ca3af;margin-top:3px;">Terms: <span style="color:#374151;">${escHtml(terms)}</span></div>
+                    <div style="font-size:28px;font-weight:800;color::value3;letter-spacing:-0.04em;line-height:1;">INVOICE</div>
+                    <div style="font-size:13px;font-weight:600;color:#374151;margin-top:6px;">:value4</div>
+                    <div style="font-size:11px;color:#9ca3af;margin-top:8px;">Issued: <span style="color:#374151;">:value5</span></div>
+                    <div style="font-size:11px;color:#9ca3af;margin-top:3px;">Due: <span style="color:#374151;font-weight:600;">:value6</span></div>
+                    <div style="font-size:11px;color:#9ca3af;margin-top:3px;">Terms: <span style="color:#374151;">:value7</span></div>
                 </div>
             </div>
             <!-- Accent rule -->
-            <div style="height:3px;background:${col};border-radius:2px;margin-bottom:32px;"></div>
+            <div style="height:3px;background::value8;border-radius:2px;margin-bottom:32px;"></div>
             <!-- Bill To -->
             <div style="display:flex;gap:48px;margin-bottom:36px;">
                 <div style="flex:1;">
                     <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af;margin-bottom:10px;">Bill To</div>
-                    ${toLines.map((l,i) => `<div style="font-size:${i===0?'13':'11'}px;font-weight:${i===0?'600':'400'};color:${i===0?'#111827':'#6b7280'};margin-bottom:3px;">${escHtml(l)}</div>`).join('') || '<div style="font-size:11px;color:#9ca3af;">—</div>'}
+                    :value9
                 </div>
             </div>
             <!-- Items table -->
             <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
                 <thead>
-                    <tr style="background:${col};">
+                    <tr style="background::value10;">
                         <th style="padding:10px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#fff;text-align:left;border-radius:6px 0 0 6px;">Description</th>
                         <th style="padding:10px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#fff;text-align:center;">Qty</th>
                         <th style="padding:10px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#fff;text-align:right;">Unit Price</th>
@@ -835,33 +805,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    ${itemRows || `<tr><td colspan="4" style="padding:16px 12px;font-size:12px;color:#9ca3af;text-align:center;">No items added yet</td></tr>`}
+                    :value11
                 </tbody>
             </table>
             <!-- Totals -->
             <div style="display:flex;justify-content:flex-end;margin-bottom:36px;">
                 <table style="min-width:260px;">
-                    <tbody>${summaryRows}</tbody>
+                    <tbody>:value12</tbody>
                     <tfoot>
-                        <tr style="background:${col};border-radius:8px;">
+                        <tr style="background::value13;border-radius:8px;">
                             <td style="padding:12px 16px;font-size:13px;font-weight:700;color:#fff;text-align:right;border-radius:6px 0 0 6px;">Total Due</td>
-                            <td style="padding:12px 16px;font-size:15px;font-weight:800;color:#fff;text-align:right;border-radius:0 6px 6px 0;">${fmtMoney(t.total)}</td>
+                            <td style="padding:12px 16px;font-size:15px;font-weight:800;color:#fff;text-align:right;border-radius:0 6px 6px 0;">:value14</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <!-- Notes -->
-            ${notes ? `
-            <div style="border-top:1px solid #f3f4f6;padding-top:24px;margin-bottom:8px;">
-                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af;margin-bottom:8px;">Notes &amp; Payment Details</div>
-                <div style="font-size:11px;color:#6b7280;white-space:pre-line;line-height:1.6;">${escHtml(notes)}</div>
-            </div>` : ''}
+            :value15
             <!-- Footer -->
             <div style="margin-top:40px;padding-top:20px;border-top:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;">
                 <div style="font-size:10px;color:#d1d5db;">Generated with Filenewer · filenewer.com</div>
-                <div style="font-size:10px;color:#d1d5db;">${escHtml(num)} · ${formatDate(gv('inv-date'))}</div>
+                <div style="font-size:10px;color:#d1d5db;">:value16 · :value17</div>
             </div>
-        </div>`;
+        </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(logo ? `<img src="${escAttr(logo)}" alt="Logo" style="max-height:56px;max-width:180px;object-fit:contain;margin-bottom:12px;" onerror="this.style.display='none'" />` : '')).replaceAll(/:value1(?!\d)/g, () => String(escHtml(gv('from-name') || 'Your Business'))).replaceAll(/:value2(?!\d)/g, () => String(fromLines.slice(1).map(l => `<div style="font-size:11px;color:#6b7280;margin-top:3px;">${escHtml(l)}</div>`).join(''))).replaceAll(/:value3(?!\d)/g, () => String(col)).replaceAll(/:value4(?!\d)/g, () => String(escHtml(num))).replaceAll(/:value5(?!\d)/g, () => String(formatDate(gv('inv-date')))).replaceAll(/:value6(?!\d)/g, () => String(formatDate(gv('inv-due')))).replaceAll(/:value7(?!\d)/g, () => String(escHtml(terms))).replaceAll(/:value8(?!\d)/g, () => String(col)).replaceAll(/:value9(?!\d)/g, () => String(toLines.map((l,i) => `<div style="font-size:${i===0?'13':'11'}px;font-weight:${i===0?'600':'400'};color:${i===0?'#111827':'#6b7280'};margin-bottom:3px;">${escHtml(l)}</div>`).join('') || '<div style="font-size:11px;color:#9ca3af;">—</div>')).replaceAll(/:value10(?!\d)/g, () => String(col)).replaceAll(/:value11(?!\d)/g, () => String(itemRows || `<tr><td colspan="4" style="padding:16px 12px;font-size:12px;color:#9ca3af;text-align:center;">No items added yet</td></tr>`)).replaceAll(/:value12(?!\d)/g, () => String(summaryRows)).replaceAll(/:value13(?!\d)/g, () => String(col)).replaceAll(/:value14(?!\d)/g, () => String(fmtMoney(t.total))).replaceAll(/:value15(?!\d)/g, () => String(notes ? `
+            <div style="border-top:1px solid #f3f4f6;padding-top:24px;margin-bottom:8px;">
+                <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9ca3af;margin-bottom:8px;">Notes &amp; Payment Details</div>
+                <div style="font-size:11px;color:#6b7280;white-space:pre-line;line-height:1.6;">${escHtml(notes)}</div>
+            </div>` : '')).replaceAll(/:value16(?!\d)/g, () => String(escHtml(num))).replaceAll(/:value17(?!\d)/g, () => String(formatDate(gv('inv-date'))));
     }
     function escHtml(s) {
         return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -942,7 +912,7 @@
         });
         doc.autoTable({
             startY: y,
-            head: [['Description','Qty','Unit Price','Total']],
+            head: [['Description','Qty',{{ Illuminate\Support\Js::from(__('Unit Price')) }},'Total']],
             body: tableData.length ? tableData : [['No items','','','']],
             margin: { left: 50, right: 50 },
             styles: { fontSize: 9, cellPadding: 7, textColor: [55,65,81] },
@@ -970,7 +940,7 @@
         doc.setFillColor(cr,cg,cb);
         doc.roundedRect(W - 210, y - 6, 160, 22, 3, 3, 'F');
         doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-        doc.text('Total Due', W - 200, y + 9);
+        doc.text({{ Illuminate\Support\Js::from(__('Total Due')) }}, W - 200, y + 9);
         doc.text(fmtMoney(t.total), valX, y + 9, { align: 'right' });
         y += 36;
         // Notes
@@ -988,7 +958,7 @@
         const pageH = doc.internal.pageSize.getHeight();
         doc.setDrawColor(243,244,246); doc.line(50, pageH - 40, W - 50, pageH - 40);
         doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(209,213,219);
-        doc.text('Generated with Filenewer · filenewer.com', 50, pageH - 26);
+        doc.text({{ Illuminate\Support\Js::from(__('Generated with Filenewer · filenewer.com')) }}, 50, pageH - 26);
         doc.text(`${num} · ${formatDate(gv('inv-date'))}`, W - 50, pageH - 26, { align: 'right' });
         doc.save(`invoice-${num}.pdf`);
     }

@@ -8,7 +8,7 @@
     <div class="max-w-6xl mx-auto px-6 relative z-10">
         <div class="animate-fade-up opacity-0 text-center">
             <h1 class="font-serif text-4xl sm:text-5xl font-normal tracking-tight leading-[1.1] mb-4">
-                <span class="text-gradient italic">Pages</span>
+                <span class="text-gradient italic">{{ __('Pages') }}</span>
             </h1>
             @if ($description)
             <p class="text-fn-text2 text-lg max-w-xl mx-auto leading-relaxed">
@@ -24,7 +24,7 @@
     <div class="max-w-6xl mx-auto px-6">
 
         @if ($pages->isEmpty())
-        <p class="text-fn-text3 text-sm text-center">No pages found.</p>
+        <p class="text-fn-text3 text-sm text-center">{{ __('No pages found.') }}</p>
         @else
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($pages as $page)
@@ -43,7 +43,7 @@
 
                 <div
                     class="flex items-center gap-1.5 text-fn-blue-l text-sm font-semibold mt-auto pt-4 border-t border-fn-text/7">
-                    Read page
+                    {{ __('Read page') }}
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="7" y1="17" x2="17" y2="7" />

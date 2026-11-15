@@ -9,8 +9,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     // Category pages keep whatever the controller passes.
     if ($isHome) {
     $title = 'Filenewer – Free Online File Converter, PDF & Image Tools';
-    $description = 'Convert, compress, merge and edit PDF, Word, Excel and image files online for free. '
-    . (intdiv($totalTools, 10) * 10) . '+ browser-based tools, no software to install.';
+    $description = __('Convert, compress, merge and edit PDF, Word, Excel and image files online for free. :count+ browser-based tools, no software to install.', ['count' => intdiv($totalTools, 10) * 10]);
     } elseif (! $activeCategory) {
     $title = 'All Online File Tools – PDF, Word, Excel & Image | Filenewer';
     $description = 'Browse every Filenewer tool: convert, compress, merge and split PDF, Word, Excel, CSV, JSON and
@@ -55,6 +54,11 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     convert and compress files straight from your phone.'],
     ];
 
+    $faqs = collect($faqs)->map(fn ($faq) => [
+        'q' => __(Str::squish($faq['q'])),
+        'a' => __(Str::squish($faq['a'])),
+    ])->all();
+
     $faqSchema = [
     '@context' => 'https://schema.org',
     '@type' => 'FAQPage',
@@ -83,13 +87,12 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
             <div class="animate-fade-up opacity-0 delay-1 text-center mb-8">
                 <h1 class="text-3xl sm:text-4xl font-bold text-fn-text tracking-tight leading-tight">
                     @if ($activeCategory)
-                    {{ str_contains($activeCategory->title, 'Tools') ? $activeCategory->title : $activeCategory->title .
-                    ' Tools' }}
+                    {{ __($activeCategory->title) }}
                     @elseif (request()->is('tools') || request()->is('tools/*'))
-                    Free Online File Tools for <br> PDF, Images, Documents &amp; More
+                    {{ __('Free Online File Tools for') }} <br> {{ __('PDF, Images, Documents & More') }}
                     @else
-                    Free Online File Tools – PDF, Word, Excel &amp; Image,<br>
-                    For Modern Work
+                    {{ __('Free Online File Tools – PDF, Word, Excel & Image,') }}<br>
+                    {{ __('For Modern Work') }}
                     @endif
                 </h1>
 
@@ -99,14 +102,11 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                 </p>
                 @elseif ($isHome)
                 <p class="mt-4 max-w-2xl mx-auto text-fn-text3 text-base sm:text-lg leading-relaxed">
-                    Convert, compress, merge and edit PDF, Word, Excel and image files right in your browser.
-                    No software to install and no account needed.
+                    {{ __('Convert, compress, merge and edit PDF, Word, Excel and image files right in your browser. No software to install and no account needed.') }}
                 </p>
                 @elseif (! $activeCategory)
                 <p class="mt-4 max-w-2xl mx-auto text-fn-text3 text-base sm:text-lg leading-relaxed">
-                    Every Filenewer tool in one place. Convert, compress, merge and split PDF, Word, Excel, CSV, JSON
-                    and
-                    image files, generate invoices and contracts, or use quick developer utilities.
+                    {{ __('Every Filenewer tool in one place. Convert, compress, merge and split PDF, Word, Excel, CSV, JSON and image files, generate invoices and contracts, or use quick developer utilities.') }}
                 </p>
                 @endif
             </div>
@@ -116,28 +116,28 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                 @if ($isHome)
                 {{-- Homepage search sends visitors to the full directory --}}
                 <form action="/tools" method="GET" role="search" class="flex gap-3">
-                    <label for="home-search" class="sr-only">Search tools</label>
+                    <label for="home-search" class="sr-only">{{ __('Search tools') }}</label>
                     <input id="home-search" name="q" type="search" required
-                        placeholder="What do you want to do? e.g. merge PDF, CSV to Excel"
+                        placeholder="{{ __('What do you want to do? e.g. merge PDF, CSV to Excel') }}"
                         class="search-input flex-1 min-w-0 px-5 py-3.5 bg-fn-surface border border-fn-text/10 rounded-2xl text-fn-text text-base placeholder:text-fn-text3 font-sans transition-all" />
                     <button type="submit"
                         class="px-6 py-3.5 rounded-2xl bg-fn-blue text-white text-base font-semibold hover:opacity-90 transition-opacity">
-                        Search
+                        {{ __('Search') }}
                     </button>
                 </form>
                 @else
                 <div class="relative">
-                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-fn-text3 w-5 h-5 pointer-events-none"
+                    <svg class="absolute start-4 top-1/2 -translate-y-1/2 text-fn-text3 w-5 h-5 pointer-events-none"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
-                    <input id="global-search" type="search" value="{{ request('q') }}" aria-label="Search tools"
-                        placeholder="Search tools… e.g. PDF, compress, invoice, CSV"
-                        class="search-input w-full pl-12 pr-14 py-3.5 bg-fn-surface border border-fn-text/10 rounded-2xl text-fn-text text-base placeholder:text-fn-text3 font-sans transition-all" />
+                    <input id="global-search" type="search" value="{{ request('q') }}" aria-label="{{ __('Search tools') }}"
+                        placeholder="{{ __('Search tools… e.g. PDF, compress, invoice, CSV') }}"
+                        class="search-input w-full ps-12 pe-14 py-3.5 bg-fn-surface border border-fn-text/10 rounded-2xl text-fn-text text-base placeholder:text-fn-text3 font-sans transition-all" />
                     <kbd
-                        class="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 bg-fn-surface2 border border-fn-text/10 rounded-md text-fn-text3 text-sm font-mono"><svg
+                        class="absolute end-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 px-2 py-1 bg-fn-surface2 border border-fn-text/10 rounded-md text-fn-text3 text-sm font-mono"><svg
                             xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-command" width="1em"
                             height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -153,16 +153,15 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
             <div class="animate-fade-up opacity-0 delay-3 flex items-center justify-center gap-8 flex-wrap">
                 <div class="flex items-center gap-2 text-fn-text3 text-sm">
                     <span class="w-2 h-2 rounded-full bg-fn-green"></span>
-                    <span><strong class="text-fn-text font-semibold">{{ $totalTools }}</strong> tools available</span>
+                    <span><strong class="text-fn-text font-semibold">{{ $totalTools }}</strong> {{ __('tools available') }}</span>
                 </div>
                 <div class="flex items-center gap-2 text-fn-text3 text-sm">
                     <span class="w-2 h-2 rounded-full bg-fn-blue-l"></span>
-                    <span><strong class="text-fn-text font-semibold">{{ $categories->count() }}</strong>
-                        {{ Str::plural('category', $categories->count()) }}</span>
+                    <span>{{ trans_choice('category_count', $categories->count(), ['count' => $categories->count()]) }}</span>
                 </div>
                 <div class="flex items-center gap-2 text-fn-text3 text-sm">
                     <span class="w-2 h-2 rounded-full bg-fn-amber"></span>
-                    <span><strong class="text-fn-text font-semibold">100%</strong> free tools</span>
+                    <span><strong class="text-fn-text font-semibold">100%</strong> {{ __('free tools') }}</span>
                 </div>
             </div>
 
@@ -185,7 +184,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         {!! $section->icon !!}
                     </div>
                     @endif
-                    <h2 class="text-base font-bold tracking-tight">{{ $section->title }}</h2>
+                    <h2 class="text-base font-bold tracking-tight">{{ __($section->title) }}</h2>
                     @unless ($isHome)
                     <span class="px-2 py-0.5 bg-fn-surface2 rounded-full text-fn-text3 text-sm font-mono">
                         {{ $section->tools->count() }}
@@ -194,7 +193,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                     <div class="flex-1 h-px bg-fn-text/7"></div>
                     @if ($isHome)
                     <a href="/tools" class="text-fn-blue-l text-sm font-semibold hover:underline shrink-0">
-                        View all {{ $totalTools }} tools &rarr;
+                        {{ __('View all :count tools', ['count' => $totalTools]) }} &rarr;
                     </a>
                     @endif
                 </div>
@@ -209,7 +208,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                     <a href="/tools/{{ $tool->slug }}"
                         class="tool-card bg-fn-surface border border-fn-text/8 rounded-xl p-4 flex items-start gap-3.5"
                         data-cat="{{ $section->slug }}" data-tags="{{ $tool->tags ?? '' }}"
-                        data-name="{{ strtolower(trim($tool->name)) }}">
+                        data-name="{{ Str::lower(__($tool->name).' '.$tool->name) }}">
 
                         {{-- Icon --}}
                         <div
@@ -220,7 +219,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         {{-- Body --}}
                         <div class="flex-1 min-w-0">
                             <div class="flex items-start justify-between gap-2 mb-1">
-                                <h3 class="font-semibold text-sm leading-snug">{{ trim($tool->name) }}</h3>
+                                <h3 class="font-semibold text-sm leading-snug">{{ __(trim($tool->name)) }}</h3>
 
                                 {{-- Badges --}}
                                 @if ($tagList->contains('popular'))
@@ -236,11 +235,11 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                                     </svg></span>
                                 @elseif ($tagList->contains('new'))
                                 <span
-                                    class="badge-new shrink-0 px-1.5 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">New</span>
+                                    class="badge-new shrink-0 px-1.5 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">{{ __('New') }}</span>
                                 @endif
                             </div>
                             {{-- Full description, clamped visually (no "..." baked into the HTML) --}}
-                            <p class="text-fn-text3 text-sm leading-relaxed line-clamp-2">{{ $tool->description }}</p>
+                            <p class="text-fn-text3 text-sm leading-relaxed line-clamp-2">{{ __(Str::squish($tool->description ?? '')) }}</p>
                         </div>
 
                         {{-- Arrow --}}
@@ -260,7 +259,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
 
             @unless ($isHome)
             <p id="no-results" class="hidden text-center text-fn-text3 text-base py-16">
-                No tools match your search. Try a file format such as “pdf”, “csv” or “image”.
+                {{ __('No tools match your search. Try a file format such as “pdf”, “csv” or “image”.') }}
             </p>
             @endunless
 
@@ -273,13 +272,9 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     <section class="py-16 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="categories-heading">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-8">
-                <h2 id="categories-heading" class="text-2xl sm:text-3xl font-bold tracking-tight">Browse tools by
-                    category</h2>
+                <h2 id="categories-heading" class="text-2xl sm:text-3xl font-bold tracking-tight">{{ __('Browse tools by category') }}</h2>
                 <p class="text-fn-text2 text-base mt-2 max-w-2xl">
-                    Filenewer is a collection of free online tools for everyday file work: converting between PDF, Word,
-                    Excel, CSV, JSON and image formats, compressing, merging and splitting documents, generating
-                    invoices
-                    and contracts, and quick developer utilities.
+                    {{ __('Filenewer is a collection of free online tools for everyday file work: converting between PDF, Word, Excel, CSV, JSON and image formats, compressing, merging and splitting documents, generating invoices and contracts, and quick developer utilities.') }}
                 </p>
             </div>
 
@@ -293,9 +288,9 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         {!! $category->icon !!}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-semibold text-sm leading-snug">{{ $category->title }}</h3>
+                        <h3 class="font-semibold text-sm leading-snug">{{ __($category->title) }}</h3>
                         <p class="text-fn-text3 text-sm mt-0.5">
-                            {{ $category->tools->count() }} {{ Str::plural('tool', $category->tools->count()) }}
+                            {{ trans_choice('tool_count', $category->tools->count(), ['count' => $category->tools->count()]) }}
                         </p>
                     </div>
                     <svg class="w-4 h-4 text-fn-text3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -314,8 +309,8 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     <section class="py-20" aria-labelledby="how-heading">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 id="how-heading" class="text-2xl sm:text-3xl font-bold tracking-tight">How Filenewer works</h2>
-                <p class="text-fn-text2 text-base mt-3 max-w-xl mx-auto">Three steps, no sign-up and nothing to install.
+                <h2 id="how-heading" class="text-2xl sm:text-3xl font-bold tracking-tight">{{ __('How Filenewer works') }}</h2>
+                <p class="text-fn-text2 text-base mt-3 max-w-xl mx-auto">{{ __('Three steps, no sign-up and nothing to install.') }}
                 </p>
             </div>
 
@@ -323,23 +318,20 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                 <li class="bg-fn-surface border border-fn-text/8 rounded-2xl p-8">
                     <span
                         class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-fn-blue/10 border border-fn-blue/25 text-fn-blue-l text-sm font-bold mb-4">1</span>
-                    <h3 class="text-lg font-semibold tracking-tight mb-2">Choose a tool</h3>
-                    <p class="text-fn-text2 text-sm leading-relaxed">Pick a converter or editor from the list, or search
-                        for the format you need, such as PDF to Word or Compress image.</p>
+                    <h3 class="text-lg font-semibold tracking-tight mb-2">{{ __('Choose a tool') }}</h3>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Pick a converter or editor from the list, or search for the format you need, such as PDF to Word or Compress image.') }}</p>
                 </li>
                 <li class="bg-fn-surface border border-fn-text/8 rounded-2xl p-8">
                     <span
                         class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-fn-blue/10 border border-fn-blue/25 text-fn-blue-l text-sm font-bold mb-4">2</span>
-                    <h3 class="text-lg font-semibold tracking-tight mb-2">Upload your file</h3>
-                    <p class="text-fn-text2 text-sm leading-relaxed">Drag and drop a file or select one from your
-                        device. Processing starts right away and takes just a few seconds for most files.</p>
+                    <h3 class="text-lg font-semibold tracking-tight mb-2">{{ __('Upload your file') }}</h3>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Drag and drop a file or select one from your device. Processing starts right away and takes just a few seconds for most files.') }}</p>
                 </li>
                 <li class="bg-fn-surface border border-fn-text/8 rounded-2xl p-8">
                     <span
                         class="inline-flex w-9 h-9 items-center justify-center rounded-full bg-fn-blue/10 border border-fn-blue/25 text-fn-blue-l text-sm font-bold mb-4">3</span>
-                    <h3 class="text-lg font-semibold tracking-tight mb-2">Download the result</h3>
-                    <p class="text-fn-text2 text-sm leading-relaxed">Download your converted file as soon as it is
-                        ready. Your files are deleted automatically after processing.</p>
+                    <h3 class="text-lg font-semibold tracking-tight mb-2">{{ __('Download the result') }}</h3>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Download your converted file as soon as it is ready. Your files are deleted automatically after processing.') }}</p>
                 </li>
             </ol>
         </div>
@@ -350,10 +342,8 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
         <div class="max-w-6xl mx-auto px-6">
 
             <div class="text-center mb-12">
-                <h2 id="features-heading" class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Everything you need
-                    to manage files</h2>
-                <p class="text-fn-text2 text-base max-w-lg mx-auto leading-relaxed">Three toolsets built for individuals
-                    and teams who want results without the complexity.</p>
+                <h2 id="features-heading" class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{{ __('Everything you need to manage files') }}</h2>
+                <p class="text-fn-text2 text-base max-w-lg mx-auto leading-relaxed">{{ __('Three toolsets built for individuals and teams who want results without the complexity.') }}</p>
             </div>
 
             <!-- Grid -->
@@ -371,12 +361,9 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                             <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold tracking-tight mb-2.5">File conversion tools</h3>
-                    <p class="text-fn-text2 text-sm leading-relaxed mb-4">Transform file formats in seconds. Our online
-                        file converter supports PDF, Word, Excel, CSV, JSON, Markdown, images and more, with
-                        high-fidelity output for most documents.</p>
-                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">PDF ·
-                        DOCX · CSV · JPG</span>
+                    <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('File conversion tools') }}</h3>
+                    <p class="text-fn-text2 text-sm leading-relaxed mb-4">{{ __('Transform file formats in seconds. Our online file converter supports PDF, Word, Excel, CSV, JSON, Markdown, images and more, with high-fidelity output for most documents.') }}</p>
+                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">{{ __('PDF · DOCX · CSV · JPG') }}</span>
                 </div>
 
                 <!-- Card 2 -->
@@ -394,11 +381,9 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                             <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold tracking-tight mb-2.5">Business document generators</h3>
-                    <p class="text-fn-text2 text-sm leading-relaxed mb-4">Create professional invoices and contracts.
-                        Fill in your details and Filenewer produces a clean, print-ready PDF instantly.</p>
-                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Invoices
-                        · Contracts</span>
+                    <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Business document generators') }}</h3>
+                    <p class="text-fn-text2 text-sm leading-relaxed mb-4">{{ __('Create professional invoices and contracts. Fill in your details and Filenewer produces a clean, print-ready PDF instantly.') }}</p>
+                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">{{ __('Invoices · Contracts') }}</span>
                 </div>
 
                 <!-- Card 3 -->
@@ -415,12 +400,9 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                                 d="M3 14a21 21 0 0 0 1.652 -.532c2.542 -.953 3.853 -2.238 4.816 -4.806a20 20 0 0 0 .532 -1.662a20 20 0 0 0 .532 1.662c.963 2.567 2.275 3.853 4.816 4.806q .75 .28 1.652 .532a21 21 0 0 0 -1.652 .532c-2.542 .953 -3.854 2.238 -4.816 4.806a20 20 0 0 0 -.532 1.662a20 20 0 0 0 -.532 -1.662c-.963 -2.568 -2.275 -3.853 -4.816 -4.806a21 21 0 0 0 -1.652 -.532" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold tracking-tight mb-2.5">Smart file processing</h3>
-                    <p class="text-fn-text2 text-sm leading-relaxed mb-4">Compress, merge, split, encrypt and extract
-                        text from PDF, Word, Excel and image files. Combine several files into one or split a large file
-                        into parts.</p>
-                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">Compress
-                        · Merge · Split · OCR</span>
+                    <h3 class="text-lg font-semibold tracking-tight mb-2.5">{{ __('Smart file processing') }}</h3>
+                    <p class="text-fn-text2 text-sm leading-relaxed mb-4">{{ __('Compress, merge, split, encrypt and extract text from PDF, Word, Excel and image files. Combine several files into one or split a large file into parts.') }}</p>
+                    <span class="inline-block px-2.5 py-1 bg-fn-bg rounded-md text-sm font-mono text-fn-text3">{{ __('Compress · Merge · Split · OCR') }}</span>
                 </div>
 
             </div>
@@ -431,10 +413,8 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     <section id="security" class="py-20 bg-fn-bg relative overflow-hidden cyan-glow" aria-labelledby="security-heading">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 id="security-heading" class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Your files stay
-                    private</h2>
-                <p class="text-fn-text2 text-base max-w-xl mx-auto leading-relaxed">Here is exactly how we handle the
-                    files you upload.</p>
+                <h2 id="security-heading" class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">{{ __('Your files stay private') }}</h2>
+                <p class="text-fn-text2 text-base max-w-xl mx-auto leading-relaxed">{{ __('Here is exactly how we handle the files you upload.') }}</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -452,9 +432,8 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-sm mb-1">Encrypted in transit</h3>
-                        <p class="text-fn-text3 text-sm leading-relaxed">Files travel between your browser and our
-                            servers over HTTPS (TLS), so nobody on the network can read them.</p>
+                        <h3 class="font-semibold text-sm mb-1">{{ __('Encrypted in transit') }}</h3>
+                        <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Files travel between your browser and our servers over HTTPS (TLS), so nobody on the network can read them.') }}</p>
                     </div>
                 </div>
 
@@ -473,9 +452,8 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-sm mb-1">Automatic file deletion</h3>
-                        <p class="text-fn-text3 text-sm leading-relaxed">Uploaded files and conversion results are
-                            deleted automatically after processing, within one hour at the latest.</p>
+                        <h3 class="font-semibold text-sm mb-1">{{ __('Automatic file deletion') }}</h3>
+                        <p class="text-fn-text3 text-sm leading-relaxed">{{ __('Uploaded files and conversion results are deleted automatically after processing, within one hour at the latest.') }}</p>
                     </div>
                 </div>
 
@@ -491,11 +469,8 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-sm mb-1">We don't sell your files</h3>
-                        <p class="text-fn-text3 text-sm leading-relaxed">We never sell your files or use them for
-                            advertising. Tools marked as AI-powered send your input to an AI provider to generate the
-                            result; see our <a href="/pages/privacy-policy" class="underline hover:text-fn-text">Privacy
-                                Policy</a> for details.</p>
+                        <h3 class="font-semibold text-sm mb-1">{{ __('We don\'t sell your files') }}</h3>
+                        <p class="text-fn-text3 text-sm leading-relaxed">{{ __('We never sell your files or use them for advertising. Tools marked as AI-powered send your input to an AI provider to generate the result; see our') }} <a href="/pages/privacy-policy" class="underline hover:text-fn-text">{{ __('Privacy Policy') }}</a> {{ __('for details.') }}</p>
                     </div>
                 </div>
 
@@ -514,10 +489,9 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-sm mb-1">Your data rights</h3>
-                        <p class="text-fn-text3 text-sm leading-relaxed">You can contact us at any time about the
-                            personal data we hold. Read our <a href="/pages/gdpr-compliance-policy"
-                                class="underline hover:text-fn-text">GDPR policy</a> to see how requests are handled.
+                        <h3 class="font-semibold text-sm mb-1">{{ __('Your data rights') }}</h3>
+                        <p class="text-fn-text3 text-sm leading-relaxed">{{ __('You can contact us at any time about the personal data we hold. Read our') }} <a href="/pages/gdpr-compliance-policy"
+                                class="underline hover:text-fn-text">{{ __('GDPR policy') }}</a> {{ __('to see how requests are handled.') }}
                         </p>
                     </div>
                 </div>
@@ -529,8 +503,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     {{-- ══ FAQ ══ --}}
     <section id="faq" class="py-20 bg-fn-surface border-y border-white/[0.07]" aria-labelledby="faq-heading">
         <div class="max-w-3xl mx-auto px-6">
-            <h2 id="faq-heading" class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-10">Frequently
-                asked questions</h2>
+            <h2 id="faq-heading" class="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-10">{{ __('Frequently asked questions') }}</h2>
 
             <div class="flex flex-col gap-3">
                 @foreach ($faqs as $faq)
@@ -551,14 +524,13 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
     <!-- ══════════════════════ CTA ══════════════════════ -->
     <section id="cta" class="py-20 text-center relative overflow-hidden" aria-labelledby="cta-heading">
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <h2 id="cta-heading" class="text-2xl sm:text-3xl font-bold tracking-tight max-w-2xl mx-auto mb-4">Start
-                processing files smarter, right now</h2>
+            <h2 id="cta-heading" class="text-2xl sm:text-3xl font-bold tracking-tight max-w-2xl mx-auto mb-4">{{ __('Start processing files smarter, right now') }}</h2>
             <p class="text-fn-text2 text-base max-w-md mx-auto leading-relaxed mb-8">
-                Convert, compress, merge and generate files in your browser. Free to use, no account required.
+                {{ __('Convert, compress, merge and generate files in your browser. Free to use, no account required.') }}
             </p>
             <a href="/tools"
                 class="inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold text-fn-text2 border border-white/[0.07] rounded-xl hover:text-fn-text hover:bg-fn-surface2 hover:border-white/[0.15] transition-all">
-                Browse all tools
+                {{ __('Browse all tools') }}
             </a>
         </div>
     </section>
@@ -595,7 +567,7 @@ $totalTools = $categories->sum(fn ($category) => $category->tools->count());
                 });
 
                 count.textContent = query
-                    ? visible + (visible === 1 ? ' result for “' : ' results for “') + input.value.trim() + '”'
+                    ? {{ Illuminate\Support\Js::from(__(':count results for “:query”')) }}.replace(':count', visible).replace(':query', () => input.value.trim())
                     : '';
                 empty.classList.toggle('hidden', visible !== 0);
             }

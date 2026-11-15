@@ -22,20 +22,22 @@ class ToolController extends Controller
         $categories = $categories->get();
 
         // Default SEO
-        $title = 'Free Online File Tools – PDF, Word, Excel & Image | Filenewer';
-        $description = 'Convert, compress, edit and generate files instantly. 60+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.';
+        $title = __('Free Online File Tools – PDF, Word, Excel & Image | Filenewer');
+        $description = __('Convert, compress, edit and generate files instantly. 60+ free tools for PDF, images, Word documents, CSV data and more. No sign-up required.');
 
         // If URL contains /tools
         if ($request->is('tools') || $request->is('tools/*')) {
-            $title = 'Free Online File Tools - PDF, Image & Document | Filenewer';
-            $description = 'Explore 60+ free online file tools to convert, compress, edit, merge, split, generate, and optimize PDFs, images, documents, spreadsheets, videos, and more. Fast, secure, and no registration required.';
+            $title = __('Free Online File Tools - PDF, Image & Document | Filenewer');
+            $description = __('Explore 60+ free online file tools to convert, compress, edit, merge, split, generate, and optimize PDFs, images, documents, spreadsheets, videos, and more. Fast, secure, and no registration required.');
         }
 
         // Category-specific SEO
         if ($request->filled('category') && $categories->isNotEmpty()) {
             $category = $categories->first();
-            $title = "{$category->title} — Free Online Tools";
-            $description = $category->description ?: "Discover free {$category->title} tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.";
+            $title = __(':category — Free Online Tools', ['category' => __($category->title)]);
+            $description = $category->description
+                ? __(\Illuminate\Support\Str::squish($category->description))
+                : __('Discover free :category tools to convert, edit, optimize, and manage your files online. Fast, secure, and easy to use with no installation required.', ['category' => __($category->title)]);
         }
 
         return view('tools.index', compact('categories', 'title', 'description'));
@@ -55,11 +57,11 @@ class ToolController extends Controller
             ->take(6)
             ->get();
 
-        $title = $tool->title;
-        $description = $tool->description;
+        $title = __($tool->title ?? $tool->name);
+        $description = __(\Illuminate\Support\Str::squish($tool->description ?? ''));
         $tags = $tool->tags;
 
-        $viewName = 'tools.' . $tool->slug;
+        $viewName = 'tools.'.$tool->slug;
 
         if (view()->exists($viewName)) {
             return view($viewName, compact('tool', 'relatedTools', 'title', 'description', 'tags'));
@@ -71,44 +73,41 @@ class ToolController extends Controller
 
     public function pdfToWord()
     {
-        $title = 'Convert PDF to Word Online Free';
-        $description = 'Convert PDF files to editable Word documents online for free. No registration required. Fast, secure, and high-quality conversion.';
+        $title = __('Convert PDF to Word Online Free');
+        $description = __('Convert PDF files to editable Word documents online for free. No registration required. Fast, secure, and high-quality conversion.');
+
         return view('tools.pdf-to-word', compact('title', 'description'));
     }
 
     public function csvToSql()
     {
-        $title = 'CSV to SQL Converter Online';
-        $description = 'Convert CSV files into SQL INSERT statements instantly. Free, fast, and easy-to-use CSV to SQL converter for developers and analysts.';
+        $title = __('CSV to SQL Converter Online');
+        $description = __('Convert CSV files into SQL INSERT statements instantly. Free, fast, and easy-to-use CSV to SQL converter for developers and analysts.');
 
         return view('tools.csv-to-sql', compact('title', 'description'));
     }
 
-
-
     public function ImageCompressor()
     {
-        $title = 'Compress Images Online Free';
-        $description = 'Compress JPG, PNG, and WebP images online for free. Reduce file size without losing quality and improve website performance.';
+        $title = __('Compress Images Online Free');
+        $description = __('Compress JPG, PNG, and WebP images online for free. Reduce file size without losing quality and improve website performance.');
 
         return view('tools.image-compressor', compact('title', 'description'));
     }
 
     public function pdfMerge()
     {
-        $title = 'Merge PDF Files Online Free';
-        $description = 'Merge multiple PDF files into one document online for free. Fast, secure, and easy-to-use PDF merger tool.';
+        $title = __('Merge PDF Files Online Free');
+        $description = __('Merge multiple PDF files into one document online for free. Fast, secure, and easy-to-use PDF merger tool.');
 
         return view('tools.pdf-merge', compact('title', 'description'));
     }
 
     public function csvToJson()
     {
-        $title = 'CSV to JSON Converter Online';
-        $description = 'Convert CSV data to JSON format instantly. Free, fast, and accurate CSV to JSON converter for developers and data processing.';
+        $title = __('CSV to JSON Converter Online');
+        $description = __('Convert CSV data to JSON format instantly. Free, fast, and accurate CSV to JSON converter for developers and data processing.');
 
         return view('tools.csv-to-json', compact('title', 'description'));
     }
-
-
 }

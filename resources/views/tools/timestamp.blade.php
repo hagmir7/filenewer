@@ -17,7 +17,7 @@
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                     </svg>
-                    Single Convert
+                    {{ __('Single Convert') }}
                 </button>
                 <button type="button" id="tab-batch" aria-pressed="false"
                     class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all">
@@ -30,7 +30,7 @@
                         <line x1="3" y1="12" x2="3.01" y2="12" />
                         <line x1="3" y1="18" x2="3.01" y2="18" />
                     </svg>
-                    Batch Convert
+                    {{ __('Batch Convert') }}
                 </button>
                 {{-- Live clock --}}
                 <div
@@ -45,14 +45,14 @@
                 <div
                     class="timezone-bar flex flex-wrap items-center gap-3 mb-6 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                     <div class="flex items-center gap-2 flex-1 min-w-0">
-                        <label for="from-tz" class="text-sm font-semibold text-fn-text2 shrink-0">From</label>
+                        <label for="from-tz" class="text-sm font-semibold text-fn-text2 shrink-0">{{ __('From') }}</label>
                         <select id="from-tz"
                             class="flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-sans focus:outline-none cursor-pointer min-w-0">
                         </select>
                     </div>
                     <button type="button" id="swap-tz"
                         class="w-8 h-8 flex items-center justify-center rounded-lg bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 transition-all shrink-0"
-                        title="Swap timezones" aria-label="Swap timezones">
+                        title="{{ __('Swap timezones') }}" aria-label="{{ __('Swap timezones') }}">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="17 1 21 5 17 9" />
@@ -75,7 +75,7 @@
                             <path
                                 d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                         </svg>
-                        <span id="tz-detected-label">Detected from browser</span>
+                        <span id="tz-detected-label">{{ __('Detected from browser') }}</span>
                     </div>
                 </div>
                 {{-- ══ SINGLE TAB ══ --}}
@@ -83,15 +83,15 @@
                     {{-- Input row --}}
                     <div class="single-input-row flex flex-col sm:flex-row gap-2 mb-4">
                         <div class="single-input-wrap relative flex-1 min-w-0">
-                            <input type="text" id="single-input" aria-label="Timestamp or date"
-                                placeholder="Enter timestamp, date, or try: now · today · yesterday · tomorrow"
+                            <input type="text" id="single-input" aria-label="{{ __('Timestamp or date') }}"
+                                placeholder="{{ __('Enter timestamp, date, or try: now · today · yesterday · tomorrow') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm rounded-xl px-4 py-3 pr-24 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 placeholder:font-sans" />
                             <div class="single-input-actions absolute right-3 top-1/2 -translate-y-1/2 flex gap-1.5">
                                 <button type="button" id="btn-now"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l hover:border-fn-blue/30 text-sm font-semibold rounded-lg transition-all">
-                                    Now
+                                    {{ __('Now') }}
                                 </button>
-                                <button type="button" id="btn-clear-single" aria-label="Clear input"
+                                <button type="button" id="btn-clear-single" aria-label="{{ __('Clear input') }}"
                                     class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x"
                                         width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -110,12 +110,12 @@
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                             </svg>
-                            Convert
+                            {{ __('Convert') }}
                         </button>
                     </div>
                     {{-- Quick format examples --}}
                     <div class="flex flex-wrap gap-1.5 mb-6">
-                        <span class="text-sm text-fn-text3 mr-1 self-center">Try:</span>
+                        <span class="text-sm text-fn-text3 mr-1 self-center">{{ __('Try:') }}</span>
                         @php
                         $quickExamples = [
                         '1704067200', '2024-01-01T00:00:00Z', 'now', 'today', 'yesterday',
@@ -125,7 +125,7 @@
                         @foreach($quickExamples as $ex)
                         <button type="button"
                             class="example-btn px-2 py-0.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/25 text-sm font-mono rounded-lg transition-all"
-                            data-val="{{ $ex }}">{{ $ex }}</button>
+                            data-val="{{ $ex }}">{{ __(Str::squish((string) $ex)) }}</button>
                         @endforeach
                     </div>
                     {{-- Error --}}
@@ -147,7 +147,7 @@
                             <span class="text-fn-text3 text-sm">→</span>
                             <span class="text-sm font-semibold text-fn-text2" id="res-tz-label"></span>
                             <span id="res-dst-badge"
-                                class="hidden text-sm px-2 py-0.5 bg-fn-amber/12 border border-fn-amber/30 text-fn-amber rounded-md font-semibold">DST</span>
+                                class="hidden text-sm px-2 py-0.5 bg-fn-amber/12 border border-fn-amber/30 text-fn-amber rounded-md font-semibold">{{ __('DST') }}</span>
                             <span class="text-sm text-fn-text3 ml-auto" id="res-relative"></span>
                         </div>
                         {{-- Format cards grid --}}
@@ -167,18 +167,22 @@
                     {{-- Input --}}
                     <div class="min-w-0 space-y-3">
                         <div class="batch-toolbar flex flex-wrap items-center justify-between gap-2">
-                            <p class="text-sm font-semibold text-fn-text2">Input Values <span
-                                    class="font-normal text-fn-text3 ml-1">(one per line)</span></p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Input Values') }} <span
+                                    class="font-normal text-fn-text3 ml-1">{{ __('(one per line)') }}</span></p>
                             <div class="batch-actions flex flex-wrap items-center gap-2">
                                 <button type="button" id="btn-load-examples"
-                                    class="text-sm text-fn-blue-l hover:underline font-semibold">Load examples</button>
+                                    class="text-sm text-fn-blue-l hover:underline font-semibold">{{ __('Load examples') }}</button>
                                 <button type="button" id="btn-clear-batch"
-                                    class="text-sm text-fn-text3 hover:text-fn-red font-semibold">Clear</button>
+                                    class="text-sm text-fn-text3 hover:text-fn-red font-semibold">{{ __('Clear') }}</button>
                             </div>
                         </div>
-                        <textarea id="batch-input" aria-label="Timestamps or dates, one per line" rows="14"
+                        <textarea id="batch-input" aria-label="{{ __('Timestamps or dates, one per line') }}" rows="14"
                             spellcheck="false"
-                            placeholder="1704067200&#10;2024-01-15T08:30:00Z&#10;now&#10;yesterday&#10;2024-06-01 12:00:00"
+                            placeholder="{{ __('1704067200
+2024-01-15T08:30:00Z
+now
+yesterday
+2024-06-01 12:00:00') }}"
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <button type="button" id="batch-convert-btn"
                             class="w-full flex items-center justify-center gap-2 py-3 bg-fn-blue text-white text-sm font-bold rounded-xl transition-all hover:bg-fn-blue-l disabled:opacity-40 disabled:cursor-not-allowed"
@@ -187,13 +191,13 @@
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                             </svg>
-                            Convert All
+                            {{ __('Convert All') }}
                         </button>
                     </div>
                     {{-- Results --}}
                     <div class="min-w-0 space-y-3">
                         <div class="batch-toolbar flex flex-wrap items-center justify-between gap-2">
-                            <p class="text-sm font-semibold text-fn-text2">Results</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Results') }}</p>
                             <div class="batch-actions flex flex-wrap items-center gap-2">
                                 <span id="batch-stats" class="hidden text-sm text-fn-text3"></span>
                                 <button type="button" id="btn-copy-batch"
@@ -203,7 +207,7 @@
                                         <rect x="9" y="9" width="13" height="13" rx="2" />
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                     </svg>
-                                    <span id="batch-copy-label">Copy JSON</span>
+                                    <span id="batch-copy-label">{{ __('Copy JSON') }}</span>
                                 </button>
                                 <a id="btn-download-batch" href="#" download="timestamps.json"
                                     class="hidden flex items-center gap-1 px-2 py-1 bg-fn-green/10 border border-fn-green/25 text-fn-green text-sm font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -213,7 +217,7 @@
                                         <polyline points="7 10 12 15 17 10" />
                                         <line x1="12" y1="15" x2="12" y2="3" />
                                     </svg>
-                                    Download JSON
+                                    {{ __('Download JSON') }}
                                 </a>
                             </div>
                         </div>
@@ -225,7 +229,7 @@
                                     <circle cx="12" cy="12" r="10" />
                                     <polyline points="12 6 12 12 16 14" />
                                 </svg>
-                                Results will appear here
+                                {{ __('Results will appear here') }}
                             </div>
                         </div>
                         <div id="batch-error"
@@ -247,7 +251,7 @@
 {{-- ══ FORMAT REFERENCE ══ --}}
 <section id="timestamp-reference" class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Accepted Input Formats</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Accepted Input Formats') }}</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             @php
             $inputFormats = [
@@ -267,9 +271,9 @@
             @endphp
             @foreach($inputFormats as [$label,$example,$desc])
             <div class="p-3 bg-fn-surface border border-fn-text/8 rounded-xl">
-                <p class="text-sm font-semibold text-fn-text2 mb-1">{{ $label }}</p>
-                <p class="text-sm font-mono text-fn-blue-l mb-1">{{ $example }}</p>
-                <p class="text-sm text-fn-text3">{{ $desc }}</p>
+                <p class="text-sm font-semibold text-fn-text2 mb-1">{{ __(Str::squish($label)) }}</p>
+                <p class="text-sm font-mono text-fn-blue-l mb-1">{{ __(Str::squish((string) $example)) }}</p>
+                <p class="text-sm text-fn-text3">{{ __(Str::squish((string) $desc)) }}</p>
             </div>
             @endforeach
         </div>
@@ -766,35 +770,35 @@
     document.addEventListener('DOMContentLoaded', function () {
       // ── Timezone list ──
       const TIMEZONES = [
-        ['UTC',                  'UTC'],
-        ['Asia/Riyadh',          'Saudi Arabia (AST +3)'],
-        ['Asia/Dubai',           'UAE (+4)'],
-        ['Asia/Karachi',         'Pakistan (+5)'],
-        ['Asia/Kolkata',         'India (+5:30)'],
-        ['Asia/Dhaka',           'Bangladesh (+6)'],
-        ['Asia/Bangkok',         'Thailand (+7)'],
-        ['Asia/Shanghai',        'China (+8)'],
-        ['Asia/Tokyo',           'Japan (+9)'],
-        ['Asia/Seoul',           'South Korea (+9)'],
-        ['Australia/Sydney',     'Australia AEST (+10/11)'],
-        ['Pacific/Auckland',     'New Zealand (+12/13)'],
-        ['Europe/London',        'UK (GMT/BST)'],
-        ['Europe/Paris',         'France (CET +1/2)'],
-        ['Europe/Berlin',        'Germany (CET +1/2)'],
-        ['Europe/Moscow',        'Russia Moscow (+3)'],
-        ['Africa/Cairo',         'Egypt (+2/3)'],
-        ['Africa/Nairobi',       'Kenya (+3)'],
-        ['Africa/Lagos',         'Nigeria (+1)'],
-        ['Africa/Johannesburg',  'South Africa (+2)'],
-        ['America/New_York',     'US Eastern'],
-        ['America/Chicago',      'US Central'],
-        ['America/Denver',       'US Mountain'],
-        ['America/Los_Angeles',  'US Pacific'],
-        ['America/Toronto',      'Canada Eastern'],
-        ['America/Vancouver',    'Canada Pacific'],
-        ['America/Sao_Paulo',    'Brazil (-3)'],
-        ['America/Mexico_City',  'Mexico (-6/-5)'],
-        ['America/Argentina/Buenos_Aires', 'Argentina (-3)'],
+        ['UTC',                  {{ Illuminate\Support\Js::from(__('UTC')) }}],
+        ['Asia/Riyadh',          {{ Illuminate\Support\Js::from(__('Saudi Arabia (AST +3)')) }}],
+        ['Asia/Dubai',           {{ Illuminate\Support\Js::from(__('UAE (+4)')) }}],
+        ['Asia/Karachi',         {{ Illuminate\Support\Js::from(__('Pakistan (+5)')) }}],
+        ['Asia/Kolkata',         {{ Illuminate\Support\Js::from(__('India (+5:30)')) }}],
+        ['Asia/Dhaka',           {{ Illuminate\Support\Js::from(__('Bangladesh (+6)')) }}],
+        ['Asia/Bangkok',         {{ Illuminate\Support\Js::from(__('Thailand (+7)')) }}],
+        ['Asia/Shanghai',        {{ Illuminate\Support\Js::from(__('China (+8)')) }}],
+        ['Asia/Tokyo',           {{ Illuminate\Support\Js::from(__('Japan (+9)')) }}],
+        ['Asia/Seoul',           {{ Illuminate\Support\Js::from(__('South Korea (+9)')) }}],
+        ['Australia/Sydney',     {{ Illuminate\Support\Js::from(__('Australia AEST (+10/11)')) }}],
+        ['Pacific/Auckland',     {{ Illuminate\Support\Js::from(__('New Zealand (+12/13)')) }}],
+        ['Europe/London',        {{ Illuminate\Support\Js::from(__('UK (GMT/BST)')) }}],
+        ['Europe/Paris',         {{ Illuminate\Support\Js::from(__('France (CET +1/2)')) }}],
+        ['Europe/Berlin',        {{ Illuminate\Support\Js::from(__('Germany (CET +1/2)')) }}],
+        ['Europe/Moscow',        {{ Illuminate\Support\Js::from(__('Russia Moscow (+3)')) }}],
+        ['Africa/Cairo',         {{ Illuminate\Support\Js::from(__('Egypt (+2/3)')) }}],
+        ['Africa/Nairobi',       {{ Illuminate\Support\Js::from(__('Kenya (+3)')) }}],
+        ['Africa/Lagos',         {{ Illuminate\Support\Js::from(__('Nigeria (+1)')) }}],
+        ['Africa/Johannesburg',  {{ Illuminate\Support\Js::from(__('South Africa (+2)')) }}],
+        ['America/New_York',     {{ Illuminate\Support\Js::from(__('US Eastern')) }}],
+        ['America/Chicago',      {{ Illuminate\Support\Js::from(__('US Central')) }}],
+        ['America/Denver',       {{ Illuminate\Support\Js::from(__('US Mountain')) }}],
+        ['America/Los_Angeles',  {{ Illuminate\Support\Js::from(__('US Pacific')) }}],
+        ['America/Toronto',      {{ Illuminate\Support\Js::from(__('Canada Eastern')) }}],
+        ['America/Vancouver',    {{ Illuminate\Support\Js::from(__('Canada Pacific')) }}],
+        ['America/Sao_Paulo',    {{ Illuminate\Support\Js::from(__('Brazil (-3)')) }}],
+        ['America/Mexico_City',  {{ Illuminate\Support\Js::from(__('Mexico (-6/-5)')) }}],
+        ['America/Argentina/Buenos_Aires', {{ Illuminate\Support\Js::from(__('Argentina (-3)')) }}],
       ];
       // Detect browser timezone
       const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
@@ -805,7 +809,7 @@
         TIMEZONES.forEach(([tz, label]) => {
           const opt = document.createElement('option');
           opt.value       = tz;
-          opt.textContent = `${tz} — ${label}`;
+          opt.textContent = ({{ Illuminate\Support\Js::from(__(':value0 — :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(tz)).replaceAll(/:value1(?!\d)/g, () => String(label));
           if (tz === defaultTz) { opt.selected = true; found = true; }
           selectEl.appendChild(opt);
         });
@@ -813,7 +817,7 @@
         if (!found) {
           const opt = document.createElement('option');
           opt.value       = defaultTz;
-          opt.textContent = defaultTz + ' — Your timezone';
+          opt.textContent = defaultTz + {{ Illuminate\Support\Js::from(__(' — Your timezone')) }};
           opt.selected    = true;
           selectEl.insertBefore(opt, selectEl.firstChild);
         }
@@ -822,7 +826,7 @@
       const toTzEl   = document.getElementById('to-tz');
       populateTzSelect(fromTzEl, 'UTC');
       populateTzSelect(toTzEl,   browserTz);
-      document.getElementById('tz-detected-label').textContent = `To: ${browserTz} (detected)`;
+      document.getElementById('tz-detected-label').textContent = ({{ Illuminate\Support\Js::from(__('To: :value0 (detected)')) }}).replaceAll(/:value0(?!\d)/g, () => String(browserTz));
       // Swap
       document.getElementById('swap-tz').addEventListener('click', () => {
         const tmp = fromTzEl.value;
@@ -906,7 +910,7 @@
             body:    JSON.stringify(payload),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || data.detail || 'Conversion failed.');
+          if (!res.ok) throw new Error(data.error || data.detail || {{ Illuminate\Support\Js::from(__('Conversion failed.')) }});
           renderSingleResult(data);
         } catch(err) {
           document.getElementById('single-loading').classList.add('hidden');
@@ -920,28 +924,28 @@
         const f = data.formats ?? {};
         document.getElementById('res-input-label').textContent = data.input ?? '';
         document.getElementById('res-tz-label').textContent    =
-          `${data.from_timezone ?? ''} → ${data.to_timezone ?? ''}  ·  UTC${f.utc_offset ?? ''}`;
+          ({{ Illuminate\Support\Js::from(__(':value0 → :value1  ·  UTC:value2')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.from_timezone ?? '')).replaceAll(/:value1(?!\d)/g, () => String(data.to_timezone ?? '')).replaceAll(/:value2(?!\d)/g, () => String(f.utc_offset ?? ''));
         document.getElementById('res-relative').textContent = f.relative ?? '';
         const dstBadge = document.getElementById('res-dst-badge');
         data.is_dst ? dstBadge.classList.remove('hidden') : dstBadge.classList.add('hidden');
         // Format cards
         const formatDefs = [
-          ['Human Readable',   f.human_readable],
-          ['ISO 8601',         f.iso_8601],
-          ['ISO 8601 UTC',     f.iso_8601_utc],
-          ['RFC 2822',         f.rfc_2822],
-          ['RFC 3339',         f.rfc_3339],
-          ['Unix Seconds',     f.unix_seconds],
-          ['Unix Milliseconds',f.unix_ms],
-          ['Unix Nanoseconds', f.unix_ns],
-          ['Date Only',        f.date_only],
-          ['Time Only',        f.time_only],
-          ['Local DateTime',   f.datetime_local],
-          ['Day of Week',      f.day_of_week],
-          ['Day of Year',      f.day_of_year],
-          ['Week Number',      'Week ' + f.week_number],
-          ['Quarter',          f.quarter],
-          ['UTC Offset',       f.utc_offset],
+          [{{ Illuminate\Support\Js::from(__('Human Readable')) }},   f.human_readable],
+          [{{ Illuminate\Support\Js::from(__('ISO 8601')) }},         f.iso_8601],
+          [{{ Illuminate\Support\Js::from(__('ISO 8601 UTC')) }},     f.iso_8601_utc],
+          [{{ Illuminate\Support\Js::from(__('RFC 2822')) }},         f.rfc_2822],
+          [{{ Illuminate\Support\Js::from(__('RFC 3339')) }},         f.rfc_3339],
+          [{{ Illuminate\Support\Js::from(__('Unix Seconds')) }},     f.unix_seconds],
+          [{{ Illuminate\Support\Js::from(__('Unix Milliseconds')) }},f.unix_ms],
+          [{{ Illuminate\Support\Js::from(__('Unix Nanoseconds')) }}, f.unix_ns],
+          [{{ Illuminate\Support\Js::from(__('Date Only')) }},        f.date_only],
+          [{{ Illuminate\Support\Js::from(__('Time Only')) }},        f.time_only],
+          [{{ Illuminate\Support\Js::from(__('Local DateTime')) }},   f.datetime_local],
+          [{{ Illuminate\Support\Js::from(__('Day of Week')) }},      f.day_of_week],
+          [{{ Illuminate\Support\Js::from(__('Day of Year')) }},      f.day_of_year],
+          [{{ Illuminate\Support\Js::from(__('Week Number')) }},      'Week ' + f.week_number],
+          [{{ Illuminate\Support\Js::from(__('Quarter')) }},          f.quarter],
+          [{{ Illuminate\Support\Js::from(__('UTC Offset')) }},       f.utc_offset],
         ];
         const container = document.getElementById('format-cards');
         container.innerHTML = '';
@@ -951,21 +955,21 @@
           card.className = 'format-card';
           card.tabIndex = 0;
           card.setAttribute('role', 'button');
-          card.setAttribute('aria-label', 'Copy ' + label);
+          card.setAttribute('aria-label', {{ Illuminate\Support\Js::from(__('Copy ')) }} + label);
           card.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); card.click(); }
           });
-          card.innerHTML = `
-            <span class="card-label">${label}</span>
-            <span class="card-value">${value}</span>
-            <span class="card-copy">Copy</span>`;
+          card.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+            <span class="card-label">:value0</span>
+            <span class="card-value">:value1</span>
+            <span class="card-copy">Copy</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(value));
           card.addEventListener('click', () => {
             navigator.clipboard.writeText(String(value)).catch(() => {});
             card.classList.add('copied');
-            card.querySelector('.card-copy').textContent = 'Copied!';
+            card.querySelector('.card-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
             setTimeout(() => {
               card.classList.remove('copied');
-              card.querySelector('.card-copy').textContent = 'Copy';
+              card.querySelector('.card-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }};
             }, 1500);
           });
           container.appendChild(card);
@@ -980,7 +984,11 @@
         batchBtn.disabled = !batchInput.value.trim();
       });
       document.getElementById('btn-load-examples').addEventListener('click', () => {
-        batchInput.value = '1704067200\n2024-01-15T08:30:00Z\nnow\nyesterday\n2024-06-01 12:00:00';
+        batchInput.value = {{ Illuminate\Support\Js::from(__('1704067200
+2024-01-15T08:30:00Z
+now
+yesterday
+2024-06-01 12:00:00')) }};
         batchBtn.disabled = false;
       });
       document.getElementById('btn-clear-batch').addEventListener('click', () => {
@@ -1001,7 +1009,7 @@
         if (!raw) return;
         const values = raw.split('\n').map(l => l.trim()).filter(Boolean);
         batchBtn.disabled = true;
-        batchBtn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Converting…`;
+        batchBtn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Converting…')) }});
         document.getElementById('batch-error').classList.add('hidden');
         document.getElementById('batch-placeholder').classList.add('hidden');
         const wrap = document.getElementById('batch-results-wrap');
@@ -1017,11 +1025,11 @@
             }),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Batch conversion failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Batch conversion failed.')) }});
           const results = data.results ?? [];
           // Stats
           document.getElementById('batch-stats').textContent =
-            `${data.success ?? results.filter(r=>r.success).length} success · ${data.failed ?? results.filter(r=>!r.success).length} failed`;
+            ({{ Illuminate\Support\Js::from(__(':value0 success · :value1 failed')) }}).replaceAll(/:value0(?!\d)/g, () => String(data.success ?? results.filter(r=>r.success).length)).replaceAll(/:value1(?!\d)/g, () => String(data.failed ?? results.filter(r=>!r.success).length));
           document.getElementById('batch-stats').classList.remove('hidden');
           // Render cards
           results.forEach(result => {
@@ -1029,24 +1037,24 @@
             card.className = 'batch-result-card ' + (result.success ? 'success' : 'failed');
             if (result.success) {
               const f = result.formats ?? {};
-              card.innerHTML = `
+              card.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                 <div class="flex items-start justify-between gap-2 mb-1.5">
-                  <span class="text-sm font-mono text-fn-text3 truncate">${escHtml(String(result.input))}</span>
-                  <span class="text-sm text-fn-text3 shrink-0">${f.relative ?? ''}</span>
+                  <span class="text-sm font-mono text-fn-text3 truncate">:value0</span>
+                  <span class="text-sm text-fn-text3 shrink-0">:value1</span>
                 </div>
                 <div class="grid grid-cols-2 gap-x-4 gap-y-0.5">
-                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">ISO</span><span class="font-mono text-fn-text2" style="font-size:10px">${f.iso_8601 ?? '—'}</span></div>
-                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">Unix</span><span class="font-mono text-fn-text2" style="font-size:10px">${f.unix_seconds ?? '—'}</span></div>
-                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">Human</span><span class="font-mono text-fn-text2" style="font-size:10px">${f.human_readable ?? '—'}</span></div>
-                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">UTC offset</span><span class="font-mono text-fn-text2" style="font-size:10px">${f.utc_offset ?? '—'}</span></div>
-                </div>`;
+                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">ISO</span><span class="font-mono text-fn-text2" style="font-size:10px">:value2</span></div>
+                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">Unix</span><span class="font-mono text-fn-text2" style="font-size:10px">:value3</span></div>
+                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">Human</span><span class="font-mono text-fn-text2" style="font-size:10px">:value4</span></div>
+                  <div class="flex gap-1.5"><span class="text-fn-text3" style="font-size:10px">UTC offset</span><span class="font-mono text-fn-text2" style="font-size:10px">:value5</span></div>
+                </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(String(result.input)))).replaceAll(/:value1(?!\d)/g, () => String(f.relative ?? '')).replaceAll(/:value2(?!\d)/g, () => String(f.iso_8601 ?? '—')).replaceAll(/:value3(?!\d)/g, () => String(f.unix_seconds ?? '—')).replaceAll(/:value4(?!\d)/g, () => String(f.human_readable ?? '—')).replaceAll(/:value5(?!\d)/g, () => String(f.utc_offset ?? '—'));
             } else {
-              card.innerHTML = `
+              card.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                 <div class="flex items-center gap-2">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
-                  <span class="text-sm font-mono text-fn-text3">${escHtml(String(result.input))}</span>
-                  <span class="text-sm text-fn-red ml-auto">${escHtml(result.error ?? 'Failed')}</span>
-                </div>`;
+                  <span class="text-sm font-mono text-fn-text3">:value0</span>
+                  <span class="text-sm text-fn-red ml-auto">:value1</span>
+                </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(String(result.input)))).replaceAll(/:value1(?!\d)/g, () => String(escHtml(result.error ?? 'Failed')));
             }
             wrap.appendChild(card);
           });
@@ -1064,8 +1072,8 @@
           dlBtn.download = 'timestamps.json';
           copyBtn.onclick = async () => {
             await navigator.clipboard.writeText(jsonStr).catch(() => {});
-            document.getElementById('batch-copy-label').textContent = 'Copied!';
-            setTimeout(() => { document.getElementById('batch-copy-label').textContent = 'Copy JSON'; }, 2000);
+            document.getElementById('batch-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+            setTimeout(() => { document.getElementById('batch-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy JSON')) }}; }, 2000);
           };
         } catch(err) {
           document.getElementById('batch-error-text').textContent = err.message;
@@ -1074,7 +1082,7 @@
           document.getElementById('batch-placeholder').classList.remove('hidden');
         } finally {
           batchBtn.disabled = false;
-          batchBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Convert All`;
+          batchBtn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Convert All')) }});
         }
       }
       function escHtml(s) {

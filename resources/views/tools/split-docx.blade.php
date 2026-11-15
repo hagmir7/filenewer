@@ -22,9 +22,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,8 +51,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Word file here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .docx files &middot; or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Word file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .docx files · or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -61,9 +61,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Word File
+                            {{ __('Choose Word File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input"
                             accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -85,9 +85,9 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">&mdash; &middot; Word Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · Word Document') }}</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -100,7 +100,7 @@
                     <div class="mt-6 space-y-3">
                         {{-- Row 1: Split Mode --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-3">Split Mode</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-3">{{ __('Split Mode') }}</label>
                             @php
                             $splitModes = [
                             ['page', 'By Page Break', 'Split at every page break in the document'],
@@ -114,15 +114,15 @@
                                 <button type="button"
                                     class="split-mode-btn {{ $modeVal === 'page' ? 'active' : '' }} p-3 rounded-xl border text-left transition-all"
                                     data-mode="{{ $modeVal }}">
-                                    <span class="block text-sm font-semibold">{{ $modeLabel }}</span>
-                                    <span class="block text-xs text-fn-text3 mt-0.5">{{ $modeDesc }}</span>
+                                    <span class="block text-sm font-semibold">{{ __(Str::squish((string) $modeLabel)) }}</span>
+                                    <span class="block text-xs text-fn-text3 mt-0.5">{{ __(Str::squish((string) $modeDesc)) }}</span>
                                 </button>
                                 @endforeach
                             </div>
                         </div>
                         {{-- Conditional: Heading Level (shown when split_by=heading) --}}
                         <div id="opt-heading-wrap" class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label class="text-sm font-semibold text-fn-text2 block mb-2">Heading Level</label>
+                            <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Heading Level') }}</label>
                             @php
                             $headingLevels = [
                             ['1', 'H1'],
@@ -138,17 +138,16 @@
                                 <button type="button"
                                     class="heading-btn {{ $hVal === '1' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-bold transition-all"
                                     data-level="{{ $hVal }}">
-                                    {{ $hLabel }}
+                                    {{ __(Str::squish((string) $hLabel)) }}
                                 </button>
                                 @endforeach
                             </div>
-                            <p class="text-fn-text3 text-sm mt-2">Split at each Heading 1 (chapters). Use H2 for
-                                sections, H3 for sub-sections.</p>
+                            <p class="text-fn-text3 text-sm mt-2">{{ __('Split at each Heading 1 (chapters). Use H2 for sections, H3 for sub-sections.') }}</p>
                         </div>
                         {{-- Conditional: Chunk Size (shown when split_by=chunk) --}}
                         <div id="opt-chunk-wrap" class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-chunk-size" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                Paragraphs per Part
+                                {{ __('Paragraphs per Part') }}
                                 <span class="font-normal text-fn-text3 ml-1">(<span id="chunk-value">10</span>)</span>
                             </label>
                             <input type="range" id="opt-chunk-size" min="1" max="100" value="10"
@@ -161,23 +160,22 @@
                         {{-- Conditional: Page Ranges (shown when split_by=range) --}}
                         <div id="opt-range-wrap" class="hidden p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                Pages or Ranges
+                                {{ __('Pages or Ranges') }}
                             </label>
-                            <input type="text" id="opt-pages" placeholder="e.g. 1,3,5 or [[1,3],[4,6],[7,10]]"
+                            <input type="text" id="opt-pages" placeholder="{{ __('e.g. 1,3,5 or [[1,3],[4,6],[7,10]]') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-fn-text3 text-sm mt-1.5">Single pages: 1,3,5 &middot; Ranges: [[1,3],[4,6]]
-                                &middot; Mix both as needed.</p>
+                            <p class="text-fn-text3 text-sm mt-1.5">{{ __('Single pages: 1,3,5 · Ranges: [[1,3],[4,6]] · Mix both as needed.') }}</p>
                         </div>
                         {{-- Row 2: Output filename --}}
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. split_output.zip"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. split_output.zip') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your filename with _split.zip</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to your filename with _split.zip') }}</p>
                             </div>
                         </div>
                     </div>
@@ -191,7 +189,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Split button --}}
                     <button id="convert-btn" type="button" disabled
@@ -200,7 +198,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Split Document
+                        {{ __('Split Document') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -238,15 +236,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Splitting your document&hellip;</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 30 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Splitting your document…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 30 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting&hellip;</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     @php
@@ -273,7 +271,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -290,11 +288,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Split Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your split files are ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Split Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">{{ __('Your split files are ready.') }}</p>
                     {{-- Parts list --}}
                     <div id="parts-wrap" class="hidden max-w-lg mx-auto mb-6">
-                        <p class="text-fn-text2 text-sm font-semibold mb-2 text-left">Parts</p>
+                        <p class="text-fn-text2 text-sm font-semibold mb-2 text-left">{{ __('Parts') }}</p>
                         <div id="parts-list" class="space-y-2 text-left"></div>
                     </div>
                     <div
@@ -316,7 +314,7 @@
                             </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">split_output.zip</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('ZIP Archive') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -329,7 +327,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download ZIP</span>
+                        <span id="download-btn-label">{{ __('Download ZIP') }}</span>
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -339,11 +337,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Split another
+                            {{ __('Split another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -351,7 +349,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -361,7 +359,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $faqs = [
@@ -385,7 +383,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -393,7 +391,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -668,16 +666,16 @@
         hideError();
         var ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
         if (ext !== '.docx') {
-          showError('Please select a valid .docx file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid .docx file.')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' \u00b7 Word Document';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Word Document')) }};
         var fnInput = document.getElementById('opt-filename');
         if (!fnInput.value) fnInput.value = file.name.replace(/\.docx$/i, '_split.zip');
         filePreview.classList.remove('hidden');
@@ -714,26 +712,26 @@
         if (activeSplit === 'chunk')   formData.append('chunk_size', chunkSlider.value);
         if (activeSplit === 'range') {
           var pagesVal = document.getElementById('opt-pages').value.trim();
-          if (!pagesVal) { showError('Please enter pages or page ranges.'); showState('upload'); updateStepIndicator(1); return; }
+          if (!pagesVal) { showError({{ Illuminate\Support\Js::from(__('Please enter pages or page ranges.')) }}); showState('upload'); updateStepIndicator(1); return; }
           formData.append('pages', pagesVal);
         }
         // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 800, 'Uploading & reading document\u2026');
+        animateProgress(0, 20, 800, {{ Illuminate\Support\Js::from(__('Uploading & reading document…')) }});
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(20, 50, 1200, 'Analyzing structure & split points\u2026');
+          animateProgress(20, 50, 1200, {{ Illuminate\Support\Js::from(__('Analyzing structure & split points…')) }});
         }, 900);
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(50, 78, 1500, 'Splitting into parts\u2026');
+          animateProgress(50, 78, 1500, {{ Illuminate\Support\Js::from(__('Splitting into parts…')) }});
         }, 2300);
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(78, 90, 700, 'Packaging ZIP archive\u2026');
+          animateProgress(78, 90, 700, {{ Illuminate\Support\Js::from(__('Packaging ZIP archive…')) }});
         }, 4000);
         // Also fetch JSON metadata in parallel (non-blocking)
         var jsonForm = new FormData();
@@ -766,14 +764,14 @@
           link.href     = blobUrl;
           link.download = outputFilename;
           document.getElementById('output-name').textContent        = outputFilename;
-          document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 ZIP Archive';
-          document.getElementById('download-btn-label').textContent = 'Download ZIP';
+          document.getElementById('output-size').textContent        = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · ZIP Archive')) }};
+          document.getElementById('download-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Download ZIP')) }};
           // Parts list from JSON
           var partsWrap = document.getElementById('parts-wrap');
           if (jsonRes && jsonRes.ok) {
             try {
               var meta = await jsonRes.json();
-              document.getElementById('download-subtitle').textContent = 'Split into ' + (meta.total_parts || '?') + ' parts.';
+              document.getElementById('download-subtitle').textContent = {{ Illuminate\Support\Js::from(__('Split into ')) }} + (meta.total_parts || '?') + {{ Illuminate\Support\Js::from(__(' parts.')) }};
               if (meta.parts && meta.parts.length > 0) {
                 var listEl = document.getElementById('parts-list');
                 listEl.innerHTML = '';
@@ -781,11 +779,11 @@
                   var row = document.createElement('div');
                   row.className = 'part-row';
                   row.innerHTML =
-                    '<span class="part-num">' + part.index + '</span>' +
-                    '<div class="flex-1 min-w-0">' +
-                    '<p class="font-semibold text-sm truncate">' + escHtml(part.filename) + '</p>' +
-                    '<p class="text-fn-text3 text-xs">' + (part.title ? escHtml(part.title) + ' \u00b7 ' : '') + (part.paragraphs || 0) + ' paragraphs \u00b7 ' + (part.size_kb || 0) + ' KB</p>' +
-                    '</div>';
+                    {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="part-num">')) }} + part.index + {{ Illuminate\Support\Js::from(__('</span>')) }} +
+                    {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<div class="flex-1 min-w-0">')) }} +
+                    {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p class="font-semibold text-sm truncate">')) }} + escHtml(part.filename) + '</p>' +
+                    {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p class="text-fn-text3 text-xs">')) }} + (part.title ? escHtml(part.title) + ' \u00b7 ' : '') + (part.paragraphs || 0) + {{ Illuminate\Support\Js::from(__(' paragraphs · ')) }} + (part.size_kb || 0) + {{ Illuminate\Support\Js::from(__(' KB</p>')) }} +
+                    {{ Illuminate\Support\Js::from(__('</div>')) }};
                   listEl.appendChild(row);
                 });
                 partsWrap.classList.remove('hidden');
@@ -794,20 +792,20 @@
               }
             } catch (_) {
               partsWrap.classList.add('hidden');
-              document.getElementById('download-subtitle').textContent = 'Your split files are ready.';
+              document.getElementById('download-subtitle').textContent = {{ Illuminate\Support\Js::from(__('Your split files are ready.')) }};
             }
           } else {
             partsWrap.classList.add('hidden');
-            document.getElementById('download-subtitle').textContent = 'Your split files are ready.';
+            document.getElementById('download-subtitle').textContent = {{ Illuminate\Support\Js::from(__('Your split files are ready.')) }};
           }
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -889,7 +887,7 @@
         document.getElementById('parts-wrap').classList.add('hidden');
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting\u2026');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
       function showError(msg) {

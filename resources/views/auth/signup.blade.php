@@ -3,25 +3,24 @@
 @section('content')
 <div class="min-h-screen flex">
     <div
-        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-r border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
+        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-e border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
 
         <!-- Logo -->
         <a href="/">
-            <img src="/filenewer-logo.svg" alt="The Fastest Online File Tools " width="100" height="50" class="h-[40px] w-auto md:h-[57px]">
+            <img src="/filenewer-logo.svg" alt="{{ __('The Fastest Online File Tools') }}" width="100" height="50" class="h-[40px] w-auto md:h-[57px]">
         </a>
 
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-4">Join 50,000+ users</p>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-4">{{ __('Join 50,000+ users') }}</p>
                 <h1 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
-                    Smarter File<br />
-                    Processing<br />
-                    <span class="text-fn-text3">starts here.</span>
+                    {{ __('Smarter File') }}<br />
+                    {{ __('Processing') }}<br />
+                    <span class="text-fn-text3">{{ __('starts here.') }}</span>
                 </h1>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
-                    Convert, compress, generate, and process your files in seconds, no credit card
-                    needed.
+                    {{ __('Convert, compress, generate, and process your files in seconds, no credit card needed.') }}
                 </p>
             </div>
 
@@ -36,8 +35,8 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold">60+File Tools</p>
-                        <p class="text-sm text-fn-text3">PDF, CSV, images, documents &amp; more</p>
+                        <p class="text-sm font-semibold">{{ __('60+File Tools') }}</p>
+                        <p class="text-sm text-fn-text3">{{ __('PDF, CSV, images, documents & more') }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3.5">
@@ -49,8 +48,8 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold">AES-256 Encrypted</p>
-                        <p class="text-sm text-fn-text3">Files deleted automatically after 1 hour</p>
+                        <p class="text-sm font-semibold">{{ __('AES-256 Encrypted') }}</p>
+                        <p class="text-sm text-fn-text3">{{ __('Files deleted automatically after 1 hour') }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3.5">
@@ -63,16 +62,15 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold">Results in Seconds</p>
-                        <p class="text-sm text-fn-text3">No queue, no wait — instant processing</p>
+                        <p class="text-sm font-semibold">{{ __('Results in Seconds') }}</p>
+                        <p class="text-sm text-fn-text3">{{ __('No queue, no wait — instant processing') }}</p>
                     </div>
                 </div>
             </div>
 
             <!-- Testimonial -->
             <div class="p-5 bg-fn-surface2 border border-fn-text/7 rounded-xl">
-                <p class="text-sm text-fn-text2 leading-relaxed italic mb-3">"Filenewer replaced 4 different tools
-                    for our team. It's the only file platform we use now."</p>
+                <p class="text-sm text-fn-text2 leading-relaxed italic mb-3">{{ __('"Filenewer replaced 4 different tools for our team. It\'s the only file platform we use now."') }}</p>
                 <div class="flex items-center gap-3">
                     <div
                         class="w-8 h-8 rounded-full bg-fn-blue/20 border border-fn-blue/30 flex items-center justify-center text-sm font-bold text-fn-blue-l">
@@ -80,7 +78,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold">Sara Mitchell</p>
-                        <p class="text-sm text-fn-text3">Operations Lead, TechFlow</p>
+                        <p class="text-sm text-fn-text3">{{ __('Operations Lead, TechFlow') }}</p>
                     </div>
                 </div>
             </div>
@@ -89,14 +87,14 @@
         <!-- Bottom stats -->
         <div class="flex items-center gap-8 relative z-10">
             <div>
-                <p class="text-xl font-bold">50K+</p>
-                <p class="text-sm text-fn-text3">Active users</p>
+                <p class="text-xl font-bold">{{ __('50K+') }}</p>
+                <p class="text-sm text-fn-text3">{{ __('Active users') }}</p>
             </div>
 
             <div class="w-px h-8 bg-fn-text/10"></div>
             <div>
                 <p class="text-xl font-bold">50+</p>
-                <p class="text-sm text-fn-text3">Tools available</p>
+                <p class="text-sm text-fn-text3">{{ __('Tools available') }}</p>
             </div>
         </div>
     </div>
@@ -106,7 +104,7 @@
 
         <!-- Subtle bg glow -->
         <div
-            class="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(ellipse,oklch(49%_0.24_264_/_6%)_0%,transparent_70%)] pointer-events-none">
+            class="absolute top-0 end-0 w-96 h-96 bg-[radial-gradient(ellipse,oklch(49%_0.24_264_/_6%)_0%,transparent_70%)] pointer-events-none">
         </div>
 
         <div class="w-full max-w-md animate-fade-up opacity-0">
@@ -125,14 +123,14 @@
 
             <!-- Header -->
             <div class="mb-8">
-                <h2 class="text-2xl font-bold tracking-tight mb-1.5">Create your account</h2>
-                <p class="text-fn-text3 text-sm">Free forever · No credit card required</p>
+                <h2 class="text-2xl font-bold tracking-tight mb-1.5">{{ __('Create your account') }}</h2>
+                <p class="text-fn-text3 text-sm">{{ __('Free forever · No credit card required') }}</p>
             </div>
 
             <!-- Global error banner -->
             @if ($errors->any())
             <div class="mb-5 p-3.5 bg-red-500/10 border border-red-500/20 rounded-xl">
-                <p class="text-sm font-semibold text-red-400 mb-1.5">Please fix the following:</p>
+                <p class="text-sm font-semibold text-red-400 mb-1.5">{{ __('Please fix the following:') }}</p>
                 <ul class="list-disc list-inside space-y-0.5">
                     @foreach ($errors->all() as $error)
                     <li class="text-sm text-red-400">{{ $error }}</li>
@@ -184,7 +182,7 @@
             <!-- Divider -->
             <div class="flex items-center gap-3 mb-6">
                 <div class="flex-1 h-px bg-fn-text/8"></div>
-                <span class="text-fn-text3 text-sm font-medium">or sign up with email</span>
+                <span class="text-fn-text3 text-sm font-medium">{{ __('or sign up with email') }}</span>
                 <div class="flex-1 h-px bg-fn-text/8"></div>
             </div>
 
@@ -196,8 +194,8 @@
                 <div class="grid grid-cols-2 gap-3">
                     <!-- First name -->
                     <div class="space-y-1.5">
-                        <label class="text-sm font-semibold text-fn-text2 block" for="first-name">First name</label>
-                        <input id="first-name" name="first_name" type="text" placeholder="John"
+                        <label class="text-sm font-semibold text-fn-text2 block" for="first-name">{{ __('First name') }}</label>
+                        <input id="first-name" name="first_name" type="text" placeholder="{{ __('John') }}"
                             autocomplete="given-name" value="{{ old('first_name') }}"
                             class="input-field w-full px-3.5 py-2.5 bg-fn-surface border {{ $errors->has('first_name') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                         @error('first_name')
@@ -206,8 +204,8 @@
                     </div>
                     <!-- Last name -->
                     <div class="space-y-1.5">
-                        <label class="text-sm font-semibold text-fn-text2 block" for="last-name">Last name</label>
-                        <input id="last-name" name="last_name" type="text" placeholder="Doe" autocomplete="family-name"
+                        <label class="text-sm font-semibold text-fn-text2 block" for="last-name">{{ __('Last name') }}</label>
+                        <input id="last-name" name="last_name" type="text" placeholder="{{ __('Doe') }}" autocomplete="family-name"
                             value="{{ old('last_name') }}"
                             class="input-field w-full px-3.5 py-2.5 bg-fn-surface border {{ $errors->has('last_name') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                         @error('last_name')
@@ -218,17 +216,17 @@
 
                 <!-- Email -->
                 <div class="space-y-1.5">
-                    <label class="text-sm font-semibold text-fn-text2 block" for="email">Email address</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="email">{{ __('Email address') }}</label>
                     <div class="relative">
-                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4"
+                        <svg class="absolute start-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
                         </svg>
-                        <input id="email" name="email" type="email" placeholder="john@company.com" autocomplete="email"
+                        <input id="email" name="email" type="email" dir="ltr" placeholder="john@company.com" autocomplete="email"
                             value="{{ old('email') }}"
-                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                            class="input-field w-full ps-10 pe-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
                     @error('email')
                     <p class="text-sm text-red-400 mt-1">{{ $message }}</p>
@@ -237,20 +235,20 @@
 
                 <!-- Password -->
                 <div class="space-y-1.5">
-                    <label class="text-sm font-semibold text-fn-text2 block" for="password">Password</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="password">{{ __('Password') }}</label>
                     <div class="relative">
-                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4"
+                        <svg class="absolute start-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <input id="password" name="password" type="password" placeholder="Min. 8 characters"
+                        <input id="password" name="password" type="password" placeholder="{{ __('Min. 8 characters') }}"
                             autocomplete="new-password"
-                            class="input-field w-full pl-10 pr-11 py-2.5 bg-fn-surface border {{ $errors->has('password') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans"
+                            class="input-field w-full ps-10 pe-11 py-2.5 bg-fn-surface border {{ $errors->has('password') ? 'border-red-500' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans"
                             oninput="checkStrength(this.value)" />
                         <button type="button" onclick="togglePwd('password','eye-signup')"
-                            class="absolute right-3.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text2 transition-colors">
+                            class="absolute end-3.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text2 transition-colors">
                             <svg id="eye-signup" width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -277,8 +275,8 @@
                         <input type="checkbox" id="terms" name="terms" {{ old('terms') ? 'checked' : '' }}
                             class="mt-0.5 w-4 h-4 rounded border {{ $errors->has('terms') ? 'border-red-500' : 'border-fn-text/20' }} bg-fn-surface cursor-pointer shrink-0 accent-fn-blue" />
                         <label for="terms" class="text-sm text-fn-text3 leading-relaxed cursor-pointer">
-                            I agree to the <a href="/pages/terms-of-service" class="text-fn-blue-l hover:underline">Terms of Service</a>
-                            and <a href="/pages/privacy-policy" class="text-fn-blue-l hover:underline">Privacy Policy</a>
+                            {{ __('I agree to the') }} <a href="/pages/terms-of-service" class="text-fn-blue-l hover:underline">{{ __('Terms of Service') }}</a>
+                            {{ __('and') }} <a href="/pages/privacy-policy" class="text-fn-blue-l hover:underline">{{ __('Privacy Policy') }}</a>
                         </label>
                     </div>
                     @error('terms')
@@ -289,15 +287,15 @@
                 <!-- Submit -->
                 <button type="submit"
                     class="btn-primary w-full py-3 bg-fn-blue hover:bg-fn-blue-l text-white font-semibold text-sm rounded-xl transition-all hover:-translate-y-0.5 mt-2">
-                    Create Free Account
+                    {{ __('Create Free Account') }}
                 </button>
 
             </form>
 
             <!-- Sign in link -->
             <p class="text-center text-sm text-fn-text3 mt-6">
-                Already have an account?
-                <a href="/login" class="text-fn-blue-l font-semibold hover:underline ml-1">Sign in</a>
+                {{ __('Already have an account?') }}
+                <a href="/login" class="text-fn-blue-l font-semibold hover:underline ms-1">{{ __('Sign in') }}</a>
             </p>
 
             <!-- Trust badges -->
@@ -307,21 +305,21 @@
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
-                    SSL Secured
+                    {{ __('SSL Secured') }}
                 </div>
                 <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    GDPR Compliant
+                    {{ __('GDPR Compliant') }}
                 </div>
                 <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Free Forever
+                    {{ __('Free Forever') }}
                 </div>
             </div>
 
@@ -350,7 +348,7 @@
         if (/[^A-Za-z0-9]/.test(val)) score++;
 
         const colors = ['oklch(59% 0.22 27)', 'oklch(73% 0.17 72)', 'oklch(73% 0.17 72)', 'oklch(67% 0.18 162)'];
-        const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+        const labels = {{ Illuminate\Support\Js::from(['', __('Weak'), __('Fair'), __('Good'), __('Strong')]) }};
 
         bars.forEach((id, i) => {
             const bar = document.getElementById(id);

@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -45,8 +45,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -55,9 +55,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -71,7 +71,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                 </div>{{-- /state-upload --}}
                 {{-- ── STATE: Loading page info ── --}}
@@ -80,8 +80,8 @@
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60"
                             stroke-dashoffset="20" stroke-linecap="round" />
                     </svg>
-                    <p class="text-fn-text2 font-semibold">Reading PDF pages…</p>
-                    <p class="text-fn-text3 text-sm mt-1">Fetching page dimensions and current rotation</p>
+                    <p class="text-fn-text2 font-semibold">{{ __('Reading PDF pages…') }}</p>
+                    <p class="text-fn-text3 text-sm mt-1">{{ __('Fetching page dimensions and current rotation') }}</p>
                 </div>
                 {{-- ── STATE: Configure rotation ── --}}
                 <div id="state-configure" class="hidden">
@@ -110,15 +110,15 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Change file
+                            {{ __('Change file') }}
                         </button>
                     </div>
                     {{-- Global rotation controls --}}
                     <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl mb-5">
                         <div class="flex flex-wrap items-center justify-between gap-3">
                             <div>
-                                <p class="text-sm font-semibold text-fn-text2 mb-0.5">Rotate All Pages</p>
-                                <p class="text-fn-text3 text-sm">Apply the same rotation to every page at once</p>
+                                <p class="text-sm font-semibold text-fn-text2 mb-0.5">{{ __('Rotate All Pages') }}</p>
+                                <p class="text-fn-text3 text-sm">{{ __('Apply the same rotation to every page at once') }}</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-2">
                                 @php
@@ -138,8 +138,8 @@
                                 @foreach($rotBtns as [$rval,$rlabel,$rtitle])
                                 <button type="button"
                                     class="global-rot-btn px-3 py-2 rounded-xl border text-sm font-bold transition-all"
-                                    data-rot="{{ $rval }}" title="{{ $rtitle }}">
-                                    {!! $rlabel !!}
+                                    data-rot="{{ $rval }}" title="{{ __(Str::squish((string) ($rtitle))) }}">
+                                    {!! \App\Support\ToolMessages::html((string) $rlabel) !!}
                                 </button>
                                 @endforeach
                             </div>
@@ -148,10 +148,8 @@
                     {{-- Page grid --}}
                     <div class="mb-5">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">Pages — <span id="page-count-label">0
-                                    pages</span></p>
-                            <p class="text-fn-text3 text-sm">Click a page to cycle rotation · use buttons for precise
-                                control</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Pages —') }} <span id="page-count-label">{{ __('0 pages') }}</span></p>
+                            <p class="text-fn-text3 text-sm">{{ __('Click a page to cycle rotation · use buttons for precise control') }}</p>
                         </div>
                         <div id="page-grid" class="grid gap-3"
                             style="grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));"></div>
@@ -163,7 +161,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Apply Rotation & Download
+                        {{ __('Apply Rotation & Download') }}
                     </button>
                     {{-- Apply error --}}
                     <div id="apply-error"
@@ -212,15 +210,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Rotating pages…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Rotating pages…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                 </div>
@@ -236,8 +234,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Rotation Applied!</h2>
-                    <p class="text-fn-text2 text-sm mb-8">Your rotated PDF is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Rotation Applied!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8">{{ __('Your rotated PDF is ready.') }}</p>
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -254,7 +252,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">rotated.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('PDF Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -267,7 +265,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Rotated PDF
+                        {{ __('Download Rotated PDF') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" id="rotate-again-btn"
@@ -277,11 +275,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Rotate another
+                            {{ __('Rotate another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -289,7 +287,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -299,7 +297,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $rotFaqs = [
@@ -323,7 +321,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -331,7 +329,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -601,10 +599,10 @@
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-          showError('Please select a valid PDF file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
           return;
         }
-        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 200MB free limit.'); return; }
+        if (file.size > 50 * 1024 * 1024) { showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }}); return; }
         selectedFile = file;
         loadPageInfo();
       }
@@ -627,21 +625,21 @@
         try {
           const res  = await fetch('https://api.filenewer.com/api/tools/pdf-pages', { method: 'POST', body: fd });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Could not read PDF pages.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Could not read PDF pages.')) }});
           pageData      = data.pages ?? [];
           userRotations = pageData.map(() => 0);
           // Populate file info bar
           document.getElementById('cfg-file-name').textContent = selectedFile.name;
           document.getElementById('cfg-file-meta').textContent =
-            formatBytes(selectedFile.size) + ' · ' + pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
+            formatBytes(selectedFile.size) + ' · ' + pageData.length + {{ Illuminate\Support\Js::from(__(' page')) }} + ({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (pageData.length !== 1) ? 's' : '');
           document.getElementById('page-count-label').textContent =
-            pageData.length + ' page' + (pageData.length !== 1 ? 's' : '');
+            pageData.length + {{ Illuminate\Support\Js::from(__(' page')) }} + ({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (pageData.length !== 1) ? 's' : '');
           buildPageGrid();
           showState('configure');
         } catch(err) {
           showState('upload');
           updateStepIndicator(1);
-          showError(err.message || 'Failed to read PDF. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Failed to read PDF. Please try again.')) }});
         }
       }
       // ── Build page grid ──
@@ -746,12 +744,12 @@
         });
         const allZero = Object.keys(rotGroups).length === 0;
         if (allZero) {
-          document.getElementById('apply-error-text').textContent = 'No rotation applied — please rotate at least one page.';
+          document.getElementById('apply-error-text').textContent = {{ Illuminate\Support\Js::from(__('No rotation applied — please rotate at least one page.')) }};
           document.getElementById('apply-error').classList.remove('hidden');
           return;
         }
         showState('converting');
-        animateProgress(0, 30, 600, 'Preparing rotation…');
+        animateProgress(0, 30, 600, {{ Illuminate\Support\Js::from(__('Preparing rotation…')) }});
         try {
           let resultBlob;
           const rotEntries = Object.entries(rotGroups);
@@ -760,10 +758,10 @@
             const [rotation, pages] = rotEntries[0];
             const allPages = pages.length === pageData.length;
             resultBlob = await callRotateApi(selectedFile, rotation, allPages ? null : pages.join(','));
-            animateProgress(30, 90, 800, 'Rotating pages…');
+            animateProgress(30, 90, 800, {{ Illuminate\Support\Js::from(__('Rotating pages…')) }});
           } else {
             // Multiple rotation values — chain calls: each call takes output of previous as input
-            animateProgress(30, 50, 500, 'Rotating first group…');
+            animateProgress(30, 50, 500, {{ Illuminate\Support\Js::from(__('Rotating first group…')) }});
             let currentBlob = null;
             for (let i = 0; i < rotEntries.length; i++) {
               const [rotation, pages] = rotEntries[i];
@@ -772,11 +770,11 @@
                 : selectedFile;
               currentBlob = await callRotateApi(sourceFile, rotation, pages.join(','));
               animateProgress(50 + Math.round((i + 1) / rotEntries.length * 35), 85, 400,
-                `Rotating group ${i + 1} of ${rotEntries.length}…`);
+                ({{ Illuminate\Support\Js::from(__('Rotating group :value0 of :value1…')) }}).replaceAll(/:value0(?!\d)/g, () => String(i + 1)).replaceAll(/:value1(?!\d)/g, () => String(rotEntries.length)));
             }
             resultBlob = currentBlob;
           }
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           if (blobUrl) URL.revokeObjectURL(blobUrl);
           blobUrl = URL.createObjectURL(resultBlob);
           const fileName = selectedFile.name.replace(/\.pdf$/i, '_rotated.pdf');
@@ -784,11 +782,11 @@
           link.href     = blobUrl;
           link.download = fileName;
           document.getElementById('output-name').textContent = fileName;
-          document.getElementById('output-size').textContent = formatBytes(resultBlob.size) + ' · PDF Document';
+          document.getElementById('output-size').textContent = formatBytes(resultBlob.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
         } catch(err) {
           showState('configure');
-          document.getElementById('apply-error-text').textContent = err.message || 'Rotation failed. Please try again.';
+          document.getElementById('apply-error-text').textContent = err.message || {{ Illuminate\Support\Js::from(__('Rotation failed. Please try again.')) }};
           document.getElementById('apply-error').classList.remove('hidden');
         }
       }
@@ -800,7 +798,7 @@
         const res = await fetch('https://api.filenewer.com/api/tools/pdf-rotate', { method: 'POST', body: fd });
         if (!res.ok) {
           const d = await res.json().catch(() => ({}));
-          throw new Error(d.error || 'Rotation failed.');
+          throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Rotation failed.')) }});
         }
         return await res.blob();
       }

@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -38,7 +38,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste LaTeX
+                            {{ __('Paste LaTeX') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -47,16 +47,16 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload .tex
+                            {{ __('Upload .tex') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2">LaTeX source</p>
+                            <p class="text-xs font-semibold text-fn-text2">{{ __('LaTeX source') }}</p>
                             <div class="flex flex-wrap gap-1">
                                 <button type="button" id="btn-sample"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">Sample</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">{{ __('Sample') }}</button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -65,19 +65,18 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                             </div>
                         </div>
                         <textarea id="latex-textarea" rows="12" spellcheck="false"
                             placeholder='\documentclass[12pt,a4paper]{article}&#10;\usepackage[utf8]{inputenc}&#10;\begin{document}&#10;\title{My Document}&#10;\maketitle&#10;\section{Introduction}&#10;Hello, \textbf{world}!&#10;\end{document}'
                             class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                         <div class="flex items-center justify-between text-xs mt-1.5">
-                            <span id="latex-status" class="text-fn-text3">Paste a complete LaTeX document starting with
-                                \documentclass</span>
-                            <span id="latex-meta" class="text-fn-text3/70">0 chars · 0 lines</span>
+                            <span id="latex-status" class="text-fn-text3">{{ __('Paste a complete LaTeX document starting with \\documentclass') }}</span>
+                            <span id="latex-meta" class="text-fn-text3/70">{{ __('0 chars · 0 lines') }}</span>
                         </div>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
@@ -98,8 +97,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your .tex file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">Supports .tex files — or click to browse</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your .tex file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .tex files — or click to browse') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -108,9 +107,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose .tex File
+                                {{ __('Choose .tex File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                             <input type="file" id="file-input" accept=".tex,text/x-tex,application/x-tex,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -125,7 +124,7 @@
                                 </svg>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-sm truncate" id="file-name">document.tex</p>
+                                <p class="font-semibold text-sm truncate" id="file-name">{{ __('document.tex') }}</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
                             <button type="button" id="remove-file"
@@ -148,51 +147,51 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            <p class="text-sm font-semibold text-fn-text2">Detected in your document</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Detected in your document') }}</p>
                         </div>
                         <div class="flex flex-wrap gap-2" id="detected-chips"></div>
                     </div>
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">Compiler Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Compiler Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Left --}}
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
                                     <input type="text" id="opt-filename" placeholder="document.pdf"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-compiler"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">LaTeX compiler</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('LaTeX compiler') }}</label>
                                     <select id="opt-compiler"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                        <option value="pdflatex" selected>pdfLaTeX — fast, standard</option>
-                                        <option value="lualatex">LuaLaTeX — Unicode &amp; advanced fonts</option>
-                                        <option value="xelatex">XeLaTeX — system fonts support</option>
+                                        <option value="pdflatex" selected>{{ __('pdfLaTeX — fast, standard') }}</option>
+                                        <option value="lualatex">{{ __('LuaLaTeX — Unicode & advanced fonts') }}</option>
+                                        <option value="xelatex">{{ __('XeLaTeX — system fonts support') }}</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label for="opt-passes"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Compile passes</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Compile passes') }}</label>
                                     <select id="opt-passes"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                        <option value="1">1 pass — quick output</option>
-                                        <option value="2" selected>2 passes — resolve references</option>
-                                        <option value="3">3 passes — TOC &amp; bibliographies</option>
+                                        <option value="1">{{ __('1 pass — quick output') }}</option>
+                                        <option value="2" selected>{{ __('2 passes — resolve references') }}</option>
+                                        <option value="3">{{ __('3 passes — TOC & bibliographies') }}</option>
                                     </select>
                                 </div>
                             </div>
                             {{-- Right --}}
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Options</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Options') }}</label>
                                 <div class="flex flex-col gap-1.5">
                                     @foreach([
                                     ['opt-synctex', 'SyncTeX', 'Enable source ↔ PDF sync', false],
@@ -212,8 +211,8 @@
                                             </div>
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</p>
-                                            <p class="text-xs text-fn-text3 leading-tight">{{ $tdesc }}</p>
+                                            <p class="text-xs font-semibold text-fn-text2">{{ __(Str::squish((string) $tlabel)) }}</p>
+                                            <p class="text-xs text-fn-text3 leading-tight">{{ __(Str::squish((string) $tdesc)) }}</p>
                                         </div>
                                     </label>
                                     @endforeach
@@ -231,7 +230,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -241,7 +240,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Compile to PDF
+                        {{ __('Compile to PDF') }}
                     </button>
                 </div>
                 {{-- ── STATE: Compiling ── --}}
@@ -276,16 +275,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Compiling LaTeX to PDF…</h2>
-                    <p class="text-fn-text3 text-sm mb-8" id="compiling-subtitle">Running pdfLaTeX — resolving
-                        references &amp; cross-links</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Compiling LaTeX to PDF…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8" id="compiling-subtitle">{{ __('Running pdfLaTeX — resolving references & cross-links') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -309,7 +307,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3 proc-label">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3 proc-label">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -326,11 +324,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Compilation Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6">Your PDF is ready to download.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Compilation Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6">{{ __('Your PDF is ready to download.') }}</p>
                     {{-- Compilation info chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Compilation details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Compilation details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
                     <div
@@ -349,7 +347,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('PDF Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -362,7 +360,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download PDF
+                        {{ __('Download PDF') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -372,7 +370,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Compile another
+                            {{ __('Compile another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -380,7 +378,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -390,7 +388,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Which LaTeX compilers are supported?', 'Three compilers are available: pdfLaTeX (the standard choice —
@@ -414,7 +412,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -422,7 +420,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -720,24 +718,24 @@ Bob   & 25 & Paris  \\
   latexTA.addEventListener('input', () => {
     const v = latexTA.value;
     const lines = v ? v.split('\n').length : 0;
-    document.getElementById('latex-meta').textContent = v.length.toLocaleString() + ' chars · ' + lines + ' lines';
+    document.getElementById('latex-meta').textContent = v.length.toLocaleString() + {{ Illuminate\Support\Js::from(__(' chars · ')) }} + lines + {{ Illuminate\Support\Js::from(__(' lines')) }};
     const status = document.getElementById('latex-status');
     if (!v.trim()) {
-      status.innerHTML = '<span class="text-fn-text3">Paste a complete LaTeX document starting with \\documentclass</span>';
+      status.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-text3">Paste a complete LaTeX document starting with \\documentclass</span>')) }};
     } else {
       const stats = analyzeLatex(v);
       if (stats.hasDocumentClass) {
         const parts = [];
         if (stats.hasBeginDocument) parts.push('valid structure');
-        if (stats.sectionCount > 0) parts.push(stats.sectionCount + ' section' + (stats.sectionCount !== 1 ? 's' : ''));
+        if (stats.sectionCount > 0) parts.push(stats.sectionCount + ' section' + ({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (stats.sectionCount !== 1) ? 's' : ''));
         if (stats.hasMath) parts.push('math');
         if (stats.hasTable) parts.push('tables');
-        status.innerHTML = `<span class="text-fn-green flex items-center gap-1.5">
+        status.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-green flex items-center gap-1.5">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Valid LaTeX detected${parts.length ? ' · ' + parts.join(' · ') : ''}
-        </span>`;
+          Valid LaTeX detected:value0
+        </span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(parts.length ? ' · ' + parts.join(' · ') : ''));
       } else {
-        status.innerHTML = '<span class="text-fn-amber">No \\documentclass found — ensure it\'s a complete document</span>';
+        status.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-amber">No \\documentclass found — ensure it\'s a complete document</span>')) }};
       }
     }
     refreshConvertBtn();
@@ -758,16 +756,16 @@ Bob   & 25 & Paris  \\
     hideError();
     const name = file.name.toLowerCase();
     if (!name.match(/\.(tex|txt)$/)) {
-      showError('Please select a valid LaTeX file (.tex).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid LaTeX file (.tex).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · LaTeX source';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · LaTeX source')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -807,18 +805,18 @@ Bob   & 25 & Paris  \\
     const list  = document.getElementById('detected-chips');
     list.innerHTML = '';
     const chips = [];
-    if (stats.documentClass) chips.push(['chip-compiler', '\\documentclass', stats.documentClass]);
-    if (stats.sectionCount > 0) chips.push(['chip-passes', 'Sections', stats.sectionCount + '']);
-    if (stats.packageCount > 0) chips.push(['chip-option', 'Packages', stats.packageCount + '']);
-    if (stats.hasMath)  chips.push(['chip-detect', 'Math', 'detected']);
-    if (stats.hasTable) chips.push(['chip-detect', 'Tables', 'detected']);
-    if (stats.hasToc)   chips.push(['chip-detect', 'TOC', 'detected']);
-    if (stats.hasBib)   chips.push(['chip-detect', 'Bibliography', 'detected']);
+    if (stats.documentClass) chips.push(['chip-compiler', {{ Illuminate\Support\Js::from(__('\\documentclass')) }}, stats.documentClass]);
+    if (stats.sectionCount > 0) chips.push(['chip-passes', {{ Illuminate\Support\Js::from(__('Sections')) }}, stats.sectionCount + '']);
+    if (stats.packageCount > 0) chips.push(['chip-option', {{ Illuminate\Support\Js::from(__('Packages')) }}, stats.packageCount + '']);
+    if (stats.hasMath)  chips.push(['chip-detect', {{ Illuminate\Support\Js::from(__('Math')) }}, 'detected']);
+    if (stats.hasTable) chips.push(['chip-detect', {{ Illuminate\Support\Js::from(__('Tables')) }}, 'detected']);
+    if (stats.hasToc)   chips.push(['chip-detect', {{ Illuminate\Support\Js::from(__('TOC')) }}, 'detected']);
+    if (stats.hasBib)   chips.push(['chip-detect', {{ Illuminate\Support\Js::from(__('Bibliography')) }}, 'detected']);
     if (chips.length === 0) { wrap.classList.add('hidden'); return; }
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -857,12 +855,12 @@ Bob   & 25 & Paris  \\
     // Update compiling subtitle
     const compilerLabel = { pdflatex: 'pdfLaTeX', lualatex: 'LuaLaTeX', xelatex: 'XeLaTeX' }[compiler] || compiler;
     document.getElementById('compiling-subtitle').textContent =
-      `Running ${compilerLabel} — ${passes} pass${passes > 1 ? 'es' : ''}, resolving references`;
+      ({{ Illuminate\Support\Js::from(__('Running :value0 — :value1 pass:value2, resolving references')) }}).replaceAll(/:value0(?!\d)/g, () => String(compilerLabel)).replaceAll(/:value1(?!\d)/g, () => String(passes)).replaceAll(/:value2(?!\d)/g, () => String(passes > 1 ? 'es' : ''));
     // Update pass labels
     const passLabels = ['proc-2', 'proc-3'];
     if (passes >= 2) {
       const el = document.getElementById('proc-3');
-      if (el) el.querySelector('.proc-label').textContent = 'Compiler pass 2 — cross-references';
+      if (el) el.querySelector('.proc-label').textContent = {{ Illuminate\Support\Js::from(__('Compiler pass 2 — cross-references')) }};
     }
     let outName;
     if (customFilename) {
@@ -903,18 +901,18 @@ Bob   & 25 & Paris  \\
       fetchBody = fd;
     }
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 18, 400, 'Reading LaTeX source…');
+    animateProgress(0, 18, 400, {{ Illuminate\Support\Js::from(__('Reading LaTeX source…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(18, 45, 800, `Running ${compilerLabel} pass 1…`);
+      animateProgress(18, 45, 800, ({{ Illuminate\Support\Js::from(__('Running :value0 pass 1…')) }}).replaceAll(/:value0(?!\d)/g, () => String(compilerLabel)));
     }, 500);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(45, 75, 900, passes >= 2 ? `Running ${compilerLabel} pass 2…` : 'Resolving references…');
+      animateProgress(45, 75, 900, passes >= 2 ? ({{ Illuminate\Support\Js::from(__('Running :value0 pass 2…')) }}).replaceAll(/:value0(?!\d)/g, () => String(compilerLabel)) : {{ Illuminate\Support\Js::from(__('Resolving references…')) }});
     }, 1400);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(75, 92, 600, 'Generating PDF output…');
+      animateProgress(75, 92, 600, {{ Illuminate\Support\Js::from(__('Generating PDF output…')) }});
     }, 2400);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/latex-to-pdf', {
@@ -934,15 +932,15 @@ Bob   & 25 & Paris  \\
       link.href     = blobUrl;
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PDF Document';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
       renderResultChips(compiler, passes, synctex, draft, latexSrc);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -953,19 +951,19 @@ Bob   & 25 & Paris  \\
     list.innerHTML = '';
     const compilerLabel = { pdflatex: 'pdfLaTeX', lualatex: 'LuaLaTeX', xelatex: 'XeLaTeX' }[compiler] || compiler;
     const chips = [
-      ['chip-compiler', 'Compiler', compilerLabel],
-      ['chip-passes',   'Passes',   passes + 'x'],
+      ['chip-compiler', {{ Illuminate\Support\Js::from(__('Compiler')) }}, compilerLabel],
+      ['chip-passes',   {{ Illuminate\Support\Js::from(__('Passes')) }},   passes + 'x'],
     ];
-    if (synctex) chips.push(['chip-option', 'SyncTeX', 'enabled']);
-    if (draft)   chips.push(['chip-option', 'Draft', 'mode']);
+    if (synctex) chips.push(['chip-option', {{ Illuminate\Support\Js::from(__('SyncTeX')) }}, 'enabled']);
+    if (draft)   chips.push(['chip-option', {{ Illuminate\Support\Js::from(__('Draft')) }}, 'mode']);
     if (src) {
       const stats = analyzeLatex(src);
-      if (stats.documentClass) chips.push(['chip-detect', '\\documentclass', stats.documentClass]);
+      if (stats.documentClass) chips.push(['chip-detect', {{ Illuminate\Support\Js::from(__('\\documentclass')) }}, stats.documentClass]);
     }
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -1039,7 +1037,7 @@ Bob   & 25 & Paris  \\
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

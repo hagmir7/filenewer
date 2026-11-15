@@ -18,7 +18,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Upload Files</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Upload Files') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -29,7 +29,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">2</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Merging</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Merging') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -40,7 +40,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">3</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Download') }}</span>
                 </div>
 
 
@@ -65,8 +65,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Word files here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Select 2&ndash;20 .docx files &middot; or click to browse
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Word files here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Select 2–20 .docx files · or click to browse') }}
                         </p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
@@ -76,9 +76,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Files
+                            {{ __('Choose Files') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB total</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB total') }}</p>
                         <input type="file" id="file-input" multiple
                             accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -86,7 +86,7 @@
                     {{-- File list --}}
                     <div id="file-list-wrap" class="hidden mt-5">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-sm font-semibold text-fn-text2"><span id="file-count">0</span> files selected
+                            <p class="text-sm font-semibold text-fn-text2"><span id="file-count">0</span> {{ __('files selected') }}
                             </p>
                             <div class="flex items-center gap-2">
                                 <button type="button" id="add-more-btn"
@@ -96,15 +96,15 @@
                                         <line x1="12" y1="5" x2="12" y2="19" />
                                         <line x1="5" y1="12" x2="19" y2="12" />
                                     </svg>
-                                    Add more
+                                    {{ __('Add more') }}
                                 </button>
                                 <button type="button" id="clear-all-btn"
                                     class="text-sm font-semibold text-fn-red/70 hover:text-fn-red transition-colors">
-                                    Clear all
+                                    {{ __('Clear all') }}
                                 </button>
                             </div>
                         </div>
-                        <p class="text-fn-text3 text-xs mb-3">Drag to reorder &middot; files merge top to bottom</p>
+                        <p class="text-fn-text3 text-xs mb-3">{{ __('Drag to reorder · files merge top to bottom') }}</p>
                         <div id="file-list" class="space-y-2"></div>
                         <input type="file" id="file-input-extra" multiple
                             accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -116,27 +116,24 @@
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Page Break --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Page Break Between
-                                    Docs</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Page Break Between Docs') }}</label>
                                 <label class="toggle-label flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" id="opt-page-break" checked
                                         class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
-                                    <span class="text-sm text-fn-text2">Yes</span>
+                                    <span class="text-sm text-fn-text2">{{ __('Yes') }}</span>
                                 </label>
-                                <p class="text-fn-text3 text-sm mt-1.5">Insert a page break before each merged document.
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Insert a page break before each merged document.') }}
                                 </p>
                             </div>
                             {{-- Table of Contents --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Add Table of
-                                    Contents</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Add Table of Contents') }}</label>
                                 <label class="toggle-label flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" id="opt-toc"
                                         class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
-                                    <span class="text-sm text-fn-text2">Yes</span>
+                                    <span class="text-sm text-fn-text2">{{ __('Yes') }}</span>
                                 </label>
-                                <p class="text-fn-text3 text-sm mt-1.5">Add a TOC page at the beginning of the merged
-                                    document.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Add a TOC page at the beginning of the merged document.') }}</p>
                             </div>
                         </div>
                         {{-- Row 2: Separator Text + Output Filename --}}
@@ -144,8 +141,8 @@
                             {{-- Separator Text --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-separator" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Separator Text
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Separator Text') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
                                 <input type="text" id="opt-separator"
                                     placeholder="e.g. --- Document {n}: {filename} ---"
@@ -156,12 +153,12 @@
                             {{-- Output Filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. merged.docx"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. merged.docx') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to merged.docx</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to merged.docx') }}</p>
                             </div>
                         </div>
                     </div>
@@ -175,7 +172,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Merge button --}}
                     <button id="convert-btn" type="button" disabled
@@ -184,7 +181,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Merge Documents
+                        {{ __('Merge Documents') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -222,15 +219,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Merging your documents&hellip;</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 30 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Merging your documents…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 30 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting&hellip;</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
 
@@ -250,7 +247,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Uploading documents</span>
+                            <span class="text-sm text-fn-text3">{{ __('Uploading documents') }}</span>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-3" id="proc-2">
@@ -267,7 +264,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Reading &amp; parsing each file</span>
+                            <span class="text-sm text-fn-text3">{{ __('Reading & parsing each file') }}</span>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-3" id="proc-3">
@@ -284,7 +281,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Merging content &amp; styles</span>
+                            <span class="text-sm text-fn-text3">{{ __('Merging content & styles') }}</span>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-3" id="proc-4">
@@ -301,7 +298,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Packaging final document</span>
+                            <span class="text-sm text-fn-text3">{{ __('Packaging final document') }}</span>
                         </div>
 
                     </div>
@@ -318,8 +315,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Merge Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your merged document is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Merge Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">{{ __('Your merged document is ready.') }}</p>
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div class="w-12 h-12 rounded-xl bg-fn-blue/12 border border-fn-blue/20 flex items-center justify-center text-2xl shrink-0"
@@ -334,7 +331,7 @@
                             </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">merged.docx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Word Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Word Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -347,7 +344,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download DOCX</span>
+                        <span id="download-btn-label">{{ __('Download DOCX') }}</span>
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -357,11 +354,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Merge more files
+                            {{ __('Merge more files') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -369,7 +366,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your files are encrypted and permanently deleted after processing.
+                        {{ __('Your files are encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -379,14 +376,14 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
 
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Is this really free?</span>
+                    <span class="font-semibold text-sm">{{ __('Is this really free?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -394,15 +391,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Files up to 200MB total are completely free with no
-                        account needed.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Files up to 200MB total are completely free with no account needed.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">How many files can I merge?</span>
+                    <span class="font-semibold text-sm">{{ __('How many files can I merge?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -410,16 +406,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">You can merge between 2 and 20 .docx files at once.
-                        Simply drag and drop or
-                        click to browse.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('You can merge between 2 and 20 .docx files at once. Simply drag and drop or click to browse.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Can I control the merge order?</span>
+                    <span class="font-semibold text-sm">{{ __('Can I control the merge order?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -427,16 +421,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes, after uploading you can drag and drop files in
-                        the list to reorder
-                        them. Documents are merged from top to bottom.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes, after uploading you can drag and drop files in the list to reorder them. Documents are merged from top to bottom.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Will formatting be preserved?</span>
+                    <span class="font-semibold text-sm">{{ __('Will formatting be preserved?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -444,16 +436,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes, styles, fonts, images, tables, and formatting
-                        from each document are
-                        preserved in the merged output.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes, styles, fonts, images, tables, and formatting from each document are preserved in the merged output.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What is the separator text?</span>
+                    <span class="font-semibold text-sm">{{ __('What is the separator text?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -470,7 +460,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Can I add a Table of Contents?</span>
+                    <span class="font-semibold text-sm">{{ __('Can I add a Table of Contents?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -478,16 +468,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes, enable the Table of Contents option to insert
-                        an auto-generated TOC
-                        at the beginning of the merged document.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes, enable the Table of Contents option to insert an auto-generated TOC at the beginning of the merged document.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Is my file safe and private?</span>
+                    <span class="font-semibold text-sm">{{ __('Is my file safe and private?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -495,10 +483,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
-                        transit. and are permanently
-                        deleted
-                        after processing. We never read, share or store your content.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted after processing. We never read, share or store your content.') }}</p>
                 </div>
             </div>
 
@@ -736,11 +721,11 @@
           var file = fileList[i];
           var ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
           if (ext !== '.docx') {
-            showError('Only .docx files are supported. Skipped: ' + file.name);
+            showError({{ Illuminate\Support\Js::from(__('Only .docx files are supported. Skipped: ')) }} + file.name);
             continue;
           }
           if (selectedFiles.length >= 20) {
-            showError('Maximum 20 files allowed.');
+            showError({{ Illuminate\Support\Js::from(__('Maximum 20 files allowed.')) }});
             break;
           }
           selectedFiles.push(file);
@@ -765,12 +750,12 @@
           row.draggable = true;
           row.dataset.idx = idx;
           row.innerHTML =
-            '<span class="grip"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="8" cy="6" r="2"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg></span>' +
-            '<span class="file-num">' + (idx + 1) + '</span>' +
-            '<div class="flex-1 min-w-0"><p class="font-semibold text-sm truncate">' + escHtml(file.name) + '</p>' +
-            '<p class="text-fn-text3 text-xs">' + formatBytes(file.size) + '</p></div>' +
-            '<button type="button" aria-label="Remove document" class="remove-row shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">' +
-            `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
+            {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="grip"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="8" cy="6" r="2"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg></span>')) }} +
+            {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="file-num">')) }} + (idx + 1) + {{ Illuminate\Support\Js::from(__('</span>')) }} +
+            {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<div class="flex-1 min-w-0"><p class="font-semibold text-sm truncate">')) }} + escHtml(file.name) + '</p>' +
+            {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p class="text-fn-text3 text-xs">')) }} + formatBytes(file.size) + {{ Illuminate\Support\Js::from(__('</p></div>')) }} +
+            {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<button type="button" aria-label="Remove document" class="remove-row shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">')) }} +
+            ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>')) }});
           row.querySelector('.remove-row').addEventListener('click', function () {
             selectedFiles.splice(idx, 1);
             renderFileList();
@@ -802,7 +787,7 @@
       convertBtn.addEventListener('click', startConversion);
       async function startConversion() {
         if (selectedFiles.length < 2) {
-          showError('Please select at least 2 .docx files to merge.');
+          showError({{ Illuminate\Support\Js::from(__('Please select at least 2 .docx files to merge.')) }});
           return;
         }
         hideError();
@@ -826,21 +811,21 @@
         if (separatorText) formData.append('separator_text', separatorText);
         // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 800, 'Uploading documents\u2026');
+        animateProgress(0, 20, 800, {{ Illuminate\Support\Js::from(__('Uploading documents…')) }});
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(20, 50, 1200, 'Reading & parsing each file\u2026');
+          animateProgress(20, 50, 1200, {{ Illuminate\Support\Js::from(__('Reading & parsing each file…')) }});
         }, 900);
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(50, 78, 1500, 'Merging content & styles\u2026');
+          animateProgress(50, 78, 1500, {{ Illuminate\Support\Js::from(__('Merging content & styles…')) }});
         }, 2300);
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(78, 90, 700, 'Packaging final document\u2026');
+          animateProgress(78, 90, 700, {{ Illuminate\Support\Js::from(__('Packaging final document…')) }});
         }, 4000);
         try {
           var res = await fetch('https://api.filenewer.com/api/tools/merge-docx', {
@@ -861,17 +846,17 @@
           link.download = outputFilename;
           var mergedCount = res.headers.get('X-Files-Merged') || selectedFiles.length;
           document.getElementById('output-name').textContent        = outputFilename;
-          document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 ' + mergedCount + ' files merged';
-          document.getElementById('download-btn-label').textContent = 'Download DOCX';
-          document.getElementById('download-subtitle').textContent  = mergedCount + ' documents merged successfully.';
+          document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 ' + mergedCount + {{ Illuminate\Support\Js::from(__(' files merged')) }};
+          document.getElementById('download-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Download DOCX')) }};
+          document.getElementById('download-subtitle').textContent  = mergedCount + {{ Illuminate\Support\Js::from(__(' documents merged successfully.')) }};
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -939,7 +924,7 @@
         document.getElementById('opt-toc').checked        = false;
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting\u2026');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
       function showError(msg) {

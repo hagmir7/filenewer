@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -44,8 +44,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .pdf files — or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .pdf files — or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -54,9 +54,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -87,44 +87,44 @@
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">eBook Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('eBook Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Left column --}}
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Book title
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Book title') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-title" placeholder="My Book"
+                                    <input type="text" id="opt-title" placeholder="{{ __('My Book') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-author" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Author
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Author') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-author" placeholder="John Smith"
+                                    <input type="text" id="opt-author" placeholder="{{ __('John Smith') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-language"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Language</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Language') }}</label>
                                     <select id="opt-language"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 appearance-none cursor-pointer">
-                                        <option value="en" selected>English</option>
-                                        <option value="fr">French</option>
-                                        <option value="de">German</option>
-                                        <option value="es">Spanish</option>
-                                        <option value="it">Italian</option>
-                                        <option value="pt">Portuguese</option>
-                                        <option value="nl">Dutch</option>
-                                        <option value="ar">Arabic</option>
-                                        <option value="zh">Chinese</option>
-                                        <option value="ja">Japanese</option>
-                                        <option value="ru">Russian</option>
+                                        <option value="en" selected>{{ __('English') }}</option>
+                                        <option value="fr">{{ __('French') }}</option>
+                                        <option value="de">{{ __('German') }}</option>
+                                        <option value="es">{{ __('Spanish') }}</option>
+                                        <option value="it">{{ __('Italian') }}</option>
+                                        <option value="pt">{{ __('Portuguese') }}</option>
+                                        <option value="nl">{{ __('Dutch') }}</option>
+                                        <option value="ar">{{ __('Arabic') }}</option>
+                                        <option value="zh">{{ __('Chinese') }}</option>
+                                        <option value="ja">{{ __('Japanese') }}</option>
+                                        <option value="ru">{{ __('Russian') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,14 +132,14 @@
                             <div class="flex flex-col gap-3">
                                 <div>
                                     <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        PDF password
-                                        <span class="font-normal text-fn-text3 ml-1">(if encrypted)</span>
+                                        {{ __('PDF password') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(if encrypted)') }}</span>
                                     </label>
                                     <div class="relative">
                                         <input type="password" id="opt-password"
-                                            placeholder="Leave blank if not protected"
+                                            placeholder="{{ __('Leave blank if not protected') }}"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-9 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                        <button type="button" id="toggle-password" aria-label="Show password"
+                                        <button type="button" id="toggle-password" aria-label="{{ __('Show password') }}"
                                             aria-pressed="false"
                                             class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                             <svg id="eye-show" width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -160,8 +160,7 @@
                                 </div>
                                 {{-- Output format --}}
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output
-                                        format</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Output format') }}</label>
                                     <div class="grid grid-cols-2 gap-2">
                                         <label id="fmt-mobi-wrap"
                                             class="fmt-btn active flex flex-col items-center gap-1.5 px-3 py-2.5 border rounded-lg cursor-pointer transition-all text-center">
@@ -177,8 +176,8 @@
                                                     <path d="M11 4h2" />
                                                     <path d="M12 17v.01" />
                                                 </svg></span>
-                                            <span class="text-xs font-bold">.mobi</span>
-                                            <span class="text-xs text-fn-text3 leading-tight">Kindle · ⭐⭐⭐⭐⭐</span>
+                                            <span class="text-xs font-bold">{{ __('.mobi') }}</span>
+                                            <span class="text-xs text-fn-text3 leading-tight">{{ __('Kindle · ⭐⭐⭐⭐⭐') }}</span>
                                         </label>
                                         <label id="fmt-epub-wrap"
                                             class="fmt-btn flex flex-col items-center gap-1.5 px-3 py-2.5 border rounded-lg cursor-pointer transition-all text-center">
@@ -195,12 +194,11 @@
                                                     <path d="M12 6l0 13" />
                                                     <path d="M21 6l0 13" />
                                                 </svg></span>
-                                            <span class="text-xs font-bold">.epub</span>
-                                            <span class="text-xs text-fn-text3 leading-tight">Universal · ⭐⭐⭐</span>
+                                            <span class="text-xs font-bold">{{ __('.epub') }}</span>
+                                            <span class="text-xs text-fn-text3 leading-tight">{{ __('Universal · ⭐⭐⭐') }}</span>
                                         </label>
                                     </div>
-                                    <p class="text-xs text-fn-text3 mt-1.5" id="fmt-hint">.mobi uses Calibre for the
-                                        best Kindle quality</p>
+                                    <p class="text-xs text-fn-text3 mt-1.5" id="fmt-hint">{{ __('.mobi uses Calibre for the best Kindle quality') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +213,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -224,7 +222,7 @@
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10" />
                             <path d="M16 8l4-4m0 0h-4m4 0v4" />
                         </svg>
-                        <span id="convert-btn-label">Convert to MOBI</span>
+                        <span id="convert-btn-label">{{ __('Convert to MOBI') }}</span>
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -260,16 +258,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2" id="converting-title">Converting PDF to MOBI…</h2>
-                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Running Calibre — extracting text
-                        &amp; building eBook structure</p>
+                    <h2 class="text-xl font-bold mb-2" id="converting-title">{{ __('Converting PDF to MOBI…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">{{ __('Running Calibre — extracting text & building eBook structure') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -293,7 +290,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3 proc-label">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3 proc-label">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -310,12 +307,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6" id="download-subtitle">Your eBook is ready — open it in Kindle
-                        or any compatible reader.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6" id="download-subtitle">{{ __('Your eBook is ready — open it in Kindle or any compatible reader.') }}</p>
                     {{-- Result metadata chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Conversion details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Conversion details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
                     <div
@@ -334,8 +330,8 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-sm truncate" id="output-name">book.mobi</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Kindle eBook</p>
+                            <p class="font-semibold text-sm truncate" id="output-name">{{ __('book.mobi') }}</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Kindle eBook') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -348,7 +344,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download MOBI File</span>
+                        <span id="download-btn-label">{{ __('Download MOBI File') }}</span>
                     </a>
                     {{-- Kindle tip --}}
                     <div id="kindle-tip"
@@ -360,8 +356,8 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <p class="text-xs text-fn-text2 leading-relaxed">To read on Kindle, send this file to your <span
-                                class="font-semibold">@kindle.com</span> email address or transfer via USB.</p>
+                        <p class="text-xs text-fn-text2 leading-relaxed">{{ __('To read on Kindle, send this file to your') }} <span
+                                class="font-semibold">@kindle.com</span> {{ __('email address or transfer via USB.') }}</p>
                     </div>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -371,7 +367,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -379,7 +375,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -389,7 +385,7 @@
 {{-- ══ METHOD COMPARISON ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-4 text-center">Output Method Comparison</h2>
+        <h2 class="text-lg font-bold mb-4 text-center">{{ __('Output Method Comparison') }}</h2>
         <div class="grid sm:grid-cols-2 gap-4">
             <div class="p-5 bg-fn-surface border border-fn-amber/20 rounded-2xl">
                 <div class="flex items-center gap-2.5 mb-3">
@@ -405,13 +401,11 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="font-bold text-sm">.mobi — Calibre</p>
-                        <p class="text-xs text-fn-amber font-semibold">⭐⭐⭐⭐⭐ Best quality</p>
+                        <p class="font-bold text-sm">{{ __('.mobi — Calibre') }}</p>
+                        <p class="text-xs text-fn-amber font-semibold">{{ __('⭐⭐⭐⭐⭐ Best quality') }}</p>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed">Full Kindle-native format via Calibre. Preserves
-                    headings, tables, images, and metadata with maximum fidelity. Recommended for all Kindle devices and
-                    apps.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Full Kindle-native format via Calibre. Preserves headings, tables, images, and metadata with maximum fidelity. Recommended for all Kindle devices and apps.') }}</p>
             </div>
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
                 <div class="flex items-center gap-2.5 mb-3">
@@ -429,13 +423,11 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="font-bold text-sm">.epub — Fallback</p>
-                        <p class="text-xs text-fn-text3 font-semibold">⭐⭐⭐ Universal</p>
+                        <p class="font-bold text-sm">{{ __('.epub — Fallback') }}</p>
+                        <p class="text-xs text-fn-text3 font-semibold">{{ __('⭐⭐⭐ Universal') }}</p>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed">Open standard supported by virtually all eReaders
-                    (Apple Books, Kobo, etc.). Use this if you need cross-device compatibility rather than
-                    Kindle-specific output.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Open standard supported by virtually all eReaders (Apple Books, Kobo, etc.). Use this if you need cross-device compatibility rather than Kindle-specific output.') }}</p>
             </div>
         </div>
     </div>
@@ -443,7 +435,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What is the difference between .mobi and .epub output?', 'MOBI uses Calibre for conversion and produces a
@@ -466,7 +458,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -474,7 +466,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -681,9 +673,9 @@
       document.getElementById('fmt-mobi-wrap').classList.toggle('active', isMobi);
       document.getElementById('fmt-epub-wrap').classList.toggle('active', !isMobi);
       document.getElementById('fmt-hint').textContent = isMobi
-        ? '.mobi uses Calibre for the best Kindle quality'
-        : '.epub is supported on Apple Books, Kobo & more';
-      document.getElementById('convert-btn-label').textContent = isMobi ? 'Convert to MOBI' : 'Convert to EPUB';
+        ? {{ Illuminate\Support\Js::from(__('.mobi uses Calibre for the best Kindle quality')) }}
+        : {{ Illuminate\Support\Js::from(__('.epub is supported on Apple Books, Kobo & more')) }};
+      document.getElementById('convert-btn-label').textContent = isMobi ? {{ Illuminate\Support\Js::from(__('Convert to MOBI')) }} : {{ Illuminate\Support\Js::from(__('Convert to EPUB')) }};
       document.getElementById('kindle-tip').style.display = isMobi ? '' : 'none';
     });
   });
@@ -697,7 +689,7 @@
     show.classList.toggle('hidden', !isText);
     hide.classList.toggle('hidden', isText);
     document.getElementById('toggle-password').setAttribute('aria-pressed', String(!isText));
-    document.getElementById('toggle-password').setAttribute('aria-label', isText ? 'Show password' : 'Hide password');
+    document.getElementById('toggle-password').setAttribute('aria-label', isText ? {{ Illuminate\Support\Js::from(__('Show password')) }} : {{ Illuminate\Support\Js::from(__('Hide password')) }});
   });
   // ── File drop zone ──
   ['dragenter', 'dragover'].forEach(evt => {
@@ -713,16 +705,16 @@
     hideError();
     const name = file.name.toLowerCase();
     if (!name.endsWith('.pdf')) {
-      showError('Please select a valid PDF file (.pdf).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file (.pdf).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -751,11 +743,11 @@
     const format   = document.querySelector('input[name="output_format"]:checked').value;
     const isMobi   = format === 'mobi';
     // Update converting state labels
-    document.getElementById('converting-title').textContent    = `Converting PDF to ${isMobi ? 'MOBI' : 'EPUB'}…`;
+    document.getElementById('converting-title').textContent    = ({{ Illuminate\Support\Js::from(__('Converting PDF to :value0…')) }}).replaceAll(/:value0(?!\d)/g, () => String(isMobi ? 'MOBI' : 'EPUB'));
     document.getElementById('converting-subtitle').textContent = isMobi
-      ? 'Running Calibre — extracting text & building eBook structure'
-      : 'Building EPUB — extracting content & packaging eBook';
-    document.querySelector('#proc-4 .proc-label').textContent = `Building ${isMobi ? 'MOBI' : 'EPUB'} file`;
+      ? {{ Illuminate\Support\Js::from(__('Running Calibre — extracting text & building eBook structure')) }}
+      : {{ Illuminate\Support\Js::from(__('Building EPUB — extracting content & packaging eBook')) }};
+    document.querySelector('#proc-4 .proc-label').textContent = ({{ Illuminate\Support\Js::from(__('Building :value0 file')) }}).replaceAll(/:value0(?!\d)/g, () => String(isMobi ? 'MOBI' : 'EPUB'));
     // Determine output filename
     const baseName = selectedFile.name.replace(/\.pdf$/i, '');
     const outName  = (title ? title.replace(/[^a-z0-9]/gi, '_').toLowerCase() : baseName) + '.' + format;
@@ -767,18 +759,18 @@
     if (language) fd.append('language', language);
     if (password) fd.append('password', password);
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 500, 'Reading PDF content…');
+    animateProgress(0, 20, 500, {{ Illuminate\Support\Js::from(__('Reading PDF content…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(20, 50, 900, 'Extracting text & structure…');
+      animateProgress(20, 50, 900, {{ Illuminate\Support\Js::from(__('Extracting text & structure…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(50, 75, 700, 'Applying eBook metadata…');
+      animateProgress(50, 75, 700, {{ Illuminate\Support\Js::from(__('Applying eBook metadata…')) }});
     }, 1600);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(75, 92, 600, `Building ${isMobi ? 'MOBI' : 'EPUB'} file…`);
+      animateProgress(75, 92, 600, ({{ Illuminate\Support\Js::from(__('Building :value0 file…')) }}).replaceAll(/:value0(?!\d)/g, () => String(isMobi ? 'MOBI' : 'EPUB')));
     }, 2400);
     try {
       const res = await fetch(endpoint, { method: 'POST', body: fd });
@@ -802,20 +794,20 @@
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
-        formatBytes(blob.size) + ` · ${isMobi ? 'Kindle MOBI' : 'EPUB eBook'}`;
-      document.getElementById('download-btn-label').textContent = `Download ${isMobi ? 'MOBI' : 'EPUB'} File`;
+        formatBytes(blob.size) + ({{ Illuminate\Support\Js::from(__(' · :value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(isMobi ? 'Kindle MOBI' : {{ Illuminate\Support\Js::from(__('EPUB eBook')) }}));
+      document.getElementById('download-btn-label').textContent = ({{ Illuminate\Support\Js::from(__('Download :value0 File')) }}).replaceAll(/:value0(?!\d)/g, () => String(isMobi ? 'MOBI' : 'EPUB'));
       document.getElementById('download-subtitle').textContent = isMobi
-        ? 'Your eBook is ready — open it in Kindle or any compatible reader.'
-        : 'Your eBook is ready — open it in Apple Books, Kobo, or any EPUB reader.';
+        ? {{ Illuminate\Support\Js::from(__('Your eBook is ready — open it in Kindle or any compatible reader.')) }}
+        : {{ Illuminate\Support\Js::from(__('Your eBook is ready — open it in Apple Books, Kobo, or any EPUB reader.')) }};
       document.getElementById('kindle-tip').style.display = isMobi ? '' : 'none';
       renderResultChips({ format, title, author, language, password: !!password, pages, method });
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -825,18 +817,18 @@
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
     const chips = [
-      ['chip-format', 'Format',  '.' + format.toUpperCase()],
-      ['chip-lang',   'Method',  method],
-      ['chip-lang',   'Language', language.toUpperCase()],
+      ['chip-format', {{ Illuminate\Support\Js::from(__('Format')) }},  '.' + format.toUpperCase()],
+      ['chip-lang',   {{ Illuminate\Support\Js::from(__('Method')) }},  method],
+      ['chip-lang',   {{ Illuminate\Support\Js::from(__('Language')) }}, language.toUpperCase()],
     ];
-    if (title)    chips.push(['chip-meta', 'Title',  title]);
-    if (author)   chips.push(['chip-meta', 'Author', author]);
-    if (pages)    chips.push(['chip-meta', 'Pages',  pages + 'p']);
-    if (password) chips.push(['chip-lock', 'Password', 'used']);
+    if (title)    chips.push(['chip-meta', {{ Illuminate\Support\Js::from(__('Title')) }},  title]);
+    if (author)   chips.push(['chip-meta', {{ Illuminate\Support\Js::from(__('Author')) }}, author]);
+    if (pages)    chips.push(['chip-meta', {{ Illuminate\Support\Js::from(__('Pages')) }},  pages + 'p']);
+    if (password) chips.push(['chip-lock', {{ Illuminate\Support\Js::from(__('Password')) }}, 'used']);
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -907,15 +899,15 @@
     document.getElementById('fmt-mobi').checked   = true;
     document.getElementById('fmt-mobi-wrap').classList.add('active');
     document.getElementById('fmt-epub-wrap').classList.remove('active');
-    document.getElementById('fmt-hint').textContent = '.mobi uses Calibre for the best Kindle quality';
-    document.getElementById('convert-btn-label').textContent = 'Convert to MOBI';
+    document.getElementById('fmt-hint').textContent = {{ Illuminate\Support\Js::from(__('.mobi uses Calibre for the best Kindle quality')) }};
+    document.getElementById('convert-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Convert to MOBI')) }};
     document.getElementById('kindle-tip').style.display = '';
     document.getElementById('result-info-wrap').classList.add('hidden');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
-    document.querySelector('#proc-4 .proc-label').textContent = 'Building MOBI file';
+    document.querySelector('#proc-4 .proc-label').textContent = {{ Illuminate\Support\Js::from(__('Building MOBI file')) }};
   };
   function showError(msg) {
     errorText.textContent = msg;

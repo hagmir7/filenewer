@@ -7,33 +7,32 @@
                     <img src="/filenewer-logo.svg" alt="Filenewer" width="100" height="50"
                         class="h-[40px] w-auto md:h-[47px]">
                 </a>
-                <p class="text-fn-text3 text-sm leading-relaxed max-w-[220px]">Smarter File Processing. Convert,
-                    generate, and manage your business files fast, free, and securely.</p>
+                <p class="text-fn-text3 text-sm leading-relaxed max-w-[220px]">{{ __('Smarter File Processing. Convert, generate, and manage your business files fast, free, and securely.') }}</p>
             </div>
             <div>
-                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Product</h3>
+                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">{{ __('Product') }}</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="/tools" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">
-                            All Tools
+                            {{ __('All Tools') }}
                         </a>
                     </li>
                     <li>
                         <a href="/tools?category=pdf-tools"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">
-                            PDF Tools Online
+                            {{ __('PDF Tools Online') }}
                         </a>
                     </li>
                     <li>
                         <a href="/tools?category=image-tools"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">
-                            Image Tools
+                            {{ __('Image Tools') }}
                         </a>
                     </li>
                     <li>
                         <a href="/tools?category=document-generators"
                             class="text-fn-text2 text-sm hover:text-fn-text transition-colors">
-                            Document Generators
+                            {{ __('Document Generators') }}
                         </a>
                     </li>
                 </ul>
@@ -41,37 +40,36 @@
 
             <!-- Company -->
             <div>
-                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Company</h3>
+                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">{{ __('Company') }}</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="/pages/about-us"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">About us</a>
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('About us') }}</a>
                     </li>
                     <li>
-                        <a href="/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Blog</a>
+                        <a href="/blog" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('Blog') }}</a>
                     </li>
                     <li>
-                        <a href="/contact" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Contact
-                            us</a>
+                        <a href="/contact" class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('Contact us') }}</a>
                     </li>
                     <li>
                         <a href="/sitemap.xml"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Sitemap</a>
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('Sitemap') }}</a>
                     </li>
                 </ul>
             </div>
 
             <!-- Legal -->
             <div>
-                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">Legal</h3>
+                <h3 class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-4">{{ __('Legal') }}</h3>
                 <ul class="flex flex-col gap-2.5">
                     <li>
                         <a href="/pages/privacy-policy"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Privacy Policy</a>
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('Privacy Policy') }}</a>
                     </li>
                     <li>
                         <a href="/pages/terms-of-service"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Terms of Service</a>
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('Terms of Service') }}</a>
                     </li>
                     <li>
                         <a href="/pages/gdpr-compliance-policy"
@@ -79,7 +77,7 @@
                     </li>
                     <li>
                         <a href="/pages/security-policy"
-                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">Security</a>
+                            class="text-fn-text2 text-sm hover:text-fn-text transition-colors">{{ __('Security') }}</a>
                     </li>
                 </ul>
             </div>
@@ -87,23 +85,23 @@
 
         <!-- Bottom bar -->
         <div class="pt-7 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p class="text-fn-text3 text-sm md:text-sm">© {{ now()->year }} Filenewer. All rights reserved.</p>
+            <p class="text-fn-text3 text-sm md:text-sm">© {{ now()->year }} Filenewer. {{ __('All rights reserved.') }}</p>
             <ul class="flex items-center gap-5 list-none">
                 <li>
                     <a href="/pages/privacy-policy"
-                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Privacy</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">{{ __('Privacy') }}</a>
                 </li>
                 <li>
                     <a href="/pages/terms-of-service"
-                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Terms</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">{{ __('Terms') }}</a>
                 </li>
                 <li>
                     <a href="/sitemap.xml"
-                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Sitemap</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">{{ __('Sitemap') }}</a>
                 </li>
                 <li>
                     <a href="/contact"
-                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">Contact</a>
+                        class="text-fn-text3 text-sm md:text-sm hover:text-fn-text2 transition-colors">{{ __('Contact') }}</a>
                 </li>
             </ul>
         </div>

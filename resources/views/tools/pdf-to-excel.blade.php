@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -45,8 +45,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -55,9 +55,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                         {{-- Hidden real file input --}}
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -79,7 +79,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · PDF Document') }}</p>
                         </div>
                         <button type="button" id="remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -95,13 +95,13 @@
                         {{-- Password (optional) --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-password" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                PDF Password
-                                <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                {{ __('PDF Password') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                             </label>
                             <div class="relative">
-                                <input type="password" id="opt-password" placeholder="Leave blank if not protected"
+                                <input type="password" id="opt-password" placeholder="{{ __('Leave blank if not protected') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" id="toggle-password" aria-label="Show password"
+                                <button type="button" id="toggle-password" aria-label="{{ __('Show password') }}"
                                     aria-pressed="false"
                                     class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                     <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -123,14 +123,14 @@
                         {{-- Custom output filename (optional) --}}
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                Output Filename
-                                <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                {{ __('Output Filename') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                             </label>
                             <div class="relative">
-                                <input type="text" id="opt-filename" placeholder="e.g. my_report.xlsx"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. my_report.xlsx') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
-                            <p class="text-fn-text3 text-sm mt-1.5">Defaults to your PDF filename with .xlsx extension
+                            <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to your PDF filename with .xlsx extension') }}
                             </p>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -153,7 +153,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to Excel
+                        {{ __('Convert to Excel') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -196,15 +196,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2" id="conv-title">Converting your file…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
+                    <h2 class="text-xl font-bold mb-2" id="conv-title">{{ __('Converting your file…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 15 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     {{-- Processing steps --}}
@@ -229,7 +229,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -246,8 +246,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8">Your Excel spreadsheet is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8">{{ __('Your Excel spreadsheet is ready.') }}</p>
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -268,7 +268,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document.xlsx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Excel Spreadsheet</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Excel Spreadsheet') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -282,7 +282,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Excel File
+                        {{ __('Download Excel File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -292,11 +292,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -304,7 +304,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -314,7 +314,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
@@ -332,7 +332,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -340,7 +340,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -484,7 +484,7 @@
         pwdInput.type = isPassword ? 'text' : 'password';
         eyeShow.classList.toggle('hidden', isPassword);
         togglePwdBtn.setAttribute('aria-pressed', String(isPassword));
-        togglePwdBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+        togglePwdBtn.setAttribute('aria-label', isPassword ? {{ Illuminate\Support\Js::from(__('Hide password')) }} : {{ Illuminate\Support\Js::from(__('Show password')) }});
         eyeHide.classList.toggle('hidden', !isPassword);
       });
       // ── Drag & drop ──
@@ -519,11 +519,11 @@
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-          showError('Please select a valid PDF file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
@@ -532,7 +532,7 @@
         const filenameInput = document.getElementById('opt-filename');
         if (!filenameInput.value) filenameInput.value = defaultXlsx;
         document.getElementById('file-name').textContent   = file.name;
-        document.getElementById('file-meta').textContent   = formatBytes(file.size) + ' · PDF Document';
+        document.getElementById('file-meta').textContent   = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
         document.getElementById('output-name').textContent = defaultXlsx;
         filePreview.classList.remove('hidden');
         filePreview.classList.add('flex');
@@ -567,21 +567,21 @@
         if (customFilename) formData.append('filename', customFilename);
         // ── Animated progress steps ──
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 800, 'Uploading file…');
+        animateProgress(0, 20, 800, {{ Illuminate\Support\Js::from(__('Uploading file…')) }});
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(20, 50, 1000, 'Detecting tables & data regions…');
+          animateProgress(20, 50, 1000, {{ Illuminate\Support\Js::from(__('Detecting tables & data regions…')) }});
         }, 1000);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(50, 75, 1200, 'Extracting rows, columns & values…');
+          animateProgress(50, 75, 1200, {{ Illuminate\Support\Js::from(__('Extracting rows, columns & values…')) }});
         }, 2200);
         const t4 = setTimeout(() => {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(75, 90, 1000, 'Generating Excel spreadsheet…');
+          animateProgress(75, 90, 1000, {{ Illuminate\Support\Js::from(__('Generating Excel spreadsheet…')) }});
         }, 3600);
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-excel', {
@@ -591,7 +591,7 @@
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           // ── On error the API returns JSON { "error": "..." } ──
           if (!res.ok) {
-            let errMsg = 'Conversion failed. Please try again.';
+            let errMsg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
             try {
               const errData = await res.json();
               if (errData.error) errMsg = errData.error;
@@ -609,10 +609,10 @@
           link.href     = blobUrl;
           link.download = fileName;
           document.getElementById('output-name').textContent = fileName;
-          document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Spreadsheet';
+          document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · Excel Spreadsheet')) }};
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 400, 'Done!');
+          animateProgress(90, 100, 400, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => {
             showState('download');
             updateStepIndicator(3);
@@ -620,7 +620,7 @@
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -689,7 +689,7 @@
         document.getElementById('opt-filename').value = '';
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
       // ── Error helpers ──

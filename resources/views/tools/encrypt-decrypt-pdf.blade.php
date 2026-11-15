@@ -48,7 +48,7 @@
                     class="mode-tab {{ $mval === 'encrypt' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-mode="{{ $mval }}" aria-pressed="{{ $mval === 'encrypt' ? 'true' : 'false' }}">
                     <span>{!! $micon !!}</span>
-                    <span>{{ $mlabel }}</span>
+                    <span>{{ __(Str::squish((string) $mlabel)) }}</span>
                 </button>
                 @endforeach
             </div>
@@ -69,10 +69,9 @@
                                 id="enc-step-{{ $n }}">
                                 <div
                                     class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                                    <span class="text-sm font-bold">{{ $n }}</span>
+                                    <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                                 </div>
-                                <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label
-                                    }}</span>
+                                <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish((string) $label)) }}</span>
                             </div>
                             @if($n !== '3')
                             <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -98,8 +97,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                            <p class="text-fn-text3 text-sm mb-5">or click to browse from your computer</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-5">{{ __('or click to browse from your computer') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -108,9 +107,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose PDF File
+                                {{ __('Choose PDF File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                             <input type="file" id="enc-file-input" accept=".pdf,application/pdf"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -133,7 +132,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="enc-file-name">document.pdf</p>
-                                <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">— · PDF Document</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="enc-file-meta">{{ __('— · PDF Document') }}</p>
                             </div>
                             <button type="button" id="enc-remove-file"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -149,14 +148,14 @@
                         <div class="mt-5 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                    User Password
+                                    {{ __('User Password') }}
                                     <span class="text-fn-red ml-0.5">*</span>
                                 </label>
-                                <p class="text-fn-text3 text-sm mb-2">Required to open the PDF</p>
+                                <p class="text-fn-text3 text-sm mb-2">{{ __('Required to open the PDF') }}</p>
                                 <div class="relative">
-                                    <input type="password" id="enc-user-password" placeholder="e.g. mypassword123"
+                                    <input type="password" id="enc-user-password" placeholder="{{ __('e.g. mypassword123') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    <button type="button" aria-label="Toggle password visibility"
+                                    <button type="button" aria-label="{{ __('Toggle password visibility') }}"
                                         class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                         data-target="enc-user-password">
                                         <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none"
@@ -186,14 +185,14 @@
                         </div>
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                             <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                                Owner Password
-                                <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                {{ __('Owner Password') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                             </label>
-                            <p class="text-fn-text3 text-sm mb-2">Required to bypass restrictions</p>
+                            <p class="text-fn-text3 text-sm mb-2">{{ __('Required to bypass restrictions') }}</p>
                             <div class="relative">
-                                <input type="password" id="enc-owner-password" placeholder="e.g. admin456"
+                                <input type="password" id="enc-owner-password" placeholder="{{ __('e.g. admin456') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" aria-label="Toggle password visibility"
+                                <button type="button" aria-label="{{ __('Toggle password visibility') }}"
                                     class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                     data-target="enc-owner-password">
                                     <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -216,13 +215,13 @@
                     {{-- Permissions --}}
                     <div class="mt-3 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-3">
-                            <p class="text-sm font-semibold text-fn-text2">Permissions</p>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Permissions') }}</p>
                             <div class="flex gap-2">
                                 <button type="button" id="enc-allow-all"
-                                    class="text-sm text-fn-blue-l hover:underline font-semibold">Allow all</button>
+                                    class="text-sm text-fn-blue-l hover:underline font-semibold">{{ __('Allow all') }}</button>
                                 <span class="text-fn-text3 text-sm">·</span>
                                 <button type="button" id="enc-restrict-all"
-                                    class="text-sm text-fn-red hover:underline font-semibold">Restrict all</button>
+                                    class="text-sm text-fn-red hover:underline font-semibold">{{ __('Restrict all') }}</button>
                             </div>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-2">
@@ -240,8 +239,8 @@
                                 <input type="checkbox" id="perm-{{ $pid }}" name="{{ $pid }}" checked
                                     class="perm-checkbox mt-0.5 w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue shrink-0" />
                                 <div>
-                                    <p class="text-sm font-semibold text-fn-text2">{{ $plabel }}</p>
-                                    <p class="text-fn-text3 text-sm mt-0.5">{{ $pdesc }}</p>
+                                    <p class="text-sm font-semibold text-fn-text2">{{ __(Str::squish($plabel)) }}</p>
+                                    <p class="text-fn-text3 text-sm mt-0.5">{{ __(Str::squish((string) $pdesc)) }}</p>
                                 </div>
                             </label>
                             @endforeach
@@ -260,10 +259,9 @@
                             id="dec-step-{{ $n }}">
                             <div
                                 class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                                <span class="text-sm font-bold">{{ $n }}</span>
+                                <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                             </div>
-                            <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label
-                                }}</span>
+                            <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish((string) $label)) }}</span>
                         </div>
                         @if($n !== '3')
                         <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -288,8 +286,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your encrypted PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-5">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your encrypted PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-5">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -298,9 +296,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                         <input type="file" id="dec-file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -321,7 +319,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="dec-file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">— · Encrypted PDF</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="dec-file-meta">{{ __('— · Encrypted PDF') }}</p>
                         </div>
                         <button type="button" id="dec-remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -335,13 +333,13 @@
 
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
                         <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                            PDF Password <span class="text-fn-red ml-0.5">*</span>
+                            {{ __('PDF Password') }} <span class="text-fn-red ml-0.5">*</span>
                         </label>
-                        <p class="text-fn-text3 text-sm mb-2">Enter the password used to encrypt the PDF</p>
+                        <p class="text-fn-text3 text-sm mb-2">{{ __('Enter the password used to encrypt the PDF') }}</p>
                         <div class="relative">
-                            <input type="password" id="dec-password" placeholder="Enter PDF password"
+                            <input type="password" id="dec-password" placeholder="{{ __('Enter PDF password') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button" aria-label="Toggle password visibility"
+                            <button type="button" aria-label="{{ __('Toggle password visibility') }}"
                                 class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                 data-target="dec-password">
                                 <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -382,8 +380,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-5">Inspect metadata, page count, encryption status and more
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-5">{{ __('Inspect metadata, page count, encryption status and more') }}
                         </p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
@@ -393,9 +391,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                         <input type="file" id="info-file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -417,7 +415,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="info-file-name">document.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="info-file-meta">— · PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="info-file-meta">{{ __('— · PDF Document') }}</p>
                         </div>
                         <button type="button" id="info-remove-file"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
@@ -431,12 +429,12 @@
 
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
                         <label class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                            Password <span class="font-normal text-fn-text3 ml-1">(if encrypted)</span>
+                            {{ __('Password') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(if encrypted)') }}</span>
                         </label>
                         <div class="relative">
-                            <input type="password" id="info-password" placeholder="Leave blank if not protected"
+                            <input type="password" id="info-password" placeholder="{{ __('Leave blank if not protected') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button" aria-label="Toggle password visibility"
+                            <button type="button" aria-label="{{ __('Toggle password visibility') }}"
                                 class="toggle-pw absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors"
                                 data-target="info-password">
                                 <svg class="eye-show w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -466,7 +464,7 @@
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
                     </svg>
-                    <span id="error-text">Something went wrong.</span>
+                    <span id="error-text">{{ __('Something went wrong.') }}</span>
                 </div>
 
                 {{-- Action button --}}
@@ -477,7 +475,7 @@
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    <span id="action-btn-label">Encrypt PDF</span>
+                    <span id="action-btn-label">{{ __('Encrypt PDF') }}</span>
                 </button>
 
             </div>{{-- /state-upload --}}
@@ -516,15 +514,15 @@
                             <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
                         </svg></div>
                 </div>
-                <h2 class="text-xl font-bold mb-2" id="conv-title">Processing your PDF…</h2>
-                <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                <h2 class="text-xl font-bold mb-2" id="conv-title">{{ __('Processing your PDF…') }}</h2>
+                <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                 <div class="max-w-md mx-auto mb-3">
                     <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                     </div>
                 </div>
                 <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                    <span id="progress-label">Starting…</span>
+                    <span id="progress-label">{{ __('Starting…') }}</span>
                     <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                 </div>
                 <div class="max-w-xs mx-auto flex flex-col gap-3 text-left" id="proc-steps">
@@ -548,7 +546,7 @@
                                     stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                             </svg>
                         </div>
-                        <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                        <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                     </div>
                     @endforeach
                 </div>
@@ -564,8 +562,8 @@
                         <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                         <path d="M9 12l2 2l4 -4" />
                     </svg></div>
-                <h2 class="text-2xl font-bold mb-2" id="result-title">Done!</h2>
-                <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your file is ready.</p>
+                <h2 class="text-2xl font-bold mb-2" id="result-title">{{ __('Done!') }}</h2>
+                <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">{{ __('Your file is ready.') }}</p>
 
                 {{-- Info result card (shown for info mode) --}}
                 <div id="info-result-card" class="hidden max-w-lg mx-auto text-left mb-6">
@@ -582,8 +580,8 @@
                                     <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                                 </svg></span>
                             <div>
-                                <p class="text-sm font-bold" id="info-enc-label">Not Encrypted</p>
-                                <p class="text-sm text-fn-text3" id="info-enc-sub">This PDF has no password protection
+                                <p class="text-sm font-bold" id="info-enc-label">{{ __('Not Encrypted') }}</p>
+                                <p class="text-sm text-fn-text3" id="info-enc-sub">{{ __('This PDF has no password protection') }}
                                 </p>
                             </div>
                         </div>
@@ -606,7 +604,7 @@
                         </svg></div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-sm truncate" id="output-name">document_encrypted.pdf</p>
-                        <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
+                        <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('PDF Document') }}</p>
                     </div>
                     <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                 </div>
@@ -620,7 +618,7 @@
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    <span id="dl-btn-label">Download PDF</span>
+                    <span id="dl-btn-label">{{ __('Download PDF') }}</span>
                 </a>
 
                 <div class="flex items-center justify-center gap-3 flex-wrap">
@@ -631,11 +629,11 @@
                             <polyline points="1 4 1 10 7 10" />
                             <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                         </svg>
-                        Try another
+                        {{ __('Try another') }}
                     </button>
                     <a href="/tools"
                         class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                        All tools
+                        {{ __('All tools') }}
                     </a>
                 </div>
 
@@ -644,7 +642,7 @@
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
-                    Your file is encrypted and permanently deleted after processing.
+                    {{ __('Your file is encrypted and permanently deleted after processing.') }}
                 </p>
             </div>
 
@@ -657,7 +655,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $faqs = [
@@ -680,7 +678,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -688,7 +686,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -1052,16 +1050,16 @@
         function handleFile(file) {
           hideError();
           if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-            showError('Please select a valid PDF file.');
+            showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
             return;
           }
           if (file.size > 50 * 1024 * 1024) {
-            showError('File exceeds the 200MB free limit.');
+            showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
             return;
           }
           setter(file);
           document.getElementById(nameId).textContent = file.name;
-          document.getElementById(metaId).textContent = formatBytes(file.size) + ' · PDF Document';
+          document.getElementById(metaId).textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
           preview.classList.remove('hidden');
           preview.classList.add('flex');
           dz.classList.add('has-file');
@@ -1081,13 +1079,13 @@
         const label = document.getElementById('action-btn-label');
         if (activeMode === 'encrypt') {
           btn.disabled = !encFile || !userPwInput.value.trim();
-          label.textContent = 'Encrypt PDF';
+          label.textContent = {{ Illuminate\Support\Js::from(__('Encrypt PDF')) }};
         } else if (activeMode === 'decrypt') {
           btn.disabled = !decFile || !document.getElementById('dec-password').value.trim();
-          label.textContent = 'Decrypt PDF';
+          label.textContent = {{ Illuminate\Support\Js::from(__('Decrypt PDF')) }};
         } else {
           btn.disabled = !infoFile;
-          label.textContent = 'Get PDF Info';
+          label.textContent = {{ Illuminate\Support\Js::from(__('Get PDF Info')) }};
         }
       }
 
@@ -1108,25 +1106,25 @@
 
       // ── Encrypt ──
       async function doEncrypt() {
-        document.getElementById('conv-title').textContent     = 'Encrypting your PDF…';
-        document.getElementById('conv-output-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+        document.getElementById('conv-title').textContent     = {{ Illuminate\Support\Js::from(__('Encrypting your PDF…')) }};
+        document.getElementById('conv-output-icon').innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>`;
-        updateProcLabels(['Uploading & validating PDF','Applying passwords & permissions','Generating protected PDF']);
+</svg>')) }});
+        updateProcLabels([{{ Illuminate\Support\Js::from(__('Uploading & validating PDF')) }},'Applying passwords & permissions',{{ Illuminate\Support\Js::from(__('Generating protected PDF')) }}]);
 
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 30, 700, 'Uploading PDF…');
+        animateProgress(0, 30, 700, {{ Illuminate\Support\Js::from(__('Uploading PDF…')) }});
 
         const t2 = setTimeout(() => {
           setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-          animateProgress(30, 70, 900, 'Applying passwords & permissions…');
+          animateProgress(30, 70, 900, {{ Illuminate\Support\Js::from(__('Applying passwords & permissions…')) }});
         }, 800);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-          animateProgress(70, 90, 700, 'Generating protected PDF…');
+          animateProgress(70, 90, 700, {{ Illuminate\Support\Js::from(__('Generating protected PDF…')) }});
         }, 1900);
 
         const fd = new FormData();
@@ -1142,7 +1140,7 @@
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/pdf-encrypt', { method: 'POST', body: fd });
           clearTimeout(t2); clearTimeout(t3);
-          if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Encryption failed.'); }
+          if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Encryption failed.')) }}); }
           const blob      = await res.blob();
           const fileName  = encFile.name.replace(/\.pdf$/i, '_encrypted.pdf');
           finishDownload(blob, fileName, `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
@@ -1152,7 +1150,7 @@
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
 </svg>`, 'PDF Encrypted!', 'Your password-protected PDF is ready.', 'Download Encrypted PDF');
           setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => { showState('download'); updateStepIndicator('encrypt', 3); }, 500);
         } catch(err) {
           clearTimeout(t2); clearTimeout(t3);
@@ -1164,25 +1162,25 @@
 
       // ── Decrypt ──
       async function doDecrypt() {
-        document.getElementById('conv-title').textContent      = 'Decrypting your PDF…';
-        document.getElementById('conv-output-icon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
+        document.getElementById('conv-title').textContent      = {{ Illuminate\Support\Js::from(__('Decrypting your PDF…')) }};
+        document.getElementById('conv-output-icon').innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
   <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
   <path d="M8 11v-5a4 4 0 0 1 8 0" />
-</svg>`;
-        updateProcLabels(['Uploading & validating PDF','Verifying password','Removing encryption']);
+</svg>')) }});
+        updateProcLabels([{{ Illuminate\Support\Js::from(__('Uploading & validating PDF')) }},'Verifying password','Removing encryption']);
 
         setProcessStep('proc-1','active');
-        animateProgress(0, 30, 700, 'Uploading PDF…');
+        animateProgress(0, 30, 700, {{ Illuminate\Support\Js::from(__('Uploading PDF…')) }});
 
         const t2 = setTimeout(() => {
           setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-          animateProgress(30, 70, 800, 'Verifying password…');
+          animateProgress(30, 70, 800, {{ Illuminate\Support\Js::from(__('Verifying password…')) }});
         }, 800);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-          animateProgress(70, 90, 600, 'Removing encryption…');
+          animateProgress(70, 90, 600, {{ Illuminate\Support\Js::from(__('Removing encryption…')) }});
         }, 1700);
 
         const fd = new FormData();
@@ -1192,7 +1190,7 @@
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/pdf-decrypt', { method: 'POST', body: fd });
           clearTimeout(t2); clearTimeout(t3);
-          if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || 'Decryption failed. Check your password.'); }
+          if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Decryption failed. Check your password.')) }}); }
           const blob     = await res.blob();
           const fileName = decFile.name.replace(/\.pdf$/i, '_decrypted.pdf');
           finishDownload(blob, fileName, `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock-open">
@@ -1202,7 +1200,7 @@
   <path d="M8 11v-5a4 4 0 0 1 8 0" />
 </svg>`, 'PDF Decrypted!', 'Encryption removed — your PDF is now unlocked.', 'Download Decrypted PDF');
           setProcessStep('proc-2','done'); setProcessStep('proc-3','done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => { showState('download'); updateStepIndicator('decrypt', 3); }, 500);
         } catch(err) {
           clearTimeout(t2); clearTimeout(t3);
@@ -1216,7 +1214,7 @@
       async function doInfo() {
         const btn = document.getElementById('action-btn');
         btn.disabled = true;
-        btn.innerHTML = `<svg class="spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Fetching info…`;
+        btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> Fetching info…')) }});
 
         const fd = new FormData();
         fd.append('file', infoFile);
@@ -1226,13 +1224,13 @@
         try {
           const res  = await fetch('https://api.filenewer.com/api/tools/pdf-info', { method: 'POST', body: fd });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Could not read PDF info.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Could not read PDF info.')) }});
           renderInfoResult(data);
         } catch(err) {
           showError(err.message);
         } finally {
           btn.disabled = false;
-          btn.innerHTML = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Get PDF Info`;
+          btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Get PDF Info')) }});
         }
       }
 
@@ -1241,32 +1239,32 @@
         const banner      = document.getElementById('info-enc-banner');
         banner.className  = 'px-5 py-3 flex items-center gap-3 border-b border-fn-text/7 ' +
           (isEncrypted ? 'bg-fn-amber/8' : 'bg-fn-green/8');
-        document.getElementById('info-enc-icon').innerHTML  = isEncrypted ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+        document.getElementById('info-enc-icon').innerHTML  = isEncrypted ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
 	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 	<path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
 	<path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
 	<path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>`;
-        document.getElementById('info-enc-label').textContent = isEncrypted ? 'Encrypted PDF' : 'Not Encrypted';
+</svg>')) }});
+        document.getElementById('info-enc-label').textContent = isEncrypted ? {{ Illuminate\Support\Js::from(__('Encrypted PDF')) }} : {{ Illuminate\Support\Js::from(__('Not Encrypted')) }};
         document.getElementById('info-enc-sub').textContent   = isEncrypted
-          ? 'This PDF is password protected'
-          : 'This PDF has no password protection';
+          ? {{ Illuminate\Support\Js::from(__('This PDF is password protected')) }}
+          : {{ Illuminate\Support\Js::from(__('This PDF has no password protection')) }};
 
         const rows = [
-          ['Pages',       data.pages ?? '—'],
-          ['File Size',   data.file_size ? formatBytes(data.file_size) : '—'],
-          ['PDF Version', data.pdf_version ?? '—'],
-          ['Title',       data.metadata?.title   || '—'],
-          ['Author',      data.metadata?.author  || '—'],
-          ['Subject',     data.metadata?.subject || '—'],
-          ['Creator',     data.metadata?.creator || '—'],
-          ['Producer',    data.metadata?.producer|| '—'],
-          ['Created',     formatPdfDate(data.metadata?.created)  || '—'],
-          ['Modified',    formatPdfDate(data.metadata?.modified) || '—'],
+          [{{ Illuminate\Support\Js::from(__('Pages')) }},       data.pages ?? '—'],
+          [{{ Illuminate\Support\Js::from(__('File Size')) }},   data.file_size ? formatBytes(data.file_size) : '—'],
+          [{{ Illuminate\Support\Js::from(__('PDF Version')) }}, data.pdf_version ?? '—'],
+          [{{ Illuminate\Support\Js::from(__('Title')) }},       data.metadata?.title   || '—'],
+          [{{ Illuminate\Support\Js::from(__('Author')) }},      data.metadata?.author  || '—'],
+          [{{ Illuminate\Support\Js::from(__('Subject')) }},     data.metadata?.subject || '—'],
+          [{{ Illuminate\Support\Js::from(__('Creator')) }},     data.metadata?.creator || '—'],
+          [{{ Illuminate\Support\Js::from(__('Producer')) }},    data.metadata?.producer|| '—'],
+          [{{ Illuminate\Support\Js::from(__('Created')) }},     formatPdfDate(data.metadata?.created)  || '—'],
+          [{{ Illuminate\Support\Js::from(__('Modified')) }},    formatPdfDate(data.metadata?.modified) || '—'],
         ];
 
         const container = document.getElementById('info-rows');
@@ -1274,20 +1272,20 @@
         rows.forEach(([label, value]) => {
           const div = document.createElement('div');
           div.className = 'info-row';
-          div.innerHTML = `<span class="info-row-label">${label}</span><span class="info-row-value">${value}</span>`;
+          div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="info-row-label">:value0</span><span class="info-row-value">:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(value));
           container.appendChild(div);
         });
 
         document.getElementById('info-result-card').classList.remove('hidden');
         document.getElementById('file-download-card').classList.add('hidden');
         document.getElementById('download-link').classList.add('hidden');
-        document.getElementById('result-title').textContent    = 'PDF Info';
+        document.getElementById('result-title').textContent    = {{ Illuminate\Support\Js::from(__('PDF Info')) }};
         document.getElementById('result-subtitle').textContent = infoFile.name;
-        document.getElementById('result-icon').innerHTML     = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
+        document.getElementById('result-icon').innerHTML     = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
   <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-</svg>`;
+</svg>')) }});
         showState('download');
       }
 
@@ -1308,13 +1306,13 @@
         link.download = fileName;
         link.classList.remove('hidden');
         document.getElementById('output-name').textContent  = fileName;
-        document.getElementById('output-size').textContent  = formatBytes(blob.size) + ' · PDF Document';
+        document.getElementById('output-size').textContent  = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
         document.getElementById('dl-icon').innerHTML      = icon;
-        document.getElementById('result-icon').innerHTML  = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+        document.getElementById('result-icon').innerHTML  = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>`;
+</svg>')) }});
         document.getElementById('result-title').textContent   = title;
         document.getElementById('result-subtitle').textContent = subtitle;
         document.getElementById('dl-btn-label').textContent  = btnLabel;
@@ -1411,7 +1409,7 @@
         showState('upload');
         updateActionBtn();
         hideError();
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3'].forEach(id => setProcessStep(id, ''));
       };
 

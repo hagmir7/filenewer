@@ -12,15 +12,14 @@
             <div
                 class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-fn-blue/30 bg-fn-blue/10 text-fn-blue-l text-sm font-semibold tracking-widest uppercase mb-5">
                 <span class="w-1.5 h-1.5 rounded-full bg-fn-blue-l animate-pulse"></span>
-                The Filenewer Blog
+                {{ __('The Filenewer Blog') }}
             </div>
             <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.6rem] font-normal tracking-tight leading-[1.1] mb-4">
-                Guides, tips &amp; insights on<br />
-                <span class="text-gradient italic">smarter file processing</span>
+                {{ __('Guides, tips & insights on') }}<br />
+                <span class="text-gradient italic">{{ __('smarter file processing') }}</span>
             </h1>
             <p class="text-fn-text2 text-lg max-w-xl mx-auto leading-relaxed">
-                Tutorials, deep-dives, and product updates from the Filenewer team — helping you work faster with
-                files.
+                {{ __('Tutorials, deep-dives, and product updates from the Filenewer team — helping you work faster with files.') }}
             </p>
         </div>
 
@@ -39,7 +38,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
 
 <section class="pb-6">
     <div class="max-w-6xl mx-auto px-6">
-        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-5">Featured Article</p>
+        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-5">{{ __('Featured Article') }}</p>
 
         <a href="/blog/{{ $featured->slug }}"
             class="blog-card group block bg-fn-surface border border-fn-text/7 rounded-2xl overflow-hidden hover:border-fn-blue/30 hover:-translate-y-1 transition-all duration-300 shadow-lg">
@@ -82,7 +81,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                         <div class="flex items-center gap-3 mb-5">
                             <span
                                 class="px-2.5 py-1 bg-fn-blue/10 border border-fn-blue/20 rounded-full text-fn-blue-l text-sm font-semibold">
-                                Featured
+                                {{ __('Featured') }}
                             </span>
                             @if ($featured->content)
                             <span class="text-fn-text3 text-sm">
@@ -113,7 +112,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
                             </div>
                         </div>
                         <div class="flex items-center gap-1.5 text-fn-blue-l text-sm font-semibold">
-                            Read article
+                            {{ __('Read article') }}
                             <svg class="card-arrow w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="7" y1="17" x2="17" y2="7" />
@@ -131,7 +130,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
 {{-- ══ BLOG GRID ══ --}}
 <section class="py-12">
     <div class="max-w-6xl mx-auto px-6">
-        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-7">Latest Articles</p>
+        <p class="text-fn-text3 text-sm font-semibold uppercase tracking-widest mb-7">{{ __('Latest Articles') }}</p>
 
         @php
         // Skip the featured post on page 1 so it doesn't repeat in the grid
@@ -160,7 +159,7 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
         @endphp
 
         @if ($gridBlogs->isEmpty())
-        <p class="text-fn-text3 text-sm">No articles found.</p>
+        <p class="text-fn-text3 text-sm">{{ __('No articles found.') }}</p>
         @else
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($gridBlogs as $i => $blog)
@@ -385,23 +384,22 @@ $featuredReadTime = min(20, max(1, (int) ceil(str_word_count(strip_tags($feature
             </div>
 
             <div class="relative z-10 max-w-lg mx-auto">
-                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">Stay Updated</p>
+                <p class="text-fn-blue-l text-sm font-semibold uppercase tracking-widest mb-3">{{ __('Stay Updated') }}</p>
                 <h2 class="font-serif text-2xl sm:text-3xl font-normal tracking-tight mb-3">
-                    Get file tips straight to your inbox
+                    {{ __('Get file tips straight to your inbox') }}
                 </h2>
                 <p class="text-fn-text2 text-sm leading-relaxed mb-7">
-                    No spam, just practical guides on file tools, automation, and productivity
-                    — every two weeks.
+                    {{ __('No spam, just practical guides on file tools, automation, and productivity — every two weeks.') }}
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
                     <input type="email" placeholder="your@email.com"
                         class="nl-input flex-1 px-4 py-2.5 bg-fn-bg border border-fn-text/10 rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans transition-all" />
                     <button
                         class="px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all hover:-translate-y-0.5 whitespace-nowrap">
-                        Subscribe Free
+                        {{ __('Subscribe Free') }}
                     </button>
                 </div>
-                <p class="text-fn-text3 text-sm mt-3">Unsubscribe any time · No spam ever</p>
+                <p class="text-fn-text3 text-sm mt-3">{{ __('Unsubscribe any time · No spam ever') }}</p>
             </div>
         </div>
     </div>

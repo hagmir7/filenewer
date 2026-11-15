@@ -22,9 +22,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,8 +51,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Word file here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .docx and .doc &middot; or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Word file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .docx and .doc · or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -61,9 +61,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Word File
+                            {{ __('Choose Word File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input"
                             accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -85,9 +85,9 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">&mdash; &middot; Word Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · Word Document') }}</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove Word file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove Word file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,46 +102,42 @@
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Include Headers --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Heading
-                                    Markers</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Include Heading Markers') }}</label>
                                 <div class="flex items-center gap-3">
                                     <label class="toggle-label flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" id="opt-headers" checked
                                             class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
-                                        <span class="text-sm text-fn-text2">Yes</span>
+                                        <span class="text-sm text-fn-text2">{{ __('Yes') }}</span>
                                     </label>
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-1.5">Adds underline markers (===, ---) below headings
-                                    for readability.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">Adds underline markers (===, ---) below headings for readability.</p>
                             </div>
                             {{-- Include Tables --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Tables</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Include Tables') }}</label>
                                 <div class="flex items-center gap-3">
                                     <label class="toggle-label flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" id="opt-tables" checked
                                             class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
-                                        <span class="text-sm text-fn-text2">Yes</span>
+                                        <span class="text-sm text-fn-text2">{{ __('Yes') }}</span>
                                     </label>
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-1.5">Renders tables as ASCII grid tables in the
-                                    output.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Renders tables as ASCII grid tables in the output.') }}</p>
                             </div>
                         </div>
                         {{-- Row 2: Include Comments + Encoding --}}
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Include Comments --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Include Comments</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Include Comments') }}</label>
                                 <div class="flex items-center gap-3">
                                     <label class="toggle-label flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" id="opt-comments"
                                             class="w-4 h-4 rounded border-fn-text/20 accent-fn-blue cursor-pointer" />
-                                        <span class="text-sm text-fn-text2">Yes</span>
+                                        <span class="text-sm text-fn-text2">{{ __('Yes') }}</span>
                                     </label>
                                 </div>
-                                <p class="text-fn-text3 text-sm mt-1.5">Extract and include document comments in the
-                                    text output.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Extract and include document comments in the text output.') }}</p>
                             </div>
                             {{-- Encoding --}}
                             @php
@@ -152,18 +148,17 @@
                             ];
                             @endphp
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Text Encoding</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Text Encoding') }}</label>
                                 <div class="grid grid-cols-3 gap-2 mb-2">
                                     @foreach($encOptions as [$enc, $encLabel])
                                     <button type="button"
                                         class="enc-btn {{ $enc === 'utf-8' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
                                         data-enc="{{ $enc }}">
-                                        {{ $encLabel }}
+                                        {{ __(Str::squish((string) $encLabel)) }}
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm" id="enc-hint">UTF-8 &mdash; universal encoding,
-                                    supports all languages</p>
+                                <p class="text-fn-text3 text-sm" id="enc-hint">{{ __('UTF-8 — universal encoding, supports all languages') }}</p>
                             </div>
                         </div>
                         {{-- Row 3: Page separator + Output filename --}}
@@ -171,23 +166,23 @@
                             {{-- Page separator --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-page-sep" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Page Separator
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Page Separator') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-page-sep" placeholder="e.g. --- Page Break ---"
+                                <input type="text" id="opt-page-sep" placeholder="{{ __('e.g. --- Page Break ---') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Insert a custom separator between page breaks.
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Insert a custom separator between page breaks.') }}
                                 </p>
                             </div>
                             {{-- Output filename --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. output.txt"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. output.txt') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your Word filename with .txt</p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to your Word filename with .txt') }}</p>
                             </div>
                         </div>
                     </div>
@@ -201,7 +196,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -210,7 +205,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to TXT
+                        {{ __('Convert to TXT') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -248,15 +243,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting your file&hellip;</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting your file…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 15 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting&hellip;</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     @php
@@ -283,7 +278,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -300,32 +295,32 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your text file is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">{{ __('Your text file is ready.') }}</p>
                     {{-- Stats bar --}}
                     <div id="stats-wrap" class="hidden max-w-lg mx-auto mb-6">
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                                 <p class="text-lg font-bold text-fn-text" id="stat-paragraphs">0</p>
-                                <p class="text-fn-text3 text-xs font-semibold">Paragraphs</p>
+                                <p class="text-fn-text3 text-xs font-semibold">{{ __('Paragraphs') }}</p>
                             </div>
                             <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                                 <p class="text-lg font-bold text-fn-text" id="stat-words">0</p>
-                                <p class="text-fn-text3 text-xs font-semibold">Words</p>
+                                <p class="text-fn-text3 text-xs font-semibold">{{ __('Words') }}</p>
                             </div>
                             <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                                 <p class="text-lg font-bold text-fn-text" id="stat-tables">0</p>
-                                <p class="text-fn-text3 text-xs font-semibold">Tables</p>
+                                <p class="text-fn-text3 text-xs font-semibold">{{ __('Tables') }}</p>
                             </div>
                             <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
                                 <p class="text-lg font-bold text-fn-text" id="stat-headings">0</p>
-                                <p class="text-fn-text3 text-xs font-semibold">Headings</p>
+                                <p class="text-fn-text3 text-xs font-semibold">{{ __('Headings') }}</p>
                             </div>
                         </div>
                     </div>
                     {{-- Text preview --}}
                     <div id="text-preview-wrap" class="hidden max-w-2xl mx-auto mb-6 text-left">
-                        <p class="text-fn-text2 text-sm font-semibold mb-2">Preview</p>
+                        <p class="text-fn-text2 text-sm font-semibold mb-2">{{ __('Preview') }}</p>
                         <div class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-auto max-h-52 p-4">
                             <pre id="text-preview"
                                 class="text-sm text-fn-text2 whitespace-pre-wrap font-mono leading-relaxed"></pre>
@@ -346,7 +341,7 @@
                             </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.txt</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Text File</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Text File') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -359,7 +354,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download TXT</span>
+                        <span id="download-btn-label">{{ __('Download TXT') }}</span>
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -369,11 +364,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -381,7 +376,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -391,7 +386,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $faqs = [
@@ -415,7 +410,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -423,7 +418,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -616,7 +611,7 @@
       syncEncodingButtons();
       var activeEnc     = 'utf-8';
       var encHints = {
-        'utf-8':   'UTF-8 \u2014 universal encoding, supports all languages',
+        'utf-8':   {{ Illuminate\Support\Js::from(__('UTF-8 — universal encoding, supports all languages')) }},
         'ascii':   'ASCII \u2014 basic English characters only',
         'latin-1': 'Latin-1 \u2014 Western European languages'
       };
@@ -647,16 +642,16 @@
         hideError();
         var ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
         if (ACCEPTED_EXTS.indexOf(ext) === -1 && ACCEPTED_TYPES.indexOf(file.type) === -1) {
-          showError('Please select a valid Word file (.docx or .doc).');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid Word file (.docx or .doc).')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' \u00b7 Word Document';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Word Document')) }};
         var fnInput = document.getElementById('opt-filename');
         if (!fnInput.value) fnInput.value = file.name.replace(/\.docx?$/i, '.txt');
         filePreview.classList.remove('hidden');
@@ -708,21 +703,21 @@
         if (pageSep) fileForm.append('page_separator', pageSep);
         // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 20, 700, 'Uploading & reading document\u2026');
+        animateProgress(0, 20, 700, {{ Illuminate\Support\Js::from(__('Uploading & reading document…')) }});
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(20, 50, 900, 'Parsing paragraphs & headings\u2026');
+          animateProgress(20, 50, 900, {{ Illuminate\Support\Js::from(__('Parsing paragraphs & headings…')) }});
         }, 800);
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(50, 75, 900, 'Extracting tables & comments\u2026');
+          animateProgress(50, 75, 900, {{ Illuminate\Support\Js::from(__('Extracting tables & comments…')) }});
         }, 1800);
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(75, 90, 700, 'Encoding & packaging text file\u2026');
+          animateProgress(75, 90, 700, {{ Illuminate\Support\Js::from(__('Encoding & packaging text file…')) }});
         }, 2900);
         try {
           // Fire both requests in parallel
@@ -734,7 +729,7 @@
           var fileRes = results[1];
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!fileRes.ok) {
-            var errMsg = 'Conversion failed. Please try again.';
+            var errMsg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
             try { var d = await fileRes.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
@@ -746,9 +741,9 @@
           link.href     = blobUrl;
           link.download = outputFilename;
           document.getElementById('output-name').textContent        = outputFilename;
-          document.getElementById('output-size').textContent        = formatBytes(blob.size) + ' \u00b7 Text File';
-          document.getElementById('download-btn-label').textContent = 'Download TXT';
-          document.getElementById('download-subtitle').textContent  = 'Your text file is ready.';
+          document.getElementById('output-size').textContent        = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · Text File')) }};
+          document.getElementById('download-btn-label').textContent = {{ Illuminate\Support\Js::from(__('Download TXT')) }};
+          document.getElementById('download-subtitle').textContent  = {{ Illuminate\Support\Js::from(__('Your text file is ready.')) }};
           // Stats + preview from JSON response (non-blocking)
           var statsWrap       = document.getElementById('stats-wrap');
           var textPreviewWrap = document.getElementById('text-preview-wrap');
@@ -765,9 +760,9 @@
                 var totalChars = data.chars || data.text.length;
                 document.getElementById('text-preview').textContent = preview + (totalChars > 2000 ? '\n\u2026' : '');
                 document.getElementById('text-preview-meta').textContent =
-                  (data.words || 0) + ' words \u00b7 ' + totalChars.toLocaleString() + ' characters' +
-                  (totalChars > 2000 ? ' \u00b7 showing first 2,000 chars' : '') +
-                  ' \u00b7 ' + (data.size_original_kb || 0) + ' KB \u2192 ' + (data.size_text_kb || 0) + ' KB';
+                  (data.words || 0) + {{ Illuminate\Support\Js::from(__(' words · ')) }} + totalChars.toLocaleString() + {{ Illuminate\Support\Js::from(__(' characters')) }} +
+                  (totalChars > 2000 ? {{ Illuminate\Support\Js::from(__(' · showing first 2,000 chars')) }} : '') +
+                  ' \u00b7 ' + (data.size_original_kb || 0) + {{ Illuminate\Support\Js::from(__(' KB → ')) }} + (data.size_text_kb || 0) + {{ Illuminate\Support\Js::from(__(' KB')) }};
                 textPreviewWrap.classList.remove('hidden');
               } else {
                 textPreviewWrap.classList.add('hidden');
@@ -782,12 +777,12 @@
           }
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -861,7 +856,7 @@
         document.getElementById('text-preview-wrap').classList.add('hidden');
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting\u2026');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
       function showError(msg) {

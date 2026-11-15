@@ -10,24 +10,24 @@
         <div class="max-w-4xl mx-auto px-3 sm:px-6 relative z-10">
             {{-- Breadcrumb --}}
             <nav class="flex items-center gap-1 md:gap-2 text-sm text-fn-text3 mb-6">
-                <a href="/" class="hover:text-fn-text transition-colors">Home</a>
+                <a href="/" class="hover:text-fn-text transition-colors">{{ __('Home') }}</a>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6" />
                 </svg>
-                <a href="/tools" class="hover:text-fn-text transition-colors">Tools</a>
+                <a href="/tools" class="hover:text-fn-text transition-colors">{{ __('Tools') }}</a>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6" />
                 </svg>
                 <a href="/tools?category={{ $tool->category->slug }}" class="hover:text-fn-text transition-colors">
-                    {{ $tool->category->title }}
+                    {{ __($tool->category->title) }}
                 </a>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6" />
                 </svg>
-                <span class="text-fn-text2">{{ $tool->name }}</span>
+                <span class="text-fn-text2">{{ __($tool->name) }}</span>
             </nav>
             {{-- Tool heading --}}
             <div class="flex flex-col sm:flex-row items-start gap-3 sm:gap-5 mb-6">
@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <div class="md:flex items-center gap-3 mb-1 flex-wrap">
-                        <h1 class="text-lg md:text-2xl font-bold tracking-tight">{{ $tool->title }}</h1>
+                        <h1 class="text-lg md:text-2xl font-bold tracking-tight">{{ __($tool->title) }}</h1>
                         @if(str_contains($tool->tags ?? '', 'popular'))
                         <span
                             class="px-2 py-0.5 bg-fn-amber/10 border border-fn-amber/30 text-fn-amber text-sm font-semibold rounded-full"><svg
@@ -48,14 +48,14 @@
                                 <path
                                     d="M12 12c2 -2.96 0 -7 -1 -8c0 3.038 -1.773 4.741 -3 6c-1.226 1.26 -2 3.24 -2 5a6 6 0 1 0 12 0c0 -1.532 -1.056 -3.94 -2 -5c-1.786 3 -2.791 3 -4 2z" />
                             </svg>
-                            Popular</span>
+                            {{ __('Popular') }}</span>
                         @endif
                         @if(str_contains($tool->tags ?? '', 'new'))
                         <span
-                            class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">New</span>
+                            class="px-2 py-0.5 bg-fn-green/10 border border-fn-green/30 text-fn-green text-sm font-semibold rounded-full">{{ __('New') }}</span>
                         @endif
                     </div>
-                    <p class="text-fn-text3 text-sm leading-relaxed max-w-xl">{{ $tool->description }}</p>
+                    <p class="text-fn-text3 text-sm leading-relaxed max-w-xl">{{ __(Str::squish($tool->description ?? '')) }}</p>
                 </div>
             </div>
             {{-- Quick stats --}}
@@ -65,7 +65,7 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
-                    <span>Secure &amp; private</span>
+                    <span>{{ __('Secure & private') }}</span>
                 </div>
                 <div class="flex items-center gap-2 text-sm text-fn-text3">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -73,14 +73,14 @@
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                     </svg>
-                    <span>Fast processing</span>
+                    <span>{{ __('Fast processing') }}</span>
                 </div>
                 <div class="flex items-center gap-2 text-sm text-fn-text3">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    <span>No sign-up required</span>
+                    <span>{{ __('No sign-up required') }}</span>
                 </div>
                 <div class="flex items-center gap-2 text-sm text-fn-text3">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -89,7 +89,7 @@
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    <span>Free to use</span>
+                    <span>{{ __('Free to use') }}</span>
                 </div>
             </div>
         </div>
@@ -127,12 +127,12 @@
                 {{-- Text --}}
                 <div class="text-center relative z-10">
                     <p class="font-semibold text-fn-text mb-1">
-                        Drop your file here, or
-                        <label for="file-input" class="text-fn-blue cursor-pointer hover:underline">browse</label>
+                        {{ __('Drop your file here, or') }}
+                        <label for="file-input" class="text-fn-blue cursor-pointer hover:underline">{{ __('browse') }}</label>
                     </p>
                     <p class="text-fn-text3 text-sm">
-                        Supports: <span id="supported-formats" class="font-mono">—</span>
-                        &nbsp;·&nbsp; Max 200MB
+                        {{ __('Supports:') }} <span id="supported-formats" class="font-mono">—</span>
+                        {{ __('· Max 200MB') }}
                     </p>
                 </div>
                 {{-- Hidden file input --}}
@@ -153,9 +153,9 @@
                         </svg></div>
                     <div class="flex-1 min-w-0">
                         <p class="font-medium text-sm text-fn-text truncate" id="preview-name">filename.pdf</p>
-                        <p class="text-fn-text3 text-sm mt-0.5" id="preview-size">2.4 MB</p>
+                        <p class="text-fn-text3 text-sm mt-0.5" id="preview-size">{{ __('2.4 MB') }}</p>
                     </div>
-                    <button type="button" aria-label="Remove file" onclick="resetFile()"
+                    <button type="button" aria-label="{{ __('Remove file') }}" onclick="resetFile()"
                         class="text-fn-text3 hover:text-fn-red transition-colors p-1.5 rounded-lg hover:bg-fn-red/10">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -176,21 +176,21 @@
                         <polyline points="13 17 18 12 13 7" />
                         <polyline points="6 17 11 12 6 7" />
                     </svg>
-                    Convert Now
+                    {{ __('Convert Now') }}
                 </button>
             </div>
             {{-- Progress bar (hidden by default) --}}
             <div id="progress-wrap" class="hidden px-6 pb-6">
                 <div class="bg-fn-surface2 rounded-xl p-5">
                     <div class="flex items-center justify-between mb-3">
-                        <p class="text-sm font-medium text-fn-text">Processing…</p>
+                        <p class="text-sm font-medium text-fn-text">{{ __('Processing…') }}</p>
                         <span id="progress-pct" class="text-sm font-mono text-fn-text3">0%</span>
                     </div>
                     <div class="h-1.5 bg-fn-surface rounded-full overflow-hidden">
                         <div id="progress-bar" class="h-full bg-fn-blue rounded-full transition-all duration-300"
                             style="width:0%"></div>
                     </div>
-                    <p class="text-fn-text3 text-sm mt-3 text-center" id="progress-label">Uploading file…</p>
+                    <p class="text-fn-text3 text-sm mt-3 text-center" id="progress-label">{{ __('Uploading file…') }}</p>
                 </div>
             </div>
             {{-- Result (hidden by default) --}}
@@ -203,7 +203,7 @@
                         </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-semibold text-sm text-fn-text">Done! Your file is ready.</p>
+                        <p class="font-semibold text-sm text-fn-text">{{ __('Done! Your file is ready.') }}</p>
                         <p class="text-fn-text3 text-sm mt-0.5" id="result-filename">output.docx</p>
                     </div>
                     <a id="download-btn" href="#" download
@@ -214,12 +214,12 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download
+                        {{ __('Download') }}
                     </a>
                 </div>
                 <button onclick="resetAll()"
                     class="mt-3 w-full py-2.5 bg-fn-surface2 text-fn-text2 text-sm font-medium rounded-xl hover:bg-fn-surface border border-fn-text/8 transition-colors">
-                    Convert Another File
+                    {{ __('Convert Another File') }}
                 </button>
             </div>
         </div>
@@ -269,7 +269,7 @@
         {{-- ── RELATED TOOLS ── --}}
         @if($relatedTools->isNotEmpty())
         <div class="mb-10">
-            <h2 class="text-base font-bold tracking-tight mb-5">Related tools</h2>
+            <h2 class="text-base font-bold tracking-tight mb-5">{{ __('Related tools') }}</h2>
             <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 @foreach($relatedTools as $related)
                 <a href="/tools/{{ $related->slug }}"
@@ -279,8 +279,8 @@
                         {!! $related->icon !!}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-semibold text-sm">{{ $related->name }}</p>
-                        <p class="text-fn-text3 text-sm truncate">{{ $related->description }}</p>
+                        <p class="font-semibold text-sm">{{ __($related->name) }}</p>
+                        <p class="text-fn-text3 text-sm truncate">{{ __(Str::squish($related->description ?? '')) }}</p>
                     </div>
                     <svg class="w-4 h-4 text-fn-text3 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -559,14 +559,14 @@
                     pct = Math.min(pct + Math.random() * 15, 85);
                     bar.style.width = pct + '%';
                     pctLabel.textContent = Math.round(pct) + '%';
-                    if (pct > 40) label.textContent = 'Converting…';
+                    if (pct > 40) label.textContent = {{ Illuminate\Support\Js::from(__('Converting…')) }};
                 }, 300);
                 fetch('/tools/{{ $tool->slug }}/process', {
                     method: 'POST',
                     body: formData,
                 })
                 .then(res => {
-                    if (!res.ok) throw new Error('Conversion failed');
+                    if (!res.ok) throw new Error({{ Illuminate\Support\Js::from(__('Conversion failed')) }});
                     return res.blob();
                 })
                 .then(blob => {
@@ -588,7 +588,7 @@
                     clearInterval(tick);
                     document.getElementById('progress-wrap').classList.add('hidden');
                     document.getElementById('file-preview').classList.remove('hidden');
-                    alert('Something went wrong. Please try again.');
+                    alert({{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
                 });
             }
             function formatBytes(bytes) {

@@ -22,9 +22,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -51,8 +51,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Word file here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .docx and .doc &middot; or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Word file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .docx and .doc · or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -61,9 +61,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Word File
+                            {{ __('Choose Word File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input"
                             accept=".docx,.doc,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -85,9 +85,9 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="file-name">document.docx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">&mdash; &middot; Word Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · Word Document') }}</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove Word file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove Word file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,25 +102,23 @@
                         <div class="grid sm:grid-cols-2 gap-3">
                             {{-- Output mode --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output Mode') }}</label>
                                 <select id="opt-output"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none cursor-pointer">
-                                    <option value="zip">All pages &rarr; ZIP of .jpg files</option>
-                                    <option value="single">First page &rarr; single .jpg</option>
+                                    <option value="zip">{{ __('All pages → ZIP of .jpg files') }}</option>
+                                    <option value="single">{{ __('First page → single .jpg') }}</option>
                                 </select>
-                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">All pages exported as
-                                    individual JPG images, bundled in a ZIP archive.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5" id="output-mode-hint">{{ __('All pages exported as individual JPG images, bundled in a ZIP archive.') }}</p>
                             </div>
                             {{-- Pages --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl" id="pages-option-wrap">
                                 <label for="opt-pages" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Pages
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Pages') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-pages" placeholder="e.g. 1,3,5"
+                                <input type="text" id="opt-pages" placeholder="{{ __('e.g. 1,3,5') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5" id="pages-hint">Leave blank to convert all
-                                    pages.</p>
+                                <p class="text-fn-text3 text-sm mt-1.5" id="pages-hint">{{ __('Leave blank to convert all pages.') }}</p>
                             </div>
                         </div>
                         {{-- Row 2: DPI + Quality --}}
@@ -136,31 +134,30 @@
                             ];
                             @endphp
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Resolution (DPI)</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Resolution (DPI)') }}</label>
                                 <div class="grid grid-cols-5 gap-2 mb-2">
                                     @foreach($dpiOptions as [$dpi, $lbl])
                                     <button type="button"
                                         class="dpi-btn {{ $dpi === '200' ? 'active' : '' }} py-1.5 rounded-lg border text-sm font-mono font-bold transition-all"
                                         data-dpi="{{ $dpi }}">
-                                        {{ $lbl }}
+                                        {{ __(Str::squish($lbl)) }}
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm" id="dpi-hint">200 DPI &mdash; balanced quality and file
-                                    size</p>
+                                <p class="text-fn-text3 text-sm" id="dpi-hint">{{ __('200 DPI — balanced quality and file size') }}</p>
                             </div>
                             {{-- Quality --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-quality" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    JPG Quality
+                                    {{ __('JPG Quality') }}
                                     <span class="font-normal text-fn-text3 ml-1">(<span
                                             id="quality-value">85</span>%)</span>
                                 </label>
                                 <input type="range" id="opt-quality" min="10" max="100" value="85"
                                     class="w-full accent-fn-blue cursor-pointer" />
                                 <div class="flex justify-between text-fn-text3 text-xs mt-1">
-                                    <span>Small file</span>
-                                    <span>Best quality</span>
+                                    <span>{{ __('Small file') }}</span>
+                                    <span>{{ __('Best quality') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -168,12 +165,12 @@
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename
-                                    <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="opt-filename" placeholder="e.g. pages.zip"
+                                <input type="text" id="opt-filename" placeholder="{{ __('e.g. pages.zip') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to your Word filename with .zip or .jpg
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to your Word filename with .zip or .jpg') }}
                                 </p>
                             </div>
                         </div>
@@ -188,7 +185,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -197,7 +194,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to JPG
+                        {{ __('Convert to JPG') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -237,15 +234,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting your file&hellip;</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 30 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting your file…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 30 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting&hellip;</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     @php
@@ -272,7 +269,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -289,15 +286,15 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">Your JPG images are ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8" id="download-subtitle">{{ __('Your JPG images are ready.') }}</p>
                     {{-- Page preview --}}
                     <div id="page-preview-wrap" class="hidden max-w-2xl mx-auto mb-6 text-left">
                         <div class="flex items-center gap-1 flex-wrap mb-3" id="page-tabs"></div>
                         <div
                             class="bg-fn-surface2 border border-fn-text/8 rounded-xl overflow-hidden flex items-center justify-center p-4">
                             <img id="page-preview-img" class="max-w-full max-h-64 rounded-lg shadow-lg"
-                                alt="Page preview" />
+                                alt="{{ __('Page preview') }}" />
                         </div>
                         <p class="text-fn-text3 text-sm mt-2" id="page-preview-meta"></p>
                     </div>
@@ -317,7 +314,7 @@
                             </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.zip</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('ZIP Archive') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -330,7 +327,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-btn-label">Download ZIP</span>
+                        <span id="download-btn-label">{{ __('Download ZIP') }}</span>
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -340,11 +337,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -352,7 +349,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -362,7 +359,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $faqs = [
@@ -385,7 +382,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -393,7 +390,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -600,7 +597,7 @@
       var dpiHints = {
         '72':  '72 DPI \u2014 web preview, thumbnails',
         '150': '150 DPI \u2014 general sharing',
-        '200': '200 DPI \u2014 balanced quality and file size',
+        '200': {{ Illuminate\Support\Js::from(__('200 DPI — balanced quality and file size')) }},
         '300': '300 DPI \u2014 print-ready quality',
         '600': '600 DPI \u2014 high resolution archive'
       };
@@ -616,11 +613,11 @@
       outputSel.addEventListener('change', function () {
         var isSingle = outputSel.value === 'single';
         outputHint.textContent = isSingle
-          ? 'Downloads the first (or specified) page as a single JPG image.'
-          : 'All pages exported as individual JPG images, bundled in a ZIP archive.';
+          ? {{ Illuminate\Support\Js::from(__('Downloads the first (or specified) page as a single JPG image.')) }}
+          : {{ Illuminate\Support\Js::from(__('All pages exported as individual JPG images, bundled in a ZIP archive.')) }};
         pagesHint.textContent = isSingle
-          ? 'Enter a page number, or leave blank for the first page.'
-          : 'Leave blank to convert all pages, or specify pages like 1,3,5.';
+          ? {{ Illuminate\Support\Js::from(__('Enter a page number, or leave blank for the first page.')) }}
+          : {{ Illuminate\Support\Js::from(__('Leave blank to convert all pages, or specify pages like 1,3,5.')) }};
       });
       ['dragenter', 'dragover'].forEach(function (evt) {
         dropZone.addEventListener(evt, function (e) { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
@@ -640,16 +637,16 @@
         hideError();
         var ext = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
         if (ACCEPTED_EXTS.indexOf(ext) === -1 && ACCEPTED_TYPES.indexOf(file.type) === -1) {
-          showError('Please select a valid Word file (.docx or .doc).');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid Word file (.docx or .doc).')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' \u00b7 Word Document';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Word Document')) }};
         var fnInput = document.getElementById('opt-filename');
         if (!fnInput.value) fnInput.value = file.name.replace(/\.docx?$/i, '.zip');
         filePreview.classList.remove('hidden');
@@ -688,21 +685,21 @@
         formData.append('quality', qualitySlider.value);
         if (pagesVal) formData.append('pages', pagesVal);
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 15, 700, 'Uploading & reading document\u2026');
+        animateProgress(0, 15, 700, {{ Illuminate\Support\Js::from(__('Uploading & reading document…')) }});
         var t2 = setTimeout(function () {
           setProcessStep('proc-1', 'done');
           setProcessStep('proc-2', 'active');
-          animateProgress(15, 40, 1200, 'Converting Word to PDF\u2026');
+          animateProgress(15, 40, 1200, {{ Illuminate\Support\Js::from(__('Converting Word to PDF…')) }});
         }, 800);
         var t3 = setTimeout(function () {
           setProcessStep('proc-2', 'done');
           setProcessStep('proc-3', 'active');
-          animateProgress(40, 75, 1500, 'Rendering pages to JPG\u2026');
+          animateProgress(40, 75, 1500, {{ Illuminate\Support\Js::from(__('Rendering pages to JPG…')) }});
         }, 2200);
         var t4 = setTimeout(function () {
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'active');
-          animateProgress(75, 90, 700, 'Packaging output file\u2026');
+          animateProgress(75, 90, 700, {{ Illuminate\Support\Js::from(__('Packaging output file…')) }});
         }, 4000);
         try {
           var res = await fetch(API_BASE + '/api/tools/word-to-jpg', {
@@ -711,7 +708,7 @@
           });
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!res.ok) {
-            var errMsg = 'Conversion failed. Please try again.';
+            var errMsg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
             try { var d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
@@ -722,22 +719,22 @@
           link.href     = blobUrl;
           link.download = outputFilename;
           document.getElementById('output-name').textContent        = outputFilename;
-          document.getElementById('output-size').textContent        = formatBytes(blob.size) + (isSingle ? ' \u00b7 JPG Image' : ' \u00b7 ZIP Archive');
-          document.getElementById('download-btn-label').textContent = isSingle ? 'Download JPG' : 'Download ZIP';
+          document.getElementById('output-size').textContent        = formatBytes(blob.size) + (isSingle ? {{ Illuminate\Support\Js::from(__(' · JPG Image')) }} : {{ Illuminate\Support\Js::from(__(' · ZIP Archive')) }});
+          document.getElementById('download-btn-label').textContent = isSingle ? {{ Illuminate\Support\Js::from(__('Download JPG')) }} : {{ Illuminate\Support\Js::from(__('Download ZIP')) }};
           document.getElementById('download-subtitle').textContent  = isSingle
-            ? 'Your JPG image is ready.'
-            : 'Your JPG images are packed and ready.';
+            ? {{ Illuminate\Support\Js::from(__('Your JPG image is ready.')) }}
+            : {{ Illuminate\Support\Js::from(__('Your JPG images are packed and ready.')) }};
           document.getElementById('output-icon').textContent        = isSingle ? '\uD83D\uDDBC\uFE0F' : '\uD83D\uDDDC\uFE0F';
           // Preview is skipped — the main file download is ready
           document.getElementById('page-preview-wrap').classList.add('hidden');
           setProcessStep('proc-3', 'done');
           setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(function () { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -748,7 +745,7 @@
         pages.forEach(function (pg, i) {
           var btn = document.createElement('button');
           btn.type      = 'button';
-          btn.textContent = 'Page ' + pg.page;
+          btn.textContent = {{ Illuminate\Support\Js::from(__('Page ')) }} + pg.page;
           btn.className = 'page-tab' + (i === 0 ? ' active' : '');
           btn.setAttribute('aria-pressed', String(i === 0));
           btn.addEventListener('click', function () {
@@ -765,8 +762,8 @@
         img.src = 'data:image/jpeg;base64,' + pg.base64;
         img.alt = 'Page ' + pg.page + ' preview';
         document.getElementById('page-preview-meta').textContent =
-          'Page ' + pg.page + ' \u00b7 ' + pg.width + '\u00d7' + pg.height + 'px \u00b7 ' + pg.size_kb.toFixed(1) + ' KB' +
-          (totalPages > 1 ? ' \u00b7 ' + totalPages + ' pages total' : '');
+          {{ Illuminate\Support\Js::from(__('Page ')) }} + pg.page + ' \u00b7 ' + pg.width + '\u00d7' + pg.height + {{ Illuminate\Support\Js::from(__('px · ')) }} + pg.size_kb.toFixed(1) + {{ Illuminate\Support\Js::from(__(' KB')) }} +
+          (totalPages > 1 ? ' \u00b7 ' + totalPages + {{ Illuminate\Support\Js::from(__(' pages total')) }} : '');
       }
       function showState(state) {
         ['upload', 'converting', 'download'].forEach(function (s) {
@@ -826,8 +823,8 @@
         document.getElementById('opt-filename').value = '';
         document.getElementById('opt-pages').value    = '';
         outputSel.value = 'zip';
-        outputHint.textContent = 'All pages exported as individual JPG images, bundled in a ZIP archive.';
-        pagesHint.textContent  = 'Leave blank to convert all pages.';
+        outputHint.textContent = {{ Illuminate\Support\Js::from(__('All pages exported as individual JPG images, bundled in a ZIP archive.')) }};
+        pagesHint.textContent  = {{ Illuminate\Support\Js::from(__('Leave blank to convert all pages.')) }};
         document.querySelectorAll('.dpi-btn').forEach(function (b) { b.classList.remove('active'); });
         document.querySelector('.dpi-btn[data-dpi="200"]').classList.add('active');
         activeDpi = '200';
@@ -839,7 +836,7 @@
         document.getElementById('page-preview-wrap').classList.add('hidden');
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting\u2026');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(function (id) { setProcessStep(id, ''); });
       };
       function showError(msg) {

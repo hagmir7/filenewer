@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -45,8 +45,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -55,9 +55,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -80,7 +80,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -91,7 +91,7 @@
                     </div>
                     {{-- Split mode selector --}}
                     <div class="mt-5">
-                        <label class="text-sm font-semibold text-fn-text2 block mb-3">Split Mode</label>
+                        <label class="text-sm font-semibold text-fn-text2 block mb-3">{{ __('Split Mode') }}</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                             @foreach([
                             ['page', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -102,8 +102,7 @@
                                 <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                                 <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
                                 <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
-                            </svg>', 'Every page', 'One PDF per page'],
-                            ['chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            </svg>', 'Every page', 'One PDF per page'], ['chunk', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-books">
@@ -118,8 +117,7 @@
                                     d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041" />
                                 <path d="M14 9l4 -1" />
                                 <path d="M16 16l3.923 -.98" />
-                            </svg>', 'Every N pages', 'Groups of N pages'],
-                            ['range', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            </svg>', 'Every N pages', 'Groups of N pages'], ['range', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-text-resize">
@@ -134,8 +132,7 @@
                                 <path d="M19 7v10" />
                                 <path d="M10 10h4" />
                                 <path d="M12 14v-4" />
-                            </svg>', 'Page ranges', 'Custom ranges like 1-3, 4-6'],
-                            ['pages', '<svg xmlns="http://www.w3.org/2000/svg"
+                            </svg>', 'Page ranges', 'Custom ranges like 1-3, 4-6'], ['pages', '<svg xmlns="http://www.w3.org/2000/svg"
                                 class="icon icon-tabler icon-tabler-target" width="1em" height="1em" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em">
@@ -149,9 +146,9 @@
                                 data-mode="{{ $mval }}">
                                 <div class="flex items-center gap-1.5 w-full">
                                     <span class="text-base">{!! $micon !!}</span>
-                                    <span class="text-sm font-bold">{{ $mname }}</span>
+                                    <span class="text-sm font-bold">{{ __(Str::squish((string) $mname)) }}</span>
                                 </div>
-                                <span class="text-xs leading-tight opacity-70">{{ $mdesc }}</span>
+                                <span class="text-xs leading-tight opacity-70">{{ __(Str::squish((string) $mdesc)) }}</span>
                             </button>
                             @endforeach
                         </div>
@@ -172,16 +169,15 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-semibold text-fn-text2">Every page as a separate PDF</p>
-                                    <p class="text-xs text-fn-text3 mt-0.5">A 10-page PDF becomes 10 separate files in a
-                                        zip archive.</p>
+                                    <p class="text-sm font-semibold text-fn-text2">{{ __('Every page as a separate PDF') }}</p>
+                                    <p class="text-xs text-fn-text3 mt-0.5">{{ __('A 10-page PDF becomes 10 separate files in a zip archive.') }}</p>
                                 </div>
                             </div>
                         </div>
                         {{-- Chunk mode --}}
                         <div id="mode-opts-chunk" class="mode-opts hidden">
                             <label for="opt-chunk" class="text-xs font-semibold text-fn-text2 block mb-2">
-                                Chunk Size — <span id="chunk-val" class="text-fn-blue-l">3</span> pages per file
+                                {{ __('Chunk Size —') }} <span id="chunk-val" class="text-fn-blue-l">3</span> {{ __('pages per file') }}
                             </label>
                             <input type="range" id="opt-chunk" min="1" max="50" value="3" step="1"
                                 class="w-full accent-fn-blue cursor-pointer mb-2" />
@@ -189,15 +185,15 @@
                                 <span>1</span><span>10</span><span>25</span><span>50</span>
                             </div>
                             <p class="text-xs text-fn-text3 mt-2">
-                                A 10-page PDF with chunk size <span id="chunk-example">3</span> produces
-                                <span id="chunk-result" class="font-bold text-fn-text2">4 files</span>
-                                (<span id="chunk-breakdown">3+3+3+1</span> pages).
+                                {{ __('A 10-page PDF with chunk size') }} <span id="chunk-example">3</span> {{ __('produces') }}
+                                <span id="chunk-result" class="font-bold text-fn-text2">{{ __('4 files') }}</span>
+                                (<span id="chunk-breakdown">3+3+3+1</span> {{ __('pages).') }}
                             </p>
                         </div>
                         {{-- Range mode --}}
                         <div id="mode-opts-range" class="mode-opts hidden">
                             <div class="flex items-center justify-between mb-2">
-                                <label class="text-xs font-semibold text-fn-text2">Page Ranges</label>
+                                <label class="text-xs font-semibold text-fn-text2">{{ __('Page Ranges') }}</label>
                                 <button type="button" id="btn-add-range"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-blue-l hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -205,34 +201,32 @@
                                         <line x1="12" y1="5" x2="12" y2="19" />
                                         <line x1="5" y1="12" x2="19" y2="12" />
                                     </svg>
-                                    Add range
+                                    {{ __('Add range') }}
                                 </button>
                             </div>
                             <div id="ranges-list" class="space-y-2"></div>
-                            <p class="text-xs text-fn-text3 mt-2">Each range becomes one output file. Page numbers are
-                                1-based.</p>
+                            <p class="text-xs text-fn-text3 mt-2">{{ __('Each range becomes one output file. Page numbers are 1-based.') }}</p>
                         </div>
                         {{-- Pages mode --}}
                         <div id="mode-opts-pages" class="mode-opts hidden">
                             <label for="opt-pages" class="text-xs font-semibold text-fn-text2 block mb-2">
-                                Specific Pages
+                                {{ __('Specific Pages') }}
                             </label>
                             <input type="text" id="opt-pages" placeholder="1, 3, 5, 7"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <p class="text-xs text-fn-text3 mt-2">Comma-separated page numbers. Each page becomes its
-                                own PDF.</p>
+                            <p class="text-xs text-fn-text3 mt-2">{{ __('Comma-separated page numbers. Each page becomes its own PDF.') }}</p>
                         </div>
                     </div>
                     {{-- Password (for encrypted PDFs) --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
                         <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                            PDF Password
-                            <span class="font-normal text-fn-text3 ml-1">(if encrypted)</span>
+                            {{ __('PDF Password') }}
+                            <span class="font-normal text-fn-text3 ml-1">{{ __('(if encrypted)') }}</span>
                         </label>
                         <div class="relative">
-                            <input type="password" id="opt-password" placeholder="Leave blank if not protected"
+                            <input type="password" id="opt-password" placeholder="{{ __('Leave blank if not protected') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button" id="toggle-password" aria-label="Show password" aria-pressed="false"
+                            <button type="button" id="toggle-password" aria-label="{{ __('Show password') }}" aria-pressed="false"
                                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                 <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -260,7 +254,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -271,7 +265,7 @@
                             <path d="M12 3v12" />
                             <path d="M8 11l4 4 4-4" />
                         </svg>
-                        Split PDF
+                        {{ __('Split PDF') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -312,15 +306,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Splitting your PDF…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Splitting your PDF…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -344,7 +338,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -361,13 +355,13 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Split Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your split PDFs are ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Split Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">{{ __('Your split PDFs are ready.') }}</p>
                     {{-- Parts table --}}
                     <div id="parts-preview" class="hidden max-w-2xl mx-auto mb-6 text-left">
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-sm font-semibold text-fn-text2">
-                                <span id="parts-count">0</span> file<span id="parts-plural">s</span> generated
+                                <span id="parts-count">0</span> {{ __('file') }}<span id="parts-plural">{{ app()->getLocale() === 'en' ? 's' : '' }}</span> {{ __('generated') }}
                             </p>
                             <span class="text-xs text-fn-text3" id="parts-total-size">—</span>
                         </div>
@@ -393,7 +387,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">split_pages.zip</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('ZIP Archive') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -406,7 +400,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download ZIP Archive
+                        {{ __('Download ZIP Archive') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -416,7 +410,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Split another PDF
+                            {{ __('Split another PDF') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -424,7 +418,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -434,7 +428,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What are the different split modes?', 'Four modes: Every page (one PDF per page), Every N pages (groups of
@@ -454,7 +448,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -462,7 +456,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -818,7 +812,7 @@
     const remainder  = example % n;
     const total      = fullChunks + (remainder > 0 ? 1 : 0);
     const breakdown  = Array(fullChunks).fill(n).concat(remainder > 0 ? [remainder] : []).join('+');
-    document.getElementById('chunk-result').textContent = total + ' file' + (total !== 1 ? 's' : '');
+    document.getElementById('chunk-result').textContent = total + {{ Illuminate\Support\Js::from(__(' file')) }} + ({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (total !== 1) ? 's' : '');
     document.getElementById('chunk-breakdown').textContent = breakdown;
   });
   // ── Range mode ──
@@ -834,7 +828,7 @@
     if (ranges.length === 0) {
       const empty = document.createElement('p');
       empty.className = 'text-xs text-fn-text3 italic';
-      empty.textContent = 'Click "Add range" to create your first page range.';
+      empty.textContent = {{ Illuminate\Support\Js::from(__('Click "Add range" to create your first page range.')) }};
       list.appendChild(empty);
       return;
     }
@@ -842,17 +836,17 @@
       const row = document.createElement('div');
       row.className = 'range-row';
       const pageCount = Math.max(0, (rng[1] ?? 0) - (rng[0] ?? 0) + 1);
-      row.innerHTML = `
-        <span class="range-order">${idx + 1}</span>
+      row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+        <span class="range-order">:value0</span>
         <label class="text-xs text-fn-text3">From</label>
-        <input type="number" min="1" value="${rng[0]}" class="range-from" />
+        <input type="number" min="1" value=":value1" class="range-from" />
         <span class="range-dash">–</span>
         <label class="text-xs text-fn-text3">to</label>
-        <input type="number" min="1" value="${rng[1]}" class="range-to" />
-        <span class="range-pages">${pageCount} page${pageCount !== 1 ? 's' : ''}</span>
+        <input type="number" min="1" value=":value2" class="range-to" />
+        <span class="range-pages">:value3 page:value4</span>
         <button type="button" class="range-remove" title="Remove range">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>`;
+        </button>')) }}).replaceAll(/:value0(?!\d)/g, () => String(idx + 1)).replaceAll(/:value1(?!\d)/g, () => String(rng[0])).replaceAll(/:value2(?!\d)/g, () => String(rng[1])).replaceAll(/:value3(?!\d)/g, () => String(pageCount)).replaceAll(/:value4(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (pageCount !== 1)) ? 's' : ''));
       row.querySelector('.range-from').addEventListener('input', e => {
         ranges[idx][0] = parseInt(e.target.value) || 1;
         updateRangePages(row, ranges[idx]);
@@ -870,7 +864,7 @@
   }
   function updateRangePages(row, rng) {
     const count = Math.max(0, (rng[1] ?? 0) - (rng[0] ?? 0) + 1);
-    row.querySelector('.range-pages').textContent = count + ' page' + (count !== 1 ? 's' : '');
+    row.querySelector('.range-pages').textContent = count + {{ Illuminate\Support\Js::from(__(' page')) }} + ({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (count !== 1) ? 's' : '');
   }
   // ── Drag & drop ──
   ['dragenter', 'dragover'].forEach(evt => {
@@ -885,16 +879,16 @@
   function handleFile(file) {
     hideError();
     if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -919,7 +913,7 @@
     input.type   = isPass ? 'text' : 'password';
     const toggle = document.getElementById('toggle-password');
     toggle.setAttribute('aria-pressed', String(isPass));
-    toggle.setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
+    toggle.setAttribute('aria-label', isPass ? {{ Illuminate\Support\Js::from(__('Hide password')) }} : {{ Illuminate\Support\Js::from(__('Show password')) }});
     document.getElementById('eye-show').classList.toggle('hidden', isPass);
     document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
   });
@@ -930,13 +924,13 @@
     hideError();
     // Validate mode-specific input
     if (activeMode === 'range' && ranges.length === 0) {
-      showError('Please add at least one page range.');
+      showError({{ Illuminate\Support\Js::from(__('Please add at least one page range.')) }});
       return;
     }
     if (activeMode === 'pages') {
       const pagesText = document.getElementById('opt-pages').value.trim();
       if (!pagesText) {
-        showError('Please enter at least one page number.');
+        showError({{ Illuminate\Support\Js::from(__('Please enter at least one page number.')) }});
         return;
       }
     }
@@ -968,18 +962,18 @@
     }
     // Animate
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 600, 'Uploading & validating PDF…');
+    animateProgress(0, 25, 600, {{ Illuminate\Support\Js::from(__('Uploading & validating PDF…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(25, 50, 700, 'Analysing page structure…');
+      animateProgress(25, 50, 700, {{ Illuminate\Support\Js::from(__('Analysing page structure…')) }});
     }, 700);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(50, 78, 900, 'Generating split files…');
+      animateProgress(50, 78, 900, {{ Illuminate\Support\Js::from(__('Generating split files…')) }});
     }, 1500);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 90, 600, 'Packaging into zip archive…');
+      animateProgress(78, 90, 600, {{ Illuminate\Support\Js::from(__('Packaging into zip archive…')) }});
     }, 2500);
     try {
       // Run file + metadata requests in parallel
@@ -1007,22 +1001,22 @@
       link.href     = blobUrl;
       link.download = zipFilename;
       document.getElementById('output-name').textContent = zipFilename;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ZIP Archive';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · ZIP Archive')) }};
       // Render parts table from metadata
       if (metadata && metadata.parts) {
         renderPartsTable(metadata);
         document.getElementById('result-subtitle').textContent =
-          `${metadata.total_parts} file${metadata.total_parts !== 1 ? 's' : ''} generated · split by ${metadata.split_by}.`;
+          ({{ Illuminate\Support\Js::from(__(':value0 file:value1 generated · split by :value2.')) }}).replaceAll(/:value0(?!\d)/g, () => String(metadata.total_parts)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (metadata.total_parts !== 1)) ? 's' : '')).replaceAll(/:value2(?!\d)/g, () => String(metadata.split_by));
       } else {
         document.getElementById('parts-preview').classList.add('hidden');
       }
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(90, 100, 300, 'Done!');
+      animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -1032,10 +1026,10 @@
     const table = document.getElementById('parts-table');
     const parts = metadata.parts ?? [];
     document.getElementById('parts-count').textContent = parts.length;
-    document.getElementById('parts-plural').textContent = parts.length === 1 ? '' : 's';
+    document.getElementById('parts-plural').textContent = {{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (parts.length !== 1) ? 's' : '';
     const totalSizeKb = parts.reduce((sum, p) => sum + (p.size_kb || 0), 0);
-    document.getElementById('parts-total-size').textContent = formatSizeKb(totalSizeKb) + ' total';
-    table.innerHTML = `
+    document.getElementById('parts-total-size').textContent = formatSizeKb(totalSizeKb) + {{ Illuminate\Support\Js::from(__(' total')) }};
+    table.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
       <thead>
         <tr>
           <th style="width:40px;">#</th>
@@ -1043,15 +1037,15 @@
           <th style="width:80px; text-align:center;">Pages</th>
           <th style="width:100px; text-align:right;">Size</th>
         </tr>
-      </thead>`;
+      </thead>')) }});
     const tbody = document.createElement('tbody');
     parts.forEach(p => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="num">${p.index}</td>
+      tr.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+        <td class="num">:value0</td>
         <td class="fname"></td>
-        <td style="text-align:center; color:var(--fn-blue-l); font-weight:600;">${p.start_page === p.end_page ? 'p.' + p.start_page : p.start_page + '-' + p.end_page}</td>
-        <td style="text-align:right; color:var(--fn-text3); font-family:monospace;">${formatSizeKb(p.size_kb || 0)}</td>`;
+        <td style="text-align:center; color:var(--fn-blue-l); font-weight:600;">:value1</td>
+        <td style="text-align:right; color:var(--fn-text3); font-family:monospace;">:value2</td>')) }}).replaceAll(/:value0(?!\d)/g, () => String(p.index)).replaceAll(/:value1(?!\d)/g, () => String(p.start_page === p.end_page ? 'p.' + p.start_page : p.start_page + '-' + p.end_page)).replaceAll(/:value2(?!\d)/g, () => String(formatSizeKb(p.size_kb || 0)));
       tr.querySelector('.fname').textContent = p.filename;
       tr.querySelector('.fname').title = p.filename;
       tbody.appendChild(tr);
@@ -1123,7 +1117,7 @@
     document.getElementById('opt-chunk').value = 3;
     document.getElementById('chunk-val').textContent = '3';
     document.getElementById('chunk-example').textContent = '3';
-    document.getElementById('chunk-result').textContent = '4 files';
+    document.getElementById('chunk-result').textContent = {{ Illuminate\Support\Js::from(__('4 files')) }};
     document.getElementById('chunk-breakdown').textContent = '3+3+3+1';
     ranges = [[1, 3]];
     // Reset mode to 'page'
@@ -1136,7 +1130,7 @@
     document.getElementById('parts-preview').classList.add('hidden');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -43,8 +43,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDFs here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse — select multiple files at once</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDFs here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse — select multiple files at once') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -53,11 +53,11 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF Files
+                            {{ __('Choose PDF Files') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 20 files · 200MB total</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 20 files · 200MB total') }}</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf" multiple
-                            aria-label="Upload PDF files"
+                            aria-label="{{ __('Upload PDF files') }}"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
                     {{-- File list --}}
@@ -74,8 +74,7 @@
                                     <line x1="3" y1="12" x2="3.01" y2="12" />
                                     <line x1="3" y1="18" x2="3.01" y2="18" />
                                 </svg>
-                                Reorder with the arrows or drag rows · <span id="file-count" class="text-fn-blue-l">0
-                                    files</span>
+                                {{ __('Reorder with the arrows or drag rows ·') }} <span id="file-count" class="text-fn-blue-l">{{ __('0 files') }}</span>
                             </p>
                             <button type="button" id="add-more-btn"
                                 class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-fn-blue-l hover:text-white hover:bg-fn-blue border border-fn-blue/30 rounded-lg transition-all relative">
@@ -85,46 +84,44 @@
                                     <line x1="12" y1="5" x2="12" y2="19" />
                                     <line x1="5" y1="12" x2="19" y2="12" />
                                 </svg>
-                                Add more
+                                {{ __('Add more') }}
                                 <input type="file" id="add-more-input" accept=".pdf,application/pdf" multiple
-                                    aria-label="Add more PDF files"
+                                    aria-label="{{ __('Add more PDF files') }}"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             </button>
                         </div>
                         <ul id="file-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></ul>
                         <div
                             class="mt-3 pt-3 border-t border-fn-text/7 flex items-center justify-between text-sm text-fn-text3">
-                            <span id="total-size-label">Total: —</span>
+                            <span id="total-size-label">{{ __('Total: —') }}</span>
                             <button type="button" id="clear-all-btn"
-                                class="text-fn-red/70 hover:text-fn-red transition-colors font-semibold">Clear
-                                all</button>
+                                class="text-fn-red/70 hover:text-fn-red transition-colors font-semibold">{{ __('Clear all') }}</button>
                         </div>
                     </div>
                     {{-- Options --}}
                     <div class="mt-6 grid sm:grid-cols-2 gap-3">
                         <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">Output File
-                                Name</label>
-                            <input type="text" id="opt-filename" value="merged" placeholder="merged"
+                            <label for="opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output File Name') }}</label>
+                            <input type="text" id="opt-filename" value="merged" placeholder="{{ __('merged') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder-fn-text3" />
-                            <p class="text-fn-text3 text-sm mt-1">.pdf will be added automatically</p>
+                            <p class="text-fn-text3 text-sm mt-1">{{ __('.pdf will be added automatically') }}</p>
                         </div>
                         <div
                             class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl flex flex-col justify-center gap-2">
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-bookmarks" checked
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-sm text-fn-text2">Add bookmarks per file</span>
+                                <span class="text-sm text-fn-text2">{{ __('Add bookmarks per file') }}</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-page-numbers"
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-sm text-fn-text2">Add page numbers</span>
+                                <span class="text-sm text-fn-text2">{{ __('Add page numbers') }}</span>
                             </label>
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" id="opt-compress"
                                     class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface accent-fn-blue" />
-                                <span class="text-sm text-fn-text2">Compress output</span>
+                                <span class="text-sm text-fn-text2">{{ __('Compress output') }}</span>
                             </label>
                         </div>
                     </div>
@@ -138,7 +135,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Merge button --}}
                     <button id="merge-btn" type="button" disabled
@@ -148,7 +145,7 @@
                             <path d="M8 6H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3" />
                             <rect x="8" y="2" width="8" height="8" rx="1" />
                         </svg>
-                        Merge PDFs
+                        {{ __('Merge PDFs') }}
                     </button>
                 </div>
                 {{-- ── STATE: Merging ── --}}
@@ -202,18 +199,18 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Merging your files…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes under 15 seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Merging your files…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes under 15 seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8"
-                            role="progressbar" aria-label="Merge progress" aria-valuemin="0" aria-valuemax="100"
+                            role="progressbar" aria-label="{{ __('Merge progress') }}" aria-valuemin="0" aria-valuemax="100"
                             aria-valuenow="0" id="progress-bar">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8"
                         aria-live="polite">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     @php
@@ -240,7 +237,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -257,10 +254,10 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Merge Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-2">Your merged PDF is ready to download.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Merge Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-2">{{ __('Your merged PDF is ready to download.') }}</p>
                     <p class="text-fn-text3 text-sm mb-8">
-                        File will be deleted in <span class="text-fn-amber font-semibold font-mono"
+                        {{ __('File will be deleted in') }} <span class="text-fn-amber font-semibold font-mono"
                             id="expiry-timer">60:00</span>
                     </p>
                     <div
@@ -280,7 +277,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">merged.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-meta">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-meta">{{ __('PDF Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -293,7 +290,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Merged PDF
+                        {{ __('Download Merged PDF') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetMerger()"
@@ -303,11 +300,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Merge more files
+                            {{ __('Merge more files') }}
                         </button>
                         <a href="{{ url('/tools') }}"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -316,7 +313,7 @@
                             aria-hidden="true">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your files are encrypted and permanently deleted after processing.
+                        {{ __('Your files are encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -484,15 +481,15 @@
             let total = files.reduce((s, x) => s + x.size, 0);
             for (const f of newFiles) {
                 if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) {
-                    showError(`"${f.name}" is not a PDF file.`);
+                    showError(({{ Illuminate\Support\Js::from(__('":value0" is not a PDF file.')) }}).replaceAll(/:value0(?!\d)/g, () => String(f.name)));
                     continue;
                 }
                 if (files.length >= MAX_FILES) {
-                    showError('Maximum 20 files allowed on the free plan.');
+                    showError({{ Illuminate\Support\Js::from(__('Maximum 20 files allowed on the free plan.')) }});
                     break;
                 }
                 if (total + f.size > MAX_TOTAL) {
-                    showError('Total size exceeds the 200MB limit.');
+                    showError({{ Illuminate\Support\Js::from(__('Total size exceeds the 200MB limit.')) }});
                     break;
                 }
                 files.push(f);
@@ -519,16 +516,16 @@
             fileListWrap.classList.remove('hidden');
             dropZone.classList.add('has-files');
             mergeBtn.disabled = files.length < 2;
-            document.getElementById('file-count').textContent = files.length + ' file' + (files.length !== 1 ? 's' : '');
+            document.getElementById('file-count').textContent = files.length + {{ Illuminate\Support\Js::from(__(' file')) }} + ({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (files.length !== 1) ? 's' : '');
             const totalBytes = files.reduce((s, f) => s + f.size, 0);
-            document.getElementById('total-size-label').textContent = 'Total: ' + formatBytes(totalBytes);
+            document.getElementById('total-size-label').textContent = {{ Illuminate\Support\Js::from(__('Total: ')) }} + formatBytes(totalBytes);
             files.forEach((file, idx) => {
                 const li = document.createElement('li');
                 li.className = 'file-row flex items-center gap-3 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl';
                 li.draggable = true;
                 li.dataset.index = idx;
                 const safeName = escHtml(file.name);
-                li.innerHTML = `
+                li.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
                     <div class="drag-handle text-fn-text3 hover:text-fn-text2 shrink-0 transition-colors" title="Drag to reorder" aria-hidden="true">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/>
@@ -542,27 +539,27 @@
                         <path d="M21 8h-4v8" />
                     </svg></div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-semibold text-sm truncate">${safeName}</p>
-                        <p class="text-fn-text3 text-sm">${formatBytes(file.size)}</p>
+                        <p class="font-semibold text-sm truncate">:value0</p>
+                        <p class="text-fn-text3 text-sm">:value1</p>
                     </div>
-                    <span class="page-badge text-sm font-mono text-fn-text3 shrink-0">#${idx + 1}</span>
+                    <span class="page-badge text-sm font-mono text-fn-text3 shrink-0">#:value2</span>
                     <div class="flex items-center shrink-0">
-                        <button type="button" data-move="up" aria-label="Move ${safeName} up" ${idx === 0 ? 'disabled' : ''}
+                        <button type="button" data-move="up" aria-label="Move :value3 up" :value4
                             class="move-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-blue/10 text-fn-text3 hover:text-fn-blue-l transition-all">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
                         </button>
-                        <button type="button" data-move="down" aria-label="Move ${safeName} down" ${idx === files.length - 1 ? 'disabled' : ''}
+                        <button type="button" data-move="down" aria-label="Move :value5 down" :value6
                             class="move-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-blue/10 text-fn-text3 hover:text-fn-blue-l transition-all">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
-                        <button type="button" data-remove aria-label="Remove ${safeName}"
+                        <button type="button" data-remove aria-label="Remove :value7"
                             class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                             </svg>
                         </button>
                     </div>
-                `;
+                ')) }}).replaceAll(/:value0(?!\d)/g, () => String(safeName)).replaceAll(/:value1(?!\d)/g, () => String(formatBytes(file.size))).replaceAll(/:value2(?!\d)/g, () => String(idx + 1)).replaceAll(/:value3(?!\d)/g, () => String(safeName)).replaceAll(/:value4(?!\d)/g, () => String(idx === 0 ? 'disabled' : '')).replaceAll(/:value5(?!\d)/g, () => String(safeName)).replaceAll(/:value6(?!\d)/g, () => String(idx === files.length - 1 ? 'disabled' : '')).replaceAll(/:value7(?!\d)/g, () => String(safeName));
                 li.querySelector('[data-remove]').addEventListener('click', e => {
                     e.stopPropagation();
                     files.splice(idx, 1);
@@ -618,21 +615,21 @@
             formData.append('compress',     document.getElementById('opt-compress').checked     ? '1' : '0');
             formData.append('_token',       '{{ csrf_token() }}');
             setProcessStep('proc-1', 'active');
-            animateProgress(0, 20, 800, 'Uploading files…');
+            animateProgress(0, 20, 800, {{ Illuminate\Support\Js::from(__('Uploading files…')) }});
             const t2 = setTimeout(() => {
                 setProcessStep('proc-1', 'done');
                 setProcessStep('proc-2', 'active');
-                animateProgress(20, 50, 1000, 'Reading PDF structures…');
+                animateProgress(20, 50, 1000, {{ Illuminate\Support\Js::from(__('Reading PDF structures…')) }});
             }, 1000);
             const t3 = setTimeout(() => {
                 setProcessStep('proc-2', 'done');
                 setProcessStep('proc-3', 'active');
-                animateProgress(50, 75, 1200, 'Combining pages…');
+                animateProgress(50, 75, 1200, {{ Illuminate\Support\Js::from(__('Combining pages…')) }});
             }, 2200);
             const t4 = setTimeout(() => {
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'active');
-                animateProgress(75, 90, 1000, 'Finalising document…');
+                animateProgress(75, 90, 1000, {{ Illuminate\Support\Js::from(__('Finalising document…')) }});
             }, 3600);
             try {
                 const res = await fetch('', {
@@ -651,19 +648,19 @@
                 }
                 setProcessStep('proc-3', 'done');
                 setProcessStep('proc-4', 'done');
-                animateProgress(90, 100, 400, 'Done!');
+                animateProgress(90, 100, 400, {{ Illuminate\Support\Js::from(__('Done!')) }});
                 const outName = (document.getElementById('opt-filename').value || 'merged').replace(/\.pdf$/i, '') + '.pdf';
                 setTimeout(() => {
                     document.getElementById('download-link').href      = data.download_url;
                     document.getElementById('output-name').textContent = outName;
-                    document.getElementById('output-meta').textContent = formatBytes(data.file_size) + ' · ' + data.page_count + ' pages · PDF Document';
+                    document.getElementById('output-meta').textContent = formatBytes(data.file_size) + ' · ' + data.page_count + {{ Illuminate\Support\Js::from(__(' pages · PDF Document')) }};
                     showState('download');
                     updateStepIndicator(3);
                     startExpiryTimer(3600);
                 }, 500);
             } catch (err) {
                 clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-                showError(err.message || 'Something went wrong. Please try again.');
+                showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
                 showState('upload');
                 updateStepIndicator(1);
             }
@@ -742,7 +739,7 @@
             showState('upload');
             updateStepIndicator(1);
             clearInterval(expiryInterval);
-            animateProgress(0, 0, 0, 'Starting…');
+            animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
             ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
         };
         // ── Error helpers ──

@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -46,8 +46,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue text-white text-sm font-semibold rounded-xl pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -56,10 +56,10 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
-                        <input type="file" id="file-input" aria-label="Choose PDF file" accept=".pdf,application/pdf"
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
+                        <input type="file" id="file-input" aria-label="{{ __('Choose PDF file') }}" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
                     {{-- File preview --}}
@@ -81,7 +81,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">document.pdf</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove PDF"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove PDF') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -92,7 +92,7 @@
                     </div>
                     {{-- Compression level selector --}}
                     <div class="mt-5">
-                        <label class="text-sm font-semibold text-fn-text2 block mb-3">Compression Level</label>
+                        <label class="text-sm font-semibold text-fn-text2 block mb-3">{{ __('Compression Level') }}</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="level-grid">
                             @php
                             $levels = [
@@ -107,12 +107,11 @@
                                 class="level-btn {{ $lval === 'extreme' ? 'active' : '' }} flex flex-col items-start gap-1 p-3 rounded-xl border text-left transition-all"
                                 data-level="{{ $lval }}" aria-pressed="{{ $lval === 'extreme' ? 'true' : 'false' }}">
                                 <div class="flex items-center justify-between w-full">
-                                    <span class="text-sm font-bold">{{ $lname }}</span>
-                                    <span class="saving-badge text-sm font-bold px-1.5 py-0.5 rounded-md">{{ $lsaving
-                                        }}</span>
+                                    <span class="text-sm font-bold">{{ __(Str::squish((string) $lname)) }}</span>
+                                    <span class="saving-badge text-sm font-bold px-1.5 py-0.5 rounded-md">{{ __(Str::squish((string) $lsaving)) }}</span>
                                 </div>
-                                <span class="text-sm font-mono opacity-70">{{ $lspec }}</span>
-                                <span class="text-sm leading-tight opacity-60">{{ $ldesc }}</span>
+                                <span class="text-sm font-mono opacity-70">{{ __(Str::squish((string) $lspec)) }}</span>
+                                <span class="text-sm leading-tight opacity-60">{{ __(Str::squish((string) $ldesc)) }}</span>
                             </button>
                             @endforeach
                         </div>
@@ -120,12 +119,12 @@
                     {{-- Password (optional) --}}
                     <div class="mt-4 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl max-w-sm">
                         <label for="opt-password" class="text-sm font-semibold text-fn-text2 block mb-1.5">
-                            PDF Password <span class="font-normal text-fn-text3 ml-1">(if encrypted)</span>
+                            {{ __('PDF Password') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(if encrypted)') }}</span>
                         </label>
                         <div class="relative">
-                            <input type="password" id="opt-password" placeholder="Leave blank if not protected"
+                            <input type="password" id="opt-password" placeholder="{{ __('Leave blank if not protected') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                            <button type="button" id="toggle-password" aria-label="Show password" aria-pressed="false"
+                            <button type="button" id="toggle-password" aria-label="{{ __('Show password') }}" aria-pressed="false"
                                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                 <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -153,7 +152,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Compress button --}}
                     <button id="compress-btn" type="button" disabled
@@ -163,7 +162,7 @@
                             <polyline points="8 6 2 12 8 18" />
                             <polyline points="16 6 22 12 16 18" />
                         </svg>
-                        Compress PDF
+                        {{ __('Compress PDF') }}
                     </button>
                 </div>{{-- /state-upload --}}
                 {{-- ── STATE: Compressing ── --}}
@@ -204,15 +203,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2" id="conv-title">Compressing your PDF…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this may take a moment for large files</p>
+                    <h2 class="text-xl font-bold mb-2" id="conv-title">{{ __('Compressing your PDF…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this may take a moment for large files') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -239,7 +238,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -256,15 +255,15 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Compression Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your file is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Compression Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">{{ __('Your file is ready.') }}</p>
                     {{-- Savings card --}}
                     <div class="max-w-sm mx-auto mb-6">
                         <div class="bg-fn-surface2 border border-fn-green/15 rounded-2xl overflow-hidden">
                             {{-- Reduction hero --}}
                             <div class="px-6 py-5 border-b border-fn-text/7 flex items-center justify-between">
                                 <div class="text-left">
-                                    <p class="text-sm text-fn-text3 font-semibold mb-1">Size Reduction</p>
+                                    <p class="text-sm text-fn-text3 font-semibold mb-1">{{ __('Size Reduction') }}</p>
                                     <p class="text-4xl font-black text-fn-green" id="reduction-pct">—</p>
                                 </div>
                                 <div class="text-right">
@@ -299,7 +298,7 @@
                                 @endphp
                                 @foreach($statCols as [$sid,$slabel])
                                 <div class="flex-1 px-3 py-3 text-center">
-                                    <p class="text-sm text-fn-text3">{{ $slabel }}</p>
+                                    <p class="text-sm text-fn-text3">{{ __(Str::squish($slabel)) }}</p>
                                     <p class="text-sm font-bold text-fn-text2 mt-0.5" id="{{ $sid }}">—</p>
                                 </div>
                                 @endforeach
@@ -323,7 +322,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">compressed.pdf</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">PDF Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('PDF Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -336,7 +335,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Compressed PDF
+                        {{ __('Download Compressed PDF') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -346,11 +345,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Compress another
+                            {{ __('Compress another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -358,7 +357,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -368,7 +367,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @php
             $cmpFaqs = [
@@ -392,7 +391,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -400,7 +399,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -673,13 +672,13 @@
       function handleFile(file) {
         hideError();
         if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-          showError('Please select a valid PDF file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
           return;
         }
-        if (file.size > 50 * 1024 * 1024) { showError('File exceeds the 200MB free limit.'); return; }
+        if (file.size > 50 * 1024 * 1024) { showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }}); return; }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
         filePreview.classList.remove('hidden');
         filePreview.classList.add('flex');
         dropZone.classList.add('has-file');
@@ -701,7 +700,7 @@
         input.type   = isPass ? 'text' : 'password';
         const toggle = document.getElementById('toggle-password');
         toggle.setAttribute('aria-pressed', String(isPass));
-        toggle.setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
+        toggle.setAttribute('aria-label', isPass ? {{ Illuminate\Support\Js::from(__('Hide password')) }} : {{ Illuminate\Support\Js::from(__('Show password')) }});
         document.getElementById('eye-show').classList.toggle('hidden', isPass);
         document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
       });
@@ -712,7 +711,7 @@
         hideError();
         showState('converting');
         updateStepIndicator(2);
-        document.getElementById('conv-title').textContent = `Compressing with ${activeLevel} level…`;
+        document.getElementById('conv-title').textContent = ({{ Illuminate\Support\Js::from(__('Compressing with :value0 level…')) }}).replaceAll(/:value0(?!\d)/g, () => String(activeLevel));
         const fd = new FormData();
         fd.append('file',              selectedFile);
         fd.append('compression_level', activeLevel);
@@ -720,18 +719,18 @@
         const pw = document.getElementById('opt-password').value.trim();
         if (pw) fd.append('password', pw);
         setProcessStep('proc-1','active');
-        animateProgress(0, 20, 700, 'Uploading & reading PDF…');
+        animateProgress(0, 20, 700, {{ Illuminate\Support\Js::from(__('Uploading & reading PDF…')) }});
         const t2 = setTimeout(() => {
           setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-          animateProgress(20, 55, 1200, 'Compressing images to target DPI…');
+          animateProgress(20, 55, 1200, {{ Illuminate\Support\Js::from(__('Compressing images to target DPI…')) }});
         }, 800);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-          animateProgress(55, 78, 900, 'Cleaning PDF structure & streams…');
+          animateProgress(55, 78, 900, {{ Illuminate\Support\Js::from(__('Cleaning PDF structure & streams…')) }});
         }, 2100);
         const t4 = setTimeout(() => {
           setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
-          animateProgress(78, 90, 600, 'Finalising compressed file…');
+          animateProgress(78, 90, 600, {{ Illuminate\Support\Js::from(__('Finalising compressed file…')) }});
         }, 3100);
         try {
           const res = await fetch('https://api.filenewer.com/api/tools/pdf-compress', {
@@ -741,7 +740,7 @@
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!res.ok) {
             const d = await res.json().catch(() => ({}));
-            throw new Error(d.error || 'Compression failed. Please try again.');
+            throw new Error(d.error || {{ Illuminate\Support\Js::from(__('Compression failed. Please try again.')) }});
           }
           const ct = res.headers.get('Content-Type') || '';
           let blob, stats = {};
@@ -786,22 +785,22 @@
           document.getElementById('stat-orig-kb').textContent  = formatKb(origKb);
           document.getElementById('stat-comp-kb').textContent  = formatKb(compKb);
           document.getElementById('output-name').textContent   = fileName;
-          document.getElementById('output-size').textContent   = formatKb(compKb) + ' · PDF Document';
+          document.getElementById('output-size').textContent   = formatKb(compKb) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
           document.getElementById('result-subtitle').textContent =
-            `Reduced from ${formatKb(origKb)} to ${formatKb(compKb)} — saved ${Math.round(pct)}%`;
+            ({{ Illuminate\Support\Js::from(__('Reduced from :value0 to :value1 — saved :value2%')) }}).replaceAll(/:value0(?!\d)/g, () => String(formatKb(origKb))).replaceAll(/:value1(?!\d)/g, () => String(formatKb(compKb))).replaceAll(/:value2(?!\d)/g, () => String(Math.round(pct)));
           // Animated bar chart
           const barPct = Math.max(5, Math.round((compKb / origKb) * 100));
           setTimeout(() => {
             document.getElementById('bar-comp').style.height = barPct + '%';
           }, 400);
           setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
         } catch(err) {
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           showState('upload');
           updateStepIndicator(1);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
         }
       }
       // ── Helpers ──
@@ -889,7 +888,7 @@
         hideError();
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
       // ── FAQ ──

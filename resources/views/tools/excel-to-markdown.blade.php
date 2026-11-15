@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -49,8 +49,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Excel file here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">Supports .xlsx, .xlsm, and .xls — or click to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Excel file here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .xlsx, .xlsm, and .xls — or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -59,9 +59,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Excel File
+                            {{ __('Choose Excel File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input"
                             accept=".xlsx,.xlsm,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -89,7 +89,7 @@
                             <p class="font-semibold text-sm truncate" id="file-name">data.xlsx</p>
                             <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                         </div>
-                        <button type="button" id="remove-file" aria-label="Remove Excel file"
+                        <button type="button" id="remove-file" aria-label="{{ __('Remove Excel file') }}"
                             class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,7 +102,7 @@
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                         {{-- Toggles --}}
                         <div>
-                            <p class="text-sm font-semibold text-fn-text2 mb-2">What to include</p>
+                            <p class="text-sm font-semibold text-fn-text2 mb-2">{{ __('What to include') }}</p>
                             <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
                                 @foreach([
                                 ['opt-toc', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -120,8 +120,7 @@
                                         d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041" />
                                     <path d="M14 9l4 -1" />
                                     <path d="M16 16l3.923 -.98" />
-                                </svg>', 'Table of contents', 'Adds a "Contents" section linking to each sheet', true],
-                                ['opt-stats', '<svg xmlns="http://www.w3.org/2000/svg"
+                                </svg>', 'Table of contents', 'Adds a "Contents" section linking to each sheet', true], ['opt-stats', '<svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-ruler" width="1em" height="1em"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -148,9 +147,9 @@
                                     <div class="flex-1 min-w-0">
                                         <p class="text-xs font-semibold text-fn-text2 flex items-center gap-1.5">
                                             <span class="text-fn-text3">{!! $ticon !!}</span>
-                                            {{ $tlabel }}
+                                            {{ __(Str::squish((string) $tlabel)) }}
                                         </p>
-                                        <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ $tdesc }}</p>
+                                        <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ __(Str::squish((string) $tdesc)) }}</p>
                                     </div>
                                 </label>
                                 @endforeach
@@ -159,7 +158,7 @@
                         {{-- Column align + max rows + sheet --}}
                         <div class="pt-3 border-t border-fn-text/8 grid sm:grid-cols-3 gap-3">
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Column alignment</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Column alignment') }}</label>
                                 <div class="flex gap-1">
                                     @foreach([
                                     ['left', '<svg xmlns="http://www.w3.org/2000/svg"
@@ -170,9 +169,7 @@
                                         <path d="M5 12l14 0" />
                                         <path d="M5 12l6 6" />
                                         <path d="M5 12l6 -6" />
-                                    </svg>', 'Left'],
-                                    ['center', '↔', 'Center'],
-                                    ['right', '<svg xmlns="http://www.w3.org/2000/svg"
+                                    </svg>', 'Left'], ['center', '↔', 'Center'], ['right', '<svg xmlns="http://www.w3.org/2000/svg"
                                         class="icon icon-tabler icon-tabler-arrow-right" width="1em" height="1em"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
@@ -186,14 +183,14 @@
                                         class="align-btn {{ $av === 'left' ? 'active' : '' }} flex-1 flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
                                         data-val="{{ $av }}">
                                         <span>{!! $aicon !!}</span>
-                                        <span>{{ $alabel }}</span>
+                                        <span>{{ __(Str::squish((string) $alabel)) }}</span>
                                     </button>
                                     @endforeach
                                 </div>
                             </div>
                             <div>
                                 <label for="opt-max-rows" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                    Max rows per sheet
+                                    {{ __('Max rows per sheet') }}
                                     <span class="font-normal text-fn-text3 ml-1">(1–10,000)</span>
                                 </label>
                                 <input type="number" id="opt-max-rows" min="1" max="10000" value="1000"
@@ -202,10 +199,10 @@
                             </div>
                             <div>
                                 <label for="opt-sheet" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                    Specific sheet
-                                    <span class="font-normal text-fn-text3 ml-1">(empty = all)</span>
+                                    {{ __('Specific sheet') }}
+                                    <span class="font-normal text-fn-text3 ml-1">{{ __('(empty = all)') }}</span>
                                 </label>
-                                <input type="text" id="opt-sheet" placeholder="e.g. Sales"
+                                <input type="text" id="opt-sheet" placeholder="{{ __('e.g. Sales') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
                         </div>
@@ -220,7 +217,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -230,7 +227,7 @@
                             <polyline points="16 18 22 12 16 6" />
                             <polyline points="8 6 2 12 8 18" />
                         </svg>
-                        Convert to Markdown
+                        {{ __('Convert to Markdown') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -265,15 +262,15 @@
                             <span class="font-mono font-black text-2xl text-fn-green">M↓</span>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting to Markdown…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting to Markdown…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -297,7 +294,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -319,7 +316,7 @@
                                     <path d="M9 12l2 2l4 -4" />
                                 </svg>
                             </span>
-                            <span>Conversion Complete</span>
+                            <span>{{ __('Conversion Complete') }}</span>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap" id="stats-chips">
                             @foreach([
@@ -330,7 +327,7 @@
                             ] as [$sid, $slabel])
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">{{ $slabel }}</span>
+                                <span class="text-fn-text3">{{ __(Str::squish($slabel)) }}</span>
                                 <span class="font-bold text-fn-text" id="{{ $sid }}">—</span>
                             </div>
                             @endforeach
@@ -343,7 +340,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-label">Copy</span>
+                                <span id="copy-label">{{ __('Copy') }}</span>
                             </button>
                             <a id="btn-download" href="#" download="document.md"
                                 class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -353,13 +350,13 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download .md
+                                {{ __('Download .md') }}
                             </a>
                         </div>
                     </div>
                     {{-- Sheet chips (one per sheet in the file) --}}
                     <div id="sheets-row-wrap" class="hidden mb-3">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2">Sheets converted</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2">{{ __('Sheets converted') }}</p>
                         <div class="flex flex-wrap gap-2" id="sheets-row"></div>
                     </div>
                     {{-- View toggle --}}
@@ -372,7 +369,7 @@
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                 <circle cx="12" cy="12" r="3" />
                             </svg>
-                            Rendered
+                            {{ __('Rendered') }}
                         </button>
                         <button type="button" id="view-source"
                             class="view-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all">
@@ -381,7 +378,7 @@
                                 <polyline points="16 18 22 12 16 6" />
                                 <polyline points="8 6 2 12 8 18" />
                             </svg>
-                            Source
+                            {{ __('Source') }}
                         </button>
                     </div>
                     {{-- Rendered preview --}}
@@ -402,7 +399,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -410,7 +407,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -420,7 +417,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What gets converted from my Excel file?','Each sheet in the workbook becomes a Markdown table with its own
@@ -441,7 +438,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -449,7 +446,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -870,17 +867,17 @@
     hideError();
     const name = file.name.toLowerCase();
     if (!name.match(/\.(xlsx|xlsm|xls)$/)) {
-      showError('Please select a valid Excel file (.xlsx, .xlsm, or .xls).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid Excel file (.xlsx, .xlsm, or .xls).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
     const ext = name.split('.').pop().toUpperCase();
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · Excel ' + ext;
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Excel ')) }} + ext;
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -914,18 +911,18 @@
     if (sheet) fd.append('sheet_name', sheet);
     // Animate
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 500, 'Uploading Excel file…');
+    animateProgress(0, 25, 500, {{ Illuminate\Support\Js::from(__('Uploading Excel file…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(25, 55, 700, 'Reading sheets & cells…');
+      animateProgress(25, 55, 700, {{ Illuminate\Support\Js::from(__('Reading sheets & cells…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(55, 80, 700, 'Analysing column types…');
+      animateProgress(55, 80, 700, {{ Illuminate\Support\Js::from(__('Analysing column types…')) }});
     }, 1400);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(80, 92, 500, 'Generating Markdown…');
+      animateProgress(80, 92, 500, {{ Illuminate\Support\Js::from(__('Generating Markdown…')) }});
     }, 2200);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/excel-to-markdown', {
@@ -934,7 +931,7 @@
       });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       if (!res.ok) {
-        let msg = 'Conversion failed. Please try again.';
+        let msg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
@@ -942,12 +939,12 @@
       markdownSource = data.markdown ?? '';
       renderResult(data);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -968,10 +965,10 @@
       sheets.forEach(s => {
         const chip = document.createElement('div');
         chip.className = 'sheet-chip';
-        chip.innerHTML = `
+        chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
           <span class="sheet-dot"></span>
           <span class="sheet-name"></span>
-          <span class="sheet-dim">${s.rows ?? 0}×${s.cols ?? 0}</span>`;
+          <span class="sheet-dim">:value0×:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(s.rows ?? 0)).replaceAll(/:value1(?!\d)/g, () => String(s.cols ?? 0));
         chip.querySelector('.sheet-name').textContent = s.name ?? '—';
         sheetsRow.appendChild(chip);
       });
@@ -981,13 +978,13 @@
     }
     // Rendered preview (deferred)
     const previewEl = document.getElementById('md-preview');
-    previewEl.innerHTML = '<p style="color:var(--fn-text3);text-align:center;padding:20px;">Rendering preview…</p>';
+    previewEl.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p style="color:var(--fn-text3);text-align:center;padding:20px;">Rendering preview…</p>')) }};
     setTimeout(() => {
       try {
         previewEl.innerHTML = mdToHtml(md);
       } catch (e) {
         console.error('Preview render failed:', e);
-        previewEl.innerHTML = '<p style="color:var(--fn-red);text-align:center;padding:20px;">Preview could not render — use the Source view instead.</p>';
+        previewEl.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p style="color:var(--fn-red);text-align:center;padding:20px;">Preview could not render — use the Source view instead.</p>')) }};
       }
     }, 50);
     // Source view
@@ -1003,8 +1000,8 @@
     document.getElementById('btn-copy').onclick = async () => {
       try {
         await navigator.clipboard.writeText(md);
-        document.getElementById('copy-label').textContent = 'Copied!';
-        setTimeout(() => { document.getElementById('copy-label').textContent = 'Copy'; }, 2000);
+        document.getElementById('copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { document.getElementById('copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
       } catch(_) {}
     };
   }
@@ -1101,7 +1098,7 @@
     document.getElementById('sheets-row-wrap').classList.add('hidden');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

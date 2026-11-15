@@ -17,7 +17,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Input JSON</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Input JSON') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -28,7 +28,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">2</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Converting</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Converting') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -58,7 +58,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste JSON
+                            {{ __('Paste JSON') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -67,13 +67,13 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload .json
+                            {{ __('Upload .json') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB ══ --}}
                     <div id="panel-text">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2">JSON source</p>
+                            <p class="text-xs font-semibold text-fn-text2">{{ __('JSON source') }}</p>
                             <div class="flex flex-wrap gap-1">
                                 <button type="button" id="btn-sample"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
@@ -83,7 +83,7 @@
                                         <line x1="12" y1="8" x2="12" y2="12" />
                                         <line x1="12" y1="16" x2="12.01" y2="16" />
                                     </svg>
-                                    Sample
+                                    {{ __('Sample') }}
                                 </button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
@@ -93,7 +93,7 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-format"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
@@ -101,10 +101,10 @@
                                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M3 7l4 4-4 4M11 11h10" />
                                     </svg>
-                                    Format
+                                    {{ __('Format') }}
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                             </div>
                         </div>
                         <textarea id="json-textarea" rows="12" spellcheck="false"
@@ -132,8 +132,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your JSON file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your JSON file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -142,9 +142,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose JSON File
+                                {{ __('Choose JSON File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                             <input type="file" id="file-input" accept=".json,application/json"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -183,26 +183,26 @@
                         <div class="grid sm:grid-cols-2 gap-4">
                             {{-- Style --}}
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Output Style</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Output Style') }}</label>
                                 <div class="flex flex-wrap gap-1">
                                     <button type="button"
                                         class="style-btn active flex-1 flex flex-col items-start gap-0.5 px-3 py-2 rounded-lg border text-left transition-all"
                                         data-val="block">
-                                        <span class="text-xs font-bold">Block</span>
-                                        <span class="text-xs text-fn-text3 leading-tight">Indented &amp; readable</span>
+                                        <span class="text-xs font-bold">{{ __('Block') }}</span>
+                                        <span class="text-xs text-fn-text3 leading-tight">{{ __('Indented & readable') }}</span>
                                     </button>
                                     <button type="button"
                                         class="style-btn flex-1 flex flex-col items-start gap-0.5 px-3 py-2 rounded-lg border text-left transition-all"
                                         data-val="flow">
-                                        <span class="text-xs font-bold">Flow</span>
-                                        <span class="text-xs text-fn-text3 leading-tight">Compact single line</span>
+                                        <span class="text-xs font-bold">{{ __('Flow') }}</span>
+                                        <span class="text-xs text-fn-text3 leading-tight">{{ __('Compact single line') }}</span>
                                     </button>
                                 </div>
                             </div>
                             {{-- Indent --}}
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                    Indent — <span class="text-fn-blue-l" id="indent-val">2</span> spaces
+                                    {{ __('Indent —') }} <span class="text-fn-blue-l" id="indent-val">2</span> {{ __('spaces') }}
                                 </label>
                                 <input type="range" id="opt-indent" min="1" max="8" value="2" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
@@ -237,9 +237,9 @@
                                                 <path d="M10.2 6.3l5.8 13.7" />
                                                 <path d="M5 20l6 -16l2 0l7 16" />
                                             </svg></span>
-                                        Sort keys alphabetically
+                                        {{ __('Sort keys alphabetically') }}
                                     </p>
-                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">Reorder object keys A → Z</p>
+                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ __('Reorder object keys A → Z') }}</p>
                                 </div>
                             </label>
 
@@ -265,10 +265,9 @@
                                                 <path d="M11 17v4" />
                                                 <path d="M7 21h8" />
                                             </svg></span>
-                                        Allow unicode
+                                        {{ __('Allow unicode') }}
                                     </p>
-                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">Keep emoji &amp; non-ASCII
-                                        as-is</p>
+                                    <p class="text-xs text-fn-text3 leading-tight mt-0.5">{{ __('Keep emoji & non-ASCII as-is') }}</p>
                                 </div>
                             </label>
 
@@ -284,7 +283,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -294,7 +293,7 @@
                             <polyline points="16 18 22 12 16 6" />
                             <polyline points="8 6 2 12 8 18" />
                         </svg>
-                        Convert to YAML
+                        {{ __('Convert to YAML') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -326,15 +325,15 @@
                             <span class="font-mono font-black text-xl text-fn-purple">Y</span>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting to YAML…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting to YAML…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -353,7 +352,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Reading JSON content</span>
+                            <span class="text-sm text-fn-text3">{{ __('Reading JSON content') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-2">
@@ -370,7 +369,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Validating structure</span>
+                            <span class="text-sm text-fn-text3">{{ __('Validating structure') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-3">
@@ -387,7 +386,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Applying YAML formatting</span>
+                            <span class="text-sm text-fn-text3">{{ __('Applying YAML formatting') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-4">
@@ -404,7 +403,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Generating output</span>
+                            <span class="text-sm text-fn-text3">{{ __('Generating output') }}</span>
                         </div>
 
                     </div>
@@ -424,37 +423,37 @@
                                         d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                                     <path d="M9 12l2 2l4 -4" />
                                 </svg></span>
-                            <span>Conversion Complete</span>
+                            <span>{{ __('Conversion Complete') }}</span>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap" id="stats-chips">
 
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">Type</span>
+                                <span class="text-fn-text3">{{ __('Type') }}</span>
                                 <span class="font-bold text-fn-text" id="stat-type">—</span>
                             </div>
 
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">Keys</span>
+                                <span class="text-fn-text3">{{ __('Keys') }}</span>
                                 <span class="font-bold text-fn-text" id="stat-keys">—</span>
                             </div>
 
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">Depth</span>
+                                <span class="text-fn-text3">{{ __('Depth') }}</span>
                                 <span class="font-bold text-fn-text" id="stat-depth">—</span>
                             </div>
 
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">JSON size</span>
+                                <span class="text-fn-text3">{{ __('JSON size') }}</span>
                                 <span class="font-bold text-fn-text" id="stat-orig">—</span>
                             </div>
 
                             <div
                                 class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-fn-surface2 border border-fn-text/8 rounded-lg text-xs">
-                                <span class="text-fn-text3">YAML size</span>
+                                <span class="text-fn-text3">{{ __('YAML size') }}</span>
                                 <span class="font-bold text-fn-text" id="stat-yaml">—</span>
                             </div>
 
@@ -467,7 +466,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-label">Copy</span>
+                                <span id="copy-label">{{ __('Copy') }}</span>
                             </button>
                             <a id="btn-download" href="#" download="output.yaml"
                                 class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -477,7 +476,7 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download .yaml
+                                {{ __('Download .yaml') }}
                             </a>
                         </div>
                     </div>
@@ -495,17 +494,17 @@
                                 class="transition-transform">
                                 <polyline points="6 9 12 15 18 9" />
                             </svg>
-                            Compare side by side
-                            <span class="text-xs text-fn-text3 font-normal">(JSON vs YAML)</span>
+                            {{ __('Compare side by side') }}
+                            <span class="text-xs text-fn-text3 font-normal">{{ __('(JSON vs YAML)') }}</span>
                         </button>
                         <div id="compare-wrap" class="hidden mt-3 grid md:grid-cols-2 gap-3">
                             <div>
-                                <p class="text-xs font-semibold text-fn-text3 mb-1">JSON input</p>
+                                <p class="text-xs font-semibold text-fn-text3 mb-1">{{ __('JSON input') }}</p>
                                 <pre id="cmp-json"
                                     class="bg-fn-surface2 border border-fn-text/8 rounded-xl p-4 text-xs font-mono leading-relaxed overflow-auto max-h-[360px] whitespace-pre-wrap break-words text-fn-text2"></pre>
                             </div>
                             <div>
-                                <p class="text-xs font-semibold text-fn-text3 mb-1">YAML output</p>
+                                <p class="text-xs font-semibold text-fn-text3 mb-1">{{ __('YAML output') }}</p>
                                 <pre id="cmp-yaml"
                                     class="bg-fn-surface2 border border-fn-purple/20 rounded-xl p-4 text-xs font-mono leading-relaxed overflow-auto max-h-[360px] whitespace-pre-wrap break-words text-fn-text2"></pre>
                             </div>
@@ -519,7 +518,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -527,7 +526,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -537,13 +536,13 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What is YAML used for?</span>
+                    <span class="font-semibold text-sm">{{ __('What is YAML used for?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -551,17 +550,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">YAML is a human-readable data format used heavily
-                        in DevOps and infrastructure tooling — Kubernetes manifests, Docker Compose files, GitHub
-                        Actions workflows, Ansible playbooks, application configs, and OpenAPI specs all use YAML. Its
-                        indented structure is much easier to read than JSON for nested config.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('YAML is a human-readable data format used heavily in DevOps and infrastructure tooling — Kubernetes manifests, Docker Compose files, GitHub Actions workflows, Ansible playbooks, application configs, and OpenAPI specs all use YAML. Its indented structure is much easier to read than JSON for nested config.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Block style vs flow style — which one?</span>
+                    <span class="font-semibold text-sm">{{ __('Block style vs flow style — which one?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -569,16 +565,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Block (default) is what almost everyone wants —
-                        multi-line indented YAML where each key sits on its own line. Flow style produces compact
-                        single-line output that looks similar to JSON, useful only when you need a one-liner.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Block (default) is what almost everyone wants — multi-line indented YAML where each key sits on its own line. Flow style produces compact single-line output that looks similar to JSON, useful only when you need a one-liner.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Should I sort keys?</span>
+                    <span class="font-semibold text-sm">{{ __('Should I sort keys?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -586,16 +580,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Sorting keys alphabetically can make diffs cleaner
-                        in version control and improve consistency across files. Leave it off if your JSON keys are
-                        already in a meaningful order (like API responses where order matters).</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Sorting keys alphabetically can make diffs cleaner in version control and improve consistency across files. Leave it off if your JSON keys are already in a meaningful order (like API responses where order matters).') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What does &quot;Allow unicode&quot; do?</span>
+                    <span class="font-semibold text-sm">{{ __('What does "Allow unicode" do?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -603,17 +595,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">When on (default), characters like emoji and
-                        non-Latin scripts (e.g. Arabic, Chinese) are kept as-is in the YAML — readable directly. When
-                        off, they get escaped to \uXXXX sequences for ASCII-only output, useful for legacy systems that
-                        cannot handle UTF-8.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('When on (default), characters like emoji and non-Latin scripts (e.g. Arabic, Chinese) are kept as-is in the YAML — readable directly. When off, they get escaped to \\uXXXX sequences for ASCII-only output, useful for legacy systems that cannot handle UTF-8.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Is my data safe and private?</span>
+                    <span class="font-semibold text-sm">{{ __('Is my data safe and private?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -621,9 +610,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
-                        transit. and are permanently deleted after processing. We never read, share or store your
-                        content.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted after processing. We never read, share or store your content.') }}</p>
                 </div>
             </div>
 
@@ -952,14 +939,14 @@
       const kind   = isArr ? 'array' : (isObj ? 'object' : typeof parsed);
       const count  = isArr ? parsed.length : (isObj ? Object.keys(parsed).length : 0);
       jsonValid    = true;
-      jsonStatus.innerHTML = `
+      jsonStatus.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green"><polyline points="20 6 9 17 4 12"/></svg>
-        <span class="text-fn-green">Valid JSON · ${kind}${count ? ' · ' + count + (isArr ? ' items' : ' keys') : ''}</span>`;
+        <span class="text-fn-green">Valid JSON · :value0:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(kind)).replaceAll(/:value1(?!\d)/g, () => String(count ? ' · ' + count + (isArr ? ' items' : ' keys') : ''));
     } catch (e) {
       jsonValid = false;
-      jsonStatus.innerHTML = `
+      jsonStatus.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-red"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
-        <span class="text-fn-red">${escapeHtml(e.message)}</span>`;
+        <span class="text-fn-red">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escapeHtml(e.message)));
     }
     jsonStatus.classList.remove('hidden');
     jsonStatus.classList.add('flex');
@@ -978,16 +965,16 @@
   function handleFile(file) {
     hideError();
     if (!file.name.toLowerCase().endsWith('.json') && file.type !== 'application/json') {
-      showError('Please select a valid JSON file.');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid JSON file.')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · JSON';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · JSON')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -1047,36 +1034,36 @@
       fetchHeaders = { 'Content-Type': 'application/json' };
     }
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 400, 'Reading JSON content…');
+    animateProgress(0, 25, 400, {{ Illuminate\Support\Js::from(__('Reading JSON content…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(25, 55, 500, 'Validating structure…');
+      animateProgress(25, 55, 500, {{ Illuminate\Support\Js::from(__('Validating structure…')) }});
     }, 500);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(55, 80, 500, 'Applying YAML formatting…');
+      animateProgress(55, 80, 500, {{ Illuminate\Support\Js::from(__('Applying YAML formatting…')) }});
     }, 1100);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(80, 92, 400, 'Generating output…');
+      animateProgress(80, 92, 400, {{ Illuminate\Support\Js::from(__('Generating output…')) }});
     }, 1700);
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       if (!res.ok) {
-        let msg = 'Conversion failed. Please try again.';
+        let msg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
       const data = await res.json();
       renderResult(data, jsonForCompare);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 250, 'Done!');
+      animateProgress(92, 100, 250, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -1110,8 +1097,8 @@
     document.getElementById('btn-copy').onclick = async () => {
       try {
         await navigator.clipboard.writeText(yaml);
-        document.getElementById('copy-label').textContent = 'Copied!';
-        setTimeout(() => { document.getElementById('copy-label').textContent = 'Copy'; }, 2000);
+        document.getElementById('copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { document.getElementById('copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 2000);
       } catch(_) {}
     };
   }
@@ -1244,7 +1231,7 @@
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

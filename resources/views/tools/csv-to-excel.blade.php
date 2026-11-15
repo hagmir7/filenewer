@@ -16,9 +16,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -38,7 +38,7 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload File
+                            {{ __('Upload File') }}
                         </button>
                         <button type="button" id="tab-text"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -48,7 +48,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Paste CSV
+                            {{ __('Paste CSV') }}
                         </button>
                     </div>
                     {{-- ══ FILE TAB ══ --}}
@@ -70,8 +70,8 @@
                                     </svg>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your CSV file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your CSV file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -80,9 +80,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose CSV File
+                                {{ __('Choose CSV File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free </p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }} </p>
                             <input type="file" id="file-input" accept=".csv,text/csv"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -103,9 +103,9 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="font-semibold text-sm truncate" id="file-name">data.csv</p>
-                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">— · CSV File</p>
+                                <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">{{ __('— · CSV File') }}</p>
                             </div>
-                            <button type="button" id="remove-file" aria-label="Remove CSV file"
+                            <button type="button" id="remove-file" aria-label="{{ __('Remove CSV file') }}"
                                 class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -117,7 +117,7 @@
                         {{-- File options --}}
                         <div class="mt-4 grid sm:grid-cols-2 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">CSV Separator</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('CSV Separator') }}</label>
                                 <div class="grid grid-cols-4 gap-2 mb-2">
                                     @php $fileSeps = [[',','Comma'],[';','Semicolon'],['\t','Tab'],['|','Pipe']];
                                     @endphp
@@ -129,20 +129,20 @@
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm" id="file-sep-hint">Auto-detected · override if needed
+                                <p class="text-fn-text3 text-sm" id="file-sep-hint">{{ __('Auto-detected · override if needed') }}
                                 </p>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="file-opt-sheet" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Sheet Name <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Sheet Name') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="file-opt-sheet" placeholder="e.g. Users"
+                                <input type="text" id="file-opt-sheet" placeholder="{{ __('e.g. Users') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 <label for="file-opt-filename"
                                     class="text-sm font-semibold text-fn-text2 block mb-1 mt-3">
-                                    Output Filename <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="file-opt-filename" placeholder="e.g. report.xlsx"
+                                <input type="text" id="file-opt-filename" placeholder="{{ __('e.g. report.xlsx') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                             </div>
                         </div>
@@ -160,7 +160,7 @@
                                     <line x1="3" y1="9" x2="21" y2="9" />
                                     <line x1="9" y1="3" x2="9" y2="21" />
                                 </svg>
-                                Single Sheet
+                                {{ __('Single Sheet') }}
                             </button>
                             <button type="button" id="sheet-mode-multi"
                                 class="sheet-mode-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
@@ -169,14 +169,17 @@
                                     <rect x="2" y="7" width="18" height="15" rx="2" />
                                     <path d="M6 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2" />
                                 </svg>
-                                Multi-Sheet
+                                {{ __('Multi-Sheet') }}
                             </button>
                         </div>
                         {{-- Single sheet panel --}}
                         <div id="panel-single">
                             <div class="relative">
                                 <textarea id="csv-textarea" rows="11" spellcheck="false"
-                                    placeholder="Paste your CSV here, e.g.&#10;username;identifier;first_name;department&#10;booker12;9012;Rachel;Sales&#10;grey07;2070;Laura;Depot"
+                                    placeholder="{{ __('Paste your CSV here, e.g.
+username;identifier;first_name;department
+booker12;9012;Rachel;Sales
+grey07;2070;Laura;Depot') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-2xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"></textarea>
                                 <div class="csv-text-actions absolute top-3 right-3 flex gap-2">
                                     <button type="button" id="btn-paste"
@@ -188,7 +191,7 @@
                                                 d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                             <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
                                         </svg>
-                                        Paste
+                                        {{ __('Paste') }}
                                     </button>
                                     <button type="button" id="btn-clear"
                                         class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-sm font-semibold rounded-lg transition-all">
@@ -201,7 +204,7 @@
                                             <path d="M14 11v6" />
                                             <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
                                         </svg>
-                                        Clear
+                                        {{ __('Clear') }}
                                     </button>
                                 </div>
                             </div>
@@ -219,7 +222,7 @@
                                     <line x1="12" y1="5" x2="12" y2="19" />
                                     <line x1="5" y1="12" x2="19" y2="12" />
                                 </svg>
-                                Add Sheet
+                                {{ __('Add Sheet') }}
                             </button>
                             <div id="multi-status" class="hidden mt-3 flex items-center gap-2 text-sm font-semibold">
                             </div>
@@ -227,7 +230,7 @@
                         {{-- Text options --}}
                         <div class="mt-4 grid sm:grid-cols-3 gap-3">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">CSV Separator</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('CSV Separator') }}</label>
                                 <div class="grid grid-cols-4 gap-1.5 mb-2">
                                     @php $textSeps = [[',','Comma'],[';','Semicolon'],['\t','Tab'],['|','Pipe']];
                                     @endphp
@@ -239,32 +242,32 @@
                                     </button>
                                     @endforeach
                                 </div>
-                                <p class="text-fn-text3 text-sm" id="text-sep-hint">Comma — standard</p>
+                                <p class="text-fn-text3 text-sm" id="text-sep-hint">{{ __('Comma — standard') }}</p>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl"
                                 id="single-sheet-name-wrap">
                                 <label for="text-opt-sheet" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Sheet Name <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Sheet Name') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="text-opt-sheet" placeholder="e.g. Users"
+                                <input type="text" id="text-opt-sheet" placeholder="{{ __('e.g. Users') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to <span
-                                        class="font-mono">Sheet1</span></p>
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to') }} <span
+                                        class="font-mono">{{ __('Sheet1') }}</span></p>
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="text-opt-filename" class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Output Filename <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                    {{ __('Output Filename') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                 </label>
-                                <input type="text" id="text-opt-filename" placeholder="e.g. report.xlsx"
+                                <input type="text" id="text-opt-filename" placeholder="{{ __('e.g. report.xlsx') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <p class="text-fn-text3 text-sm mt-1.5">Defaults to <span
+                                <p class="text-fn-text3 text-sm mt-1.5">{{ __('Defaults to') }} <span
                                         class="font-mono">output.xlsx</span></p>
                             </div>
                         </div>
                     </div>{{-- /panel-text --}}
                     {{-- Excel features strip --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                        <p class="text-sm font-semibold text-fn-text2 mb-3">Output Excel Features</p>
+                        <p class="text-sm font-semibold text-fn-text2 mb-3">{{ __('Output Excel Features') }}</p>
                         <div class="flex flex-wrap gap-2">
                             @foreach([
                             ['Bold styled header','#2E75B6 background'],
@@ -280,8 +283,8 @@
                                     class="text-fn-green shrink-0">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg>
-                                <span class="text-sm text-fn-text2 font-semibold">{{ $feat }}</span>
-                                <span class="text-sm text-fn-text3">· {{ $detail }}</span>
+                                <span class="text-sm text-fn-text2 font-semibold">{{ __(Str::squish((string) $feat)) }}</span>
+                                <span class="text-sm text-fn-text3">· {{ __(Str::squish((string) $detail)) }}</span>
                             </div>
                             @endforeach
                         </div>
@@ -296,7 +299,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -305,7 +308,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                         </svg>
-                        Convert to Excel
+                        {{ __('Convert to Excel') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -345,15 +348,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting your CSV…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting your CSV…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -377,7 +380,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -394,8 +397,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-8">Your Excel workbook is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-8">{{ __('Your Excel workbook is ready.') }}</p>
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -413,7 +416,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">output.xlsx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Excel Workbook</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Excel Workbook') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -426,7 +429,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Excel File
+                        {{ __('Download Excel File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -436,11 +439,11 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                         <a href="/tools"
                             class="flex items-center gap-2 px-4 py-2 bg-fn-surface border border-fn-text/10 text-fn-text2 text-sm font-semibold rounded-xl hover:text-fn-text hover:bg-fn-surface2 transition-all">
-                            All tools
+                            {{ __('All tools') }}
                         </a>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -448,7 +451,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -458,7 +461,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Is this really free?', 'Files up to 200MB are completely free with no account needed.'],
@@ -480,7 +483,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -488,7 +491,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -772,7 +775,7 @@
       let activeSepText = ',';
       let sheetCount    = 0;
       const sepLabels = {
-        ',':   'Comma — standard',
+        ',':   {{ Illuminate\Support\Js::from(__('Comma — standard')) }},
         ';':   'Semicolon — European locale',
         '\\\t': 'Tab — TSV format',
         '|':   'Pipe separator',
@@ -834,16 +837,16 @@
       function handleFile(file) {
         hideError();
         if (!file.name.toLowerCase().endsWith('.csv') && file.type !== 'text/csv' && file.type !== 'text/plain') {
-          showError('Please select a valid CSV file.');
+          showError({{ Illuminate\Support\Js::from(__('Please select a valid CSV file.')) }});
           return;
         }
         if (file.size > 50 * 1024 * 1024) {
-          showError('File exceeds the 200MB free limit.');
+          showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
           return;
         }
         selectedFile = file;
         document.getElementById('file-name').textContent = file.name;
-        document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · CSV File';
+        document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · CSV File')) }};
         const fnInput = document.getElementById('file-opt-filename');
         if (!fnInput.value) fnInput.value = file.name.replace(/\.csv$/i, '.xlsx');
         filePreview.classList.remove('hidden');
@@ -894,18 +897,18 @@
         const div  = document.createElement('div');
         div.className = 'sheet-editor p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2';
         div.id = id;
-        div.innerHTML = `
+        div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
           <div class="flex items-center gap-2">
-            <input type="text" placeholder="Sheet name, e.g. Users" value="${escHtml(name)}"
+            <input type="text" placeholder="Sheet name, e.g. Users" value=":value0"
               class="sheet-name-input flex-1 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-1.5 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60"
-              data-idx="${idx}" />
-            <button type="button" aria-label="Remove sheet" class="remove-sheet-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all" data-id="${id}">
+              data-idx=":value1" />
+            <button type="button" aria-label="Remove sheet" class="remove-sheet-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all" data-id=":value2">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
           <textarea rows="5" placeholder="Paste CSV for this sheet…" spellcheck="false"
             class="sheet-csv-input w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50 resize-none leading-relaxed"
-            data-idx="${idx}">${escHtml(csv)}</textarea>`;
+            data-idx=":value3">:value4</textarea>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(name))).replaceAll(/:value1(?!\d)/g, () => String(idx)).replaceAll(/:value2(?!\d)/g, () => String(id)).replaceAll(/:value3(?!\d)/g, () => String(idx)).replaceAll(/:value4(?!\d)/g, () => String(escHtml(csv)));
         sheetEditors.appendChild(div);
         div.querySelector('.remove-sheet-btn').addEventListener('click', () => {
           div.remove();
@@ -1022,24 +1025,24 @@
         }
         // Animate
         setProcessStep('proc-1', 'active');
-        animateProgress(0, 22, 600, 'Parsing CSV rows & headers…');
+        animateProgress(0, 22, 600, {{ Illuminate\Support\Js::from(__('Parsing CSV rows & headers…')) }});
         const t2 = setTimeout(() => {
           setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-          animateProgress(22, 52, 800, 'Applying styles & column widths…');
+          animateProgress(22, 52, 800, {{ Illuminate\Support\Js::from(__('Applying styles & column widths…')) }});
         }, 700);
         const t3 = setTimeout(() => {
           setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-          animateProgress(52, 76, 800, 'Building worksheet(s)…');
+          animateProgress(52, 76, 800, {{ Illuminate\Support\Js::from(__('Building worksheet(s)…')) }});
         }, 1600);
         const t4 = setTimeout(() => {
           setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-          animateProgress(76, 90, 600, 'Generating Excel workbook…');
+          animateProgress(76, 90, 600, {{ Illuminate\Support\Js::from(__('Generating Excel workbook…')) }});
         }, 2600);
         try {
           const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
           if (!res.ok) {
-            let errMsg = 'Conversion failed. Please try again.';
+            let errMsg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
             try { const d = await res.json(); if (d.error) errMsg = d.error; } catch (_) {}
             throw new Error(errMsg);
           }
@@ -1050,14 +1053,14 @@
           link.href     = blobUrl;
           link.download = outputFilename;
           document.getElementById('output-name').textContent = outputFilename;
-          document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Excel Workbook';
+          document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · Excel Workbook')) }};
           setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-          animateProgress(90, 100, 300, 'Done!');
+          animateProgress(90, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
           setTimeout(() => { showState('download'); updateStepIndicator(3); }, 500);
         } catch (err) {
           console.error(err);
           clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-          showError(err.message || 'Something went wrong. Please try again.');
+          showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
           showState('upload');
           updateStepIndicator(1);
         }
@@ -1128,7 +1131,7 @@
         document.querySelectorAll('.file-sep-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('.file-sep-btn[data-sep=","]').classList.add('active');
         activeSepFile = ',';
-        document.getElementById('file-sep-hint').textContent = 'Auto-detected · override if needed';
+        document.getElementById('file-sep-hint').textContent = {{ Illuminate\Support\Js::from(__('Auto-detected · override if needed')) }};
         document.querySelectorAll('.text-sep-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('.text-sep-btn[data-sep=","]').classList.add('active');
         activeSepText = ',';
@@ -1143,7 +1146,7 @@
         switchTab('file');
         showState('upload');
         updateStepIndicator(1);
-        animateProgress(0, 0, 0, 'Starting…');
+        animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
         ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
       };
       function showError(msg) {

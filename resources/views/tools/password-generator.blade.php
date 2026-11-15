@@ -36,7 +36,7 @@
                 <button type="button"
                     class="tab-btn {{ $tval === 'generate' ? 'active' : '' }} flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
                     data-tab="{{ $tval }}">
-                    <span>{!! $ticon !!}</span><span>{{ $tlabel }}</span>
+                    <span>{!! $ticon !!}</span><span>{{ __(Str::squish((string) $tlabel)) }}</span>
                 </button>
                 @endforeach
             </div>
@@ -49,7 +49,7 @@
                             {{-- Length --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Length — <span id="pw-len-val" class="text-fn-blue-l">16</span> characters
+                                    {{ __('Length —') }} <span id="pw-len-val" class="text-fn-blue-l">16</span> {{ __('characters') }}
                                 </label>
                                 <input type="range" id="pw-length" min="4" max="128" value="16" step="1"
                                     class="w-full accent-fn-blue cursor-pointer mb-1" />
@@ -62,7 +62,7 @@
                             {{-- Count --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Count — <span id="pw-count-val" class="text-fn-blue-l">1</span>
+                                    {{ __('Count —') }} <span id="pw-count-val" class="text-fn-blue-l">1</span>
                                 </label>
                                 <input type="range" id="pw-count" min="1" max="20" value="1" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
@@ -72,7 +72,7 @@
                             </div>
                             {{-- Character sets --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-2">Characters</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Characters') }}</label>
                                 <div class="space-y-2">
                                     @php
                                     $charToggles = [
@@ -95,16 +95,16 @@
                                                     class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                                 </div>
                                             </div>
-                                            <span class="text-sm font-semibold text-fn-text2">{{ $tlabel }}</span>
+                                            <span class="text-sm font-semibold text-fn-text2">{{ __(Str::squish((string) $tlabel)) }}</span>
                                         </div>
-                                        <span class="text-sm font-mono text-fn-text3">{{ $tchars }}</span>
+                                        <span class="text-sm font-mono text-fn-text3">{{ __(Str::squish((string) $tchars)) }}</span>
                                     </label>
                                     @endforeach
                                 </div>
                             </div>
                             {{-- Exclusion options --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Exclusions</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">{{ __('Exclusions') }}</label>
                                 @php
                                 $exclusions = [
                                 ['pw-exclude-similar', 'Exclude similar', '0 O 1 l I'],
@@ -124,38 +124,38 @@
                                                 class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                             </div>
                                         </div>
-                                        <span class="text-sm font-semibold text-fn-text2">{{ $elabel }}</span>
+                                        <span class="text-sm font-semibold text-fn-text2">{{ __(Str::squish((string) $elabel)) }}</span>
                                     </div>
                                     @if($echars)
-                                    <span class="text-sm font-mono text-fn-text3">{{ $echars }}</span>
+                                    <span class="text-sm font-mono text-fn-text3">{{ __(Str::squish((string) $echars)) }}</span>
                                     @endif
                                 </label>
                                 @endforeach
                                 <div class="pt-1">
-                                    <label class="text-sm text-fn-text3 block mb-1">Exclude specific chars</label>
+                                    <label class="text-sm text-fn-text3 block mb-1">{{ __('Exclude specific chars') }}</label>
                                     <input type="text" id="pw-exclude-chars" placeholder='e.g. @#$'
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
                             {{-- Prefix / Suffix / Custom --}}
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Advanced</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">{{ __('Advanced') }}</label>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="text-sm text-fn-text3 block mb-1">Prefix</label>
-                                        <input type="text" id="pw-prefix" placeholder="APP-"
+                                        <label class="text-sm text-fn-text3 block mb-1">{{ __('Prefix') }}</label>
+                                        <input type="text" id="pw-prefix" placeholder="{{ __('APP-') }}"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                     <div>
-                                        <label class="text-sm text-fn-text3 block mb-1">Suffix</label>
+                                        <label class="text-sm text-fn-text3 block mb-1">{{ __('Suffix') }}</label>
                                         <input type="text" id="pw-suffix" placeholder="-2024"
                                             class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="text-sm text-fn-text3 block mb-1">Custom characters only <span
-                                            class="font-normal">(overrides above)</span></label>
-                                    <input type="text" id="pw-custom-chars" placeholder="abcdefABCDEF0123456789"
+                                    <label class="text-sm text-fn-text3 block mb-1">{{ __('Custom characters only') }} <span
+                                            class="font-normal">{{ __('(overrides above)') }}</span></label>
+                                    <input type="text" id="pw-custom-chars" placeholder="{{ __('abcdefABCDEF0123456789') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-2 py-1.5 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                                 </div>
                             </div>
@@ -165,7 +165,7 @@
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                                 </svg>
-                                Generate
+                                {{ __('Generate') }}
                             </button>
                         </div>{{-- /left --}}
                         {{-- ── RIGHT: Output ── --}}
@@ -174,16 +174,16 @@
                             <div id="gen-meta-bar"
                                 class="hidden flex flex-wrap items-center gap-2 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-sm text-fn-text3">Strength:</span>
+                                    <span class="text-sm text-fn-text3">{{ __('Strength:') }}</span>
                                     <span id="gen-strength-badge"
                                         class="text-sm font-bold px-2 py-0.5 rounded-md">—</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-sm text-fn-text3">Entropy:</span>
+                                    <span class="text-sm text-fn-text3">{{ __('Entropy:') }}</span>
                                     <span class="text-sm font-bold text-fn-text2" id="gen-entropy">—</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-sm text-fn-text3">Pool:</span>
+                                    <span class="text-sm text-fn-text3">{{ __('Pool:') }}</span>
                                     <span class="text-sm font-bold text-fn-text2" id="gen-pool">—</span>
                                 </div>
                                 <div class="ml-auto flex items-center gap-2">
@@ -195,7 +195,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="gen-copy-label">Copy all</span>
+                                        <span id="gen-copy-label">{{ __('Copy all') }}</span>
                                     </button>
                                     <button type="button" id="gen-regen"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-sm font-semibold rounded-lg transition-all">
@@ -205,7 +205,7 @@
                                             <polyline points="1 4 1 10 7 10" />
                                             <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                         </svg>
-                                        Regenerate
+                                        {{ __('Regenerate') }}
                                     </button>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                                         <rect x="3" y="11" width="18" height="11" rx="2" />
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                     </svg>
-                                    <span class="text-sm">Configure options and click Generate</span>
+                                    <span class="text-sm">{{ __('Configure options and click Generate') }}</span>
                                 </div>
                             </div>
                             {{-- Crack time (shown after generate) --}}
@@ -234,7 +234,7 @@
                                         <path d="M14.5 10.5l-2.5 2.5" />
                                         <path d="M17 8l1 -1" />
                                         <path d="M14 3h-4" />
-                                    </svg> Estimated Crack Time</p>
+                                    </svg> {{ __('Estimated Crack Time') }}</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="crack-time-grid"></div>
                             </div>
                             <div id="gen-error"
@@ -256,7 +256,7 @@
                         <div class="space-y-4">
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Words — <span id="pp-words-val" class="text-fn-blue-l">4</span>
+                                    {{ __('Words —') }} <span id="pp-words-val" class="text-fn-blue-l">4</span>
                                 </label>
                                 <input type="range" id="pp-words" min="2" max="10" value="4" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
@@ -266,14 +266,14 @@
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label class="text-sm font-semibold text-fn-text2 block mb-2">
-                                    Count — <span id="pp-count-val" class="text-fn-blue-l">3</span>
+                                    {{ __('Count —') }} <span id="pp-count-val" class="text-fn-blue-l">3</span>
                                 </label>
                                 <input type="range" id="pp-count" min="1" max="10" value="3" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <label for="pp-separator"
-                                    class="text-sm font-semibold text-fn-text2 block mb-2">Separator</label>
+                                    class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Separator') }}</label>
                                 <div class="flex gap-2 mb-2">
                                     @php $seps = ['-','_','.','/','@',' ']; @endphp
                                     @foreach($seps as $sep)
@@ -282,11 +282,11 @@
                                         data-sep="{{ $sep }}">{{ $sep === ' ' ? '␣' : $sep }}</button>
                                     @endforeach
                                 </div>
-                                <input type="text" id="pp-separator" value="-" placeholder="Custom separator"
+                                <input type="text" id="pp-separator" value="-" placeholder="{{ __('Custom separator') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40" />
                             </div>
                             <div class="p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-2">
-                                <label class="text-sm font-semibold text-fn-text2 block mb-1">Options</label>
+                                <label class="text-sm font-semibold text-fn-text2 block mb-1">{{ __('Options') }}</label>
                                 <label class="flex items-center gap-2 cursor-pointer select-none">
                                     <div class="toggle-wrap relative w-8 h-4">
                                         <input type="checkbox" id="pp-capitalize" checked class="sr-only peer" />
@@ -297,7 +297,7 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-sm font-semibold text-fn-text2">Capitalize words</span>
+                                    <span class="text-sm font-semibold text-fn-text2">{{ __('Capitalize words') }}</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer select-none">
                                     <div class="toggle-wrap relative w-8 h-4">
@@ -309,7 +309,7 @@
                                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                         </div>
                                     </div>
-                                    <span class="text-sm font-semibold text-fn-text2">Include a digit</span>
+                                    <span class="text-sm font-semibold text-fn-text2">{{ __('Include a digit') }}</span>
                                 </label>
                             </div>
                             <button type="button" id="pp-gen-btn"
@@ -318,7 +318,7 @@
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                                 </svg>
-                                Generate Passphrases
+                                {{ __('Generate Passphrases') }}
                             </button>
                         </div>
                         {{-- Output --}}
@@ -326,12 +326,12 @@
                             <div id="pp-meta-bar"
                                 class="hidden flex flex-wrap items-center gap-2 p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-sm text-fn-text3">Strength:</span>
+                                    <span class="text-sm text-fn-text3">{{ __('Strength:') }}</span>
                                     <span id="pp-strength-badge"
                                         class="text-sm font-bold px-2 py-0.5 rounded-md">—</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-sm text-fn-text3">Entropy:</span>
+                                    <span class="text-sm text-fn-text3">{{ __('Entropy:') }}</span>
                                     <span class="text-sm font-bold text-fn-text2" id="pp-entropy">—</span>
                                 </div>
                                 <div class="ml-auto flex items-center gap-2">
@@ -343,7 +343,7 @@
                                             <rect x="9" y="9" width="13" height="13" rx="2" />
                                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                         </svg>
-                                        <span id="pp-copy-label">Copy all</span>
+                                        <span id="pp-copy-label">{{ __('Copy all') }}</span>
                                     </button>
                                     <button type="button" id="pp-regen"
                                         class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-blue-l text-sm font-semibold rounded-lg transition-all">
@@ -353,7 +353,7 @@
                                             <polyline points="1 4 1 10 7 10" />
                                             <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                         </svg>
-                                        Regenerate
+                                        {{ __('Regenerate') }}
                                     </button>
                                 </div>
                             </div>
@@ -364,7 +364,7 @@
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                                     </svg>
-                                    <span class="text-sm">Configure options and generate passphrases</span>
+                                    <span class="text-sm">{{ __('Configure options and generate passphrases') }}</span>
                                 </div>
                             </div>
                             <div id="pp-crack-card"
@@ -379,7 +379,7 @@
                                         <path d="M14.5 10.5l-2.5 2.5" />
                                         <path d="M17 8l1 -1" />
                                         <path d="M14 3h-4" />
-                                    </svg> Estimated Crack Time</p>
+                                    </svg> {{ __('Estimated Crack Time') }}</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="pp-crack-grid"></div>
                             </div>
                             <div id="pp-error"
@@ -399,7 +399,7 @@
                         {{-- Input --}}
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-semibold text-fn-text2">Enter Password to Analyse</p>
+                                <p class="text-sm font-semibold text-fn-text2">{{ __('Enter Password to Analyse') }}</p>
                                 <button type="button" id="str-toggle-vis"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-sm font-semibold rounded-lg transition-all">
                                     <svg id="str-eye-show" width="11" height="11" viewBox="0 0 24 24" fill="none"
@@ -415,10 +415,10 @@
                                             d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
                                         <line x1="1" y1="1" x2="23" y2="23" />
                                     </svg>
-                                    Show
+                                    {{ __('Show') }}
                                 </button>
                             </div>
-                            <input type="password" id="str-input" placeholder="Type or paste a password to analyse…"
+                            <input type="password" id="str-input" placeholder="{{ __('Type or paste a password to analyse…') }}"
                                 class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-base font-mono rounded-xl px-5 py-4 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 placeholder:font-sans placeholder:text-sm" />
                             {{-- Live strength bar --}}
                             <div class="h-2 bg-fn-surface2 border border-fn-text/8 rounded-full overflow-hidden">
@@ -467,7 +467,7 @@
                                         <path d="M14.5 10.5l-2.5 2.5" />
                                         <path d="M17 8l1 -1" />
                                         <path d="M14 3h-4" />
-                                    </svg> Estimated Crack Time</p>
+                                    </svg> {{ __('Estimated Crack Time') }}</p>
                                 <div class="grid sm:grid-cols-2 gap-2" id="str-crack-grid"></div>
                             </div>
                             {{-- Issues & suggestions --}}
@@ -482,7 +482,7 @@
                                         <path
                                             d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
                                         <path d="M12 16h.01" />
-                                    </svg> Issues & Suggestions</p>
+                                    </svg> {{ __('Issues & Suggestions') }}</p>
                                 <ul id="str-issues-list" class="space-y-1"></ul>
                             </div>
                         </div>
@@ -503,7 +503,7 @@
 {{-- ══ STRENGTH GUIDE ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-5xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Strength Levels</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Strength Levels') }}</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
             @php
             $strengthLevels = [
@@ -516,9 +516,9 @@
                 , 'bg-fn-blue/10 border-fn-blue/25 text-fn-blue-l' , 'Practically uncrackable.' ], ]; @endphp
                 @foreach($strengthLevels as [$name,$entropy,$classes,$desc]) <div
                 class="p-4 border rounded-xl {{ $classes }}">
-                <p class="font-bold text-sm mb-1">{{ $name }}</p>
-                <p class="text-sm font-mono opacity-80 mb-2">{{ $entropy }}</p>
-                <p class="text-sm opacity-70 leading-relaxed">{{ $desc }}</p>
+                <p class="font-bold text-sm mb-1">{{ __(Str::squish((string) $name)) }}</p>
+                <p class="text-sm font-mono opacity-80 mb-2">{{ __(Str::squish((string) $entropy)) }}</p>
+                <p class="text-sm opacity-70 leading-relaxed">{{ __(Str::squish((string) $desc)) }}</p>
         </div>
         @endforeach
     </div>
@@ -725,11 +725,11 @@
     document.addEventListener('DOMContentLoaded', function () {
       const API = 'https://api.filenewer.com/api/tools';
       const strengthConfig = {
-        very_weak:   { label: 'Very Weak',   color: 'oklch(62% 0.22 25)',  bg: 'oklch(62% 0.22 25/12%)', border: 'oklch(62% 0.22 25/30%)', pct: 10 },
-        weak:        { label: 'Weak',        color: 'oklch(75% 0.15 55)',  bg: 'oklch(75% 0.15 55/12%)', border: 'oklch(75% 0.15 55/30%)', pct: 30 },
-        moderate:    { label: 'Moderate',    color: 'oklch(80% 0.16 80)',  bg: 'oklch(80% 0.16 80/12%)', border: 'oklch(80% 0.16 80/30%)', pct: 55 },
-        strong:      { label: 'Strong',      color: 'oklch(67% 0.18 162)', bg: 'oklch(67% 0.18 162/12%)', border: 'oklch(67% 0.18 162/30%)', pct: 80 },
-        very_strong: { label: 'Very Strong', color: 'oklch(49% 0.24 264)', bg: 'oklch(49% 0.24 264/12%)', border: 'oklch(49% 0.24 264/30%)', pct: 100 },
+        very_weak:   { label: {{ Illuminate\Support\Js::from(__('Very Weak')) }},   color: 'oklch(62% 0.22 25)',  bg: 'oklch(62% 0.22 25/12%)', border: 'oklch(62% 0.22 25/30%)', pct: 10 },
+        weak:        { label: {{ Illuminate\Support\Js::from(__('Weak')) }},        color: 'oklch(75% 0.15 55)',  bg: 'oklch(75% 0.15 55/12%)', border: 'oklch(75% 0.15 55/30%)', pct: 30 },
+        moderate:    { label: {{ Illuminate\Support\Js::from(__('Moderate')) }},    color: 'oklch(80% 0.16 80)',  bg: 'oklch(80% 0.16 80/12%)', border: 'oklch(80% 0.16 80/30%)', pct: 55 },
+        strong:      { label: {{ Illuminate\Support\Js::from(__('Strong')) }},      color: 'oklch(67% 0.18 162)', bg: 'oklch(67% 0.18 162/12%)', border: 'oklch(67% 0.18 162/30%)', pct: 80 },
+        very_strong: { label: {{ Illuminate\Support\Js::from(__('Very Strong')) }}, color: 'oklch(49% 0.24 264)', bg: 'oklch(49% 0.24 264/12%)', border: 'oklch(49% 0.24 264/30%)', pct: 100 },
       };
       // ── Tab switching ──
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -779,7 +779,7 @@
             method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Generation failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Generation failed.')) }});
           renderPasswords(data);
         } catch(err) {
           document.getElementById('gen-error-text').textContent = err.message;
@@ -797,8 +797,8 @@
         document.getElementById('gen-strength-badge').style.background = cfg.bg;
         document.getElementById('gen-strength-badge').style.color      = cfg.color;
         document.getElementById('gen-strength-badge').style.border     = `1px solid ${cfg.border}`;
-        document.getElementById('gen-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
-        document.getElementById('gen-pool').textContent    = data.pool_size ? data.pool_size + ' chars' : '—';
+        document.getElementById('gen-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + {{ Illuminate\Support\Js::from(__(' bits')) }} : '—';
+        document.getElementById('gen-pool').textContent    = data.pool_size ? data.pool_size + {{ Illuminate\Support\Js::from(__(' chars')) }} : '—';
         showEl('gen-meta-bar', 'flex');
         showEl('gen-copy-all');
         // Password rows
@@ -807,20 +807,20 @@
         passwords.forEach(pw => {
           const row = document.createElement('div');
           row.className = 'pw-row';
-          row.innerHTML = `<span class="pw-text">${escHtml(pw)}</span><span class="pw-copy">Copy</span>`;
+          row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="pw-text">:value0</span><span class="pw-copy">Copy</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(pw)));
           row.addEventListener('click', () => {
             navigator.clipboard.writeText(pw).catch(() => {});
             row.classList.add('copied');
-            row.querySelector('.pw-copy').textContent = 'Copied!';
-            setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = 'Copy'; }, 1500);
+            row.querySelector('.pw-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+            setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 1500);
           });
           list.appendChild(row);
         });
         // Copy all
         document.getElementById('gen-copy-all').onclick = async () => {
           await navigator.clipboard.writeText(passwords.join('\n')).catch(() => {});
-          document.getElementById('gen-copy-label').textContent = 'Copied!';
-          setTimeout(() => { document.getElementById('gen-copy-label').textContent = 'Copy all'; }, 2000);
+          document.getElementById('gen-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+          setTimeout(() => { document.getElementById('gen-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy all')) }}; }, 2000);
         };
         // Crack time
         if (data.crack_time) {
@@ -863,7 +863,7 @@
             method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Generation failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Generation failed.')) }});
           renderPassphrases(data);
         } catch(err) {
           document.getElementById('pp-error-text').textContent = err.message;
@@ -880,7 +880,7 @@
         document.getElementById('pp-strength-badge').style.background  = cfg.bg;
         document.getElementById('pp-strength-badge').style.color       = cfg.color;
         document.getElementById('pp-strength-badge').style.border      = `1px solid ${cfg.border}`;
-        document.getElementById('pp-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + ' bits' : '—';
+        document.getElementById('pp-entropy').textContent = data.entropy ? data.entropy.toFixed(1) + {{ Illuminate\Support\Js::from(__(' bits')) }} : '—';
         showEl('pp-meta-bar', 'flex');
         showEl('pp-copy-all');
         const list = document.getElementById('pp-list');
@@ -888,19 +888,19 @@
         phrases.forEach(ph => {
           const row = document.createElement('div');
           row.className = 'pw-row';
-          row.innerHTML = `<span class="pw-text">${escHtml(ph)}</span><span class="pw-copy">Copy</span>`;
+          row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="pw-text">:value0</span><span class="pw-copy">Copy</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(ph)));
           row.addEventListener('click', () => {
             navigator.clipboard.writeText(ph).catch(() => {});
             row.classList.add('copied');
-            row.querySelector('.pw-copy').textContent = 'Copied!';
-            setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = 'Copy'; }, 1500);
+            row.querySelector('.pw-copy').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+            setTimeout(() => { row.classList.remove('copied'); row.querySelector('.pw-copy').textContent = {{ Illuminate\Support\Js::from(__('Copy')) }}; }, 1500);
           });
           list.appendChild(row);
         });
         document.getElementById('pp-copy-all').onclick = async () => {
           await navigator.clipboard.writeText(phrases.join('\n')).catch(() => {});
-          document.getElementById('pp-copy-label').textContent = 'Copied!';
-          setTimeout(() => { document.getElementById('pp-copy-label').textContent = 'Copy all'; }, 2000);
+          document.getElementById('pp-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+          setTimeout(() => { document.getElementById('pp-copy-label').textContent = {{ Illuminate\Support\Js::from(__('Copy all')) }}; }, 2000);
         };
         if (data.crack_time) {
           renderCrackTime('pp-crack-grid', data.crack_time);
@@ -944,7 +944,7 @@
         document.getElementById('str-bar').style.background  = cfg.color;
         document.getElementById('str-live-label').textContent = pw.length ? cfg.label : '—';
         document.getElementById('str-live-label').style.color = pw.length ? cfg.color : '';
-        document.getElementById('str-live-entropy').textContent = pw.length ? bits.toFixed(1) + ' bits' : '';
+        document.getElementById('str-live-entropy').textContent = pw.length ? bits.toFixed(1) + {{ Illuminate\Support\Js::from(__(' bits')) }} : '';
       }
       async function doStrengthCheck() {
         const pw = strInput.value;
@@ -955,7 +955,7 @@
             method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ password: pw }),
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Check failed.');
+          if (!res.ok) throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Check failed.')) }});
           renderStrength(data);
         } catch(err) {
           document.getElementById('str-error-text').textContent = err.message;
@@ -973,7 +973,7 @@
         document.getElementById('str-strength-label').textContent = cfg.label;
         document.getElementById('str-strength-label').style.color = cfg.color;
         document.getElementById('str-entropy-label').textContent  =
-          `Entropy: ${(data.entropy ?? 0).toFixed(1)} bits  ·  Score: ${score}/100`;
+          ({{ Illuminate\Support\Js::from(__('Entropy: :value0 bits  ·  Score: :value1/100')) }}).replaceAll(/:value0(?!\d)/g, () => String((data.entropy ?? 0).toFixed(1))).replaceAll(/:value1(?!\d)/g, () => String(score));
         document.getElementById('str-score-num').textContent = score;
         // Animated circle
         const circle = document.getElementById('str-score-circle');
@@ -985,10 +985,10 @@
         const pills = document.getElementById('str-char-pills');
         pills.innerHTML = '';
         const checks = [
-          ['has_uppercase', 'Uppercase A–Z'],
-          ['has_lowercase', 'Lowercase a–z'],
-          ['has_digits',    'Digits 0–9'],
-          ['has_symbols',   'Symbols'],
+          ['has_uppercase', {{ Illuminate\Support\Js::from(__('Uppercase A–Z')) }}],
+          ['has_lowercase', {{ Illuminate\Support\Js::from(__('Lowercase a–z')) }}],
+          ['has_digits',    {{ Illuminate\Support\Js::from(__('Digits 0–9')) }}],
+          ['has_symbols',   {{ Illuminate\Support\Js::from(__('Symbols')) }}],
         ];
         checks.forEach(([key, label]) => {
           const ok  = data[key] ?? false;
@@ -996,7 +996,7 @@
           span.className = `text-sm font-semibold px-2.5 py-1 rounded-lg border ${ok
             ? 'bg-fn-green/10 border-fn-green/25 text-fn-green'
             : 'bg-fn-text/6 border-fn-text/10 text-fn-text3'}`;
-          span.innerHTML = `${ok ? `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>`} ${label}`;
+          span.innerHTML = ({{ Illuminate\Support\Js::from(__(':value0 :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(ok ? `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M5 12l5 5l10 -10" /></svg>` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>`)).replaceAll(/:value1(?!\d)/g, () => String(label));
           pills.appendChild(span);
         });
         // Crack time
@@ -1011,7 +1011,7 @@
           allIssues.forEach(issue => {
             const li = document.createElement('li');
             li.className = 'text-sm text-fn-text2 flex items-start gap-1.5';
-            li.innerHTML = `<span class="text-fn-amber mt-0.5">•</span>${escHtml(issue)}`;
+            li.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="text-fn-amber mt-0.5">•</span>:value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(issue)));
             list.appendChild(li);
           });
           showEl('str-issues-wrap');
@@ -1022,11 +1022,11 @@
       }
       // ── Shared crack time renderer ──
       const crackScenarios = [
-        ['online_throttled',   'Online (throttled)'],
-        ['online_unthrottled', 'Online (fast)'],
-        ['offline_slow',       'Offline (slow hash)'],
-        ['offline_fast',       'Offline (GPU)'],
-        ['massive_attack',     'Massive attack'],
+        ['online_throttled',   {{ Illuminate\Support\Js::from(__('Online (throttled)')) }}],
+        ['online_unthrottled', {{ Illuminate\Support\Js::from(__('Online (fast)')) }}],
+        ['offline_slow',       {{ Illuminate\Support\Js::from(__('Offline (slow hash)')) }}],
+        ['offline_fast',       {{ Illuminate\Support\Js::from(__('Offline (GPU)')) }}],
+        ['massive_attack',     {{ Illuminate\Support\Js::from(__('Massive attack')) }}],
       ];
       function renderCrackTime(gridId, crackTime) {
         const grid = document.getElementById(gridId);
@@ -1035,7 +1035,7 @@
           if (!crackTime[key]) return;
           const div = document.createElement('div');
           div.className = 'crack-row';
-          div.innerHTML = `<span class="crack-scenario">${label}</span><span class="crack-value">${escHtml(crackTime[key])}</span>`;
+          div.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="crack-scenario">:value0</span><span class="crack-value">:value1</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(label)).replaceAll(/:value1(?!\d)/g, () => String(escHtml(crackTime[key])));
           grid.appendChild(div);
         });
       }
@@ -1052,7 +1052,7 @@
       function setLoading(btnId, label) {
         const btn = document.getElementById(btnId); if(!btn) return;
         btn.disabled = true;
-        btn.innerHTML = `<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> ${label}`;
+        btn.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg class="spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round"/></svg> :value0')) }}).replaceAll(/:value0(?!\d)/g, () => String(label));
       }
       function resetLoading(btnId, html) {
         const btn = document.getElementById(btnId); if(!btn) return;

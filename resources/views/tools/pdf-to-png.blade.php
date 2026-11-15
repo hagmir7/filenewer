@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -45,8 +45,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your PDF here</h2>
-                        <p class="text-fn-text3 text-sm mb-6">or click to browse from your computer</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your PDF here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-6">{{ __('or click to browse from your computer') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -55,9 +55,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose PDF File
+                            {{ __('Choose PDF File') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                         <input type="file" id="file-input" accept=".pdf,application/pdf"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                     {{-- Output mode --}}
                     <div class="mt-5">
-                        <label class="text-sm font-semibold text-fn-text2 block mb-2">Output Mode</label>
+                        <label class="text-sm font-semibold text-fn-text2 block mb-2">{{ __('Output Mode') }}</label>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                             @foreach([
                             ['zip', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -104,8 +104,7 @@
                                 <path d="M12 12l0 9" />
                                 <path d="M12 12l-8 -4.5" />
                                 <path d="M16 5.25l-8 4.5" />
-                            </svg>', 'All pages as ZIP', 'One PNG per page in a zip archive'],
-                            ['single', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            </svg>', 'All pages as ZIP', 'One PNG per page in a zip archive'], ['single', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
@@ -115,8 +114,7 @@
                                     d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
                                 <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
                                 <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-                            </svg>', 'Single page', 'Just the first page (or specified page)'],
-                            ['base64', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            </svg>', 'Single page', 'Just the first page (or specified page)'], ['base64', '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
@@ -131,9 +129,9 @@
                                 data-mode="{{ $mval }}">
                                 <div class="flex items-center gap-1.5 w-full">
                                     <span class="text-base">{!! $micon !!}</span>
-                                    <span class="text-sm font-bold">{!! $mname !!}</span>
+                                    <span class="text-sm font-bold">{!! \App\Support\ToolMessages::html((string) $mname) !!}</span>
                                 </div>
-                                <span class="text-xs leading-tight opacity-70">{!! $mdesc !!}</span>
+                                <span class="text-xs leading-tight opacity-70">{!! \App\Support\ToolMessages::html((string) $mdesc) !!}</span>
                             </button>
                             @endforeach
                         </div>
@@ -144,9 +142,9 @@
                         <div>
                             <div class="flex items-center justify-between mb-2">
                                 <label class="text-xs font-semibold text-fn-text2">
-                                    Resolution — <span class="text-fn-blue-l" id="dpi-val">200</span> DPI
+                                    {{ __('Resolution —') }} <span class="text-fn-blue-l" id="dpi-val">200</span> {{ __('DPI') }}
                                 </label>
-                                <span class="text-xs text-fn-text3" id="dpi-est">~800 KB / page</span>
+                                <span class="text-xs text-fn-text3" id="dpi-est">{{ __('~800 KB / page') }}</span>
                             </div>
                             <input type="range" id="opt-dpi" min="72" max="600" value="200" step="1"
                                 class="w-full accent-fn-blue cursor-pointer mb-2" />
@@ -160,10 +158,9 @@
                                 ] as [$dval, $dlabel, $ddesc])
                                 <button type="button"
                                     class="dpi-preset {{ $dval === '200' ? 'active' : '' }} flex-1 px-2 py-1.5 rounded-lg border text-xs font-semibold transition-all"
-                                    data-val="{{ $dval }}" title="{{ $ddesc }}">
-                                    <span class="block">{{ $dlabel }}</span>
-                                    <span class="block text-fn-text3 text-xs font-normal" style="font-size:10px;">{{
-                                        $ddesc }}</span>
+                                    data-val="{{ $dval }}" title="{{ __(Str::squish((string) ($ddesc))) }}">
+                                    <span class="block">{{ __(Str::squish((string) $dlabel)) }}</span>
+                                    <span class="block text-fn-text3 text-xs font-normal" style="font-size:10px;">{{ __(Str::squish((string) $ddesc)) }}</span>
                                 </button>
                                 @endforeach
                             </div>
@@ -171,18 +168,18 @@
                         {{-- Pages selector (zip + base64 only) --}}
                         <div id="pages-section">
                             <label for="opt-pages" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                Pages
-                                <span class="font-normal text-fn-text3 ml-1">(optional — leave blank for all)</span>
+                                {{ __('Pages') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(optional — leave blank for all)') }}</span>
                             </label>
                             <input type="text" id="opt-pages"
-                                placeholder="e.g. 1,3,5 or 1-10 or leave blank for all pages"
+                                placeholder="{{ __('e.g. 1,3,5 or 1-10 or leave blank for all pages') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                         </div>
                         {{-- Single page (single mode only) --}}
                         <div id="single-page-section" class="hidden">
                             <label for="opt-single-page" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                Page number
-                                <span class="font-normal text-fn-text3 ml-1">(default: 1)</span>
+                                {{ __('Page number') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(default: 1)') }}</span>
                             </label>
                             <input type="number" id="opt-single-page" min="1" placeholder="1"
                                 class="w-32 bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-fn-blue/40" />
@@ -190,13 +187,13 @@
                         {{-- Password (encrypted PDF) --}}
                         <div>
                             <label for="opt-password" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                PDF Password
-                                <span class="font-normal text-fn-text3 ml-1">(only if encrypted)</span>
+                                {{ __('PDF Password') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(only if encrypted)') }}</span>
                             </label>
                             <div class="relative max-w-sm">
-                                <input type="password" id="opt-password" placeholder="Leave blank if not protected"
+                                <input type="password" id="opt-password" placeholder="{{ __('Leave blank if not protected') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 pr-10 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                <button type="button" id="toggle-password" aria-label="Show password"
+                                <button type="button" id="toggle-password" aria-label="{{ __('Show password') }}"
                                     aria-pressed="false"
                                     class="absolute right-2.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text transition-colors">
                                     <svg id="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none"
@@ -226,7 +223,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -237,7 +234,7 @@
                             <circle cx="8.5" cy="8.5" r="1.5" />
                             <polyline points="21 15 16 10 5 21" />
                         </svg>
-                        Convert to PNG
+                        {{ __('Convert to PNG') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -277,15 +274,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting your PDF…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting your PDF…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -309,7 +306,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -326,13 +323,13 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">Your PNG files are ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6" id="result-subtitle">{{ __('Your PNG files are ready.') }}</p>
                     {{-- Pages preview gallery (base64 mode only) --}}
                     <div id="pages-gallery-wrap" class="hidden max-w-3xl mx-auto mb-6 text-left">
                         <div class="flex items-center justify-between mb-2">
                             <p class="text-sm font-semibold text-fn-text2">
-                                <span id="pages-count">0</span> page<span id="pages-plural">s</span> rendered
+                                <span id="pages-count">0</span> {{ __('page') }}<span id="pages-plural">{{ app()->getLocale() === 'en' ? 's' : '' }}</span> {{ __('rendered') }}
                             </p>
                             <span class="text-xs text-fn-text3" id="pages-total-size">—</span>
                         </div>
@@ -356,7 +353,7 @@
                             </svg></div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document_pages.zip</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">ZIP Archive</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('ZIP Archive') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -369,7 +366,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span id="download-label">Download ZIP</span>
+                        <span id="download-label">{{ __('Download ZIP') }}</span>
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -379,7 +376,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another PDF
+                            {{ __('Convert another PDF') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -387,7 +384,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -397,7 +394,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['Why choose PNG over JPG?', 'PNG is lossless — every pixel is preserved exactly, with no compression
@@ -420,7 +417,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -428,7 +425,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -684,7 +681,7 @@
   function estimateSize(dpi) {
     if (dpi <= 80)  return '~200 KB / page';
     if (dpi <= 160) return '~500 KB / page';
-    if (dpi <= 220) return '~800 KB / page';
+    if (dpi <= 220) return {{ Illuminate\Support\Js::from(__('~800 KB / page')) }};
     if (dpi <= 350) return '~2 MB / page';
     return '~6 MB / page';
   }
@@ -701,16 +698,16 @@
   function handleFile(file) {
     hideError();
     if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-      showError('Please select a valid PDF file.');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid PDF file.')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · PDF Document';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · PDF Document')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -736,7 +733,7 @@
     document.getElementById('eye-show').classList.toggle('hidden', isPass);
     document.getElementById('eye-hide').classList.toggle('hidden', !isPass);
     document.getElementById('toggle-password').setAttribute('aria-pressed', String(isPass));
-    document.getElementById('toggle-password').setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
+    document.getElementById('toggle-password').setAttribute('aria-label', isPass ? {{ Illuminate\Support\Js::from(__('Hide password')) }} : {{ Illuminate\Support\Js::from(__('Show password')) }});
   });
   // ── Convert ──
   convertBtn.addEventListener('click', startConversion);
@@ -762,18 +759,18 @@
     if (password) fd.append('password', password);
     // Animate
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 500, 'Uploading & validating PDF…');
+    animateProgress(0, 25, 500, {{ Illuminate\Support\Js::from(__('Uploading & validating PDF…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(25, 55, 700, 'Reading pages at ' + dpi + ' DPI…');
+      animateProgress(25, 55, 700, {{ Illuminate\Support\Js::from(__('Reading pages at ')) }} + dpi + {{ Illuminate\Support\Js::from(__(' DPI…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(55, 80, 800, 'Rendering each page as PNG…');
+      animateProgress(55, 80, 800, {{ Illuminate\Support\Js::from(__('Rendering each page as PNG…')) }});
     }, 1500);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(80, 92, 500, 'Packaging output…');
+      animateProgress(80, 92, 500, {{ Illuminate\Support\Js::from(__('Packaging output…')) }});
     }, 2500);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/pdf-to-png', {
@@ -782,7 +779,7 @@
       });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       if (!res.ok) {
-        let msg = 'Conversion failed. Please try again.';
+        let msg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
@@ -797,12 +794,12 @@
         renderBinaryResult(blob, baseName, activeMode);
       }
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -817,32 +814,32 @@
       link.href = blobUrl;
       link.download = outputName;
       document.getElementById('output-name').textContent = outputName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · PNG Image';
-      document.getElementById('output-icon').textContent = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · PNG Image')) }};
+      document.getElementById('output-icon').textContent = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-photo">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M15 8h.01" />
   <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12" />
   <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
   <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-</svg>`;
-      document.getElementById('download-label').textContent = 'Download PNG';
-      document.getElementById('result-subtitle').textContent = 'Your PNG image is ready.';
+</svg>')) }});
+      document.getElementById('download-label').textContent = {{ Illuminate\Support\Js::from(__('Download PNG')) }};
+      document.getElementById('result-subtitle').textContent = {{ Illuminate\Support\Js::from(__('Your PNG image is ready.')) }};
     } else {
       const outputName = `${baseName}_pages.zip`;
       link.href = blobUrl;
       link.download = outputName;
       document.getElementById('output-name').textContent = outputName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ZIP Archive';
-      document.getElementById('output-icon').textContent = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · ZIP Archive')) }};
+      document.getElementById('output-icon').textContent = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-package">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" />
   <path d="M12 12l8 -4.5" />
   <path d="M12 12l0 9" />
   <path d="M12 12l-8 -4.5" />
   <path d="M16 5.25l-8 4.5" />
-</svg>`;
-      document.getElementById('download-label').textContent = 'Download ZIP';
-      document.getElementById('result-subtitle').textContent = 'Your PNG files are ready in a zip archive.';
+</svg>')) }});
+      document.getElementById('download-label').textContent = {{ Illuminate\Support\Js::from(__('Download ZIP')) }};
+      document.getElementById('result-subtitle').textContent = {{ Illuminate\Support\Js::from(__('Your PNG files are ready in a zip archive.')) }};
     }
     document.getElementById('pages-gallery-wrap').classList.add('hidden');
   }
@@ -850,9 +847,9 @@
     const pages = data.pages || [];
     const totalPages = data.total_pages ?? pages.length;
     document.getElementById('pages-count').textContent  = pages.length;
-    document.getElementById('pages-plural').textContent = pages.length === 1 ? '' : 's';
+    document.getElementById('pages-plural').textContent = {{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (pages.length !== 1) ? 's' : '';
     const totalSize = pages.reduce((sum, p) => sum + (p.size_kb || 0), 0);
-    document.getElementById('pages-total-size').textContent = formatSizeKb(totalSize) + ' total';
+    document.getElementById('pages-total-size').textContent = formatSizeKb(totalSize) + {{ Illuminate\Support\Js::from(__(' total')) }};
     // Render gallery thumbnails
     const gallery = document.getElementById('pages-gallery');
     gallery.innerHTML = '';
@@ -861,13 +858,13 @@
       thumb.className = 'page-thumb';
       thumb.href = 'data:image/png;base64,' + p.base64;
       thumb.download = p.filename;
-      thumb.title = `Click to download — ${p.width}×${p.height}, ${formatSizeKb(p.size_kb)}`;
-      thumb.innerHTML = `
-        <img src="data:image/png;base64,${p.base64}" alt="Page ${p.page}" />
+      thumb.title = ({{ Illuminate\Support\Js::from(__('Click to download — :value0×:value1, :value2')) }}).replaceAll(/:value0(?!\d)/g, () => String(p.width)).replaceAll(/:value1(?!\d)/g, () => String(p.height)).replaceAll(/:value2(?!\d)/g, () => String(formatSizeKb(p.size_kb)));
+      thumb.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+        <img src="data:image/png;base64,:value0" alt="Page :value1" />
         <div class="page-label">
-          <span class="pn">p.${p.page}</span>
-          <span>${formatSizeKb(p.size_kb || 0)}</span>
-        </div>`;
+          <span class="pn">p.:value2</span>
+          <span>:value3</span>
+        </div>')) }}).replaceAll(/:value0(?!\d)/g, () => String(p.base64)).replaceAll(/:value1(?!\d)/g, () => String(p.page)).replaceAll(/:value2(?!\d)/g, () => String(p.page)).replaceAll(/:value3(?!\d)/g, () => String(formatSizeKb(p.size_kb || 0)));
       gallery.appendChild(thumb);
     });
     document.getElementById('pages-gallery-wrap').classList.remove('hidden');
@@ -880,14 +877,14 @@
     link.href = blobUrl;
     link.download = outputName;
     document.getElementById('output-name').textContent = outputName;
-    document.getElementById('output-size').textContent = formatBytes(jsonBlob.size) + ' · JSON Response';
-    document.getElementById('output-icon').textContent = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
+    document.getElementById('output-size').textContent = formatBytes(jsonBlob.size) + {{ Illuminate\Support\Js::from(__(' · JSON Response')) }};
+    document.getElementById('output-icon').textContent = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-settings">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065" />
   <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-</svg>`;
-    document.getElementById('download-label').textContent = 'Download JSON';
-    document.getElementById('result-subtitle').textContent = `${totalPages} page${totalPages !== 1 ? 's' : ''} rendered as base64. Click any thumbnail to download that page individually.`;
+</svg>')) }});
+    document.getElementById('download-label').textContent = {{ Illuminate\Support\Js::from(__('Download JSON')) }};
+    document.getElementById('result-subtitle').textContent = ({{ Illuminate\Support\Js::from(__(':value0 page:value1 rendered as base64. Click any thumbnail to download that page individually.')) }}).replaceAll(/:value0(?!\d)/g, () => String(totalPages)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (totalPages !== 1)) ? 's' : ''));
   }
   // ── Helpers ──
   function scrollToCard() {
@@ -958,7 +955,7 @@
     activeMode = 'zip';
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

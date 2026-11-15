@@ -5,7 +5,7 @@
 
     <!-- ══ LEFT PANEL — Branding ══ -->
     <div
-        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-r border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
+        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-e border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
 
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 font-bold text-xl tracking-tight relative z-10">
@@ -24,28 +24,28 @@
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">Password Recovery</p>
+                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">{{ __('Password Recovery') }}</p>
                 <h2 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
-                    Happens to<br />
-                    the best<br />
-                    <span class="text-fn-text3">of us.</span>
+                    {{ __('Happens to') }}<br />
+                    {{ __('the best') }}<br />
+                    <span class="text-fn-text3">{{ __('of us.') }}</span>
                 </h2>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
-                    Enter your email and we'll send you a secure link to reset your password in seconds.
+                    {{ __('Enter your email and we\'ll send you a secure link to reset your password in seconds.') }}
                 </p>
             </div>
 
             <!-- Steps visual -->
             <div class="space-y-3">
-                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">How it works</p>
+                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">{{ __('How it works') }}</p>
 
                 <div class="flex items-start gap-3 p-3.5 bg-fn-surface2 border border-fn-text/7 rounded-xl">
                     <div
                         class="w-8 h-8 rounded-lg bg-fn-blue/15 flex items-center justify-center text-fn-blue font-bold text-sm shrink-0">
                         1</div>
                     <div class="flex-1 min-w-0 pt-0.5">
-                        <p class="text-sm font-medium">Enter your email address</p>
-                        <p class="text-sm text-fn-text3 mt-0.5">The one linked to your Filenewer account</p>
+                        <p class="text-sm font-medium">{{ __('Enter your email address') }}</p>
+                        <p class="text-sm text-fn-text3 mt-0.5">{{ __('The one linked to your Filenewer account') }}</p>
                     </div>
                 </div>
 
@@ -54,8 +54,8 @@
                         class="w-8 h-8 rounded-lg bg-fn-blue/15 flex items-center justify-center text-fn-blue font-bold text-sm shrink-0">
                         2</div>
                     <div class="flex-1 min-w-0 pt-0.5">
-                        <p class="text-sm font-medium">Check your inbox</p>
-                        <p class="text-sm text-fn-text3 mt-0.5">A reset link will arrive within a minute</p>
+                        <p class="text-sm font-medium">{{ __('Check your inbox') }}</p>
+                        <p class="text-sm text-fn-text3 mt-0.5">{{ __('A reset link will arrive within a minute') }}</p>
                     </div>
                 </div>
 
@@ -64,8 +64,8 @@
                         class="w-8 h-8 rounded-lg bg-fn-blue/15 flex items-center justify-center text-fn-blue font-bold text-sm shrink-0">
                         3</div>
                     <div class="flex-1 min-w-0 pt-0.5">
-                        <p class="text-sm font-medium">Set a new password</p>
-                        <p class="text-sm text-fn-text3 mt-0.5">Back in your dashboard in no time</p>
+                        <p class="text-sm font-medium">{{ __('Set a new password') }}</p>
+                        <p class="text-sm text-fn-text3 mt-0.5">{{ __('Back in your dashboard in no time') }}</p>
                     </div>
                 </div>
             </div>
@@ -77,15 +77,15 @@
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
                <p class="text-sm text-fn-text2 leading-relaxed">
-                For your security, reset links expire after 60 minutes and can only be used once.
+                {{ __('For your security, reset links expire after 60 minutes and can only be used once.') }}
             </p>
             </div>
         </div>
 
         <!-- Bottom brand -->
         <div class="relative z-10">
-            <p class="text-fn-text3 text-sm font-medium italic">"Smarter File Processing."</p>
-            <p class="text-fn-text3 text-sm mt-1">— The Filenewer Team</p>
+            <p class="text-fn-text3 text-sm font-medium italic">{{ __('"Smarter File Processing."') }}</p>
+            <p class="text-fn-text3 text-sm mt-1">{{ __('— The Filenewer Team') }}</p>
         </div>
     </div>
 
@@ -94,7 +94,7 @@
 
         <!-- Subtle bg glow -->
         <div
-            class="absolute bottom-0 left-0 w-96 h-96 bg-[radial-gradient(ellipse,oklch(68%_0.17_210_/_5%)_0%,transparent_70%)] pointer-events-none">
+            class="absolute bottom-0 start-0 w-96 h-96 bg-[radial-gradient(ellipse,oklch(68%_0.17_210_/_5%)_0%,transparent_70%)] pointer-events-none">
         </div>
 
         <div class="w-full max-w-md animate-fade-up opacity-0">
@@ -124,17 +124,17 @@
                     </svg>
                 </div>
 
-                <h1 class="text-2xl font-bold tracking-tight mb-2">Check your email</h1>
-                <p class="text-fn-text3 text-sm mb-2">We sent a password reset link to</p>
+                <h1 class="text-2xl font-bold tracking-tight mb-2">{{ __('Check your email') }}</h1>
+                <p class="text-fn-text3 text-sm mb-2">{{ __('We sent a password reset link to') }}</p>
                 <p class="text-fn-text font-semibold text-sm mb-6">{{ session('email') ?? 'your email address' }}</p>
 
-                <div class="p-4 bg-fn-green/5 border border-fn-green/15 rounded-xl text-left mb-6">
+                <div class="p-4 bg-fn-green/5 border border-fn-green/15 rounded-xl text-start mb-6">
                     <p class="text-sm text-fn-text2 leading-relaxed">{{ session('status') }}</p>
                 </div>
 
                 <p class="text-sm text-fn-text3 mb-6">
-                    Didn't receive the email? Check your spam folder or
-                    <a href="/forgot-password" class="text-fn-blue-l hover:underline font-medium">try again</a>.
+                    {{ __('Didn\'t receive the email? Check your spam folder or') }}
+                    <a href="/forgot-password" class="text-fn-blue-l hover:underline font-medium">{{ __('try again') }}</a>.
                 </p>
 
                 <a href="/login"
@@ -144,7 +144,7 @@
                         <line x1="19" y1="12" x2="5" y2="12" />
                         <polyline points="12 19 5 12 12 5" />
                     </svg>
-                    Back to Sign In
+                    {{ __('Back to Sign In') }}
                 </a>
             </div>
 
@@ -160,7 +160,7 @@
                     <line x1="19" y1="12" x2="5" y2="12" />
                     <polyline points="12 19 5 12 12 5" />
                 </svg>
-                Back to Sign In
+                {{ __('Back to Sign In') }}
             </a>
 
             <!-- Icon + Header -->
@@ -173,8 +173,8 @@
                         <path d="M7 11V7a5 5 0 0 1 9.9-1" />
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight mb-1.5">Forgot your password?</h1>
-                <p class="text-fn-text3 text-sm">No worries — enter your email and we'll send you a reset link.</p>
+                <h1 class="text-2xl font-bold tracking-tight mb-1.5">{{ __('Forgot your password?') }}</h1>
+                <p class="text-fn-text3 text-sm">{{ __('No worries — enter your email and we\'ll send you a reset link.') }}</p>
             </div>
 
             <!-- Error banner -->
@@ -201,17 +201,17 @@
 
                 <!-- Email -->
                 <div class="space-y-1.5">
-                    <label class="text-sm font-semibold text-fn-text2 block" for="email">Email address</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="email">{{ __('Email address') }}</label>
                     <div class="relative">
-                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
+                        <svg class="absolute start-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
                         </svg>
-                        <input id="email" name="email" type="email" placeholder="john@company.com" autocomplete="email"
+                        <input id="email" name="email" type="email" dir="ltr" placeholder="john@company.com" autocomplete="email"
                             value="{{ old('email') }}" autofocus
-                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                            class="input-field w-full ps-10 pe-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
                     @error('email')
                     <p class="text-sm text-fn-red mt-1">{{ $message }}</p>
@@ -226,7 +226,7 @@
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                         <polyline points="22,6 12,13 2,6" />
                     </svg>
-                    <span id="btn-text">Send Reset Link</span>
+                    <span id="btn-text">{{ __('Send Reset Link') }}</span>
                     <svg id="btn-spinner" class="hidden w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60"
                             stroke-dashoffset="20" stroke-linecap="round" />
@@ -236,8 +236,8 @@
 
             <!-- Sign up link -->
             <p class="text-center text-sm text-fn-text3 mt-6">
-                Remember your password?
-                <a href="/login" class="text-fn-blue-l font-semibold hover:underline ml-1">Sign in</a>
+                {{ __('Remember your password?') }}
+                <a href="/login" class="text-fn-blue-l font-semibold hover:underline ms-1">{{ __('Sign in') }}</a>
             </p>
 
             <!-- Trust badges -->
@@ -247,14 +247,14 @@
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
-                    SSL Secured
+                    {{ __('SSL Secured') }}
                 </div>
                 <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    GDPR Compliant
+                    {{ __('GDPR Compliant') }}
                 </div>
                 <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -262,7 +262,7 @@
                         <rect x="3" y="11" width="18" height="11" rx="2" />
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    Encrypted Session
+                    {{ __('Encrypted Session') }}
                 </div>
             </div>
 

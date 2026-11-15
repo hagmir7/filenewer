@@ -27,15 +27,15 @@
                             <span class="text-xs font-semibold text-fn-text3 ml-1">HTML</span>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button type="button" id="btn-sample" title="Load sample"
+                            <button type="button" id="btn-sample" title="{{ __('Load sample') }}"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all flex items-center gap-1">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <polygon points="5 3 19 12 5 21 5 3" />
                                 </svg>
-                                Sample
+                                {{ __('Sample') }}
                             </button>
-                            <button type="button" id="btn-paste-editor" title="Paste from clipboard"
+                            <button type="button" id="btn-paste-editor" title="{{ __('Paste from clipboard') }}"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all flex items-center gap-1">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -43,9 +43,9 @@
                                         d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                     <rect x="8" y="2" width="8" height="4" rx="1" />
                                 </svg>
-                                Paste
+                                {{ __('Paste') }}
                             </button>
-                            <button type="button" id="btn-format" title="Format HTML"
+                            <button type="button" id="btn-format" title="{{ __('Format HTML') }}"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-blue text-xs font-semibold rounded-lg transition-all flex items-center gap-1">
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -54,11 +54,11 @@
                                     <line x1="21" y1="14" x2="3" y2="14" />
                                     <line x1="21" y1="18" x2="7" y2="18" />
                                 </svg>
-                                Format
+                                {{ __('Format') }}
                             </button>
-                            <button type="button" id="btn-clear-editor" title="Clear editor"
+                            <button type="button" id="btn-clear-editor" title="{{ __('Clear editor') }}"
                                 class="toolbar-btn px-2 py-1 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">
-                                Clear
+                                {{ __('Clear') }}
                             </button>
                         </div>
                     </div>
@@ -72,16 +72,16 @@
                         </div>
                         {{-- Textarea --}}
                         <textarea id="html-editor" spellcheck="false" autocomplete="off" autocorrect="off"
-                            placeholder="Paste or type your HTML here…"
+                            placeholder="{{ __('Paste or type your HTML here…') }}"
                             class="flex-1 resize-none bg-fn-surface text-fn-text text-xs sm:text-sm font-mono leading-relaxed px-4 py-3 focus:outline-none placeholder:text-fn-text3/30 overflow-auto w-full"
                             style="tab-size: 2; -moz-tab-size: 2; line-height: 1.65;"></textarea>
                     </div>
                     {{-- Editor status bar --}}
                     <div
                         class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
-                        <span id="editor-status">Ready</span>
+                        <span id="editor-status">{{ __('Ready') }}</span>
                         <div class="flex items-center gap-3">
-                            <span id="editor-meta">0 lines · 0 chars</span>
+                            <span id="editor-meta">{{ __('0 lines · 0 chars') }}</span>
                             <span id="error-badge" class="hidden items-center gap-1 text-fn-red font-semibold">
                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -89,7 +89,7 @@
                                     <line x1="12" y1="8" x2="12" y2="12" />
                                     <line x1="12" y1="16" x2="12.01" y2="16" />
                                 </svg>
-                                <span id="error-badge-text">0 issues</span>
+                                <span id="error-badge-text">{{ __('0 issues') }}</span>
                             </span>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                         {{-- Viewport switcher --}}
                         <div class="flex items-center gap-1 p-0.5 bg-fn-surface border border-fn-text/8 rounded-lg">
 
-                            <button type="button" id="vp-desktop" data-vp="desktop" title="Desktop" aria-pressed="true"
+                            <button type="button" id="vp-desktop" data-vp="desktop" title="{{ __('Desktop') }}" aria-pressed="true"
                                 class="vp-btn active p-1.5 rounded-md transition-all">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -111,7 +111,7 @@
                                 </svg>
                             </button>
 
-                            <button type="button" id="vp-tablet" data-vp="tablet" title="Tablet" aria-pressed="false"
+                            <button type="button" id="vp-tablet" data-vp="tablet" title="{{ __('Tablet') }}" aria-pressed="false"
                                 class="vp-btn  p-1.5 rounded-md transition-all">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -120,7 +120,7 @@
                                 </svg>
                             </button>
 
-                            <button type="button" id="vp-mobile" data-vp="mobile" title="Mobile" aria-pressed="false"
+                            <button type="button" id="vp-mobile" data-vp="mobile" title="{{ __('Mobile') }}" aria-pressed="false"
                                 class="vp-btn  p-1.5 rounded-md transition-all">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -137,11 +137,11 @@
                                 stroke-width="2" class="text-fn-green shrink-0">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                             </svg>
-                            <span class="text-xs text-fn-text3 font-mono truncate">preview://local</span>
+                            <span class="text-xs text-fn-text3 font-mono truncate">{{ __('preview://local') }}</span>
                         </div>
                         {{-- Right actions --}}
                         <div class="flex items-center gap-1 shrink-0">
-                            <button type="button" id="btn-refresh" title="Refresh preview"
+                            <button type="button" id="btn-refresh" title="{{ __('Refresh preview') }}"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -149,7 +149,7 @@
                                     <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                                 </svg>
                             </button>
-                            <button type="button" id="btn-theme-toggle" title="Toggle preview theme"
+                            <button type="button" id="btn-theme-toggle" title="{{ __('Toggle preview theme') }}"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
                                 <svg id="icon-dark" width="13" height="13" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -170,7 +170,7 @@
                                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                                 </svg>
                             </button>
-                            <button type="button" id="btn-open-new" title="Open in new tab"
+                            <button type="button" id="btn-open-new" title="{{ __('Open in new tab') }}"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -179,7 +179,7 @@
                                     <line x1="10" y1="14" x2="21" y2="3" />
                                 </svg>
                             </button>
-                            <button type="button" id="btn-download-html" title="Download as .html"
+                            <button type="button" id="btn-download-html" title="{{ __('Download as .html') }}"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-green rounded-lg transition-all">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -189,7 +189,7 @@
                                 </svg>
                             </button>
                             {{-- Copy HTML --}}
-                            <button type="button" id="btn-copy-html" title="Copy HTML"
+                            <button type="button" id="btn-copy-html" title="{{ __('Copy HTML') }}"
                                 class="toolbar-btn p-1.5 text-fn-text3 hover:text-fn-text rounded-lg transition-all">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -208,7 +208,7 @@
                             <iframe id="preview-frame"
                                 sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
                                 class="w-full h-full border-0 transition-all duration-300 bg-white"
-                                style="min-height: 100%;" title="HTML Preview"></iframe>
+                                style="min-height: 100%;" title="{{ __('HTML Preview') }}"></iframe>
                         </div>
                         {{-- Empty state --}}
                         <div id="empty-state"
@@ -222,15 +222,14 @@
                                     <polyline points="8 6 2 12 8 18" />
                                 </svg>
                             </div>
-                            <p class="font-semibold text-fn-text2 mb-1">No HTML yet</p>
-                            <p class="text-sm text-fn-text3">Type or paste HTML on the left — the preview updates
-                                instantly</p>
+                            <p class="font-semibold text-fn-text2 mb-1">{{ __('No HTML yet') }}</p>
+                            <p class="text-sm text-fn-text3">{{ __('Type or paste HTML on the left — the preview updates instantly') }}</p>
                         </div>
                     </div>
                     {{-- Preview status bar --}}
                     <div
                         class="flex items-center justify-between px-3 sm:px-4 py-1.5 bg-fn-surface2 border-t border-fn-text/8 text-xs text-fn-text3 shrink-0">
-                        <span id="preview-status">Waiting for input…</span>
+                        <span id="preview-status">{{ __('Waiting for input…') }}</span>
                         <span id="preview-size" class="font-mono"></span>
                     </div>
                 </div>
@@ -240,31 +239,31 @@
                 class="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3 bg-fn-surface2 border-t border-fn-text/8">
                 {{-- Quick-insert snippets --}}
                 <div class="flex items-center gap-1.5 flex-wrap">
-                    <span class="text-xs text-fn-text3 font-semibold mr-1 hidden sm:inline">Insert:</span>
+                    <span class="text-xs text-fn-text3 font-semibold mr-1 hidden sm:inline">{{ __('Insert:') }}</span>
 
                     <button type="button" id="snippet-table"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
-                        Table
+                        {{ __('Table') }}
                     </button>
 
                     <button type="button" id="snippet-form"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
-                        Form
+                        {{ __('Form') }}
                     </button>
 
                     <button type="button" id="snippet-card"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
-                        Card
+                        {{ __('Card') }}
                     </button>
 
                     <button type="button" id="snippet-nav"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
-                        Navbar
+                        {{ __('Navbar') }}
                     </button>
 
                     <button type="button" id="snippet-hero"
                         class="snippet-btn px-2.5 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text hover:border-fn-blue/30 text-xs font-semibold rounded-lg transition-all">
-                        Hero
+                        {{ __('Hero') }}
                     </button>
 
                 </div>
@@ -279,7 +278,7 @@
                             class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                         </div>
                     </div>
-                    <span class="text-xs font-semibold text-fn-text3">Live preview</span>
+                    <span class="text-xs font-semibold text-fn-text3">{{ __('Live preview') }}</span>
                 </label>
             </div>
         </div>
@@ -288,8 +287,8 @@
 {{-- ══ FEATURES ══ --}}
 <section class="py-10 sm:py-14 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">What You Can Do</h2>
-        <p class="text-fn-text3 text-sm text-center mb-8">A full HTML workbench — right in your browser</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('What You Can Do') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-8">{{ __('A full HTML workbench — right in your browser') }}</p>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
 
             <div class="flex items-start gap-3 p-4 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -300,10 +299,8 @@
                         <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11" />
                     </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">Live preview</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">The iframe updates as you type — no button needed.
-                        Toggle off for large
-                        documents.</p>
+                    <p class="font-bold text-sm mb-0.5">{{ __('Live preview') }}</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">{{ __('The iframe updates as you type — no button needed. Toggle off for large documents.') }}</p>
                 </div>
             </div>
 
@@ -319,10 +316,8 @@
                         <path d="M7 16l-1.5 -1.5" />
                     </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">Viewport switching</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">Test your layout at desktop, tablet (768px), and
-                        mobile (390px) widths
-                        instantly.</p>
+                    <p class="font-bold text-sm mb-0.5">{{ __('Viewport switching') }}</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">{{ __('Test your layout at desktop, tablet (768px), and mobile (390px) widths instantly.') }}</p>
                 </div>
             </div>
 
@@ -338,10 +333,8 @@
                         <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
                     </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">Dark/Light canvas</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">Toggle the preview background between white and
-                        dark to test your design on
-                        both.</p>
+                    <p class="font-bold text-sm mb-0.5">{{ __('Dark/Light canvas') }}</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">{{ __('Toggle the preview background between white and dark to test your design on both.') }}</p>
                 </div>
             </div>
 
@@ -356,10 +349,8 @@
                         <path d="M6 4l8.85 10.85" />
                     </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">Quick snippets</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">Insert common patterns — tables, forms, cards,
-                        navbars, heroes — with one
-                        click.</p>
+                    <p class="font-bold text-sm mb-0.5">{{ __('Quick snippets') }}</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">{{ __('Insert common patterns — tables, forms, cards, navbars, heroes — with one click.') }}</p>
                 </div>
             </div>
 
@@ -374,9 +365,8 @@
                             d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5" />
                     </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">Line numbers</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">Always-visible line count so you can navigate large
-                        documents without guessing.</p>
+                    <p class="font-bold text-sm mb-0.5">{{ __('Line numbers') }}</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">{{ __('Always-visible line count so you can navigate large documents without guessing.') }}</p>
                 </div>
             </div>
 
@@ -390,9 +380,8 @@
                         <path d="M14 4l0 4l-6 0l0 -4" />
                     </svg></span>
                 <div>
-                    <p class="font-bold text-sm mb-0.5">Download &amp; open</p>
-                    <p class="text-xs text-fn-text3 leading-relaxed">Export your HTML as a .html file or open the
-                        preview in a new browser tab.</p>
+                    <p class="font-bold text-sm mb-0.5">{{ __('Download & open') }}</p>
+                    <p class="text-xs text-fn-text3 leading-relaxed">{{ __('Export your HTML as a .html file or open the preview in a new browser tab.') }}</p>
                 </div>
             </div>
 
@@ -402,14 +391,14 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 text-center">Frequently Asked Questions
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 text-center">{{ __('Frequently Asked Questions') }}
         </h2>
         <div class="space-y-2 sm:space-y-3">
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">Is the preview safe — can scripts run?</span>
+                    <span class="font-semibold text-sm pr-3">{{ __('Is the preview safe — can scripts run?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -417,19 +406,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — the preview iframe runs with the sandbox
-                        attribute set to
-                        allow-scripts and allow-same-origin. This means JavaScript in your HTML will execute so you can
-                        test
-                        interactive components, but access to cookies, localStorage, and parent-frame resources is
-                        restricted.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — the preview iframe runs with the sandbox attribute set to allow-scripts and allow-same-origin. This means JavaScript in your HTML will execute so you can test interactive components, but access to cookies, localStorage, and parent-frame resources is restricted.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">Does the content get sent anywhere?</span>
+                    <span class="font-semibold text-sm pr-3">{{ __('Does the content get sent anywhere?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -437,18 +421,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">No. Everything runs entirely in your browser. Your
-                        HTML is never
-                        sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab
-                        discards it
-                        completely.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('No. Everything runs entirely in your browser. Your HTML is never sent to a server or stored anywhere. The preview is a local srcdoc iframe — closing the tab discards it completely.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">What is the dark/light canvas toggle?</span>
+                    <span class="font-semibold text-sm pr-3">{{ __('What is the dark/light canvas toggle?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -456,18 +436,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">It switches the preview iframe background color
-                        between white
-                        (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode
-                        backgrounds without
-                        adding any CSS to your HTML.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('It switches the preview iframe background color between white (#ffffff) and a dark near-black. Useful for testing how your design looks on dark-mode backgrounds without adding any CSS to your HTML.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">Can I test responsive layouts?</span>
+                    <span class="font-semibold text-sm pr-3">{{ __('Can I test responsive layouts?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -475,18 +451,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — the viewport switcher constrains the preview
-                        iframe to desktop
-                        (full width), tablet (768px), or mobile (390px). You can see exactly how your layout reflows at
-                        each
-                        breakpoint.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — the viewport switcher constrains the preview iframe to desktop (full width), tablet (768px), or mobile (390px). You can see exactly how your layout reflows at each breakpoint.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">What do the quick-insert snippets add?</span>
+                    <span class="font-semibold text-sm pr-3">{{ __('What do the quick-insert snippets add?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -494,18 +466,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Each snippet injects a self-contained HTML block at
-                        the cursor
-                        position (or end of document): Table adds a styled data table, Form adds a labelled input form,
-                        Card adds a
-                        content card, Navbar adds a navigation bar, and Hero adds a full-width hero section.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Each snippet injects a self-contained HTML block at the cursor position (or end of document): Table adds a styled data table, Form adds a labelled input form, Card adds a content card, Navbar adds a navigation bar, and Hero adds a full-width hero section.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm pr-3">Can I open the result in a new tab?</span>
+                    <span class="font-semibold text-sm pr-3">{{ __('Can I open the result in a new tab?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -513,11 +481,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-4 sm:px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — click the open-in-new-tab button in the
-                        preview toolbar. This
-                        writes the current HTML into a new blank window using document.write, so your full page —
-                        including scripts
-                        and styles — renders in a standalone browser tab.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — click the open-in-new-tab button in the preview toolbar. This writes the current HTML into a new blank window using document.write, so your full page — including scripts and styles — renders in a standalone browser tab.') }}</p>
                 </div>
             </div>
 
@@ -969,8 +933,8 @@
     const v     = editor.value;
     const lines = v ? v.split('\n').length : 0;
     document.getElementById('editor-meta').textContent =
-      `${lines.toLocaleString()} line${lines !== 1 ? 's' : ''} · ${v.length.toLocaleString()} chars`;
-    document.getElementById('editor-status').textContent = v.trim() ? 'Editing…' : 'Ready';
+      ({{ Illuminate\Support\Js::from(__(':value0 line:value1 · :value2 chars')) }}).replaceAll(/:value0(?!\d)/g, () => String(lines.toLocaleString())).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (lines !== 1)) ? 's' : '')).replaceAll(/:value2(?!\d)/g, () => String(v.length.toLocaleString()));
+    document.getElementById('editor-status').textContent = v.trim() ? {{ Illuminate\Support\Js::from(__('Editing…')) }} : {{ Illuminate\Support\Js::from(__('Ready')) }};
     emptyState.style.opacity = v.trim() ? '0' : '1';
     emptyState.style.pointerEvents = v.trim() ? 'none' : 'auto';
   }
@@ -979,7 +943,7 @@
     const html = editor.value;
     if (!html.trim()) {
       frame.srcdoc = '';
-      document.getElementById('preview-status').textContent = 'Waiting for input…';
+      document.getElementById('preview-status').textContent = {{ Illuminate\Support\Js::from(__('Waiting for input…')) }};
       document.getElementById('preview-size').textContent = '';
       return;
     }
@@ -990,7 +954,7 @@
     lastHtml = html;
     frame.srcdoc = doc;
     const bytes = new TextEncoder().encode(html).length;
-    document.getElementById('preview-status').textContent = 'Rendered';
+    document.getElementById('preview-status').textContent = {{ Illuminate\Support\Js::from(__('Rendered')) }};
     document.getElementById('preview-size').textContent = formatBytes(bytes);
   }
   // ── Toolbar buttons ──
@@ -1011,14 +975,14 @@
       editor.value = formatted;
       onEditorInput();
     } catch(_) {
-      document.getElementById('editor-status').textContent = 'Could not format';
+      document.getElementById('editor-status').textContent = {{ Illuminate\Support\Js::from(__('Could not format')) }};
     }
   });
   document.getElementById('btn-clear-editor').addEventListener('click', () => {
     editor.value = '';
     onEditorInput();
     frame.srcdoc = '';
-    document.getElementById('preview-status').textContent = 'Waiting for input…';
+    document.getElementById('preview-status').textContent = {{ Illuminate\Support\Js::from(__('Waiting for input…')) }};
     document.getElementById('preview-size').textContent = '';
   });
   document.getElementById('btn-refresh').addEventListener('click', renderPreview);

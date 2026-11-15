@@ -5,31 +5,31 @@
 
     <!-- ══ LEFT PANEL — Branding ══ -->
     <div
-        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-r border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
+        class="hidden lg:flex lg:w-[45%] xl:w-[42%] relative flex-col justify-between p-12 bg-fn-surface border-e border-fn-text/7 overflow-hidden panel-glow panel-glow-b grid-bg">
 
         <!-- Logo -->
         <a href="/">
-            <img src="/filenewer-logo.svg" alt="The Fastest Online File Tools " width="100" height="50"
+            <img src="/filenewer-logo.svg" alt="{{ __('The Fastest Online File Tools') }}" width="100" height="50"
                 class="h-[40px] w-auto md:h-[57px]">
         </a>
 
         <!-- Center content -->
         <div class="relative z-10 space-y-10">
             <div>
-                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">Welcome back</p>
+                <p class="text-fn-cyan text-sm font-semibold uppercase tracking-widest mb-4">{{ __('Welcome back') }}</p>
                 <h1 class="text-3xl xl:text-4xl font-bold tracking-tight leading-[1.15] mb-5">
-                    Your files are<br />
-                    waiting for<br />
-                    <span class="text-fn-text3">you.</span>
+                    {{ __('Your files are') }}<br />
+                    {{ __('waiting for') }}<br />
+                    <span class="text-fn-text3">{{ __('you.') }}</span>
                 </h1>
                 <p class="text-fn-text2 text-base leading-relaxed max-w-xs">
-                    Sign in to access your tools, saved files, and processing history from anywhere.
+                    {{ __('Sign in to access your tools, saved files, and processing history from anywhere.') }}
                 </p>
             </div>
 
             <!-- Recent activity visual -->
             <div class="space-y-3">
-                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">Recent Activity</p>
+                <p class="text-sm font-semibold text-fn-text3 uppercase tracking-widest">{{ __('Recent Activity') }}</p>
 
                 <div class="flex items-center gap-3 p-3.5 bg-fn-surface2 border border-fn-text/7 rounded-xl">
                     <div class="w-8 h-8 rounded-lg bg-fn-red/15 flex items-center justify-center text-sm shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pdf">
@@ -41,8 +41,8 @@
 </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium truncate">report_Q4.pdf → Word</p>
-                        <p class="text-sm text-fn-text3">2 hours ago</p>
+                        <p class="text-sm font-medium truncate">{{ __('report_Q4.pdf → Word') }}</p>
+                        <p class="text-sm text-fn-text3">{{ __('2 hours ago') }}</p>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
@@ -60,8 +60,8 @@
 </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium truncate">users_export.csv → SQL</p>
-                        <p class="text-sm text-fn-text3">Yesterday</p>
+                        <p class="text-sm font-medium truncate">{{ __('users_export.csv → SQL') }}</p>
+                        <p class="text-sm text-fn-text3">{{ __('Yesterday') }}</p>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium truncate">invoice_Nov_2026.pdf</p>
-                        <p class="text-sm text-fn-text3">3 days ago</p>
+                        <p class="text-sm text-fn-text3">{{ __('3 days ago') }}</p>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
@@ -96,15 +96,14 @@
                     class="text-fn-green shrink-0" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <p class="text-sm text-fn-text2 leading-relaxed">Your session is protected with AES-256 encryption and
-                    automatically expires after 30 days of inactivity.</p>
+                <p class="text-sm text-fn-text2 leading-relaxed">{{ __('Your session is protected with AES-256 encryption and automatically expires after 30 days of inactivity.') }}</p>
             </div>
         </div>
 
         <!-- Bottom brand -->
         <div class="relative z-10">
-            <p class="text-fn-text3 text-sm font-medium italic">"Smarter File Processing."</p>
-            <p class="text-fn-text3 text-sm mt-1">— The Filenewer Team</p>
+            <p class="text-fn-text3 text-sm font-medium italic">{{ __('"Smarter File Processing."') }}</p>
+            <p class="text-fn-text3 text-sm mt-1">{{ __('— The Filenewer Team') }}</p>
         </div>
     </div>
 
@@ -113,7 +112,7 @@
 
         <!-- Subtle bg glow -->
         <div
-            class="absolute bottom-0 left-0 w-96 h-96 bg-[radial-gradient(ellipse,oklch(68%_0.17_210_/_5%)_0%,transparent_70%)] pointer-events-none">
+            class="absolute bottom-0 start-0 w-96 h-96 bg-[radial-gradient(ellipse,oklch(68%_0.17_210_/_5%)_0%,transparent_70%)] pointer-events-none">
         </div>
 
         <div class="w-full max-w-md animate-fade-up opacity-0">
@@ -132,8 +131,8 @@
 
             <!-- Header -->
             <div class="mb-8">
-                <h2 class="text-2xl font-bold tracking-tight mb-1.5">Welcome back</h2>
-                <p class="text-fn-text3 text-sm">Sign in to continue to your dashboard</p>
+                <h2 class="text-2xl font-bold tracking-tight mb-1.5">{{ __('Welcome back') }}</h2>
+                <p class="text-fn-text3 text-sm">{{ __('Sign in to continue to your dashboard') }}</p>
             </div>
 
             <!-- Laravel error banner -->
@@ -197,7 +196,7 @@
             <!-- Divider -->
             <div class="flex items-center gap-3 mb-6">
                 <div class="flex-1 h-px bg-fn-text/8"></div>
-                <span class="text-fn-text3 text-sm font-medium">or sign in with email</span>
+                <span class="text-fn-text3 text-sm font-medium">{{ __('or sign in with email') }}</span>
                 <div class="flex-1 h-px bg-fn-text/8"></div>
             </div>
 
@@ -207,17 +206,17 @@
 
                 <!-- Email -->
                 <div class="space-y-1.5">
-                    <label class="text-sm font-semibold text-fn-text2 block" for="email">Email address</label>
+                    <label class="text-sm font-semibold text-fn-text2 block" for="email">{{ __('Email address') }}</label>
                     <div class="relative">
-                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
+                        <svg class="absolute start-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                             <polyline points="22,6 12,13 2,6" />
                         </svg>
-                        <input id="email" name="email" type="email" placeholder="john@company.com" autocomplete="email"
+                        <input id="email" name="email" type="email" dir="ltr" placeholder="john@company.com" autocomplete="email"
                             value="{{ old('email') }}"
-                            class="input-field w-full pl-10 pr-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                            class="input-field w-full ps-10 pe-4 py-2.5 bg-fn-surface border {{ $errors->has('email') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                     </div>
                     @error('email')
                     <p class="text-sm text-fn-red mt-1">{{ $message }}</p>
@@ -227,22 +226,21 @@
                 <!-- Password -->
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <label class="text-sm font-semibold text-fn-text2" for="password">Password</label>
-                        <a href="/forgot-password" class="text-sm text-fn-blue-l hover:underline font-medium">Forgot
-                            password?</a>
+                        <label class="text-sm font-semibold text-fn-text2" for="password">{{ __('Password') }}</label>
+                        <a href="/forgot-password" class="text-sm text-fn-blue-l hover:underline font-medium">{{ __('Forgot password?') }}</a>
                     </div>
                     <div class="relative">
-                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
+                        <svg class="absolute start-3.5 top-1/2 -translate-y-1/2 text-fn-text3 w-4 h-4 pointer-events-none"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                         </svg>
-                        <input id="password" name="password" type="password" placeholder="Enter your password"
+                        <input id="password" name="password" type="password" placeholder="{{ __('Enter your password') }}"
                             autocomplete="current-password"
-                            class="input-field w-full pl-10 pr-11 py-2.5 bg-fn-surface border {{ $errors->has('password') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
+                            class="input-field w-full ps-10 pe-11 py-2.5 bg-fn-surface border {{ $errors->has('password') ? 'border-fn-red' : 'border-fn-text/10' }} rounded-xl text-fn-text text-sm placeholder:text-fn-text3 font-sans" />
                         <button type="button" onclick="togglePwd('password','eye-login')"
-                            class="absolute right-3.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text2 transition-colors">
+                            class="absolute end-3.5 top-1/2 -translate-y-1/2 text-fn-text3 hover:text-fn-text2 transition-colors">
                             <svg id="eye-login" width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
@@ -259,14 +257,13 @@
                 <div class="flex items-center gap-2.5">
                     <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
                         class="w-4 h-4 rounded border border-fn-text/20 bg-fn-surface cursor-pointer accent-fn-blue" />
-                    <label for="remember" class="text-sm text-fn-text3 cursor-pointer select-none">Keep me signed in for
-                        30 days</label>
+                    <label for="remember" class="text-sm text-fn-text3 cursor-pointer select-none">{{ __('Keep me signed in for 30 days') }}</label>
                 </div>
 
                 <!-- Submit -->
                 <button type="submit" id="submit-btn"
                     class="btn-primary w-full py-3 bg-fn-blue hover:bg-fn-blue-l text-white font-semibold text-sm rounded-xl transition-all hover:-translate-y-0.5 mt-2 flex items-center justify-center gap-2">
-                    <span id="btn-text">Sign In</span>
+                    <span id="btn-text">{{ __('Sign In') }}</span>
                     <svg id="btn-spinner" class="hidden w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="60"
                             stroke-dashoffset="20" stroke-linecap="round" />
@@ -277,8 +274,8 @@
 
             <!-- Sign up link -->
             <p class="text-center text-sm text-fn-text3 mt-6">
-                Don't have an account?
-                <a href="/signup" class="text-fn-blue-l font-semibold hover:underline ml-1">Sign up free</a>
+                {{ __('Don\'t have an account?') }}
+                <a href="/signup" class="text-fn-blue-l font-semibold hover:underline ms-1">{{ __('Sign up free') }}</a>
             </p>
 
             <!-- Trust badges -->
@@ -288,14 +285,14 @@
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
-                    SSL Secured
+                    {{ __('SSL Secured') }}
                 </div>
                 <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    GDPR Compliant
+                    {{ __('GDPR Compliant') }}
                 </div>
                 <div class="flex items-center gap-1.5 text-fn-text3 text-sm">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -303,7 +300,7 @@
                         <rect x="3" y="11" width="18" height="11" rx="2" />
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    Encrypted Session
+                    {{ __('Encrypted Session') }}
                 </div>
             </div>
 
@@ -328,7 +325,7 @@
         const btnText = document.getElementById('btn-text');
         const spinner = document.getElementById('btn-spinner');
         btn.disabled = true;
-        btnText.textContent = 'Signing in…';
+        btnText.textContent = {{ Illuminate\Support\Js::from(__('Signing in…')) }};
         spinner.classList.remove('hidden');
     });
 </script>

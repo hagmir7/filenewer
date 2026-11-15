@@ -18,7 +18,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Input Markdown</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Input Markdown') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -29,7 +29,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">2</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Converting</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Converting') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -40,7 +40,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">3</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Download') }}</span>
                 </div>
 
 
@@ -59,7 +59,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Write / Paste
+                            {{ __('Write / Paste') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -68,7 +68,7 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Upload .md
+                            {{ __('Upload .md') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB (editor + live preview) ══ --}}
@@ -84,7 +84,7 @@
                                         <path d="M12 20h9" />
                                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
                                     </svg>
-                                    Edit
+                                    {{ __('Edit') }}
                                 </button>
                                 <button type="button" id="editor-view-split"
                                     class="edit-view-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all">
@@ -93,7 +93,7 @@
                                         <rect x="3" y="3" width="18" height="18" rx="2" />
                                         <line x1="12" y1="3" x2="12" y2="21" />
                                     </svg>
-                                    Split
+                                    {{ __('Split') }}
                                 </button>
                                 <button type="button" id="editor-view-preview"
                                     class="edit-view-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all">
@@ -102,7 +102,7 @@
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                                         <circle cx="12" cy="12" r="3" />
                                     </svg>
-                                    Preview
+                                    {{ __('Preview') }}
                                 </button>
                             </div>
                             <div class="flex flex-wrap gap-1">
@@ -114,7 +114,7 @@
                                         <line x1="12" y1="8" x2="12" y2="12" />
                                         <line x1="12" y1="16" x2="12.01" y2="16" />
                                     </svg>
-                                    Sample
+                                    {{ __('Sample') }}
                                 </button>
                                 <button type="button" id="btn-paste"
                                     class="flex items-center gap-1 px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all">
@@ -124,10 +124,10 @@
                                             d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                         <rect x="8" y="2" width="8" height="4" rx="1" />
                                     </svg>
-                                    Paste
+                                    {{ __('Paste') }}
                                 </button>
                                 <button type="button" id="btn-clear"
-                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                    class="px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                             </div>
                         </div>
                         {{-- Editor + Preview panels --}}
@@ -135,12 +135,23 @@
                             {{-- Editor --}}
                             <div id="editor-pane">
                                 <textarea id="md-textarea" rows="14" spellcheck="false"
-                                    placeholder='Write or paste Markdown here, e.g.&#10;&#10;# My Report&#10;&#10;## Introduction&#10;This is a **bold** intro with *italic* text.&#10;&#10;- Point one&#10;- Point two&#10;&#10;| Name | Age |&#10;|------|-----|&#10;| Alice | 30 |'
+                                    placeholder="{{ __('Write or paste Markdown here, e.g.
+
+# My Report
+
+## Introduction
+This is a **bold** intro with *italic* text.
+
+- Point one
+- Point two
+
+| Name | Age |
+|------|-----|
+| Alice | 30 |') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                                 <div class="flex items-center justify-between text-fn-text3 text-xs mt-1.5">
-                                    <span id="md-meta">0 characters · 0 lines</span>
-                                    <span class="text-fn-text3/70">Supports GFM, tables, tasklists, code blocks,
-                                        HTML</span>
+                                    <span id="md-meta">{{ __('0 characters · 0 lines') }}</span>
+                                    <span class="text-fn-text3/70">{{ __('Supports GFM, tables, tasklists, code blocks, HTML') }}</span>
                                 </div>
                             </div>
                             {{-- Preview (hidden by default) --}}
@@ -148,12 +159,10 @@
                                 <div
                                     class="bg-fn-surface2 border border-fn-text/10 rounded-xl p-5 max-h-[360px] overflow-auto">
                                     <div id="live-preview" class="md-body">
-                                        <p class="text-fn-text3 text-sm text-center">Preview will appear here as you
-                                            type…</p>
+                                        <p class="text-fn-text3 text-sm text-center">{{ __('Preview will appear here as you type…') }}</p>
                                     </div>
                                 </div>
-                                <p class="text-fn-text3 text-xs mt-1.5">Rendered preview — the final .docx will closely
-                                    match this.</p>
+                                <p class="text-fn-text3 text-xs mt-1.5">{{ __('Rendered preview — the final .docx will closely match this.') }}</p>
                             </div>
                         </div>
                     </div>{{-- /panel-text --}}
@@ -167,8 +176,8 @@
                                     <span class="font-mono font-black text-3xl text-fn-green">M↓</span>
                                 </div>
                             </div>
-                            <h2 class="text-lg font-bold mb-2">Drop your Markdown file here</h2>
-                            <p class="text-fn-text3 text-sm mb-6">Supports .md and .markdown — or click to browse</p>
+                            <h2 class="text-lg font-bold mb-2">{{ __('Drop your Markdown file here') }}</h2>
+                            <p class="text-fn-text3 text-sm mb-6">{{ __('Supports .md and .markdown — or click to browse') }}</p>
                             <div
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -177,9 +186,9 @@
                                     <polyline points="17 8 12 3 7 8" />
                                     <line x1="12" y1="3" x2="12" y2="15" />
                                 </svg>
-                                Choose Markdown File
+                                {{ __('Choose Markdown File') }}
                             </div>
-                            <p class="text-fn-text3 text-sm mt-5">Max 200MB free</p>
+                            <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB free') }}</p>
                             <input type="file" id="file-input" accept=".md,.markdown,text/markdown,text/plain"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         </div>
@@ -190,7 +199,7 @@
                                 <span class="font-mono font-black text-base text-fn-green">M↓</span>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-sm truncate" id="file-name">document.md</p>
+                                <p class="font-semibold text-sm truncate" id="file-name">{{ __('document.md') }}</p>
                                 <p class="text-fn-text3 text-sm mt-0.5" id="file-meta">—</p>
                             </div>
                             <button type="button" id="remove-file"
@@ -206,50 +215,49 @@
                     {{-- Document settings --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
-                            <p class="text-sm font-semibold text-fn-text2">Document Settings</p>
-                            <span class="text-xs text-fn-text3">Optional — sensible defaults apply</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Document Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional — sensible defaults apply') }}</span>
                         </div>
                         {{-- Title --}}
                         <div>
                             <label for="opt-title" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                Document title
-                                <span class="font-normal text-fn-text3 ml-1">(adds as a big heading on first
-                                    page)</span>
+                                {{ __('Document title') }}
+                                <span class="font-normal text-fn-text3 ml-1">{{ __('(adds as a big heading on first page)') }}</span>
                             </label>
-                            <input type="text" id="opt-title" placeholder="e.g. Q4 Report — Internal"
+                            <input type="text" id="opt-title" placeholder="{{ __('e.g. Q4 Report — Internal') }}"
                                 class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                         </div>
                         {{-- Font + Size + Spacing + Page --}}
                         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Font</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Font') }}</label>
                                 <select id="opt-font"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 cursor-pointer focus:outline-none focus:border-fn-blue/40">
 
-                                    <option value="Calibri" selected>Calibri</option>
+                                    <option value="Calibri" selected>{{ __('Calibri') }}</option>
 
-                                    <option value="Arial">Arial</option>
+                                    <option value="Arial">{{ __('Arial') }}</option>
 
-                                    <option value="Times New Roman">Times New Roman</option>
+                                    <option value="Times New Roman">{{ __('Times New Roman') }}</option>
 
-                                    <option value="Georgia">Georgia</option>
+                                    <option value="Georgia">{{ __('Georgia') }}</option>
 
-                                    <option value="Verdana">Verdana</option>
+                                    <option value="Verdana">{{ __('Verdana') }}</option>
 
-                                    <option value="Courier New">Courier New</option>
+                                    <option value="Courier New">{{ __('Courier New') }}</option>
 
                                 </select>
                             </div>
                             <div>
                                 <label class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                    Size
-                                    <span class="font-normal text-fn-text3 text-xs" id="size-val">11pt</span>
+                                    {{ __('Size') }}
+                                    <span class="font-normal text-fn-text3 text-xs" id="size-val">{{ __('11pt') }}</span>
                                 </label>
                                 <input type="range" id="opt-size" min="6" max="72" value="11" step="1"
                                     class="w-full accent-fn-blue cursor-pointer" />
                             </div>
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Line spacing</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Line spacing') }}</label>
                                 <div class="flex flex-wrap gap-1">
 
                                     <button type="button"
@@ -271,15 +279,15 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Page size</label>
+                                <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Page size') }}</label>
                                 <select id="opt-page"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 cursor-pointer focus:outline-none focus:border-fn-blue/40">
 
                                     <option value="A4" selected>A4</option>
 
-                                    <option value="Letter">US Letter</option>
+                                    <option value="Letter">{{ __('US Letter') }}</option>
 
-                                    <option value="Legal">Legal</option>
+                                    <option value="Legal">{{ __('Legal') }}</option>
 
                                     <option value="A3">A3</option>
 
@@ -297,7 +305,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Convert button --}}
                     <button id="convert-btn" type="button" disabled
@@ -307,7 +315,7 @@
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                             <polyline points="14 2 14 8 20 8" />
                         </svg>
-                        Convert to Word
+                        {{ __('Convert to Word') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -337,15 +345,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Converting to Word…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Please wait, this usually takes just a few seconds</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Converting to Word…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Please wait, this usually takes just a few seconds') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -364,7 +372,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Uploading Markdown content</span>
+                            <span class="text-sm text-fn-text3">{{ __('Uploading Markdown content') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-2">
@@ -381,7 +389,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Parsing headings &amp; tables</span>
+                            <span class="text-sm text-fn-text3">{{ __('Parsing headings & tables') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-3">
@@ -398,7 +406,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Applying fonts &amp; styles</span>
+                            <span class="text-sm text-fn-text3">{{ __('Applying fonts & styles') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-4">
@@ -415,7 +423,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Building Word document</span>
+                            <span class="text-sm text-fn-text3">{{ __('Building Word document') }}</span>
                         </div>
 
                     </div>
@@ -432,8 +440,8 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Conversion Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6">Your Word document is ready.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Conversion Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6">{{ __('Your Word document is ready.') }}</p>
                     <div
                         class="max-w-sm mx-auto p-4 bg-fn-surface2 border border-fn-green/15 rounded-xl flex items-center gap-4 mb-6 text-left">
                         <div
@@ -449,7 +457,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">document.docx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Word Document</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Word Document') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -462,7 +470,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Word Document
+                        {{ __('Download Word Document') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -472,7 +480,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Convert another
+                            {{ __('Convert another') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -480,7 +488,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your file is encrypted and permanently deleted after processing.
+                        {{ __('Your file is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -490,13 +498,13 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What Markdown syntax is supported?</span>
+                    <span class="font-semibold text-sm">{{ __('What Markdown syntax is supported?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -504,20 +512,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">The full GitHub-Flavored Markdown set: headings
-                        (ATX # and Setext
-                        ===), bold, italic, strikethrough, inline and fenced code blocks, ordered and unordered lists,
-                        nested lists,
-                        task lists (- [ ] / - [x]), tables, blockquotes, horizontal rules, links, image placeholders,
-                        and a few raw
-                        HTML tags (&lt;u&gt;, &lt;mark&gt;, &lt;br&gt;).</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">The full GitHub-Flavored Markdown set: headings (ATX # and Setext ===), bold, italic, strikethrough, inline and fenced code blocks, ordered and unordered lists, nested lists, task lists (- [ ] / - [x]), tables, blockquotes, horizontal rules, links, image placeholders, and a few raw HTML tags (<u>, <mark>, <br>).</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Will tables and code blocks look good in Word?</span>
+                    <span class="font-semibold text-sm">{{ __('Will tables and code blocks look good in Word?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -525,17 +527,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — tables get a styled blue header row, code
-                        blocks get a grey background with a blue left border and Courier New font, and inline code is
-                        rendered in red monospace. Headings 1–6 use the built-in Word heading styles so your Table of
-                        Contents will work correctly.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — tables get a styled blue header row, code blocks get a grey background with a blue left border and Courier New font, and inline code is rendered in red monospace. Headings 1–6 use the built-in Word heading styles so your Table of Contents will work correctly.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Can I control the font and page size?</span>
+                    <span class="font-semibold text-sm">{{ __('Can I control the font and page size?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -543,18 +542,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — pick from Calibri, Arial, Times New Roman,
-                        Georgia,
-                        Verdana, or Courier New. Font size ranges from 6 to 72pt. Page size supports A4, Letter, Legal,
-                        and
-                        A3. Line spacing options are 1.0, 1.15 (default), 1.5, and 2.0.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — pick from Calibri, Arial, Times New Roman, Georgia, Verdana, or Courier New. Font size ranges from 6 to 72pt. Page size supports A4, Letter, Legal, and A3. Line spacing options are 1.0, 1.15 (default), 1.5, and 2.0.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Can I paste Markdown instead of uploading a file?</span>
+                    <span class="font-semibold text-sm">{{ __('Can I paste Markdown instead of uploading a file?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -562,18 +557,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — use the &quot;Write / Paste&quot; tab to
-                        paste or
-                        type Markdown directly. A live preview shows how it will look, then the final .docx closely
-                        matches
-                        that preview.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — use the "Write / Paste" tab to paste or type Markdown directly. A live preview shows how it will look, then the final .docx closely matches that preview.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Is my content safe and private?</span>
+                    <span class="font-semibold text-sm">{{ __('Is my content safe and private?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -581,9 +572,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
-                        transit. and are
-                        permanently deleted after processing. We never read, share or store your content.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted after processing. We never read, share or store your content.') }}</p>
                 </div>
             </div>
 
@@ -1052,7 +1041,7 @@ For questions, see the [contact page]\\(https://example.com).
   // ── Size slider ──
   const sizeSlider = document.getElementById('opt-size');
   sizeSlider.addEventListener('input', () => {
-    document.getElementById('size-val').textContent = sizeSlider.value + 'pt';
+    document.getElementById('size-val').textContent = sizeSlider.value + {{ Illuminate\Support\Js::from(__('pt')) }};
   });
   // ── Sample / Paste / Clear ──
   document.getElementById('btn-sample').addEventListener('click', () => {
@@ -1070,7 +1059,7 @@ For questions, see the [contact page]\\(https://example.com).
   mdTA.addEventListener('input', () => {
     const v = mdTA.value;
     const lines = v ? v.split('\n').length : 0;
-    document.getElementById('md-meta').textContent = v.length.toLocaleString() + ' characters · ' + lines + ' lines';
+    document.getElementById('md-meta').textContent = v.length.toLocaleString() + {{ Illuminate\Support\Js::from(__(' characters · ')) }} + lines + {{ Illuminate\Support\Js::from(__(' lines')) }};
     refreshConvertBtn();
     if (editorView === 'edit') return;
     clearTimeout(previewTimer);
@@ -1079,7 +1068,7 @@ For questions, see the [contact page]\\(https://example.com).
   function updatePreview() {
     const md = mdTA.value;
     if (!md.trim()) {
-      livePrev.innerHTML = '<p class="text-fn-text3 text-sm text-center">Preview will appear here as you type…</p>';
+      livePrev.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<p class="text-fn-text3 text-sm text-center">Preview will appear here as you type…</p>')) }};
       return;
     }
     try {
@@ -1092,7 +1081,7 @@ For questions, see the [contact page]\\(https://example.com).
     } catch (e) {
       console.warn('Preview render failed:', e);
       const esc = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      livePrev.innerHTML = '<pre style="white-space:pre-wrap;font-family:inherit;">' + esc + '</pre>';
+      livePrev.innerHTML = {{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<pre style="white-space:pre-wrap;font-family:inherit;">')) }} + esc + {{ Illuminate\Support\Js::from(__('</pre>')) }};
     }
   }
   // ── File drop zone ──
@@ -1109,16 +1098,16 @@ For questions, see the [contact page]\\(https://example.com).
     hideError();
     const name = file.name.toLowerCase();
     if (!name.match(/\.(md|markdown|txt)$/)) {
-      showError('Please select a valid Markdown file (.md or .markdown).');
+      showError({{ Illuminate\Support\Js::from(__('Please select a valid Markdown file (.md or .markdown).')) }});
       return;
     }
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     selectedFile = file;
     document.getElementById('file-name').textContent = file.name;
-    document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · Markdown';
+    document.getElementById('file-meta').textContent = formatBytes(file.size) + {{ Illuminate\Support\Js::from(__(' · Markdown')) }};
     filePreview.classList.remove('hidden');
     filePreview.classList.add('flex');
     dropZone.classList.add('has-file');
@@ -1178,18 +1167,18 @@ For questions, see the [contact page]\\(https://example.com).
       outName += '.docx';
     }
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 25, 500, 'Uploading Markdown content…');
+    animateProgress(0, 25, 500, {{ Illuminate\Support\Js::from(__('Uploading Markdown content…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(25, 55, 700, 'Parsing headings & tables…');
+      animateProgress(25, 55, 700, {{ Illuminate\Support\Js::from(__('Parsing headings & tables…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(55, 80, 700, 'Applying fonts & styles…');
+      animateProgress(55, 80, 700, {{ Illuminate\Support\Js::from(__('Applying fonts & styles…')) }});
     }, 1400);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(80, 92, 500, 'Building Word document…');
+      animateProgress(80, 92, 500, {{ Illuminate\Support\Js::from(__('Building Word document…')) }});
     }, 2200);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/markdown-to-word', {
@@ -1199,7 +1188,7 @@ For questions, see the [contact page]\\(https://example.com).
       });
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       if (!res.ok) {
-        let msg = 'Conversion failed. Please try again.';
+        let msg = {{ Illuminate\Support\Js::from(__('Conversion failed. Please try again.')) }};
         try { const d = await res.json(); if (d.error) msg = d.error; } catch (_) {}
         throw new Error(msg);
       }
@@ -1210,14 +1199,14 @@ For questions, see the [contact page]\\(https://example.com).
       link.href = blobUrl;
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · Word Document';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + {{ Illuminate\Support\Js::from(__(' · Word Document')) }};
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -1284,7 +1273,7 @@ For questions, see the [contact page]\\(https://example.com).
     document.getElementById('opt-title').value  = '';
     document.getElementById('opt-font').value   = 'Calibri';
     document.getElementById('opt-size').value   = 11;
-    document.getElementById('size-val').textContent = '11pt';
+    document.getElementById('size-val').textContent = {{ Illuminate\Support\Js::from(__('11pt')) }};
     document.getElementById('opt-page').value   = 'A4';
     activeSpacing = '1.15';
     document.querySelectorAll('.spacing-btn').forEach(b => b.classList.toggle('active', b.dataset.val === '1.15'));
@@ -1292,7 +1281,7 @@ For questions, see the [contact page]\\(https://example.com).
     setEditorView('edit');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

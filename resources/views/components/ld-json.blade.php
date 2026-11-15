@@ -5,9 +5,9 @@
     $webApplicationSchema = [
         '@context' => 'https://schema.org',
         '@type' => 'WebApplication',
-        'name' => $tool->name,
+        'name' => __($tool->name),
         'url' => $toolUrl,
-        'description' => $tool->description ?: $tool->title,
+        'description' => __(Str::squish($tool->description ?: $tool->title)),
         'applicationCategory' => 'UtilitiesApplication',
         'operatingSystem' => 'Any',
         'browserRequirements' => 'Requires JavaScript',
@@ -25,18 +25,18 @@
     ];
 
     $breadcrumbItems = [
-        ['name' => 'Home', 'item' => url('/')],
-        ['name' => 'Tools', 'item' => url('/tools')],
+        ['name' => __('Home'), 'item' => url('/')],
+        ['name' => __('Tools'), 'item' => url('/tools')],
     ];
 
     if ($category) {
         $breadcrumbItems[] = [
-            'name' => $category->title,
+            'name' => __($category->title),
             'item' => url('/tools') . '?' . http_build_query(['category' => $category->slug]),
         ];
     }
 
-    $breadcrumbItems[] = ['name' => $tool->name, 'item' => $toolUrl];
+    $breadcrumbItems[] = ['name' => __($tool->name), 'item' => $toolUrl];
 
     $breadcrumbSchema = [
         '@context' => 'https://schema.org',

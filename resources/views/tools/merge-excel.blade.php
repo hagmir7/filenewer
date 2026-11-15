@@ -17,7 +17,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">1</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Upload Files</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Upload Files') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -28,7 +28,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">2</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Merging</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Merging') }}</span>
                 </div>
 
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -39,7 +39,7 @@
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
                         <span class="text-sm font-bold">3</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">Download</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __('Download') }}</span>
                 </div>
 
 
@@ -63,10 +63,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <h2 class="text-lg font-bold mb-2">Drop your Excel files here</h2>
-                        <p class="text-fn-text3 text-sm mb-2">Supports .xlsx and .xls — select 2 or more files</p>
-                        <p class="text-fn-text3 text-xs mb-6">You can drag &amp; drop multiple files at once, or click
-                            to browse</p>
+                        <h2 class="text-lg font-bold mb-2">{{ __('Drop your Excel files here') }}</h2>
+                        <p class="text-fn-text3 text-sm mb-2">{{ __('Supports .xlsx and .xls — select 2 or more files') }}</p>
+                        <p class="text-fn-text3 text-xs mb-6">{{ __('You can drag & drop multiple files at once, or click to browse') }}</p>
                         <div
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-fn-blue hover:bg-fn-blue-l text-white text-sm font-semibold rounded-xl transition-all pointer-events-none">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -75,9 +74,9 @@
                                 <polyline points="17 8 12 3 7 8" />
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
-                            Choose Excel Files
+                            {{ __('Choose Excel Files') }}
                         </div>
-                        <p class="text-fn-text3 text-sm mt-5">Max 200MB per file · up to 20 files</p>
+                        <p class="text-fn-text3 text-sm mt-5">{{ __('Max 200MB per file · up to 20 files') }}</p>
                         <input type="file" id="file-input"
                             accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                             multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -85,7 +84,7 @@
                     {{-- File list --}}
                     <div id="file-list-wrap" class="hidden mt-5">
                         <div class="flex items-center justify-between mb-2">
-                            <p class="text-xs font-semibold text-fn-text2" id="file-count-label">0 files selected</p>
+                            <p class="text-xs font-semibold text-fn-text2" id="file-count-label">{{ __('0 files selected') }}</p>
                             <div class="flex gap-1.5">
                                 <label
                                     class="flex items-center gap-1.5 px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-text text-xs font-semibold rounded-lg transition-all cursor-pointer">
@@ -95,13 +94,12 @@
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
                                     </svg>
-                                    Add more
+                                    {{ __('Add more') }}
                                     <input type="file" id="add-more-input" accept=".xlsx,.xls" multiple
                                         class="sr-only" />
                                 </label>
                                 <button type="button" id="btn-clear-all"
-                                    class="px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear
-                                    all</button>
+                                    class="px-2.5 py-1.5 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear all') }}</button>
                             </div>
                         </div>
                         <div id="file-list" class="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1"></div>
@@ -109,14 +107,14 @@
                     {{-- Options --}}
                     <div class="mt-5 p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-4">
-                            <p class="text-sm font-semibold text-fn-text2">Merge Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-sm font-semibold text-fn-text2">{{ __('Merge Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
                         <div class="grid sm:grid-cols-2 gap-4">
                             {{-- Left: merge mode --}}
                             <div class="flex flex-col gap-3">
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Merge mode</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Merge mode') }}</label>
                                     <div class="flex flex-col gap-1.5">
 
                                         <label id="mode-stack-wrap"
@@ -135,10 +133,8 @@
                                                         d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
                                                 </svg></span>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-bold text-fn-text">Stack rows</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">Append same-named sheets
-                                                    row by
-                                                    row</p>
+                                                <p class="text-xs font-bold text-fn-text">{{ __('Stack rows') }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{{ __('Append same-named sheets row by row') }}</p>
                                             </div>
                                             <div
                                                 class="shrink-0 w-4 h-4 rounded-full border-2 border-fn-text/20 mode-radio-dot flex items-center justify-center transition-all">
@@ -165,9 +161,8 @@
                                                         d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
                                                 </svg></span>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-bold text-fn-text">Separate sheets</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">One tab per file
-                                                    — keep files distinct</p>
+                                                <p class="text-xs font-bold text-fn-text">{{ __('Separate sheets') }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{{ __('One tab per file — keep files distinct') }}</p>
                                             </div>
                                             <div
                                                 class="shrink-0 w-4 h-4 rounded-full border-2 border-fn-text/20 mode-radio-dot flex items-center justify-center transition-all">
@@ -192,9 +187,8 @@
                                                     <path d="M3 12l18 0" />
                                                 </svg></span>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-bold text-fn-text">Side by side</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">Place files horizontally
-                                                    for comparison</p>
+                                                <p class="text-xs font-bold text-fn-text">{{ __('Side by side') }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{{ __('Place files horizontally for comparison') }}</p>
                                             </div>
                                             <div
                                                 class="shrink-0 w-4 h-4 rounded-full border-2 border-fn-text/20 mode-radio-dot flex items-center justify-center transition-all">
@@ -208,8 +202,8 @@
                                 </div>
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename
-                                        <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }}
+                                        <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
                                     <input type="text" id="opt-filename" placeholder="merged.xlsx"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm rounded-lg px-3 py-2 font-sans focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
@@ -218,8 +212,7 @@
                             {{-- Right: stack options --}}
                             <div id="stack-options" class="flex flex-col gap-3">
                                 <div>
-                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">Stack
-                                        options</label>
+                                    <label class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Stack options') }}</label>
                                     <div class="flex flex-col gap-1.5">
 
                                         <label
@@ -235,10 +228,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-semibold text-fn-text2">Add source column</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">Prepend filename column
-                                                    to each merged
-                                                    row</p>
+                                                <p class="text-xs font-semibold text-fn-text2">{{ __('Add source column') }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{{ __('Prepend filename column to each merged row') }}</p>
                                             </div>
                                         </label>
 
@@ -255,9 +246,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-1 min-w-0">
-                                                <p class="text-xs font-semibold text-fn-text2">Skip empty sheets</p>
-                                                <p class="text-xs text-fn-text3 leading-tight">Ignore sheets with no
-                                                    data rows</p>
+                                                <p class="text-xs font-semibold text-fn-text2">{{ __('Skip empty sheets') }}</p>
+                                                <p class="text-xs text-fn-text3 leading-tight">{{ __('Ignore sheets with no data rows') }}</p>
                                             </div>
                                         </label>
 
@@ -266,13 +256,11 @@
                                 {{-- Source column name (shown only when source col enabled) --}}
                                 <div id="source-col-name-wrap">
                                     <label for="opt-source-col-name"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Source column
-                                        name</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Source column name') }}</label>
                                     <input type="text" id="opt-source-col-name" value="_source_file"
-                                        placeholder="_source_file"
+                                        placeholder="{{ __('_source_file') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-sm font-mono rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
-                                    <p class="text-xs text-fn-text3 mt-1">Column added to identify which file each row
-                                        came from</p>
+                                    <p class="text-xs text-fn-text3 mt-1">{{ __('Column added to identify which file each row came from') }}</p>
                                 </div>
                                 {{-- Summary sheet note --}}
                                 <div
@@ -284,9 +272,8 @@
                                         <line x1="12" y1="8" x2="12" y2="12" />
                                         <line x1="12" y1="16" x2="12.01" y2="16" />
                                     </svg>
-                                    <p class="text-xs text-fn-text2 leading-relaxed">Every output includes a <span
-                                            class="font-semibold font-mono">_Merge Summary</span> sheet listing every
-                                        file, sheet, row count, and column count merged.</p>
+                                    <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Every output includes a') }} <span
+                                            class="font-semibold font-mono">{{ __('_Merge Summary') }}</span> {{ __('sheet listing every file, sheet, row count, and column count merged.') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -301,7 +288,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     <button id="convert-btn" type="button" disabled
                         class="mt-6 w-full py-3.5 bg-fn-blue text-white font-bold text-base rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:enabled:bg-fn-blue-l hover:enabled:-translate-y-0.5 flex items-center justify-center gap-2">
@@ -312,7 +299,7 @@
                             <line x1="3" y1="15" x2="21" y2="15" />
                             <line x1="9" y1="3" x2="9" y2="21" />
                         </svg>
-                        <span id="merge-btn-label">Merge Excel Files</span>
+                        <span id="merge-btn-label">{{ __('Merge Excel Files') }}</span>
                     </button>
                 </div>
                 {{-- ── STATE: Merging ── --}}
@@ -338,16 +325,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2" id="merging-title">Merging Excel Files…</h2>
-                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">Reading sheets, aligning columns
-                        &amp; writing workbook</p>
+                    <h2 class="text-xl font-bold mb-2" id="merging-title">{{ __('Merging Excel Files…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8" id="converting-subtitle">{{ __('Reading sheets, aligning columns & writing workbook') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -366,7 +352,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Reading all Excel files</span>
+                            <span class="text-sm text-fn-text3">{{ __('Reading all Excel files') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-2">
@@ -383,7 +369,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Parsing sheets &amp; columns</span>
+                            <span class="text-sm text-fn-text3">{{ __('Parsing sheets & columns') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-3">
@@ -400,7 +386,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Applying merge strategy</span>
+                            <span class="text-sm text-fn-text3">{{ __('Applying merge strategy') }}</span>
                         </div>
 
                         <div class="flex items-center gap-3" id="proc-4">
@@ -417,7 +403,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">Writing output workbook</span>
+                            <span class="text-sm text-fn-text3">{{ __('Writing output workbook') }}</span>
                         </div>
 
                     </div>
@@ -434,12 +420,11 @@
                             <path d="M9 12l2 2l4 -4" />
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">Merge Complete!</h2>
-                    <p class="text-fn-text2 text-sm mb-6" id="download-subtitle">Your merged workbook is ready to open
-                        in Excel or Google Sheets.</p>
+                    <h2 class="text-2xl font-bold mb-2">{{ __('Merge Complete!') }}</h2>
+                    <p class="text-fn-text2 text-sm mb-6" id="download-subtitle">{{ __('Your merged workbook is ready to open in Excel or Google Sheets.') }}</p>
                     {{-- Result chips --}}
                     <div id="result-info-wrap" class="hidden max-w-2xl mx-auto mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Merge details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Merge details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-chips"></div>
                     </div>
                     <div
@@ -462,13 +447,13 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="font-semibold text-sm truncate" id="output-name">merged.xlsx</p>
-                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">Excel Workbook</p>
+                            <p class="text-fn-text3 text-sm mt-0.5" id="output-size">{{ __('Excel Workbook') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
                     {{-- Sheets out list --}}
                     <div id="sheets-out-wrap" class="hidden max-w-sm mx-auto mb-6 text-left">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2">Sheets in output</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2">{{ __('Sheets in output') }}</p>
                         <div class="flex flex-wrap gap-1.5" id="sheets-out-list"></div>
                     </div>
                     <a id="download-link" href="#" download="merged.xlsx"
@@ -480,7 +465,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Merged File
+                        {{ __('Download Merged File') }}
                     </a>
                     <div class="flex items-center justify-center gap-3 flex-wrap">
                         <button type="button" onclick="resetConverter()"
@@ -490,7 +475,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Merge another batch
+                            {{ __('Merge another batch') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -498,7 +483,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your files are encrypted and permanently deleted after processing.
+                        {{ __('Your files are encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>
@@ -508,8 +493,8 @@
 {{-- ══ MODES REFERENCE ══ --}}
 <section class="py-12 border-t border-fn-text/7 bg-fn-surface2">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-lg font-bold mb-1 text-center">Merge Modes Explained</h2>
-        <p class="text-fn-text3 text-sm text-center mb-6">Three strategies to combine your Excel files</p>
+        <h2 class="text-lg font-bold mb-1 text-center">{{ __('Merge Modes Explained') }}</h2>
+        <p class="text-fn-text3 text-sm text-center mb-6">{{ __('Three strategies to combine your Excel files') }}</p>
         <div class="grid sm:grid-cols-3 gap-4">
 
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -524,15 +509,11 @@
                             <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
                         </svg></span>
                     <div>
-                        <p class="font-bold text-sm">Stack rows</p>
+                        <p class="font-bold text-sm">{{ __('Stack rows') }}</p>
                         <code class="text-xs font-mono text-fn-text3">stack</code>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed">Sheets with the same name are combined row by row — all
-                    January
-                    &quot;Sales&quot; sheets stack into one &quot;Sales&quot; sheet. Best for monthly reports or log
-                    files with identical
-                    structure.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Sheets with the same name are combined row by row — all January "Sales" sheets stack into one "Sales" sheet. Best for monthly reports or log files with identical structure.') }}</p>
             </div>
 
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -547,14 +528,11 @@
                             <path d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
                         </svg></span>
                     <div>
-                        <p class="font-bold text-sm">Separate sheets</p>
+                        <p class="font-bold text-sm">{{ __('Separate sheets') }}</p>
                         <code class="text-xs font-mono text-fn-text3">separate_sheets</code>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed">Each file gets its own tab in the output
-                    workbook. Sheet names are prefixed with the source filename to avoid collisions. Best for keeping
-                    files
-                    distinct inside one workbook.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Each file gets its own tab in the output workbook. Sheet names are prefixed with the source filename to avoid collisions. Best for keeping files distinct inside one workbook.') }}</p>
             </div>
 
             <div class="p-5 bg-fn-surface border border-fn-text/8 rounded-2xl">
@@ -569,13 +547,11 @@
                             <path d="M3 12l18 0" />
                         </svg></span>
                     <div>
-                        <p class="font-bold text-sm">Side by side</p>
+                        <p class="font-bold text-sm">{{ __('Side by side') }}</p>
                         <code class="text-xs font-mono text-fn-text3">side_by_side</code>
                     </div>
                 </div>
-                <p class="text-xs text-fn-text2 leading-relaxed">Files are placed horizontally on the same sheet with
-                    a
-                    label column separating each. Best for comparisons — budget vs actuals, forecast vs results.</p>
+                <p class="text-xs text-fn-text2 leading-relaxed">{{ __('Files are placed horizontally on the same sheet with a label column separating each. Best for comparisons — budget vs actuals, forecast vs results.') }}</p>
             </div>
 
         </div>
@@ -584,13 +560,13 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-6">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">How many files can I merge at once?</span>
+                    <span class="font-semibold text-sm">{{ __('How many files can I merge at once?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -598,19 +574,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">You can merge up to 20 Excel files in a single
-                        request, with a
-                        maximum of 200MB per file. There is no hard limit on total rows — the output workbook will
-                        contain all data
-                        from all files.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('You can merge up to 20 Excel files in a single request, with a maximum of 200MB per file. There is no hard limit on total rows — the output workbook will contain all data from all files.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What happens when sheets have different column names in Stack
-                        mode?</span>
+                    <span class="font-semibold text-sm">{{ __('What happens when sheets have different column names in Stack mode?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -618,17 +589,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">In stack mode, columns are aligned
-                        by name. If a file has extra columns not present in other files, those columns are included with
-                        blank
-                        values for rows from files that do not have them. This ensures no data is lost.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('In stack mode, columns are aligned by name. If a file has extra columns not present in other files, those columns are included with blank values for rows from files that do not have them. This ensures no data is lost.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What is the _Merge Summary sheet?</span>
+                    <span class="font-semibold text-sm">{{ __('What is the _Merge Summary sheet?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -636,18 +604,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Every output workbook includes a _Merge Summary as
-                        the first tab. It
-                        lists every source file, the sheets that were processed, and the row and column counts for each.
-                        This gives
-                        you an audit trail of exactly what went into the merge.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Every output workbook includes a _Merge Summary as the first tab. It lists every source file, the sheets that were processed, and the row and column counts for each. This gives you an audit trail of exactly what went into the merge.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">What does the source column do?</span>
+                    <span class="font-semibold text-sm">{{ __('What does the source column do?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -655,18 +619,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">In stack mode, enabling &quot;Add source
-                        column&quot; prepends a column to every
-                        merged row containing the original filename. This lets you filter or group by source after
-                        merging. You can
-                        rename the column with the source column name field.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('In stack mode, enabling "Add source column" prepends a column to every merged row containing the original filename. This lets you filter or group by source after merging. You can rename the column with the source column name field.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Can I reorder the files before merging?</span>
+                    <span class="font-semibold text-sm">{{ __('Can I reorder the files before merging?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -674,18 +634,14 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">Yes — after selecting files you can drag them into
-                        your
-                        preferred order using the handle on the left of each file row. The files are merged in the order
-                        they are
-                        listed, which affects row order in stack mode and tab order in separate sheets mode.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('Yes — after selecting files you can drag them into your preferred order using the handle on the left of each file row. The files are merged in the order they are listed, which affects row order in stack mode and tab order in separate sheets mode.') }}</p>
                 </div>
             </div>
 
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">Are my files safe and private?</span>
+                    <span class="font-semibold text-sm">{{ __('Are my files safe and private?') }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -693,9 +649,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">All uploads use TLS 1.3 / HTTPS encryption in
-                        transit. and are permanently
-                        deleted after processing. We never read, share, or store your content.</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __('All uploads use TLS 1.3 / HTTPS encryption in transit. and are permanently deleted after processing. We never read, share, or store your content.') }}</p>
                 </div>
             </div>
 
@@ -927,8 +881,8 @@
     });
   });
   function updateMergeBtn(mode) {
-    const labels = { stack: 'Merge Excel Files', separate_sheets: 'Merge into Separate Sheets', side_by_side: 'Merge Side by Side' };
-    document.getElementById('merge-btn-label').textContent = labels[mode] || 'Merge Excel Files';
+    const labels = { stack: {{ Illuminate\Support\Js::from(__('Merge Excel Files')) }}, separate_sheets: 'Merge into Separate Sheets', side_by_side: 'Merge Side by Side' };
+    document.getElementById('merge-btn-label').textContent = labels[mode] || {{ Illuminate\Support\Js::from(__('Merge Excel Files')) }};
   }
   // ── Source col toggle ──
   document.getElementById('opt-source-col').addEventListener('change', function () {
@@ -950,7 +904,7 @@
     hideError();
     const valid = newFiles.filter(f => f.name.match(/\.(xlsx|xls)$/i));
     const tooBig = valid.filter(f => f.size > 50 * 1024 * 1024);
-    if (tooBig.length) { showError(`${tooBig.map(f => f.name).join(', ')} exceed${tooBig.length === 1 ? 's' : ''} the 200MB limit.`); }
+    if (tooBig.length) { showError(({{ Illuminate\Support\Js::from(__(':value0 exceed:value1 the 200MB limit.')) }}).replaceAll(/:value0(?!\d)/g, () => String(tooBig.map(f => f.name).join(', '))).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (tooBig.length === 1)) ? 's' : ''))); }
     const ok = valid.filter(f => f.size <= 50 * 1024 * 1024);
     // Deduplicate by name+size
     ok.forEach(f => {
@@ -958,7 +912,7 @@
     });
     if (fileList.length > 20) {
       fileList = fileList.slice(0, 20);
-      showError('Maximum 20 files — extra files were removed.');
+      showError({{ Illuminate\Support\Js::from(__('Maximum 20 files — extra files were removed.')) }});
     }
     renderFileList();
     refreshConvertBtn();
@@ -968,14 +922,14 @@
     const list = document.getElementById('file-list');
     if (fileList.length === 0) { wrap.classList.add('hidden'); return; }
     wrap.classList.remove('hidden');
-    document.getElementById('file-count-label').textContent = `${fileList.length} file${fileList.length !== 1 ? 's' : ''} selected`;
+    document.getElementById('file-count-label').textContent = ({{ Illuminate\Support\Js::from(__(':value0 file:value1 selected')) }}).replaceAll(/:value0(?!\d)/g, () => String(fileList.length)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (fileList.length !== 1)) ? 's' : ''));
     list.innerHTML = '';
     fileList.forEach((file, idx) => {
       const row = document.createElement('div');
       row.className    = 'file-row';
       row.draggable    = true;
       row.dataset.idx  = idx;
-      row.innerHTML = `
+      row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <div class="drag-handle" title="Drag to reorder">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
         </div>
@@ -983,13 +937,13 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: oklch(55% 0.18 162)"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
         </div>
         <div class="flex-1 min-w-0">
-          <p class="text-sm font-semibold truncate file-row-name">${escHtml(file.name)}</p>
-          <p class="text-xs text-fn-text3">${formatBytes(file.size)}</p>
+          <p class="text-sm font-semibold truncate file-row-name">:value0</p>
+          <p class="text-xs text-fn-text3">:value1</p>
         </div>
-        <span class="text-xs text-fn-text3 shrink-0 font-mono">#${idx + 1}</span>
+        <span class="text-xs text-fn-text3 shrink-0 font-mono">#:value2</span>
         <button type="button" class="remove-btn shrink-0 w-7 h-7 flex items-center justify-center rounded-lg hover:bg-fn-red/10 text-fn-text3 hover:text-fn-red transition-all">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>`;
+        </button>')) }}).replaceAll(/:value0(?!\d)/g, () => String(escHtml(file.name))).replaceAll(/:value1(?!\d)/g, () => String(formatBytes(file.size))).replaceAll(/:value2(?!\d)/g, () => String(idx + 1));
       // Remove button
       row.querySelector('.remove-btn').addEventListener('click', () => {
         fileList.splice(idx, 1);
@@ -1022,8 +976,8 @@
     convertBtn.disabled = fileList.length < 2;
     document.getElementById('merge-btn-label').textContent =
       fileList.length < 2
-        ? `Select at least 2 files (${fileList.length} selected)`
-        : { stack: 'Merge Excel Files', separate_sheets: 'Merge into Separate Sheets', side_by_side: 'Merge Side by Side' }[document.querySelector('input[name="merge_mode"]:checked').value] || 'Merge Excel Files';
+        ? ({{ Illuminate\Support\Js::from(__('Select at least 2 files (:value0 selected)')) }}).replaceAll(/:value0(?!\d)/g, () => String(fileList.length))
+        : { stack: {{ Illuminate\Support\Js::from(__('Merge Excel Files')) }}, separate_sheets: 'Merge into Separate Sheets', side_by_side: 'Merge Side by Side' }[document.querySelector('input[name="merge_mode"]:checked').value] || {{ Illuminate\Support\Js::from(__('Merge Excel Files')) }};
   }
   // ── Merge ──
   convertBtn.addEventListener('click', startMerge);
@@ -1042,7 +996,7 @@
       : 'merged.xlsx';
     const modeLabels = { stack: 'stacking rows', separate_sheets: 'creating separate sheets', side_by_side: 'placing side by side' };
     document.getElementById('converting-subtitle').textContent =
-      `${fileList.length} files — ${modeLabels[mode] || 'merging'}`;
+      ({{ Illuminate\Support\Js::from(__(':value0 files — :value1')) }}).replaceAll(/:value0(?!\d)/g, () => String(fileList.length)).replaceAll(/:value1(?!\d)/g, () => String(modeLabels[mode] || 'merging'));
     // Build merging icons (up to 3 file icons)
     const iconsEl = document.getElementById('merging-icons');
     iconsEl.innerHTML = '';
@@ -1062,7 +1016,7 @@
     if (fileList.length > 3) {
       const more = document.createElement('span');
       more.className = 'text-fn-text3 text-xs font-semibold ml-1';
-      more.textContent = `+${fileList.length - 3} more`;
+      more.textContent = ({{ Illuminate\Support\Js::from(__('+:value0 more')) }}).replaceAll(/:value0(?!\d)/g, () => String(fileList.length - 3));
       iconsEl.appendChild(more);
     }
     const fd = new FormData();
@@ -1072,18 +1026,18 @@
     fd.append('source_col_name', srcColName);
     fd.append('skip_empty',      skipEmpty);
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 22, 500, 'Reading all Excel files…');
+    animateProgress(0, 22, 500, {{ Illuminate\Support\Js::from(__('Reading all Excel files…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(22, 50, 700, 'Parsing sheets & columns…');
+      animateProgress(22, 50, 700, {{ Illuminate\Support\Js::from(__('Parsing sheets & columns…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(50, 78, 800, `Applying ${mode.replace('_', ' ')} strategy…`);
+      animateProgress(50, 78, 800, ({{ Illuminate\Support\Js::from(__('Applying :value0 strategy…')) }}).replaceAll(/:value0(?!\d)/g, () => String(mode.replace('_', ' '))));
     }, 1400);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(78, 92, 600, 'Writing output workbook…');
+      animateProgress(78, 92, 600, {{ Illuminate\Support\Js::from(__('Writing output workbook…')) }});
     }, 2300);
     try {
       const res = await fetch('https://api.filenewer.com/api/tools/merge-excel', {
@@ -1110,18 +1064,18 @@
       link.download = outName;
       document.getElementById('output-name').textContent = outName;
       document.getElementById('output-size').textContent =
-        (sizeKb ? (sizeKb / 1024).toFixed(2) + ' MB' : formatBytes(blob.size)) + ' · Excel Workbook';
+        (sizeKb ? (sizeKb / 1024).toFixed(2) + {{ Illuminate\Support\Js::from(__(' MB')) }} : formatBytes(blob.size)) + {{ Illuminate\Support\Js::from(__(' · Excel Workbook')) }};
       document.getElementById('download-subtitle').textContent =
-        `${filesMerged} file${filesMerged != 1 ? 's' : ''} merged successfully — ready to open in Excel or Google Sheets.`;
+        ({{ Illuminate\Support\Js::from(__(':value0 file:value1 merged successfully — ready to open in Excel or Google Sheets.')) }}).replaceAll(/:value0(?!\d)/g, () => String(filesMerged)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (filesMerged != 1)) ? 's' : ''));
       renderResultChips({ filesMerged, totalRows, resMode });
       renderSheetsOut(sheetsOut);
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -1130,13 +1084,13 @@
     const wrap = document.getElementById('result-info-wrap');
     const list = document.getElementById('result-chips');
     list.innerHTML = '';
-    const chips = [['chip-files', 'Files merged', filesMerged + '']];
-    if (totalRows) chips.push(['chip-rows', 'Total rows', Number(totalRows).toLocaleString()]);
-    if (resMode)   chips.push(['chip-mode', 'Mode', resMode.replace('_', ' ')]);
+    const chips = [['chip-files', {{ Illuminate\Support\Js::from(__('Files merged')) }}, filesMerged + '']];
+    if (totalRows) chips.push(['chip-rows', {{ Illuminate\Support\Js::from(__('Total rows')) }}, Number(totalRows).toLocaleString()]);
+    if (resMode)   chips.push(['chip-mode', {{ Illuminate\Support\Js::from(__('Mode')) }}, resMode.replace('_', ' ')]);
     chips.forEach(([cls, label, val]) => {
       const chip = document.createElement('div');
       chip.className = 'chip-item ' + cls;
-      chip.innerHTML = `<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">${val}</span>`;
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<span class="chip-dot"></span><span class="chip-label"></span><span style="opacity:.6;margin-left:2px;font-family:monospace;font-size:10px;">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(val));
       chip.querySelector('.chip-label').textContent = label;
       list.appendChild(chip);
     });
@@ -1230,7 +1184,7 @@
     document.getElementById('sheets-out-wrap').classList.add('hidden');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

@@ -8,17 +8,18 @@
         <!-- Desktop Links -->
         <ul class="hidden lg:flex items-center gap-8 list-none">
             <li><a href="/#features"
-                    class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Features</a></li>
+                    class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">{{ __('Features') }}</a></li>
             <li><a href="/tools"
-                    class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Tools</a></li>
+                    class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">{{ __('Tools') }}</a></li>
             <li><a href="/#security"
-                    class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Security</a></li>
-            <li><a href="/blog" class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">Blog</a>
+                    class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">{{ __('Security') }}</a></li>
+            <li><a href="/blog" class="text-fn-text2 text-sm font-medium hover:text-fn-text transition-colors">{{ __('Blog') }}</a>
             </li>
         </ul>
 
         <!-- CTAs -->
         <div class="flex items-center gap-3">
+            <x-language-switcher />
             @if (auth()->user())
 
             <a href="{{ route('logout') }}"
@@ -29,21 +30,21 @@
                     <polyline points="16 17 21 12 16 7" />
                     <line x1="21" y1="12" x2="9" y2="12" />
                 </svg>
-                <span>Logout</span>
+                <span>{{ __('Logout') }}</span>
             </a>
 
             @else
 
             <a href="/login"
                 class="hidden sm:inline-flex items-center px-2 md:px-4 py-1.5 md:py-2 text-sm md:text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
-                Sign In
+                {{ __('Sign In') }}
             </a>
 
             @endif
 
             <!-- Hamburger (mobile + tablet only) -->
             <button type="button" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu"
-                aria-label="Toggle menu"
+                aria-label="{{ __('Toggle menu') }}"
                 class="lg:hidden inline-flex items-center justify-center w-10 h-10 text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface transition-all">
                 <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -65,23 +66,23 @@
                transition-all duration-200 ease-out opacity-0 -translate-y-2 scale-95 invisible pointer-events-none">
         <ul class="max-w-6xl mx-auto px-6 py-4 flex flex-col list-none">
             <li><a href="/#features"
-                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">Features</a>
+                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">{{ __('Features') }}</a>
             </li>
             <li><a href="/tools"
-                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">Tools</a>
+                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">{{ __('Tools') }}</a>
             </li>
             <li><a href="/#security"
-                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">Security</a>
+                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">{{ __('Security') }}</a>
             </li>
             <li><a href="/blog"
-                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">Blog</a>
+                    class="block py-3 text-fn-text2 text-base font-medium hover:text-fn-text transition-colors">{{ __('Blog') }}</a>
             </li>
 
             @guest
             <li class="sm:hidden mt-2 pt-4 border-t border-white/[0.07]">
                 <a href="/login"
                     class="block text-center px-4 py-2.5 text-sm font-semibold text-fn-text2 border border-white/[0.07] rounded-lg hover:text-fn-text hover:bg-fn-surface hover:border-white/[0.15] transition-all">
-                    Sign In
+                    {{ __('Sign In') }}
                 </a>
             </li>
             @endguest

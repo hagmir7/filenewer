@@ -15,9 +15,9 @@
                 <div class="step-item {{ $n === '1' ? 'active' : '' }} flex items-center gap-2" id="step-{{ $n }}">
                     <div
                         class="step-dot w-6 h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-sm font-bold">{{ $n }}</span>
+                        <span class="text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
-                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ $label }}</span>
+                    <span class="step-label text-sm font-semibold text-fn-text3 transition-colors">{{ __(Str::squish($label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-10 h-px bg-fn-text/10 mx-2"></div>
@@ -38,7 +38,7 @@
                                 <line x1="9" y1="20" x2="15" y2="20" />
                                 <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
-                            Compare Text
+                            {{ __('Compare Text') }}
                         </button>
                         <button type="button" id="tab-file" aria-pressed="false"
                             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all">
@@ -47,7 +47,7 @@
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                 <polyline points="14 2 14 8 20 8" />
                             </svg>
-                            Compare Files
+                            {{ __('Compare Files') }}
                         </button>
                     </div>
                     {{-- ══ TEXT TAB ══ --}}
@@ -59,7 +59,7 @@
                                     <label class="text-sm font-semibold text-fn-text2">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l font-bold text-xs">A</span>
-                                        Original
+                                        {{ __('Original') }}
                                     </label>
                                     <div class="compare-actions flex flex-wrap gap-1">
                                         <button type="button" data-paste-target="text1-area"
@@ -71,17 +71,17 @@
                                                     d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                                 <rect x="8" y="2" width="8" height="4" rx="1" />
                                             </svg>
-                                            Paste
+                                            {{ __('Paste') }}
                                         </button>
                                         <button type="button" data-clear-target="text1-area"
-                                            class="clear-btn px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                            class="clear-btn px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                     </div>
                                 </div>
                                 <textarea id="text1-area" rows="12" spellcheck="false"
-                                    placeholder="Paste the original text here…"
+                                    placeholder="{{ __('Paste the original text here…') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                                 <div class="flex justify-between text-fn-text3 text-xs mt-1.5">
-                                    <span id="text1-meta">0 lines · 0 chars</span>
+                                    <span id="text1-meta">{{ __('0 lines · 0 chars') }}</span>
                                 </div>
                             </div>
                             {{-- Text 2 --}}
@@ -90,7 +90,7 @@
                                     <label class="text-sm font-semibold text-fn-text2">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-fn-green/10 border border-fn-green/20 text-fn-green font-bold text-xs">B</span>
-                                        Modified
+                                        {{ __('Modified') }}
                                     </label>
                                     <div class="compare-actions flex flex-wrap gap-1">
                                         <button type="button" data-paste-target="text2-area"
@@ -102,17 +102,17 @@
                                                     d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                                                 <rect x="8" y="2" width="8" height="4" rx="1" />
                                             </svg>
-                                            Paste
+                                            {{ __('Paste') }}
                                         </button>
                                         <button type="button" data-clear-target="text2-area"
-                                            class="clear-btn px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">Clear</button>
+                                            class="clear-btn px-2 py-1 bg-fn-surface border border-fn-text/10 text-fn-text3 hover:text-fn-red text-xs font-semibold rounded-lg transition-all">{{ __('Clear') }}</button>
                                     </div>
                                 </div>
                                 <textarea id="text2-area" rows="12" spellcheck="false"
-                                    placeholder="Paste the modified text here…"
+                                    placeholder="{{ __('Paste the modified text here…') }}"
                                     class="w-full bg-fn-surface2 border border-fn-text/10 text-fn-text text-sm font-mono rounded-xl px-4 py-3 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/40 resize-none leading-relaxed"></textarea>
                                 <div class="flex justify-between text-fn-text3 text-xs mt-1.5">
-                                    <span id="text2-meta">0 lines · 0 chars</span>
+                                    <span id="text2-meta">{{ __('0 lines · 0 chars') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                                 <label class="text-sm font-semibold text-fn-text2 mb-2 flex items-center gap-2">
                                     <span
                                         class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-fn-blue/10 border border-fn-blue/20 text-fn-blue-l font-bold text-xs">A</span>
-                                    Original File
+                                    {{ __('Original File') }}
                                 </label>
                                 <div id="drop-zone-1" data-slot="1"
                                     class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-8 text-center cursor-pointer hover:border-fn-blue/40 hover:bg-fn-blue/4 relative">
@@ -142,11 +142,11 @@
                                             <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                                         </svg>
                                     </div>
-                                    <h2 class="text-sm font-bold mb-1">Drop file A here</h2>
-                                    <p class="text-fn-text3 text-xs mb-3">or click to browse</p>
+                                    <h2 class="text-sm font-bold mb-1">{{ __('Drop file A here') }}</h2>
+                                    <p class="text-fn-text3 text-xs mb-3">{{ __('or click to browse') }}</p>
                                     <div
                                         class="inline-flex items-center gap-2 px-3 py-1.5 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
-                                        Choose File
+                                        {{ __('Choose File') }}
                                     </div>
                                     <input type="file" data-slot="1"
                                         class="file-input absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -186,7 +186,7 @@
                                 <label class="text-sm font-semibold text-fn-text2 mb-2 flex items-center gap-2">
                                     <span
                                         class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-fn-green/10 border border-fn-green/20 text-fn-green font-bold text-xs">B</span>
-                                    Modified File
+                                    {{ __('Modified File') }}
                                 </label>
                                 <div id="drop-zone-2" data-slot="2"
                                     class="drop-zone border-2 border-dashed border-fn-text/15 rounded-2xl p-8 text-center cursor-pointer hover:border-fn-green/40 hover:bg-fn-green/4 relative">
@@ -203,11 +203,11 @@
                                             <path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" />
                                         </svg>
                                     </div>
-                                    <h2 class="text-sm font-bold mb-1">Drop file B here</h2>
-                                    <p class="text-fn-text3 text-xs mb-3">or click to browse</p>
+                                    <h2 class="text-sm font-bold mb-1">{{ __('Drop file B here') }}</h2>
+                                    <p class="text-fn-text3 text-xs mb-3">{{ __('or click to browse') }}</p>
                                     <div
                                         class="inline-flex items-center gap-2 px-3 py-1.5 bg-fn-blue text-white text-xs font-semibold rounded-lg pointer-events-none">
-                                        Choose File
+                                        {{ __('Choose File') }}
                                     </div>
                                     <input type="file" data-slot="2"
                                         class="file-input absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -249,21 +249,21 @@
                         <div class="flex flex-wrap items-center gap-4">
                             {{-- Compare mode --}}
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-semibold text-fn-text2 shrink-0">Compare by</span>
+                                <span class="text-xs font-semibold text-fn-text2 shrink-0">{{ __('Compare by') }}</span>
                                 <div class="compare-actions flex flex-wrap gap-1">
                                     @foreach([['line','Line'],['word','Word'],['char','Char'],['sentence','Sentence']]
                                     as [$cval, $clabel])
                                     <button type="button"
                                         class="mode-btn {{ $cval === 'line' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
                                         data-mode="{{ $cval }}"
-                                        aria-pressed="{{ $cval === 'line' ? 'true' : 'false' }}">{{ $clabel }}</button>
+                                        aria-pressed="{{ $cval === 'line' ? 'true' : 'false' }}">{{ __(Str::squish((string) $clabel)) }}</button>
                                     @endforeach
                                 </div>
                             </div>
                             <div class="w-px h-5 bg-fn-text/10 hidden sm:block"></div>
                             {{-- Output format --}}
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-semibold text-fn-text2 shrink-0">View</span>
+                                <span class="text-xs font-semibold text-fn-text2 shrink-0">{{ __('View') }}</span>
                                 <div class="compare-actions flex flex-wrap gap-1">
                                     @foreach([['side_by_side','Side by
                                     side'],['unified','Unified'],['html','Inline'],['json','Raw JSON']] as [$fval,
@@ -271,8 +271,7 @@
                                     <button type="button"
                                         class="format-btn {{ $fval === 'side_by_side' ? 'active' : '' }} px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all"
                                         data-format="{{ $fval }}"
-                                        aria-pressed="{{ $fval === 'side_by_side' ? 'true' : 'false' }}">{{ $flabel
-                                        }}</button>
+                                        aria-pressed="{{ $fval === 'side_by_side' ? 'true' : 'false' }}">{{ __(Str::squish((string) $flabel)) }}</button>
                                     @endforeach
                                 </div>
                             </div>
@@ -294,15 +293,15 @@
                                         class="toggle-thumb absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow transition-transform peer-checked:translate-x-4">
                                     </div>
                                 </div>
-                                <span class="text-xs font-semibold text-fn-text2">{{ $tlabel }}</span>
+                                <span class="text-xs font-semibold text-fn-text2">{{ __(Str::squish((string) $tlabel)) }}</span>
                             </label>
                             @endforeach
                             {{-- Context lines --}}
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-semibold text-fn-text2">Context</span>
+                                <span class="text-xs font-semibold text-fn-text2">{{ __('Context') }}</span>
                                 <input type="number" id="opt-context" value="3" min="0" max="20"
                                     class="w-14 bg-fn-surface border border-fn-text/10 text-fn-text text-xs rounded-lg px-2 py-1 font-mono focus:outline-none focus:border-fn-blue/40" />
-                                <span class="text-xs text-fn-text3">lines</span>
+                                <span class="text-xs text-fn-text3">{{ __('lines') }}</span>
                             </div>
                         </div>
                     </div>
@@ -316,7 +315,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
                     {{-- Compare button --}}
                     <button id="convert-btn" type="button" disabled
@@ -329,7 +328,7 @@
                             <path d="m15 15 6 6" />
                             <path d="M4 4l5 5" />
                         </svg>
-                        Compare
+                        {{ __('Compare') }}
                     </button>
                 </div>
                 {{-- ── STATE: Converting ── --}}
@@ -368,15 +367,15 @@
                             </svg>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mb-2">Comparing…</h2>
-                    <p class="text-fn-text3 text-sm mb-8">Analysing differences between A and B</p>
+                    <h2 class="text-xl font-bold mb-2">{{ __('Comparing…') }}</h2>
+                    <p class="text-fn-text3 text-sm mb-8">{{ __('Analysing differences between A and B') }}</p>
                     <div class="max-w-md mx-auto mb-3">
                         <div class="h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
                             <div class="progress-fill" id="progress-fill" style="width:0%"></div>
                         </div>
                     </div>
                     <div class="flex items-center justify-between max-w-md mx-auto text-sm text-fn-text3 mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
                     <div class="max-w-xs mx-auto flex flex-col gap-3 text-left">
@@ -400,7 +399,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -420,11 +419,11 @@
                                         d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                                     <path d="M9 12l2 2l4 -4" />
                                 </svg></span>
-                            <span id="verdict-text">Identical</span>
+                            <span id="verdict-text">{{ __('Identical') }}</span>
                         </div>
                         <div
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-fn-surface2 border border-fn-text/8 rounded-xl">
-                            <span class="text-xs text-fn-text3">Similarity</span>
+                            <span class="text-xs text-fn-text3">{{ __('Similarity') }}</span>
                             <span class="text-sm font-bold text-fn-text" id="similarity-val">—</span>
                         </div>
                         <div class="result-actions ml-auto flex flex-wrap items-center gap-2">
@@ -435,7 +434,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                <span id="copy-result-label">Copy diff</span>
+                                <span id="copy-result-label">{{ __('Copy diff') }}</span>
                             </button>
                             <a id="download-link" href="#" download="diff.txt"
                                 class="flex items-center gap-1.5 px-3 py-1.5 bg-fn-green/10 border border-fn-green/25 text-fn-green text-xs font-semibold rounded-lg hover:bg-fn-green/20 transition-all">
@@ -445,7 +444,7 @@
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" y1="15" x2="12" y2="3" />
                                 </svg>
-                                Download
+                                {{ __('Download') }}
                             </a>
                         </div>
                     </div>
@@ -458,7 +457,7 @@
                         ['stat-unchanged','= Unchanged','text-fn-text3'],
                         ] as [$sid,$slabel,$scolor])
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
-                            <p class="text-xs text-fn-text3 mb-0.5">{{ $slabel }}</p>
+                            <p class="text-xs text-fn-text3 mb-0.5">{{ __(Str::squish($slabel)) }}</p>
                             <p class="text-xl font-bold {{ $scolor }}" id="{{ $sid }}">0</p>
                         </div>
                         @endforeach
@@ -477,7 +476,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            New comparison
+                            {{ __('New comparison') }}
                         </button>
                     </div>
                     <p class="mt-6 text-fn-text3 text-sm flex items-center justify-center gap-1.5">
@@ -485,7 +484,7 @@
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-fn-green">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your content is encrypted and permanently deleted after processing.
+                        {{ __('Your content is encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
             </div>{{-- /card body --}}
@@ -495,7 +494,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 class="text-2xl font-bold tracking-tight mb-8 text-center">{{ __('Frequently Asked Questions') }}</h2>
         <div class="space-y-3">
             @foreach([
             ['What does this tool do?','It compares two pieces of text or two files and highlights the differences
@@ -516,7 +515,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-sm">{{ $q }}</span>
+                    <span class="font-semibold text-sm">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-4 h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -524,7 +523,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-5 pb-4">
-                    <p class="text-fn-text2 text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -926,7 +925,7 @@
     ta.addEventListener('input', () => {
       const lines = ta.value ? ta.value.split('\n').length : 0;
       const chars = ta.value.length;
-      document.getElementById(`text${i+1}-meta`).textContent = `${lines} line${lines !== 1 ? 's' : ''} · ${chars} char${chars !== 1 ? 's' : ''}`;
+      document.getElementById(`text${i+1}-meta`).textContent = ({{ Illuminate\Support\Js::from(__(':value0 line:value1 · :value2 char:value3')) }}).replaceAll(/:value0(?!\d)/g, () => String(lines)).replaceAll(/:value1(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (lines !== 1)) ? 's' : '')).replaceAll(/:value2(?!\d)/g, () => String(chars)).replaceAll(/:value3(?!\d)/g, () => String(({{ Illuminate\Support\Js::from(app()->getLocale() === 'en') }} && (chars !== 1)) ? 's' : ''));
       refreshConvertBtn();
     });
   });
@@ -973,7 +972,7 @@
   function handleFile(slot, file) {
     hideError();
     if (file.size > 50 * 1024 * 1024) {
-      showError('File exceeds the 200MB free limit.');
+      showError({{ Illuminate\Support\Js::from(__('File exceeds the 200MB free limit.')) }});
       return;
     }
     files[slot] = file;
@@ -1048,18 +1047,18 @@
     }
     // Animate progress
     setProcessStep('proc-1','active');
-    animateProgress(0, 25, 400, 'Uploading inputs…');
+    animateProgress(0, 25, 400, {{ Illuminate\Support\Js::from(__('Uploading inputs…')) }});
     const t2 = setTimeout(() => {
       setProcessStep('proc-1','done'); setProcessStep('proc-2','active');
-      animateProgress(25, 55, 500, 'Tokenising content…');
+      animateProgress(25, 55, 500, {{ Illuminate\Support\Js::from(__('Tokenising content…')) }});
     }, 500);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2','done'); setProcessStep('proc-3','active');
-      animateProgress(55, 80, 500, 'Computing diff…');
+      animateProgress(55, 80, 500, {{ Illuminate\Support\Js::from(__('Computing diff…')) }});
     }, 1100);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3','done'); setProcessStep('proc-4','active');
-      animateProgress(80, 92, 400, 'Rendering result…');
+      animateProgress(80, 92, 400, {{ Illuminate\Support\Js::from(__('Rendering result…')) }});
     }, 1700);
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: fetchHeaders, body: fetchBody });
@@ -1072,12 +1071,12 @@
       const data = await res.json();
       renderResult(data);
       setProcessStep('proc-3','done'); setProcessStep('proc-4','done');
-      animateProgress(92, 100, 250, 'Done!');
+      animateProgress(92, 100, 250, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
     } catch(err) {
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
       console.error(err);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -1091,12 +1090,12 @@
     const badge = document.getElementById('verdict-badge');
     badge.className = 'inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-sm font-bold ' +
       (isIdentical ? 'verdict-match' : 'verdict-diff');
-    document.getElementById('verdict-icon').innerHTML = isIdentical ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
+    document.getElementById('verdict-icon').innerHTML = isIdentical ? ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-check">
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
   <path d="M9 12l2 2l4 -4" />
-</svg>` : `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-shuffle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 4l3 3l-3 3" /><path d="M18 20l3 -3l-3 -3" /><path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5" /><path d="M21 7h-5a4.978 4.978 0 0 0 -3 1m-4 8a4.984 4.984 0 0 1 -3 1h-3" /></svg>`;
-    document.getElementById('verdict-text').textContent = isIdentical ? 'Identical' : 'Differences found';
+</svg>')) }}) : ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-shuffle" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18 4l3 3l-3 3" /><path d="M18 20l3 -3l-3 -3" /><path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5" /><path d="M21 7h-5a4.978 4.978 0 0 0 -3 1m-4 8a4.984 4.984 0 0 1 -3 1h-3" /></svg>')) }});
+    document.getElementById('verdict-text').textContent = isIdentical ? {{ Illuminate\Support\Js::from(__('Identical')) }} : {{ Illuminate\Support\Js::from(__('Differences found')) }};
     document.getElementById('similarity-val').textContent =
       (typeof similarity === 'number' ? similarity.toFixed(1) : similarity) + '%';
     document.getElementById('stat-added').textContent     = stats.added ?? 0;
@@ -1135,8 +1134,8 @@
     document.getElementById('btn-copy-result').onclick = async () => {
       try {
         await navigator.clipboard.writeText(rawDiffText);
-        document.getElementById('copy-result-label').textContent = 'Copied!';
-        setTimeout(() => { document.getElementById('copy-result-label').textContent = 'Copy diff'; }, 2000);
+        document.getElementById('copy-result-label').textContent = {{ Illuminate\Support\Js::from(__('Copied!')) }};
+        setTimeout(() => { document.getElementById('copy-result-label').textContent = {{ Illuminate\Support\Js::from(__('Copy diff')) }}; }, 2000);
       } catch(_) {}
     };
   }
@@ -1218,10 +1217,10 @@
   function diffRow(type, lineNum, sign, content) {
     const row = document.createElement('div');
     row.className = 'diff-row ' + type;
-    row.innerHTML = `
-      <span class="ln">${lineNum}</span>
-      <span class="sign">${sign}</span>
-      <span class="content"></span>`;
+    row.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
+      <span class="ln">:value0</span>
+      <span class="sign">:value1</span>
+      <span class="content"></span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(lineNum)).replaceAll(/:value1(?!\d)/g, () => String(sign));
     row.querySelector('.content').textContent = content;
     return row;
   }
@@ -1304,7 +1303,7 @@
     switchTab('text');
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
   };
   function showError(msg) {

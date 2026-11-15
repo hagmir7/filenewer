@@ -23,11 +23,10 @@
                     id="step-{{ $n }}">
                     <div
                         class="step-dot w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-fn-text/20 bg-fn-surface flex items-center justify-center transition-all duration-300">
-                        <span class="text-xs sm:text-sm font-bold">{{ $n }}</span>
+                        <span class="text-xs sm:text-sm font-bold">{{ __(Str::squish((string) $n)) }}</span>
                     </div>
                     <span
-                        class="step-label text-xs sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{
-                        $label }}</span>
+                        class="step-label text-xs sm:text-sm font-semibold text-fn-text3 transition-colors whitespace-nowrap">{{ __(Str::squish((string) $label)) }}</span>
                 </div>
                 @if($n !== '3')
                 <div class="w-4 sm:w-10 h-px bg-fn-text/10 mx-1 sm:mx-2 shrink-0"></div>
@@ -51,15 +50,15 @@
                                     <rect x="2" y="6" width="15" height="12" rx="2" />
                                     <polygon points="22 8 17 12 22 16 22 8" />
                                 </svg>
-                                <p class="text-xs sm:text-sm font-semibold text-fn-text2">Video source</p>
+                                <p class="text-xs sm:text-sm font-semibold text-fn-text2">{{ __('Video source') }}</p>
                             </div>
 
                             <div
                                 class="flex items-center gap-1 p-1 bg-fn-surface border border-fn-text/8 rounded-lg mb-2 sm:mb-3 w-fit">
                                 <button type="button" data-src="video" data-mode="file"
-                                    class="src-tab active flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">Upload</button>
+                                    class="src-tab active flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">{{ __('Upload') }}</button>
                                 <button type="button" data-src="video" data-mode="url"
-                                    class="src-tab flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">URL</button>
+                                    class="src-tab flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">{{ __('URL') }}</button>
                             </div>
 
                             <div id="video-panel-file">
@@ -72,8 +71,8 @@
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
                                     </svg>
-                                    <p class="text-xs sm:text-sm font-semibold">Drop video or click</p>
-                                    <p class="text-fn-text3 text-xs mt-1">MP4, MOV, AVI…</p>
+                                    <p class="text-xs sm:text-sm font-semibold">{{ __('Drop video or click') }}</p>
+                                    <p class="text-fn-text3 text-xs mt-1">{{ __('MP4, MOV, AVI…') }}</p>
                                     <input type="file" id="video-file-input" accept="video/*"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
@@ -97,7 +96,7 @@
                                             <path d="M16 16l4 0" />
                                         </svg></div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="font-semibold text-xs truncate" id="video-file-name">video.mp4</p>
+                                        <p class="font-semibold text-xs truncate" id="video-file-name">{{ __('video.mp4') }}</p>
                                         <p class="text-fn-text3 text-xs" id="video-file-meta">—</p>
                                     </div>
                                     <button type="button" id="video-file-remove"
@@ -129,17 +128,17 @@
                                     <circle cx="6" cy="18" r="3" />
                                     <circle cx="18" cy="16" r="3" />
                                 </svg>
-                                <p class="text-xs sm:text-sm font-semibold text-fn-text2">Voice / audio source</p>
+                                <p class="text-xs sm:text-sm font-semibold text-fn-text2">{{ __('Voice / audio source') }}</p>
                             </div>
 
                             <div
                                 class="flex items-center gap-1 p-1 bg-fn-surface border border-fn-text/8 rounded-lg mb-2 sm:mb-3 w-fit">
                                 <button type="button" data-src="audio" data-mode="file"
-                                    class="src-tab active flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">Upload</button>
+                                    class="src-tab active flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">{{ __('Upload') }}</button>
                                 <button type="button" data-src="audio" data-mode="url"
-                                    class="src-tab flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">URL</button>
+                                    class="src-tab flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">{{ __('URL') }}</button>
                                 <button type="button" data-src="audio" data-mode="youtube"
-                                    class="src-tab flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">YouTube</button>
+                                    class="src-tab flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-semibold transition-all">{{ __('YouTube') }}</button>
                             </div>
 
                             <div id="audio-panel-file">
@@ -152,8 +151,8 @@
                                         <polyline points="17 8 12 3 7 8" />
                                         <line x1="12" y1="3" x2="12" y2="15" />
                                     </svg>
-                                    <p class="text-xs sm:text-sm font-semibold">Drop audio or click</p>
-                                    <p class="text-fn-text3 text-xs mt-1">MP3, WAV, M4A…</p>
+                                    <p class="text-xs sm:text-sm font-semibold">{{ __('Drop audio or click') }}</p>
+                                    <p class="text-fn-text3 text-xs mt-1">{{ __('MP3, WAV, M4A…') }}</p>
                                     <input type="file" id="audio-file-input" accept="audio/*"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                                 </div>
@@ -173,7 +172,7 @@
                                             <path d="M12 17l0 4" />
                                         </svg></div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="font-semibold text-xs truncate" id="audio-file-name">voice.mp3</p>
+                                        <p class="font-semibold text-xs truncate" id="audio-file-name">{{ __('voice.mp3') }}</p>
                                         <p class="text-fn-text3 text-xs" id="audio-file-meta">—</p>
                                     </div>
                                     <button type="button" id="audio-file-remove"
@@ -196,7 +195,7 @@
 
                             <div id="audio-panel-youtube" class="hidden">
                                 <input type="url" id="audio-youtube-input" spellcheck="false" autocomplete="off"
-                                    placeholder="https://youtu.be/… or /watch?v=…"
+                                    placeholder="{{ __('https://youtu.be/… or /watch?v=…') }}"
                                     class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/50" />
                             </div>
                         </div>
@@ -205,8 +204,8 @@
                     {{-- Options --}}
                     <div class="mt-3 sm:mt-5 p-3 sm:p-4 bg-fn-surface2 border border-fn-text/8 rounded-xl">
                         <div class="flex items-center justify-between mb-2.5 sm:mb-3">
-                            <p class="text-xs sm:text-sm font-semibold text-fn-text2">Mix Settings</p>
-                            <span class="text-xs text-fn-text3">Optional</span>
+                            <p class="text-xs sm:text-sm font-semibold text-fn-text2">{{ __('Mix Settings') }}</p>
+                            <span class="text-xs text-fn-text3">{{ __('Optional') }}</span>
                         </div>
 
                         <div class="flex flex-col gap-2.5 sm:gap-3">
@@ -222,17 +221,15 @@
                                     </div>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-xs font-semibold text-fn-text2">Replace original audio</p>
-                                    <p class="text-xs text-fn-text3 leading-tight">Off mixes voice with the original
-                                        track instead</p>
+                                    <p class="text-xs font-semibold text-fn-text2">{{ __('Replace original audio') }}</p>
+                                    <p class="text-xs text-fn-text3 leading-tight">{{ __('Off mixes voice with the original track instead') }}</p>
                                 </div>
                             </label>
 
                             <div id="volume-controls" class="hidden grid sm:grid-cols-2 gap-2.5 sm:gap-3">
                                 <div>
                                     <div class="flex items-center justify-between mb-1">
-                                        <label for="opt-vol-video" class="text-xs font-semibold text-fn-text2">Original
-                                            audio volume</label>
+                                        <label for="opt-vol-video" class="text-xs font-semibold text-fn-text2">{{ __('Original audio volume') }}</label>
                                         <span class="text-xs font-mono text-fn-text3" id="vol-video-val">0.3</span>
                                     </div>
                                     <input type="range" id="opt-vol-video" min="0" max="1" step="0.1" value="0.3"
@@ -240,8 +237,7 @@
                                 </div>
                                 <div>
                                     <div class="flex items-center justify-between mb-1">
-                                        <label for="opt-vol-audio" class="text-xs font-semibold text-fn-text2">Voice
-                                            volume</label>
+                                        <label for="opt-vol-audio" class="text-xs font-semibold text-fn-text2">{{ __('Voice volume') }}</label>
                                         <span class="text-xs font-mono text-fn-text3" id="vol-audio-val">1.0</span>
                                     </div>
                                     <input type="range" id="opt-vol-audio" min="0" max="1" step="0.1" value="1.0"
@@ -252,20 +248,20 @@
                             <div class="grid sm:grid-cols-2 gap-2.5 sm:gap-3">
                                 <div>
                                     <label for="opt-filename" class="text-xs font-semibold text-fn-text2 block mb-1.5">
-                                        Output filename <span class="font-normal text-fn-text3 ml-1">(optional)</span>
+                                        {{ __('Output filename') }} <span class="font-normal text-fn-text3 ml-1">{{ __('(optional)') }}</span>
                                     </label>
-                                    <input type="text" id="opt-filename" placeholder="output.mp4"
+                                    <input type="text" id="opt-filename" placeholder="{{ __('output.mp4') }}"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40 placeholder:text-fn-text3/60" />
                                 </div>
                                 <div>
                                     <label for="opt-format"
-                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">Output format</label>
+                                        class="text-xs font-semibold text-fn-text2 block mb-1.5">{{ __('Output format') }}</label>
                                     <select id="opt-format"
                                         class="w-full bg-fn-surface border border-fn-text/10 text-fn-text text-xs sm:text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-fn-blue/40">
-                                        <option value="mp4">MP4</option>
-                                        <option value="avi">AVI</option>
-                                        <option value="mkv">MKV</option>
-                                        <option value="webm">WebM</option>
+                                        <option value="mp4">{{ __('MP4') }}</option>
+                                        <option value="avi">{{ __('AVI') }}</option>
+                                        <option value="mkv">{{ __('MKV') }}</option>
+                                        <option value="webm">{{ __('WebM') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -282,7 +278,7 @@
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
-                        <span id="error-text">Something went wrong.</span>
+                        <span id="error-text">{{ __('Something went wrong.') }}</span>
                     </div>
 
                     <button id="convert-btn" type="button" disabled
@@ -293,7 +289,7 @@
                             <circle cx="6" cy="18" r="3" />
                             <circle cx="18" cy="16" r="3" />
                         </svg>
-                        Add Voice to Video
+                        {{ __('Add Voice to Video') }}
                     </button>
                 </div>
 
@@ -312,19 +308,19 @@
                                 <path d="M14 3h-4" />
                             </svg></div>
                         <div>
-                            <h2 class="text-base sm:text-xl font-bold">Durations don't match</h2>
-                            <p class="text-fn-text3 text-xs sm:text-sm">Choose which side to speed-adjust before merging
+                            <h2 class="text-base sm:text-xl font-bold">{{ __('Durations don\'t match') }}</h2>
+                            <p class="text-fn-text3 text-xs sm:text-sm">{{ __('Choose which side to speed-adjust before merging') }}
                             </p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2.5 sm:gap-3 mb-4 sm:mb-6">
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
-                            <p class="text-xs text-fn-text3 mb-1">Video duration</p>
+                            <p class="text-xs text-fn-text3 mb-1">{{ __('Video duration') }}</p>
                             <p class="text-base sm:text-lg font-bold font-mono" id="mismatch-video-dur">—</p>
                         </div>
                         <div class="p-3 bg-fn-surface2 border border-fn-text/8 rounded-xl text-center">
-                            <p class="text-xs text-fn-text3 mb-1">Audio duration</p>
+                            <p class="text-xs text-fn-text3 mb-1">{{ __('Audio duration') }}</p>
                             <p class="text-base sm:text-lg font-bold font-mono" id="mismatch-audio-dur">—</p>
                         </div>
                     </div>
@@ -335,13 +331,13 @@
                     <div class="grid sm:grid-cols-2 gap-2.5 sm:gap-3">
                         <button type="button" id="btn-adjust-audio"
                             class="p-3 sm:p-4 text-left bg-fn-surface2 border border-fn-text/10 rounded-xl hover:border-fn-blue/40 hover:bg-fn-blue/4 transition-all">
-                            <p class="text-xs sm:text-sm font-bold mb-1">Adjust audio speed</p>
-                            <p class="text-xs text-fn-text3" id="mismatch-opt-audio">Match audio to video duration</p>
+                            <p class="text-xs sm:text-sm font-bold mb-1">{{ __('Adjust audio speed') }}</p>
+                            <p class="text-xs text-fn-text3" id="mismatch-opt-audio">{{ __('Match audio to video duration') }}</p>
                         </button>
                         <button type="button" id="btn-adjust-video"
                             class="p-3 sm:p-4 text-left bg-fn-surface2 border border-fn-text/10 rounded-xl hover:border-fn-purple/40 hover:bg-fn-purple/4 transition-all">
-                            <p class="text-xs sm:text-sm font-bold mb-1">Adjust video speed</p>
-                            <p class="text-xs text-fn-text3" id="mismatch-opt-video">Match video to audio duration</p>
+                            <p class="text-xs sm:text-sm font-bold mb-1">{{ __('Adjust video speed') }}</p>
+                            <p class="text-xs text-fn-text3" id="mismatch-opt-video">{{ __('Match video to audio duration') }}</p>
                         </button>
                     </div>
 
@@ -351,7 +347,7 @@
                             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 18 9 12 15 6" />
                         </svg>
-                        Back to sources
+                        {{ __('Back to sources') }}
                     </button>
                 </div>
 
@@ -388,9 +384,8 @@
                             </svg></div>
                     </div>
 
-                    <h2 class="text-base sm:text-xl font-bold mb-1.5 sm:mb-2">Merging voice into video…</h2>
-                    <p class="text-fn-text3 text-xs sm:text-sm mb-5 sm:mb-8">Checking durations, adjusting speed if
-                        needed, and mixing tracks</p>
+                    <h2 class="text-base sm:text-xl font-bold mb-1.5 sm:mb-2">{{ __('Merging voice into video…') }}</h2>
+                    <p class="text-fn-text3 text-xs sm:text-sm mb-5 sm:mb-8">{{ __('Checking durations, adjusting speed if needed, and mixing tracks') }}</p>
 
                     <div class="max-w-md mx-auto mb-2.5 sm:mb-3">
                         <div class="h-1.5 sm:h-2 bg-fn-surface2 rounded-full overflow-hidden border border-fn-text/8">
@@ -399,7 +394,7 @@
                     </div>
                     <div
                         class="flex items-center justify-between max-w-md mx-auto text-xs sm:text-sm text-fn-text3 mb-5 sm:mb-8">
-                        <span id="progress-label">Starting…</span>
+                        <span id="progress-label">{{ __('Starting…') }}</span>
                         <span id="progress-pct" class="font-mono font-semibold text-fn-text2">0%</span>
                     </div>
 
@@ -424,7 +419,7 @@
                                         stroke-dasharray="60" stroke-dashoffset="20" stroke-linecap="round" />
                                 </svg>
                             </div>
-                            <span class="text-xs sm:text-sm text-fn-text3">{{ $plabel }}</span>
+                            <span class="text-xs sm:text-sm text-fn-text3">{{ __(Str::squish($plabel)) }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -441,11 +436,11 @@
                             <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
                             <path d="M9 12l2 2l4 -4" />
                         </svg></div>
-                    <h2 class="text-lg sm:text-2xl font-bold mb-1.5 sm:mb-2">Voice Added!</h2>
-                    <p class="text-fn-text2 text-xs sm:text-sm mb-4 sm:mb-6">Your merged video is ready to download.</p>
+                    <h2 class="text-lg sm:text-2xl font-bold mb-1.5 sm:mb-2">{{ __('Voice Added!') }}</h2>
+                    <p class="text-fn-text2 text-xs sm:text-sm mb-4 sm:mb-6">{{ __('Your merged video is ready to download.') }}</p>
 
                     <div id="result-sheets-wrap" class="hidden max-w-2xl mx-auto mb-4 sm:mb-6">
-                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">Output details</p>
+                        <p class="text-xs font-semibold text-fn-text2 mb-2 text-left">{{ __('Output details') }}</p>
                         <div class="flex flex-wrap gap-2 justify-start" id="result-sheets"></div>
                     </div>
 
@@ -468,8 +463,8 @@
                                 <path d="M16 16l4 0" />
                             </svg></div>
                         <div class="flex-1 min-w-0">
-                            <p class="font-semibold text-xs sm:text-sm truncate" id="output-name">output.mp4</p>
-                            <p class="text-fn-text3 text-xs sm:text-sm mt-0.5" id="output-size">Video File</p>
+                            <p class="font-semibold text-xs sm:text-sm truncate" id="output-name">{{ __('output.mp4') }}</p>
+                            <p class="text-fn-text3 text-xs sm:text-sm mt-0.5" id="output-size">{{ __('Video File') }}</p>
                         </div>
                         <span class="w-2 h-2 rounded-full bg-fn-green animate-pulse shrink-0"></span>
                     </div>
@@ -483,7 +478,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Download Video
+                        {{ __('Download Video') }}
                     </a>
 
                     <div class="flex items-center justify-center gap-3 flex-wrap">
@@ -494,7 +489,7 @@
                                 <polyline points="1 4 1 10 7 10" />
                                 <path d="M3.51 15a9 9 0 1 0 .49-3.5" />
                             </svg>
-                            Do another
+                            {{ __('Do another') }}
                         </button>
                     </div>
 
@@ -504,7 +499,7 @@
                             class="text-fn-green shrink-0">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
-                        Your files are encrypted and permanently deleted after processing.
+                        {{ __('Your files are encrypted and permanently deleted after processing.') }}
                     </p>
                 </div>
 
@@ -517,7 +512,7 @@
 {{-- ══ FAQ ══ --}}
 <section class="py-10 sm:py-16 border-t border-fn-text/7 bg-fn-surface">
     <div class="max-w-3xl mx-auto px-3 sm:px-6">
-        <h2 class="text-lg sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">Frequently Asked Questions
+        <h2 class="text-lg sm:text-2xl font-bold tracking-tight mb-5 sm:mb-8 text-center">{{ __('Frequently Asked Questions') }}
         </h2>
         <div class="space-y-2.5 sm:space-y-3">
             @foreach([
@@ -543,7 +538,7 @@
             <div class="border border-fn-text/8 rounded-xl overflow-hidden">
                 <button type="button"
                     class="faq-btn w-full flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-4 text-left hover:bg-fn-surface2 transition-colors">
-                    <span class="font-semibold text-xs sm:text-sm pr-3">{{ $q }}</span>
+                    <span class="font-semibold text-xs sm:text-sm pr-3">{{ __(Str::squish($q)) }}</span>
                     <svg class="faq-icon w-3.5 h-3.5 sm:w-4 sm:h-4 text-fn-text3 shrink-0 transition-transform duration-200"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -551,7 +546,7 @@
                     </svg>
                 </button>
                 <div class="faq-body hidden px-3.5 sm:px-5 pb-3 sm:pb-4">
-                    <p class="text-fn-text2 text-xs sm:text-sm leading-relaxed">{{ $a }}</p>
+                    <p class="text-fn-text2 text-xs sm:text-sm leading-relaxed">{{ __(Str::squish($a)) }}</p>
                 </div>
             </div>
             @endforeach
@@ -783,19 +778,19 @@
     scrollToCard();
 
     setProcessStep('proc-1', 'active');
-    animateProgress(0, 20, 500, 'Reading video & audio sources…');
+    animateProgress(0, 20, 500, {{ Illuminate\Support\Js::from(__('Reading video & audio sources…')) }});
 
     const t2 = setTimeout(() => {
       setProcessStep('proc-1', 'done'); setProcessStep('proc-2', 'active');
-      animateProgress(20, 45, 600, 'Checking durations…');
+      animateProgress(20, 45, 600, {{ Illuminate\Support\Js::from(__('Checking durations…')) }});
     }, 600);
     const t3 = setTimeout(() => {
       setProcessStep('proc-2', 'done'); setProcessStep('proc-3', 'active');
-      animateProgress(45, 85, 1400, speedAdjustTarget ? 'Adjusting speed & merging…' : 'Merging tracks…');
+      animateProgress(45, 85, 1400, speedAdjustTarget ? {{ Illuminate\Support\Js::from(__('Adjusting speed & merging…')) }} : {{ Illuminate\Support\Js::from(__('Merging tracks…')) }});
     }, 1400);
     const t4 = setTimeout(() => {
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'active');
-      animateProgress(85, 92, 500, 'Finalizing output file…');
+      animateProgress(85, 92, 500, {{ Illuminate\Support\Js::from(__('Finalizing output file…')) }});
     }, 3000);
 
     try {
@@ -813,7 +808,7 @@
           updateStepIndicator(1);
           return;
         }
-        throw new Error(data.error || 'Duration mismatch detected.');
+        throw new Error(data.error || {{ Illuminate\Support\Js::from(__('Duration mismatch detected.')) }});
       }
 
       if (!res.ok) {
@@ -841,18 +836,18 @@
       link.download = outName;
 
       document.getElementById('output-name').textContent = outName;
-      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ' + format.toUpperCase() + ' Video';
+      document.getElementById('output-size').textContent = formatBytes(blob.size) + ' · ' + format.toUpperCase() + {{ Illuminate\Support\Js::from(__(' Video')) }};
 
       renderResultDetails(res.headers, speedAdjustTarget, optReplace.checked);
 
       setProcessStep('proc-3', 'done'); setProcessStep('proc-4', 'done');
-      animateProgress(92, 100, 300, 'Done!');
+      animateProgress(92, 100, 300, {{ Illuminate\Support\Js::from(__('Done!')) }});
       setTimeout(() => { showState('download'); updateStepIndicator(3); }, 400);
 
     } catch (err) {
       console.error(err);
       clearTimeout(t2); clearTimeout(t3); clearTimeout(t4);
-      showError(err.message || 'Something went wrong. Please try again.');
+      showError(err.message || {{ Illuminate\Support\Js::from(__('Something went wrong. Please try again.')) }});
       showState('upload');
       updateStepIndicator(1);
     }
@@ -863,11 +858,11 @@
     const info = data.mismatch_info || {};
     document.getElementById('mismatch-video-dur').textContent = info.video_duration_str || '—';
     document.getElementById('mismatch-audio-dur').textContent = info.audio_duration_str || '—';
-    document.getElementById('mismatch-suggestion').textContent = info.suggestion || 'Durations differ. Choose a side to speed-adjust.';
+    document.getElementById('mismatch-suggestion').textContent = info.suggestion || {{ Illuminate\Support\Js::from(__('Durations differ. Choose a side to speed-adjust.')) }};
 
     const opts = data.options || {};
-    document.getElementById('mismatch-opt-audio').textContent = opts.audio || 'Match audio to video duration';
-    document.getElementById('mismatch-opt-video').textContent = opts.video || 'Match video to audio duration';
+    document.getElementById('mismatch-opt-audio').textContent = opts.audio || {{ Illuminate\Support\Js::from(__('Match audio to video duration')) }};
+    document.getElementById('mismatch-opt-video').textContent = opts.video || {{ Illuminate\Support\Js::from(__('Match video to audio duration')) }};
   }
 
   function renderResultDetails(headers, speedAdjustTarget, replaceAudio) {
@@ -879,7 +874,7 @@
     chips.push(['mode', replaceAudio ? 'Replaced audio' : 'Mixed audio', '—']);
 
     const outDur = headers.get('X-Output-Duration');
-    if (outDur) chips.push(['video', 'Output duration', parseFloat(outDur).toFixed(1) + 's']);
+    if (outDur) chips.push(['video', {{ Illuminate\Support\Js::from(__('Output duration')) }}, parseFloat(outDur).toFixed(1) + 's']);
 
     const speedAdjusted = headers.get('X-Speed-Adjusted');
     if (speedAdjusted === 'True' || speedAdjustTarget) {
@@ -888,15 +883,15 @@
     }
 
     const method = headers.get('X-Method');
-    if (method) chips.push(['audio', 'Method', method]);
+    if (method) chips.push(['audio', {{ Illuminate\Support\Js::from(__('Method')) }}, method]);
 
     chips.forEach(([variant, label, count]) => {
       const chip = document.createElement('div');
       chip.className = 'sheet-chip sheet-' + variant;
-      chip.innerHTML = `
+      chip.innerHTML = ({{ Illuminate\Support\Js::from(\App\Support\ToolMessages::html('
         <span class="sheet-dot"></span>
         <span class="sheet-label"></span>
-        <span class="sheet-count">${count}</span>`;
+        <span class="sheet-count">:value0</span>')) }}).replaceAll(/:value0(?!\d)/g, () => String(count));
       chip.querySelector('.sheet-label').textContent = label;
       list.appendChild(chip);
     });
@@ -989,7 +984,7 @@
     hideError();
     showState('upload');
     updateStepIndicator(1);
-    animateProgress(0, 0, 0, 'Starting…');
+    animateProgress(0, 0, 0, {{ Illuminate\Support\Js::from(__('Starting…')) }});
     ['proc-1','proc-2','proc-3','proc-4'].forEach(id => setProcessStep(id, ''));
     refreshConvertBtn();
   };
